@@ -1,0 +1,27 @@
+{
+  "handSize": 5,
+  "energyPerTurn": 3,
+  "drawPerTurn": 2,
+  "maxHandSize": 10,
+  "deckReshuffle": true,
+  "apPerUnit": 2,
+  "apGainEveryNTurns": 2,
+  "apGainAmount": 1,
+  "maxAp": 6,
+  "terrainEffects": {
+    "grass": { "dodge": 0, "name": "平地" },
+    "forest": { "dodge": 20, "name": "森林" },
+    "bush": { "dodge": 30, "name": "灌木" },
+    "sand": { "dodge": 0, "name": "沙地", "moveCost": 2 },
+    "wall": { "dodge": 0, "name": "墙壁" },
+    "water": { "dodge": 0, "name": "水域" }
+  },
+  "statusEffects": {
+    "poison": { "damagePerTurn": 3, "name": "中毒" },
+    "burn": { "damagePerTurn": 4, "name": "燃烧" },
+    "freeze": { "skipTurn": true, "name": "冰冻" },
+    "stun": { "skipTurn": true, "name": "眩晕" },
+    "taunt": { "forceTarget": true, "name": "嘲讽" },
+    "lifesteal": { "healRatio": 0.3, "name": "吸血" }
+  }
+}

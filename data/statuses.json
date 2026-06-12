@@ -1,0 +1,68 @@
+{
+  "statuses": {
+    "burn": {
+      "id": "burn",
+      "name": "燃烧",
+      "description": "每回合开始受到3点魔法伤害",
+      "color": "#ff6622",
+      "tickTiming": "turn_start",
+      "effectType": "damage",
+      "valuePerTick": 3,
+      "damageType": "magic",
+      "stackable": true,
+      "maxDuration": 3
+    },
+    "freeze": {
+      "id": "freeze",
+      "name": "冰冻",
+      "description": "跳过本回合行动",
+      "color": "#88ccff",
+      "tickTiming": "turn_start",
+      "effectType": "skip_turn",
+      "stackable": false,
+      "maxDuration": 1
+    },
+    "poison": {
+      "id": "poison",
+      "name": "中毒",
+      "description": "每回合结束受到2点伤害",
+      "color": "#44cc44",
+      "tickTiming": "turn_end",
+      "effectType": "damage",
+      "valuePerTick": 2,
+      "damageType": "magic",
+      "stackable": true,
+      "maxDuration": 3
+    },
+    "shield": {
+      "id": "shield",
+      "name": "护盾",
+      "description": "抵消等量伤害",
+      "color": "#4488ff",
+      "tickTiming": "turn_start",
+      "effectType": "none",
+      "stackable": true,
+      "maxDuration": 2
+    },
+    "stun": {
+      "id": "stun",
+      "name": "眩晕",
+      "description": "跳过本回合行动",
+      "color": "#ffcc00",
+      "tickTiming": "turn_start",
+      "effectType": "skip_turn",
+      "stackable": false,
+      "maxDuration": 1
+    },
+    "taunt": {
+      "id": "taunt",
+      "name": "嘲讽",
+      "description": "强制周围敌人攻击自身",
+      "color": "#ff4488",
+      "tickTiming": "turn_end",
+      "effectType": "none",
+      "stackable": false,
+      "maxDuration": 1
+    }
+  }
+}

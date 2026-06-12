@@ -1,0 +1,123 @@
+{
+  "enemies": [
+    {
+      "id": "paper_effigy",
+      "name": "纸人",
+      "stats": {
+        "hp": 18,
+        "strength": 4,
+        "intelligence": 1,
+        "defense": 2,
+        "magicResist": 1,
+        "speed": 4,
+        "moveRange": 3
+      },
+      "startingDeck": [],
+      "color": 4292208128,
+      "faction": "enemy",
+      "aiProfile": {
+        "behavior": "melee",
+        "defaultState": "patrol",
+        "fearTags": ["burning", "light"],
+        "fearRange": 3,
+        "noiseHearing": 5,
+        "obsession": "coffin"
+      }
+    },
+    {
+      "id": "water_ghost",
+      "name": "水鬼",
+      "stats": {
+        "hp": 24,
+        "strength": 5,
+        "intelligence": 4,
+        "defense": 2,
+        "magicResist": 3,
+        "speed": 3,
+        "moveRange": 3
+      },
+      "startingDeck": [],
+      "color": 4278236351,
+      "faction": "enemy",
+      "aiProfile": {
+        "behavior": "ranged",
+        "defaultState": "search",
+        "noiseHearing": 7,
+        "preferredTags": ["water", "wet"],
+        "fearTags": ["seal_point", "anti_spirit"],
+        "fearRange": 2
+      }
+    },
+    {
+      "id": "jiangshi",
+      "name": "僵尸",
+      "stats": {
+        "hp": 34,
+        "strength": 7,
+        "intelligence": 1,
+        "defense": 5,
+        "magicResist": 2,
+        "speed": 2,
+        "moveRange": 2
+      },
+      "startingDeck": [],
+      "color": 4278223103,
+      "faction": "enemy",
+      "aiProfile": {
+        "behavior": "tank",
+        "defaultState": "chase",
+        "noiseHearing": 4,
+        "fearTags": ["talisman", "spirit_block"],
+        "fearRange": 2
+      }
+    },
+    {
+      "id": "red_lady",
+      "name": "红衣女",
+      "stats": {
+        "hp": 26,
+        "strength": 3,
+        "intelligence": 8,
+        "defense": 2,
+        "magicResist": 5,
+        "speed": 4,
+        "moveRange": 3
+      },
+      "startingDeck": [],
+      "color": 4294901760,
+      "faction": "enemy",
+      "aiProfile": {
+        "behavior": "mage",
+        "defaultState": "search",
+        "noiseHearing": 8,
+        "fearTags": ["seal_point", "talisman"],
+        "fearRange": 2
+      }
+    },
+    {
+      "id": "coffin_lord",
+      "name": "棺材主",
+      "stats": {
+        "hp": 58,
+        "strength": 8,
+        "intelligence": 6,
+        "defense": 5,
+        "magicResist": 4,
+        "speed": 2,
+        "moveRange": 2
+      },
+      "startingDeck": [],
+      "color": 4283782485,
+      "faction": "enemy",
+      "aiProfile": {
+        "behavior": "boss",
+        "defaultState": "rage",
+        "noiseHearing": 6,
+        "fearTags": ["seal_point", "spirit_block"],
+        "fearRange": 1,
+        "obsession": "exit"
+      },
+      "boss": true
+    }
+  ]
+}

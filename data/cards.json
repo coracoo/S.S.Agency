@@ -1,0 +1,317 @@
+{
+  "cards": [
+    {
+      "id": "rinne_slash",
+      "name": "凛风斩",
+      "description": "相邻斩击 9+力量x0.6 物理伤害。凛音的稳定近战手段。",
+      "cost": 1,
+      "cardType": "attack",
+      "rarity": "common",
+      "targetType": "adjacent_enemy",
+      "effects": [
+        {
+          "type": "deal_damage",
+          "value": 9,
+          "damageType": "physical",
+          "scaling": {
+            "stat": "strength",
+            "multiplier": 0.6
+          }
+        }
+      ]
+    },
+    {
+      "id": "rinne_cleave",
+      "name": "破阵斩",
+      "description": "重斩相邻敌人 16+力量x1.0 物理伤害，适合打破守卫阵线。",
+      "cost": 2,
+      "cardType": "attack",
+      "rarity": "uncommon",
+      "targetType": "adjacent_enemy",
+      "effects": [
+        {
+          "type": "deal_damage",
+          "value": 16,
+          "damageType": "physical",
+          "scaling": {
+            "stat": "strength",
+            "multiplier": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "mint_shot",
+      "name": "薄荷弹",
+      "description": "射程5，6+力量x0.5 物理伤害。可安全处理远处目标。",
+      "cost": 1,
+      "cardType": "attack",
+      "rarity": "common",
+      "targetType": "enemy_in_range",
+      "range": 5,
+      "effects": [
+        {
+          "type": "deal_damage",
+          "value": 6,
+          "damageType": "physical",
+          "scaling": {
+            "stat": "strength",
+            "multiplier": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "mint_snipe",
+      "name": "穿杨",
+      "description": "射程6，14+力量x0.8 物理伤害。薄荷的精准终结技。",
+      "cost": 2,
+      "cardType": "attack",
+      "rarity": "uncommon",
+      "targetType": "enemy_in_range",
+      "range": 6,
+      "effects": [
+        {
+          "type": "deal_damage",
+          "value": 14,
+          "damageType": "physical",
+          "scaling": {
+            "stat": "strength",
+            "multiplier": 0.8
+          }
+        }
+      ]
+    },
+    {
+      "id": "homura_flare",
+      "name": "爆裂炎",
+      "description": "射程4，对3x3区域造成10+智力x0.8 魔法伤害并燃烧。",
+      "cost": 2,
+      "cardType": "spell",
+      "rarity": "rare",
+      "targetType": "area_3x3",
+      "range": 4,
+      "areaSize": 1,
+      "effects": [
+        {
+          "type": "deal_damage",
+          "value": 10,
+          "damageType": "magic",
+          "scaling": {
+            "stat": "intelligence",
+            "multiplier": 0.8
+          }
+        },
+        {
+          "type": "apply_status",
+          "statusId": "burn",
+          "duration": 2
+        },
+        {
+          "type": "add_terrain_effect",
+          "effect": "fire"
+        }
+      ]
+    },
+    {
+      "id": "homura_ignite",
+      "name": "灼烧",
+      "description": "射程3，点燃敌人并造成6点魔法伤害。用于制造火焰压力。",
+      "cost": 1,
+      "cardType": "spell",
+      "rarity": "uncommon",
+      "targetType": "enemy_or_object_in_range",
+      "range": 3,
+      "effects": [
+        {
+          "type": "deal_damage",
+          "value": 6,
+          "damageType": "magic"
+        },
+        {
+          "type": "apply_status",
+          "statusId": "burn",
+          "duration": 3
+        },
+        {
+          "type": "add_terrain_effect",
+          "effect": "fire"
+        }
+      ]
+    },
+    {
+      "id": "zhongkui_fist",
+      "name": "镇魂拳",
+      "description": "相邻重拳 10+力量x0.6 物理伤害，吸血30%。",
+      "cost": 1,
+      "cardType": "attack",
+      "rarity": "common",
+      "targetType": "adjacent_enemy",
+      "effects": [
+        {
+          "type": "deal_damage",
+          "value": 10,
+          "damageType": "physical",
+          "scaling": {
+            "stat": "strength",
+            "multiplier": 0.6
+          }
+        },
+        {
+          "type": "lifesteal",
+          "ratio": 0.3
+        }
+      ]
+    },
+    {
+      "id": "zhongkui_capture",
+      "name": "拘魂锁",
+      "description": "射程2，造成5点物理伤害并拉近1格，可把敌人拖入陷阱或封印区。",
+      "cost": 1,
+      "cardType": "attack",
+      "rarity": "common",
+      "targetType": "enemy_in_range",
+      "range": 2,
+      "effects": [
+        {
+          "type": "deal_damage",
+          "value": 5,
+          "damageType": "physical"
+        },
+        {
+          "type": "pull",
+          "distance": 1
+        }
+      ]
+    },
+    {
+      "id": "zhongkui_judge",
+      "name": "审判之锤",
+      "description": "相邻重击 20+力量x1.2 物理伤害并眩晕1回合。",
+      "cost": 3,
+      "cardType": "attack",
+      "rarity": "rare",
+      "targetType": "adjacent_enemy",
+      "effects": [
+        {
+          "type": "deal_damage",
+          "value": 20,
+          "damageType": "physical",
+          "scaling": {
+            "stat": "strength",
+            "multiplier": 1.2
+          }
+        },
+        {
+          "type": "apply_status",
+          "statusId": "stun",
+          "duration": 1
+        }
+      ]
+    },
+    {
+      "id": "item_ignite",
+      "name": "火折子",
+      "description": "道具。在格子上添加火焰层，不替换底层地形；可引爆油地或炸药桶。",
+      "cost": 1,
+      "cardType": "item",
+      "rarity": "common",
+      "targetType": "adjacent_empty",
+      "effects": [
+        {
+          "type": "add_terrain_effect",
+          "effect": "fire"
+        }
+      ]
+    },
+    {
+      "id": "item_water_splash",
+      "name": "水囊",
+      "description": "道具。在格子上添加水渍层，不替换底层地形；可灭火。",
+      "cost": 1,
+      "cardType": "item",
+      "rarity": "common",
+      "targetType": "adjacent_empty",
+      "effects": [
+        {
+          "type": "add_terrain_effect",
+          "effect": "water_spread"
+        }
+      ]
+    },
+    {
+      "id": "item_throw_rice",
+      "name": "糯米包",
+      "description": "道具。在格子上添加糯米层，不替换底层地形；压制灵体和封印路线。",
+      "cost": 1,
+      "cardType": "item",
+      "rarity": "common",
+      "targetType": "adjacent_empty",
+      "effects": [
+        {
+          "type": "add_terrain_effect",
+          "effect": "rice"
+        }
+      ]
+    },
+    {
+      "id": "item_place_talisman",
+      "name": "镇符",
+      "description": "道具。射程3添加符纸层；命中怪物时眩晕1回合，并在其脚下留下封印组件。",
+      "cost": 1,
+      "cardType": "item",
+      "rarity": "uncommon",
+      "targetType": "enemy_or_tile_in_range",
+      "range": 3,
+      "effects": [
+        {
+          "type": "add_terrain_effect",
+          "effect": "talisman"
+        },
+        {
+          "type": "apply_status",
+          "statusId": "stun",
+          "duration": 1
+        }
+      ]
+    },
+    {
+      "id": "item_ring_chime",
+      "name": "引魂铃",
+      "description": "道具。射程5制造音量4、持续2回合的噪音场，用来诱导敌人搜索。",
+      "cost": 1,
+      "cardType": "item",
+      "rarity": "common",
+      "targetType": "tile_in_range",
+      "range": 5,
+      "effects": [
+        {
+          "type": "create_noise",
+          "volume": 4,
+          "duration": 2,
+          "sourceType": "bell"
+        }
+      ]
+    },
+    {
+      "id": "env_push_strike",
+      "name": "推击",
+      "description": "战术动作。猛击相邻敌人，造成5点物理伤害并推退1格。",
+      "cost": 1,
+      "cardType": "item",
+      "rarity": "common",
+      "targetType": "adjacent_enemy",
+      "effects": [
+        {
+          "type": "deal_damage",
+          "value": 5,
+          "damageType": "physical"
+        },
+        {
+          "type": "push_unit",
+          "distance": 1
+        }
+      ]
+    }
+  ]
+}

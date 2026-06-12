@@ -1,0 +1,9 @@
+{
+  "brazier":          {"pushable": true, "push_over": false, "consumable": false, "tags": ["fire_source", "flammable", "blocking"], "interact": ["push", "ignite"], "push_over_spill": null, "color": "#cc6600", "shape": "triangle"},
+  "water_barrel":     {"pushable": true, "push_over": true, "consumable": true, "tags": ["water_source", "blocking"], "interact": ["push", "push_over"], "push_over_spill": "water_spread", "color": "#3366aa", "shape": "circle"},
+  "rice_bag":         {"pushable": true, "push_over": true, "consumable": true, "tags": ["rice_source", "blocking"], "interact": ["push", "push_over"], "push_over_spill": "rice", "color": "#ccbb88", "shape": "rect"},
+  "bell":             {"pushable": false, "push_over": false, "consumable": false, "tags": ["noise_source", "interactable"], "interact": ["ring"], "noise_volume": 4, "color": "#ccaa44", "shape": "diamond"},
+  "door":             {"pushable": false, "push_over": false, "consumable": false, "tags": ["blocking", "interactable"], "interact": ["open", "close"], "noise_volume": 2, "color": "#886644", "shape": "rect"},
+  "coffin":           {"pushable": false, "push_over": false, "consumable": false, "tags": ["boss_container", "blocking", "interactable"], "interact": ["open"], "color": "#553322", "shape": "rect"},
+  "explosive_barrel": {"pushable": true, "push_over": false, "consumable": true, "tags": ["explosive", "flammable", "blocking"], "interact": ["push", "ignite"], "push_over_spill": null, "color": "#cc2020", "shape": "triangle"}
+}

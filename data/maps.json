@@ -1,0 +1,85 @@
+{
+  "maps": [
+    {
+      "id": "paper_coffin_demo",
+      "name": "纸人抬棺",
+      "version": 2,
+      "bgImage": "res://assets/generated/temple_courtyard_bg_clean_v1.png",
+      "cols": 14,
+      "rows": 10,
+      "gridOffsetX": 0,
+      "gridOffsetY": 0,
+      "tileW": 128,
+      "tileH": 64,
+      "initialSpiritDensity": 2,
+      "layers": {
+        "ground": [
+          ["wall",    "wall",    "stone", "stone", "stone", "stone", "stone", "stone", "stone", "stone", "stone", "stone", "boundary", "boundary" ],
+          ["stone",   "stone",   "wood",  "wood",  "stone", "stone", "stone", "stone", "wood",  "wood",  "stone", "stone", "stone", "boundary" ],
+          ["wall",    "stone",   "stone", "stone", "oil",   "void",  "bush",  "stone", "stone", "stone", "stone", "forest","stone", "boundary" ],
+          ["stone",   "stone",   "stone", "stone", "stone", "stone", "stone", "stone", "stone", "stone", "stone", "stone", "stone", "boundary" ],
+          ["stone",   "wood",    "stone", "void",  "elevated","stone","stone", "stone", "stone", "stone", "rice",  "stone", "stone", "boundary" ],
+          ["stone",   "wood",    "stone", "stone", "elevated","stone","stone", "stone", "oil",   "stone", "stone", "stone", "seal",  "boundary" ],
+          ["wood",    "stone",   "stone", "stone", "stone", "stone", "trap",  "water", "water", "stone", "stone", "stone", "stone", "boundary" ],
+          ["stone",   "stone",   "curse", "stone", "void",  "stone", "water", "water", "stone", "stone", "forest","stone", "stone", "boundary" ],
+          ["stone",   "stone",   "stone", "bush",  "stone", "stone", "stone", "stone", "stone", "wood",  "wood",  "stone", "sand",  "boundary" ],
+          ["boundary","boundary","stone", "stone", "stone", "stone", "boundary","boundary","stone", "stone", "stone", "stone", "boundary","boundary" ]
+        ],
+        "effects": [
+          [[],[],[],[],[],[],[],[],[],[],[],[],[],[]],
+          [[],[],[],[],[],[],[],[],[],[],[],[],[],[]],
+          [[],[],[],[],[],[],[],[],[],[],[],[],[],[]],
+          [[],[],[],[],[],[],[],[],[],[],[],[],[],[]],
+          [[],[],[],[],[],[],[],[],[],[],[],[],[],[]],
+          [[],[],[],[],[],[],[],[],[],[],[],[],[],[]],
+          [[],[],[],[],[],[],[],[],[],[],[],[],[],[]],
+          [[],[],[],[],[],[],[],[],[],[],[],[],[],[]],
+          [[],[],[],[],[],[],[],[],[],[],[],[],[],[]],
+          [[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
+        ],
+        "objects": [
+          [null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+          [null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+          [null,null,null,"brazier",null,null,null,null,null,null,null,null,null,null],
+          [null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+          [null,null,null,null,"coffin",null,null,null,null,null,"rice_bag",null,null,null],
+          [null,null,null,null,null,null,null,null,"explosive_barrel",null,null,null,null,null],
+          [null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+          [null,null,null,null,null,null,"water_barrel",null,null,null,null,null,null,null],
+          [null,null,null,null,null,null,null,"bell",null,null,null,null,null,null],
+          [null,null,null,null,null,null,null,null,null,null,null,null,null,null]
+        ],
+        "collision": [
+          [true,  true,  false, false, false, false, false, false, false, false, false, false, true,  true ],
+          [false, false, false, false, false, false, false, false, false, false, false, false, false, true ],
+          [true,  false, false, false, false, true,  false, false, false, false, false, false, false, true ],
+          [false, false, false, false, false, false, false, false, false, false, false, false, false, true ],
+          [false, false, false, true,  false, false, false, false, false, false, false, false, false, true ],
+          [false, false, false, false, false, false, false, false, false, false, false, false, false, true ],
+          [false, false, false, false, false, false, true,  true,  true,  false, false, false, false, true ],
+          [false, false, false, false, true,  false, true,  true,  false, false, false, false, false, true ],
+          [false, false, false, false, false, false, false, false, false, false, false, false, false, true ],
+          [true,  true,  false, false, false, false, true,  true,  false, false, false, false, true,  true ]
+        ]
+      },
+      "spawn_points": {
+        "players": [
+          {"template": "rinne", "pos": [9, 2]},
+          {"template": "mint", "pos": [10, 3]},
+          {"template": "homura", "pos": [9, 5]},
+          {"template": "zhongkui", "pos": [11, 3]}
+        ],
+        "enemies": [
+          {"template": "paper_effigy", "pos": [2, 1]},
+          {"template": "paper_effigy", "pos": [3, 1]},
+          {"template": "paper_effigy", "pos": [2, 3]},
+          {"template": "paper_effigy", "pos": [6, 4]},
+          {"template": "water_ghost", "pos": [8, 7]},
+          {"template": "jiangshi", "pos": [4, 2]},
+          {"template": "red_lady", "pos": [3, 5]},
+          {"template": "coffin_lord", "pos": [5, 5]}
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "fire":         {"tags": ["burning", "light", "noise_source"], "duration": 1, "damage": 2, "spread_per_turn": 1, "spread_tags": ["flammable"], "color": "#ff6620"},
+  "water_spread": {"tags": ["wet", "fire_extinguish", "liquid"], "duration": 5, "damage": 0, "spread": true, "spread_per_turn": 1, "spread_tags": ["solid"], "color": "#4080cc"},
+  "rice":         {"tags": ["anti_spirit", "slowdown"], "duration": 99, "damage": 0, "color": "#e8dca0"},
+  "ink_line":     {"tags": ["spirit_block"], "duration": 99, "damage": 0, "block_spirit": true, "color": "#202020"},
+  "talisman":     {"tags": ["talisman", "seal_component", "spirit_reduce"], "duration": 99, "damage": 0, "color": "#ddc040"},
+  "curse_zone":   {"tags": ["spirit_zone", "fear_increase"], "duration": 5, "damage": 2, "color": "#802080"},
+  "explosion":    {"tags": ["burning", "noise_source"], "duration": 1, "damage": 6, "color": "#ff4400"}
+}

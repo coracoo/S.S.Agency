@@ -1,0 +1,117 @@
+{
+  "units": [
+    {
+      "id": "rinne",
+      "name": "凛音",
+      "stats": {
+        "hp": 45,
+        "strength": 8,
+        "intelligence": 3,
+        "defense": 6,
+        "magicResist": 2,
+        "speed": 3,
+        "moveRange": 3
+      },
+      "startingDeck": [
+        "rinne_slash",
+        "rinne_cleave"
+      ],
+      "startingItems": [
+        {"card": "env_push_strike", "uses": 2},
+        {"card": "item_throw_rice", "uses": 2},
+        {"card": "item_ignite", "uses": 2}
+      ],
+      "traits": [
+        {"id": "frontliner", "name": "破阵者", "description": "适合站前排和推动战线。"},
+        {"id": "heavy_push", "name": "重心稳", "description": "后续可强化推、撞、挡路等环境动作。"}
+      ],
+      "color": 4278190335,
+      "faction": "player"
+    },
+    {
+      "id": "mint",
+      "name": "薄荷",
+      "stats": {
+        "hp": 30,
+        "strength": 6,
+        "intelligence": 4,
+        "defense": 3,
+        "magicResist": 3,
+        "speed": 5,
+        "moveRange": 3
+      },
+      "startingDeck": [
+        "mint_shot",
+        "mint_snipe"
+      ],
+      "startingItems": [
+        {"card": "item_ring_chime", "uses": 2},
+        {"card": "item_water_splash", "uses": 2},
+        {"card": "item_throw_rice", "uses": 1}
+      ],
+      "traits": [
+        {"id": "silent_step", "name": "无声步", "description": "后续移动可不产生脚步噪音。"},
+        {"id": "remote_trigger", "name": "远程触发", "description": "擅长远距离触发铃铛和机关。"}
+      ],
+      "color": 4278255360,
+      "faction": "player"
+    },
+    {
+      "id": "homura",
+      "name": "焰华",
+      "stats": {
+        "hp": 25,
+        "strength": 3,
+        "intelligence": 9,
+        "defense": 2,
+        "magicResist": 5,
+        "speed": 4,
+        "moveRange": 2
+      },
+      "startingDeck": [
+        "homura_flare",
+        "homura_ignite"
+      ],
+      "startingItems": [
+        {"card": "item_ignite", "uses": 3},
+        {"card": "item_water_splash", "uses": 1},
+        {"card": "item_throw_rice", "uses": 1}
+      ],
+      "traits": [
+        {"id": "fire_affinity", "name": "火焰亲和", "description": "后续点火可获得额外收益或降低代价。"},
+        {"id": "purifier", "name": "净化术士", "description": "后续可用道具或技能降低灵气。"}
+      ],
+      "color": 4294901760,
+      "faction": "player"
+    },
+    {
+      "id": "zhongkui",
+      "name": "钟馗",
+      "stats": {
+        "hp": 50,
+        "strength": 7,
+        "intelligence": 6,
+        "defense": 5,
+        "magicResist": 4,
+        "speed": 3,
+        "moveRange": 2
+      },
+      "startingDeck": [
+        "zhongkui_fist",
+        "zhongkui_capture",
+        "zhongkui_judge"
+      ],
+      "startingItems": [
+        {"card": "item_place_talisman", "uses": 3},
+        {"card": "item_ring_chime", "uses": 1},
+        {"card": "item_throw_rice", "uses": 1}
+      ],
+      "traits": [
+        {"id": "seal_master", "name": "封印师", "description": "后续可触发封印击杀和封印压制。"},
+        {"id": "spirit_body", "name": "镇邪体魄", "description": "更适合承受灵体接触和Boss压力。"}
+      ],
+      "color": 4294901760,
+      "faction": "player"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "rules": [
+    {
+      "id": "fire_ignite_flammable",
+      "skip_in_spread": true,
+      "trigger": {"source_tags": ["burning"], "target_tags": ["flammable"]},
+      "conditions": [],
+      "results": [
+        {"type": "add_effect", "effect": "fire"},
+        {"type": "emit_event", "event": "effect:ignite"}
+      ]
+    },
+    {
+      "id": "fire_extinguish_water",
+      "trigger": {"source_tags": ["burning"], "target_tags": ["fire_extinguish"]},
+      "conditions": [],
+      "results": [
+        {"type": "remove_effect", "effect": "fire"},
+        {"type": "emit_event", "event": "effect:extinguish"}
+      ]
+    },
+    {
+      "id": "water_wets_flammable",
+      "trigger": {"source_tags": ["wet"], "target_tags": ["flammable"]},
+      "conditions": [],
+      "results": [
+        {"type": "remove_tag", "from": "target", "tag": "flammable"},
+        {"type": "emit_event", "event": "effect:wet"}
+      ]
+    },
+    {
+      "id": "fire_oil_explosion",
+      "trigger": {"source_tags": ["burning"], "target_tags": ["noise_amplify"]},
+      "conditions": [],
+      "results": [
+        {"type": "add_effect", "effect": "fire"},
+        {"type": "add_effect", "effect": "explosion"},
+        {"type": "emit_event", "event": "effect:ignite_oil"}
+      ]
+    },
+    {
+      "id": "fire_explosive_barrel",
+      "trigger": {"source_tags": ["burning"], "target_tags": ["explosive"]},
+      "conditions": [],
+      "results": [
+        {"type": "remove_object"},
+        {"type": "add_effect", "effect": "explosion"},
+        {"type": "add_effect", "effect": "fire"},
+        {"type": "add_effect_neighbors", "effect": "fire"},
+        {"type": "emit_event", "event": "effect:barrel_explode"}
+      ]
+    },
+    {
+      "id": "burning_damage_unit",
+      "trigger": {"source_tags": ["burning"], "target_tags": []},
+      "conditions": [{"type": "has_unit"}],
+      "results": [
+        {"type": "damage_unit", "value_source": "effect", "value_field": "damage"},
+        {"type": "emit_event", "event": "unit:terrain_damage"}
+      ]
+    }
+  ]
+}

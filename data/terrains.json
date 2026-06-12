@@ -1,0 +1,18 @@
+{
+  "stone":    {"tags": ["fireproof", "solid"], "move_cost": 1, "color": "#8a8278", "name": "石地"},
+  "oil":      {"tags": ["flammable", "noise_amplify", "liquid"], "move_cost": 1, "color": "#4a3a20", "name": "油地"},
+  "wood":     {"tags": ["flammable", "breakable", "solid"], "move_cost": 1, "color": "#7a5a30", "name": "木板"},
+  "grass":    {"tags": ["flammable", "solid"], "move_cost": 1, "color": "#4d8c40", "name": "草地"},
+  "forest":   {"tags": ["flammable", "solid", "cover"], "move_cost": 2, "color": "#266b26", "name": "森林", "dodge": 20},
+  "bush":     {"tags": ["flammable", "solid", "cover"], "move_cost": 1, "color": "#408c48", "name": "灌木", "dodge": 30},
+  "water":    {"tags": ["fire_extinguish", "conduct", "liquid", "blocking"], "move_cost": 99, "color": "#265a8c", "name": "水域"},
+  "sand":     {"tags": ["solid"], "move_cost": 2, "color": "#b8a673", "name": "沙地"},
+  "wall":     {"tags": ["fireproof", "blocking", "solid"], "move_cost": 99, "color": "#807a6c", "name": "墙壁"},
+  "boundary": {"tags": ["blocking", "map_edge"], "move_cost": 99, "color": "#807a6c", "name": "庭院边界"},
+  "rice":     {"tags": ["anti_spirit", "slowdown_spirit", "solid"], "move_cost": 1, "color": "#e8e0c0", "name": "糯米"},
+  "seal":     {"tags": ["seal_point", "spirit_reduce", "solid"], "move_cost": 1, "color": "#c04040", "name": "封印点"},
+  "curse":    {"tags": ["spirit_zone", "fear_increase", "solid"], "move_cost": 1, "color": "#602060", "name": "诅咒地"},
+  "elevated": {"tags": ["high_ground", "push_off", "solid"], "move_cost": 2, "color": "#9a9070", "name": "高处"},
+  "trap":     {"tags": ["blocking", "lethal"], "move_cost": 99, "color": "#601010", "name": "陷阱"},
+  "void":     {"tags": ["blocking", "lethal"], "move_cost": 99, "color": "#101018", "name": "深渊"}
+}
