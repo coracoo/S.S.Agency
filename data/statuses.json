@@ -3,11 +3,11 @@
     "burn": {
       "id": "burn",
       "name": "燃烧",
-      "description": "每回合开始受到3点魔法伤害",
+      "description": "每回合开始受到4点魔法伤害",
       "color": "#ff6622",
       "tickTiming": "turn_start",
       "effectType": "damage",
-      "valuePerTick": 3,
+      "valuePerTick": 4,
       "damageType": "magic",
       "stackable": true,
       "maxDuration": 3
@@ -25,14 +25,24 @@
     "poison": {
       "id": "poison",
       "name": "中毒",
-      "description": "每回合结束受到2点伤害",
+      "description": "每回合结束受到3点魔法伤害",
       "color": "#44cc44",
       "tickTiming": "turn_end",
       "effectType": "damage",
-      "valuePerTick": 2,
+      "valuePerTick": 3,
       "damageType": "magic",
       "stackable": true,
       "maxDuration": 3
+    },
+    "slow": {
+      "id": "slow",
+      "name": "减速",
+      "description": "移动速度降低（待实现移动力减少）",
+      "color": "#a0a0a0",
+      "tickTiming": "turn_start",
+      "effectType": "none",
+      "stackable": true,
+      "maxDuration": 2
     },
     "shield": {
       "id": "shield",

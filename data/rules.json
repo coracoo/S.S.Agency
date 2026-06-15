@@ -58,6 +58,43 @@
         {"type": "damage_unit", "value_source": "effect", "value_field": "damage"},
         {"type": "emit_event", "event": "unit:terrain_damage"}
       ]
+    },
+    {
+      "id": "fire_scares_spirit",
+      "trigger": {"source_tags": ["burning"], "target_tags": []},
+      "conditions": [{"type": "has_unit"}],
+      "results": [
+        {"type": "ai_state", "state": "fear", "reason": "fire"},
+        {"type": "emit_event", "event": "ai:state_changed"}
+      ]
+    },
+    {
+      "id": "rice_slows_spirit",
+      "trigger": {"source_tags": ["anti_spirit"], "target_tags": []},
+      "conditions": [{"type": "has_unit"}],
+      "results": [
+        {"type": "apply_status", "status_id": "slow", "duration": 2}
+      ]
+    },
+    {
+      "id": "ink_line_blocks_spirit",
+      "trigger": {"source_tags": ["spirit_block"], "target_tags": []},
+      "conditions": [{"type": "has_unit"}],
+      "results": [
+        {"type": "apply_status", "status_id": "slow", "duration": 1}
+      ]
+    },
+    {
+      "id": "seal_activation",
+      "trigger": {"source_tags": ["seal_component"], "target_tags": ["seal_point"]},
+      "conditions": [
+        {"type": "min_spirit_density", "value": 6},
+        {"type": "min_seal_points", "value": 3},
+        {"type": "target_in_seal"}
+      ],
+      "results": [
+        {"type": "emit_event", "event": "seal:activated"}
+      ]
     }
   ]
 }

@@ -5,3 +5,12 @@
 # Python
 __pycache__/
 *.pyc
+
+# Temporary files
+*.tmp
+*.zip
+*.tar.gz
+
+# OS
+.DS_Store
+Thumbs.db

@@ -169,6 +169,10 @@ const UI_PATCH_MARGINS := {
 	"wait_button_v2": Vector4i(42, 42, 42, 42),
 }
 
+const CHINESE_FONT_REGULAR := "res://assets/fonts/Alibaba-PuHuiTi-Regular.ttf"
+const CHINESE_FONT_MEDIUM := "res://assets/fonts/Alibaba-PuHuiTi-Medium.ttf"
+const CHINESE_FONT_BOLD := "res://assets/fonts/Alibaba-PuHuiTi-Bold.ttf"
+
 const CARD_ICON_BY_ID := {
 	"rinne_slash": "skill_icon_slash",
 	"rinne_cleave": "skill_icon_slash",
@@ -197,6 +201,7 @@ var target_tiles: Array = []
 var damage_tiles: Array = []
 var unit_sprites: Dictionary = {}
 var enemy_acting: bool = false
+var _battle_theme: Theme = null
 var _noise_waves: Array = []
 
 # Camera
@@ -266,6 +271,13 @@ const BATTLE_SPEED_VALUES := [1.0, 1.5, 2.0]
 
 func _ready() -> void:
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+	# Load and apply Chinese font theme to the HUD so all UI controls inherit it.
+	_battle_theme = load("res://assets/ui/themes/battle_theme.tres")
+	if _battle_theme != null and has_node("HUD"):
+		$HUD.theme = _battle_theme
+		print("Applied battle_theme with Chinese font")
+	else:
+		push_warning("Failed to load battle_theme.tres or HUD node missing")
 	_load_generated_ui_textures()
 	_load_generated_card_faces()
 
@@ -579,16 +591,17 @@ func _configure_action_icon_button(button: Button, texture_key: String, caption:
 	backplate.patch_margin_top = frame_margins.y
 	backplate.patch_margin_right = frame_margins.z
 	backplate.patch_margin_bottom = frame_margins.w
-	backplate.position = Vector2(-3, -2) if caption_right else Vector2(-6, -4)
-	backplate.size = Vector2(104, 58) if caption_right else Vector2(106, 112)
+	# Layout tuned to UI.md: tab buttons ~104x58, wait button is a 96x96 diamond.
+	backplate.position = Vector2(-4, -4) if caption_right else Vector2(0, 0)
+	backplate.size = Vector2(104, 58) if caption_right else Vector2(96, 96)
 	backplate.modulate = Color(1.0, 1.0, 1.0, 0.90)
 	backplate.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	button.add_child(backplate)
 
 	var glow = Panel.new()
 	glow.name = "ActionGlow"
-	glow.position = Vector2(8, 8) if caption_right else Vector2(12, 13)
-	glow.size = Vector2(38, 36) if caption_right else Vector2(70, 66)
+	glow.position = Vector2(8, 8) if caption_right else Vector2(16, 14)
+	glow.size = Vector2(38, 36) if caption_right else Vector2(64, 56)
 	glow.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var glow_style = StyleBoxFlat.new()
 	glow_style.bg_color = Color(0.12, 0.22, 0.25, 0.18)
@@ -609,8 +622,8 @@ func _configure_action_icon_button(button: Button, texture_key: String, caption:
 		icon.position = Vector2(0, 3)
 		icon.size = Vector2(46, 46)
 	else:
-		icon.position = Vector2(9, 0)
-		icon.size = Vector2(76, 78)
+		icon.position = Vector2(24, 12)
+		icon.size = Vector2(48, 48)
 	button.add_child(icon)
 
 	var caption_panel = Panel.new()
@@ -626,8 +639,8 @@ func _configure_action_icon_button(button: Button, texture_key: String, caption:
 		caption_panel.position = Vector2(48, 14)
 		caption_panel.size = Vector2(48, 24)
 	else:
-		caption_panel.position = Vector2(18, 84)
-		caption_panel.size = Vector2(58, 24)
+		caption_panel.position = Vector2(19, 68)
+		caption_panel.size = Vector2(58, 22)
 	button.add_child(caption_panel)
 
 	var caption_label = Label.new()
@@ -774,6 +787,12 @@ func _add_label(parent: Control, text: String, pos: Vector2, size: Vector2, font
 	parent.add_child(label)
 	return label
 
+func _apply_chinese_font(control: Control, bold: bool = false) -> void:
+	var font_path := CHINESE_FONT_BOLD if bold else CHINESE_FONT_REGULAR
+	var font := load(font_path) as Font
+	if font != null:
+		control.add_theme_font_override("font", font)
+
 func _unit_avatar_texture(unit: Unit, portrait_crop: bool = false) -> Texture2D:
 	if unit == null:
 		return null
@@ -818,10 +837,11 @@ func _add_stat_bar(parent: Control, label_text: String, value: float, max_value:
 	_add_label(parent, value_text, Vector2(182, y - 2), Vector2(66, 18), 12, UI_TEXT, HORIZONTAL_ALIGNMENT_RIGHT)
 
 func _add_compact_stat_bar(parent: Control, label_text: String, value: float, max_value: float, color: Color, y: float, value_text: String) -> void:
-	_add_label(parent, label_text, Vector2(0, y - 2), Vector2(38, 18), 12, color)
+	# Layout tuned for the 280x300 status panel spec: label 42px, bar 132px, value 60px.
+	_add_label(parent, label_text, Vector2(0, y - 2), Vector2(42, 18), 12, color)
 	var bg = Panel.new()
-	bg.position = Vector2(42, y + 2)
-	bg.size = Vector2(104, 10)
+	bg.position = Vector2(46, y + 2)
+	bg.size = Vector2(132, 10)
 	bg.add_theme_stylebox_override("panel", _make_bar_style(Color(color.r * 0.18, color.g * 0.18, color.b * 0.18, 0.82), 5))
 	parent.add_child(bg)
 	var fill = Panel.new()
@@ -829,7 +849,7 @@ func _add_compact_stat_bar(parent: Control, label_text: String, value: float, ma
 	fill.size = Vector2(bg.size.x * ratio, bg.size.y)
 	fill.add_theme_stylebox_override("panel", _make_bar_style(color, 5))
 	bg.add_child(fill)
-	_add_label(parent, value_text, Vector2(150, y - 2), Vector2(54, 18), 12, UI_TEXT, HORIZONTAL_ALIGNMENT_RIGHT)
+	_add_label(parent, value_text, Vector2(184, y - 2), Vector2(60, 18), 12, UI_TEXT, HORIZONTAL_ALIGNMENT_RIGHT)
 
 func _style_battle_ui() -> void:
 	$HUD/TurnLabel.visible = false
@@ -867,10 +887,11 @@ func _style_battle_ui() -> void:
 	$HUD/APLabel.visible = false
 	$HUD/SpiritBar.visible = false
 	$HUD/SpiritLabel.visible = false
-	$HUD/EndTurnBtn.offset_left = 1098
-	$HUD/EndTurnBtn.offset_top = 886
-	$HUD/EndTurnBtn.offset_right = 1192
-	$HUD/EndTurnBtn.offset_bottom = 1004
+	# End turn / wait button: 96x96 diamond per UI.md.
+	$HUD/EndTurnBtn.offset_left = 1102
+	$HUD/EndTurnBtn.offset_top = 892
+	$HUD/EndTurnBtn.offset_right = 1198
+	$HUD/EndTurnBtn.offset_bottom = 988
 	_configure_action_icon_button($HUD/EndTurnBtn, "action_wait", "待机", false)
 	$HUD/SwitchBtn.visible = false
 	_init_party_bar()
@@ -885,12 +906,13 @@ func _setup_reference_side_panels() -> void:
 		_objective_panel.add_theme_stylebox_override("panel", _make_hud_panel_style(UI_GOLD, 0.58, 3, 1))
 		$HUD.add_child(_objective_panel)
 		_add_corner_marks(_objective_panel, _objective_panel.size, UI_GOLD)
-		_add_label(_objective_panel, "胜利条件", Vector2(0, 14), Vector2(270, 22), 15, UI_GOLD_BRIGHT, HORIZONTAL_ALIGNMENT_CENTER)
-		_add_label(_objective_panel, "击败所有敌人", Vector2(0, 54), Vector2(270, 22), 15, UI_TEXT, HORIZONTAL_ALIGNMENT_CENTER)
-		_objective_round_label = _add_label(_objective_panel, "回合  1/15", Vector2(0, 88), Vector2(270, 22), 16, UI_TEXT_WARM, HORIZONTAL_ALIGNMENT_CENTER)
+		_add_label(_objective_panel, "胜利条件", Vector2(0, 14), Vector2(270, 22), 14, UI_GOLD_BRIGHT, HORIZONTAL_ALIGNMENT_CENTER)
+		_add_label(_objective_panel, "击败所有敌人", Vector2(0, 54), Vector2(270, 22), 13, UI_TEXT, HORIZONTAL_ALIGNMENT_CENTER)
+		_objective_round_label = _add_label(_objective_panel, "回合  1/15", Vector2(0, 88), Vector2(270, 22), 14, UI_TEXT, HORIZONTAL_ALIGNMENT_CENTER)
+		_apply_chinese_font(_objective_round_label, true)
 	if _side_status_panel == null:
 		_side_status_panel = VBoxContainer.new()
-		_side_status_panel.position = Vector2(1360, 340)
+		_side_status_panel.position = Vector2(1372, 340)
 		_side_status_panel.size = Vector2(120, 104)
 		_side_status_panel.add_theme_constant_override("separation", 8)
 		_side_status_panel.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -904,9 +926,9 @@ func _setup_reference_side_panels() -> void:
 		_refresh_side_status_controls()
 	if _top_system_bar == null:
 		_top_system_bar = HBoxContainer.new()
-		_top_system_bar.position = Vector2(1344, 16)
-		_top_system_bar.size = Vector2(176, 62)
-		_top_system_bar.add_theme_constant_override("separation", 10)
+		_top_system_bar.position = Vector2(1372, 16)
+		_top_system_bar.size = Vector2(148, 56)
+		_top_system_bar.add_theme_constant_override("separation", 8)
 		_top_system_bar.mouse_filter = Control.MOUSE_FILTER_STOP
 		$HUD.add_child(_top_system_bar)
 		var top_buttons = [
@@ -917,18 +939,26 @@ func _setup_reference_side_panels() -> void:
 		for entry in top_buttons:
 			var btn = Button.new()
 			btn.text = str(entry[0])
-			btn.custom_minimum_size = Vector2(52, 60)
-			btn.add_theme_font_size_override("font_size", 13)
-			_apply_button_frame(btn, "top_button")
+			btn.custom_minimum_size = Vector2(44, 56)
+			btn.add_theme_font_size_override("font_size", 10)
+			# Minimal frameless style per UI.md (icon + small text, no background panel).
+			btn.add_theme_stylebox_override("normal", _make_clear_panel_style())
+			btn.add_theme_stylebox_override("hover", _make_clean_button_style(Color(UI_GOLD.r, UI_GOLD.g, UI_GOLD.b, 0.12), UI_GOLD))
+			btn.add_theme_stylebox_override("pressed", _make_clean_button_style(Color(UI_GOLD.r, UI_GOLD.g, UI_GOLD.b, 0.22), UI_GOLD_BRIGHT))
+			btn.add_theme_stylebox_override("focus", _make_clear_panel_style())
+			btn.add_theme_color_override("font_color", UI_TEXT_WARM)
+			btn.add_theme_color_override("font_hover_color", UI_GOLD_BRIGHT)
+			btn.add_theme_color_override("font_pressed_color", Color(1.0, 0.96, 0.7))
 			var cb: Callable = entry[1]
 			if cb.is_valid():
 				btn.pressed.connect(cb)
 			_top_system_bar.add_child(btn)
 
 func _make_side_toggle_button() -> Button:
+	# Compact toggle row per UI.md spec (target: 36x18 toggle + text).
 	var btn = Button.new()
-	btn.custom_minimum_size = Vector2(120, 48)
-	btn.add_theme_font_size_override("font_size", 13)
+	btn.custom_minimum_size = Vector2(120, 32)
+	btn.add_theme_font_size_override("font_size", 11)
 	btn.add_theme_color_override("font_color", UI_TEXT_WARM)
 	btn.add_theme_color_override("font_hover_color", UI_GOLD_BRIGHT)
 	btn.add_theme_stylebox_override("normal", _make_clean_button_style(Color(0.052, 0.070, 0.090, 0.54), Color(UI_GOLD.r, UI_GOLD.g, UI_GOLD.b, 0.50)))
@@ -2849,6 +2879,7 @@ func _show_floating_text_at(pos: Vector2i, text: String, color: Color) -> void:
 	label.size = Vector2(90, 24)
 	label.position = Vector2(screen.x - 45, screen.y - 50)
 	label.z_index = 999
+	_apply_chinese_font(label)
 	add_child(label)
 	var tween = create_tween()
 	tween.tween_property(label, "position:y", label.position.y - 25, _battle_delay(0.7))
@@ -3137,21 +3168,22 @@ func _show_stats_panel(unit: Unit) -> void:
 		_stats_panel.anchor_bottom = 0.0
 		_stats_panel.offset_left = 16
 		_stats_panel.offset_top = 16
-		_stats_panel.offset_right = 376
-		_stats_panel.offset_bottom = 218
+		_stats_panel.offset_right = 296
+		_stats_panel.offset_bottom = 316
 		_stats_panel.mouse_filter = Control.MOUSE_FILTER_STOP
 		$HUD.add_child(_stats_panel)
 	else:
 		for child in _stats_panel.get_children():
 			child.free()
 	_stats_panel.visible = true
-	_stats_panel.size = Vector2(360, 202)
+	# Target size per UI.md: 280x300 at (16,16).
+	_stats_panel.size = Vector2(280, 300)
 	_stats_panel.add_theme_stylebox_override("panel", _make_hud_panel_style(UI_GOLD, 0.54, 5, 1))
 	_add_corner_marks(_stats_panel, _stats_panel.size, UI_GOLD)
 
 	var avatar_frame = Panel.new()
 	avatar_frame.position = Vector2(14, 14)
-	avatar_frame.size = Vector2(108, 108)
+	avatar_frame.size = Vector2(72, 72)
 	avatar_frame.clip_contents = true
 	var avatar_style = _make_slot_style(true, UI_GOLD)
 	avatar_style.bg_color = Color(0.06, 0.09, 0.11, 0.28)
@@ -3160,23 +3192,25 @@ func _show_stats_panel(unit: Unit) -> void:
 	_stats_panel.add_child(avatar_frame)
 	var avatar = TextureRect.new()
 	avatar.texture = _unit_avatar_texture(unit, true)
-	avatar.position = Vector2(6, 6)
-	avatar.size = Vector2(96, 96)
+	avatar.position = Vector2(4, 4)
+	avatar.size = Vector2(64, 64)
 	avatar.stretch_mode = TextureRect.STRETCH_SCALE
 	avatar.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	avatar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	avatar_frame.add_child(avatar)
 
-	_add_label(_stats_panel, unit.name, Vector2(140, 24), Vector2(132, 28), 22, UI_TEXT)
-	_add_label(_stats_panel, "Lv.%d" % maxi(1, int(unit.stats.speed) * 3 + int(unit.stats.strength)), Vector2(274, 30), Vector2(58, 20), 14, UI_GOLD_BRIGHT, HORIZONTAL_ALIGNMENT_RIGHT)
+	_add_label(_stats_panel, unit.name, Vector2(100, 18), Vector2(160, 22), 18, UI_TEXT)
+	_add_label(_stats_panel, "Lv.%d" % maxi(1, int(unit.stats.speed) * 3 + int(unit.stats.strength)), Vector2(226, 22), Vector2(42, 16), 13, UI_GOLD_BRIGHT, HORIZONTAL_ALIGNMENT_RIGHT)
 	var class_text = "队员" if unit.faction == "player" else "妖邪"
 	if unit.traits.size() > 0:
 		class_text = str(unit.traits[0].get("name", class_text))
-	_add_label(_stats_panel, class_text, Vector2(140, 58), Vector2(192, 20), 13, UI_TEXT_MUTED)
+	_add_label(_stats_panel, class_text, Vector2(100, 46), Vector2(170, 18), 12, UI_TEXT_MUTED)
+
+	_add_separator(_stats_panel, Vector2(18, 68), 248)
 
 	var bar_area = Control.new()
-	bar_area.position = Vector2(140, 92)
-	bar_area.size = Vector2(206, 76)
+	bar_area.position = Vector2(18, 82)
+	bar_area.size = Vector2(248, 80)
 	_stats_panel.add_child(bar_area)
 	_add_compact_stat_bar(bar_area, "生命", float(unit.current_hp), float(unit.max_hp), UI_HP, 0, "%d/%d" % [unit.current_hp, unit.max_hp])
 	var ap_value = state.team_ap if unit.faction == "player" else unit.remaining_move
@@ -3197,8 +3231,8 @@ func _show_stats_panel(unit: Unit) -> void:
 	var skill_desc = str(card_data.get("description", "选择角色、技能或地图格子查看详情。")) if not card_data.is_empty() else "选择角色、技能或地图格子查看详情。"
 	if _skill_desc_panel == null:
 		_skill_desc_panel = Panel.new()
-		_skill_desc_panel.position = Vector2(16, 230)
-		_skill_desc_panel.size = Vector2(360, 102)
+		_skill_desc_panel.position = Vector2(16, 322)
+		_skill_desc_panel.size = Vector2(280, 110)
 		_skill_desc_panel.mouse_filter = Control.MOUSE_FILTER_STOP
 		$HUD.add_child(_skill_desc_panel)
 	else:
@@ -3207,9 +3241,9 @@ func _show_stats_panel(unit: Unit) -> void:
 	_skill_desc_panel.visible = true
 	_skill_desc_panel.add_theme_stylebox_override("panel", _make_hud_panel_style(Color(UI_GOLD.r, UI_GOLD.g, UI_GOLD.b, 0.62), 0.50, 5, 1))
 	_add_corner_marks(_skill_desc_panel, _skill_desc_panel.size, UI_GOLD)
-	_add_label(_skill_desc_panel, skill_name, Vector2(18, 12), Vector2(324, 24), 16, UI_GOLD_BRIGHT)
-	_add_separator(_skill_desc_panel, Vector2(18, 38), 324)
-	var desc = _add_label(_skill_desc_panel, skill_desc, Vector2(18, 48), Vector2(324, 42), 13, UI_TEXT_MUTED)
+	_add_label(_skill_desc_panel, skill_name, Vector2(18, 12), Vector2(248, 24), 14, UI_GOLD_BRIGHT)
+	_add_separator(_skill_desc_panel, Vector2(18, 38), 248)
+	var desc = _add_label(_skill_desc_panel, skill_desc, Vector2(18, 48), Vector2(248, 54), 12, UI_TEXT_MUTED)
 	desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	desc.clip_text = true
 
@@ -3245,14 +3279,14 @@ func _refresh_party_bar() -> void:
 		_party_bar.add_child(slot)
 		var avatar = TextureRect.new()
 		avatar.texture = _unit_avatar_texture(unit, true)
-		avatar.position = Vector2(-2, 4)
-		avatar.size = Vector2(96, 96)
+		avatar.position = Vector2(4, 4)
+		avatar.size = Vector2(84, 84)
 		avatar.stretch_mode = TextureRect.STRETCH_SCALE
 		avatar.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 		avatar.modulate = Color(1, 1, 1, 1) if selected else Color(0.72, 0.72, 0.72, 1)
 		slot.add_child(avatar)
 		var hp_bg = ColorRect.new()
-		hp_bg.position = Vector2(6, 86)
+		hp_bg.position = Vector2(6, 88)
 		hp_bg.size = Vector2(80, 4)
 		hp_bg.color = Color(0.16, 0.04, 0.04, 0.85)
 		slot.add_child(hp_bg)
@@ -3261,7 +3295,7 @@ func _refresh_party_bar() -> void:
 		hp.color = UI_HP
 		hp_bg.add_child(hp)
 		var ap_bg = ColorRect.new()
-		ap_bg.position = Vector2(6, 91)
+		ap_bg.position = Vector2(6, 93)
 		ap_bg.size = Vector2(80, 4)
 		ap_bg.color = Color(0.04, 0.12, 0.04, 0.85)
 		slot.add_child(ap_bg)
@@ -3269,7 +3303,7 @@ func _refresh_party_bar() -> void:
 		ap.size = Vector2(80.0 * clampf(float(unit.remaining_move) / maxf(float(unit.move_range), 1.0), 0.0, 1.0), 4)
 		ap.color = UI_AP
 		ap_bg.add_child(ap)
-		var name_label = _add_label(slot, unit.name.substr(0, min(3, unit.name.length())), Vector2(4, 96), Vector2(84, 14), 10, UI_TEXT_WARM, HORIZONTAL_ALIGNMENT_CENTER)
+		var name_label = _add_label(slot, unit.name.substr(0, min(3, unit.name.length())), Vector2(4, 98), Vector2(84, 12), 10, UI_TEXT_WARM, HORIZONTAL_ALIGNMENT_CENTER)
 		name_label.clip_text = true
 
 func _on_party_slot_gui_input(event: InputEvent, unit: Unit) -> void:
@@ -3372,6 +3406,7 @@ func _add_unit_nameplate(container: Node2D, unit: Unit, y: float = -92.0) -> voi
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	label.add_theme_font_size_override("font_size", 11)
 	label.add_theme_color_override("font_color", Color(0.02, 0.025, 0.030, 0.88))
+	_apply_chinese_font(label)
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	panel.add_child(label)
 
@@ -3420,7 +3455,8 @@ func _update_sprite(container: Node2D, unit: Unit, screen: Vector2, is_player: b
 		anim.sprite_frames = frames
 		anim.play("idle")
 		anim.position = Vector2(0, -TILE_H * 0.52)
-		var sprite_scale = 1.25 if frame_w <= 80.0 else 0.68
+		# Keep sprite scale at 1.0 for standard 64x64 sheets; only downscale oversized hires sheets.
+		var sprite_scale = 1.0 if frame_w <= 80.0 else 0.68
 		anim.scale = Vector2(sprite_scale, sprite_scale)
 		container.add_child(anim)
 		_add_unit_nameplate(container, unit, -94.0)

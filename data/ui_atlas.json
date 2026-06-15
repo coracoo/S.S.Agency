@@ -1,0 +1,90 @@
+{
+	"_schema": "UI 图集与 9-slice 配置。所有 UI 底板/边框在这里登记，代码从本文件读取 patch_margin，禁止在 GDScript 中硬编码。",
+	"version": "0.1",
+	"sources": {
+		"ui_frame_atlas_source": {
+			"path": "res://assets/ui/generated/ui_frame_atlas_source.png",
+			"description": "UI 边框与底板大图集"
+		},
+		"skill_icon_atlas_source": {
+			"path": "res://assets/ui/generated/skill_icon_atlas_source.png",
+			"description": "技能图标大图集"
+		}
+	},
+	"panels": {
+		"status_panel": {
+			"source": "ui_frame_atlas_source",
+			"region": [0, 0, 280, 300],
+			"patch_margin": [58, 88, 58, 88],
+			"description": "左上角角色状态面板底板"
+		},
+		"bottom_hand_panel": {
+			"source": "ui_frame_atlas_source",
+			"region": [300, 0, 540, 110],
+			"patch_margin": [100, 78, 100, 78],
+			"description": "底部技能栏底板"
+		},
+		"party_frame": {
+			"source": "ui_frame_atlas_source",
+			"region": [0, 320, 92, 88],
+			"patch_margin": [12, 12, 12, 12],
+			"description": "队伍角色头像框"
+		},
+		"party_frame_selected": {
+			"source": "ui_frame_atlas_source",
+			"region": [100, 320, 92, 88],
+			"patch_margin": [12, 12, 12, 12],
+			"description": "队伍角色头像框选中态"
+		},
+		"skill_button": {
+			"source": "ui_frame_atlas_source",
+			"region": [200, 320, 82, 102],
+			"patch_margin": [8, 8, 8, 8],
+			"description": "技能按钮底板"
+		},
+		"skill_button_hover": {
+			"source": "ui_frame_atlas_source",
+			"region": [290, 320, 82, 102],
+			"patch_margin": [8, 8, 8, 8],
+			"description": "技能按钮悬停态"
+		},
+		"diamond_button": {
+			"source": "ui_frame_atlas_source",
+			"region": [380, 320, 96, 96],
+			"patch_margin": [16, 16, 16, 16],
+			"description": "菱形待机按钮"
+		}
+	},
+	"icons": {
+		"skill_fire": {
+			"source": "skill_icon_atlas_source",
+			"region": [0, 0, 64, 64],
+			"description": "火焰技能图标"
+		},
+		"skill_slash": {
+			"source": "skill_icon_atlas_source",
+			"region": [64, 0, 64, 64],
+			"description": "斩击技能图标"
+		},
+		"skill_soul": {
+			"source": "skill_icon_atlas_source",
+			"region": [128, 0, 64, 64],
+			"description": "灵魂技能图标"
+		},
+		"skill_talisman": {
+			"source": "skill_icon_atlas_source",
+			"region": [192, 0, 64, 64],
+			"description": "符纸技能图标"
+		},
+		"skill_rice": {
+			"source": "skill_icon_atlas_source",
+			"region": [256, 0, 64, 64],
+			"description": "糯米技能图标"
+		},
+		"skill_ink": {
+			"source": "skill_icon_atlas_source",
+			"region": [320, 0, 64, 64],
+			"description": "墨线技能图标"
+		}
+	}
+}

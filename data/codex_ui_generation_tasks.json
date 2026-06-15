@@ -1,0 +1,231 @@
+{
+	"version": "0.1",
+	"project": "封灵事务所 (Godnot Tactics)",
+	"ai_tool": "OpenAI Codex (gpt-image2)",
+	"style_prefix": "Chinese folk horror, Hong Kong supernatural, Taoist exorcism, dark gold (#B8954E) and cinnabar red (#C23B3B) accents, xuan black (#1A1A1A) background, old paper texture, ink wash, talisman paper, bronze patina. NO western fantasy, NO magic gem, NO blue crystal, NO ornate gold filigree, NO European swords, NO skull motifs.",
+	"common_rules": [
+		"输出 PNG 格式，透明背景",
+		"主色调：玄黑 #1A1A1A、暗金 #B8954E、朱红 #C23B3B",
+		"禁止西幻元素：蓝宝石、魔法阵、卷草纹、欧洲剑、骷髅装饰",
+		"9-slice 边框四边连续、四角完整，中间区域可拉伸"
+	],
+	"tasks": [
+		{
+			"id": "ui_status_panel",
+			"priority": "P0",
+			"category": "panel",
+			"output_path": "assets/ui/generated/ui_status_panel.png",
+			"size": [512, 512],
+			"nine_slice": [58, 88, 58, 88],
+			"usage": "左上角角色状态面板底板，目标显示尺寸 280x300",
+			"prompt": "Chinese folk horror UI character status panel, Taoist talisman frame, xuan black interior, dark gold thin border, cinnabar red corner accents, old paper texture, symmetrical, 9-slice ready, transparent background, minimalist, game UI asset, 512x512."
+		},
+		{
+			"id": "ui_bottom_hand_panel",
+			"priority": "P0",
+			"category": "panel",
+			"output_path": "assets/ui/generated/ui_bottom_hand_panel.png",
+			"size": [512, 256],
+			"nine_slice": [100, 78, 100, 78],
+			"usage": "底部技能/卡牌栏底板",
+			"prompt": "Chinese folk horror bottom action bar panel, dark gold border, xuan black interior, subtle talisman paper texture, horizontal layout, 9-slice ready, transparent background, minimalist, game UI asset, 512x256."
+		},
+		{
+			"id": "ui_info_panel",
+			"priority": "P1",
+			"category": "panel",
+			"output_path": "assets/ui/generated/ui_info_panel.png",
+			"size": [512, 256],
+			"nine_slice": [58, 78, 58, 82],
+			"usage": "技能描述/信息提示面板",
+			"prompt": "Chinese folk horror info tooltip panel, xuan black interior, dark gold border, old paper texture, 9-slice ready, transparent background, minimalist, game UI asset, 512x256."
+		},
+		{
+			"id": "ui_card_frame",
+			"priority": "P0",
+			"category": "panel",
+			"output_path": "assets/ui/generated/ui_card_frame.png",
+			"size": [256, 256],
+			"nine_slice": [58, 78, 58, 82],
+			"usage": "卡牌/技能按钮边框，目标显示尺寸 82x102",
+			"prompt": "Chinese folk horror card frame, yellow talisman paper edge, dark gold thin line, cinnabar red seal accent, rectangular, 9-slice ready, transparent background, game UI asset, 256x256."
+		},
+		{
+			"id": "ui_tab_button_frame",
+			"priority": "P1",
+			"category": "panel",
+			"output_path": "assets/ui/generated/ui_tab_button_frame.png",
+			"size": [256, 128],
+			"nine_slice": [76, 32, 76, 32],
+			"usage": "技能/道具 Tab 按钮边框",
+			"prompt": "Chinese folk horror tab button frame, dark gold border, xuan black interior, active state has cinnabar red top accent, 9-slice ready, transparent background, game UI asset, 256x128."
+		},
+		{
+			"id": "ui_diamond_button",
+			"priority": "P0",
+			"category": "panel",
+			"output_path": "assets/ui/generated/ui_diamond_button.png",
+			"size": [256, 256],
+			"nine_slice": [72, 72, 72, 72],
+			"usage": "菱形待机按钮，外接矩形 96x96",
+			"prompt": "Chinese folk horror diamond shaped wait end-turn button, dark gold and indigo window lattice pattern, xuan black center, cinnabar red edge accent, rotated 45 degrees diamond frame, 9-slice ready, transparent background, game UI asset, 256x256."
+		},
+		{
+			"id": "ui_top_button_frame",
+			"priority": "P1",
+			"category": "panel",
+			"output_path": "assets/ui/generated/ui_top_button_frame.png",
+			"size": [128, 128],
+			"nine_slice": [34, 34, 34, 34],
+			"usage": "右上角系统按钮（设置/自动/结束回合）",
+			"prompt": "Chinese folk horror small square icon button frame, minimal dark gold border, xuan black interior, 9-slice ready, transparent background, game UI asset, 128x128."
+		},
+		{
+			"id": "skill_icon_slash",
+			"priority": "P0",
+			"category": "icon",
+			"output_path": "assets/ui/generated/skill_icon_slash.png",
+			"size": [128, 128],
+			"usage": "斩击技能图标（桃木剑/铜钱剑）",
+			"prompt": "Skill icon, Chinese peach wood sword slash with copper coins, ink line art style, minimal flat icon, transparent background, game UI asset, 128x128."
+		},
+		{
+			"id": "skill_icon_soul",
+			"priority": "P0",
+			"category": "icon",
+			"output_path": "assets/ui/generated/skill_icon_soul.png",
+			"size": [128, 128],
+			"usage": "灵魂/封印技能图标（钟馗判官笔/勾魂锁）",
+			"prompt": "Skill icon, Chinese judge brush and soul-locking chain, Zhong Kui theme, ink line art style, minimal flat icon, transparent background, game UI asset, 128x128."
+		},
+		{
+			"id": "skill_icon_talisman",
+			"priority": "P0",
+			"category": "icon",
+			"output_path": "assets/ui/generated/skill_icon_talisman.png",
+			"size": [128, 128],
+			"usage": "符纸技能图标",
+			"prompt": "Skill icon, yellow Taoist talisman paper with cinnabar rune, ink line art style, minimal flat icon, transparent background, game UI asset, 128x128."
+		},
+		{
+			"id": "skill_icon_bell",
+			"priority": "P1",
+			"category": "icon",
+			"output_path": "assets/ui/generated/skill_icon_bell.png",
+			"size": [128, 128],
+			"usage": "铃铛/噪音技能图标",
+			"prompt": "Skill icon, Chinese bronze bell with sound wave rings, ink line art style, minimal flat icon, transparent background, game UI asset, 128x128."
+		},
+		{
+			"id": "skill_icon_fire",
+			"priority": "P0",
+			"category": "icon",
+			"output_path": "assets/ui/generated/skill_icon_fire.png",
+			"size": [128, 128],
+			"usage": "火焰技能图标（三昧真火/符咒火焰）",
+			"prompt": "Skill icon, Chinese Taoist flame 三昧真火, burning yellow talisman paper, orange-red fire, ink line art style, minimal flat icon, transparent background, game UI asset, 128x128."
+		},
+		{
+			"id": "skill_icon_rice",
+			"priority": "P1",
+			"category": "icon",
+			"output_path": "assets/ui/generated/skill_icon_rice.png",
+			"size": [128, 128],
+			"usage": "糯米/驱邪技能图标",
+			"prompt": "Skill icon, glutinous rice sack scattering rice grains, anti-spirit Taoist symbol, ink line art style, minimal flat icon, transparent background, game UI asset, 128x128."
+		},
+		{
+			"id": "skill_icon_water",
+			"priority": "P1",
+			"category": "icon",
+			"output_path": "assets/ui/generated/skill_icon_water.png",
+			"size": [128, 128],
+			"usage": "水/灭火技能图标",
+			"prompt": "Skill icon, water splash from wooden bucket, blue water droplets, ink line art style, minimal flat icon, transparent background, game UI asset, 128x128."
+		},
+		{
+			"id": "skill_icon_bind",
+			"priority": "P1",
+			"category": "icon",
+			"output_path": "assets/ui/generated/skill_icon_bind.png",
+			"size": [128, 128],
+			"usage": "墨线/束缚技能图标",
+			"prompt": "Skill icon, black ink line binding seal, Taoist restraint chain, ink line art style, minimal flat icon, transparent background, game UI asset, 128x128."
+		},
+		{
+			"id": "action_wait",
+			"priority": "P1",
+			"category": "icon",
+			"output_path": "assets/ui/generated/actions/action_wait.png",
+			"size": [128, 128],
+			"usage": "待机按钮图标",
+			"prompt": "Chinese folk horror wait icon, bronze hourglass on dark gold circle, transparent background, game UI asset, 128x128."
+		},
+		{
+			"id": "action_spell",
+			"priority": "P1",
+			"category": "icon",
+			"output_path": "assets/ui/generated/actions/action_spell.png",
+			"size": [128, 128],
+			"usage": "法术 Tab 图标",
+			"prompt": "Chinese folk horror spell icon, yellow talisman with cinnabar rune, transparent background, game UI asset, 128x128."
+		},
+		{
+			"id": "action_item",
+			"priority": "P1",
+			"category": "icon",
+			"output_path": "assets/ui/generated/actions/action_item.png",
+			"size": [128, 128],
+			"usage": "道具 Tab 图标",
+			"prompt": "Chinese folk horror item bag icon, cloth pouch with talisman tag, transparent background, game UI asset, 128x128."
+		},
+		{
+			"id": "mockup_action_mode_frame",
+			"priority": "P1",
+			"category": "panel",
+			"output_path": "assets/ui/mockup_v2/action_mode_frame.png",
+			"size": [256, 128],
+			"nine_slice": [38, 28, 38, 28],
+			"usage": "Tab 按钮背板（法术/道具）",
+			"prompt": "Chinese folk horror action mode tab frame, dark gold border, xuan black interior, 9-slice ready, transparent background, game UI asset, 256x128."
+		},
+		{
+			"id": "mockup_card_slot_frame",
+			"priority": "P1",
+			"category": "panel",
+			"output_path": "assets/ui/mockup_v2/card_slot_frame.png",
+			"size": [256, 256],
+			"nine_slice": [20, 26, 20, 26],
+			"usage": "卡牌槽位边框",
+			"prompt": "Chinese folk horror card slot frame, yellow talisman edge, dark gold line, 9-slice ready, transparent background, game UI asset, 256x256."
+		},
+		{
+			"id": "mockup_wait_button_frame",
+			"priority": "P1",
+			"category": "panel",
+			"output_path": "assets/ui/mockup_v2/wait_button_frame.png",
+			"size": [256, 256],
+			"nine_slice": [42, 42, 42, 42],
+			"usage": "待机按钮矩形背板（兼容旧逻辑）",
+			"prompt": "Chinese folk horror rectangular wait button frame, dark gold border, xuan black interior, 9-slice ready, transparent background, game UI asset, 256x256."
+		},
+		{
+			"id": "ui_frame_atlas_source",
+			"priority": "P2",
+			"category": "atlas",
+			"output_path": "assets/ui/generated/ui_frame_atlas_source.png",
+			"size": [1254, 1254],
+			"usage": "UI 边框大图集，供 data/ui_atlas.json 切分",
+			"prompt": "Chinese folk horror UI atlas sheet containing status panel frame, bottom hand panel frame, card frame, party member frame, diamond button, tab button frame. Dark gold and cinnabar red accents, xuan black interior, old paper texture, 9-slice ready elements, transparent background, game UI asset, 1254x1254."
+		},
+		{
+			"id": "skill_icon_atlas_source",
+			"priority": "P2",
+			"category": "atlas",
+			"output_path": "assets/ui/generated/skill_icon_atlas_source.png",
+			"size": [1254, 1254],
+			"usage": "技能图标大图集",
+			"prompt": "Chinese folk horror skill icon atlas sheet containing fire, slash, soul, talisman, rice, water, bind, bell icons. Ink line art style, transparent background, game UI asset, 1254x1254."
+		}
+	]
+}

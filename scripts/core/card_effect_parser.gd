@@ -49,24 +49,14 @@ static func _deal_damage(effect: Dictionary, ctx: Dictionary) -> Dictionary:
 		scaling = int(caster_stats.get(stat_key, 0) * sc.get("multiplier", 0.0))
 
 	var raw = base + scaling
-	var defense = 0
 	var dmg_type = effect.get("damageType", "physical")
-	var target_stats = ctx.get("target_stats", {})
-	if dmg_type == "physical":
-		defense = int(target_stats.get("defense", 0) * 0.5)
-	elif dmg_type == "magic":
-		defense = int(target_stats.get("magic_resist", 0) * 0.3)
-	var defense_modifier = ctx.get("target_defense_modifier", 1.0)
-	defense = int(defense * defense_modifier)
-
-	var final_dmg = maxi(1, raw - defense)
 
 	# Terrain dodge check
 	var dodge_chance = int(ctx.get("target_dodge", 0))
 	if dodge_chance > 0 and randi() % 100 < dodge_chance:
 		return {"type": "deal_damage", "damage": 0, "dodged": true, "damage_type": dmg_type}
 
-	return {"type": "deal_damage", "damage": final_dmg, "damage_type": dmg_type}
+	return {"type": "deal_damage", "damage": maxi(1, raw), "damage_type": dmg_type}
 
 static func _heal(effect: Dictionary, ctx: Dictionary) -> Dictionary:
 	var base = effect.get("value", 0)

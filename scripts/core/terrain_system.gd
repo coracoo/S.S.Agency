@@ -58,12 +58,6 @@ func _run_rules(map: GameMap, pos: Vector2i) -> void:
 		return
 	for rule in _rules:
 		var cell_tags = map.get_tags(pos.x, pos.y)
-		# Also check object tags at this position
-		var obj_id = map.get_object(pos.x, pos.y)
-		if obj_id != "":
-			var odef = _objects_data.get(obj_id, {})
-			for tag in odef.get("tags", []):
-				cell_tags[tag] = true
 		var trigger = rule.get("trigger", {})
 		var source_tags = trigger.get("source_tags", [])
 		var target_tags = trigger.get("target_tags", [])
@@ -77,32 +71,27 @@ func _run_rules(map: GameMap, pos: Vector2i) -> void:
 			continue
 
 		if target_tags.size() > 0:
+			# Check source cell itself
 			var cell_has_target = false
 			for tag in target_tags:
 				if cell_tags.get(tag, false):
 					cell_has_target = true
 					break
-			if cell_has_target:
-				if _conditions_met(rule.get("conditions", []), map, pos):
-						_apply_results(rule.get("results", []), map, pos, rule)
+			if cell_has_target and _conditions_met(rule.get("conditions", []), map, pos):
+				_apply_results(rule.get("results", []), map, pos, pos, rule)
+			# Check neighbors
 			for n in map.get_neighbors(pos):
 				var n_tags = map.get_tags(n.x, n.y)
-				# Include object tags at neighbor
-				var n_obj_id = map.get_object(n.x, n.y)
-				if n_obj_id != "":
-					var n_odef = _objects_data.get(n_obj_id, {})
-					for tag in n_odef.get("tags", []):
-						n_tags[tag] = true
 				var has_target = false
 				for tag in target_tags:
 					if n_tags.get(tag, false):
 						has_target = true
 						break
 				if has_target and _conditions_met(rule.get("conditions", []), map, n):
-						_apply_results(rule.get("results", []), map, n, rule)
+					_apply_results(rule.get("results", []), map, pos, n, rule)
 		else:
 			if _conditions_met(rule.get("conditions", []), map, pos):
-				_apply_results(rule.get("results", []), map, pos, rule)
+				_apply_results(rule.get("results", []), map, pos, pos, rule)
 
 func _conditions_met(conditions: Array, map: GameMap, pos: Vector2i) -> bool:
 	for condition in conditions:
@@ -118,35 +107,39 @@ func _conditions_met(conditions: Array, map: GameMap, pos: Vector2i) -> bool:
 					return false
 	return true
 
-func _apply_results(results: Array, map: GameMap, pos: Vector2i, rule: Dictionary = {}) -> void:
+func _apply_results(results: Array, map: GameMap, source_pos: Vector2i, target_pos: Vector2i, rule: Dictionary = {}) -> void:
 	if _in_spread_tick and bool(rule.get("skip_in_spread", false)):
 		return
 	for result in results:
 		var type = result.get("type", "")
+		# Destructive/removal effects apply to source cell; additive effects apply to target cell
+		var apply_pos = source_pos if type in ["remove_effect", "remove_tag", "remove_object"] else target_pos
 		match type:
 			"add_effect":
 				var eff = result.get("effect", "")
 				if eff != "":
-					_add_effect_for_current_phase(map, pos, eff)
+					_add_effect_for_current_phase(map, apply_pos, eff)
+					EventBus.emit("effect:added", {"map": map, "pos": apply_pos, "effect": eff})
 			"add_effect_neighbors":
 				var neighbor_eff = result.get("effect", "")
 				if neighbor_eff != "":
-					for n in map.get_neighbors(pos):
+					for n in map.get_neighbors(apply_pos):
 						if not map.has_tag(n.x, n.y, "blocking"):
 							_add_effect_for_current_phase(map, n, neighbor_eff)
+							EventBus.emit("effect:added", {"map": map, "pos": n, "effect": neighbor_eff})
 			"remove_effect":
-				map.remove_effect(pos.x, pos.y, result.get("effect", ""))
+				map.remove_effect(apply_pos.x, apply_pos.y, result.get("effect", ""))
 			"remove_tag":
-				map.remove_tag(pos.x, pos.y, result.get("tag", ""))
+				map.remove_tag(apply_pos.x, apply_pos.y, result.get("tag", ""))
 			"remove_object":
-				map.set_object(pos.x, pos.y, null)
+				map.set_object(apply_pos.x, apply_pos.y, null)
 			"damage_unit":
-				var uid = map.get_occupant_id(pos)
+				var uid = map.get_occupant_id(apply_pos)
 				if uid != "":
 					var dmg = 0
 					if result.get("value_source", "") == "effect":
 						var value_field = result.get("value_field", "damage")
-						for eff in map.get_effects(pos.x, pos.y):
+						for eff in map.get_effects(apply_pos.x, apply_pos.y):
 							var edef = _effects_data.get(eff.type, {})
 							if int(edef.get(value_field, 0)) > 0:
 								dmg = int(edef.get(value_field, 0))
@@ -154,9 +147,25 @@ func _apply_results(results: Array, map: GameMap, pos: Vector2i, rule: Dictionar
 					else:
 						dmg = int(result.get("value", 0))
 					if dmg > 0:
-						EventBus.emit("unit:terrain_damage", {"unit_id": uid, "damage": dmg, "pos": pos})
+						EventBus.emit("unit:terrain_damage", {"unit_id": uid, "damage": dmg, "pos": apply_pos})
+			"apply_status":
+				var uid = map.get_occupant_id(apply_pos)
+				if uid != "":
+					EventBus.emit("terrain:apply_status", {
+						"unit_id": uid,
+						"status_id": result.get("status_id", ""),
+						"duration": result.get("duration", 1)
+					})
+			"ai_state":
+				var uid = map.get_occupant_id(apply_pos)
+				if uid != "":
+					EventBus.emit("terrain:ai_state", {
+						"unit_id": uid,
+						"state": result.get("state", ""),
+						"reason": result.get("reason", "")
+					})
 			"emit_event":
-				EventBus.emit(result.get("event", ""), {"map": map, "pos": pos})
+				EventBus.emit(result.get("event", ""), {"map": map, "pos": apply_pos})
 
 func _duration_for_new_spread_effect(effect_type: String) -> int:
 	var base_duration = int(_effects_data.get(effect_type, {}).get("duration", 1))
@@ -200,6 +209,8 @@ func process_spread(map: GameMap) -> void:
 						continue
 					if map.has_tag(n.x, n.y, "blocking"):
 						continue
+					if map.has_tag(n.x, n.y, "wet") or map.has_tag(n.x, n.y, "liquid"):
+						continue
 					var can_spread = false
 					for stag in spread_tags:
 						if map.has_tag(n.x, n.y, stag):
@@ -218,26 +229,14 @@ func process_spread(map: GameMap) -> void:
 		var spread_pos = Vector2i(s.col, s.row)
 		if not effect_positions.has(spread_pos) and not newly_added_positions.has(spread_pos):
 			newly_added_positions.append(spread_pos)
+	# Emit effect:added for newly spread positions
+	for pos_n in newly_added_positions:
+		EventBus.emit("effect:added", {"map": map, "pos": pos_n})
 	# Run rules on original effect cells
 	for pos_s in effect_positions:
 		_run_rules(map, pos_s)
 	# Also run rules on newly spread positions
 	for pos_n in newly_added_positions:
 		_run_rules(map, pos_n)
-	# Collect ALL positions with effects (original + newly spread)
-	var all_effect_positions = effect_positions.duplicate()
-	for nap in newly_added_positions:
-		if not all_effect_positions.has(nap):
-			all_effect_positions.append(nap)
-	# Apply damage to units in ALL effect cells
-	for pos_d in all_effect_positions:
-		var uid_d = map.get_occupant_id(pos_d)
-		if uid_d == "":
-			continue
-		for eff_d in map.get_effects(pos_d.x, pos_d.y):
-			var edef_d = _effects_data.get(eff_d.type, {})
-			var dmg_d = int(edef_d.get("damage", 0))
-			if dmg_d > 0:
-				EventBus.emit("unit:terrain_damage", {"unit_id": uid_d, "damage": dmg_d, "pos": pos_d})
 	_in_spread_tick = false
 	_processing = false

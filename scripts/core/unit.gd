@@ -82,17 +82,27 @@ func _get_can_move() -> bool:
 	return remaining_move > 0
 
 func start_turn() -> void:
-	shield = 0
 	remaining_move = stats.move_range
 
 func spend_move(steps: int) -> void:
 	remaining_move = maxi(0, remaining_move - steps)
 
-func take_damage(amount: int) -> int:
+func take_damage(amount: int, damage_type: String = "physical", attacker_pos: Vector2i = Vector2i(-1, -1)) -> int:
 	var was_alive = is_alive
-	var absorbed = mini(shield, amount)
+	var defense = stats.get("defense", 0)
+	var magic_resist = stats.get("magic_resist", 2)
+	var mitigation = 0
+	if damage_type == "magic":
+		mitigation = int(magic_resist * 0.3)
+	else:
+		mitigation = int(defense * 0.5)
+	var direction_mod = 1.0
+	if attacker_pos != Vector2i(-1, -1):
+		direction_mod = get_defense_modifier(attacker_pos)
+	var final_amount = maxi(1, int((amount - mitigation) * direction_mod))
+	var absorbed = mini(shield, final_amount)
 	shield -= absorbed
-	var remaining = amount - absorbed
+	var remaining = final_amount - absorbed
 	current_hp = maxi(0, current_hp - remaining)
 	hp_changed.emit(self)
 	if was_alive and current_hp <= 0:

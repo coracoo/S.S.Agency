@@ -5,12 +5,15 @@ static var _defs: Dictionary = {}
 
 static func load_defs() -> void:
 	var data = JsonLoader.load_file("res://data/statuses.json")
-	if data == null:
+	if data == null or not data is Dictionary:
+		_defs = {}
 		return
-	_defs = data.statuses
+	_defs = data.get("statuses", {})
+	if _defs == null:
+		_defs = {}
 
 static func get_status_def(sid: String) -> Dictionary:
-	if _defs.is_empty():
+	if _defs == null or _defs.is_empty():
 		load_defs()
 	return _defs.get(sid, {})
 
@@ -32,7 +35,10 @@ static func apply_status(unit: Unit, status_id: String, duration: int, value: in
 		else:
 			existing.duration = maxi(existing.duration, duration)
 	else:
-		unit.status_effects.append({"status_id": status_id, "duration": duration, "value": value})
+		var entry = {"status_id": status_id, "duration": duration}
+		if value > 0:
+			entry["value"] = value
+		unit.status_effects.append(entry)
 
 static func tick_statuses(units: Array, timing: String) -> Array:
 	var results = []
@@ -48,8 +54,11 @@ static func tick_statuses(units: Array, timing: String) -> Array:
 			var tick = {"unit_id": unit.id, "status_id": active.status_id}
 			var effect_type = def.get("effectType", "none")
 			if effect_type == "damage":
-				var dmg = active.get("value", def.get("valuePerTick", 0))
-				unit.take_damage(dmg)
+				var dmg = active.get("value", 0)
+				if dmg == 0:
+					dmg = def.get("valuePerTick", 0)
+				var damage_type = def.get("damageType", "physical")
+				unit.take_damage(dmg, damage_type)
 				tick.damage = dmg
 			elif effect_type == "skip_turn":
 				tick.skipped_turn = true

@@ -185,11 +185,20 @@ static func play_card(card: Dictionary, caster: Unit, target_pos: Vector2i, map:
 			var fx = CardEffectParser.resolve_effects(card.get("effects", []), ctx_all)
 			for result in fx:
 				if result.get("damage", 0) > 0:
-					u.take_damage(result.damage)
+					var dmg_type = result.get("damage_type", "physical")
+					u.take_damage(result.damage, dmg_type, caster.position)
 					affected_units.append({"unit_id": u.id, "damage": result.damage})
 					if not u.is_alive:
 						map.set_occupant(u.position, null)
 						killed.append(u.id)
+				if result.get("status_id", "") != "":
+					StatusEffectManager.apply_status(u, result.status_id, result.get("status_duration", 1))
+				if result.get("type") == "push_unit":
+					_push_unit(caster, u, result.get("distance", 1), map, killed)
+				if result.get("type") == "pull":
+					_pull_unit(caster, u, result.get("distance", 1), map, killed)
+				if result.get("type") == "lifesteal":
+					_lifesteal(caster, fx)
 			all_effects.append_array(fx)
 		return {
 			"success": true,
@@ -232,7 +241,8 @@ static func play_card(card: Dictionary, caster: Unit, target_pos: Vector2i, map:
 					var fx = CardEffectParser.resolve_effects(card.get("effects", []), ctx_a)
 					for result in fx:
 						if result.get("damage", 0) > 0:
-							u.take_damage(result.damage)
+							var dmg_type = result.get("damage_type", "physical")
+							u.take_damage(result.damage, dmg_type, caster.position)
 							affected_units.append({"unit_id": u.id, "damage": result.damage})
 							if not u.is_alive:
 								map.set_occupant(u.position, null)
@@ -284,7 +294,8 @@ static func play_card(card: Dictionary, caster: Unit, target_pos: Vector2i, map:
 		if result.get("dodged", false):
 			was_dodged = true
 		if result.get("damage", 0) > 0 and target_unit:
-			target_unit.take_damage(result.damage)
+			var dmg_type = result.get("damage_type", "physical")
+			target_unit.take_damage(result.damage, dmg_type, caster.position)
 			affected_units.append({"unit_id": target_unit.id, "damage": result.damage})
 			if not target_unit.is_alive:
 				map.set_occupant(target_unit.position, null)
@@ -292,7 +303,8 @@ static func play_card(card: Dictionary, caster: Unit, target_pos: Vector2i, map:
 		if result.get("heal_amount", 0) > 0 and target_unit:
 			target_unit.heal(result.heal_amount)
 		if result.get("shield_amount", 0) > 0:
-			caster.add_shield(result.shield_amount)
+			var shield_target = target_unit if target_unit and card.get("targetType", "") == "ally" else caster
+			shield_target.add_shield(result.shield_amount)
 		if result.get("moved", false):
 			if target_pos != caster.position and (not map.is_walkable(target_pos) or map.is_occupied(target_pos)):
 				return {"success": false}

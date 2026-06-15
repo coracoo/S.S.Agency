@@ -5,7 +5,7 @@
   "grass":    {"tags": ["flammable", "solid"], "move_cost": 1, "color": "#4d8c40", "name": "草地"},
   "forest":   {"tags": ["flammable", "solid", "cover"], "move_cost": 2, "color": "#266b26", "name": "森林", "dodge": 20},
   "bush":     {"tags": ["flammable", "solid", "cover"], "move_cost": 1, "color": "#408c48", "name": "灌木", "dodge": 30},
-  "water":    {"tags": ["fire_extinguish", "conduct", "liquid", "blocking"], "move_cost": 99, "color": "#265a8c", "name": "水域"},
+  "water":    {"tags": ["fire_extinguish", "conduct", "liquid"], "move_cost": 2, "color": "#265a8c", "name": "水域"},
   "sand":     {"tags": ["solid"], "move_cost": 2, "color": "#b8a673", "name": "沙地"},
   "wall":     {"tags": ["fireproof", "blocking", "solid"], "move_cost": 99, "color": "#807a6c", "name": "墙壁"},
   "boundary": {"tags": ["blocking", "map_edge"], "move_cost": 99, "color": "#807a6c", "name": "庭院边界"},

@@ -9,7 +9,7 @@
   "apGainAmount": 1,
   "maxAp": 6,
   "terrainEffects": {
-    "grass": { "dodge": 0, "name": "平地" },
+    "grass": { "dodge": 0, "name": "草地" },
     "forest": { "dodge": 20, "name": "森林" },
     "bush": { "dodge": 30, "name": "灌木" },
     "sand": { "dodge": 0, "name": "沙地", "moveCost": 2 },

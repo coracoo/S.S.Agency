@@ -29,6 +29,10 @@ window/dpi/allow_hidpi=true
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/shaker/plugin.cfg")
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
