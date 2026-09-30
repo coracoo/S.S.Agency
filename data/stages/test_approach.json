@@ -4,7 +4,6 @@
  "bg": "res://assets/bg/approach/l2_test.png",
  "player_sprite": "res://assets/chars/rinne_idle.png",
  "player_height_px": 500,
- "move_speed": 240.0,
  "spawn_x": 620,
  "spirit": 2,
  "party": [
@@ -125,23 +124,7 @@
    590
   ]
  ],
- "player_anims": {
-  "idle": [
-   "res://assets/chars/anims/rinne_idle_f1.png",
-   "res://assets/chars/anims/rinne_idle_f2.png",
-   "res://assets/chars/anims/rinne_idle_f3.png",
-   "res://assets/chars/anims/rinne_idle_f4.png"
-  ],
-  "walk": [
-   "res://assets/chars/anims/rinne_walk_f1.png",
-   "res://assets/chars/anims/rinne_walk_f2.png",
-   "res://assets/chars/anims/rinne_walk_f3.png",
-   "res://assets/chars/anims/rinne_walk_f4.png",
-   "res://assets/chars/anims/rinne_walk_f5.png",
-   "res://assets/chars/anims/rinne_walk_f6.png"
-  ],
-  "fps": 8
- },
  "next": "res://scenes/v3/stage_corridor.tscn",
- "comment_ground": "参道石阶：前景平地 y930 → 960 起 10 级台阶（踏面95/rise34）→ 顶部平台 y560；逐段折线贴台阶前缘"
+ "comment_ground": "参道石阶：前景平地 y930 → 960 起 10 级台阶（踏面95/rise34）→ 顶部平台 y560；逐段折线贴台阶前缘",
+ "player_anims_from": "res://assets/chars/rinne_25d/animation_manifest.json"
 }

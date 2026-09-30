@@ -1,0 +1,24 @@
+{
+	"id": "rinne_25d_v3",
+	"note": "凛音右向 v3 逐帧（Rinne_Side_Inbetweens_Godot46_v3）：10张走路(保留原关键帧相位)+6姿势攻击收招。画布576x384，锚点(288,358)=脚底中心。左行=水平翻转。",
+	"dir": "res://assets/chars/rinne_25d/frames/",
+	"canvas": {"w": 576, "h": 384, "anchor": [288, 358], "content_height_px": 298, "height_m": 1.6},
+	"move_speed_mps": 2.6,
+	"anims": {
+		"idle": {
+			"frames": ["idle_right_f1", "idle_right_f2", "idle_right_f3", "idle_right_f4"],
+			"durations_ms": [500, 500, 500, 500],
+			"pingpong": true
+		},
+		"walk": {
+			"frames": ["walk_right_f1", "walk_candidate_12", "walk_right_f2", "walk_candidate_23", "walk_right_f3", "walk_right_f4", "walk_candidate_45", "walk_right_f5", "walk_candidate_56", "walk_right_f6"],
+			"durations_ms": [41.92, 41.92, 41.92, 41.92, 83.83, 41.92, 41.92, 41.92, 41.92, 83.83],
+			"period_s": 0.503
+		},
+		"attack": {
+			"frames": ["attack_right_f1", "attack_right_f2", "attack_right_f3", "recovery_right_f1", "recovery_right_f2", "recovery_right_f3"],
+			"durations_ms": [75, 55, 95, 55, 80, 100],
+			"loop": false
+		}
+	}
+}

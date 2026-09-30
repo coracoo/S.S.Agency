@@ -23,6 +23,12 @@ var _fg_layers: Array = [] # [{sprite, factor, base_x}]
 var _occluders: Array = [] # 中景遮挡体 [{sprite, base_y, xmin, xmax}]
 var _player: Node2D = null # Sprite2D（单帧旧素材）或 AnimatedSprite2D（逐帧动画）
 var _player_animated := false # true=逐帧动画模式（待机/走路帧表由 player_anims 数据驱动）
+var _anim_manifest: Dictionary = {} # player_anims_from 清单（v3：画布/脚底锚点/移速mps/每帧时长）
+var _has_attack_anim := false # 清单含 attack 动画时开放 J 键攻击
+var _attacking := false # 攻击演出中：锁位移、不可重入，播完回待机
+var _j_prev := false
+var _actual_speed := 0.0 # 本帧实际位移速度（px/s）：堵墙≈0，驱动步态播放比例
+var _demo_left := false # --stage-anim-check 自动验收：左走段
 var _player_base_scale := 1.0 # 透视缩放前的基准缩放（_build_player 算出，_update 里乘透视系数）
 var _ground_base_y := 900.0   # 透视基准：剖面最高点 y（最近地面）
 var _camera: Camera2D = null
@@ -145,6 +151,8 @@ func _ready() -> void:
 		_run_auto_demo()
 	if "--stage-walk" in OS.get_cmdline_user_args():
 		_run_walk_demo()
+	if "--stage-anim-check" in OS.get_cmdline_user_args():
+		_run_anim_check()
 
 # ---------- 数据 ----------
 
@@ -217,7 +225,7 @@ func _load_dialogue() -> void:
 	if backdrop_mode:
 		return
 	var args := OS.get_cmdline_user_args()
-	if "--no-dialogue" in args or "--stage-demo" in args:
+	if "--no-dialogue" in args or "--stage-demo" in args or "--stage-anim-check" in args:
 		return
 	var f := FileAccess.open("res://data/dialogues.json", FileAccess.READ)
 	if f == null:
@@ -367,48 +375,111 @@ func _update_parallax() -> void:
 		spr.position.x = float(layer["base_x"]) \
 			+ (float(layer["factor"]) - 1.0) * (cw * 0.5 - _camera.position.x)
 
+## 动画清单解析：player_anims_from（v3 manifest，含画布/锚点/移速/每帧时长）优先；
+## 无清单或读取失败退回舞台自带 player_anims（旧数组+统一 fps 格式兼容）
+func _resolve_player_anims() -> Dictionary:
+	var from: String = _cfg.get("player_anims_from", "")
+	if from.is_empty():
+		return _cfg.get("player_anims", {})
+	var f := FileAccess.open(from, FileAccess.READ)
+	if f == null:
+		push_error("[StageScene] 找不到动画清单 %s" % from)
+		return _cfg.get("player_anims", {})
+	var parsed: Variant = JSON.parse_string(f.get_as_text())
+	if not parsed is Dictionary:
+		push_error("[StageScene] 动画清单解析失败 %s" % from)
+		return _cfg.get("player_anims", {})
+	_anim_manifest = parsed
+	return parsed.get("anims", {})
+
+## 清单动画装配：frames(文件名)+durations_ms(每帧时长,毫秒)——不用统一帧率，精确还原节奏；
+## pingpong=乒乓呼吸序列（往返各帧时长不变）；loop=false=单次播放（攻击收招）
+func _add_manifest_anim(frames: SpriteFrames, state: String, spec: Dictionary) -> bool:
+	var dir: String = _anim_manifest.get("dir", "")
+	var names: Array = spec.get("frames", [])
+	var durs: Array = spec.get("durations_ms", [])
+	var texs: Array[Texture2D] = []
+	for n in names:
+		var t: Texture2D = _load_texture(dir + n + ".png")
+		if t != null:
+			texs.append(t)
+	if texs.is_empty():
+		return false
+	frames.add_animation(state)
+	frames.set_animation_speed(state, 1.0) # 时长直接给秒，速度=1
+	frames.set_animation_loop(state, bool(spec.get("loop", true)))
+	# Godot 4：帧时长只能在 add_frame 时给（duration=秒×speed 倒数）
+	var idx := 0
+	for i in range(texs.size()):
+		frames.add_frame(state, texs[i],
+			float(durs[i]) / 1000.0 if i < durs.size() else 0.1)
+		idx += 1
+	if bool(spec.get("pingpong", false)):
+		for i in range(texs.size() - 2, 0, -1):
+			frames.add_frame(state, texs[i], float(durs[i]) / 1000.0)
+			idx += 1
+	return true
+
 func _build_player() -> void:
-	# 优先逐帧动画（player_anims 数据驱动）：idle/walk 两组帧图 + fps
-	var anims: Dictionary = _cfg.get("player_anims", {})
+	# 逐帧动画优先：清单格式（字典：frames/durations_ms）或旧数组格式 + 统一 fps
+	var anims: Dictionary = _resolve_player_anims()
 	var frames := SpriteFrames.new()
 	frames.remove_animation("default")
 	var built := 0
-	for state in ["idle", "walk"]:
-		var cell_frames: Array[Texture2D] = []
-		for p in anims.get(state, []):
-			var t: Texture2D = _load_texture(p)
-			if t != null:
-				cell_frames.append(t)
-		if not cell_frames.is_empty():
-			frames.add_animation(state)
-			if state == "idle":
-				# 待机放慢（独立 idle_fps，缺省 0.6×）+ 乒乓序列 [0..n-1..1]：
-				# 往返呼吸感，循环时长翻倍，治「动作频率过快/不够细致」
-				frames.set_animation_speed(state, float(anims.get("idle_fps",
-					maxf(3.0, float(anims.get("fps", 8)) * 0.6))))
-				frames.add_frame(state, cell_frames[0])
-				for i in range(1, cell_frames.size()):
-					frames.add_frame(state, cell_frames[i])
-				for i in range(cell_frames.size() - 2, 0, -1):
-					frames.add_frame(state, cell_frames[i])
-			else:
-				frames.set_animation_speed(state, float(anims.get("fps", 8)))
-				for t in cell_frames:
-					frames.add_frame(state, t)
-			built += 1
+	for state in ["idle", "walk", "attack"]:
+		var spec: Variant = anims.get(state, null)
+		if spec is Dictionary:
+			if _add_manifest_anim(frames, state, spec):
+				built += 1
+		elif spec is Array and state != "attack":
+			var cell_frames: Array[Texture2D] = []
+			for p in spec:
+				var t: Texture2D = _load_texture(p)
+				if t != null:
+					cell_frames.append(t)
+			if not cell_frames.is_empty():
+				frames.add_animation(state)
+				if state == "idle":
+					# 待机放慢（独立 idle_fps，缺省 0.6×）+ 乒乓序列 [0..n-1..1]：
+					# 往返呼吸感，循环时长翻倍，治「动作频率过快/不够细致」
+					frames.set_animation_speed(state, float(anims.get("idle_fps",
+						maxf(3.0, float(anims.get("fps", 8)) * 0.6))))
+					frames.add_frame(state, cell_frames[0])
+					for i in range(1, cell_frames.size()):
+						frames.add_frame(state, cell_frames[i])
+					for i in range(cell_frames.size() - 2, 0, -1):
+						frames.add_frame(state, cell_frames[i])
+				else:
+					frames.set_animation_speed(state, float(anims.get("fps", 8)))
+					for t2 in cell_frames:
+						frames.add_frame(state, t2)
+				built += 1
 	if built > 0:
 		var asp := AnimatedSprite2D.new()
 		asp.sprite_frames = frames
 		asp.animation = "idle"
 		asp.play()
-		var fh := float(frames.get_frame_texture("idle", 0).get_height())
+		# 归一化与锚点：清单给画布尺寸/脚底锚点/内容身高（v3 576x384 锚(288,358)，
+		# 内容高298=脚底到发顶）；旧素材兜底=画布底中心锚点、按画布高归一化
+		var tex := frames.get_frame_texture("idle", 0)
+		var tex_w := float(tex.get_width())
+		var tex_h := float(tex.get_height())
+		var norm_h := tex_h
+		var anchor := Vector2(tex_w * 0.5, tex_h)
+		if not _anim_manifest.is_empty():
+			var canvas: Dictionary = _anim_manifest.get("canvas", {})
+			norm_h = float(canvas.get("content_height_px", tex_h))
+			var a: Array = canvas.get("anchor", [tex_w * 0.5, tex_h])
+			anchor = Vector2(float(a[0]), float(a[1]))
 		var target_h := float(_cfg.get("player_height_px", 500))
-		var s: float = target_h / fh
+		var s: float = target_h / norm_h
 		asp.scale = Vector2(s, s)
 		_player_base_scale = s
-		asp.offset = Vector2(0, -fh * 0.5) # 锚点移到脚底中心，方便贴地
+		asp.offset = Vector2(tex_w, tex_h) * 0.5 - anchor # 锚点移到脚底中心，方便贴地
 		_player = asp
 		_player_animated = true
+		_has_attack_anim = frames.has_animation("attack")
+		asp.animation_finished.connect(_on_player_anim_finished)
 	else:
 		var sp := Sprite2D.new()
 		sp.texture = _load_texture(_cfg.get("player_sprite", ""))
@@ -417,11 +488,26 @@ func _build_player() -> void:
 			sp.scale = Vector2(target_h2 / sp.texture.get_height(), target_h2 / sp.texture.get_height())
 			_player_base_scale = sp.scale.x
 		# 锚点移到脚底中心，方便贴地
-		var tex_h := float(sp.texture.get_height()) if sp.texture else 1.0
-		sp.offset = Vector2(0, -tex_h * 0.5)
+		var tex_h2 := float(sp.texture.get_height()) if sp.texture else 1.0
+		sp.offset = Vector2(0, -tex_h2 * 0.5)
 		_player = sp
 	add_child(_player)
 	_update_player_transform(0.0)
+
+## 移速：舞台显式 move_speed 优先；否则按清单 move_speed_mps 换算像素速度——
+## drawn 像素身高（content_height_px×基准缩放）= height_m 米 → v=s×身高px/height_m
+func _effective_move_speed() -> float:
+	var s := float(_cfg.get("move_speed", 0.0))
+	if s > 0.0:
+		return s
+	if not _anim_manifest.is_empty():
+		var mps := float(_anim_manifest.get("move_speed_mps", 0.0))
+		var canvas: Dictionary = _anim_manifest.get("canvas", {})
+		var content_h := float(canvas.get("content_height_px", 0.0))
+		var height_m := float(canvas.get("height_m", 1.6))
+		if mps > 0.0 and content_h > 0.0:
+			return mps * (content_h * _player_base_scale) / maxf(height_m, 0.01)
+	return 240.0
 
 func _build_camera() -> void:
 	_camera = Camera2D.new()
@@ -593,9 +679,19 @@ func _process(delta: float) -> void:
 			InkTransitionScript.transition(get_tree(), func() -> void:
 				_go_battle("res://scenes/v3/battle.tscn"))
 			return
+	# J：攻击（v3 六姿势收招，清单含 attack 动画时开放）：锁位移、不可重入
+	var kj := Input.is_key_pressed(KEY_J)
+	if input_enabled and kj and not _j_prev and not _attacking \
+			and _has_attack_anim and not _dlg_playing:
+		_start_attack()
+	_j_prev = kj
 	var dir := Input.get_axis("ui_left", "ui_right")
 	if _demo_walking:
 		dir = 1.0
+	if _demo_left:
+		dir = -1.0
+	if _attacking:
+		dir = 0.0 # 攻击期间锁位移
 	_moving = dir != 0.0
 	if _moving:
 		_facing = 1 if dir > 0 else -1
@@ -603,9 +699,12 @@ func _process(delta: float) -> void:
 		_walk_phase += delta * 11.0
 	else:
 		_idle_time += delta
-	var speed := float(_cfg.get("move_speed", 240.0))
+	var speed := _effective_move_speed()
 	var bounds: Array = _cfg.get("bounds", [120, 1800])
+	var old_x := _player_x
 	_player_x = clampf(_player_x + dir * speed * delta, bounds[0], bounds[1])
+	# 实际位移速度：堵墙/到界时≈0，驱动步态播放比例（不原地踏步，v3 frame_motion 同款）
+	_actual_speed = absf(_player_x - old_x) / maxf(delta, 0.0001)
 	_update_player_transform(delta)
 	_update_camera(delta)
 	_update_parallax()
@@ -617,11 +716,20 @@ func _update_player_transform(delta: float) -> void:
 		return
 	var gy := _ground_y(_player_x)
 	if _player_animated:
-		# 逐帧动画：状态切换即可，帧图自带呼吸/步伐起伏
+		# 逐帧动画：状态机 idle/walk/attack；walk 播放速度跟实际位移走
+		# （堵墙 speed_scale→0 并回待机，不原地踏步）
 		var asp: AnimatedSprite2D = _player as AnimatedSprite2D
-		var want := "walk" if _moving else "idle"
+		var want := "idle"
+		if _attacking:
+			want = "attack"
+		elif _moving and _actual_speed > _effective_move_speed() * 0.03:
+			want = "walk"
 		if asp.animation != want:
 			asp.play(want)
+		if want == "walk":
+			asp.speed_scale = clampf(_actual_speed / maxf(_effective_move_speed(), 1.0), 0.0, 2.0)
+		else:
+			asp.speed_scale = 1.0
 		_player.position = Vector2(_player_x, gy)
 	else:
 		# 单帧素材的过渡生命感（无动画数据时的兜底）
@@ -843,6 +951,39 @@ func _run_walk_demo() -> void:
 	_demo_walking = true
 	await get_tree().create_timer(5.0).timeout
 	_demo_walking = false
+
+## v3 迁移验收（--stage-anim-check）：右走循环 → J 攻击收招 → 左走朝向翻转 →
+## 右走顶墙回待机。分段截图核对各阶段姿势与锚点（脚贴行走遮罩）
+func _run_anim_check() -> void:
+	await get_tree().create_timer(1.0).timeout
+	input_enabled = false
+	_demo_walking = true # 1.0–3.0s 右走
+	await get_tree().create_timer(2.0).timeout
+	_demo_walking = false
+	_start_attack() # 3.0s 攻击（0.46s 六姿势收招）
+	await get_tree().create_timer(1.2).timeout
+	_demo_left = true # 4.2–5.7s 左走（scale 翻转，时间进度不丢）
+	await get_tree().create_timer(1.5).timeout
+	_demo_left = false
+	_demo_walking = true # 5.7s 起右走直至顶 bounds 右墙（回待机不踏步）
+	await get_tree().create_timer(4.0).timeout
+	_demo_walking = false
+
+## J 键攻击：攻击动画单次播放，期间 _process 锁位移；不可重入（v3 同款）
+func _start_attack() -> void:
+	if _attacking or not _has_attack_anim or _player == null:
+		return
+	_attacking = true
+	_idle_time = 0.0
+	var asp: AnimatedSprite2D = _player as AnimatedSprite2D
+	asp.speed_scale = 1.0
+	asp.play("attack")
+
+func _on_player_anim_finished(anim: StringName) -> void:
+	if anim == "attack":
+		_attacking = false
+		if _player is AnimatedSprite2D:
+			(_player as AnimatedSprite2D).play("idle")
 
 func draw_ground_ellipse(rect: Rect2, c: Color) -> void:
 	# draw_circle 的椭圆近似（按高度压缩，CanvasItem.draw_ellipse 为原生方法，勿覆盖）
