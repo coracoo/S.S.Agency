@@ -17,13 +17,6 @@ config/features=PackedStringArray("4.6")
 
 [autoload]
 
-EventBus="*res://scripts/core/event_bus.gd"
-NarrativeState="*res://scripts/v2/core/narrative_state.gd"
-GameBridge="*res://scripts/v2/scenes/scene_bridges.gd"
-SceneRouter="*res://scripts/v2/scenes/scene_router.gd"
-DebugLog="*res://scripts/v2/core/debug_logger.gd"
-Shaker="*uid://c425q3rueclny"
-
 [display]
 
 window/size/viewport_width=1920
