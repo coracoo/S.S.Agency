@@ -1,0 +1,71 @@
+{
+ "id": "corridor_act",
+ "name": "本殿回廊（第二幕·验证场景）",
+ "comment": "第二幕探索：corridor_walk 横版背景（素材批次②），木质 walkway 近水平，吊钟/纸门/水钵线索见 data/clues/corridor_act.json",
+ "bg": "res://assets/bg/corridor_walk.png",
+ "player_sprite": "res://assets/chars/rinne_idle.png",
+ "player_height_px": 500,
+ "move_speed": 240.0,
+ "spawn_x": 560,
+ "spirit": 3,
+ "party": [
+  {
+   "name": "凛音",
+   "art": "res://assets/chars/rinne_idle.png",
+   "hp": 30,
+   "hp_max": 30,
+   "fear": 0,
+   "fear_max": 100,
+   "hand": 3
+  },
+  {
+   "name": "薄荷",
+   "art": "res://assets/chars/hakuyo_idle.png",
+   "hp": 26,
+   "hp_max": 26,
+   "fear": 0,
+   "fear_max": 100,
+   "hand": 4
+  }
+ ],
+ "bounds": [
+  120,
+  1920
+ ],
+ "ground_profile": [
+  [
+   0,
+   930
+  ],
+  [
+   600,
+   930
+  ],
+  [
+   1200,
+   900
+  ],
+  [
+   2048,
+   880
+  ]
+ ],
+ "player_anims": {
+  "idle": [
+   "res://assets/chars/anims/rinne_idle_f1.png",
+   "res://assets/chars/anims/rinne_idle_f2.png",
+   "res://assets/chars/anims/rinne_idle_f3.png",
+   "res://assets/chars/anims/rinne_idle_f4.png"
+  ],
+  "walk": [
+   "res://assets/chars/anims/rinne_walk_f1.png",
+   "res://assets/chars/anims/rinne_walk_f2.png",
+   "res://assets/chars/anims/rinne_walk_f3.png",
+   "res://assets/chars/anims/rinne_walk_f4.png",
+   "res://assets/chars/anims/rinne_walk_f5.png",
+   "res://assets/chars/anims/rinne_walk_f6.png"
+  ],
+  "fps": 8
+ },
+ "next": "res://scenes/v3/stage_honden.tscn"
+}

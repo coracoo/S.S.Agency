@@ -1,0 +1,97 @@
+{
+	"_comment": "高精度 UI 主题：9-slice 边距/内容边距逐像素配置，UIThemeFactory 读取此文件构建 StyleBoxTexture。",
+	"colors": {
+		"brass": "#B8860B",
+		"cinnabar": "#C23B3B",
+		"copper": "#50A0A0",
+		"steam": "#E8E0D0",
+		"phosphor": "#7FFF50",
+		"ink": "#2A5C6B"
+	},
+	"font_size": {
+		"default": 16,
+		"title": 24,
+		"small": 13
+	},
+	"panels": {
+		"main": {
+			"source": "res://assets/v2/ui9/panel_main.png",
+			"margins": [
+				10,
+				10,
+				10,
+				10
+			],
+			"content": [
+				12,
+				8,
+				12,
+				8
+			]
+		},
+		"dark": {
+			"source": "res://assets/v2/ui9/panel_dark.png",
+			"margins": [
+				10,
+				10,
+				10,
+				10
+			],
+			"content": [
+				12,
+				8,
+				12,
+				8
+			]
+		}
+	},
+	"buttons": {
+		"normal": {
+			"source": "res://assets/v2/ui9/button.png",
+			"margins": [
+				10,
+				10,
+				10,
+				10
+			],
+			"content": [
+				12,
+				8,
+				12,
+				8
+			]
+		},
+		"hover": {
+			"source": "res://assets/v2/ui9/button.png",
+			"margins": [
+				10,
+				10,
+				10,
+				10
+			],
+			"content": [
+				12,
+				8,
+				12,
+				8
+			],
+			"modulate": "#DAB520"
+		},
+		"pressed": {
+			"source": "res://assets/v2/ui9/button.png",
+			"margins": [
+				10,
+				10,
+				10,
+				10
+			],
+			"content": [
+				12,
+				8,
+				12,
+				8
+			],
+			"modulate": "#785808"
+		}
+	}
+}

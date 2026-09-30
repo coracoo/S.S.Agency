@@ -1,0 +1,147 @@
+{
+ "id": "test_approach",
+ "name": "参道（验证场景）",
+ "bg": "res://assets/bg/approach/l2_test.png",
+ "player_sprite": "res://assets/chars/rinne_idle.png",
+ "player_height_px": 500,
+ "move_speed": 240.0,
+ "spawn_x": 620,
+ "spirit": 2,
+ "party": [
+  {
+   "name": "凛音",
+   "art": "res://assets/chars/rinne_idle.png",
+   "hp": 30,
+   "hp_max": 30,
+   "fear": 0,
+   "fear_max": 100,
+   "hand": 3
+  },
+  {
+   "name": "薄荷",
+   "art": "res://assets/chars/hakuyo_idle.png",
+   "hp": 26,
+   "hp_max": 26,
+   "fear": 0,
+   "fear_max": 100,
+   "hand": 4
+  }
+ ],
+ "bounds": [
+  120,
+  1920
+ ],
+ "ground_profile": [
+  [
+   0,
+   930
+  ],
+  [
+   960,
+   930
+  ],
+  [
+   960,
+   896
+  ],
+  [
+   1055,
+   896
+  ],
+  [
+   1055,
+   862
+  ],
+  [
+   1150,
+   862
+  ],
+  [
+   1150,
+   828
+  ],
+  [
+   1245,
+   828
+  ],
+  [
+   1245,
+   794
+  ],
+  [
+   1340,
+   794
+  ],
+  [
+   1340,
+   760
+  ],
+  [
+   1435,
+   760
+  ],
+  [
+   1435,
+   726
+  ],
+  [
+   1530,
+   726
+  ],
+  [
+   1530,
+   692
+  ],
+  [
+   1625,
+   692
+  ],
+  [
+   1625,
+   658
+  ],
+  [
+   1720,
+   658
+  ],
+  [
+   1720,
+   624
+  ],
+  [
+   1815,
+   624
+  ],
+  [
+   1815,
+   590
+  ],
+  [
+   1910,
+   590
+  ],
+  [
+   2048,
+   590
+  ]
+ ],
+ "player_anims": {
+  "idle": [
+   "res://assets/chars/anims/rinne_idle_f1.png",
+   "res://assets/chars/anims/rinne_idle_f2.png",
+   "res://assets/chars/anims/rinne_idle_f3.png",
+   "res://assets/chars/anims/rinne_idle_f4.png"
+  ],
+  "walk": [
+   "res://assets/chars/anims/rinne_walk_f1.png",
+   "res://assets/chars/anims/rinne_walk_f2.png",
+   "res://assets/chars/anims/rinne_walk_f3.png",
+   "res://assets/chars/anims/rinne_walk_f4.png",
+   "res://assets/chars/anims/rinne_walk_f5.png",
+   "res://assets/chars/anims/rinne_walk_f6.png"
+  ],
+  "fps": 8
+ },
+ "next": "res://scenes/v3/stage_corridor.tscn",
+ "comment_ground": "参道石阶：前景平地 y930 → 960 起 10 级台阶（踏面95/rise34）→ 顶部平台 y560；逐段折线贴台阶前缘"
+}

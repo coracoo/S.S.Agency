@@ -1,0 +1,24 @@
+{
+ "stage": "test_approach",
+ "comment": "画面线索（GDD §8 Phase 3）：探索中观察画面异常 → 靠近出现调查提示 → E 调查 → 解密文案 → 墨线转场进入战斗。坐标为世界坐标（与 stages/*.json 同一空间），y 缺省时取地面剖面。",
+ "clues": [
+  {
+   "id": "basin_reflection",
+   "type": "reflection",
+   "name": "水钵冷光",
+   "x": 750.0,
+   "y_offset": -34.0,
+   "y_abs": 916.0,
+   "radius": 150.0,
+   "anomaly": {
+    "kind": "cold_light",
+    "color": "fuji_500",
+    "flicker_speed": 2.6,
+    "glow_radius": 120
+   },
+   "hint": "水钵的反光冷得像月亮——参道上不该有这样的光。",
+   "resolve_text": "倒影里浮着一盏不存在的灯笼。逢魔的缝隙，就藏在这口水钵里。",
+   "battle": "res://scenes/v3/battle.tscn"
+  }
+ ]
+}

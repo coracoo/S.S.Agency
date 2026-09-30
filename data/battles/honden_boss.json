@@ -1,0 +1,395 @@
+{
+ "id": "honden_boss",
+ "name": "本殿前庭·逢魔刻（Boss 验证）",
+ "comment": "第三夜 Boss 战：三波——纸人形→残响→棺守。专属立绘 enemy_kanju + Boss 战夜景背景 honden_battle（素材批次③）",
+ "bg": "res://assets/bg/honden_battle.png",
+ "ap_per_turn": 6,
+ "spirit": {
+  "start": 4,
+  "per_turn": 1,
+  "phase2_from_turn": 3,
+  "phase2_bonus": 2,
+  "tier_attack_mult": {
+   "weak": 0.7,
+   "normal": 1.0,
+   "empowered": 1.3,
+   "berserk": 1.5
+  },
+  "weak_below": 3,
+  "empowered_from": 6,
+  "berserk_from": 8,
+  "pressure_damage_from": 8,
+  "pressure_damage": 2,
+  "comment_pressure": "灵气高压（评估 P2）：密度≥8 时玩家回合开始受 2 点灵压侵蚀——敌方尖啸堆灵气有了真实威胁"
+ },
+ "seal_rule": {
+  "min_seal_points": 2,
+  "min_spirit": 6
+ },
+ "player": {
+  "name": "凛音",
+  "sprite": "res://assets/chars/rinne_idle.png",
+  "hp": 30,
+  "height_px": 450,
+  "pos": [
+   210,
+   930
+  ],
+  "anims": {
+   "idle": [
+    "res://assets/chars/anims/rinne_idle_f1.png",
+    "res://assets/chars/anims/rinne_idle_f2.png",
+    "res://assets/chars/anims/rinne_idle_f3.png",
+    "res://assets/chars/anims/rinne_idle_f4.png"
+   ],
+   "walk": [
+    "res://assets/chars/anims/rinne_walk_f1.png",
+    "res://assets/chars/anims/rinne_walk_f2.png",
+    "res://assets/chars/anims/rinne_walk_f3.png",
+    "res://assets/chars/anims/rinne_walk_f4.png",
+    "res://assets/chars/anims/rinne_walk_f5.png",
+    "res://assets/chars/anims/rinne_walk_f6.png"
+   ],
+   "cast": [
+    "res://assets/chars/anims/rinne_cast_f1.png",
+    "res://assets/chars/anims/rinne_cast_f2.png",
+    "res://assets/chars/anims/rinne_cast_f3.png",
+    "res://assets/chars/anims/rinne_cast_f4.png",
+    "res://assets/chars/anims/rinne_cast_f5.png"
+   ],
+   "fps": 10
+  }
+ },
+ "deck": {
+  "copies": 2,
+  "hand_limit": 5
+ },
+ "enemies": [
+  {
+   "name": "纸人形",
+   "sprite": "res://assets/chars/enemy_paper_doll.png",
+   "hp": 26,
+   "attack": 6,
+   "height_px": 500,
+   "pos": [
+    1400,
+    800
+   ],
+   "fear_attack_mult": 0.5,
+   "stun_skip": false,
+   "pattern": [
+    "attack",
+    "attack",
+    "howl",
+    "attack"
+   ],
+   "intent_text": {
+    "attack": "扑击",
+    "howl": "尖啸 —— 灵气上升！"
+   },
+   "howl_spirit": 2,
+   "anims": {
+    "idle": [
+     "res://assets/chars/anims/paperdoll_idle_f1.png",
+     "res://assets/chars/anims/paperdoll_idle_f2.png",
+     "res://assets/chars/anims/paperdoll_idle_f3.png",
+     "res://assets/chars/anims/paperdoll_idle_f4.png"
+    ],
+    "fps": 5
+   },
+   "count": 2,
+   "spacing_px": 260
+  },
+  {
+   "name": "纸人形·残响",
+   "comment": "紫怨纸人。stun_skip:true——残响是无形之音，钟鸣穿之而过（免疫眩晕，P2 接线验证）",
+   "sprite": "res://assets/chars/enemy_paper_doll_echo.png",
+   "hp": 18,
+   "attack": 5,
+   "height_px": 440,
+   "pos": [
+    1400,
+    800
+   ],
+   "fear_attack_mult": 0.5,
+   "stun_skip": true,
+   "pattern": [
+    "pounce",
+    "attack",
+    "howl",
+    "attack"
+   ],
+   "intent_text": {
+    "attack": "扑击",
+    "howl": "尖啸 —— 灵气上升！",
+    "pounce": "猛扑（重击）"
+   },
+   "pounce_mult": 1.6,
+   "howl_spirit": 2
+  },
+  {
+   "name": "棺守 · 试验棺",
+   "comment": "Boss：素材批次③独立立绘（背负黑漆神棺的朽烂纸人形）， HP40 攻8",
+   "sprite": "res://assets/chars/enemy_kanju.png",
+   "hp": 40,
+   "attack": 8,
+   "seal_guard": 20,
+   "comment_guard": "破阵：HP>20 时棺气护体，结界符被弹开；击破至 HP≤20 棺盖碎裂，封印解禁",
+   "obsession_slot": "slot_shoji",
+   "obsession_text": "纸门遇火——棺守暴怒！",
+   "comment_obsession": "执念（P3，v2 obsession 语义重实现）：纸门被点燃后该波余下回合无视恐惧、攻击×1.5；引燃既是破阵助力也是双刃",
+   "height_px": 600,
+   "pos": [
+    1380,
+    760
+   ],
+   "fear_attack_mult": 0.7,
+   "stun_skip": false,
+   "pattern": [
+    "howl",
+    "attack",
+    "attack",
+    "pounce",
+    "attack",
+    "howl",
+    "pounce"
+   ],
+   "intent_text": {
+    "attack": "棺压",
+    "howl": "镇魂啸 —— 灵气大涨！",
+    "pounce": "扑棺（重击）"
+   },
+   "pounce_mult": 1.9,
+   "howl_spirit": 3
+  }
+ ],
+ "slots": [
+  {
+   "id": "slot_shoji",
+   "name": "纸门",
+   "pos": [
+    0.13,
+    0.38
+   ],
+   "state": "idle",
+   "adjacent": [
+    "slot_rope"
+   ]
+  },
+  {
+   "id": "slot_rope",
+   "name": "注连绳",
+   "pos": [
+    0.38,
+    0.22
+   ],
+   "state": "idle",
+   "adjacent": [
+    "slot_shoji",
+    "slot_bell"
+   ],
+   "seal_point": true
+  },
+  {
+   "id": "slot_bell",
+   "name": "吊钟",
+   "pos": [
+    0.53,
+    0.3
+   ],
+   "state": "idle",
+   "adjacent": [
+    "slot_rope",
+    "slot_basin"
+   ]
+  },
+  {
+   "id": "slot_basin",
+   "name": "水钵",
+   "pos": [
+    0.68,
+    0.55
+   ],
+   "state": "idle",
+   "adjacent": [
+    "slot_bell",
+    "slot_eaves"
+   ],
+   "extinguish": true
+  },
+  {
+   "id": "slot_eaves",
+   "name": "檐角",
+   "pos": [
+    0.87,
+    0.32
+   ],
+   "state": "idle",
+   "adjacent": [
+    "slot_basin"
+   ],
+   "seal_point": true
+  }
+ ],
+ "cards": [
+  {
+   "id": "slash",
+   "name": "居合斩",
+   "cost": 2,
+   "type": "attack",
+   "owner": "rinne",
+   "power": 8,
+   "tags": [
+    "weapon"
+   ],
+   "art": "res://assets/ui/cardart_val_slash.png",
+   "desc": "挥刀斩击敌方立绘，造成等同于牌面的伤害。燃烧的敌人受到恐惧侵蚀。"
+  },
+  {
+   "id": "ignite",
+   "name": "引燃",
+   "cost": 1,
+   "type": "slot",
+   "owner": "homura",
+   "slot_state": "burning",
+   "tags": [
+    "fire"
+   ],
+   "art": "res://assets/ui/cardart_val_ignite.png",
+   "desc": "点燃目标场景槽。火势每回合沿相连槽位蔓延，灼烧其中的敌人并令其恐惧。"
+  },
+  {
+   "id": "bell",
+   "name": "鸣钟",
+   "cost": 1,
+   "type": "slot",
+   "owner": "mint",
+   "slot_state": "ringing",
+   "tags": [
+    "bell",
+    "sound"
+   ],
+   "art": "res://assets/ui/cardart_val_bell.png",
+   "desc": "摇响吊钟：敌人下回合眩晕无法行动；鸣响也会惊起连锁，清除场景上的燃烧。"
+  },
+  {
+   "id": "spill",
+   "name": "倾覆",
+   "cost": 1,
+   "type": "slot",
+   "owner": "generic",
+   "slot_state": "spilled",
+   "tags": [
+    "water"
+   ],
+   "art": "res://assets/ui/cardart_val_spill.png",
+   "desc": "打翻槽位上的水器：扑灭与其相连槽位的火势。水克火——与鸣钟惊焰并列为灭火两环。"
+  },
+  {
+   "id": "seal",
+   "name": "结界符",
+   "cost": 2,
+   "type": "seal",
+   "owner": "zhongkui",
+   "slot_state": "sealed",
+   "tags": [
+    "talisman"
+   ],
+   "art": "res://assets/ui/cardart_val_seal.png",
+   "desc": "将结界符贴在阵眼上。集齐 2 处阵眼且灵气≥6 时，封印敌人，直接退治。"
+  },
+  {
+   "id": "seal2",
+   "name": "结界符·贰",
+   "cost": 2,
+   "type": "seal",
+   "owner": "zhongkui",
+   "slot_state": "sealed",
+   "tags": [
+    "talisman"
+   ],
+   "art": "res://assets/ui/cardart_val_seal.png",
+   "desc": "将结界符贴在阵眼上。集齐 2 处阵眼且灵气≥6 时，封印敌人，直接退治。"
+  },
+  {
+   "id": "hold_breath",
+   "name": "屏息",
+   "cost": 1,
+   "type": "skill",
+   "owner": "generic",
+   "power": 0,
+   "effects": {
+    "shield": 2,
+    "draw": 1
+   },
+   "tags": [
+    "mist"
+   ],
+   "art": "res://assets/ui/cardart_e_mist_guard.png",
+   "desc": "屏息凝神：获得 2 点护盾，并抽 1 张牌。"
+  },
+  {
+   "id": "call_soul",
+   "name": "唤灵",
+   "cost": 2,
+   "type": "skill",
+   "owner": "zhongkui",
+   "power": 0,
+   "effects": {
+    "spirit": 2,
+    "draw": 1
+   },
+   "tags": [
+    "spirit"
+   ],
+   "art": "res://assets/ui/cardart_e_spirit_wisps.png",
+   "desc": "唤亡者残灵助阵：灵气 +2（当心逢魔压力），并抽 1 张牌。"
+  },
+  {
+   "id": "nail_shadow",
+   "name": "钉影",
+   "cost": 3,
+   "type": "attack",
+   "owner": "rinne",
+   "power": 9,
+   "effects": {
+    "consume_mark": 2,
+    "bonus": 8
+   },
+   "tags": [
+    "weapon"
+   ],
+   "art": "res://assets/ui/cardart_e_nail_strike.png",
+   "desc": "消耗至多 2 层标记、每层伤害 +8 的终结钉刺。"
+  },
+  {
+   "id": "paper_aegis",
+   "name": "纸盾",
+   "cost": 0,
+   "type": "skill",
+   "owner": "generic",
+   "power": 0,
+   "effects": {
+    "shield": 2
+   },
+   "tags": [
+    "paper"
+   ],
+   "art": "res://assets/ui/cardart_e_paper_shield.png",
+   "desc": "不耗灵墨。折和纸为盾，获得 2 点护盾。"
+  },
+  {
+   "id": "return_edge",
+   "name": "回锋",
+   "cost": 1,
+   "type": "attack",
+   "owner": "homura",
+   "power": 5,
+   "tags": [
+    "weapon"
+   ],
+   "art": "res://assets/ui/cardart_e_return_blade.png",
+   "desc": "回旋短刃回锋过隙，造成 5 点伤害。"
+  }
+ ]
+}

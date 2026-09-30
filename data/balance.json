@@ -8,6 +8,16 @@
   "apGainEveryNTurns": 2,
   "apGainAmount": 1,
   "maxAp": 6,
+  "fear": {
+    "allyDeath": 25,
+    "hitBySpirit": 10,
+    "curseTilePerTurn": 5,
+    "hundredGhostsPerTurn": 15,
+    "killSpiritRecovery": -10,
+    "turnEndRecovery": -5,
+    "panicRecoverFactor": 0.6,
+    "moveNoiseVolume": 2
+  },
   "terrainEffects": {
     "grass": { "dodge": 0, "name": "草地" },
     "forest": { "dodge": 20, "name": "森林" },

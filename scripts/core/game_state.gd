@@ -33,6 +33,11 @@ var player_spawn_defs: Array = []
 var enemy_spawn_defs: Array = []
 var noise_events: Array = []
 var skipped_unit_ids: Dictionary = {}
+# 关卡流程(maps.json levelFlow):三阶段阶段机 + Boss 逃脱配置
+var level_flow: Dictionary = {}
+var level_stage: String = "recon"
+# 失败原因:"" / "wipe"(全灭) / "escaped"(棺材主逃脱)
+var lose_reason: String = ""
 
 func _init() -> void:
 	balance = JsonLoader.load_file("res://data/balance.json")
@@ -53,6 +58,7 @@ func _init() -> void:
 	# Legacy terrain effects fallback
 	map.load_terrain_effects(balance.get("terrainEffects", {}))
 	spirit_density = int(map_def.get("initialSpiritDensity", 0))
+	level_flow = map_def.get("levelFlow", {})
 	bg_image_path = map_def.get("bgImage", "")
 	var spawn_points = map_def.get("spawn_points", {})
 	player_spawn_defs = _parse_spawn_defs(spawn_points.get("players", []), ["rinne", "mint", "homura", "zhongkui"])
@@ -160,6 +166,12 @@ func set_ap(value: int) -> void:
 func modify_spirit_density(delta: int) -> void:
 	spirit_density = clampi(spirit_density + delta, 0, 10)
 
+# 移动噪音(GDD §七):薄荷「无声步」移动不产生噪音,其余角色按 balance.fear.moveNoiseVolume
+func move_noise_volume(unit: Unit) -> int:
+	if unit == null or unit.has_trait("silent_step"):
+		return 0
+	return int(balance.get("fear", {}).get("moveNoiseVolume", 2))
+
 func add_noise(pos: Vector2i, volume: int, source_id: String = "", source_type: String = "", noise_map: Dictionary = {}, duration: int = 1) -> void:
 	noise_events.append({
 		"pos": pos,
@@ -181,6 +193,9 @@ func clear_old_noise() -> void:
 			noise_events.remove_at(i)
 
 func is_battle_over() -> String:
+	# 特殊失败(棺材主逃脱等)优先于全灭判定
+	if lose_reason != "":
+		return "lost"
 	var alive_enemies = 0
 	var alive_players = 0
 	for e in enemies:

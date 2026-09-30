@@ -1,0 +1,66 @@
+{
+	"tiles": {
+		"wall": "res://assets/v2/tiles/wall.png",
+		"floor": "res://assets/v2/tiles/floor.png",
+		"floor_var": "res://assets/v2/tiles/floor_var.png",
+		"floor_crack": "res://assets/v2/tiles/floor_crack.png",
+		"floor_rune": "res://assets/v2/tiles/floor_rune.png",
+		"pit": "res://assets/v2/tiles/pit.png",
+		"door": "res://assets/v2/tiles/door.png",
+		"portal": "res://assets/v2/tiles/portal.png",
+		"corridor": "res://assets/v2/tiles/corridor.png",
+		"void": "res://assets/v2/tiles/void.png"
+	},
+	"ui9": {
+		"panel_main": "res://assets/v2/ui9/panel_main.png",
+		"panel_dark": "res://assets/v2/ui9/panel_dark.png",
+		"button": "res://assets/v2/ui9/button.png"
+	},
+	"sprites": {
+		"item_key": "res://assets/v2/sprites/item_key.png",
+		"item_scroll": "res://assets/v2/sprites/item_scroll.png"
+	},
+	"tileset_atlas": "res://assets/v2/tiles/tileset_atlas.png",
+	"tile_atlas_coords": {
+		"wall": [
+			0,
+			0
+		],
+		"floor": [
+			1,
+			0
+		],
+		"floor_var": [
+			2,
+			0
+		],
+		"floor_crack": [
+			3,
+			0
+		],
+		"floor_rune": [
+			4,
+			0
+		],
+		"pit": [
+			5,
+			0
+		],
+		"door": [
+			6,
+			0
+		],
+		"portal": [
+			7,
+			0
+		],
+		"corridor": [
+			0,
+			1
+		],
+		"void": [
+			1,
+			1
+		]
+	}
+}

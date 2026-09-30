@@ -1,0 +1,90 @@
+{
+    "version": "3.0.0",
+    "comment": "《逢魔退治帖》v3 设计令牌 —— GDD §9.3 的代码侧映射。UI 常量一律读此文件，禁止硬编码（GDD 规范6）。",
+
+    "canvas": {
+        "base_width": 1920,
+        "base_height": 1080,
+        "safe_area": 48,
+        "grid": 8,
+        "content_max_width": 960
+    },
+
+    "colors": {
+        "ink_900": "#14110E",
+        "ink_700": "#26211B",
+        "paper_100": "#F2EDE4",
+        "paper_300": "#B8AE9C",
+        "vermilion_500": "#C73E3A",
+        "gold_500": "#C9A227",
+        "fuji_500": "#7A6FF0",
+        "mizu_500": "#5FA8A0",
+        "hi_500": "#E8A33D",
+        "successful": "#6FA86F"
+    },
+
+    "semantic_colors": {
+        "hp_enemy": "vermilion_500",
+        "hp_player": "successful",
+        "spirit": "fuji_500",
+        "ap": "gold_500",
+        "interactive": "hi_500",
+        "damage_number": "vermilion_500",
+        "heal_number": "successful"
+    },
+
+    "typography": {
+        "display": { "font": "res://assets/fonts/Alibaba-PuHuiTi-Regular.ttf", "size": 96, "weight": "heavy" },
+        "h1": { "font": "res://assets/fonts/Alibaba-PuHuiTi-Regular.ttf", "size": 32, "weight": "bold" },
+        "h2": { "font": "res://assets/fonts/Alibaba-PuHuiTi-Regular.ttf", "size": 24, "weight": "bold" },
+        "body": { "font": "res://assets/fonts/Alibaba-PuHuiTi-Regular.ttf", "size": 18, "line_height": 1.6 },
+        "label": { "font": "res://assets/fonts/Alibaba-PuHuiTi-Regular.ttf", "size": 14, "letter_spacing_percent": 4 },
+        "numeric": { "font": "res://assets/fonts/Alibaba-PuHuiTi-Regular.ttf", "size": 24, "tnum": true }
+    },
+
+    "shape": {
+        "radius_button": 0,
+        "radius_tag": 4,
+        "radius_card": 10,
+        "radius_panel": 12,
+        "corner_cut_panel": 12,
+        "stroke_ink": 2,
+        "stroke_kintsugi": 1,
+        "button_shadow_edge": 3
+    },
+
+    "dims": {
+        "card": { "w": 240, "h": 336, "hover_scale": 1.15, "peek_height": 120 },
+        "card_detail": { "w": 480, "h": 672 },
+        "hp_bar": { "h": 8, "radius": 4 },
+        "fear_bar": { "h": 5 },
+        "spirit_dot": 12,
+        "ap_orb": 20,
+        "intent_bubble": 32,
+        "panel_shadow_offset": 4
+    },
+
+    "motion": {
+        "hover_ms": 80,
+        "press_ms": 60,
+        "button_state_ms": 120,
+        "panel_ms": 220,
+        "screen_transition_ms": 350,
+        "card_play_ms": 300,
+        "chain_slowmo_ms": 300,
+        "chain_slowmo_scale": 0.4,
+        "intent_preview_seconds": 1.2,
+        "easings": {
+            "standard": [0.4, 0.0, 0.2, 1.0],
+            "decelerate": [0.0, 0.0, 0.2, 1.0],
+            "weight": [0.5, 0.0, 1.0, 1.0]
+        },
+        "spring_overshoot": 0.8
+    },
+
+    "spirit": {
+        "dots": 10,
+        "eye_open_from": 4,
+        "density_alert_from": 6
+    }
+}

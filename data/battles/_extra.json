@@ -1,0 +1,39 @@
+{
+ "comment": "卡库补充卡（案件解锁奖励，不进任何场次预设牌组）",
+ "cards": [
+  {
+   "id": "soul_pin",
+   "name": "镇魂钉",
+   "cost": 2,
+   "type": "seal",
+   "owner": "rinne",
+   "power": 0,
+   "slot_state": "sealed",
+   "effects": {},
+   "tags": [
+    "talisman"
+   ],
+   "unlock": "night_patrol",
+   "art": "res://assets/ui/cardart_val_bell.png",
+   "desc": "结界符的变种：贴上阵眼时额外稳固封印（案件「夜巡」解锁）。"
+  },
+  {
+   "id": "soul_candle",
+   "name": "安魂烛",
+   "cost": 1,
+   "type": "skill",
+   "owner": "rinne",
+   "power": 0,
+   "effects": {
+    "shield": 3,
+    "cleanse": 1
+   },
+   "tags": [
+    "talisman"
+   ],
+   "unlock": "night_patrol",
+   "art": "res://assets/ui/cardart_val_seal.png",
+   "desc": "点亮安魂烛：获得 3 点护盾并净化 1 层缠身状态（案件「夜巡」解锁）。"
+  }
+ ]
+}

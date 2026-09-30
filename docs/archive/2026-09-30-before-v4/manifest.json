@@ -1,0 +1,62 @@
+[
+  {
+    "source": "AGENTS.md",
+    "archived": "docs/archive/2026-09-30-before-v4/AGENTS.md",
+    "sha256": "f8010dcd0022747ac1495983727661b938dec86a197889318cc3c6995c2f5d5e",
+    "original_mtime_ns": 1784805521240055100
+  },
+  {
+    "source": "UI.md",
+    "archived": "docs/archive/2026-09-30-before-v4/UI.md",
+    "sha256": "731f5feec547bc29a4fa8aeca5dc3a0b4b027abe362b52873643b0db0fdb357b",
+    "original_mtime_ns": 1781473066000000000
+  },
+  {
+    "source": "docs/AI_Art_Pipeline_Codex.md",
+    "archived": "docs/archive/2026-09-30-before-v4/docs/AI_Art_Pipeline_Codex.md",
+    "sha256": "6b161cf40c26f3e8134f9b270f0dd82162b66356271c53405d11556ae2dc4776",
+    "original_mtime_ns": 1781473066000000000
+  },
+  {
+    "source": "docs/Art_Bible.md",
+    "archived": "docs/archive/2026-09-30-before-v4/docs/Art_Bible.md",
+    "sha256": "fea70ef2de6c50d857b409f9ffd09a28389f55a065de43423708fbd3cfd0039b",
+    "original_mtime_ns": 1781473066000000000
+  },
+  {
+    "source": "docs/Codex_UI_Generation_Task.md",
+    "archived": "docs/archive/2026-09-30-before-v4/docs/Codex_UI_Generation_Task.md",
+    "sha256": "397efa3a0bbdfc7ca3c5f7ebcddcd5eaf1899f9bb9e10053583c7fc1b6b14a31",
+    "original_mtime_ns": 1781473066000000000
+  },
+  {
+    "source": "docs/GDD.md",
+    "archived": "docs/archive/2026-09-30-before-v4/docs/GDD.md",
+    "sha256": "d3a7bdc1b9893d115bd9e8cbb4396930c133db4e0cef2782fe40fa8f18f60499",
+    "original_mtime_ns": 1790646436202715900
+  },
+  {
+    "source": "docs/v2/架构说明.md",
+    "archived": "docs/archive/2026-09-30-before-v4/docs/v2/架构说明.md",
+    "sha256": "cd00416bfcd9056c7307feea6d4de133bb8e4ca01d00cd16763c0f21938f0d08",
+    "original_mtime_ns": 1788370583777923600
+  },
+  {
+    "source": "docs/v3_v2_systems_evaluation.md",
+    "archived": "docs/archive/2026-09-30-before-v4/docs/v3_v2_systems_evaluation.md",
+    "sha256": "a6700fefb6b51ad9840a59b8d46a7ac2abc55c110a397e481350ad719391b501",
+    "original_mtime_ns": 1790650413709431900
+  },
+  {
+    "source": "docs/代码实施方案.md",
+    "archived": "docs/archive/2026-09-30-before-v4/docs/代码实施方案.md",
+    "sha256": "54e597e44252e9013db70e0c00c2322397e12ccfed645c75b785f4c2689782f3",
+    "original_mtime_ns": 1781473066000000000
+  },
+  {
+    "source": "docs/进度.md",
+    "archived": "docs/archive/2026-09-30-before-v4/docs/进度.md",
+    "sha256": "9ccdbe7588d0f4b94f89b934a20d2eb47dc911bfdace22fc79a16789b1274ec1",
+    "original_mtime_ns": 1790697405516995200
+  }
+]

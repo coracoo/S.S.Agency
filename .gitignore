@@ -14,3 +14,10 @@ __pycache__/
 # OS
 .DS_Store
 Thumbs.db
+
+# 验证临时截图
+tmp_*.png
+tmp_*.png.import
+
+# 试玩包导出产物（体积大，不入库）
+build/

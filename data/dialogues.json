@@ -1,0 +1,134 @@
+{
+ "stages": {
+  "test_approach": {
+   "enter": "a1",
+   "hotspots": [
+    {
+     "x": 850.0,
+     "node": "h1"
+    }
+   ],
+   "nodes": {
+    "a1": {
+     "speaker": "rinne",
+     "name": "凛音",
+     "color": "vermilion_500",
+     "portrait": "res://assets/chars/portraits/rinne_half.png",
+     "side": "left",
+     "text": "就是这条参道了。逢魔时刻还差一点——山里的雾，已经开始发烫。",
+     "next": "a2",
+     "choices": []
+    },
+    "a2": {
+     "speaker": "hakuyo",
+     "name": "薄荷",
+     "color": "fuji_500",
+     "portrait": "res://assets/chars/portraits/hakuyo_half.png",
+     "side": "right",
+     "text": "委托人说的「石钵倒影」，真的会在日落时分亮起来吗？我现在可是什么都看不见哦。",
+     "next": "a3",
+     "choices": []
+    },
+    "a3": {
+     "speaker": "rinne",
+     "name": "凛音",
+     "color": "vermilion_500",
+     "portrait": "res://assets/chars/portraits/rinne_half.png",
+     "side": "left",
+     "text": "看不见才好。看得一清二楚的东西，事务所收三倍价钱。",
+     "next": "a4",
+     "choices": []
+    },
+    "a4": {
+     "speaker": "hakuyo",
+     "name": "薄荷",
+     "color": "fuji_500",
+     "portrait": "res://assets/chars/portraits/hakuyo_half.png",
+     "side": "right",
+     "text": "诶——那上次那口井里的，你怎么只收了一倍？",
+     "next": "a5",
+     "choices": []
+    },
+    "a5": {
+     "speaker": "rinne",
+     "name": "凛音",
+     "color": "vermilion_500",
+     "portrait": "res://assets/chars/portraits/rinne_half.png",
+     "side": "left",
+     "text": "因为那口井欠我一次。……到了。台阶上面，就是村子里没人敢提的那块地。",
+     "next": "",
+     "choices": []
+    },
+    "h1": {
+     "speaker": "rinne",
+     "name": "凛音",
+     "color": "vermilion_500",
+     "portrait": "res://assets/chars/portraits/rinne_half.png",
+     "side": "left",
+     "text": "停。薄荷，看台阶边上那尊石钵——水面上有光。",
+     "next": "h2",
+     "choices": []
+    },
+    "h2": {
+     "speaker": "hakuyo",
+     "name": "薄荷",
+     "color": "fuji_500",
+     "portrait": "res://assets/chars/portraits/hakuyo_half.png",
+     "side": "right",
+     "text": "冷冷的……蓝紫色的。可是凛音，那倒影里——没有我们。",
+     "next": "h3",
+     "choices": []
+    },
+    "h3": {
+     "speaker": "rinne",
+     "name": "凛音",
+     "color": "vermilion_500",
+     "portrait": "res://assets/chars/portraits/rinne_half.png",
+     "side": "left",
+     "text": "石钵照的不是人，是「缝隙」。水面亮起来的时候，逢魔的眼睛也睁开了。",
+     "next": "",
+     "choices": [
+      {
+       "text": "先退后一步，看清光的来路",
+       "next": "h4a"
+      },
+      {
+       "text": "压低脚步，直接靠近",
+       "next": "h4b"
+      }
+     ]
+    },
+    "h4a": {
+     "speaker": "hakuyo",
+     "name": "薄荷",
+     "color": "fuji_500",
+     "portrait": "res://assets/chars/portraits/hakuyo_half.png",
+     "side": "right",
+     "text": "（压低声音）光是从水底浮上来的……像灯笼火，可是水下根本没有灯。",
+     "next": "h5",
+     "choices": []
+    },
+    "h4b": {
+     "speaker": "rinne",
+     "name": "凛音",
+     "color": "vermilion_500",
+     "portrait": "res://assets/chars/portraits/rinne_half.png",
+     "side": "left",
+     "text": "别碰水面。……记住了：它现在只是「看」着我们，还不想把人拉下去。",
+     "next": "h5",
+     "choices": []
+    },
+    "h5": {
+     "speaker": "rinne",
+     "name": "凛音",
+     "color": "vermilion_500",
+     "portrait": "res://assets/chars/portraits/rinne_half.png",
+     "side": "left",
+     "text": "靠近石钵，按 E 确认那道倒影。看完就走——天黑之前，我们还有一场架要打。",
+     "next": "",
+     "choices": []
+    }
+   }
+  }
+ }
+}

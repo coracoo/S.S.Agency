@@ -1,0 +1,44 @@
+{
+ "stage": "corridor_act",
+ "comment": "第二幕画面线索（GDD §8）：回廊的异象——无风自鸣的吊钟。坐标为世界坐标。",
+ "clues": [
+  {
+   "id": "bell_self_ring",
+   "type": "sound",
+   "name": "钟鸣异象",
+   "x": 482.0,
+   "y_offset": -120.0,
+   "y_abs": 575.0,
+   "radius": 150.0,
+   "anomaly": {
+    "kind": "cold_light",
+    "color": "hi_500",
+    "flicker_speed": 3.2,
+    "glow_radius": 110,
+    "shape": "none"
+   },
+   "hint": "没有风，吊钟却在轻轻晃——钟舌上缠着一根不属于这里的红线。",
+   "resolve_text": "钟鸣三响，纸门后的气息醒了。抬着空棺的纸人形，正在回廊深处列队。",
+   "battle": "res://scenes/v3/battle.tscn"
+  },
+  {
+   "id": "coffin_sendoff",
+   "type": "reflection",
+   "name": "送行残文",
+   "x": 1050.0,
+   "y_offset": -100.0,
+   "y_abs": 575.0,
+   "radius": 150.0,
+   "anomaly": {
+    "kind": "cold_light",
+    "color": "gold_500",
+    "flicker_speed": 1.8,
+    "glow_radius": 120,
+    "shape": "none"
+   },
+   "hint": "纸门下的缝隙里塞着一页残文，字迹被潮气晕开——「先辨认、再安放、最后引路」。",
+   "resolve_text": "残文背面是一幅没画完的回廊送行图。棺守等的不是战斗，是一场被遗忘的仪式。",
+   "battle": "res://scenes/v3/ritual.tscn"
+  }
+ ]
+}

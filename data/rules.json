@@ -86,6 +86,8 @@
     },
     {
       "id": "seal_activation",
+      "handled_by": "spirit_system",
+      "_note": "封印判定(阵眼>=3+符纸+灵气>=6+目标在阵区)由 SpiritSystem 实现,TerrainSystem 跳过此条",
       "trigger": {"source_tags": ["seal_component"], "target_tags": ["seal_point"]},
       "conditions": [
         {"type": "min_spirit_density", "value": 6},

@@ -1,0 +1,89 @@
+{
+ "id": "mountain_path",
+ "name": "暮色山道（分层背景验证场景）",
+ "comment": "分层管线范例：far 远山暮色(视差0.85) / arch 鸟居石阶主背景(钉行走遮罩) / fg1 银杏前景(视差1.30)；遮罩可在后台「行走遮罩」页手涂",
+ "bg": "res://assets/bg/mountain_path/arch.png",
+ "bg_far": "res://assets/bg/mountain_path/far.png",
+ "bg_far_factor": 0.85,
+ "player_sprite": "res://assets/chars/rinne_idle.png",
+ "player_height_px": 500,
+ "move_speed": 240.0,
+ "spawn_x": 300,
+ "spirit": 3,
+ "party": [
+  {
+   "name": "凛音",
+   "art": "res://assets/chars/rinne_idle.png",
+   "hp": 30,
+   "hp_max": 30,
+   "fear": 0,
+   "fear_max": 100,
+   "hand": 3
+  },
+  {
+   "name": "薄荷",
+   "art": "res://assets/chars/hakuyo_idle.png",
+   "hp": 26,
+   "hp_max": 26,
+   "fear": 0,
+   "fear_max": 100,
+   "hand": 4
+  }
+ ],
+ "bounds": [
+  120,
+  1920
+ ],
+ "ground_profile": [
+  [
+   0,
+   990
+  ],
+  [
+   900,
+   990
+  ],
+  [
+   1080,
+   978
+  ],
+  [
+   1250,
+   810
+  ],
+  [
+   1450,
+   640
+  ],
+  [
+   1650,
+   460
+  ],
+  [
+   1850,
+   310
+  ],
+  [
+   2048,
+   245
+  ]
+ ],
+ "player_anims": {
+  "idle": [
+   "res://assets/chars/anims/rinne_idle_f1.png",
+   "res://assets/chars/anims/rinne_idle_f2.png",
+   "res://assets/chars/anims/rinne_idle_f3.png",
+   "res://assets/chars/anims/rinne_idle_f4.png"
+  ],
+  "walk": [
+   "res://assets/chars/anims/rinne_walk_f1.png",
+   "res://assets/chars/anims/rinne_walk_f2.png",
+   "res://assets/chars/anims/rinne_walk_f3.png",
+   "res://assets/chars/anims/rinne_walk_f4.png",
+   "res://assets/chars/anims/rinne_walk_f5.png",
+   "res://assets/chars/anims/rinne_walk_f6.png"
+  ],
+  "fps": 8
+ },
+ "comment_ground": "山道：平地 y990 → 1080 起石阶至右上平台（遮罩 assets/bg/walkmasks/mountain_path.png 已边缘吸附，可后台细涂）"
+}

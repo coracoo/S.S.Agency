@@ -15,14 +15,42 @@
       "startingDeck": [],
       "color": 4292208128,
       "faction": "enemy",
-      "tags": ["spirit", "flammable"],
+      "tags": [
+        "spirit",
+        "flammable",
+        "minion"
+      ],
       "aiProfile": {
         "behavior": "melee",
         "defaultState": "patrol",
-        "fearTags": ["burning", "light"],
+        "fearTags": [
+          "burning",
+          "light"
+        ],
         "fearRange": 3,
         "noiseHearing": 5,
-        "obsession": "coffin"
+        "fear_noise": 0.6,
+        "obsession": "coffin",
+        "patrolPath": [
+          [
+            3,
+            2
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        "sightRange": 5,
+        "rageTurns": 3
       }
     },
     {
@@ -40,14 +68,29 @@
       "startingDeck": [],
       "color": 4278236351,
       "faction": "enemy",
-      "tags": ["spirit", "aquatic"],
+      "tags": [
+        "spirit",
+        "aquatic"
+      ],
       "aiProfile": {
         "behavior": "ranged",
         "defaultState": "search",
         "noiseHearing": 7,
-        "preferredTags": ["water", "wet"],
-        "fearTags": ["seal_point", "anti_spirit"],
-        "fearRange": 2
+        "preferredTags": [
+          "water",
+          "wet"
+        ],
+        "fearTags": [
+          "seal_point",
+          "anti_spirit"
+        ],
+        "fearRange": 2,
+        "waterLurk": true,
+        "dragAdjacent": true,
+        "homeTags": [
+          "liquid"
+        ],
+        "weakAwayRange": 2
       }
     },
     {
@@ -65,13 +108,21 @@
       "startingDeck": [],
       "color": 4278223103,
       "faction": "enemy",
-      "tags": ["spirit", "undead"],
+      "tags": [
+        "spirit",
+        "undead"
+      ],
       "aiProfile": {
         "behavior": "tank",
         "defaultState": "chase",
         "noiseHearing": 4,
-        "fearTags": ["talisman", "spirit_block"],
-        "fearRange": 2
+        "fearTags": [
+          "talisman",
+          "spirit_block"
+        ],
+        "fearRange": 2,
+        "leapMove": true,
+        "leapRange": 2
       }
     },
     {
@@ -89,13 +140,20 @@
       "startingDeck": [],
       "color": 4294901760,
       "faction": "enemy",
-      "tags": ["spirit"],
+      "tags": [
+        "spirit"
+      ],
       "aiProfile": {
         "behavior": "mage",
         "defaultState": "search",
         "noiseHearing": 8,
-        "fearTags": ["seal_point", "talisman"],
-        "fearRange": 2
+        "fearTags": [
+          "seal_point",
+          "talisman"
+        ],
+        "fearRange": 2,
+        "teleportWhenWatched": true,
+        "watchRange": 5
       }
     },
     {
@@ -113,14 +171,24 @@
       "startingDeck": [],
       "color": 4283782485,
       "faction": "enemy",
-      "tags": ["spirit", "boss"],
+      "tags": [
+        "spirit",
+        "boss"
+      ],
       "aiProfile": {
         "behavior": "boss",
         "defaultState": "rage",
         "noiseHearing": 6,
-        "fearTags": ["seal_point", "spirit_block"],
+        "fearTags": [
+          "seal_point",
+          "spirit_block"
+        ],
         "fearRange": 1,
-        "obsession": "exit"
+        "obsession": "exit",
+        "bossPhases": true,
+        "phase2HpFrac": 0.5,
+        "commandEvery": 3,
+        "fearSealPoints": true
       },
       "boss": true
     }

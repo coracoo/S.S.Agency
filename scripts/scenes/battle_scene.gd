@@ -110,6 +110,8 @@ const TILE_W = 128
 const TILE_H = 64
 const NoiseSystemScript = preload("res://scripts/core/noise_system.gd")
 const SpiritSystemScript = preload("res://scripts/core/spirit_system.gd")
+const LevelDirectorScript = preload("res://scripts/core/level_director.gd")
+const TutorialDirectorScript = preload("res://scripts/core/tutorial_director.gd")
 
 const UI_BG := Color(0.045, 0.060, 0.078, 0.58)
 const UI_BG_DEEP := Color(0.040, 0.052, 0.070, 0.66)
@@ -133,40 +135,62 @@ var _ui_textures: Dictionary = {}
 var _card_face_textures: Dictionary = {}
 
 const UI_TEXTURE_FILES := {
-	"bottom_hand": "res://assets/ui/generated/ui_bottom_hand_panel.png",
-	"status_panel": "res://assets/ui/generated/ui_status_panel.png",
-	"info_panel": "res://assets/ui/generated/ui_info_panel.png",
-	"card_frame": "res://assets/ui/generated/ui_card_frame.png",
-	"tab_button": "res://assets/ui/generated/ui_tab_button_frame.png",
-	"diamond_button": "res://assets/ui/generated/ui_diamond_button.png",
-	"top_button": "res://assets/ui/generated/ui_top_button_frame.png",
-	"skill_icon_slash": "res://assets/ui/generated/skill_icon_slash.png",
-	"skill_icon_soul": "res://assets/ui/generated/skill_icon_soul.png",
-	"skill_icon_talisman": "res://assets/ui/generated/skill_icon_talisman.png",
-	"skill_icon_bell": "res://assets/ui/generated/skill_icon_bell.png",
-	"skill_icon_fire": "res://assets/ui/generated/skill_icon_fire.png",
-	"skill_icon_rice": "res://assets/ui/generated/skill_icon_rice.png",
-	"skill_icon_water": "res://assets/ui/generated/skill_icon_water.png",
-	"skill_icon_bind": "res://assets/ui/generated/skill_icon_bind.png",
-	"action_wait": "res://assets/ui/generated/actions/action_wait.png",
-	"action_spell": "res://assets/ui/generated/actions/action_spell.png",
-	"action_item": "res://assets/ui/generated/actions/action_item.png",
-	"card_frame_v2": "res://assets/ui/mockup_v2/card_slot_frame.png",
-	"action_mode_v2": "res://assets/ui/mockup_v2/action_mode_frame.png",
-	"wait_button_v2": "res://assets/ui/mockup_v2/wait_button_frame.png",
+	"bottom_hand": "res://assets/ui/steampunk/ui_bottom_hand_panel.png",
+	"status_panel": "res://assets/ui/steampunk/ui_status_panel.png",
+	"info_panel": "res://assets/ui/steampunk/ui_info_panel.png",
+	"card_frame": "res://assets/ui/steampunk/ui_card_frame.png",
+	"tab_button": "res://assets/ui/steampunk/ui_tab_button_frame.png",
+	"diamond_button": "res://assets/ui/steampunk/ui_diamond_button.png",
+	"top_button": "res://assets/ui/steampunk/ui_top_button_frame.png",
+	"skill_icon_slash": "res://assets/ui/steampunk/skill_icon_slash.png",
+	"skill_icon_soul": "res://assets/ui/steampunk/skill_icon_soul.png",
+	"skill_icon_talisman": "res://assets/ui/steampunk/skill_icon_talisman.png",
+	"skill_icon_bell": "res://assets/ui/steampunk/skill_icon_bell.png",
+	"skill_icon_fire": "res://assets/ui/steampunk/skill_icon_fire.png",
+	"skill_icon_rice": "res://assets/ui/steampunk/skill_icon_rice.png",
+	"skill_icon_water": "res://assets/ui/steampunk/skill_icon_water.png",
+	"skill_icon_bind": "res://assets/ui/steampunk/skill_icon_bind.png",
+	"action_wait": "res://assets/ui/steampunk/action_wait.png",
+	"action_spell": "res://assets/ui/steampunk/action_spell.png",
+	"action_item": "res://assets/ui/steampunk/action_item.png",
+	"banner_plaque": "res://assets/ui/steampunk/ui_banner_plaque.png",
+	"inter_push": "res://assets/ui/steampunk/inter_push.png",
+	"inter_pull": "res://assets/ui/steampunk/inter_pull.png",
+	"inter_push_over": "res://assets/ui/steampunk/inter_push_over.png",
+	"inter_pickup": "res://assets/ui/steampunk/inter_pickup.png",
+	"inter_place": "res://assets/ui/steampunk/inter_place.png",
+	"inter_interact": "res://assets/ui/steampunk/inter_interact.png",
+	"inter_ignite": "res://assets/ui/steampunk/inter_ignite.png",
+	# 意图预览语义图标:移动专用;攻击/搜索/恐惧复用 skill_icon_slash/bell/soul
+	"intent_move": "res://assets/ui/steampunk/intent_move.png",
+	# v2 键统一复用蒸汽朋克素材:card_frame_v2 供手牌/物品/奖励卡(82x104 小尺寸);
+	# action_mode_v2 供法术/道具按钮(104x58);wait_button_v2 供待机菱形按钮(96x96)
+	"card_frame_v2": "res://assets/ui/steampunk/ui_card_frame.png",
+	"action_mode_v2": "res://assets/ui/steampunk/ui_tab_button_frame.png",
+	"wait_button_v2": "res://assets/ui/steampunk/ui_diamond_button.png",
 }
 
 const UI_PATCH_MARGINS := {
-	"bottom_hand": Vector4i(100, 78, 100, 78),
-	"status_panel": Vector4i(58, 88, 58, 88),
-	"info_panel": Vector4i(58, 78, 58, 82),
-	"card_frame": Vector4i(58, 78, 58, 82),
-	"tab_button": Vector4i(76, 32, 76, 32),
-	"diamond_button": Vector4i(72, 72, 72, 72),
-	"top_button": Vector4i(34, 34, 34, 34),
-	"card_frame_v2": Vector4i(20, 26, 20, 26),
-	"action_mode_v2": Vector4i(38, 28, 38, 28),
-	"wait_button_v2": Vector4i(42, 42, 42, 42),
+	# 蒸汽朋克素材裁剪后尺寸:bottom_hand 512x346、status_panel 342x512、
+	# info_panel 512x342、card_frame 341x512、tab_button 512x344、
+	# diamond_button 256x250、top_button 256x256;边距取四边约 18%
+	"bottom_hand": Vector4i(92, 62, 92, 62),
+	"status_panel": Vector4i(62, 92, 62, 92),
+	"info_panel": Vector4i(92, 62, 92, 62),
+	"card_frame": Vector4i(61, 92, 61, 92),
+	"tab_button": Vector4i(92, 62, 92, 62),
+	"diamond_button": Vector4i(46, 45, 46, 45),
+	"top_button": Vector4i(46, 46, 46, 46),
+	# info_panel_slim:矮条面板(回合条/胜利条件/技能描述,高 58-120)专用收窄边距
+	"info_panel_slim": Vector4i(64, 16, 64, 16),
+	# banner_plaque 499x111 扁横幅:两端齿轮饰件约 88px,上下边条约 19px
+	"banner_plaque": Vector4i(88, 19, 88, 19),
+	# top_button_slim:互动栏 60x66 小按钮用,top_button 256x256 等比收窄
+	"top_button_slim": Vector4i(14, 14, 14, 14),
+	# 小尺寸复用键:卡框按 82x104、动作条按 104x58、菱形按钮按 96x96 等比收窄
+	"card_frame_v2": Vector4i(16, 20, 16, 20),
+	"action_mode_v2": Vector4i(60, 16, 60, 16),
+	"wait_button_v2": Vector4i(24, 24, 24, 24),
 }
 
 const CHINESE_FONT_REGULAR := "res://assets/fonts/Alibaba-PuHuiTi-Regular.ttf"
@@ -203,6 +227,9 @@ var unit_sprites: Dictionary = {}
 var enemy_acting: bool = false
 var _battle_theme: Theme = null
 var _noise_waves: Array = []
+# pos_key -> {label: Label, expire_msec: int} — dedups overlapping floating-text noise
+# labels so an explosion chain doesn't pile up dozens of identical "巨响" tags.
+var _floating_text_dedupe: Dictionary = {}
 
 # Camera
 var _camera: Camera2D
@@ -233,6 +260,17 @@ var _party_bar: HBoxContainer = null
 var _skill_desc_panel: Panel = null
 var _objective_panel: Panel = null
 var _objective_round_label: Label = null
+var _objective_escape_label: Label = null
+# 关卡导演(三阶段流程+Boss 逃脱)与教学导演(分步提示)
+var level_director = null
+var tutorial = null
+# 惊醒阶段:棺材持续震动
+var _coffin_shaking: bool = false
+# 教学提示横幅
+var _tutorial_banner: Panel = null
+var _tutorial_label: Label = null
+var _tutorial_queue: Array = []
+var _tutorial_showing: bool = false
 var _side_status_panel: VBoxContainer = null
 var _side_danger_button: Button = null
 var _side_speed_button: Button = null
@@ -254,6 +292,20 @@ var _spirit_dots: Array = []
 var _spirit_label: Label = null
 
 var _interaction_menu: Control = null
+# 环境互动栏(GDD P0):推/拉/推倒/拾取/放置/互动/点燃 七模式
+var _interaction_bar: HBoxContainer = null
+var _interaction_buttons: Dictionary = {}
+var _interaction_mode: String = ""
+var _interaction_mode_tiles: Array = []
+const INTERACTION_MODES := [
+	{"mode": "push", "label": "推", "icon": "inter_push"},
+	{"mode": "pull", "label": "拉", "icon": "inter_pull"},
+	{"mode": "push_over", "label": "推倒", "icon": "inter_push_over"},
+	{"mode": "pickup", "label": "拾取", "icon": "inter_pickup"},
+	{"mode": "place", "label": "放置", "icon": "inter_place"},
+	{"mode": "interact", "label": "互动", "icon": "inter_interact"},
+	{"mode": "ignite", "label": "点燃", "icon": "inter_ignite"},
+]
 
 var _tile_textures: Dictionary = {}
 var _effect_textures: Dictionary = {}
@@ -268,14 +320,21 @@ var _danger_range_enabled: bool = false
 var _battle_speed_index: int = 0
 var _battle_speed_scale: float = 1.0
 const BATTLE_SPEED_VALUES := [1.0, 1.5, 2.0]
+# 敌方意图预览停留秒数(GDD §三 第 2 阶段,玩家"读题"时间,可调)
+const INTENT_PREVIEW_SECONDS := 1.8
 
 func _ready() -> void:
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	# Load and apply Chinese font theme to the HUD so all UI controls inherit it.
+	# 注意:HUD 是 CanvasLayer(无 theme 属性),需把 theme 挂到其 Control 子节点上。
 	_battle_theme = load("res://assets/ui/themes/battle_theme.tres")
 	if _battle_theme != null and has_node("HUD"):
-		$HUD.theme = _battle_theme
-		print("Applied battle_theme with Chinese font")
+		var _applied := 0
+		for _child in $HUD.get_children():
+			if _child is Control:
+				_child.theme = _battle_theme
+				_applied += 1
+		print("Applied battle_theme with Chinese font to ", _applied, " HUD children")
 	else:
 		push_warning("Failed to load battle_theme.tres or HUD node missing")
 	_load_generated_ui_textures()
@@ -291,20 +350,23 @@ func _ready() -> void:
 	else:
 		print("FAILED to load portrait")
 	# Load all character sprite sheets
+	# 注意:导出包里 DirAccess 列出的是 foo.png.import 重映射条目,需 trim_suffix(".import") 还原
 	var sprite_dir = DirAccess.open("res://assets/sprites")
 	if sprite_dir != null:
 		for file_name in sprite_dir.get_files():
-			if file_name.ends_with("_idle.png"):
-				var sid = file_name.replace("_idle.png", "")
-				var sprite_tex = _load_image_texture("res://assets/sprites/" + file_name)
+			var png_name: String = file_name.trim_suffix(".import")
+			if png_name.ends_with("_idle.png"):
+				var sid = png_name.replace("_idle.png", "")
+				var sprite_tex = _load_image_texture("res://assets/sprites/" + png_name)
 				if sprite_tex != null:
 					_sprite_sheets[sid] = sprite_tex
 	var hires_sprite_dir = DirAccess.open("res://assets/sprites/hires")
 	if hires_sprite_dir != null:
 		for file_name in hires_sprite_dir.get_files():
-			if file_name.ends_with("_idle.png"):
-				var sid = file_name.replace("_idle.png", "")
-				var sprite_tex = _load_image_texture("res://assets/sprites/hires/" + file_name)
+			var png_name: String = file_name.trim_suffix(".import")
+			if png_name.ends_with("_idle.png"):
+				var sid = png_name.replace("_idle.png", "")
+				var sprite_tex = _load_image_texture("res://assets/sprites/hires/" + png_name)
 				if sprite_tex != null:
 					_sprite_sheets[sid] = sprite_tex
 	print("Loaded ", _sprite_sheets.size(), " sprite sheets")
@@ -355,38 +417,46 @@ func _ready() -> void:
 		"void": "void_purple.png",
 	}
 	for terrain_id in tile_files:
-		var tile_tex = _load_v2_frame_texture("res://assets/tiles/v2/" + tile_files[terrain_id])
-		if tile_tex != null:
-			_tile_textures[terrain_id] = tile_tex
+		var tile_frames = _load_v2_frame_textures("res://assets/tiles/v2/" + tile_files[terrain_id])
+		if not tile_frames.is_empty():
+			_tile_textures[terrain_id] = tile_frames
 	var effect_files = {
-		"fire": "res://assets/tiles/generated_v4/effect_fire.png",
-		"water_spread": "res://assets/tiles/generated_v4/effect_water.png",
-		"explosion": "res://assets/tiles/generated_v4/effect_explosion.png",
-		"curse_zone": "res://assets/tiles/generated_v4/effect_curse.png",
-		"talisman": "res://assets/tiles/generated_v4/effect_talisman.png",
-		"rice": "res://assets/tiles/generated_v4/effect_rice.png",
+		"fire": "res://assets/tiles/steampunk/effect_fire.png",
+		"water_spread": "res://assets/tiles/steampunk/effect_water.png",
+		"explosion": "res://assets/tiles/steampunk/effect_explosion.png",
+		"curse_zone": "res://assets/tiles/steampunk/effect_curse.png",
+		"talisman": "res://assets/tiles/steampunk/effect_talisman.png",
+		"rice": "res://assets/tiles/steampunk/effect_rice.png",
+		# 非地形效果:封印激活金色符文 FX 贴图,由 _on_seal_activated 取用
+		"seal_activate": "res://assets/tiles/steampunk/effect_seal_activate.png",
 	}
 	for effect_id in effect_files:
 		var effect_tex = _load_image_texture(effect_files[effect_id])
 		if effect_tex != null:
 			_effect_textures[effect_id] = effect_tex
 	var obj_files = {
-		"brazier": "res://assets/tiles/generated_v4/object_brazier.png",
-		"water_barrel": "res://assets/tiles/generated_v4/object_water_barrel.png",
-		"rice_bag": "res://assets/tiles/generated_v4/object_rice_bag.png",
-		"bell": "res://assets/tiles/generated_v4/object_bell.png",
-		"door": "res://assets/tiles/generated_v4/object_door.png",
-		"coffin": "res://assets/tiles/generated_v4/object_coffin.png",
-		"explosive_barrel": "res://assets/tiles/generated_v4/object_explosive_barrel.png",
-		"barrel": "res://assets/tiles/generated_v4/object_explosive_barrel.png",
+		"brazier": "res://assets/tiles/steampunk/object_brazier.png",
+		"water_barrel": "res://assets/tiles/steampunk/object_water_barrel.png",
+		"rice_bag": "res://assets/tiles/steampunk/object_rice_bag.png",
+		"bell": "res://assets/tiles/steampunk/object_bell.png",
+		"door": "res://assets/tiles/steampunk/object_door.png",
+		"coffin": "res://assets/tiles/steampunk/object_coffin.png",
+		"explosive_barrel": "res://assets/tiles/steampunk/object_explosive_barrel.png",
+		"barrel": "res://assets/tiles/steampunk/object_explosive_barrel.png",
 		"crate": "res://assets/tiles/v2/crate_wood.png",
 		"column": "res://assets/tiles/v2/column_stone.png",
 	}
 	for obj_id in obj_files:
 		var object_path = str(obj_files[obj_id])
-		var obj_tex = _load_image_texture(object_path) if object_path.contains("/generated_v") else _load_v2_frame_texture(object_path)
-		if obj_tex != null:
-			_object_textures[obj_id] = obj_tex
+		# generated_v/steampunk 系列为单帧整图;v2 系列为竖排 4 帧图集,统一存为帧数组
+		if object_path.contains("/generated_v") or object_path.contains("/steampunk/"):
+			var single_tex = _load_image_texture(object_path)
+			if single_tex != null:
+				_object_textures[obj_id] = [single_tex]
+		else:
+			var obj_frames = _load_v2_frame_textures(object_path)
+			if not obj_frames.is_empty():
+				_object_textures[obj_id] = obj_frames
 	print("Loaded ", _tile_textures.size(), " tile textures, ", _effect_textures.size(), " effect textures, ", _object_textures.size(), " object textures")
 
 	state = GameState.new()
@@ -409,11 +479,26 @@ func _ready() -> void:
 	spirit_system.density_changed.connect(_on_spirit_density_changed)
 	spirit_system.tier_changed.connect(_on_spirit_tier_changed)
 	_build_spirit_bar()
+	# 关卡导演(三阶段+逃脱)与教学导演(提示触发器)
+	level_director = LevelDirectorScript.new(state)
+	tutorial = TutorialDirectorScript.new()
 
 	# Listen for terrain damage events
 	EventBus.on("unit:terrain_damage", _on_terrain_damage)
 	EventBus.on("noise:propagated", _on_noise_propagated)
 	EventBus.on("effect:added", _on_effect_added_visual)
+	EventBus.on("seal:activated", _on_seal_activated)
+	EventBus.on("boss:phase_changed", _on_boss_phase_changed)
+	EventBus.on("unit:panicked", _on_unit_panicked)
+	EventBus.on("unit:fear_changed", _on_unit_fear_changed)
+	EventBus.on("unit:undying_survived", _on_unit_undying_survived)
+	EventBus.on("boss:escaped", _on_boss_escaped)
+	EventBus.on("object:pushed", _on_tutorial_event)
+	# 音效桥:推/推倒/摇铃
+	EventBus.on("object:pushed", _on_sfx_push)
+	EventBus.on("object:pushed_over", _on_sfx_push)
+	EventBus.on("object:bell_rung", _on_sfx_bell)
+	_build_sfx_pool()
 
 	# Connect signals
 	state.turn_start.connect(_on_turn_start)
@@ -489,14 +574,28 @@ func _load_image_texture(path: String) -> Texture2D:
 		return null
 	return ImageTexture.create_from_image(img)
 
-func _load_v2_frame_texture(path: String) -> Texture2D:
+# v2 素材为竖排 4 帧图集(每帧高度 = 宽 x 0.5),这里切出全部帧(最多 4 帧)
+func _load_v2_frame_textures(path: String) -> Array:
 	var base = _load_image_texture(path)
 	if base == null:
-		return null
-	var atlas = AtlasTexture.new()
-	atlas.atlas = base
-	atlas.region = Rect2(0, 0, base.get_width(), minf(base.get_height(), base.get_width() * 0.5))
-	return atlas
+		return []
+	var frame_h = base.get_width() * 0.5
+	var frame_count = clampi(int(base.get_height() / frame_h), 1, 4)
+	var frames: Array = []
+	for fi in range(frame_count):
+		var atlas = AtlasTexture.new()
+		atlas.atlas = base
+		atlas.region = Rect2(0, fi * frame_h, base.get_width(), frame_h)
+		frames.append(atlas)
+	return frames
+
+# 按时间选帧:200ms 一帧循环,让水面、火焰等 v2 地形/物体动起来
+func _v2_anim_frame(entry) -> Texture2D:
+	if entry is Array:
+		if entry.is_empty():
+			return null
+		return entry[int(Time.get_ticks_msec() / 200) % entry.size()]
+	return entry
 
 func _load_map_background() -> void:
 	_bg_texture = null
@@ -705,6 +804,27 @@ func _make_hud_panel_style(border_color: Color = UI_GOLD, bg_alpha: float = 0.86
 	style.content_margin_bottom = 10
 	return style
 
+# 蒸汽朋克九图面板样式:StyleBoxTexture + UI_PATCH_MARGINS。
+# modulate 可压暗浅色纸底以保证浅色文字可读;margins_key 用于矮条面板的收窄边距。
+func _make_tex_panel_style(texture_key: String, modulate: Color = Color.WHITE, margins_key: String = "", content_margin: float = 14.0) -> StyleBox:
+	if not _ui_textures.has(texture_key):
+		return _make_hud_panel_style()
+	var style := StyleBoxTexture.new()
+	style.texture = _ui_textures[texture_key]
+	var lookup_key := margins_key if margins_key != "" else texture_key
+	var m: Vector4i = UI_PATCH_MARGINS.get(lookup_key, Vector4i(32, 32, 32, 32))
+	# Godot 4 的 StyleBoxTexture 用 texture_margin_* 表示九宫格切分边距
+	style.texture_margin_left = m.x
+	style.texture_margin_top = m.y
+	style.texture_margin_right = m.z
+	style.texture_margin_bottom = m.w
+	style.modulate_color = modulate
+	style.content_margin_left = content_margin
+	style.content_margin_right = content_margin
+	style.content_margin_top = content_margin
+	style.content_margin_bottom = content_margin
+	return style
+
 func _make_slot_style(active: bool = false, accent: Color = UI_GOLD) -> StyleBoxFlat:
 	var style = StyleBoxFlat.new()
 	style.bg_color = Color(0.060, 0.070, 0.092, 0.64)
@@ -861,6 +981,8 @@ func _style_battle_ui() -> void:
 	hand_panel.offset_bottom = 1014
 	hand_panel.size = Vector2(410, 140)
 	hand_panel.add_theme_stylebox_override("panel", _make_clear_panel_style())
+	# 蒸汽朋克黄铜底板(中心暗金,不挡鼠标)
+	_add_generated_backdrop(hand_panel, "bottom_hand", hand_panel.size, Color(1.0, 1.0, 1.0, 0.88))
 	hand_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var card_area: Control = $BottomUI/CardArea
 	var item_area: Control = $BottomUI/ItemArea
@@ -885,8 +1007,17 @@ func _style_battle_ui() -> void:
 	_configure_action_icon_button($BottomUI/TabButtons/SpellBtn, "action_spell", "法术", true)
 	_configure_action_icon_button($BottomUI/TabButtons/ItemBtn, "action_item", "道具", true)
 	$HUD/APLabel.visible = false
-	$HUD/SpiritBar.visible = false
-	$HUD/SpiritLabel.visible = false
+	# 灵气 10 圆点条:移到回合顺序面板正下方(面板 520,14 + 高 58),紫金配色
+	$HUD/SpiritBar.offset_left = 766
+	$HUD/SpiritBar.offset_top = 74
+	$HUD/SpiritBar.offset_right = 924
+	$HUD/SpiritBar.offset_bottom = 88
+	$HUD/SpiritLabel.offset_left = 766
+	$HUD/SpiritLabel.offset_top = 88
+	$HUD/SpiritLabel.offset_right = 924
+	$HUD/SpiritLabel.offset_bottom = 104
+	$HUD/SpiritLabel.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	$HUD/SpiritLabel.add_theme_color_override("font_color", Color(0.85, 0.72, 1.0))
 	# End turn / wait button: 96x96 diamond per UI.md.
 	$HUD/EndTurnBtn.offset_left = 1102
 	$HUD/EndTurnBtn.offset_top = 892
@@ -894,6 +1025,7 @@ func _style_battle_ui() -> void:
 	$HUD/EndTurnBtn.offset_bottom = 988
 	_configure_action_icon_button($HUD/EndTurnBtn, "action_wait", "待机", false)
 	$HUD/SwitchBtn.visible = false
+	_build_interaction_bar()
 	_init_party_bar()
 	_setup_reference_side_panels()
 
@@ -901,15 +1033,18 @@ func _setup_reference_side_panels() -> void:
 	if _objective_panel == null:
 		_objective_panel = Panel.new()
 		_objective_panel.position = Vector2(1250, 120)
-		_objective_panel.size = Vector2(270, 120)
+		_objective_panel.size = Vector2(270, 142)
 		_objective_panel.mouse_filter = Control.MOUSE_FILTER_STOP
-		_objective_panel.add_theme_stylebox_override("panel", _make_hud_panel_style(UI_GOLD, 0.58, 3, 1))
+		# 蒸汽朋克扁横幅牌匾;纸底压暗成古铜色,浅色文字可读
+		_objective_panel.add_theme_stylebox_override("panel", _make_tex_panel_style("banner_plaque", Color(0.5, 0.45, 0.40, 1.0)))
 		$HUD.add_child(_objective_panel)
-		_add_corner_marks(_objective_panel, _objective_panel.size, UI_GOLD)
 		_add_label(_objective_panel, "胜利条件", Vector2(0, 14), Vector2(270, 22), 14, UI_GOLD_BRIGHT, HORIZONTAL_ALIGNMENT_CENTER)
 		_add_label(_objective_panel, "击败所有敌人", Vector2(0, 54), Vector2(270, 22), 13, UI_TEXT, HORIZONTAL_ALIGNMENT_CENTER)
 		_objective_round_label = _add_label(_objective_panel, "回合  1/15", Vector2(0, 88), Vector2(270, 22), 14, UI_TEXT, HORIZONTAL_ALIGNMENT_CENTER)
 		_apply_chinese_font(_objective_round_label, true)
+		# 棺材主逃脱倒计时(GDD §八):接近逃脱回合时警告
+		_objective_escape_label = _add_label(_objective_panel, "", Vector2(0, 112), Vector2(270, 20), 12, Color(1.0, 0.55, 0.35), HORIZONTAL_ALIGNMENT_CENTER)
+		_apply_chinese_font(_objective_escape_label, true)
 	if _side_status_panel == null:
 		_side_status_panel = VBoxContainer.new()
 		_side_status_panel.position = Vector2(1372, 340)
@@ -989,6 +1124,16 @@ func _exit_tree() -> void:
 	EventBus.off("unit:terrain_damage", _on_terrain_damage)
 	EventBus.off("noise:propagated", _on_noise_propagated)
 	EventBus.off("effect:added", _on_effect_added_visual)
+	EventBus.off("seal:activated", _on_seal_activated)
+	EventBus.off("boss:phase_changed", _on_boss_phase_changed)
+	EventBus.off("unit:panicked", _on_unit_panicked)
+	EventBus.off("unit:fear_changed", _on_unit_fear_changed)
+	EventBus.off("unit:undying_survived", _on_unit_undying_survived)
+	EventBus.off("boss:escaped", _on_boss_escaped)
+	EventBus.off("object:pushed", _on_tutorial_event)
+	EventBus.off("object:pushed", _on_sfx_push)
+	EventBus.off("object:pushed_over", _on_sfx_push)
+	EventBus.off("object:bell_rung", _on_sfx_bell)
 	if ai != null and ai.has_method("dispose"):
 		ai.dispose()
 	if noise_system != null:
@@ -1133,13 +1278,28 @@ func _process(delta: float) -> void:
 			needs_scene_redraw = true
 	if state != null and not state.noise_events.is_empty():
 		needs_overlay_redraw = true
+	# 危险范围/伤害范围的 alpha 脉冲需要持续重绘 overlay 层
+	if _danger_range_enabled or not damage_tiles.is_empty():
+		needs_overlay_redraw = true
 	if needs_scene_redraw:
 		_queue_scene_redraw()
 	elif needs_overlay_redraw:
 		_queue_overlay_redraw()
 
 func _refresh_ambient_animation_flag() -> void:
-	_has_ambient_map_animation = _has_animated_map_effects()
+	_has_ambient_map_animation = _has_animated_map_effects() or _has_multi_frame_v2_textures()
+
+# 任一 v2 地形/物体素材带多帧时,需要低频重绘驱动选帧动画
+func _has_multi_frame_v2_textures() -> bool:
+	for key in _tile_textures:
+		var entry = _tile_textures[key]
+		if entry is Array and entry.size() > 1:
+			return true
+	for key in _object_textures:
+		var entry = _object_textures[key]
+		if entry is Array and entry.size() > 1:
+			return true
+	return false
 
 func _has_animated_map_effects() -> bool:
 	if state == null or state.map == null:
@@ -1292,12 +1452,13 @@ func _draw() -> void:
 					overlay_color.a *= 0.48
 					draw_colored_polygon(pts, overlay_color)
 			elif _tile_textures.has(terrain):
-				var tex = _tile_textures[terrain]
-				var tex_w = 128.0
-				var tex_h = tex.get_height() * tex_w / tex.get_width()
-				var tex_x = screen.x - tex_w * 0.5
-				var tex_y = screen.y + hh - tex_h
-				draw_texture_rect(tex, Rect2(tex_x, tex_y, tex_w, tex_h), false)
+				var tex = _v2_anim_frame(_tile_textures[terrain])
+				if tex != null:
+					var tex_w = 128.0
+					var tex_h = tex.get_height() * tex_w / tex.get_width()
+					var tex_x = screen.x - tex_w * 0.5
+					var tex_y = screen.y + hh - tex_h
+					draw_texture_rect(tex, Rect2(tex_x, tex_y, tex_w, tex_h), false)
 			else:
 				var d = depth
 				var y_off = 0
@@ -1449,17 +1610,24 @@ func _draw() -> void:
 			var obj_color = obj_colors.get(obj_id, Color.GRAY)
 			_draw_object_ground_art(obj_id, s_o, obj_color, t_now)
 			if _object_textures.has(obj_id):
-				var tex = _object_textures[obj_id]
-				var tex_w = 82.0
+				var tex = _v2_anim_frame(_object_textures[obj_id])
+				if tex == null:
+					continue
+				# 蒸汽朋克素材自带地面阴影,渲染宽度整体收窄,让格子更透气
+				var tex_w = 88.0
 				match obj_id:
 					"door":
-						tex_w = 104.0
+						tex_w = 94.0
 					"coffin":
-						tex_w = 98.0
+						tex_w = 92.0
 					"bell":
-						tex_w = 74.0
+						tex_w = 78.0
+				# 惊醒阶段(GDD §八):棺材持续左右震动
+				var shake_x = 0.0
+				if obj_id == "coffin" and _coffin_shaking:
+					shake_x = sin(t_now * 28.0) * 3.0
 				var tex_h = tex.get_height() * tex_w / tex.get_width()
-				draw_texture_rect(tex, Rect2(s_o.x - tex_w * 0.5, s_o.y + hh - tex_h - 10, tex_w, tex_h), false)
+				draw_texture_rect(tex, Rect2(s_o.x - tex_w * 0.5 + shake_x, s_o.y + hh - tex_h - 10, tex_w, tex_h), false)
 
 func _draw_effect_badge(effect_type: String, center: Vector2, t_now: float) -> void:
 	match effect_type:
@@ -1534,25 +1702,33 @@ func _draw_overlay() -> void:
 	var hw = TILE_W * 0.5
 	var hh = TILE_H * 0.5
 	_draw_enemy_danger_range(hw, hh)
+	# 高亮脉冲相位(危险/伤害范围用 sin 波驱动 alpha)
+	var hl_t = Time.get_ticks_msec() * 0.001
+	var hl_pulse = 0.65 + 0.35 * sin(hl_t * 4.0)
+
+	# 可移动范围:淡蓝填充(规范色 0.376/0.627/1.0 @ 0.20)
 	for reach_pos in reachable_tiles:
 		var vc_r = _visual_coord(reach_pos.x, reach_pos.y)
 		var s_r = _grid_origin + cart_to_iso(vc_r.x, vc_r.y)
 		var pts_r = PackedVector2Array([s_r + Vector2(0, -hh), s_r + Vector2(hw, 0), s_r + Vector2(0, hh), s_r + Vector2(-hw, 0)])
-		_overlay_layer.draw_colored_polygon(pts_r, Color(0.18, 0.95, 0.45, 0.14))
-		_overlay_layer.draw_polyline(PackedVector2Array([pts_r[0], pts_r[1], pts_r[2], pts_r[3], pts_r[0]]), Color(0.35, 1.0, 0.65, 0.30), 1.0)
+		_overlay_layer.draw_colored_polygon(pts_r, Color(0.376, 0.627, 1.0, 0.20))
+		_overlay_layer.draw_polyline(PackedVector2Array([pts_r[0], pts_r[1], pts_r[2], pts_r[3], pts_r[0]]), Color(0.55, 0.75, 1.0, 0.38), 1.0)
 
+	# 技能/卡牌作用范围:紫色 #c060ff @ 0.20
 	for target_pos_hl in target_tiles:
 		var vc_t = _visual_coord(target_pos_hl.x, target_pos_hl.y)
 		var s_t = _grid_origin + cart_to_iso(vc_t.x, vc_t.y)
 		var pts_t = PackedVector2Array([s_t + Vector2(0, -hh), s_t + Vector2(hw, 0), s_t + Vector2(0, hh), s_t + Vector2(-hw, 0)])
-		_overlay_layer.draw_colored_polygon(pts_t, Color(0.24, 0.56, 1.0, 0.17))
-		_overlay_layer.draw_polyline(PackedVector2Array([pts_t[0], pts_t[1], pts_t[2], pts_t[3], pts_t[0]]), Color(0.50, 0.78, 1.0, 0.42), 1.3)
+		_overlay_layer.draw_colored_polygon(pts_t, Color(0.753, 0.376, 1.0, 0.20))
+		_overlay_layer.draw_polyline(PackedVector2Array([pts_t[0], pts_t[1], pts_t[2], pts_t[3], pts_t[0]]), Color(0.85, 0.55, 1.0, 0.45), 1.3)
 
+	# 伤害/攻击范围:朱红 #ff6060 @ 0.25,alpha 随时间脉冲
 	for damage_pos_hl in damage_tiles:
 		var vc_d = _visual_coord(damage_pos_hl.x, damage_pos_hl.y)
 		var s_d = _grid_origin + cart_to_iso(vc_d.x, vc_d.y)
 		var pts_d = PackedVector2Array([s_d + Vector2(0, -hh), s_d + Vector2(hw, 0), s_d + Vector2(0, hh), s_d + Vector2(-hw, 0)])
-		_overlay_layer.draw_colored_polygon(pts_d, Color(1, 0.22, 0.18, 0.22))
+		_overlay_layer.draw_colored_polygon(pts_d, Color(1.0, 0.376, 0.376, 0.25 * hl_pulse))
+		_overlay_layer.draw_polyline(PackedVector2Array([pts_d[0], pts_d[1], pts_d[2], pts_d[3], pts_d[0]]), Color(1.0, 0.45, 0.45, 0.40 * hl_pulse), 1.2)
 
 	_draw_noise_fields(hw, hh)
 	_draw_enemy_intents(hw, hh)
@@ -1574,13 +1750,35 @@ func _draw_overlay() -> void:
 					var pts_g = PackedVector2Array([s_g + Vector2(0, -hh), s_g + Vector2(hw, 0), s_g + Vector2(0, hh), s_g + Vector2(-hw, 0)])
 					_overlay_layer.draw_polyline(PackedVector2Array([pts_g[0], pts_g[1], pts_g[2], pts_g[3], pts_g[0]]), Color(1, 0.85, 0.3, 0.48), 1.5)
 
+	# 当前选中格:#50ff78 25% 填充 + 绿色发光边框(内层亮线 + 外层低 alpha 粗线模拟外发光)
+	if state.selected_unit != null and state.selected_unit.is_alive:
+		var sel_pos: Vector2i = state.selected_unit.position
+		if state.map.in_bounds(sel_pos):
+			var vc_sel = _visual_coord(sel_pos.x, sel_pos.y)
+			var s_sel = _grid_origin + cart_to_iso(vc_sel.x, vc_sel.y)
+			var pts_sel = PackedVector2Array([s_sel + Vector2(0, -hh), s_sel + Vector2(hw, 0), s_sel + Vector2(0, hh), s_sel + Vector2(-hw, 0)])
+			var closed_sel = PackedVector2Array([pts_sel[0], pts_sel[1], pts_sel[2], pts_sel[3], pts_sel[0]])
+			_overlay_layer.draw_colored_polygon(pts_sel, Color(0.314, 1.0, 0.471, 0.25))
+			_overlay_layer.draw_polyline(closed_sel, Color(0.314, 1.0, 0.471, 0.22), 6.0)
+			_overlay_layer.draw_polyline(closed_sel, Color(0.314, 1.0, 0.471, 0.95), 2.0)
+			# 选中光环:脚下 80x40 等距菱形,2 层发光
+			var halo_out = PackedVector2Array([
+				s_sel + Vector2(0, -20), s_sel + Vector2(40, 0),
+				s_sel + Vector2(0, 20), s_sel + Vector2(-40, 0),
+				s_sel + Vector2(0, -20),
+			])
+			_overlay_layer.draw_polyline(halo_out, Color(0.314, 1.0, 0.471, 0.16), 7.0)
+			_overlay_layer.draw_polyline(halo_out, Color(0.45, 1.0, 0.55, 0.55), 2.5)
+
+	# 悬停格:白色覆盖 alpha 0.15 + 1px 白色边框
 	if hovered_tile.x >= 0 and state.map.in_bounds(hovered_tile):
 		var vc = _visual_coord(hovered_tile.x, hovered_tile.y)
 		var s = _grid_origin + cart_to_iso(vc.x, vc.y)
 		var pts = PackedVector2Array([s + Vector2(0, -hh), s + Vector2(hw, 0), s + Vector2(0, hh), s + Vector2(-hw, 0)])
-		_overlay_layer.draw_colored_polygon(pts, Color(0.72, 0.90, 1.0, 0.10))
-		_overlay_layer.draw_polyline(PackedVector2Array([pts[0], pts[1], pts[2], pts[3], pts[0]]), Color(0.82, 0.96, 1.0, 0.40), 1.2)
+		_overlay_layer.draw_colored_polygon(pts, Color(1.0, 1.0, 1.0, 0.15))
+		_overlay_layer.draw_polyline(PackedVector2Array([pts[0], pts[1], pts[2], pts[3], pts[0]]), Color(1.0, 1.0, 1.0, 0.85), 1.0)
 
+	# 噪音波纹:3 层同心扩散环,随时间从声源向外扩散,alpha 逐层递减(1.0/0.6/0.3)
 	for wave in _noise_waves:
 		var pos: Vector2i = wave.get("pos", Vector2i(-1, -1))
 		if not state.map.in_bounds(pos):
@@ -1589,16 +1787,24 @@ func _draw_overlay() -> void:
 		var center = _grid_origin + cart_to_iso(vc_n.x, vc_n.y)
 		var duration = float(wave.get("duration", 1.0))
 		var progress = 1.0 - clampf(float(wave.get("ttl", 0.0)) / duration, 0.0, 1.0)
-		var radius = lerpf(16.0, float(wave.get("volume", 3)) * 34.0, progress)
-		var alpha = 0.75 * (1.0 - progress)
-		var ring = PackedVector2Array([
-			center + Vector2(0, -radius * 0.5),
-			center + Vector2(radius, 0),
-			center + Vector2(0, radius * 0.5),
-			center + Vector2(-radius, 0),
-			center + Vector2(0, -radius * 0.5),
-		])
-		_overlay_layer.draw_polyline(ring, Color(1.0, 0.75, 0.2, alpha), 3.0)
+		var max_radius = float(wave.get("volume", 3)) * 34.0
+		var ring_alphas = [1.0, 0.6, 0.3]
+		var ring_widths = [3.0, 2.2, 1.5]
+		for i in range(3):
+			# 每层相位错开 1/3 周期,形成连续向外扩散的循环波纹
+			var phase = fmod(progress + float(i) / 3.0, 1.0)
+			var radius = lerpf(14.0, max_radius, phase)
+			var alpha = 0.55 * float(ring_alphas[i]) * (1.0 - phase) * (1.0 - progress * 0.55)
+			if alpha <= 0.02:
+				continue
+			var ring = PackedVector2Array([
+				center + Vector2(0, -radius * 0.5),
+				center + Vector2(radius, 0),
+				center + Vector2(0, radius * 0.5),
+				center + Vector2(-radius, 0),
+				center + Vector2(0, -radius * 0.5),
+			])
+			_overlay_layer.draw_polyline(ring, Color(1.0, 0.75, 0.2, alpha), float(ring_widths[i]))
 
 func _draw_noise_fields(hw: float, hh: float) -> void:
 	if state == null or state.noise_events.is_empty():
@@ -1648,26 +1854,32 @@ func _draw_enemy_intents(hw: float, hh: float) -> void:
 			if path.size() < 2:
 				continue
 			var intent_style = intent.get("intent_style", "move")
-			var outer_color = Color(0.15, 0.85, 1.0, 0.9)
+			# 意图着色语义:移动=黄、恐惧=紫、攻击/狂暴=红、搜索=橙
+			var outer_color = Color(1.0, 0.85, 0.20, 0.85)
 			var inner_color = Color(1.0, 0.95, 0.35, 0.95)
 			if intent_style == "fear":
-				outer_color = Color(0.78, 0.32, 1.0, 0.9)
+				outer_color = Color(0.78, 0.32, 1.0, 0.85)
 				inner_color = Color(0.95, 0.74, 1.0, 0.95)
 			elif intent_style == "search":
-				outer_color = Color(1.0, 0.48, 0.08, 0.9)
+				outer_color = Color(1.0, 0.48, 0.08, 0.85)
 				inner_color = Color(1.0, 0.82, 0.25, 0.95)
 			elif intent_style == "rage":
-				outer_color = Color(1.0, 0.1, 0.05, 0.9)
+				outer_color = Color(1.0, 0.1, 0.05, 0.85)
 				inner_color = Color(1.0, 0.42, 0.18, 0.95)
 			var points = PackedVector2Array()
 			for step in path:
 				points.append(_tile_center(step) + Vector2(0, -16))
 			_overlay_layer.draw_polyline(points, outer_color, 5.0)
 			_overlay_layer.draw_polyline(points, inner_color, 2.0)
-			for i in range(points.size()):
-				var radius = 4.0 if i < points.size() - 1 else 7.0
-				_overlay_layer.draw_circle(points[i], radius, inner_color)
+			# 终点画箭头(指向移动方向),不再使用圆点
 			_draw_overlay_arrow(points[points.size() - 2], points[points.size() - 1], inner_color, 2.0)
+			# 语义图标:移动=翼靴、恐惧=魂魄、搜索=铃铛(复用既有素材)
+			var move_icon := "intent_move"
+			if intent_style == "fear":
+				move_icon = "skill_icon_soul"
+			elif intent_style == "search":
+				move_icon = "skill_icon_bell"
+			_draw_intent_icon(points[points.size() - 1] + Vector2(0, -26), move_icon)
 		elif kind == "attack":
 			var from_pos: Vector2i = intent.get("from", Vector2i(-1, -1))
 			var to_pos: Vector2i = intent.get("to", Vector2i(-1, -1))
@@ -1692,9 +1904,13 @@ func _draw_enemy_intents(hw: float, hh: float) -> void:
 			_overlay_layer.draw_colored_polygon(target_pts, Color(attack_color.r, attack_color.g, attack_color.b, 0.28))
 			var target_line = PackedVector2Array([target_pts[0], target_pts[1], target_pts[2], target_pts[3], target_pts[0]])
 			_overlay_layer.draw_polyline(target_line, attack_color, 3.0)
+			# 语义图标:攻击=刀(目标格上方)
+			_draw_intent_icon(target_center + Vector2(0, -hh * 0.92 - 18), "skill_icon_slash")
 
 	# Draw inventory placement tiles (green)
 	if not state.inventory_target_tiles.is_empty():
+		# 钟馗「封印师」:放置目标是阵眼格(seal_point)时金色描边提示
+		var seal_hint = state.selected_unit != null and state.selected_unit.has_trait("seal_master")
 		for t in state.inventory_target_tiles:
 			var vc = _visual_coord(t.x, t.y)
 			var center = _grid_origin + cart_to_iso(vc.x, vc.y)
@@ -1704,13 +1920,34 @@ func _draw_enemy_intents(hw: float, hh: float) -> void:
 				center + Vector2(0, hh * 0.88),
 				center + Vector2(-hw * 0.78, 0),
 			])
-			_overlay_layer.draw_colored_polygon(inv_pts, Color(0.2, 1.0, 0.5, 0.14))
+			var is_seal_cell = seal_hint and state.map.has_tag(t.x, t.y, "seal_point")
+			var fill_color = Color(1.0, 0.85, 0.2, 0.22) if is_seal_cell else Color(0.2, 1.0, 0.5, 0.14)
+			var line_color = Color(1.0, 0.85, 0.2, 0.9) if is_seal_cell else Color(0.2, 1.0, 0.5, 0.55)
+			_overlay_layer.draw_colored_polygon(inv_pts, fill_color)
 			var inv_line = PackedVector2Array([inv_pts[0], inv_pts[1], inv_pts[2], inv_pts[3], inv_pts[0]])
-			_overlay_layer.draw_polyline(inv_line, Color(0.2, 1.0, 0.5, 0.55), 1.8)
+			_overlay_layer.draw_polyline(inv_line, line_color, 3.0 if is_seal_cell else 1.8)
+
+	# 互动模式可互动格高亮(暗金,与按钮栏联动)
+	if not _interaction_mode_tiles.is_empty():
+		var inter_pulse = 0.7 + 0.3 * sin(Time.get_ticks_msec() * 0.001 * 5.0)
+		for t in _interaction_mode_tiles:
+			var vc2 = _visual_coord(t.x, t.y)
+			var center2 = _grid_origin + cart_to_iso(vc2.x, vc2.y)
+			var inter_pts = PackedVector2Array([
+				center2 + Vector2(0, -hh * 0.88),
+				center2 + Vector2(hw * 0.78, 0),
+				center2 + Vector2(0, hh * 0.88),
+				center2 + Vector2(-hw * 0.78, 0),
+			])
+			_overlay_layer.draw_colored_polygon(inter_pts, Color(1.0, 0.72, 0.22, 0.14 * inter_pulse))
+			var inter_line = PackedVector2Array([inter_pts[0], inter_pts[1], inter_pts[2], inter_pts[3], inter_pts[0]])
+			_overlay_layer.draw_polyline(inter_line, Color(1.0, 0.78, 0.30, 0.65 * inter_pulse), 2.2)
 
 func _draw_enemy_danger_range(hw: float, hh: float) -> void:
 	if not _danger_range_enabled or state == null or state.map == null or _overlay_layer == null:
 		return
+	# 危险范围:#ff6060 25% 填充 + alpha 脉冲
+	var pulse = 0.65 + 0.35 * sin(Time.get_ticks_msec() * 0.001 * 4.0)
 	var seen := {}
 	for enemy in state.get_alive_units("enemy"):
 		for pos in _enemy_threat_tiles(enemy):
@@ -1724,8 +1961,19 @@ func _draw_enemy_danger_range(hw: float, hh: float) -> void:
 			s + Vector2(0, hh * 0.86),
 			s + Vector2(-hw * 0.76, 0),
 		])
-		_overlay_layer.draw_colored_polygon(pts, Color(1.0, 0.18, 0.14, 0.075))
-		_overlay_layer.draw_polyline(PackedVector2Array([pts[0], pts[1], pts[2], pts[3], pts[0]]), Color(1.0, 0.30, 0.22, 0.18), 0.9)
+		_overlay_layer.draw_colored_polygon(pts, Color(1.0, 0.376, 0.376, 0.25 * pulse))
+		_overlay_layer.draw_polyline(PackedVector2Array([pts[0], pts[1], pts[2], pts[3], pts[0]]), Color(1.0, 0.45, 0.40, 0.45 * pulse), 1.2)
+
+# 意图语义图标:28px,带暗底圆形衬板保证战场上可读
+func _draw_intent_icon(center: Vector2, tex_key: String) -> void:
+	if _overlay_layer == null:
+		return
+	var tex: Texture2D = _ui_textures.get(tex_key, null)
+	if tex == null:
+		return
+	_overlay_layer.draw_circle(center, 15.0, Color(0.06, 0.07, 0.09, 0.72))
+	_overlay_layer.draw_arc(center, 15.0, 0, TAU, 24, Color(UI_GOLD_BRIGHT.r, UI_GOLD_BRIGHT.g, UI_GOLD_BRIGHT.b, 0.55), 1.5)
+	_overlay_layer.draw_texture_rect(tex, Rect2(center - Vector2(12, 12), Vector2(24, 24)), false)
 
 func _draw_overlay_arrow(from: Vector2, to: Vector2, color: Color, width: float) -> void:
 	if _overlay_layer == null:
@@ -1772,6 +2020,9 @@ func _input(event: InputEvent) -> void:
 			return
 		# Right click: cancel inventory/card selection
 		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+			if _interaction_mode != "":
+				_exit_interaction_mode()
+				return
 			if state.selected_inventory_index >= 0:
 				state.selected_inventory_index = -1
 				state.inventory_target_tiles = []
@@ -1824,6 +2075,7 @@ func _is_ui_click(click_pos: Vector2) -> bool:
 		_objective_panel if _objective_panel != null else null,
 		_side_status_panel if _side_status_panel != null else null,
 		_top_system_bar if _top_system_bar != null else null,
+		_interaction_bar if _interaction_bar != null else null,
 		$HUD/SwitchBtn if $HUD/SwitchBtn.visible else null,
 	]
 	for control in controls:
@@ -1840,7 +2092,7 @@ func _setup_hover_info_panel() -> void:
 	_hover_info_panel.visible = false
 	_hover_info_panel.z_index = 1000
 	_hover_info_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_hover_info_panel.add_theme_stylebox_override("panel", _make_clean_panel_style(UI_GOLD, UI_BG, 6, 1))
+	_hover_info_panel.add_theme_stylebox_override("panel", _make_tex_panel_style("info_panel"))
 	_hover_info_panel.size = Vector2(340, 154)
 	_hover_info_panel.position = Vector2(1210, 820)
 	$HUD.add_child(_hover_info_panel)
@@ -1928,6 +2180,20 @@ func _update_hover_info(pos: Vector2i, screen_pos: Vector2) -> void:
 				var preferred = profile.get("preferredTags", [])
 				if not preferred.is_empty():
 					lines.append("偏好: " + _display_tag_list(preferred))
+				# 封印条件提示(GDD §5.5):灵体/棺材主显示条件达成度,全满时提示可封印
+				if spirit_system != null:
+					var seal_status: Dictionary = spirit_system.get_seal_status(unit)
+					lines.append("封印条件 %d/%d: 阵眼 %d/%d%s · 灵气>=6 %s · 目标在阵区 %s" % [
+						int(seal_status.get("met", 0)),
+						int(seal_status.get("total", 4)),
+						int(seal_status.get("points", 0)),
+						SpiritSystemScript.SEAL_MIN_POINTS,
+						"✓" if bool(seal_status.get("points_ok", false)) else "✗",
+						"✓" if bool(seal_status.get("density_ok", false)) else "✗",
+						"✓" if bool(seal_status.get("in_region", false)) else "✗",
+					])
+					if bool(seal_status.get("ok", false)):
+						lines.append("可封印!「互动」模式点击目标激活阵眼")
 				_hover_range_tiles = _enemy_threat_tiles(unit)
 	_hover_info_label.text = "\n".join(lines)
 	var viewport_size = get_viewport_rect().size
@@ -2066,6 +2332,19 @@ func on_tile_click(pos: Vector2i) -> void:
 	if state.current_turn != "player":
 		return
 
+	# 环境互动模式目标点击(推/拉/推倒/拾取/放置/互动/点燃)
+	if _interaction_mode != "" and state.selected_unit:
+		var is_inter_target = false
+		for t in _interaction_mode_tiles:
+			if t == pos:
+				is_inter_target = true
+				break
+		if is_inter_target:
+			_execute_interaction_mode(pos)
+		else:
+			_exit_interaction_mode()
+		return
+
 	# Inventory placement targeting
 	if state.selected_unit and state.selected_inventory_index >= 0:
 		var is_target = false
@@ -2139,7 +2418,7 @@ func select_unit(unit: Unit) -> void:
 		_show_stats_panel(unit)
 		$BottomUI/CardArea.visible = _panel_mode == _SPELL_MODE
 		$BottomUI/ItemArea.visible = _panel_mode == _ITEM_MODE
-	if state.is_unit_skipped(unit.id):
+	if state.is_unit_skipped(unit.id) or (unit.faction == "player" and unit.panicked):
 		reachable_tiles = []
 		_queue_overlay_redraw()
 		state.emit_signal("hand_changed")
@@ -2154,10 +2433,17 @@ func select_unit(unit: Unit) -> void:
 		var card_data = player.hand.get_card(state.selected_card_index)
 		if not card_data.is_empty():
 			target_tiles = CardResolver.get_valid_targets(card_data, unit, state.map, state.all_units)
+			target_tiles = _append_bell_targets(unit, card_data, target_tiles)
 
 	_queue_overlay_redraw()
 	if _panel_mode == _ITEM_MODE:
 		refresh_inventory_ui()
+	# 选中单位变化:互动模式目标随单位刷新,无目标则退出
+	if _interaction_mode != "":
+		_interaction_mode_tiles = _interaction_valid_targets(_interaction_mode)
+		if _interaction_mode_tiles.is_empty():
+			_exit_interaction_mode()
+	_refresh_interaction_bar()
 	state.emit_signal("hand_changed")
 
 func clear_selection() -> void:
@@ -2175,14 +2461,16 @@ func clear_selection() -> void:
 	$BottomUI/CardArea.visible = false
 	$BottomUI/ItemArea.visible = false
 	_hide_card_tooltip()
+	_exit_interaction_mode()
 	_queue_overlay_redraw()
 	_refresh_party_bar()
 	refresh_card_ui()
 	if _panel_mode == _ITEM_MODE:
 		refresh_inventory_ui()
+	_refresh_interaction_bar()
 
 func move_unit(unit: Unit, pos: Vector2i) -> void:
-	if state.is_unit_skipped(unit.id):
+	if state.is_unit_skipped(unit.id) or unit.panicked:
 		return
 	var path = Pathfinding.find_path(state.map, unit.position, pos)
 	if path.size() < 2:
@@ -2198,6 +2486,16 @@ func move_unit(unit: Unit, pos: Vector2i) -> void:
 	unit.spend_move(move_cost)
 	state.map.set_occupant(pos, unit.id)
 	state.emit_signal("unit_moved", unit.id, from, pos)
+	# 移动噪音(GDD §七):薄荷「无声步」豁免,其余角色移动产生脚步噪音
+	var move_noise = state.move_noise_volume(unit)
+	if move_noise > 0:
+		EventBus.emit("noise:created", {
+			"pos": pos,
+			"volume": move_noise,
+			"source_id": unit.id,
+			"source_type": "move",
+			"duration": 1
+		})
 	refresh_units()
 	reachable_tiles = []
 	_queue_overlay_redraw()
@@ -2208,9 +2506,27 @@ func _path_move_cost(path: Array) -> int:
 		total += state.map.get_move_cost(path[i])
 	return total
 
+# 薄荷「远程触发」:把卡牌射程内铃铛类物体格(interact 含 ring)追加为合法目标
+func _append_bell_targets(unit: Unit, card_data: Dictionary, tiles: Array) -> Array:
+	if not unit.has_trait("remote_trigger"):
+		return tiles
+	var rng = int(card_data.get("range", 1))
+	for y in range(state.map.rows):
+		for x in range(state.map.cols):
+			var obj_id = state.map.get_object(x, y)
+			if obj_id == "":
+				continue
+			var odef: Dictionary = state.map.objects_data.get(obj_id, {})
+			if not ("ring" in odef.get("interact", [])):
+				continue
+			var cell = Vector2i(x, y)
+			if _manhattan(unit.position, cell) <= rng and not tiles.has(cell):
+				tiles.append(cell)
+	return tiles
+
 func play_selected_card(pos: Vector2i) -> void:
 	var unit = state.selected_unit
-	if state.is_unit_skipped(unit.id):
+	if state.is_unit_skipped(unit.id) or unit.panicked:
 		return
 	var player = state.get_player_for_unit(unit.id)
 	if player.is_empty():
@@ -2221,9 +2537,31 @@ func play_selected_card(pos: Vector2i) -> void:
 	if not turn_manager.can_play_card(int(card_data.get("cost", 1))):
 		return
 
+	# 薄荷「远程触发」:卡牌点铃铛类物体(interact 含 ring)→ 远程摇铃,耗卡耗 AP
+	if unit.has_trait("remote_trigger"):
+		var bell_obj = state.map.get_object(pos.x, pos.y)
+		if bell_obj != "":
+			var bell_odef: Dictionary = state.map.objects_data.get(bell_obj, {})
+			if "ring" in bell_odef.get("interact", []):
+				if turn_manager.play_card(player, state.selected_card_index):
+					EventBus.emit("object:bell_rung", {
+						"map": state.map,
+						"pos": pos,
+						"volume": int(bell_odef.get("noise_volume", 3)),
+						"unit_id": unit.id
+					})
+					_show_floating_text_at(pos, "远程触发!", Color(0.5, 0.9, 1.0))
+					state.emit_signal("card_played", unit.id, card_data.get("id", ""), [pos])
+					state.selected_card_index = -1
+					target_tiles = []
+					damage_tiles = []
+					refresh_units()
+					_queue_scene_redraw()
+				return
 	var result = CardResolver.play_card(card_data, unit, pos, state.map, state.all_units, state)
 	if result.success:
 		turn_manager.play_card(player, state.selected_card_index)
+		_play_sfx_placeholder("card_play")
 
 		if result.get("dodged", false):
 			var dodge_target = _find_unit_at(pos)
@@ -2285,14 +2623,15 @@ func _on_end_turn_pressed() -> void:
 	reachable_tiles = []
 	target_tiles = []
 	damage_tiles = []
-	state.current_turn = "intent"
+	# 第 2 阶段:敌方意图预览 — AI 计划在此锁定,预览期供玩家读题
+	turn_manager.set_phase("intent")
 	state.emit_signal("turn_start", "intent")
 	enemy_acting = true
 	_prepare_enemy_turn_plan()
 	_queue_overlay_redraw()
 	if _emit_battle_result_if_over():
 		return
-	$EnemyTimer.start(_battle_delay(1.05))
+	$EnemyTimer.start(_battle_delay(INTENT_PREVIEW_SECONDS))
 
 func _on_spell_btn_pressed() -> void:
 	_panel_mode = _SPELL_MODE
@@ -2361,7 +2700,8 @@ func _apply_action_button_state(button: Button, active: bool, active_color: Colo
 
 func _on_enemy_timer_timeout() -> void:
 	if state.current_turn == "intent":
-		state.current_turn = "enemy"
+		# 第 3 阶段:敌方回合,严格按预览期锁定的计划执行
+		turn_manager.set_phase("enemy")
 		state.emit_signal("turn_start", "enemy")
 	_execute_next_enemy()
 
@@ -2408,7 +2748,20 @@ func _prepare_enemy_turn_plan() -> void:
 		"noise_events": noise_system.get_recent_events(1) if noise_system != null else state.noise_events,
 		"spirit_density": state.spirit_density,
 		"turn": state.turn_count,
+		"level_stage": state.level_stage,
 	}
+	# 棺材主逃脱(GDD §八):决战期且灵气低于封印阈值 → Boss 向最近门格移动
+	if level_director != null:
+		var boss = null
+		for e in active_enemies:
+			if bool(e.ai_profile.get("bossPhases", false)):
+				boss = e
+				break
+		if boss != null:
+			context["level_escape"] = {
+				"active": level_director.escape_active(state.turn_count, state.spirit_density),
+				"door": level_director.nearest_door(boss.position),
+			}
 	_enemy_turn_plan = ai.generate_turn_plan(active_enemies, context)
 	_enemy_queue = ai.flatten_plan_actions(_enemy_turn_plan)
 	_enemy_intents = ai.generate_intents(_enemy_turn_plan)
@@ -2448,10 +2801,20 @@ func _execute_next_enemy() -> void:
 		return
 
 	var action: Dictionary = _enemy_queue.pop_front()
-	var enemy = state.get_unit_by_id(action.get("unit_id", ""))
-	if enemy == null or not enemy.is_alive:
+	# 锁定计划执行前检查:单位死亡/被恐惧 → 打断,播飘字后跳过该动作
+	var exec_check: Dictionary = ai.is_action_executable(action, state)
+	if not bool(exec_check.get("ok", false)):
+		var interrupt_pos: Vector2i = action.get("target_pos", Vector2i(-1, -1))
+		var interrupt_unit = state.get_unit_by_id(action.get("unit_id", ""))
+		if interrupt_unit != null:
+			interrupt_pos = interrupt_unit.position
+		if state.map.in_bounds(interrupt_pos):
+			var interrupt_text = "行动被打断" if str(exec_check.get("reason", "")) == "fear" else "目标已消失"
+			_show_floating_text_at(interrupt_pos, interrupt_text, Color(0.95, 0.6, 1.0))
 		_execute_next_enemy()
 		return
+
+	var enemy = state.get_unit_by_id(action.get("unit_id", ""))
 
 	if action.type == "move" and action.get("target_pos", null) != null:
 		var target_pos: Vector2i = action.get("target_pos", Vector2i(-1, -1))
@@ -2470,9 +2833,34 @@ func _execute_next_enemy() -> void:
 			return
 		var from = enemy.position
 		await _animate_enemy_move(enemy, path)
+		if bool(action.get("leap", false)):
+			_show_floating_text_at(target_pos, "跳跃!", Color(0.7, 0.9, 1.0))
 		state.emit_signal("unit_moved", enemy.id, from, target_pos)
 		refresh_units()
 		_consume_enemy_intent(enemy.id, "move")
+		_queue_overlay_redraw()
+		# 棺材主移动后:若已踏上门格 → 逃脱失败
+		_check_boss_escape()
+		if _emit_battle_result_if_over():
+			return
+
+	if action.type == "teleport":
+		# 红衣女瞬移:红色残影淡出→换位→淡入+"瞬移"飘字(GDD §四)
+		var tp_pos: Vector2i = action.get("target_pos", Vector2i(-1, -1))
+		if not state.map.in_bounds(tp_pos) or state.map.is_occupied(tp_pos) or not state.map.is_walkable(tp_pos):
+			_execute_next_enemy()
+			return
+		_execute_enemy_teleport(enemy, tp_pos)
+		refresh_units()
+		_queue_overlay_redraw()
+		if _emit_battle_result_if_over():
+			return
+
+	if action.type == "drag":
+		# 水鬼拖拽:把相邻玩家拉入水域格
+		_execute_enemy_drag(enemy, action)
+		refresh_units()
+		_consume_enemy_intent(enemy.id, "attack")
 		_queue_overlay_redraw()
 		if _emit_battle_result_if_over():
 			return
@@ -2486,6 +2874,53 @@ func _execute_next_enemy() -> void:
 			return
 
 	$EnemyTimer.start(_battle_delay(0.35))
+
+# 红衣女瞬移执行:淡出→换位→红 tint 淡入+"瞬移"飘字
+func _execute_enemy_teleport(enemy: Unit, dest: Vector2i) -> void:
+	var from = enemy.position
+	var sprite = unit_sprites.get(enemy.id, null)
+	if sprite != null and is_instance_valid(sprite):
+		var fade = create_tween()
+		fade.tween_property(sprite, "modulate:a", 0.15, 0.12)
+		await fade.finished
+	state.map.set_occupant(from, null)
+	enemy.move_to(dest, dest - from)
+	state.map.set_occupant(dest, enemy.id)
+	_create_or_update_sprite(enemy)
+	if sprite != null and is_instance_valid(sprite):
+		sprite.position = _tile_center(dest)
+		sprite.modulate = Color(1.4, 0.5, 0.5, 1.0)  # 红色残影
+		var appear = create_tween()
+		appear.tween_property(sprite, "modulate", Color(1, 1, 1, 1), 0.35)
+	_show_floating_text_at(dest, "瞬移!", Color(1.0, 0.3, 0.4))
+	state.emit_signal("unit_moved", enemy.id, from, dest)
+
+# 水鬼拖拽执行:目标玩家被拉入水域格,受少量伤害
+func _execute_enemy_drag(enemy: Unit, action: Dictionary) -> void:
+	var target = state.get_unit_by_id(str(action.get("target_id", "")))
+	var dest: Vector2i = action.get("target_pos", Vector2i(-1, -1))
+	if target == null or not target.is_alive:
+		return
+	if not state.map.in_bounds(dest) or state.map.is_occupied(dest):
+		return
+	var from = target.position
+	state.map.set_occupant(from, null)
+	if dest == enemy.position:
+		# 单格水域:换位 — 水鬼上玩家的岸位,玩家被拉进水里
+		state.map.set_occupant(enemy.position, null)
+		enemy.move_to(from, from - enemy.position)
+		state.map.set_occupant(from, enemy.id)
+		_create_or_update_sprite(enemy)
+	target.move_to(dest, dest - from)
+	state.map.set_occupant(dest, target.id)
+	_create_or_update_sprite(target)
+	var dmg = maxi(1, int(enemy.stats.strength * 0.5))
+	target.take_damage(dmg)
+	state.emit_signal("unit_damaged", target.id, dmg)
+	_show_floating_text_at(dest, "拖拽!", Color(0.4, 0.7, 1.0))
+	if not target.is_alive:
+		state.map.set_occupant(dest, null)
+		state.emit_signal("unit_died", target.id)
 
 func _animate_enemy_move(enemy: Unit, path: Array) -> void:
 	if path.size() < 2:
@@ -2530,11 +2965,13 @@ func _enemy_attack_from_action(enemy: Unit, action: Dictionary) -> void:
 	var behavior = action.get("attack_kind", _get_behavior(enemy))
 	if _manhattan(enemy.position, target.position) > _enemy_attack_range_for_behavior(behavior):
 		return
+	# 水鬼离水变弱等伤害倍率(GDD §四)
+	var mult = float(action.get("damage_mult", 1.0))
 	if behavior == "mage":
 		StatusEffectManager.apply_status(target, "burn", 2)
-		_do_enemy_damage(enemy, target, "magic")
+		_do_enemy_damage(enemy, target, "magic", mult)
 		return
-	_do_enemy_damage(enemy, target)
+	_do_enemy_damage(enemy, target, "physical", mult)
 	if behavior != "ranged" and target.is_alive and _is_adjacent(enemy.position, target.position):
 		var counter = _calc_damage(target, enemy)
 		enemy.take_damage(counter)
@@ -2582,13 +3019,18 @@ func _enemy_attack(enemy: Unit) -> void:
 				state.emit_signal("unit_died", enemy.id)
 		break
 
-func _do_enemy_damage(enemy: Unit, target: Unit, dmg_type: String = "physical") -> void:
+func _do_enemy_damage(enemy: Unit, target: Unit, dmg_type: String = "physical", mult: float = 1.0) -> void:
 	if _try_dodge(target):
 		_show_floating_text(target, "MISS", Color(1, 1, 0.3))
 		return
 	var damage = _calc_damage(enemy, target) if dmg_type == "physical" else maxi(1, enemy.stats.intelligence - int(target.stats.magic_resist * 0.3 * target.get_defense_modifier(enemy.position)))
+	if mult != 1.0:
+		damage = maxi(1, roundi(damage * mult))
 	target.take_damage(damage)
 	state.emit_signal("unit_damaged", target.id, damage)
+	# 恐惧源(GDD §四):玩家被灵体攻击命中 +hitBySpirit
+	if target.faction == "player" and target.is_alive:
+		target.modify_fear(int(state.balance.get("fear", {}).get("hitBySpirit", 10)))
 	if not target.is_alive:
 		state.map.set_occupant(target.position, null)
 		state.emit_signal("unit_died", target.id)
@@ -2635,8 +3077,8 @@ func _finish_enemy_turn() -> void:
 		state.emit_signal("battle_lost")
 		return
 
-	# Environment turn: spread effects and tick durations
-	state.current_turn = "environment"
+	# 第 4 阶段:环境处理 — 蔓延效果、tick 持续时间
+	turn_manager.set_phase("environment")
 	state.emit_signal("turn_start", "environment")
 	if terrain_system:
 		terrain_system.process_spread(state.map)
@@ -2652,7 +3094,7 @@ func _finish_enemy_turn() -> void:
 		state.emit_signal("battle_lost")
 		return
 
-	state.current_turn = "spirit"
+	turn_manager.set_phase("spirit")
 	state.emit_signal("turn_start", "spirit")
 	if spirit_system != null:
 		spirit_system.apply_turn_end_effect()
@@ -2736,8 +3178,40 @@ func _on_noise_propagated(data: Dictionary) -> void:
 			label = "倒地声"
 		"explosion", "oil_ignite":
 			label = "巨响"
-	_show_floating_text_at(pos, label, Color(1.0, 0.75, 0.2))
+	_show_floating_noise_label(pos, label)
 	_queue_overlay_redraw()
+
+# Coalesces overlapping noise floating-text labels at the same position. A chained
+# explosion emits noise:propagated many times in one frame (15+ for a single
+# barrel on oil terrain), and without this they'd stack as visible duplicates.
+const _NOISE_LABEL_DEDUPE_WINDOW_MSEC := 350
+func _show_floating_noise_label(pos: Vector2i, text: String) -> void:
+	var now := Time.get_ticks_msec()
+	var key := "%s|%d,%d" % [text, pos.x, pos.y]
+	var existing = _floating_text_dedupe.get(key, null)
+	if existing != null:
+		var expire: int = int(existing.get("expire_msec", 0))
+		if now < expire:
+			# Still inside the window — refresh the existing label's life so it
+			# fades from the latest emission rather than spawning a new one.
+			existing["expire_msec"] = now + _NOISE_LABEL_DEDUPE_WINDOW_MSEC
+			return
+		var old_label: Label = existing.get("label")
+		if old_label != null and is_instance_valid(old_label):
+			old_label.queue_free()
+	_show_floating_text_at(pos, text, Color(1.0, 0.75, 0.2))
+	# Find the label we just created by scanning children (it was add_child'd last).
+	var spawned: Label = null
+	for i in range(get_child_count() - 1, -1, -1):
+		var node = get_child(i)
+		if node is Label and not node.is_queued_for_deletion():
+			spawned = node
+			break
+	if spawned != null:
+		_floating_text_dedupe[key] = {
+			"label": spawned,
+			"expire_msec": now + _NOISE_LABEL_DEDUPE_WINDOW_MSEC,
+		}
 
 func _on_effect_added_visual(data: Dictionary) -> void:
 	var pos: Vector2i = data.get("pos", Vector2i(-1, -1))
@@ -2746,6 +3220,8 @@ func _on_effect_added_visual(data: Dictionary) -> void:
 	for eff in state.map.get_effects(pos.x, pos.y):
 		if eff.type == "fire" or eff.type == "explosion":
 			_has_ambient_map_animation = true
+			# 音效:点燃/爆炸(effect:added 每格广播,音效池轮用限流)
+			_play_sfx_placeholder("ignite" if eff.type == "fire" else "explosion")
 			break
 	_queue_scene_redraw()
 
@@ -2817,6 +3293,19 @@ func _show_interaction_menu(pos: Vector2i, obj_id: String, actions: Array) -> vo
 		pickup_btn.pressed.connect(func(): _execute_pickup(pos, obj_id))
 		_interaction_menu.add_child(pickup_btn)
 
+	# pushable 即可拉(GDD):拉到角色位置,角色后退 1 格
+	if odef.get("pushable", false):
+		var pull_btn = Button.new()
+		pull_btn.text = "拉"
+		pull_btn.add_theme_font_size_override("font_size", 14)
+		pull_btn.add_theme_color_override("font_color", Color(1, 0.85, 0.3))
+		var btn_style3 = StyleBoxFlat.new()
+		btn_style3.bg_color = Color(0.2, 0.15, 0.08)
+		btn_style3.set_corner_radius_all(3)
+		pull_btn.add_theme_stylebox_override("normal", btn_style3)
+		pull_btn.pressed.connect(func(): _execute_pull(pos))
+		_interaction_menu.add_child(pull_btn)
+
 	var cancel_btn = Button.new()
 	cancel_btn.text = "x"
 	cancel_btn.add_theme_font_size_override("font_size", 12)
@@ -2831,7 +3320,7 @@ func _execute_interaction(pos: Vector2i, obj_id: String, action: String) -> void
 	_cancel_interaction_menu()
 	if state.selected_unit == null:
 		return
-	if state.is_unit_skipped(state.selected_unit.id):
+	if state.is_unit_skipped(state.selected_unit.id) or state.selected_unit.panicked:
 		return
 	match action:
 		"push":
@@ -2851,6 +3340,10 @@ func _execute_interaction(pos: Vector2i, obj_id: String, action: String) -> void
 			if interaction_system.interact(state.selected_unit, pos, action):
 				var text = "点燃!" if action == "ignite" else action
 				_show_floating_text_at(pos, text, Color(0.5, 0.8, 1))
+				if action == "open" or action == "close":
+					_play_sfx_placeholder("door")
+				elif action == "ignite":
+					_play_sfx_placeholder("ignite")
 				refresh_units()
 				_queue_scene_redraw()
 				_emit_battle_result_if_over()
@@ -2867,6 +3360,233 @@ func _cancel_interaction_menu() -> void:
 	if _interaction_menu and is_instance_valid(_interaction_menu):
 		_interaction_menu.queue_free()
 	_interaction_menu = null
+
+# ============ 环境互动栏(GDD P0:推/拉/推倒/拾取/放置/互动/点燃) ============
+
+func _build_interaction_bar() -> void:
+	_interaction_bar = HBoxContainer.new()
+	_interaction_bar.name = "InteractionBar"
+	# 手牌区上方横排:7 按钮 x 60 + 6 间隔,起始 x 居中于手牌区
+	_interaction_bar.position = Vector2(694, 800)
+	_interaction_bar.add_theme_constant_override("separation", 6)
+	_interaction_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$HUD.add_child(_interaction_bar)
+	for entry in INTERACTION_MODES:
+		var btn := Button.new()
+		btn.name = "InterBtn_" + str(entry.mode)
+		btn.custom_minimum_size = Vector2(60, 66)
+		btn.mouse_filter = Control.MOUSE_FILTER_STOP
+		btn.add_theme_font_size_override("font_size", 12)
+		btn.add_theme_color_override("font_color", UI_TEXT_WARM)
+		btn.add_theme_color_override("font_hover_color", UI_GOLD_BRIGHT)
+		btn.add_theme_stylebox_override("normal", _make_tex_panel_style("top_button", Color(1, 1, 1, 0.92), "top_button_slim", 4.0))
+		btn.add_theme_stylebox_override("hover", _make_tex_panel_style("top_button", Color(1.18, 1.12, 1.0, 1.0), "top_button_slim", 4.0))
+		btn.add_theme_stylebox_override("pressed", _make_tex_panel_style("top_button", Color(0.82, 0.78, 0.72, 1.0), "top_button_slim", 4.0))
+		btn.add_theme_stylebox_override("disabled", _make_tex_panel_style("top_button", Color(0.5, 0.48, 0.45, 0.6), "top_button_slim", 4.0))
+		btn.add_theme_stylebox_override("focus", _make_clear_panel_style())
+		btn.pressed.connect(_on_interaction_mode_pressed.bind(str(entry.mode)))
+		_interaction_bar.add_child(btn)
+		var icon := TextureRect.new()
+		icon.texture = _ui_textures.get(str(entry.icon), null)
+		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		icon.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+		icon.position = Vector2(13, 5)
+		icon.size = Vector2(34, 34)
+		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		btn.add_child(icon)
+		var label := Label.new()
+		label.text = str(entry.label)
+		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		label.add_theme_font_size_override("font_size", 12)
+		label.add_theme_color_override("font_color", UI_TEXT_WARM)
+		label.position = Vector2(0, 42)
+		label.size = Vector2(60, 18)
+		label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		_apply_chinese_font(label, true)
+		btn.add_child(label)
+		_interaction_buttons[str(entry.mode)] = btn
+	_refresh_interaction_bar()
+
+func _on_interaction_mode_pressed(mode: String) -> void:
+	if state == null or state.current_turn != "player" or enemy_acting:
+		return
+	if _interaction_mode == mode:
+		_exit_interaction_mode()
+		return
+	if state.selected_unit == null:
+		return
+	if state.is_unit_skipped(state.selected_unit.id):
+		return
+	if state.team_ap < 1:
+		return
+	# 放置模式需要先选好物品栏物品
+	if mode == "place" and state.selected_inventory_index < 0:
+		_show_floating_text_at(state.selected_unit.position, "请先在物品栏选择要放置的物品", Color(1.0, 0.7, 0.3))
+		return
+	var targets := _interaction_valid_targets(mode)
+	if targets.is_empty():
+		var hint: String = str({
+			"push": "附近没有可推的物体", "pull": "附近没有可拉的物体",
+			"push_over": "附近没有可推倒的物体", "pickup": "附近没有可拾取的物体",
+			"place": "附近没有可放置的格子", "interact": "附近没有可互动的物体",
+			"ignite": "附近没有可点燃的物体",
+		}.get(mode, "没有可用目标"))
+		_show_floating_text_at(state.selected_unit.position, hint, Color(1.0, 0.7, 0.3))
+		return
+	# 进入互动模式:取消卡牌/物品目标态避免冲突
+	state.selected_card_index = -1
+	target_tiles = []
+	damage_tiles = []
+	_interaction_mode = mode
+	_interaction_mode_tiles = targets
+	_queue_overlay_redraw()
+	_refresh_interaction_bar()
+
+func _exit_interaction_mode() -> void:
+	if _interaction_mode == "":
+		return
+	_interaction_mode = ""
+	_interaction_mode_tiles = []
+	_queue_overlay_redraw()
+	_refresh_interaction_bar()
+
+# 与 interaction_system 相同的有效性判定(不扣 AP),用于高亮可互动格
+func _interaction_valid_targets(mode: String) -> Array:
+	var tiles: Array = []
+	var unit = state.selected_unit
+	if unit == null or state.map == null:
+		return tiles
+	var inv = null
+	var player = state.get_player_for_unit(unit.id)
+	if not player.is_empty():
+		inv = player.get("inventory_ref", null)
+	for d in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
+		var pos = unit.position + d
+		if not state.map.in_bounds(pos):
+			continue
+		var obj_id = state.map.get_object(pos.x, pos.y)
+		var odef: Dictionary = state.map.objects_data.get(obj_id, {}) if obj_id != "" else {}
+		match mode:
+			"push":
+				if odef.get("pushable", false):
+					var dest = pos + d
+					if state.map.in_bounds(dest) and state.map.is_walkable(dest) and not state.map.is_occupied(dest):
+						tiles.append(pos)
+			"pull":
+				if odef.get("pushable", false):
+					var back = unit.position - d
+					if state.map.in_bounds(back) and state.map.is_walkable(back) and not state.map.is_occupied(back) and state.map.get_object(back.x, back.y) == "":
+						tiles.append(pos)
+			"push_over":
+				if odef.get("push_over", false):
+					tiles.append(pos)
+			"pickup":
+				if odef.get("pushable", false) and inv != null and not inv.is_full():
+					tiles.append(pos)
+			"place":
+				if obj_id == "" and state.map.is_walkable(pos) and not state.map.is_occupied(pos):
+					tiles.append(pos)
+			"interact":
+				var acts: Array = odef.get("interact", [])
+				if acts.has("ring") or acts.has("open") or acts.has("close"):
+					tiles.append(pos)
+				# 封印:相邻灵体/棺材主且封印条件全满时,作为"互动"模式的可选目标
+				if spirit_system != null:
+					var occ_id := state.map.get_occupant_id(pos)
+					if occ_id != "":
+						var occ_unit := state.get_unit_by_id(occ_id)
+						if occ_unit != null and occ_unit.faction == "enemy" and spirit_system.check_seal_activation(occ_unit):
+							tiles.append(pos)
+			"ignite":
+				if odef.get("interact", []).has("ignite"):
+					tiles.append(pos)
+	return tiles
+
+# 互动模式下点击目标格:复用现有 InteractionSystem 路径执行
+func _execute_interaction_mode(pos: Vector2i) -> void:
+	var unit = state.selected_unit
+	if unit == null or state.is_unit_skipped(unit.id):
+		_exit_interaction_mode()
+		return
+	var mode = _interaction_mode
+	var dir = pos - unit.position
+	var obj_id = state.map.get_object(pos.x, pos.y)
+	var success := false
+	match mode:
+		"push":
+			success = interaction_system.push(unit, dir)
+			if success:
+				_show_floating_text_at(pos + dir, "推!", Color(1, 0.85, 0.3))
+		"pull":
+			var unit_from = unit.position
+			success = interaction_system.pull(unit, dir)
+			if success:
+				_show_floating_text_at(unit_from, "拉!", Color(1, 0.85, 0.3))
+				state.emit_signal("unit_moved", unit.id, unit_from, unit.position)
+		"push_over":
+			success = interaction_system.push_over(unit, pos)
+			if success:
+				_show_floating_text_at(pos, "推倒!", Color(0.8, 0.7, 0.3))
+		"pickup":
+			# 复用弹窗菜单的拾取路径(含入背包与 UI 刷新)
+			_execute_pickup(pos, obj_id)
+			success = true
+		"place":
+			# 复用物品栏放置路径(扣 AP/消耗品/刷新)
+			_place_inventory_item(pos)
+			success = true
+		"interact":
+			# 封印优先:目标格有可封印敌人时执行"激活阵眼"(1 AP,立即击杀)
+			var occ_id := state.map.get_occupant_id(pos)
+			var occ_unit := state.get_unit_by_id(occ_id) if occ_id != "" else null
+			if occ_unit != null and occ_unit.faction == "enemy" and spirit_system != null and spirit_system.check_seal_activation(occ_unit):
+				success = _execute_seal(occ_unit)
+			else:
+				# 兼容现有弹窗菜单:bell/door/coffin 仍走 _handle_object_click
+				_handle_object_click(pos, obj_id)
+				success = true
+		"ignite":
+			success = interaction_system.interact(unit, pos, "ignite")
+			if success:
+				_show_floating_text_at(pos, "点燃!", Color(0.5, 0.8, 1))
+	if success:
+		refresh_units()
+		_queue_scene_redraw()
+		_emit_battle_result_if_over()
+		# AP 允许时可连续互动:刷新目标,无目标则退出模式
+		if mode != "interact":
+			_interaction_mode_tiles = _interaction_valid_targets(mode)
+			if _interaction_mode_tiles.is_empty() or state.team_ap < 1:
+				_exit_interaction_mode()
+			else:
+				_queue_overlay_redraw()
+				_refresh_interaction_bar()
+		else:
+			_exit_interaction_mode()
+	else:
+		_exit_interaction_mode()
+
+# 按钮状态:回合/选中单位/AP 变化时刷新;有可用目标的按钮提亮
+func _refresh_interaction_bar() -> void:
+	if _interaction_bar == null or state == null:
+		return
+	# GDScript 无反斜杠续行,长条件放一行
+	var usable = state.current_turn == "player" and not enemy_acting and state.selected_unit != null and not state.is_unit_skipped(state.selected_unit.id) and state.team_ap >= 1
+	for entry in INTERACTION_MODES:
+		var mode := str(entry.mode)
+		var btn: Button = _interaction_buttons.get(mode, null)
+		if btn == null:
+			continue
+		btn.disabled = not usable
+		if mode == _interaction_mode:
+			btn.modulate = Color(1.25, 1.1, 0.75, 1.0)  # 激活:暗金高亮
+		elif usable and not _interaction_valid_targets(mode).is_empty():
+			btn.modulate = Color(1.0, 1.0, 1.0, 1.0)  # 有可用目标
+		else:
+			btn.modulate = Color(0.62, 0.60, 0.58, 0.85)  # 无可用目标:置灰
+
+# ============ 环境互动栏结束 ============
 
 func _show_floating_text_at(pos: Vector2i, text: String, color: Color) -> void:
 	var vc = _visual_coord(pos.x, pos.y)
@@ -2894,10 +3614,10 @@ func _find_unit_at(pos: Vector2i) -> Unit:
 
 func _phase_display_name(who: String) -> String:
 	var labels = {
-		"player": "你的回合",
+		"player": "玩家回合",
 		"intent": "敌方意图",
-		"enemy": "敌方回合",
-		"environment": "环境处理",
+		"enemy": "敌方行动",
+		"environment": "环境变化",
 		"spirit": "灵气流动",
 	}
 	return labels.get(who, who)
@@ -2938,6 +3658,20 @@ func _on_turn_start(who: String) -> void:
 		_enemy_intents = []
 		_enemy_turn_plan = {}
 		_release_gui_focus()
+		_play_sfx_placeholder("turn_end")
+		# 关卡流程(GDD §八):三阶段推进 + 惊醒期灵气增益 + 逃脱倒计时
+		if level_director != null:
+			var lres: Dictionary = level_director.on_player_turn_start(state.turn_count)
+			if int(lres.get("spirit_gain", 0)) > 0:
+				state.modify_spirit_density(int(lres.spirit_gain))
+				_refresh_spirit_bar()
+			if bool(lres.get("changed", false)):
+				_on_level_stage_changed(str(lres.get("from", "")), str(lres.get("stage", "")))
+			_refresh_escape_label()
+		# 教学:回合触发提示
+		if tutorial != null:
+			for tip in tutorial.check_turn(state.turn_count):
+				_queue_tutorial_tip(str(tip.get("text", "")))
 	$HUD/TurnLabel.text = "-- %s --" % _phase_display_name(who)
 	$HUD/TurnLabel.add_theme_color_override("font_color", _phase_display_color(who))
 	$HUD/TurnLabel.add_theme_font_size_override("font_size", 18)
@@ -2963,6 +3697,7 @@ func _on_unit_moved(unit_id: String, from: Vector2i, to: Vector2i) -> void:
 func _on_unit_damaged(unit_id: String, damage: int) -> void:
 	if damage <= 0:
 		return
+	_play_sfx_placeholder("hurt")
 	var unit = state.get_unit_by_id(unit_id)
 	if unit:
 		_show_floating_text(unit, "-%d" % damage, Color.RED)
@@ -2979,6 +3714,16 @@ func _on_unit_died(unit_id: String) -> void:
 	var unit = state.get_unit_by_id(unit_id)
 	if unit != null:
 		state.map.set_occupant(unit.position, null)
+	# 恐惧源(GDD §四):目睹队友死亡全体 +allyDeath;击杀/封印灵体全体 killSpiritRecovery(负值恢复)
+	var fear_cfg: Dictionary = state.balance.get("fear", {})
+	if unit != null and unit.faction == "player":
+		for p in state.players:
+			if p.unit.is_alive and p.unit.id != unit_id:
+				p.unit.modify_fear(int(fear_cfg.get("allyDeath", 25)))
+	elif unit != null and unit.faction == "enemy":
+		for p in state.players:
+			if p.unit.is_alive:
+				p.unit.modify_fear(int(fear_cfg.get("killSpiritRecovery", -10)))
 	var sprite = unit_sprites.get(unit_id)
 	if sprite:
 		var tween = create_tween()
@@ -3008,7 +3753,11 @@ func _on_battle_won() -> void:
 	_show_reward_screen()
 
 func _on_battle_lost() -> void:
-	_show_result("Defeat...", Color(0.667, 0.267, 0.267))
+	# 失败画面区分(GDD §八):棺材主逃脱 vs 全灭
+	var text = "全员阵亡…"
+	if state.lose_reason == "escaped":
+		text = "棺材主逃脱了…"
+	_show_result(text, Color(0.667, 0.267, 0.267))
 
 func _show_result(text: String, color: Color) -> void:
 	enemy_acting = true
@@ -3178,8 +3927,8 @@ func _show_stats_panel(unit: Unit) -> void:
 	_stats_panel.visible = true
 	# Target size per UI.md: 280x300 at (16,16).
 	_stats_panel.size = Vector2(280, 300)
-	_stats_panel.add_theme_stylebox_override("panel", _make_hud_panel_style(UI_GOLD, 0.54, 5, 1))
-	_add_corner_marks(_stats_panel, _stats_panel.size, UI_GOLD)
+	# 蒸汽朋克九图贴图;status_panel 中心是符纸黄浅底,modulate 压暗成古铜深色以保浅色文字可读
+	_stats_panel.add_theme_stylebox_override("panel", _make_tex_panel_style("status_panel", Color(0.45, 0.40, 0.35, 1.0)))
 
 	var avatar_frame = Panel.new()
 	avatar_frame.position = Vector2(14, 14)
@@ -3210,13 +3959,17 @@ func _show_stats_panel(unit: Unit) -> void:
 
 	var bar_area = Control.new()
 	bar_area.position = Vector2(18, 82)
-	bar_area.size = Vector2(248, 80)
+	bar_area.size = Vector2(248, 110)
 	_stats_panel.add_child(bar_area)
 	_add_compact_stat_bar(bar_area, "生命", float(unit.current_hp), float(unit.max_hp), UI_HP, 0, "%d/%d" % [unit.current_hp, unit.max_hp])
 	var ap_value = state.team_ap if unit.faction == "player" else unit.remaining_move
 	var ap_max = state.max_ap if unit.faction == "player" else unit.move_range
 	_add_compact_stat_bar(bar_area, "行动", float(ap_value), float(ap_max), UI_AP, 26, "%d/%d" % [ap_value, ap_max])
 	_add_compact_stat_bar(bar_area, "移速", float(unit.remaining_move), float(unit.move_range), UI_MP, 52, "%d/%d" % [unit.remaining_move, unit.move_range])
+	# 恐惧条(GDD 0-100):unit.gd 尚无 fear 字段,先加 UI 占位;有字段后自动读取
+	var fear_raw = unit.get("fear")
+	var fear_cur = float(fear_raw) if fear_raw != null else 0.0
+	_add_compact_stat_bar(bar_area, "恐惧", fear_cur, 100.0, Color(0.62, 0.35, 0.85), 78, "%d/100" % int(fear_cur))
 
 	if unit.faction != "player":
 		if _skill_desc_panel != null:
@@ -3239,8 +3992,7 @@ func _show_stats_panel(unit: Unit) -> void:
 		for child in _skill_desc_panel.get_children():
 			child.free()
 	_skill_desc_panel.visible = true
-	_skill_desc_panel.add_theme_stylebox_override("panel", _make_hud_panel_style(Color(UI_GOLD.r, UI_GOLD.g, UI_GOLD.b, 0.62), 0.50, 5, 1))
-	_add_corner_marks(_skill_desc_panel, _skill_desc_panel.size, UI_GOLD)
+	_skill_desc_panel.add_theme_stylebox_override("panel", _make_tex_panel_style("info_panel", Color.WHITE, "info_panel_slim"))
 	_add_label(_skill_desc_panel, skill_name, Vector2(18, 12), Vector2(248, 24), 14, UI_GOLD_BRIGHT)
 	_add_separator(_skill_desc_panel, Vector2(18, 38), 248)
 	var desc = _add_label(_skill_desc_panel, skill_desc, Vector2(18, 48), Vector2(248, 54), 12, UI_TEXT_MUTED)
@@ -3275,6 +4027,8 @@ func _refresh_party_bar() -> void:
 		slot.clip_contents = true
 		slot.mouse_filter = Control.MOUSE_FILTER_STOP
 		slot.add_theme_stylebox_override("panel", _make_slot_style(selected, UI_GOLD_DARK))
+		# 蒸汽朋克卡框套住头像;选中态仍由头像亮度与边框体现
+		_add_generated_backdrop(slot, "card_frame_v2", Vector2(92, 108), Color(1.0, 1.0, 1.0, 0.9))
 		slot.gui_input.connect(_on_party_slot_gui_input.bind(unit))
 		_party_bar.add_child(slot)
 		var avatar = TextureRect.new()
@@ -3284,7 +4038,13 @@ func _refresh_party_bar() -> void:
 		avatar.stretch_mode = TextureRect.STRETCH_SCALE
 		avatar.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 		avatar.modulate = Color(1, 1, 1, 1) if selected else Color(0.72, 0.72, 0.72, 1)
+		# 失控(GDD §四):头像染紫
+		if unit.panicked:
+			avatar.modulate = Color(0.75, 0.45, 1.0, 1.0)
 		slot.add_child(avatar)
+		if unit.panicked:
+			var panic_label = _add_label(slot, "失控", Vector2(4, 70), Vector2(84, 16), 12, Color(0.85, 0.5, 1.0), HORIZONTAL_ALIGNMENT_CENTER)
+			panic_label.clip_text = true
 		var hp_bg = ColorRect.new()
 		hp_bg.position = Vector2(6, 88)
 		hp_bg.size = Vector2(80, 4)
@@ -3340,7 +4100,23 @@ func refresh_units() -> void:
 		if not unit.is_alive:
 			continue
 		_create_or_update_sprite(unit)
+	# 水鬼水域潜伏(waterLurk):在 homeTags 格上半透明(GDD §四)
+	for unit in state.all_units:
+		if not unit.is_alive or unit.faction != "enemy":
+			continue
+		if not bool(unit.ai_profile.get("waterLurk", false)):
+			continue
+		var lurk_sprite = unit_sprites.get(unit.id, null)
+		if lurk_sprite == null or not is_instance_valid(lurk_sprite):
+			continue
+		var on_water := false
+		for tag in unit.ai_profile.get("homeTags", ["liquid"]):
+			if state.map.has_tag(unit.position.x, unit.position.y, str(tag)):
+				on_water = true
+				break
+		lurk_sprite.modulate.a = 0.45 if on_water else 1.0
 	_refresh_active_stats_panel()
+	_refresh_interaction_bar()
 
 func _create_or_update_sprite(unit: Unit) -> void:
 	var vc = _visual_coord(unit.position.x, unit.position.y)
@@ -3430,7 +4206,7 @@ func _update_sprite(container: Node2D, unit: Unit, screen: Vector2, is_player: b
 		var anim = AnimatedSprite2D.new()
 		var frames = SpriteFrames.new()
 		frames.add_animation("idle")
-		frames.set_animation_speed("idle", 4.0)
+		frames.set_animation_speed("idle", 6.0)
 		var frame_w = sheet.get_width() / 4.0
 		var frame_h = sheet.get_height() / 4.0
 		for fi in range(4):
@@ -3444,19 +4220,21 @@ func _update_sprite(container: Node2D, unit: Unit, screen: Vector2, is_player: b
 				frame_h - crop_margin * 2.0
 			)
 			frames.add_frame("idle", tex)
+		# 脚下阴影:半透明椭圆(约 64x22,黑色 alpha 0.35),替代原小菱形
 		var shadow = Polygon2D.new()
-		shadow.polygon = PackedVector2Array([
-			Vector2(0, -8), Vector2(25, 0),
-			Vector2(0, 8), Vector2(-25, 0),
-		])
+		var shadow_pts = PackedVector2Array()
+		for si in range(20):
+			var ang = TAU * float(si) / 20.0
+			shadow_pts.append(Vector2(cos(ang) * 32.0, sin(ang) * 11.0))
+		shadow.polygon = shadow_pts
 		shadow.position = Vector2(0, 5)
-		shadow.color = Color(0, 0, 0, 0.28)
+		shadow.color = Color(0, 0, 0, 0.35)
 		container.add_child(shadow)
 		anim.sprite_frames = frames
 		anim.play("idle")
 		anim.position = Vector2(0, -TILE_H * 0.52)
-		# Keep sprite scale at 1.0 for standard 64x64 sheets; only downscale oversized hires sheets.
-		var sprite_scale = 1.0 if frame_w <= 80.0 else 0.68
+		# 标准 64x64 精灵表用 1.1 倍缩放;高清大表仍缩小以匹配格子尺寸
+		var sprite_scale = 1.1 if frame_w <= 80.0 else 0.75
 		anim.scale = Vector2(sprite_scale, sprite_scale)
 		container.add_child(anim)
 		_add_unit_nameplate(container, unit, -94.0)
@@ -3479,23 +4257,25 @@ func _update_sprite(container: Node2D, unit: Unit, screen: Vector2, is_player: b
 		_ov_base.color = Color(_ov_color.r, _ov_color.g, _ov_color.b, 0.3)
 		container.add_child(_ov_base)
 
-		# HP bar with border
+		# HP 条:我方宽 70px / 敌方宽 80px,高 5px;我方固定翠绿 #50c850,敌方固定朱红 #dc3c3c
+		var hp_w = 70.0 if is_player else 80.0
+		var hp_color = Color(0.314, 0.784, 0.314) if is_player else Color(0.863, 0.235, 0.235)
 		var _ov_ob = ColorRect.new()
-		_ov_ob.size = Vector2(44, 6)
-		_ov_ob.position = Vector2(-22, 30)
+		_ov_ob.size = Vector2(hp_w + 2, 7)
+		_ov_ob.position = Vector2(-hp_w * 0.5 - 1, 30)
 		_ov_ob.color = Color(0.03, 0.025, 0.02, 0.68)
 		container.add_child(_ov_ob)
 		var _ov_bg = ColorRect.new()
-		_ov_bg.size = Vector2(42, 4)
-		_ov_bg.position = Vector2(-21, 31)
+		_ov_bg.size = Vector2(hp_w, 5)
+		_ov_bg.position = Vector2(-hp_w * 0.5, 31)
 		_ov_bg.color = Color(0.14, 0.12, 0.10, 0.72)
 		container.add_child(_ov_bg)
 
 		var _ov_ratio = float(unit.current_hp) / float(unit.max_hp)
 		var _ov_bar = ColorRect.new()
-		_ov_bar.size = Vector2(42 * _ov_ratio, 4)
-		_ov_bar.position = Vector2(-21, 31)
-		_ov_bar.color = _unit_hp_color(_ov_ratio)
+		_ov_bar.size = Vector2(hp_w * _ov_ratio, 5)
+		_ov_bar.position = Vector2(-hp_w * 0.5, 31)
+		_ov_bar.color = hp_color
 		container.add_child(_ov_bar)
 		# Status dots
 		var _ov_sx = -unit.status_effects.size() * 5
@@ -3515,7 +4295,7 @@ func _update_sprite(container: Node2D, unit: Unit, screen: Vector2, is_player: b
 			_ov_sl.text = "S%d" % unit.shield
 			_ov_sl.add_theme_font_size_override("font_size", 8)
 			_ov_sl.add_theme_color_override("font_color", Color(0.53, 0.73, 1))
-			_ov_sl.position = Vector2(12, 30)
+			_ov_sl.position = Vector2(hp_w * 0.5 + 4, 30)
 			container.add_child(_ov_sl)
 		return
 
@@ -3528,6 +4308,17 @@ func _update_sprite(container: Node2D, unit: Unit, screen: Vector2, is_player: b
 	var bh = 11.0
 	var bd = 37.0
 	var by = -(bh + bd)
+
+	# 脚下阴影:半透明椭圆(约 64x22,黑色 alpha 0.35)
+	var fb_shadow = Polygon2D.new()
+	var fb_shadow_pts = PackedVector2Array()
+	for si in range(20):
+		var sang = TAU * float(si) / 20.0
+		fb_shadow_pts.append(Vector2(cos(sang) * 32.0, sin(sang) * 11.0))
+	fb_shadow.polygon = fb_shadow_pts
+	fb_shadow.position = Vector2(0, 5)
+	fb_shadow.color = Color(0, 0, 0, 0.35)
+	container.add_child(fb_shadow)
 
 	var top_face = Polygon2D.new()
 	top_face.polygon = PackedVector2Array([
@@ -3592,17 +4383,19 @@ func _update_sprite(container: Node2D, unit: Unit, screen: Vector2, is_player: b
 
 	_add_unit_nameplate(container, unit, hy - 34.0)
 
+	# HP 条(多边形回退渲染):同样按规范,我方 70px 翠绿 / 敌方 80px 朱红,高 5px
+	var fb_hp_w = 70.0 if is_player else 80.0
 	var hp_bar_bg = ColorRect.new()
-	hp_bar_bg.size = Vector2(30, 4)
-	hp_bar_bg.position = Vector2(-15, by - bh - 8)
+	hp_bar_bg.size = Vector2(fb_hp_w, 5)
+	hp_bar_bg.position = Vector2(-fb_hp_w * 0.5, by - bh - 8)
 	hp_bar_bg.color = Color(0.12, 0.10, 0.08, 0.72)
 	container.add_child(hp_bar_bg)
 
 	var hp_ratio = float(unit.current_hp) / float(unit.max_hp)
 	var hp_bar = ColorRect.new()
-	hp_bar.size = Vector2(30 * hp_ratio, 4)
-	hp_bar.position = Vector2(-15, by - bh - 8)
-	hp_bar.color = _unit_hp_color(hp_ratio)
+	hp_bar.size = Vector2(fb_hp_w * hp_ratio, 5)
+	hp_bar.position = Vector2(-fb_hp_w * 0.5, by - bh - 8)
+	hp_bar.color = Color(0.314, 0.784, 0.314) if is_player else Color(0.863, 0.235, 0.235)
 	container.add_child(hp_bar)
 
 	var label = Label.new()
@@ -3734,7 +4527,7 @@ func _add_empty_action_slot(panel: Panel, slot_size: Vector2) -> void:
 	empty_style.bg_color = Color(0.070, 0.080, 0.092, 0.32)
 	empty_style.border_color = Color(0.72, 0.75, 0.78, 0.22)
 	panel.add_theme_stylebox_override("panel", empty_style)
-	_add_generated_backdrop(panel, "card_frame_v2", slot_size, Color(0.68, 0.72, 0.76, 0.42))
+	_add_generated_backdrop(panel, "card_frame_v2", slot_size, Color(1.0, 1.0, 1.0, 0.45))
 	var well = Panel.new()
 	well.position = Vector2(8, 13)
 	well.size = Vector2(slot_size.x - 16, slot_size.y - 43)
@@ -3854,7 +4647,7 @@ func refresh_inventory_ui() -> void:
 		if state.selected_inventory_index == i:
 			style.bg_color = Color(0.11, 0.12, 0.14, 0.72)
 		panel.add_theme_stylebox_override("panel", style)
-		_add_generated_backdrop(panel, "card_frame_v2", panel.size, Color(1.0, 0.94, 0.78, 0.74))
+		_add_generated_backdrop(panel, "card_frame_v2", panel.size, Color(1.0, 1.0, 1.0, 0.92))
 		panel.gui_input.connect(_on_inventory_item_gui_input.bind(panel, i))
 		panel.mouse_entered.connect(_on_inventory_item_mouse_entered.bind(panel, i))
 		panel.mouse_exited.connect(_on_inventory_item_mouse_exited.bind(panel))
@@ -3874,7 +4667,7 @@ func refresh_inventory_ui() -> void:
 		if card_id != "":
 			_add_card_face_art(icon_well, card_data, item_color, Vector2(3, 3), icon_well.size - Vector2(6, 6))
 		elif _object_textures.has(obj_id):
-			var tex = _object_textures[obj_id]
+			var tex = _v2_anim_frame(_object_textures[obj_id])
 			var icon = TextureRect.new()
 			icon.texture = tex
 			icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -3948,6 +4741,8 @@ func _place_inventory_item(target_pos: Vector2i) -> void:
 func _use_selected_inventory_item(target_pos: Vector2i) -> void:
 	if state.selected_unit == null or state.selected_inventory_index < 0:
 		return
+	if state.is_unit_skipped(state.selected_unit.id) or state.selected_unit.panicked:
+		return
 	var player = state.get_player_for_unit(state.selected_unit.id)
 	if player.is_empty():
 		return
@@ -4013,6 +4808,268 @@ func _play_inventory_card_item(target_pos: Vector2i, inv: Inventory, card_id: St
 	elif battle_result == "lost":
 		state.emit_signal("battle_lost")
 
+func _execute_pull(pos: Vector2i) -> void:
+	_cancel_interaction_menu()
+	if state.selected_unit == null:
+		return
+	if state.is_unit_skipped(state.selected_unit.id):
+		return
+	var dir = pos - state.selected_unit.position
+	var unit_from = state.selected_unit.position
+	if interaction_system.pull(state.selected_unit, dir):
+		_show_floating_text_at(unit_from, "拉!", Color(1, 0.85, 0.3))
+		state.emit_signal("unit_moved", state.selected_unit.id, unit_from, state.selected_unit.position)
+		refresh_units()
+		_queue_scene_redraw()
+		_emit_battle_result_if_over()
+
+# ============ 封印激活(GDD §5.5):互动模式对可封印灵体目标执行 ============
+
+# 扣 1 AP 并执行封印,击杀与 seal:activated 广播由 SpiritSystem 完成
+func _execute_seal(target_unit: Unit) -> bool:
+	if target_unit == null or spirit_system == null:
+		return false
+	if state.team_ap < 1:
+		_show_floating_text_at(target_unit.position, "AP 不足", Color(1.0, 0.5, 0.3))
+		return false
+	if not spirit_system.check_seal_activation(target_unit):
+		return false
+	if not state.spend_ap(1):
+		return false
+	if not spirit_system.activate_seal(target_unit):
+		return false
+	# 击杀飘字"封印"(金光笼罩等 FX 在 _on_seal_activated 中)
+	_show_floating_text_at(target_unit.position, "封印!", Color(1.0, 0.85, 0.3))
+	refresh_units()
+	_queue_scene_redraw()
+	_emit_battle_result_if_over()
+	return true
+
+# Boss 阶段切换提示:觉醒飘字 + 暗红闪光
+func _on_boss_phase_changed(data: Dictionary) -> void:
+	var pos: Vector2i = data.get("pos", Vector2i(-1, -1))
+	if state.map != null and state.map.in_bounds(pos):
+		_show_floating_text_at(pos, "棺材主觉醒!", Color(1.0, 0.25, 0.2))
+	var sprite = unit_sprites.get(str(data.get("unit_id", "")), null)
+	if sprite != null and is_instance_valid(sprite):
+		sprite.modulate = Color(1.5, 0.55, 0.45, 1.0)
+		var tween = create_tween()
+		tween.tween_property(sprite, "modulate", Color(1, 1, 1, 1), 0.8)
+
+# 失控(GDD §四):紫色"失控!"飘字 + 头像/面板刷新
+func _on_unit_panicked(data: Dictionary) -> void:
+	var pos: Vector2i = data.get("pos", Vector2i(-1, -1))
+	if state.map != null and state.map.in_bounds(pos):
+		_show_floating_text_at(pos, "失控!", Color(0.75, 0.4, 1.0))
+	_refresh_active_stats_panel()
+
+# 恐惧值变化:刷新角色面板恐惧条与头像
+func _on_unit_fear_changed(_data: Dictionary) -> void:
+	_refresh_active_stats_panel()
+
+# 钟馗「镇邪体魄」:致命伤留 1 HP 提示
+func _on_unit_undying_survived(data: Dictionary) -> void:
+	var pos: Vector2i = data.get("pos", Vector2i(-1, -1))
+	if state.map != null and state.map.in_bounds(pos):
+		_show_floating_text_at(pos, "镇邪体魄!", Color(1.0, 0.85, 0.3))
+	refresh_units()
+
+# ============ 关卡流程:三阶段 + 棺材主逃脱(GDD §八) ============
+
+# 阶段切换:顶部横幅提示;惊醒期棺材震动;决战期强制破棺
+func _on_level_stage_changed(from_stage: String, to_stage: String) -> void:
+	var stage_name = level_director.stage_name(to_stage) if level_director != null else to_stage
+	match to_stage:
+		"alert":
+			_coffin_shaking = true
+			_show_stage_banner("【%s】棺材在震动…" % stage_name, Color(1.0, 0.7, 0.3))
+			_play_sfx_placeholder("stage_alert")
+			for c in _coffin_cells():
+				_show_floating_text_at(c, "咚…咚…", Color(1.0, 0.6, 0.3))
+		"decisive":
+			_coffin_shaking = false
+			_show_stage_banner("【%s】棺材主苏醒了!" % stage_name, Color(1.0, 0.3, 0.25))
+			_play_sfx_placeholder("stage_decisive")
+			_force_open_coffins()
+		_:
+			_show_stage_banner("【%s】" % stage_name, Color(0.9, 0.85, 0.7))
+	_queue_scene_redraw()
+
+# 地图上棺材物体格
+func _coffin_cells() -> Array:
+	var cells = []
+	for y in range(state.map.rows):
+		for x in range(state.map.cols):
+			if state.map.get_object(x, y) == "coffin":
+				cells.append(Vector2i(x, y))
+	return cells
+
+# 决战期:若棺材未被玩家打开,强制破棺(广播 coffin:opened → 灵气 +5)
+func _force_open_coffins() -> void:
+	for c in _coffin_cells():
+		state.map.set_object(c.x, c.y, null)
+		EventBus.emit("coffin:opened", {"map": state.map, "pos": c, "unit_id": "level_flow"})
+		_show_floating_text_at(c, "破棺而出!", Color(1.0, 0.35, 0.25))
+
+# 逃脱倒计时/警告(胜利条件面板)
+func _refresh_escape_label() -> void:
+	if level_director == null or _objective_escape_label == null:
+		return
+	var cd = level_director.escape_countdown(state.turn_count)
+	if cd <= 0:
+		_objective_escape_label.text = "棺材主正试图逃脱!"
+		_objective_escape_label.add_theme_color_override("font_color", Color(1.0, 0.3, 0.25))
+	elif cd <= level_director.escape_warn_turns():
+		_objective_escape_label.text = "棺材主将于 %d 回合后试图逃脱" % cd
+		_objective_escape_label.add_theme_color_override("font_color", Color(1.0, 0.55, 0.35))
+	else:
+		_objective_escape_label.text = ""
+
+# Boss 到达门格 → 逃脱失败(battle_lost 由 is_battle_over 识别 lose_reason 后统一发射)
+func _on_boss_escaped(data: Dictionary) -> void:
+	_show_floating_text_at(data.get("pos", Vector2i(-1, -1)), "逃脱!", Color(1.0, 0.3, 0.25))
+	$EnemyTimer.stop()
+
+# 敌方每个行动后检查:Boss 是否已到门格
+func _check_boss_escape() -> void:
+	if level_director != null and state.is_battle_over() == "":
+		level_director.report_boss_escaped()
+
+# ============ 音效系统(GDD §八 收尾):AudioStreamPlayer 池(4 个轮用) ============
+# 事件名 → assets/audio/sfx/*.mp3;阶段事件复用现成音效
+const SFX_FILES := {
+	"push": "res://assets/audio/sfx/sfx_push.mp3",
+	"bell": "res://assets/audio/sfx/sfx_bell.mp3",
+	"ignite": "res://assets/audio/sfx/sfx_fire_ignite.mp3",
+	"explosion": "res://assets/audio/sfx/sfx_explosion.mp3",
+	"card_play": "res://assets/audio/sfx/sfx_card_play.mp3",
+	"seal": "res://assets/audio/sfx/sfx_seal.mp3",
+	"hurt": "res://assets/audio/sfx/sfx_unit_hurt.mp3",
+	"turn_end": "res://assets/audio/sfx/sfx_turn_end.mp3",
+	"door": "res://assets/audio/sfx/sfx_door.mp3",
+	"pickup": "res://assets/audio/sfx/sfx_pickup.mp3",
+	"stage_alert": "res://assets/audio/sfx/sfx_seal.mp3",
+	"stage_decisive": "res://assets/audio/sfx/sfx_explosion.mp3",
+}
+const SFX_VOLUME_DB := -8.0
+var _sfx_players: Array = []
+var _sfx_index := 0
+var _sfx_streams := {}
+
+func _build_sfx_pool() -> void:
+	for i in range(4):
+		var p := AudioStreamPlayer.new()
+		p.volume_db = SFX_VOLUME_DB
+		add_child(p)
+		_sfx_players.append(p)
+
+# 播放音效(原占位函数,2026-07-23 接入真实音频资产)
+func _play_sfx_placeholder(sfx_id: String) -> void:
+	if not SFX_FILES.has(sfx_id) or _sfx_players.is_empty():
+		return
+	if not _sfx_streams.has(sfx_id):
+		_sfx_streams[sfx_id] = load(SFX_FILES[sfx_id])
+	var stream: AudioStream = _sfx_streams[sfx_id]
+	if stream == null:
+		return
+	var p: AudioStreamPlayer = _sfx_players[_sfx_index % _sfx_players.size()]
+	_sfx_index += 1
+	p.stream = stream
+	p.play()
+
+# EventBus 音效桥:推/推倒 → push;摇铃 → bell
+func _on_sfx_push(_data: Dictionary) -> void:
+	_play_sfx_placeholder("push")
+
+func _on_sfx_bell(_data: Dictionary) -> void:
+	_play_sfx_placeholder("bell")
+
+# 阶段切换横幅:复用教学横幅样式,独立队列之外直接展示
+func _show_stage_banner(text: String, color: Color) -> void:
+	_queue_tutorial_tip(text, color)
+
+# ============ 教学引导(GDD §八):分步提示横幅 ============
+
+func _build_tutorial_banner() -> void:
+	_tutorial_banner = Panel.new()
+	_tutorial_banner.position = Vector2(418, 66)
+	_tutorial_banner.size = Vector2(700, 52)
+	_tutorial_banner.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_tutorial_banner.add_theme_stylebox_override("panel", _make_tex_panel_style("banner_plaque", Color(0.55, 0.5, 0.42, 1.0)))
+	_tutorial_banner.visible = false
+	$HUD.add_child(_tutorial_banner)
+	_tutorial_label = _add_label(_tutorial_banner, "", Vector2(20, 14), Vector2(660, 26), 15, Color(1.0, 0.95, 0.8), HORIZONTAL_ALIGNMENT_CENTER)
+	_apply_chinese_font(_tutorial_label, true)
+
+func _queue_tutorial_tip(text: String, color: Color = Color(1.0, 0.95, 0.8)) -> void:
+	if text == "":
+		return
+	_tutorial_queue.append({"text": text, "color": color})
+	if not _tutorial_showing:
+		_show_next_tutorial_tip()
+
+func _show_next_tutorial_tip() -> void:
+	if _tutorial_queue.is_empty():
+		_tutorial_showing = false
+		return
+	_tutorial_showing = true
+	if _tutorial_banner == null:
+		_build_tutorial_banner()
+	var tip: Dictionary = _tutorial_queue.pop_front()
+	_tutorial_label.text = str(tip.get("text", ""))
+	_tutorial_label.add_theme_color_override("font_color", tip.get("color", Color(1.0, 0.95, 0.8)))
+	_tutorial_banner.visible = true
+	_tutorial_banner.modulate = Color(1, 1, 1, 0)
+	var tween = create_tween()
+	tween.tween_property(_tutorial_banner, "modulate:a", 1.0, 0.3)
+	tween.tween_interval(3.5)
+	tween.tween_property(_tutorial_banner, "modulate:a", 0.0, 0.5)
+	tween.tween_callback(_on_tutorial_tip_done)
+
+func _on_tutorial_tip_done() -> void:
+	_tutorial_banner.visible = false
+	_tutorial_showing = false
+	_show_next_tutorial_tip()
+
+# 教学事件转发:EventBus 事件 → 教程触发器(如首次推物体提示火焰蔓延)
+func _on_tutorial_event(data: Dictionary) -> void:
+	if tutorial == null:
+		return
+	# 本函数当前只订阅 object:pushed;事件名固定传入
+	for tip in tutorial.check_event("object:pushed", data):
+		_queue_tutorial_tip(str(tip.get("text", "")))
+
+# seal:activated FX:各阵眼格浮起金色符文(向上飘+旋转+淡出),目标金光笼罩
+func _on_seal_activated(data: Dictionary) -> void:
+	_play_sfx_placeholder("seal")
+	var tex: Texture2D = _effect_textures.get("seal_activate", null)
+	if tex != null:
+		for p in data.get("points", []):
+			_spawn_seal_rune_fx(p, tex)
+	var target_pos: Vector2i = data.get("target_pos", Vector2i(-1, -1))
+	if state.map != null and state.map.in_bounds(target_pos):
+		# 目标金光笼罩:精灵短暂染金(死亡淡出由 _on_unit_died 接管)
+		var sprite = unit_sprites.get(str(data.get("target_id", "")), null)
+		if sprite != null:
+			sprite.modulate = Color(1.6, 1.35, 0.6, 1.0)
+
+func _spawn_seal_rune_fx(pos: Vector2i, tex: Texture2D) -> void:
+	var vc = _visual_coord(pos.x, pos.y)
+	var screen = _grid_origin + cart_to_iso(vc.x, vc.y)
+	var rune := Sprite2D.new()
+	rune.texture = tex
+	rune.position = screen
+	rune.scale = Vector2(0.45, 0.45)
+	rune.modulate = Color(1.3, 1.15, 0.7, 0.95)
+	add_child(rune)
+	var tween := create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(rune, "position:y", screen.y - 90.0, 1.4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(rune, "rotation", TAU, 1.4)
+	tween.tween_property(rune, "scale", Vector2(0.7, 0.7), 0.5)
+	tween.tween_property(rune, "modulate:a", 0.0, 1.4).set_delay(0.4)
+	tween.chain().tween_callback(rune.queue_free)
+
 func _execute_pickup(pos: Vector2i, obj_id: String) -> void:
 	_cancel_interaction_menu()
 	if state.selected_unit == null:
@@ -4026,6 +5083,7 @@ func _execute_pickup(pos: Vector2i, obj_id: String) -> void:
 				var is_consumable = odef.get("consumable", false)
 				inv.add_item(obj_id, is_consumable)
 		_show_floating_text_at(pos, "拾取", Color(0.3, 1, 0.5))
+		_play_sfx_placeholder("pickup")
 		refresh_inventory_ui()
 		refresh_units()
 		_queue_scene_redraw()
@@ -4119,7 +5177,7 @@ func refresh_card_ui() -> void:
 			continue
 		var bg = _make_card_style(i == state.selected_card_index, rarity_border.get(rarity, UI_GOLD), type_color)
 		panel.add_theme_stylebox_override("panel", bg)
-		_add_generated_backdrop(panel, "card_frame_v2", panel.size, Color(1.0, 0.95, 0.80, 0.88 if i == state.selected_card_index else 0.72))
+		_add_generated_backdrop(panel, "card_frame_v2", panel.size, Color(1.0, 1.0, 1.0, 1.0 if i == state.selected_card_index else 0.88))
 		var header = ColorRect.new()
 		header.size = Vector2(card_w - 16, 3)
 		header.position = Vector2(8, 7)
@@ -4180,7 +5238,7 @@ func _init_turn_order_bar() -> void:
 	_turn_order_panel.position = Vector2(520, 14)
 	_turn_order_panel.size = Vector2(650, 58)
 	_turn_order_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_turn_order_panel.add_theme_stylebox_override("panel", _make_clean_panel_style(Color(UI_GOLD.r, UI_GOLD.g, UI_GOLD.b, 0.50), Color(0.050, 0.070, 0.090, 0.34), 6, 1))
+	_turn_order_panel.add_theme_stylebox_override("panel", _make_tex_panel_style("banner_plaque", Color(0.5, 0.45, 0.40, 1.0)))
 	$HUD.add_child(_turn_order_panel)
 	_turn_order_title = Label.new()
 	_turn_order_title.position = Vector2(16, 4)
@@ -4281,7 +5339,7 @@ func _show_card_tooltip(index: int, panel: Control) -> void:
 func _show_action_tooltip(card_data: Dictionary, panel: Control, uses: int = -1) -> void:
 	if _card_tooltip == null:
 		_card_tooltip = Panel.new()
-		_card_tooltip.add_theme_stylebox_override("panel", _make_clean_panel_style(UI_GOLD, Color(0.050, 0.068, 0.088, 0.72), 6, 1))
+		_card_tooltip.add_theme_stylebox_override("panel", _make_tex_panel_style("info_panel"))
 		$BottomUI.add_child(_card_tooltip)
 	for child in _card_tooltip.get_children():
 		child.get_parent().remove_child(child)
@@ -4329,7 +5387,7 @@ func _show_action_tooltip(card_data: Dictionary, panel: Control, uses: int = -1)
 func _show_object_item_tooltip(item: Dictionary, panel: Control) -> void:
 	if _card_tooltip == null:
 		_card_tooltip = Panel.new()
-		_card_tooltip.add_theme_stylebox_override("panel", _make_clean_panel_style(UI_GOLD, Color(0.050, 0.068, 0.088, 0.72), 6, 1))
+		_card_tooltip.add_theme_stylebox_override("panel", _make_tex_panel_style("info_panel"))
 		$BottomUI.add_child(_card_tooltip)
 	for child in _card_tooltip.get_children():
 		child.queue_free()
@@ -4482,6 +5540,7 @@ func _on_card_clicked(index: int) -> void:
 
 	# Show targets without triggering select_unit (which rebuilds card UI)
 	target_tiles = CardResolver.get_valid_targets(card_data, player.unit, state.map, state.all_units)
+	target_tiles = _append_bell_targets(player.unit, card_data, target_tiles)
 	reachable_tiles = []
 	_queue_overlay_redraw()
 	refresh_card_ui()
@@ -4525,12 +5584,19 @@ func _on_spirit_density_changed(_new_d: int, _old_d: int, _tier: String, _source
 	_refresh_spirit_bar()
 	_refresh_top_status_title()
 	_queue_scene_redraw()
+	# 教学:灵气阈值触发(灵气 ≥4 提示封印)
+	if tutorial != null:
+		for tip in tutorial.check_spirit(state.spirit_density):
+			_queue_tutorial_tip(str(tip.get("text", "")))
 
 func _on_spirit_tier_changed(new_tier: String, _old_tier: String) -> void:
 	_refresh_spirit_bar()
 	_refresh_top_status_title()
 	if new_tier == "hundred_ghosts":
 		_show_floating_text_at_grid_center("百鬼夜行！", Color(0.75, 0.2, 1.0))
+		# 灵气 10:所有灵体进 rage(GDD §5.6,接阶段 1 TODO)
+		if ai != null:
+			ai.set_all_spirits_rage(state.get_alive_units("player"))
 	elif new_tier == "rage":
 		_show_floating_text_at_grid_center("灵体暴走！", Color(1.0, 0.25, 0.2))
 	elif new_tier == "reinforced":

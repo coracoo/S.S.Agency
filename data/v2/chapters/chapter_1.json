@@ -1,0 +1,55 @@
+{
+	"_comment": "章节 v2 - 含横版探索层。结构：chapter.scene 定义探索场景（背景/宽度/触发区/NPC/敌人）；chapter.nodes 仍是对话/战斗/结局节点图，由触发区事件跳入。",
+	"id": "chapter_1",
+	"title": "第一章 · 蒸汽道观的回响",
+	"recommended_level": 1,
+	"entry": "intro_dialog",
+	"scene": {
+		"_comment": "v3 图块地图探索：map 指向 data/v2/maps/ 下的地图 JSON（64×64 程序化生成，物件/门/传送门都在地图里定义）。",
+		"map": "map_64",
+		"player_sprite": "res://assets/v2/sprites/rinne.png"
+	},
+	"nodes": {
+		"intro_dialog": {
+			"type": "dialog",
+			"bg": "res://assets/v2/bg/chapter1_corridor.png",
+			"speaker": "rinne",
+			"speaker_portrait": "rinne",
+			"text": "道观的蒸汽管道已经锈死了……我能闻到封魂罐里渗出的尸气。往里走吧。",
+			"choices": [
+				{ "text": "进入道观", "next": "__enter_explore__" }
+			]
+		},
+		"mechanist_dialog": {
+			"type": "dialog",
+			"bg": null,
+			"speaker": "mechanist",
+			"speaker_portrait": null,
+			"text": "封魂罐的压力阀爆了……里面的东西跑出来了。小心前面那个纸扎义体，它的黄铜骨架会夹断你的脖子。",
+			"choices": [
+				{ "text": "我会小心的", "next": "__return_explore__" }
+			]
+		},
+		"battle_1": {
+			"type": "battle",
+			"bg": "res://assets/v2/bg/chapter1_corridor.png",
+			"enemies": ["paper_effigy"],
+			"on_victory": "after_battle_1",
+			"on_defeat": "ending_defeat"
+		},
+		"after_battle_1": {
+			"type": "dialog",
+			"bg": null,
+			"speaker": "rinne",
+			"text": "纸扎义体倒了。封魂罐的尸气还在往里渗……继续深入。",
+			"choices": [
+				{ "text": "继续探索", "next": "__return_explore__" }
+			]
+		},
+		"ending_defeat": {
+			"type": "ending",
+			"ending_id": "defeat",
+			"text": "你倒在了蒸汽道观的走廊里。封魂罐的尸气将你一同吞没。"
+		}
+	}
+}

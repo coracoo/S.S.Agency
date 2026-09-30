@@ -1,0 +1,79 @@
+{
+ "id": "night_patrol",
+ "name": "逢魔神社 · 夜巡（样章结案）",
+ "comment": "GDD §6 样章真相：灯笼/钟鸣/棺守三线归一；两种处理方式有余波差异",
+ "nodes": {
+  "t1": {
+   "speaker": "rinne",
+   "name": "凛音",
+   "color": "vermilion_500",
+   "portrait": "res://assets/chars/portraits/rinne_half.png",
+   "side": "left",
+   "text": "三夜查明白了。参道水钵里的灯笼、回廊自鸣的吊钟、棺守等的人——都是同一件事：几十年前那场没送成的葬。",
+   "next": "t2"
+  },
+  "t2": {
+   "speaker": "rinne",
+   "name": "凛音",
+   "color": "vermilion_500",
+   "portrait": "res://assets/chars/portraits/rinne_half.png",
+   "side": "left",
+   "text": "钟鸣不是警报，是送行钟。纸人形列队不是在作乱，是在等一个替他们把仪式办完的人。第三次叩门，是它最后的耐心。",
+   "next": "t3"
+  },
+  "t3": {
+   "speaker": "rinne",
+   "name": "凛音",
+   "color": "vermilion_500",
+   "portrait": "res://assets/chars/portraits/rinne_half.png",
+   "side": "left",
+   "text": "现在，轮到我了。",
+   "choices": [
+    {
+     "text": "（送行）念引路词，送它远行",
+     "next": "e_send"
+    },
+    {
+     "text": "（镇守）立朱印，镇其归处",
+     "next": "e_seal"
+    }
+   ]
+  },
+  "e_send": {
+   "speaker": "rinne",
+   "name": "凛音",
+   "color": "vermilion_500",
+   "portrait": "res://assets/chars/portraits/rinne_half.png",
+   "side": "left",
+   "text": "引灯走在前，铃声断在后。棺守的执念随着火光淡下去——回廊尽头，晨雾第一次照了进来。",
+   "next": "t4"
+  },
+  "e_seal": {
+   "speaker": "rinne",
+   "name": "凛音",
+   "color": "vermilion_500",
+   "portrait": "res://assets/chars/portraits/rinne_half.png",
+   "side": "left",
+   "text": "朱印落在棺头，钟声沉进地底。它不会再等了——有些送别，是以不再等待的方式完成的。",
+   "next": "t4"
+  },
+  "t4": {
+   "speaker": "rinne",
+   "name": "凛音",
+   "color": "vermilion_500",
+   "portrait": "res://assets/chars/portraits/rinne_half.png",
+   "side": "left",
+   "text": "案件已结。退魔寮的绘卷上，多了一页会自己发暖的残页。"
+  }
+ },
+ "rewards": {
+  "cards": [
+   "soul_pin",
+   "soul_candle"
+  ],
+  "artifacts": [
+   "ash_sachet"
+  ]
+ },
+ "stamp": "第 一 夜 · 结"
+}

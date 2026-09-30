@@ -57,6 +57,11 @@ func _run_rules(map: GameMap, pos: Vector2i) -> void:
 	if not map.in_bounds(pos):
 		return
 	for rule in _rules:
+		# 封印激活判定由 SpiritSystem 按 GDD §5.5 完整实现(需要灵气密度/阵眼集合/包围区域),
+		# 规则引擎的条件类型不足以表达,规则表中该条仅作文档记录,引擎跳过不触发,
+		# 避免未知条件类型被当作恒真而误发 seal:activated。
+		if str(rule.get("handled_by", "")) != "":
+			continue
 		var cell_tags = map.get_tags(pos.x, pos.y)
 		var trigger = rule.get("trigger", {})
 		var source_tags = trigger.get("source_tags", [])
@@ -112,21 +117,30 @@ func _apply_results(results: Array, map: GameMap, source_pos: Vector2i, target_p
 		return
 	for result in results:
 		var type = result.get("type", "")
-		# Destructive/removal effects apply to source cell; additive effects apply to target cell
-		var apply_pos = source_pos if type in ["remove_effect", "remove_tag", "remove_object"] else target_pos
+		# Destructive/removal effects apply to the target cell by default (it's the
+		# cell the rule's trigger pointed at). They only fall back to source_pos
+		# when the rule was applied to the source cell itself (no neighbor context),
+		# so e.g. fire_explosive_barrel removes the barrel at the neighbor cell,
+		# not the burning cell that triggered the explosion.
+		var remove_types := ["remove_effect", "remove_tag", "remove_object"]
+		var apply_pos = target_pos if type in remove_types and target_pos != source_pos else (
+			source_pos if type in remove_types else target_pos
+		)
 		match type:
 			"add_effect":
 				var eff = result.get("effect", "")
 				if eff != "":
-					_add_effect_for_current_phase(map, apply_pos, eff)
-					EventBus.emit("effect:added", {"map": map, "pos": apply_pos, "effect": eff})
+					if _add_effect_for_current_phase(map, apply_pos, eff):
+						# Only emit when the effect was actually appended; a no-op
+						# dedup would otherwise retrigger the same rules forever.
+						EventBus.emit("effect:added", {"map": map, "pos": apply_pos, "effect": eff})
 			"add_effect_neighbors":
 				var neighbor_eff = result.get("effect", "")
 				if neighbor_eff != "":
 					for n in map.get_neighbors(apply_pos):
 						if not map.has_tag(n.x, n.y, "blocking"):
-							_add_effect_for_current_phase(map, n, neighbor_eff)
-							EventBus.emit("effect:added", {"map": map, "pos": n, "effect": neighbor_eff})
+							if _add_effect_for_current_phase(map, n, neighbor_eff):
+								EventBus.emit("effect:added", {"map": map, "pos": n, "effect": neighbor_eff})
 			"remove_effect":
 				map.remove_effect(apply_pos.x, apply_pos.y, result.get("effect", ""))
 			"remove_tag":
@@ -173,12 +187,12 @@ func _duration_for_new_spread_effect(effect_type: String) -> int:
 		return base_duration + 1
 	return base_duration
 
-func _add_effect_for_current_phase(map: GameMap, pos: Vector2i, effect_type: String) -> void:
+func _add_effect_for_current_phase(map: GameMap, pos: Vector2i, effect_type: String) -> bool:
 	if _in_spread_tick:
 		for existing in map.get_effects(pos.x, pos.y):
 			if existing.type == effect_type:
-				return
-	map.add_effect(pos.x, pos.y, effect_type, _duration_for_new_spread_effect(effect_type))
+				return false
+	return map.add_effect(pos.x, pos.y, effect_type, _duration_for_new_spread_effect(effect_type))
 
 func process_spread(map: GameMap) -> void:
 	var spreads = []

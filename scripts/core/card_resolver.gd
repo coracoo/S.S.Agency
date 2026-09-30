@@ -183,22 +183,75 @@ static func play_card(card: Dictionary, caster: Unit, target_pos: Vector2i, map:
 			ctx_all.target_dodge = map.get_terrain_dodge(u.position)
 			ctx_all.target_defense_modifier = u.get_defense_modifier(caster.position)
 			var fx = CardEffectParser.resolve_effects(card.get("effects", []), ctx_all)
+			var fmult_all = _fire_damage_mult(card, caster)
 			for result in fx:
 				if result.get("damage", 0) > 0:
 					var dmg_type = result.get("damage_type", "physical")
-					u.take_damage(result.damage, dmg_type, caster.position)
-					affected_units.append({"unit_id": u.id, "damage": result.damage})
+					var final_dmg = maxi(1, roundi(result.damage * fmult_all))
+					u.take_damage(final_dmg, dmg_type, caster.position)
+					affected_units.append({"unit_id": u.id, "damage": final_dmg})
 					if not u.is_alive:
 						map.set_occupant(u.position, null)
 						killed.append(u.id)
 				if result.get("status_id", "") != "":
 					StatusEffectManager.apply_status(u, result.status_id, result.get("status_duration", 1))
-				if result.get("type") == "push_unit":
-					_push_unit(caster, u, result.get("distance", 1), map, killed)
-				if result.get("type") == "pull":
-					_pull_unit(caster, u, result.get("distance", 1), map, killed)
+				if result.get("type") == "push_unit" and u.is_alive:
+					# 内联实现:把被命中单位沿 caster→u 方向推 distance 步
+					# (单目标分支的 _push_unit 逻辑未抽成函数,这里就地复刻)
+					var push_dist = result.get("distance", 1)
+					var push_dir = u.position - caster.position
+					if push_dir.x != 0 or push_dir.y != 0:
+						var step = Vector2i(signi(push_dir.x), 0) if absi(push_dir.x) >= absi(push_dir.y) else Vector2i(0, signi(push_dir.y))
+						for _pi in range(push_dist):
+							var next_pos = u.position + step
+							if not map.in_bounds(next_pos):
+								break
+							if map.has_tag(next_pos.x, next_pos.y, "lethal"):
+								map.set_occupant(u.position, null)
+								u.take_damage(u.current_hp)
+								if not u.is_alive and not killed.has(u.id):
+									killed.append(u.id)
+								break
+							if map.is_walkable(next_pos) and not map.is_occupied(next_pos):
+								map.set_occupant(u.position, null)
+								u.move_to(next_pos, step)
+								map.set_occupant(next_pos, u.id)
+							else:
+								break
+				if result.get("type") == "pull" and u.is_alive:
+					# 内联实现:把被命中单位沿 u→caster 方向拉近 distance 步
+					var pull_dist = result.get("distance", 1)
+					var pull_dir = caster.position - u.position
+					for _pli in range(pull_dist):
+						if pull_dir.x == 0 and pull_dir.y == 0:
+							break
+						var pstep = Vector2i(signi(pull_dir.x), 0) if absi(pull_dir.x) >= absi(pull_dir.y) else Vector2i(0, signi(pull_dir.y))
+						var pnext = u.position + pstep
+						if map.in_bounds(pnext) and map.has_tag(pnext.x, pnext.y, "lethal"):
+							map.set_occupant(u.position, null)
+							u.take_damage(u.current_hp)
+							if not u.is_alive and not killed.has(u.id):
+								killed.append(u.id)
+							break
+						if map.in_bounds(pnext) and map.is_walkable(pnext) and not map.is_occupied(pnext):
+							map.set_occupant(u.position, null)
+							u.move_to(pnext, pstep)
+							map.set_occupant(pnext, u.id)
+							pull_dir = caster.position - u.position
+						else:
+							break
 				if result.get("type") == "lifesteal":
-					_lifesteal(caster, fx)
+					# 内联实现:按本次效果中的伤害给施法者回血
+					var dmg_dealt = 0
+					for r in fx:
+						if r.get("damage", 0) > 0:
+							dmg_dealt = r.damage
+							break
+					if dmg_dealt > 0:
+						var heal_amt = maxi(1, int(dmg_dealt * result.get("ratio", 0.3)))
+						var healed = caster.heal(heal_amt)
+						if game_state and healed > 0:
+							game_state.emit_signal("unit_healed", caster.id, healed)
 			all_effects.append_array(fx)
 		return {
 			"success": true,
@@ -239,11 +292,13 @@ static func play_card(card: Dictionary, caster: Unit, target_pos: Vector2i, map:
 						"target_defense_modifier": u.get_defense_modifier(caster.position),
 					}
 					var fx = CardEffectParser.resolve_effects(card.get("effects", []), ctx_a)
+					var fmult_a = _fire_damage_mult(card, caster)
 					for result in fx:
 						if result.get("damage", 0) > 0:
 							var dmg_type = result.get("damage_type", "physical")
-							u.take_damage(result.damage, dmg_type, caster.position)
-							affected_units.append({"unit_id": u.id, "damage": result.damage})
+							var final_dmg_a = maxi(1, roundi(result.damage * fmult_a))
+							u.take_damage(final_dmg_a, dmg_type, caster.position)
+							affected_units.append({"unit_id": u.id, "damage": final_dmg_a})
 							if not u.is_alive:
 								map.set_occupant(u.position, null)
 								killed.append(u.id)
@@ -289,14 +344,16 @@ static func play_card(card: Dictionary, caster: Unit, target_pos: Vector2i, map:
 	}
 
 	var effects = CardEffectParser.resolve_effects(card.get("effects", []), ctx)
+	var fmult = _fire_damage_mult(card, caster)
 	var was_dodged = false
 	for result in effects:
 		if result.get("dodged", false):
 			was_dodged = true
 		if result.get("damage", 0) > 0 and target_unit:
 			var dmg_type = result.get("damage_type", "physical")
-			target_unit.take_damage(result.damage, dmg_type, caster.position)
-			affected_units.append({"unit_id": target_unit.id, "damage": result.damage})
+			var final_dmg = maxi(1, roundi(result.damage * fmult))
+			target_unit.take_damage(final_dmg, dmg_type, caster.position)
+			affected_units.append({"unit_id": target_unit.id, "damage": final_dmg})
 			if not target_unit.is_alive:
 				map.set_occupant(target_unit.position, null)
 				killed.append(target_unit.id)
@@ -438,6 +495,17 @@ static func _find_unit(all_units: Array, uid: String) -> Unit:
 			return u
 	return null
 
+# 焰华「火焰亲和」:火系卡(effects 含火焰地形/燃烧状态)伤害 ×1.5
+static func _fire_damage_mult(card: Dictionary, caster: Unit) -> float:
+	if not caster.has_trait("fire_affinity"):
+		return 1.0
+	for eff in card.get("effects", []):
+		if eff.get("type", "") == "add_terrain_effect" and eff.get("effect", "") == "fire":
+			return 1.5
+		if eff.get("type", "") == "apply_status" and eff.get("statusId", "") == "burn":
+			return 1.5
+	return 1.0
+
 static func _find_unit_at(all_units: Array, pos: Vector2i) -> Unit:
 	for u in all_units:
 		if u.position == pos and u.is_alive:
@@ -446,8 +514,9 @@ static func _find_unit_at(all_units: Array, pos: Vector2i) -> Unit:
 
 static func _emit_event(event_name: String, data: Dictionary) -> void:
 	var tree = Engine.get_main_loop() as SceneTree
-	if tree == null:
+	if tree == null or tree.root == null:
 		return
-	var bus = tree.root.get_node_or_null("/root/EventBus")
+	# --script 模式下绝对路径 /root/* 不可用,用相对路径
+	var bus = tree.root.get_node_or_null("EventBus")
 	if bus != null:
 		bus.emit(event_name, data)

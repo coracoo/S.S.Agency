@@ -20,13 +20,36 @@ func push(unit: Unit, direction: Vector2i) -> bool:
 	var odef = _objects_data.get(obj_id, {})
 	if not odef.get("pushable", false):
 		return false
-	# Check destination
-	var dest = target_pos + direction
-	if not _game_state.map.in_bounds(dest):
+	# 凛音「重心稳」:可推重物(tags 含 heavy),且推动距离 +1
+	var strong_push = unit.has_trait("heavy_push")
+	var obj_tags: Array = odef.get("tags", [])
+	if "heavy" in obj_tags and not strong_push:
 		return false
-	if not _game_state.map.is_walkable(dest):
-		return false
-	if _game_state.map.is_occupied(dest):
+	# 落点:从最远推动距离往回找第一格可落点(途经格必须可走、无单位、无物体)
+	var max_dist = 2 if strong_push else 1
+	var dest = Vector2i(-1, -1)
+	for d in range(max_dist, 0, -1):
+		var cand = target_pos + direction * d
+		if not _game_state.map.in_bounds(cand):
+			continue
+		if not _game_state.map.is_walkable(cand):
+			continue
+		if _game_state.map.is_occupied(cand):
+			continue
+		if _game_state.map.get_object(cand.x, cand.y) != "":
+			continue
+		# 途经格(目标格与落点之间)也必须无阻挡
+		var blocked = false
+		for step in range(1, d):
+			var mid = target_pos + direction * step
+			if not _game_state.map.is_walkable(mid) or _game_state.map.is_occupied(mid) or _game_state.map.get_object(mid.x, mid.y) != "":
+				blocked = true
+				break
+		if blocked:
+			continue
+		dest = cand
+		break
+	if dest == Vector2i(-1, -1):
 		return false
 	if not _game_state.spend_ap(1):
 		return false
@@ -43,6 +66,51 @@ func push(unit: Unit, direction: Vector2i) -> bool:
 	})
 	# Check if object lands on effect-triggering terrain
 	EventBus.emit("effect:added", {"map": _game_state.map, "pos": dest})
+	return true
+
+func pull(unit: Unit, direction: Vector2i) -> bool:
+	# 拉(GDD):将相邻物体拉到角色位置,角色后退 1 格,消耗 1 AP。pushable 即可拉
+	if direction == Vector2i.ZERO or absi(direction.x) + absi(direction.y) != 1:
+		return false
+	var target_pos = unit.position + direction
+	if not _game_state.map.in_bounds(target_pos):
+		return false
+	var obj_id = _game_state.map.get_object(target_pos.x, target_pos.y)
+	if obj_id == "":
+		return false
+	var odef = _objects_data.get(obj_id, {})
+	if not odef.get("pushable", false):
+		return false
+	# 角色后退 1 格的目的地必须可走、无单位、无物体
+	var back = unit.position - direction
+	if not _game_state.map.in_bounds(back):
+		return false
+	if not _game_state.map.is_walkable(back):
+		return false
+	if _game_state.map.is_occupied(back):
+		return false
+	if _game_state.map.get_object(back.x, back.y) != "":
+		return false
+	if not _game_state.spend_ap(1):
+		return false
+	var unit_from = unit.position
+	# 物体移到角色原位,角色后退
+	_game_state.map.set_object(target_pos.x, target_pos.y, null)
+	_game_state.map.set_object(unit_from.x, unit_from.y, obj_id)
+	_game_state.map.set_occupant(unit_from, null)
+	unit.move_to(back)
+	_game_state.map.set_occupant(back, unit.id)
+	EventBus.emit("object:pulled", {
+		"map": _game_state.map,
+		"object_id": obj_id,
+		"from": target_pos,
+		"to": unit_from,
+		"puller_id": unit.id,
+		"unit_from": unit_from,
+		"unit_to": back,
+	})
+	# 物体落点(角色原位)触发地形规则
+	EventBus.emit("effect:added", {"map": _game_state.map, "pos": unit_from})
 	return true
 
 func push_over(unit: Unit, target_pos: Vector2i) -> bool:
@@ -128,7 +196,9 @@ func interact(unit: Unit, target_pos: Vector2i, action: String) -> bool:
 			return false
 		if _game_state.map.get_object(target_pos.x, target_pos.y) != obj_id:
 			return false
-	if not _game_state.spend_ap(1):
+	# 焰华「火焰亲和」:点燃(ignite)不耗 AP
+	var ignite_free = action == "ignite" and unit.has_trait("fire_affinity")
+	if not ignite_free and not _game_state.spend_ap(1):
 		return false
 	match action:
 		"ring":

@@ -1,0 +1,38 @@
+{
+    "comment": "委托挂轴（GDD §9.4 S2）：标题屏「新的委托」进入，承印后落墨线转场到对应探索舞台。locked 条目以「未完笔」墨影占位。",
+    "commissions": [
+        {
+            "id": "night_patrol_01",
+            "no": "第 一 夜",
+            "title": "逢魔神社 · 夜巡",
+            "client": "退魔寮 · 急递",
+            "desc": "参道石钵的倒影里，浮着一盏不存在的灯笼。逢魔之刻将近——查明异象的来路，退治作乱的纸人形。",
+            "reward": "绘卷残页 ×3 · 朱印一枚",
+            "stage": "res://scenes/v3/stage.tscn",
+            "case": "night_patrol",
+            "locked": false
+        },
+        {
+            "id": "night_patrol_02",
+            "no": "第 二 夜",
+            "title": "本殿回廊 · 棺鸣",
+            "client": "退魔寮",
+            "desc": "无风的夜里，本殿回廊的吊钟自鸣三响。钟舌上的红线牵着纸门后的东西——查明钟鸣的来路，退治列队的纸人形。",
+            "reward": "绘卷残页 ×5 · 朱印一枚",
+            "stage": "res://scenes/v3/stage_corridor.tscn",
+            "case": "night_patrol",
+            "locked": false
+        },
+        {
+            "id": "night_patrol_03",
+            "no": "第 三 夜",
+            "title": "本殿前庭 · 逢魔刻",
+            "client": "退魔寮 · 大差急",
+            "desc": "逢魔之刻，御神木的树洞里浮出了棺形的纹。三夜以来所有异象的线头都收在这一夜——守住本殿，退治纸人形的行列。",
+            "reward": "绘卷残页 ×8 · 金泥朱印一枚",
+            "stage": "res://scenes/v3/stage_honden.tscn",
+            "case": "night_patrol",
+            "locked": false
+        }
+    ]
+}

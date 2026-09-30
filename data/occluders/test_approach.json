@@ -1,0 +1,25 @@
+{
+ "stage": "test_approach",
+ "occluders": [
+  {
+   "tex": "res://assets/bg/occluders/test_approach_o0.png",
+   "offset": [
+    1299,
+    709
+   ],
+   "base_y": 975.0,
+   "xmin": 1305.0,
+   "xmax": 1428.0
+  },
+  {
+   "tex": "res://assets/bg/occluders/test_approach_o1.png",
+   "offset": [
+    1369,
+    514
+   ],
+   "base_y": 975.0,
+   "xmin": 1375.0,
+   "xmax": 1440.0
+  }
+ ]
+}

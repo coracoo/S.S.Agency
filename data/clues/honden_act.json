@@ -1,0 +1,25 @@
+{
+ "stage": "honden_act",
+ "comment": "第三幕画面线索（GDD §8）：逢魔刻的异象——御神木树洞里的棺纹冷光。坐标为世界坐标。",
+ "clues": [
+  {
+   "id": "hollow_coffin_glow",
+   "type": "reflection",
+   "name": "树洞棺纹",
+   "x": 420.0,
+   "y_offset": -60.0,
+   "y_abs": 575.0,
+   "radius": 150.0,
+   "anomaly": {
+    "kind": "cold_light",
+    "color": "fuji_500",
+    "flicker_speed": 2.2,
+    "glow_radius": 130,
+    "shape": "none"
+   },
+   "hint": "御神木的空树洞里，浮着一圈淡淡的棺形纹——树皮在渗出冷气。",
+   "resolve_text": "逢魔刻到了。棺纹亮起的瞬间，纸人形的行列从本殿阴影里迈了出来——最后一夜。",
+   "battle": "res://scenes/v3/battle_honden.tscn"
+  }
+ ]
+}

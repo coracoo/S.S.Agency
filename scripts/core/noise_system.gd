@@ -57,6 +57,9 @@ func propagate(origin: Vector2i, volume: int) -> Dictionary:
 			var decay = 1
 			if _state.map.has_tag(neighbor.x, neighbor.y, "blocking"):
 				decay += 2
+			# GDD §5.4/§12.1:liquid 标签(水面/油地)放大声音,衰减 -1(等效传播 +1 格)
+			if _state.map.has_tag(neighbor.x, neighbor.y, "liquid"):
+				decay -= 1
 			var next_value = current_value - decay
 			if next_value <= 0:
 				continue

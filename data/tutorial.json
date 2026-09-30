@@ -1,0 +1,29 @@
+{
+  "tips": [
+    {
+      "id": "move_ap",
+      "trigger": {"type": "turn", "turn": 1},
+      "text": "点击角色选中,再点击高亮格移动(每格消耗 1 AP)"
+    },
+    {
+      "id": "push_obj",
+      "trigger": {"type": "turn", "turn": 2},
+      "text": "点击「推」按钮,把火盆推向油地试试"
+    },
+    {
+      "id": "fire_spread",
+      "trigger": {"type": "event", "event": "object:pushed"},
+      "text": "好!火焰会蔓延到相邻可燃格——点燃它"
+    },
+    {
+      "id": "bell_noise",
+      "trigger": {"type": "turn", "turn": 3},
+      "text": "走到铃铛旁点「互动」敲响它,噪音会吸引纸人"
+    },
+    {
+      "id": "seal_hint",
+      "trigger": {"type": "spirit", "min": 4},
+      "text": "灵气渐盛:把符纸放到阵眼,灵气 ≥6 且阵眼 ≥3 处激活即可封印棺材主"
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+{
+ "id": "ritual_lamp",
+ "name": "回廊守灯（仪式原型）",
+ "comment": "GDD §8.3：先辨认、再安放、最后引路",
+ "bg": "res://assets/bg/corridor_battle_test.png",
+ "ap_per_turn": 6,
+ "max_turns": 6,
+ "player": {
+  "name": "凛音",
+  "sprite": "res://assets/chars/rinne_idle.png",
+  "hp": 30,
+  "height_px": 450,
+  "pos": [
+   210,
+   930
+  ],
+  "anims": {
+   "idle": [
+    "res://assets/chars/anims/rinne_idle_f1.png",
+    "res://assets/chars/anims/rinne_idle_f2.png",
+    "res://assets/chars/anims/rinne_idle_f3.png",
+    "res://assets/chars/anims/rinne_idle_f4.png"
+   ],
+   "walk": [
+    "res://assets/chars/anims/rinne_walk_f1.png",
+    "res://assets/chars/anims/rinne_walk_f2.png",
+    "res://assets/chars/anims/rinne_walk_f3.png",
+    "res://assets/chars/anims/rinne_walk_f4.png",
+    "res://assets/chars/anims/rinne_walk_f5.png",
+    "res://assets/chars/anims/rinne_walk_f6.png"
+   ],
+   "cast": [
+    "res://assets/chars/anims/rinne_cast_f1.png",
+    "res://assets/chars/anims/rinne_cast_f2.png",
+    "res://assets/chars/anims/rinne_cast_f3.png",
+    "res://assets/chars/anims/rinne_cast_f4.png",
+    "res://assets/chars/anims/rinne_cast_f5.png"
+   ],
+   "fps": 10
+  }
+ },
+ "deck": {
+  "copies": 2,
+  "hand_limit": 5
+ },
+ "cards": [
+  {
+   "id": "guard",
+   "name": "守势",
+   "cost": 1,
+   "type": "skill",
+   "power": 0,
+   "effects": {
+    "shield": 4
+   },
+   "tags": [
+    "talisman"
+   ],
+   "unlock": "start",
+   "art": "res://assets/ui/cardart_val_slash.png",
+   "desc": "获得 4 点护盾。护盾先于生命承伤，到你下次回合开始清空。"
+  },
+  {
+   "id": "amulet",
+   "name": "护身符",
+   "cost": 2,
+   "type": "skill",
+   "power": 0,
+   "effects": {
+    "shield": 7
+   },
+   "tags": [
+    "talisman"
+   ],
+   "unlock": "start",
+   "art": "res://assets/ui/cardart_val_seal.png",
+   "desc": "获得 7 点护盾。护盾先于生命承伤，到你下次回合开始清空。"
+  }
+ ],
+ "lamp": {
+  "max": 6,
+  "start": 4,
+  "decay_per_turn": 1
+ },
+ "add_fuel": {
+  "cost": 2,
+  "amount": 2,
+  "per_turn": true,
+  "name": "添灯"
+ },
+ "items": [
+  {
+   "id": "lamp_oil",
+   "name": "灯油",
+   "cost": 1,
+   "amount": 3,
+   "uses": 1,
+   "desc": "恢复引灯 3 点稳定度（调查固定获得，误用可重试恢复）。"
+  }
+ ],
+ "objectives": [
+  {
+   "id": "identify",
+   "name": "辨认来者",
+   "cost": 1,
+   "min_turn": 3,
+   "requires": [],
+   "desc": "第三次叩门后，以辨影镜辨认水中的倒影。"
+  },
+  {
+   "id": "place",
+   "name": "安放旧物",
+   "cost": 1,
+   "requires": [
+    "identify"
+   ],
+   "desc": "把遗物安放到棺前（需先完成辨认）。"
+  },
+  {
+   "id": "guide",
+   "name": "引路",
+   "cost": 1,
+   "min_turn": 5,
+   "requires": [
+    "place"
+   ],
+   "desc": "为亡者念引路词，送他过回廊（需先安放旧物）。"
+  }
+ ],
+ "env_hits": [
+  {
+   "from_turn": 5,
+   "damage": 3,
+   "text": "亡者怨念冲击"
+  },
+  {
+   "from_turn": 6,
+   "damage": 3,
+   "text": "亡者怨念冲击"
+  }
+ ],
+ "intro": "棺守仍在等待被遗忘的送行仪式。参道证词与回廊残文都写着同一句话——先辨认、再安放、最后引路。",
+ "win_text": "引灯未灭，亡者的倒影在火光里轻轻一礼，转身走入回廊深处。送行完成。",
+ "lose_text": "仪式中断。风从回廊尽头倒灌进来，引灯明明灭灭——从仪式入口重试。"
+}

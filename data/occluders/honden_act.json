@@ -1,0 +1,15 @@
+{
+ "stage": "honden_act",
+ "occluders": [
+  {
+   "tex": "res://assets/bg/occluders/honden_act_o0.png",
+   "offset": [
+    1414,
+    734
+   ],
+   "base_y": 1055.0,
+   "xmin": 1420.0,
+   "xmax": 1582.0
+  }
+ ]
+}

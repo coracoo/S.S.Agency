@@ -10,7 +10,8 @@
         "defense": 6,
         "magicResist": 2,
         "speed": 3,
-        "moveRange": 3
+        "moveRange": 3,
+        "fearThreshold": 80
       },
       "startingDeck": [
         "rinne_slash",
@@ -38,7 +39,8 @@
         "defense": 3,
         "magicResist": 3,
         "speed": 5,
-        "moveRange": 3
+        "moveRange": 3,
+        "fearThreshold": 50
       },
       "startingDeck": [
         "mint_shot",
@@ -66,7 +68,8 @@
         "defense": 2,
         "magicResist": 5,
         "speed": 4,
-        "moveRange": 2
+        "moveRange": 2,
+        "fearThreshold": 65
       },
       "startingDeck": [
         "homura_flare",
@@ -94,7 +97,8 @@
         "defense": 5,
         "magicResist": 4,
         "speed": 3,
-        "moveRange": 2
+        "moveRange": 2,
+        "fearThreshold": 65
       },
       "startingDeck": [
         "zhongkui_fist",

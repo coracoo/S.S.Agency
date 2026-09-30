@@ -1,0 +1,46 @@
+[
+ {
+  "id": "inkstone",
+  "name": "聚灵砚",
+  "icon": "res://assets/ui/cardart_val_seal.png",
+  "effect": {
+   "first_turn_ap": 1
+  },
+  "limit": 1,
+  "unlock": "start",
+  "desc": "每场战斗首回合灵墨上限+1（开场蓄墨）。"
+ },
+ {
+  "id": "ward_scale",
+  "name": "守心佩",
+  "icon": "res://assets/ui/cardart_val_slash.png",
+  "effect": {
+   "shield_bonus": 2
+  },
+  "limit": 99,
+  "unlock": "start",
+  "desc": "你获得的护盾值额外+2。"
+ },
+ {
+  "id": "seal_knife",
+  "name": "裁符小刀",
+  "icon": "res://assets/ui/cardart_val_bell.png",
+  "effect": {
+   "seal_cost_discount": 1
+  },
+  "limit": 99,
+  "unlock": "start",
+  "desc": "结界符类卡灵墨费用-1（最低为1）。"
+ },
+ {
+  "id": "ash_sachet",
+  "name": "净火香囊",
+  "icon": "res://assets/ui/cardart_val_slash.png",
+  "effect": {
+   "tidy_free_once": 1
+  },
+  "limit": 1,
+  "unlock": "start",
+  "desc": "每场战斗第一次「整理」不消耗灵墨。"
+ }
+]

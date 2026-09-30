@@ -194,16 +194,17 @@ func get_effects(col: int, row: int) -> Array:
 		return []
 	return _effects[row][col]
 
-func add_effect(col: int, row: int, effect_type: String, duration_override: int = -1) -> void:
+func add_effect(col: int, row: int, effect_type: String, duration_override: int = -1) -> bool:
 	if not in_bounds(Vector2i(col, row)):
-		return
+		return false
 	var duration = duration_override if duration_override > 0 else _get_default_duration(effect_type)
 	# Don't duplicate same effect type
 	for eff in _effects[row][col]:
 		if eff.type == effect_type:
 			eff.duration = duration
-			return
+			return false
 	_effects[row][col].append({"type": effect_type, "duration": duration})
+	return true
 
 func remove_effect(col: int, row: int, effect_type: String) -> void:
 	if not in_bounds(Vector2i(col, row)):
