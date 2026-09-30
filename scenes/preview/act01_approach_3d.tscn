@@ -1,0 +1,219 @@
+[gd_scene format=3 uid="uid://b6xxlbtmfxoti"]
+
+[ext_resource type="Script" uid="uid://cvkkus52vqbe8" path="res://scripts/preview/act01_approach_preview.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://bgcclswhlduyv" path="res://assets/3d/act01_approach/act01_approach.glb" id="2_model"]
+[ext_resource type="Texture2D" uid="uid://mxi75i2bvl52" path="res://assets/chars/anims/rinne_idle_f1.png" id="3_character"]
+[ext_resource type="FontFile" uid="uid://m1biiel0axfb" path="res://assets/fonts/Alibaba-PuHuiTi-Regular.ttf" id="4_font"]
+
+[sub_resource type="ProceduralSkyMaterial" id="SkyMaterial"]
+sky_top_color = Color(0.065, 0.076, 0.16, 1)
+sky_horizon_color = Color(0.56, 0.34, 0.27, 1)
+sky_curve = 0.18
+ground_bottom_color = Color(0.085, 0.105, 0.13, 1)
+ground_horizon_color = Color(0.42, 0.29, 0.24, 1)
+sun_angle_max = 8.0
+
+[sub_resource type="Sky" id="Sky"]
+sky_material = SubResource("SkyMaterial")
+
+[sub_resource type="Environment" id="Environment"]
+background_mode = 2
+sky = SubResource("Sky")
+ambient_light_source = 2
+ambient_light_color = Color(0.36, 0.42, 0.62, 1)
+ambient_light_energy = 0.55
+reflected_light_source = 2
+tonemap_mode = 2
+ssao_enabled = true
+ssao_intensity = 1.25
+glow_enabled = true
+glow_intensity = 0.45
+fog_enabled = true
+fog_light_color = Color(0.27, 0.29, 0.4, 1)
+fog_light_energy = 0.3
+fog_density = 0.004
+
+[sub_resource type="StyleBoxFlat" id="ButtonNormal"]
+content_margin_left = 20.0
+content_margin_top = 11.0
+content_margin_right = 20.0
+content_margin_bottom = 11.0
+bg_color = Color(0.075, 0.071, 0.09, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.56, 0.47, 0.32, 0.7)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="ButtonPressed"]
+content_margin_left = 20.0
+content_margin_top = 11.0
+content_margin_right = 20.0
+content_margin_bottom = 11.0
+bg_color = Color(0.33, 0.24, 0.17, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.79, 0.64, 0.4, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Act01Approach3D" type="Node3D" unique_id=697038323]
+script = ExtResource("1_script")
+
+[node name="Model" parent="." unique_id=366776967 instance=ExtResource("2_model")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1642388010]
+environment = SubResource("Environment")
+
+[node name="DuskKey" type="DirectionalLight3D" parent="." unique_id=1640955252]
+transform = Transform3D(0.7431448, 0.31413782, -0.59080726, 0, 0.88294756, 0.46947157, 0.6691306, -0.34888536, 0.6561579, 0, 0, 0)
+light_color = Color(1, 0.78, 0.56, 1)
+light_energy = 0.78
+shadow_enabled = true
+directional_shadow_max_distance = 60.0
+
+[node name="MoonFill" type="DirectionalLight3D" parent="." unique_id=1089920797]
+transform = Transform3D(-0.81915206, -0.35312894, 0.45198444, 0, 0.7880108, 0.6156615, -0.57357645, 0.5043204, -0.64550066, 0, 0, 0)
+light_color = Color(0.47, 0.57, 0.92, 1)
+light_energy = 0.3
+
+[node name="BasinColdLight" type="OmniLight3D" parent="." unique_id=1465377709]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, 0.87, 1.94)
+light_color = Color(0.478, 0.435, 0.941, 1)
+light_energy = 1.15
+shadow_enabled = true
+omni_range = 2.2
+
+[node name="LanternLeft" type="OmniLight3D" parent="." unique_id=1624769940]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.25, 1.7716, 0.3)
+light_color = Color(1, 0.62, 0.26, 1)
+light_energy = 2.0
+shadow_enabled = true
+omni_range = 4.2
+
+[node name="LanternRight" type="OmniLight3D" parent="." unique_id=887808329]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8, 3.4898, 1.62)
+light_color = Color(1, 0.62, 0.26, 1)
+light_energy = 2.0
+shadow_enabled = true
+omni_range = 4.2
+
+[node name="LanternUpper" type="OmniLight3D" parent="." unique_id=1019520823]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 4.0548, -1.88)
+light_color = Color(1, 0.62, 0.26, 1)
+light_energy = 1.7
+shadow_enabled = true
+omni_range = 3.4
+
+[node name="ShrineWarmth" type="OmniLight3D" parent="." unique_id=1263695852]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.16, 4.15, -1.07)
+light_color = Color(1, 0.69, 0.34, 1)
+light_energy = 0.8
+omni_range = 3.0
+
+[node name="Cameras" type="Node3D" parent="." unique_id=2010418755]
+
+[node name="Hero" type="Camera3D" parent="Cameras" unique_id=1761158150]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 8.1, 21)
+keep_aspect = 0
+projection = 1
+current = true
+size = 21.68889
+near = 0.1
+far = 120.0
+
+[node name="Inspection" type="Camera3D" parent="Cameras" unique_id=1445610286]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.8, 8.8, 17)
+keep_aspect = 0
+projection = 1
+size = 24.35556
+near = 0.1
+far = 120.0
+
+[node name="CharacterReference" type="Sprite3D" parent="." unique_id=1116228048]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 1, 1.1)
+visible = false
+pixel_size = 0.00128
+billboard = 2
+alpha_cut = 1
+alpha_scissor_threshold = 0.4
+texture = ExtResource("3_character")
+
+[node name="PreviewHUD" type="CanvasLayer" parent="." unique_id=1182201543]
+
+[node name="Margin" type="MarginContainer" parent="PreviewHUD" unique_id=1014978255]
+offset_left = 48.0
+offset_top = 38.0
+mouse_filter = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="Stack" type="VBoxContainer" parent="PreviewHUD/Margin" unique_id=1074644346]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="PreviewHUD/Margin/Stack" unique_id=316537839]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.949, 0.929, 0.894, 1)
+theme_override_colors/font_shadow_color = Color(0.02, 0.025, 0.035, 0.9)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 2
+theme_override_fonts/font = ExtResource("4_font")
+theme_override_font_sizes/font_size = 32
+text = "第一幕 · 参道"
+
+[node name="Subtitle" type="Label" parent="PreviewHUD/Margin/Stack" unique_id=1633455284]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.81, 0.74, 1)
+theme_override_fonts/font = ExtResource("4_font")
+theme_override_font_sizes/font_size = 18
+text = "独立 3D 美术预览   /   水钵冷光"
+
+[node name="Controls" type="HBoxContainer" parent="PreviewHUD/Margin/Stack" unique_id=587556041]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Hero" type="Button" parent="PreviewHUD/Margin/Stack/Controls" unique_id=28092450]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_font")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("ButtonNormal")
+theme_override_styles/pressed = SubResource("ButtonPressed")
+toggle_mode = true
+text = "1  画卷镜头"
+
+[node name="Inspection" type="Button" parent="PreviewHUD/Margin/Stack/Controls" unique_id=541871974]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_font")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("ButtonNormal")
+theme_override_styles/pressed = SubResource("ButtonPressed")
+toggle_mode = true
+text = "2  空间检查"
+
+[node name="Character" type="Button" parent="PreviewHUD/Margin/Stack/Controls" unique_id=674089747]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_font")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("ButtonNormal")
+theme_override_styles/pressed = SubResource("ButtonPressed")
+toggle_mode = true
+text = "C  人物参照"
+
+[node name="Help" type="Label" parent="PreviewHUD/Margin/Stack" unique_id=616483166]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.74, 0.72, 0.71, 1)
+theme_override_fonts/font = ExtResource("4_font")
+theme_override_font_sizes/font_size = 16
+text = "H 隐藏说明 · R 复位 · Esc 退出"
