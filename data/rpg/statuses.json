@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "rules_version": "rpg-0.1",
+  "definitions": [
+    {
+      "id": "cover",
+      "name": "掩护",
+      "clock": "next_owner_slot",
+      "dispellable": false,
+      "negative": false,
+      "kind": "cover"
+    },
+    {
+      "id": "defend",
+      "name": "防御",
+      "clock": "next_owner_slot",
+      "dispellable": false,
+      "negative": false,
+      "kind": "reduction"
+    },
+    {
+      "id": "armor_break",
+      "name": "破甲",
+      "clock": "target_slot",
+      "dispellable": true,
+      "negative": true,
+      "kind": "def_reduction"
+    },
+    {
+      "id": "magic_break",
+      "name": "破魔",
+      "clock": "target_slot",
+      "dispellable": true,
+      "negative": true,
+      "kind": "mdef_reduction"
+    },
+    {
+      "id": "battle_spirit",
+      "name": "战意",
+      "clock": "target_slot",
+      "dispellable": false,
+      "negative": false,
+      "kind": "direct_output"
+    },
+    {
+      "id": "mark",
+      "name": "猎物标记",
+      "clock": "target_slot",
+      "dispellable": true,
+      "negative": true,
+      "kind": "mark"
+    },
+    {
+      "id": "weaken",
+      "name": "虚弱",
+      "clock": "target_slot",
+      "dispellable": true,
+      "negative": true,
+      "kind": "weaken"
+    },
+    {
+      "id": "slow",
+      "name": "缓速",
+      "clock": "round_snapshot",
+      "dispellable": true,
+      "negative": true,
+      "kind": "spd_reduction"
+    },
+    {
+      "id": "burn",
+      "name": "灼烧",
+      "clock": "target_slot",
+      "dispellable": true,
+      "negative": true,
+      "kind": "periodic"
+    },
+    {
+      "id": "stun",
+      "name": "眩晕",
+      "clock": "target_slot",
+      "dispellable": true,
+      "negative": true,
+      "kind": "stun"
+    },
+    {
+      "id": "awake",
+      "name": "清醒",
+      "clock": "target_slot",
+      "dispellable": false,
+      "negative": false,
+      "kind": "stun_immunity"
+    },
+    {
+      "id": "taunt",
+      "name": "挑衅",
+      "clock": "target_slot",
+      "dispellable": true,
+      "negative": true,
+      "kind": "taunt"
+    },
+    {
+      "id": "stagger",
+      "name": "失衡",
+      "clock": "target_slot",
+      "dispellable": false,
+      "negative": false,
+      "kind": "vulnerability"
+    }
+  ]
+}

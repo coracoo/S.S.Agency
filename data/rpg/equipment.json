@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "rules_version": "rpg-0.1",
+  "definitions": [
+    {
+      "id": "standard_weapon",
+      "name": "标准武器",
+      "slot": "weapon",
+      "stats": {
+        "atk": 5,
+        "matk": 5
+      }
+    },
+    {
+      "id": "standard_armor",
+      "name": "标准护甲",
+      "slot": "armor",
+      "stats": {
+        "hp": 20,
+        "def": 5,
+        "mdef": 5
+      }
+    },
+    {
+      "id": "standard_accessory",
+      "name": "标准饰品",
+      "slot": "accessory",
+      "stats": {
+        "mp": 5
+      }
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "rules_version": "rpg-0.1",
+  "definitions": [
+    {
+      "id": "healing_potion",
+      "name": "治疗药",
+      "target_rule": "single_ally",
+      "initial_stock": 3,
+      "effects": [
+        {
+          "type": "restore_hp",
+          "fixed": 80
+        }
+      ]
+    },
+    {
+      "id": "mana_potion",
+      "name": "魔力药",
+      "target_rule": "single_ally",
+      "initial_stock": 1,
+      "effects": [
+        {
+          "type": "restore_mp",
+          "fixed": 20
+        }
+      ]
+    },
+    {
+      "id": "revival_potion",
+      "name": "复苏药",
+      "target_rule": "fallen_ally",
+      "initial_stock": 1,
+      "effects": [
+        {
+          "type": "revive",
+          "fraction": 0.3,
+          "preserve_mp": true
+        }
+      ]
+    },
+    {
+      "id": "cleansing_powder",
+      "name": "净化粉",
+      "target_rule": "single_ally",
+      "initial_stock": 1,
+      "effects": [
+        {
+          "type": "cleanse"
+        }
+      ]
+    }
+  ]
+}

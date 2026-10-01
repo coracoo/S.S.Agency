@@ -1,0 +1,410 @@
+{
+  "schema_version": 1,
+  "rules_version": "rpg-0.1",
+  "definitions": [
+    {
+      "id": "hound",
+      "name": "猎犬",
+      "base_stats": {
+        "hp": 180,
+        "mp": 0,
+        "atk": 45,
+        "matk": 10,
+        "def": 20,
+        "mdef": 15,
+        "spd": 40
+      },
+      "weaknesses": [
+        "fire"
+      ],
+      "resistances": [],
+      "default_attack": "physical",
+      "target_policy": "lowest_hp_ratio",
+      "abilities": [
+        {
+          "id": "bite",
+          "name": "撕咬",
+          "mp_cost": 0,
+          "cooldown": 1,
+          "target_rule": "single_enemy",
+          "damage_type": "physical",
+          "element": "neutral",
+          "single_direct": true,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "physical",
+              "element": "neutral",
+              "coefficient": 1.2,
+              "single_direct": true,
+              "can_crit": true
+            }
+          ]
+        }
+      ],
+      "boss": {}
+    },
+    {
+      "id": "shield_soldier",
+      "name": "盾兵",
+      "base_stats": {
+        "hp": 240,
+        "mp": 18,
+        "atk": 40,
+        "matk": 18,
+        "def": 40,
+        "mdef": 25,
+        "spd": 18
+      },
+      "weaknesses": [
+        "lightning"
+      ],
+      "resistances": [],
+      "default_attack": "physical",
+      "target_policy": "highest_hp",
+      "abilities": [
+        {
+          "id": "shield_stance",
+          "name": "盾姿",
+          "mp_cost": 4,
+          "cooldown": 2,
+          "target_rule": "self",
+          "damage_type": "none",
+          "element": "neutral",
+          "single_direct": false,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "apply_status",
+              "status_id": "defend",
+              "magnitude": 0.4,
+              "duration": 1,
+              "clock": "next_owner_slot"
+            }
+          ],
+          "condition": {
+            "self_hp_ratio_at_most": 0.5
+          }
+        }
+      ],
+      "boss": {}
+    },
+    {
+      "id": "fire_spirit",
+      "name": "火灵",
+      "base_stats": {
+        "hp": 190,
+        "mp": 40,
+        "atk": 15,
+        "matk": 50,
+        "def": 15,
+        "mdef": 30,
+        "spd": 32
+      },
+      "weaknesses": [
+        "ice"
+      ],
+      "resistances": [
+        "fire"
+      ],
+      "default_attack": "magic",
+      "target_policy": "lowest_hp_ratio",
+      "abilities": [
+        {
+          "id": "fire_orb",
+          "name": "火团",
+          "mp_cost": 8,
+          "cooldown": 1,
+          "target_rule": "single_enemy",
+          "damage_type": "magic",
+          "element": "fire",
+          "single_direct": true,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "magic",
+              "element": "fire",
+              "coefficient": 1.0,
+              "single_direct": true,
+              "can_crit": true
+            },
+            {
+              "type": "apply_status",
+              "status_id": "burn",
+              "magnitude": 0.12,
+              "duration": 2,
+              "clock": "target_slot",
+              "snapshot_stat": "matk",
+              "snapshot_output": true,
+              "snapshot_weaken": true
+            }
+          ]
+        }
+      ],
+      "boss": {}
+    },
+    {
+      "id": "cultist",
+      "name": "咒徒",
+      "base_stats": {
+        "hp": 210,
+        "mp": 40,
+        "atk": 35,
+        "matk": 45,
+        "def": 20,
+        "mdef": 30,
+        "spd": 26
+      },
+      "weaknesses": [
+        "spirit"
+      ],
+      "resistances": [],
+      "default_attack": "magic",
+      "target_policy": "highest_atk",
+      "abilities": [
+        {
+          "id": "weak_curse",
+          "name": "虚咒",
+          "mp_cost": 8,
+          "cooldown": 1,
+          "target_rule": "single_enemy",
+          "damage_type": "magic",
+          "element": "spirit",
+          "single_direct": true,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "magic",
+              "element": "spirit",
+              "coefficient": 0.7,
+              "single_direct": true,
+              "can_crit": true
+            },
+            {
+              "type": "apply_status",
+              "status_id": "weaken",
+              "magnitude": 0.2,
+              "duration": 2,
+              "clock": "target_slot"
+            }
+          ]
+        }
+      ],
+      "boss": {}
+    },
+    {
+      "id": "elite_shield_soldier",
+      "name": "精英盾兵",
+      "base_stats": {
+        "hp": 360,
+        "mp": 24,
+        "atk": 52,
+        "matk": 25,
+        "def": 45,
+        "mdef": 30,
+        "spd": 24
+      },
+      "weaknesses": [
+        "lightning"
+      ],
+      "resistances": [],
+      "default_attack": "physical",
+      "target_policy": "lowest_hp_ratio",
+      "abilities": [
+        {
+          "id": "shield_rush",
+          "name": "盾突",
+          "mp_cost": 6,
+          "cooldown": 2,
+          "target_rule": "single_enemy",
+          "damage_type": "physical",
+          "element": "neutral",
+          "single_direct": true,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "physical",
+              "element": "neutral",
+              "coefficient": 1.6,
+              "single_direct": true,
+              "can_crit": true
+            }
+          ]
+        }
+      ],
+      "boss": {}
+    },
+    {
+      "id": "gatekeeper",
+      "name": "守关者",
+      "base_stats": {
+        "hp": 780,
+        "mp": 60,
+        "atk": 60,
+        "matk": 45,
+        "def": 30,
+        "mdef": 30,
+        "spd": 30
+      },
+      "weaknesses": [
+        "ice"
+      ],
+      "resistances": [
+        "fire"
+      ],
+      "default_attack": "physical",
+      "target_policy": "boss_cycle",
+      "abilities": [
+        {
+          "id": "boss_suppress",
+          "name": "压制",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "single_enemy",
+          "damage_type": "physical",
+          "element": "neutral",
+          "single_direct": true,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "physical",
+              "element": "neutral",
+              "coefficient": 1.0,
+              "single_direct": true,
+              "can_crit": false
+            }
+          ]
+        },
+        {
+          "id": "boss_pierce_charge",
+          "name": "穿刺蓄力",
+          "mp_cost": 6,
+          "cooldown": 0,
+          "target_rule": "single_enemy",
+          "damage_type": "none",
+          "element": "neutral",
+          "single_direct": false,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "charge",
+              "release_id": "boss_pierce_release",
+              "interruptible": true
+            }
+          ]
+        },
+        {
+          "id": "boss_pierce_release",
+          "name": "穿刺释放",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "single_enemy",
+          "damage_type": "physical",
+          "element": "neutral",
+          "single_direct": true,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "physical",
+              "element": "neutral",
+              "coefficient": 2.4,
+              "single_direct": true,
+              "can_crit": false
+            }
+          ]
+        },
+        {
+          "id": "boss_quake",
+          "name": "横震",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "all_enemies",
+          "damage_type": "physical",
+          "element": "neutral",
+          "single_direct": false,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "physical",
+              "element": "neutral",
+              "coefficient": 0.8,
+              "single_direct": false,
+              "can_crit": false
+            }
+          ]
+        },
+        {
+          "id": "boss_pulse_charge",
+          "name": "脉冲蓄力",
+          "mp_cost": 12,
+          "cooldown": 0,
+          "target_rule": "all_enemies",
+          "damage_type": "none",
+          "element": "neutral",
+          "single_direct": false,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "charge",
+              "release_id": "boss_pulse_release",
+              "interruptible": false
+            }
+          ]
+        },
+        {
+          "id": "boss_pulse_release",
+          "name": "脉冲释放",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "all_enemies",
+          "damage_type": "magic",
+          "element": "spirit",
+          "single_direct": false,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "magic",
+              "element": "spirit",
+              "coefficient": 1.5,
+              "single_direct": false,
+              "can_crit": false
+            },
+            {
+              "type": "apply_status",
+              "status_id": "burn",
+              "magnitude": 0.12,
+              "duration": 2,
+              "clock": "target_slot",
+              "snapshot_stat": "matk",
+              "snapshot_output": true,
+              "snapshot_weaken": true
+            }
+          ]
+        }
+      ],
+      "boss": {
+        "cycle": [
+          "boss_suppress",
+          "boss_pierce_charge",
+          "boss_pierce_release",
+          "boss_quake",
+          "boss_pulse_charge",
+          "boss_pulse_release"
+        ],
+        "phase_threshold": 0.4,
+        "phase_damage_bonus": 0.2,
+        "phase_spd_bonus": 5,
+        "stagger_magnitude": 0.2,
+        "reaction_opportunities": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "rules_version": "rpg-0.1",
+  "definitions": [
+    {
+      "id": "guard",
+      "name": "守卫",
+      "base_stats": {
+        "hp": 320,
+        "mp": 30,
+        "atk": 42,
+        "matk": 18,
+        "def": 50,
+        "mdef": 30,
+        "spd": 20
+      },
+      "growth": {
+        "hp": 24,
+        "mp": 2,
+        "atk": 3,
+        "matk": 1,
+        "def": 3,
+        "mdef": 2,
+        "spd": 1
+      },
+      "skill_ids": [
+        "cover",
+        "shield_bash",
+        "iron_wall",
+        "taunt"
+      ],
+      "default_attack": "physical",
+      "branch_skill_id": "cover",
+      "branches": {}
+    },
+    {
+      "id": "swordsman",
+      "name": "剑士",
+      "base_stats": {
+        "hp": 240,
+        "mp": 40,
+        "atk": 60,
+        "matk": 20,
+        "def": 30,
+        "mdef": 25,
+        "spd": 35
+      },
+      "growth": {
+        "hp": 18,
+        "mp": 3,
+        "atk": 5,
+        "matk": 1,
+        "def": 2,
+        "mdef": 2,
+        "spd": 1
+      },
+      "skill_ids": [
+        "heavy_slash",
+        "armor_break",
+        "sweep",
+        "battle_spirit"
+      ],
+      "default_attack": "physical",
+      "branch_skill_id": "heavy_slash",
+      "branches": {}
+    },
+    {
+      "id": "ranger",
+      "name": "游侠",
+      "base_stats": {
+        "hp": 180,
+        "mp": 45,
+        "atk": 54,
+        "matk": 22,
+        "def": 20,
+        "mdef": 20,
+        "spd": 50
+      },
+      "growth": {
+        "hp": 14,
+        "mp": 3,
+        "atk": 4,
+        "matk": 1,
+        "def": 1,
+        "mdef": 1,
+        "spd": 2
+      },
+      "skill_ids": [
+        "mark",
+        "hunt",
+        "ambush",
+        "smoke_screen"
+      ],
+      "default_attack": "physical",
+      "branch_skill_id": "mark",
+      "branches": {}
+    },
+    {
+      "id": "mage",
+      "name": "法师",
+      "base_stats": {
+        "hp": 170,
+        "mp": 80,
+        "atk": 18,
+        "matk": 65,
+        "def": 15,
+        "mdef": 35,
+        "spd": 28
+      },
+      "growth": {
+        "hp": 12,
+        "mp": 6,
+        "atk": 1,
+        "matk": 5,
+        "def": 1,
+        "mdef": 2,
+        "spd": 1
+      },
+      "skill_ids": [
+        "firebolt",
+        "flame_wave",
+        "ice_arrow",
+        "burn_brand"
+      ],
+      "default_attack": "magic",
+      "branch_skill_id": "firebolt",
+      "branches": {}
+    },
+    {
+      "id": "healer",
+      "name": "治疗",
+      "base_stats": {
+        "hp": 210,
+        "mp": 75,
+        "atk": 20,
+        "matk": 55,
+        "def": 25,
+        "mdef": 40,
+        "spd": 25
+      },
+      "growth": {
+        "hp": 16,
+        "mp": 5,
+        "atk": 1,
+        "matk": 4,
+        "def": 2,
+        "mdef": 3,
+        "spd": 1
+      },
+      "skill_ids": [
+        "heal",
+        "group_heal",
+        "cleanse",
+        "holy_shield"
+      ],
+      "default_attack": "magic",
+      "branch_skill_id": "heal",
+      "branches": {}
+    },
+    {
+      "id": "controller",
+      "name": "控制",
+      "base_stats": {
+        "hp": 200,
+        "mp": 65,
+        "atk": 26,
+        "matk": 52,
+        "def": 22,
+        "mdef": 32,
+        "spd": 40
+      },
+      "growth": {
+        "hp": 15,
+        "mp": 5,
+        "atk": 2,
+        "matk": 4,
+        "def": 1,
+        "mdef": 2,
+        "spd": 2
+      },
+      "skill_ids": [
+        "weaken",
+        "slow",
+        "seal",
+        "magic_break"
+      ],
+      "default_attack": "magic",
+      "branch_skill_id": "weaken",
+      "branches": {}
+    }
+  ]
+}

@@ -12,6 +12,9 @@ const UIThemeScript = preload("res://scripts/ui/theme.gd")
 const InkTransitionScript = preload("res://scripts/ui/ink_transition.gd")
 const SfxScript = preload("res://scripts/ui/sfx.gd")
 const DialogueOverlayScript = preload("res://scripts/ui/dialogue_overlay.gd")
+const RpgRouter = preload("res://scripts/rpg/encounter_router.gd")
+const RpgStore = preload("res://scripts/rpg/save_store.gd")
+var _rpg_pending_clue := ""
 
 var _cfg: Dictionary = {}
 var _theme = null
@@ -146,7 +149,14 @@ func _ready() -> void:
 	_build_hud()
 	set_process(true)
 	WashiOverlay.add_to(self)
-	_load_dialogue()
+	var rpg_world: Dictionary = {} if backdrop_mode else RpgRouter.take_world(scene_file_path)
+	if rpg_world.is_empty():
+		_load_dialogue()
+	else:
+		restore_rpg_world(rpg_world)
+		# 恢复已有舞台仅重建对话数据，不再次播放入场段。
+		var dialogue_data = JSON.parse_string(FileAccess.get_file_as_string("res://data/dialogues.json"))
+		if dialogue_data is Dictionary: _dlg_cfg = dialogue_data.get("stages", {}).get(_cfg.get("id", ""), {})
 	if "--stage-demo" in OS.get_cmdline_user_args():
 		_run_auto_demo()
 	if "--stage-walk" in OS.get_cmdline_user_args():
@@ -552,6 +562,16 @@ func _build_hud() -> void:
 	menu_btn.add_theme_color_override("font_color", _theme.color("paper_300"))
 	menu_btn.pressed.connect(_on_system_menu)
 	_hud_layer.add_child(menu_btn)
+	if RpgRouter.enabled():
+		var prepare := Button.new()
+		prepare.name = "RpgPreparation"
+		prepare.text = "◆ RPG休息 / 整备" if RpgRouter.session.campaign.snapshot().get("phase") == "rest" else "◆ RPG整备 / 道具"
+		prepare.position = Vector2(1450, 70)
+		prepare.size = Vector2(422, 56)
+		prepare.add_theme_font_override("font", _font(24))
+		prepare.add_theme_font_size_override("font_size", 24)
+		prepare.pressed.connect(_on_rpg_preparation)
+		_hud_layer.add_child(prepare)
 	# 左下：队伍栏（头像 + HP/恐惧 + 手牌卡背点）
 	_build_party_panel()
 	# 调查提示条（底部居中，屏幕固定）
@@ -628,6 +648,21 @@ func _bar_rect(pos: Vector2, sz: Vector2, frac: float, c: Color) -> Control:
 	fill.size = Vector2(sz.x * clampf(frac, 0.0, 1.0), sz.y)
 	wrap.add_child(fill)
 	return wrap
+
+# 保留原探索的场景与所有谜题字段，写成功才离场；失败可原地重试。
+func _on_rpg_preparation() -> void:
+	if backdrop_mode or not RpgRouter.enabled() or not input_enabled or _dlg_playing or _investigating or _cinematic: return
+	var opened: Dictionary = RpgRouter.session.open_preparation(export_rpg_world())
+	if opened.ok:
+		get_tree().change_scene_to_file(opened.next_scene)
+	else:
+		var notice := AcceptDialog.new()
+		notice.title = "存档失败"
+		notice.dialog_text = opened.error
+		add_child(notice)
+		notice.confirmed.connect(notice.queue_free)
+		notice.canceled.connect(notice.queue_free)
+		notice.popup_centered(Vector2i(600, 160))
 
 func _on_system_menu() -> void:
 	InkTransitionScript.transition(get_tree(), func() -> void:
@@ -872,6 +907,7 @@ func _investigate(clue: Dictionary) -> void:
 
 ## 解密特写：暗角收拢 + 和纸面板浮出（线索名 + 解密文案）
 func _show_clue_closeup(clue: Dictionary) -> void:
+	if backdrop_mode: return
 	var cw := float(_theme.canvas("base_width"))
 	var ch := float(_theme.canvas("base_height"))
 	var ink: Color = _theme.color("ink_900")
@@ -905,16 +941,74 @@ func _show_clue_closeup(clue: Dictionary) -> void:
 	tw2.tween_property(panel, "position:y", panel.position.y - 24, 0.5)\
 		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT).set_delay(0.25)
 	await get_tree().create_timer(2.6).timeout
-	# 特写落幕才记为已解决（推镜期间异象仍需渲染在画面中心）
-	_resolved[clue.get("id", "")] = true
-	_refresh_clue_count()
+	# RPG战斗线索随胜利提交；仪式线索沿用入场语义，但先写隔离安全档。
+	var battle_path: String = clue.get("battle", "res://scenes/v3/battle.tscn")
+	var clue_id: String = clue.get("id", "")
+	if RpgRouter.enabled() and (RpgRouter.session.supports(scene_file_path, battle_path, clue_id) or RpgRouter.session.supports_ritual(scene_file_path, battle_path, clue_id)):
+		_rpg_pending_clue = clue_id
+	else:
+		_resolved[clue_id] = true
+		_refresh_clue_count()
 	InkTransitionScript.transition(get_tree(), func() -> void:
-		_go_battle(clue.get("battle", "res://scenes/v3/battle.tscn")))
+		_go_battle(clue.get("battle", "res://scenes/v3/battle.tscn"))
+		if not _investigating:
+			v.queue_free()
+			panel.queue_free())
 
 ## 统一战斗入口：先登记下一场战斗与返回场景，再切战前构筑（GDD §5.2）
 func _go_battle(battle_path: String) -> void:
+	if backdrop_mode: return
+	var started: Dictionary = {}
+	if RpgRouter.enabled():
+		if RpgRouter.session.supports(scene_file_path, battle_path, _rpg_pending_clue):
+			started = RpgRouter.session.begin(scene_file_path, battle_path, export_rpg_world(), _rpg_pending_clue)
+		elif RpgRouter.session.supports_ritual(scene_file_path, battle_path, _rpg_pending_clue):
+			started = RpgRouter.session.begin_ritual(scene_file_path, battle_path, export_rpg_world(), _rpg_pending_clue)
+	if not started.is_empty():
+		if started.ok:
+			get_tree().change_scene_to_file(started.get("battle_scene", started.get("scene_path", "")))
+		else:
+			# 失败不进入旧奖励流程，也不提前解决线索；原因留给画面提示。
+			if _hint_label != null:
+				_hint_label.text = started.error
+				_hint_label.visible = true
+			if is_inside_tree():
+				var notice := AcceptDialog.new()
+				notice.title = "存档失败"
+				notice.dialog_text = started.error
+				add_child(notice)
+				notice.confirmed.connect(notice.queue_free)
+				notice.canceled.connect(notice.queue_free)
+				notice.popup_centered(Vector2i(600, 160))
+			input_enabled = true
+			_investigating = false
+			_cinematic = false
+			if _camera != null: _camera.zoom = Vector2.ONE
+		return
 	NextBattleV4.set_next(battle_path, scene_file_path)
 	get_tree().change_scene_to_file("res://scenes/v3/deck.tscn")
+
+# 世界只包含值类型；同场景恢复后，原出口和异象判断继续使用既有字段。
+func export_rpg_world() -> Dictionary:
+	return {"scene_path": scene_file_path, "player_x": _player_x, "facing": _facing, "resolved": _resolved.duplicate(true), "dlg_fired": _dlg_fired.duplicate(true), "exit_prompted": _exit_prompted, "spirit": _spirit, "party_index": _party_index}
+
+func restore_rpg_world(world: Dictionary) -> void:
+	if not RpgStore.validate_world(world).is_empty() or world.get("scene_path") != scene_file_path: return
+	if not _party.is_empty() and int(world.party_index) >= _party.size(): return
+	_player_x = float(world.player_x)
+	_facing = int(world.facing)
+	_resolved = world.resolved.duplicate(true)
+	_dlg_fired = world.dlg_fired.duplicate(true)
+	_exit_prompted = world.exit_prompted
+	_spirit = int(world.spirit)
+	_party_index = int(world.party_index)
+	_refresh_clue_count()
+	if _hud_layer != null:
+		for child in _hud_layer.get_children():
+			if child is InkDots:
+				child.value = _spirit
+				child.queue_redraw()
+		if not _party.is_empty(): _update_party_hud()
 
 func _hud_label(text: String, pos: Vector2, sz: int) -> Label:
 	var l := Label.new()

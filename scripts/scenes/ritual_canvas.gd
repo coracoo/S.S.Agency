@@ -8,6 +8,9 @@ const UIThemeScript = preload("res://scripts/ui/theme.gd")
 const SfxScript = preload("res://scripts/ui/sfx.gd")
 const InkTransitionScript = preload("res://scripts/ui/ink_transition.gd")
 const PngLoaderScript = preload("res://scripts/ui/png_loader.gd")
+const RpgRouter = preload("res://scripts/rpg/encounter_router.gd")
+var _rpg_router: RefCounted = null
+var _returning := false
 
 @export var ritual_data_path := "res://data/rituals/ritual_lamp.json"
 
@@ -56,6 +59,8 @@ var _item_btns: Array = []
 var _hand_layer: Control = null
 
 func _ready() -> void:
+	if RpgRouter.enabled() and RpgRouter.session.ritual_active(scene_file_path):
+		_rpg_router = RpgRouter.session
 	_theme = UIThemeScript.load_theme()
 	_load_data()
 	_load_artifact()
@@ -76,8 +81,7 @@ func _process(delta: float) -> void:
 			_idle_idx = (_idle_idx + 1) % _idle_frames.size()
 			_player.texture = _idle_frames[_idle_idx]
 	if Input.is_action_just_pressed("ui_cancel") and not _over:
-		InkTransitionScript.transition(get_tree(), func() -> void:
-			get_tree().change_scene_to_file(NextBattleV4.return_path))
+		_return_to_exploration()
 
 # ---------- 数据 ----------
 
@@ -572,11 +576,23 @@ func _show_end(win: bool, missing: Array) -> void:
 	var back := Button.new()
 	back.text = "返回探索"
 	back.add_theme_font_size_override("font_size", 22)
-	back.pressed.connect(func() -> void:
-		InkTransitionScript.transition(get_tree(), func() -> void:
-			get_tree().change_scene_to_file(NextBattleV4.return_path)))
+	back.pressed.connect(_return_to_exploration)
 	v.add_child(back)
 	SfxScript.play(self, "seal" if win else "explosion")
+
+# RPG仅隔离进出场状态，不改仪式牌、引灯、道具或目标规则；旧模式仍用原返回路径。
+func _return_to_exploration() -> void:
+	if _returning: return
+	var destination: String = NextBattleV4.return_path
+	if _rpg_router != null:
+		var finished: Dictionary = _rpg_router.finish_ritual(scene_file_path)
+		if not finished.ok:
+			_banner(finished.error, 5.0)
+			return
+		destination = finished.next_scene
+	_returning = true
+	InkTransitionScript.transition(get_tree(), func() -> void:
+		get_tree().change_scene_to_file(destination))
 
 # ---------- 自动连招冒烟：--auto-demo 按 GDD §8.3 时序自动完成仪式 ----------
 

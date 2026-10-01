@@ -4,6 +4,8 @@ extends Node2D
 ## 全屏实时渲染绘卷背景：直接实例化探索场景作活背景（参道 + 凛音待机 + 鼠标视差），
 ## 其上叠樱吹雪粒子与 UI 层。竖排题字 + 朱红落款章，按钮悬停金线 120ms 左→右扫过。
 
+const RpgRouter = preload("res://scripts/rpg/encounter_router.gd")
+
 const STAGE_SCENE := "res://scenes/v3/stage.tscn"
 const FIRST_STAGE := "res://scenes/v3/stage.tscn" # 「继续退治」直连；「新的委托」走挂轴
 const COMMISSION_SCENE := "res://scenes/v3/commission.tscn"
@@ -22,6 +24,7 @@ var _petals: Array = []
 var _petal_colors: Array = []
 
 func _ready() -> void:
+	RpgRouter.clear_session()
 	_theme = UIThemeScript.load_theme()
 	_build_live_background()
 	_spawn_petals()
@@ -127,6 +130,7 @@ func _build_title_column() -> void:
 func _build_menu() -> void:
 	var items := [
 		{"text": "继续退治", "primary": true, "action": _on_start},
+		{"text": "回合制 RPG 试作", "primary": false, "action": _on_rpg_prototype},
 		{"text": "新的委托", "primary": false, "action": _on_commission},
 		{"text": "妖怪手帖", "primary": false, "action": _on_codex_todo},
 		{"text": "设置", "primary": false, "action": _on_settings_todo},
@@ -134,7 +138,7 @@ func _build_menu() -> void:
 	for i in range(items.size()):
 		var it: Dictionary = items[i]
 		var btn := _menu_button(String(it["text"]), bool(it["primary"]))
-		btn.position = Vector2(820, 500 + i * 92)
+		btn.position = Vector2(820, 450 + i * 86)
 		btn.pressed.connect(it["action"])
 		_hud.add_child(btn)
 
@@ -142,7 +146,7 @@ func _build_menu() -> void:
 func _menu_button(text: String, primary: bool) -> Button:
 	var btn := Button.new()
 	btn.text = text
-	btn.size = Vector2(240, 64)
+	btn.size = Vector2(330, 64)
 	btn.focus_mode = Control.FOCUS_NONE
 	var base := StyleBoxFlat.new()
 	base.bg_color = Color(_theme.color("ink_900"), 0.55 if primary else 0.35)
@@ -160,7 +164,7 @@ func _menu_button(text: String, primary: bool) -> Button:
 	# 金线扫过：按钮底边一根 2px 金线，scale.x 0→1
 	var sweep := ColorRect.new()
 	sweep.color = _theme.color("gold_500")
-	sweep.size = Vector2(240, 2)
+	sweep.size = Vector2(330, 2)
 	sweep.position = Vector2(0, 62)
 	sweep.scale.x = 0.0
 	btn.add_child(sweep)
@@ -195,14 +199,20 @@ func _build_footer() -> void:
 # ---------- 动作 ----------
 
 func _on_start() -> void:
+	RpgRouter.clear_session()
 	SfxScript.play(self, "card_play")
 	InkTransitionScript.transition(get_tree(), func() -> void:
 		get_tree().change_scene_to_file(FIRST_STAGE))
 
 func _on_commission() -> void:
+	RpgRouter.clear_session()
 	SfxScript.play(self, "card_play")
 	InkTransitionScript.transition(get_tree(), func() -> void:
 		get_tree().change_scene_to_file(COMMISSION_SCENE))
+
+func _on_rpg_prototype() -> void:
+	RpgRouter.clear_session()
+	get_tree().change_scene_to_file("res://scenes/rpg/launcher.tscn")
 
 func _on_codex_todo() -> void:
 	_show_toast("妖怪手帖编纂中……先退治几笔再说吧。")

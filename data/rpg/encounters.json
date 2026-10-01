@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "rules_version": "rpg-0.1",
+  "definitions": [
+    {
+      "id": "slice_1",
+      "name": "首测普通战一",
+      "level": 5,
+      "enemy_ids": [
+        "hound",
+        "shield_soldier"
+      ],
+      "xp": 40,
+      "next_id": "slice_2",
+      "rest_after": false,
+      "scene_routes": [
+        {
+          "source_scene": "res://scenes/v3/stage.tscn",
+          "battle_scene": "res://scenes/v3/battle.tscn",
+          "clue_id": "basin_reflection"
+        }
+      ]
+    },
+    {
+      "id": "slice_2",
+      "name": "首测普通战二",
+      "level": 5,
+      "enemy_ids": [
+        "hound",
+        "cultist"
+      ],
+      "xp": 40,
+      "next_id": "slice_boss",
+      "rest_after": true,
+      "scene_routes": [
+        {
+          "source_scene": "res://scenes/v3/stage_corridor.tscn",
+          "battle_scene": "res://scenes/v3/battle.tscn",
+          "clue_id": "bell_self_ring"
+        }
+      ],
+      "ritual_routes": [
+        {
+          "source_scene": "res://scenes/v3/stage_corridor.tscn",
+          "battle_scene": "res://scenes/v3/ritual.tscn",
+          "clue_id": "coffin_sendoff"
+        }
+      ]
+    },
+    {
+      "id": "slice_boss",
+      "name": "首测守关者",
+      "level": 5,
+      "enemy_ids": [
+        "gatekeeper"
+      ],
+      "xp": 120,
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [
+        {
+          "source_scene": "res://scenes/v3/stage_honden.tscn",
+          "battle_scene": "res://scenes/v3/battle_honden.tscn",
+          "clue_id": "hollow_coffin_glow"
+        }
+      ]
+    },
+    {
+      "id": "elite_test",
+      "name": "独立精英测试",
+      "level": 5,
+      "enemy_ids": [
+        "elite_shield_soldier"
+      ],
+      "xp": 40,
+      "next_id": "",
+      "rest_after": false
+    }
+  ]
+}

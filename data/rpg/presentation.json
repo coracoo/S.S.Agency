@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "canvas": [
+    1920,
+    1080
+  ],
+  "near_side": "right",
+  "backdrop_scene": "res://scenes/preview/act01_approach_3d.tscn",
+  "fallback_background": "res://assets/bg/honden_battle.png",
+  "ally_slots": [
+    [
+      1160,
+      650,
+      310
+    ],
+    [
+      1430,
+      680,
+      340
+    ],
+    [
+      1700,
+      650,
+      310
+    ]
+  ],
+  "enemy_slots": [
+    [
+      340,
+      650,
+      265
+    ],
+    [
+      710,
+      620,
+      245
+    ],
+    [
+      520,
+      685,
+      260
+    ],
+    [
+      910,
+      660,
+      245
+    ]
+  ],
+  "boss_slot": [
+    545,
+    665,
+    365
+  ],
+  "class_art": {
+    "guard": {
+      "actor": "rinne",
+      "badge": "res://assets/ui/cardart_e_defense_stance.png",
+      "color": "gold_500"
+    },
+    "swordsman": {
+      "actor": "rinne",
+      "badge": "res://assets/ui/cardart_val_slash.png",
+      "color": "vermilion_500"
+    },
+    "healer": {
+      "actor": "mint",
+      "badge": "res://assets/ui/cardart_e_paper_amulet.png",
+      "color": "successful"
+    },
+    "ranger": {
+      "actor": "mint",
+      "badge": "res://assets/ui/cardart_e_seeing_eye.png",
+      "color": "mizu_500"
+    },
+    "mage": {
+      "actor": "mint",
+      "badge": "res://assets/ui/cardart_val_ignite.png",
+      "color": "hi_500"
+    },
+    "controller": {
+      "actor": "rinne",
+      "badge": "res://assets/ui/cardart_val_seal.png",
+      "color": "fuji_500"
+    }
+  },
+  "enemy_art": {
+    "gatekeeper": "res://assets/chars/enemy_kanju.png",
+    "cultist": "res://assets/chars/enemy_paper_doll_echo.png",
+    "default": "res://assets/chars/enemy_paper_doll.png"
+  },
+  "art_note": "职业槽位复用凛音／薄荷两套既有立绘；敌方复用纸妖素材。职业标签不改变人物设定。",
+  "camera_target": [
+    0.6,
+    0.8,
+    0.0
+  ],
+  "enemy_labels": {
+    "hound": "纸妖·疾行",
+    "shield_soldier": "纸妖·守盾",
+    "cultist": "纸妖·咒术",
+    "fire_spirit": "纸妖·炎灵",
+    "elite_shield_soldier": "纸妖·精锐守盾",
+    "gatekeeper": "棺守"
+  },
+  "asset_facings": {
+    "rinne": "right",
+    "mint": "right",
+    "res://assets/chars/enemy_paper_doll.png": "left",
+    "res://assets/chars/enemy_paper_doll_echo.png": "left",
+    "res://assets/chars/enemy_kanju.png": "left"
+  },
+  "facing_note": "已目检：凛音/薄荷为右向，三套敌图为左偏三分之四视角。镜像调整相向构图；敌图没有独立侧身攻击帧，薄荷没有帧动画或分层Live2D模型。"
+}

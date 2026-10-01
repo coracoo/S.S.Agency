@@ -1,0 +1,667 @@
+{
+  "schema_version": 1,
+  "rules_version": "rpg-0.1",
+  "definitions": [
+    {
+      "id": "cover",
+      "name": "掩护",
+      "mp_cost": 6,
+      "cooldown": 0,
+      "target_rule": "other_ally",
+      "damage_type": "none",
+      "element": "neutral",
+      "single_direct": false,
+      "unlock_level": 1,
+      "effects": [
+        {
+          "type": "apply_status",
+          "status_id": "cover",
+          "magnitude": 0.3,
+          "duration": 1,
+          "clock": "next_owner_slot"
+        }
+      ],
+      "branches": {
+        "economy": {
+          "6": {
+            "mp_cost": 4
+          },
+          "9": {
+            "mp_cost": 3
+          }
+        },
+        "power": {
+          "6": {
+            "magnitude": 0.4
+          },
+          "9": {
+            "magnitude": 0.45
+          }
+        }
+      }
+    },
+    {
+      "id": "shield_bash",
+      "name": "盾击",
+      "mp_cost": 6,
+      "cooldown": 2,
+      "target_rule": "single_enemy",
+      "damage_type": "physical",
+      "element": "neutral",
+      "single_direct": true,
+      "unlock_level": 1,
+      "effects": [
+        {
+          "type": "damage",
+          "damage_type": "physical",
+          "element": "neutral",
+          "coefficient": 0.7,
+          "single_direct": true,
+          "can_crit": true
+        },
+        {
+          "type": "interrupt"
+        }
+      ],
+      "branches": {}
+    },
+    {
+      "id": "iron_wall",
+      "name": "铁壁",
+      "mp_cost": 10,
+      "cooldown": 2,
+      "target_rule": "self",
+      "damage_type": "none",
+      "element": "neutral",
+      "single_direct": false,
+      "unlock_level": 2,
+      "effects": [
+        {
+          "type": "shield",
+          "fixed": 30,
+          "coefficient": 0.8,
+          "stat": "def",
+          "duration": 2,
+          "clock": "target_slot"
+        }
+      ],
+      "branches": {}
+    },
+    {
+      "id": "taunt",
+      "name": "挑衅",
+      "mp_cost": 4,
+      "cooldown": 1,
+      "target_rule": "single_enemy",
+      "damage_type": "none",
+      "element": "neutral",
+      "single_direct": false,
+      "unlock_level": 3,
+      "effects": [
+        {
+          "type": "apply_status",
+          "status_id": "taunt",
+          "magnitude": 1,
+          "duration": 2,
+          "clock": "target_slot"
+        }
+      ],
+      "branches": {}
+    },
+    {
+      "id": "heavy_slash",
+      "name": "重斩",
+      "mp_cost": 8,
+      "cooldown": 0,
+      "target_rule": "single_enemy",
+      "damage_type": "physical",
+      "element": "neutral",
+      "single_direct": true,
+      "unlock_level": 1,
+      "effects": [
+        {
+          "type": "damage",
+          "damage_type": "physical",
+          "element": "neutral",
+          "coefficient": 1.5,
+          "single_direct": true,
+          "can_crit": true
+        }
+      ],
+      "branches": {
+        "economy": {
+          "6": {
+            "mp_cost": 6
+          },
+          "9": {
+            "mp_cost": 5
+          }
+        },
+        "power": {
+          "6": {
+            "coefficient": 1.65
+          },
+          "9": {
+            "coefficient": 1.8
+          }
+        }
+      }
+    },
+    {
+      "id": "armor_break",
+      "name": "破甲斩",
+      "mp_cost": 7,
+      "cooldown": 1,
+      "target_rule": "single_enemy",
+      "damage_type": "physical",
+      "element": "neutral",
+      "single_direct": true,
+      "unlock_level": 1,
+      "effects": [
+        {
+          "type": "damage",
+          "damage_type": "physical",
+          "element": "neutral",
+          "coefficient": 1.0,
+          "single_direct": true,
+          "can_crit": true
+        },
+        {
+          "type": "apply_status",
+          "status_id": "armor_break",
+          "magnitude": 0.25,
+          "duration": 2,
+          "clock": "target_slot"
+        }
+      ],
+      "branches": {}
+    },
+    {
+      "id": "sweep",
+      "name": "横扫",
+      "mp_cost": 12,
+      "cooldown": 1,
+      "target_rule": "all_enemies",
+      "damage_type": "physical",
+      "element": "neutral",
+      "single_direct": false,
+      "unlock_level": 2,
+      "effects": [
+        {
+          "type": "damage",
+          "damage_type": "physical",
+          "element": "neutral",
+          "coefficient": 0.85,
+          "single_direct": false,
+          "can_crit": true
+        }
+      ],
+      "branches": {}
+    },
+    {
+      "id": "battle_spirit",
+      "name": "战意",
+      "mp_cost": 6,
+      "cooldown": 2,
+      "target_rule": "self",
+      "damage_type": "none",
+      "element": "neutral",
+      "single_direct": false,
+      "unlock_level": 3,
+      "effects": [
+        {
+          "type": "apply_status",
+          "status_id": "battle_spirit",
+          "magnitude": 0.4,
+          "duration": 2,
+          "clock": "target_slot"
+        }
+      ],
+      "branches": {}
+    },
+    {
+      "id": "mark",
+      "name": "标记",
+      "mp_cost": 4,
+      "cooldown": 0,
+      "target_rule": "single_enemy",
+      "damage_type": "none",
+      "element": "neutral",
+      "single_direct": false,
+      "unlock_level": 1,
+      "effects": [
+        {
+          "type": "apply_status",
+          "status_id": "mark",
+          "magnitude": 1,
+          "duration": 3,
+          "clock": "target_slot"
+        }
+      ],
+      "branches": {
+        "duration": {
+          "6": {
+            "duration": 4
+          },
+          "9": {
+            "duration": 5
+          }
+        }
+      }
+    },
+    {
+      "id": "hunt",
+      "name": "猎杀",
+      "mp_cost": 8,
+      "cooldown": 0,
+      "target_rule": "single_enemy",
+      "damage_type": "physical",
+      "element": "neutral",
+      "single_direct": true,
+      "unlock_level": 1,
+      "effects": [
+        {
+          "type": "damage",
+          "damage_type": "physical",
+          "element": "neutral",
+          "coefficient": 1.3,
+          "single_direct": true,
+          "can_crit": true,
+          "condition": "target_has_status",
+          "status_id": "mark",
+          "conditional_coefficient": 2.8
+        },
+        {
+          "type": "consume_status",
+          "status_id": "mark"
+        }
+      ],
+      "branches": {
+        "power": {
+          "6": {
+            "conditional_coefficient": 3.0
+          },
+          "9": {
+            "conditional_coefficient": 3.2
+          }
+        }
+      }
+    },
+    {
+      "id": "ambush",
+      "name": "奇袭",
+      "mp_cost": 7,
+      "cooldown": 1,
+      "target_rule": "single_enemy",
+      "damage_type": "physical",
+      "element": "neutral",
+      "single_direct": true,
+      "unlock_level": 2,
+      "effects": [
+        {
+          "type": "damage",
+          "damage_type": "physical",
+          "element": "neutral",
+          "coefficient": 1.0,
+          "single_direct": true,
+          "can_crit": true,
+          "condition": "target_no_slot_this_round",
+          "conditional_coefficient": 1.5
+        }
+      ],
+      "branches": {}
+    },
+    {
+      "id": "smoke_screen",
+      "name": "烟幕",
+      "mp_cost": 8,
+      "cooldown": 2,
+      "target_rule": "self",
+      "damage_type": "none",
+      "element": "neutral",
+      "single_direct": false,
+      "unlock_level": 3,
+      "effects": [
+        {
+          "type": "shield",
+          "fixed": 20,
+          "coefficient": 0.6,
+          "stat": "atk",
+          "duration": 2,
+          "clock": "target_slot"
+        }
+      ],
+      "branches": {}
+    },
+    {
+      "id": "firebolt",
+      "name": "火弹",
+      "mp_cost": 10,
+      "cooldown": 0,
+      "target_rule": "single_enemy",
+      "damage_type": "magic",
+      "element": "fire",
+      "single_direct": true,
+      "unlock_level": 1,
+      "effects": [
+        {
+          "type": "damage",
+          "damage_type": "magic",
+          "element": "fire",
+          "coefficient": 1.4,
+          "single_direct": true,
+          "can_crit": true
+        }
+      ],
+      "branches": {
+        "economy": {
+          "6": {
+            "mp_cost": 8
+          },
+          "9": {
+            "mp_cost": 7
+          }
+        },
+        "power": {
+          "6": {
+            "coefficient": 1.55
+          },
+          "9": {
+            "coefficient": 1.7
+          }
+        }
+      }
+    },
+    {
+      "id": "flame_wave",
+      "name": "炎浪",
+      "mp_cost": 18,
+      "cooldown": 1,
+      "target_rule": "all_enemies",
+      "damage_type": "magic",
+      "element": "fire",
+      "single_direct": false,
+      "unlock_level": 1,
+      "effects": [
+        {
+          "type": "damage",
+          "damage_type": "magic",
+          "element": "fire",
+          "coefficient": 0.8,
+          "single_direct": false,
+          "can_crit": true
+        }
+      ],
+      "branches": {}
+    },
+    {
+      "id": "ice_arrow",
+      "name": "冰矢",
+      "mp_cost": 10,
+      "cooldown": 1,
+      "target_rule": "single_enemy",
+      "damage_type": "magic",
+      "element": "ice",
+      "single_direct": true,
+      "unlock_level": 2,
+      "effects": [
+        {
+          "type": "damage",
+          "damage_type": "magic",
+          "element": "ice",
+          "coefficient": 1.1,
+          "single_direct": true,
+          "can_crit": true
+        },
+        {
+          "type": "apply_status",
+          "status_id": "slow",
+          "magnitude": 0.3,
+          "duration": 1,
+          "clock": "round_snapshot"
+        }
+      ],
+      "branches": {}
+    },
+    {
+      "id": "burn_brand",
+      "name": "灼印",
+      "mp_cost": 8,
+      "cooldown": 1,
+      "target_rule": "single_enemy",
+      "damage_type": "magic",
+      "element": "fire",
+      "single_direct": true,
+      "unlock_level": 3,
+      "effects": [
+        {
+          "type": "damage",
+          "damage_type": "magic",
+          "element": "fire",
+          "coefficient": 0.3,
+          "single_direct": true,
+          "can_crit": true
+        },
+        {
+          "type": "apply_status",
+          "status_id": "burn",
+          "magnitude": 0.2,
+          "duration": 3,
+          "clock": "target_slot",
+          "snapshot_stat": "matk",
+          "snapshot_output": true,
+          "snapshot_weaken": true
+        }
+      ],
+      "branches": {}
+    },
+    {
+      "id": "heal",
+      "name": "愈合",
+      "mp_cost": 12,
+      "cooldown": 1,
+      "target_rule": "single_ally",
+      "damage_type": "none",
+      "element": "neutral",
+      "single_direct": false,
+      "unlock_level": 1,
+      "effects": [
+        {
+          "type": "heal",
+          "fixed": 20,
+          "coefficient": 1.2,
+          "stat": "matk"
+        }
+      ],
+      "branches": {
+        "economy": {
+          "6": {
+            "mp_cost": 10
+          },
+          "9": {
+            "mp_cost": 9
+          }
+        },
+        "power": {
+          "6": {
+            "fixed": 32
+          },
+          "9": {
+            "fixed": 44
+          }
+        }
+      }
+    },
+    {
+      "id": "group_heal",
+      "name": "群疗",
+      "mp_cost": 22,
+      "cooldown": 2,
+      "target_rule": "all_allies",
+      "damage_type": "none",
+      "element": "neutral",
+      "single_direct": false,
+      "unlock_level": 1,
+      "effects": [
+        {
+          "type": "heal",
+          "fixed": 10,
+          "coefficient": 0.6,
+          "stat": "matk"
+        }
+      ],
+      "branches": {}
+    },
+    {
+      "id": "cleanse",
+      "name": "净化",
+      "mp_cost": 6,
+      "cooldown": 0,
+      "target_rule": "single_ally",
+      "damage_type": "none",
+      "element": "neutral",
+      "single_direct": false,
+      "unlock_level": 2,
+      "effects": [
+        {
+          "type": "cleanse"
+        }
+      ],
+      "branches": {}
+    },
+    {
+      "id": "holy_shield",
+      "name": "圣盾",
+      "mp_cost": 10,
+      "cooldown": 1,
+      "target_rule": "single_ally",
+      "damage_type": "none",
+      "element": "neutral",
+      "single_direct": false,
+      "unlock_level": 3,
+      "effects": [
+        {
+          "type": "shield",
+          "fixed": 20,
+          "coefficient": 0.8,
+          "stat": "matk",
+          "duration": 2,
+          "clock": "target_slot"
+        }
+      ],
+      "branches": {}
+    },
+    {
+      "id": "weaken",
+      "name": "虚弱术",
+      "mp_cost": 8,
+      "cooldown": 0,
+      "target_rule": "single_enemy",
+      "damage_type": "none",
+      "element": "neutral",
+      "single_direct": false,
+      "unlock_level": 1,
+      "effects": [
+        {
+          "type": "apply_status",
+          "status_id": "weaken",
+          "magnitude": 0.2,
+          "duration": 2,
+          "clock": "target_slot"
+        }
+      ],
+      "branches": {
+        "economy": {
+          "6": {
+            "mp_cost": 6
+          },
+          "9": {
+            "mp_cost": 5
+          }
+        },
+        "power": {
+          "6": {
+            "magnitude": 0.25
+          },
+          "9": {
+            "magnitude": 0.3
+          }
+        }
+      }
+    },
+    {
+      "id": "slow",
+      "name": "迟滞术",
+      "mp_cost": 10,
+      "cooldown": 1,
+      "target_rule": "all_enemies",
+      "damage_type": "none",
+      "element": "neutral",
+      "single_direct": false,
+      "unlock_level": 1,
+      "effects": [
+        {
+          "type": "apply_status",
+          "status_id": "slow",
+          "magnitude": 0.3,
+          "duration": 2,
+          "clock": "round_snapshot"
+        }
+      ],
+      "branches": {}
+    },
+    {
+      "id": "seal",
+      "name": "封缄",
+      "mp_cost": 12,
+      "cooldown": 2,
+      "target_rule": "single_enemy",
+      "damage_type": "none",
+      "element": "neutral",
+      "single_direct": false,
+      "unlock_level": 2,
+      "effects": [
+        {
+          "type": "apply_status",
+          "status_id": "stun",
+          "magnitude": 1,
+          "duration": 1,
+          "clock": "target_slot"
+        },
+        {
+          "type": "interrupt"
+        }
+      ],
+      "branches": {}
+    },
+    {
+      "id": "magic_break",
+      "name": "破魔印",
+      "mp_cost": 8,
+      "cooldown": 1,
+      "target_rule": "single_enemy",
+      "damage_type": "magic",
+      "element": "spirit",
+      "single_direct": true,
+      "unlock_level": 3,
+      "effects": [
+        {
+          "type": "damage",
+          "damage_type": "magic",
+          "element": "spirit",
+          "coefficient": 0.6,
+          "single_direct": true,
+          "can_crit": true
+        },
+        {
+          "type": "apply_status",
+          "status_id": "magic_break",
+          "magnitude": 0.25,
+          "duration": 2,
+          "clock": "target_slot"
+        }
+      ],
+      "branches": {}
+    }
+  ]
+}
