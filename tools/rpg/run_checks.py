@@ -14,7 +14,8 @@ SUITES = ("data", "rules", "engine", "ai", "campaign", "ui", "roster", "acceptan
 
 def run(engine: str, project: Path, env: dict, arguments: list[str]) -> tuple[int, str]:
     result = subprocess.run([engine, "--headless", "--path", str(project), *arguments],
-                            env=env, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                            env=env, text=True, encoding="utf-8", errors="replace",
+                            stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     print(result.stdout, end="", flush=True)
     return result.returncode, result.stdout
 
