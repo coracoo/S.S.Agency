@@ -526,6 +526,7 @@ func _build_camera() -> void:
 	add_child(_camera)
 	_camera.make_current()
 
+
 func _build_hud() -> void:
 	if backdrop_mode:
 		return # 标题屏活背景：不带探索 HUD
