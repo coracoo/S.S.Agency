@@ -67,6 +67,6 @@
    245
   ]
  ],
- "comment_ground": "山道：平地 y990 → 1080 起石阶至右上平台（遮罩 assets/bg/walkmasks/mountain_path.png 已边缘吸附，可后台细涂）",
- "player_anims_from": "res://assets/chars/rinne_25d/animation_manifest.json"
+ "player_anims_from": "res://assets/chars/rinne_25d/animation_manifest.json",
+ "comment_ground": "山道：平地 y990 → 1080 起石阶至右上平台（遮罩 assets/bg/walkmasks/mountain_path.png 已边缘吸附，可后台细涂）"
 }

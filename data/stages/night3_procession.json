@@ -1,11 +1,11 @@
 {
- "id": "honden_act",
- "name": "本殿前庭（第三幕·验证场景）",
- "comment": "第三幕探索：honden_dusk 本殿前庭黄昏背景，逢魔刻灵压更高（spirit 4），线索见 data/clues/honden_act.json",
- "bg": "res://assets/bg/honden_dusk.png",
+ "id": "night3_procession",
+ "name": "回廊深处（第三夜·纸人抬棺）",
+ "comment": "第三夜探索：corridor_walk 深夜层，雾更重",
+ "bg": "res://assets/bg/corridor_walk.png",
  "player_sprite": "res://assets/chars/rinne_idle.png",
  "player_height_px": 500,
- "spawn_x": 520,
+ "spawn_x": 560,
  "spirit": 4,
  "party": [
   {
@@ -34,21 +34,21 @@
  "ground_profile": [
   [
    0,
-   920
+   930
   ],
   [
-   700,
-   920
+   600,
+   930
   ],
   [
-   1300,
-   890
+   1200,
+   900
   ],
   [
    2048,
-   860
+   880
   ]
  ],
  "player_anims_from": "res://assets/chars/rinne_25d/animation_manifest.json",
- "next": "res://scenes/v3/truth.tscn"
+ "next": "res://scenes/v3/stage_night4.tscn"
 }

@@ -11,7 +11,8 @@ const SfxScript = preload("res://scripts/ui/sfx.gd")
 const FxBurstScript = preload("res://scripts/ui/fx_burst.gd")
 const InkTransitionScript = preload("res://scripts/ui/ink_transition.gd")
 
-const STAGE_SCENE := "res://scenes/v3/stage.tscn"
+## 战斗胜利/ESC 返回的探索场景：取 NextBattleV4.return_path（stage_scene 进战斗前设置），
+## 多幕章节各幕返回各自的舞台；未设置时回标题。
 
 ## S5 详情卡面：cover 裁切绘制的插画区（TextureRect 的 COVERED 不裁切，手绘可控）
 class CoverArt extends Control:
@@ -200,7 +201,7 @@ func _load_artifact() -> void:
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		InkTransitionScript.transition(get_tree(), func() -> void:
-			get_tree().change_scene_to_file(STAGE_SCENE))
+			get_tree().change_scene_to_file(NextBattleV4.return_path))
 	if _over and Input.is_action_just_pressed("ui_accept"):
 		InkTransitionScript.transition(get_tree(), func() -> void:
 			get_tree().reload_current_scene())
@@ -1442,7 +1443,7 @@ func _show_result_panel(text: String, win: bool) -> void:
 	var back_btn := _detail_button("返回探索", Vector2(470, 480), false)
 	back_btn.pressed.connect(func() -> void:
 		InkTransitionScript.transition(get_tree(), func() -> void:
-			get_tree().change_scene_to_file(STAGE_SCENE)))
+			get_tree().change_scene_to_file(NextBattleV4.return_path)))
 	panel.add_child(back_btn)
 
 # ---------- HUD 绘制 ----------

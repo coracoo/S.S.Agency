@@ -1,0 +1,291 @@
+{
+ "id": "ch1_night1",
+ "name": "第一夜 · 参道灯笼影（教学战）",
+ "comment": "第一章棺女·夜一：仅扑击/尖啸，认识灵墨与出牌",
+ "bg": "res://assets/bg/corridor_battle_test.png",
+ "ap_per_turn": 5,
+ "spirit": {
+  "start": 3,
+  "per_turn": 1,
+  "phase2_from_turn": 3,
+  "phase2_bonus": 2,
+  "tier_attack_mult": {
+   "weak": 0.7,
+   "normal": 1.0,
+   "empowered": 1.3,
+   "berserk": 1.5
+  },
+  "weak_below": 3,
+  "empowered_from": 6,
+  "berserk_from": 8
+ },
+ "seal_rule": {
+  "min_seal_points": 2,
+  "min_spirit": 6
+ },
+ "player": {
+  "name": "凛音",
+  "sprite": "res://assets/chars/rinne_idle.png",
+  "hp": 30,
+  "height_px": 450,
+  "pos": [
+   210,
+   930
+  ],
+  "anims": {
+   "idle": [
+    "res://assets/chars/anims/rinne_idle_f1.png",
+    "res://assets/chars/anims/rinne_idle_f2.png",
+    "res://assets/chars/anims/rinne_idle_f3.png",
+    "res://assets/chars/anims/rinne_idle_f4.png"
+   ],
+   "walk": [
+    "res://assets/chars/anims/rinne_walk_f1.png",
+    "res://assets/chars/anims/rinne_walk_f2.png",
+    "res://assets/chars/anims/rinne_walk_f3.png",
+    "res://assets/chars/anims/rinne_walk_f4.png",
+    "res://assets/chars/anims/rinne_walk_f5.png",
+    "res://assets/chars/anims/rinne_walk_f6.png"
+   ],
+   "cast": [
+    "res://assets/chars/anims/rinne_cast_f1.png",
+    "res://assets/chars/anims/rinne_cast_f2.png",
+    "res://assets/chars/anims/rinne_cast_f3.png",
+    "res://assets/chars/anims/rinne_cast_f4.png",
+    "res://assets/chars/anims/rinne_cast_f5.png"
+   ],
+   "fps": 10
+  }
+ },
+ "deck": {
+  "copies": 2,
+  "hand_limit": 5,
+  "comment": "牌组循环：每张卡 copies 份入抽牌堆，回合补牌至 hand_limit，弃牌堆耗尽重洗"
+ },
+ "demo_note": "教学战：纸人形只会扑击与尖啸。引导：攻击牌打立绘 / 引燃场景槽 / 鸣钟震慑。",
+ "enemies": [
+  {
+   "name": "纸人形",
+   "sprite": "res://assets/chars/enemy_paper_doll.png",
+   "hp": 18,
+   "attack": 4,
+   "height_px": 500,
+   "pos": [
+    1400,
+    800
+   ],
+   "fear_attack_mult": 0.5,
+   "stun_skip": true,
+   "pattern": [
+    "attack",
+    "attack",
+    "howl"
+   ],
+   "intent_text": {
+    "attack": "扑击",
+    "howl": "尖啸 —— 灵气上升！"
+   },
+   "howl_spirit": 1,
+   "anims": {
+    "idle": [
+     "res://assets/chars/anims/paperdoll_idle_f1.png",
+     "res://assets/chars/anims/paperdoll_idle_f2.png",
+     "res://assets/chars/anims/paperdoll_idle_f3.png",
+     "res://assets/chars/anims/paperdoll_idle_f4.png"
+    ],
+    "fps": 5
+   },
+   "count": 2,
+   "spacing_px": 260
+  }
+ ],
+ "slots": [
+  {
+   "id": "slot_shoji",
+   "name": "纸门",
+   "pos": [
+    0.13,
+    0.38
+   ],
+   "state": "idle",
+   "adjacent": [
+    "slot_rope"
+   ]
+  },
+  {
+   "id": "slot_rope",
+   "name": "注连绳",
+   "pos": [
+    0.38,
+    0.22
+   ],
+   "state": "idle",
+   "adjacent": [
+    "slot_shoji",
+    "slot_bell"
+   ],
+   "seal_point": true
+  },
+  {
+   "id": "slot_bell",
+   "name": "吊钟",
+   "pos": [
+    0.53,
+    0.3
+   ],
+   "state": "idle",
+   "adjacent": [
+    "slot_rope",
+    "slot_basin"
+   ]
+  },
+  {
+   "id": "slot_basin",
+   "name": "水钵",
+   "pos": [
+    0.68,
+    0.55
+   ],
+   "state": "idle",
+   "adjacent": [
+    "slot_bell",
+    "slot_eaves"
+   ],
+   "extinguish": true
+  },
+  {
+   "id": "slot_eaves",
+   "name": "檐角",
+   "pos": [
+    0.87,
+    0.32
+   ],
+   "state": "idle",
+   "adjacent": [
+    "slot_basin"
+   ],
+   "seal_point": true
+  }
+ ],
+ "cards": [
+  {
+   "id": "slash",
+   "name": "居合斩",
+   "cost": 2,
+   "type": "attack",
+   "owner": "rinne",
+   "power": 8,
+   "tags": [
+    "weapon"
+   ],
+   "art": "res://assets/ui/cardart_val_slash.png",
+   "desc": "挥刀斩击敌方立绘，造成等同于牌面的伤害。燃烧的敌人受到恐惧侵蚀。"
+  },
+  {
+   "id": "ignite",
+   "name": "引燃",
+   "cost": 1,
+   "type": "slot",
+   "owner": "homura",
+   "slot_state": "burning",
+   "tags": [
+    "fire"
+   ],
+   "art": "res://assets/ui/cardart_val_ignite.png",
+   "desc": "点燃目标场景槽。火势每回合沿相连槽位蔓延，灼烧其中的敌人并令其恐惧。"
+  },
+  {
+   "id": "bell",
+   "name": "鸣钟",
+   "cost": 1,
+   "type": "slot",
+   "owner": "mint",
+   "slot_state": "ringing",
+   "tags": [
+    "bell",
+    "sound"
+   ],
+   "art": "res://assets/ui/cardart_val_bell.png",
+   "desc": "摇响吊钟：敌人下回合眩晕无法行动；鸣响也会惊起连锁，清除场景上的燃烧。"
+  },
+  {
+   "id": "seal",
+   "name": "结界符",
+   "cost": 2,
+   "type": "seal",
+   "owner": "zhongkui",
+   "slot_state": "sealed",
+   "tags": [
+    "talisman"
+   ],
+   "art": "res://assets/ui/cardart_val_seal.png",
+   "desc": "将结界符贴在阵眼上。集齐 2 处阵眼且灵气≥6 时，封印敌人，直接退治。"
+  },
+  {
+   "id": "seal2",
+   "name": "结界符·贰",
+   "cost": 2,
+   "type": "seal",
+   "owner": "zhongkui",
+   "slot_state": "sealed",
+   "tags": [
+    "talisman"
+   ],
+   "art": "res://assets/ui/cardart_val_seal.png",
+   "desc": "将结界符贴在阵眼上。集齐 2 处阵眼且灵气≥6 时，封印敌人，直接退治。"
+  },
+  {
+   "id": "guard",
+   "name": "守势",
+   "cost": 1,
+   "type": "skill",
+   "owner": "rinne",
+   "power": 0,
+   "effects": {
+    "shield": 4
+   },
+   "tags": [
+    "talisman"
+   ],
+   "unlock": "start",
+   "art": "res://assets/ui/cardart_e_defense_stance.png",
+   "desc": "获得 4 点护盾。护盾先于生命承伤，到你下次回合开始清空。"
+  },
+  {
+   "id": "amulet",
+   "name": "护身符",
+   "cost": 2,
+   "type": "skill",
+   "owner": "zhongkui",
+   "power": 0,
+   "effects": {
+    "shield": 7,
+    "cleanse": 1
+   },
+   "tags": [
+    "talisman"
+   ],
+   "unlock": "start",
+   "art": "res://assets/ui/cardart_e_paper_amulet.png",
+   "desc": "获得 7 点护盾，并净化一个可净化的负面状态。"
+  },
+  {
+   "id": "expose",
+   "name": "识破",
+   "cost": 1,
+   "type": "skill",
+   "owner": "mint",
+   "target": "enemy",
+   "power": 0,
+   "effects": {
+    "mark": 1
+   },
+   "tags": [
+    "sight"
+   ],
+   "unlock": "start",
+   "art": "res://assets/ui/cardart_e_seeing_eye.png",
+   "desc": "对一名敌人附加 1 层标记。标记最多 3 层，留存至本场战斗结束，只被明确消耗它的牌消耗。"
+  }
+ ]
+}

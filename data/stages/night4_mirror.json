@@ -1,12 +1,12 @@
 {
- "id": "honden_act",
- "name": "本殿前庭（第三幕·验证场景）",
- "comment": "第三幕探索：honden_dusk 本殿前庭黄昏背景，逢魔刻灵压更高（spirit 4），线索见 data/clues/honden_act.json",
+ "id": "night4_mirror",
+ "name": "本殿黄昏（第四夜·棺中镜）",
+ "comment": "第四夜探索：honden_dusk 棺停御神木下",
  "bg": "res://assets/bg/honden_dusk.png",
  "player_sprite": "res://assets/chars/rinne_idle.png",
  "player_height_px": 500,
  "spawn_x": 520,
- "spirit": 4,
+ "spirit": 5,
  "party": [
   {
    "name": "凛音",
@@ -50,5 +50,5 @@
   ]
  ],
  "player_anims_from": "res://assets/chars/rinne_25d/animation_manifest.json",
- "next": "res://scenes/v3/truth.tscn"
+ "next": "res://scenes/v3/stage_honden.tscn"
 }

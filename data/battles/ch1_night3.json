@@ -1,0 +1,450 @@
+{
+ "id": "ch1_night3",
+ "name": "第三夜 · 回廊深处·抬棺",
+ "comment": "第一章棺女·夜三：抬棺队列两波，封印教学",
+ "bg": "res://assets/bg/corridor_battle_test.png",
+ "ap_per_turn": 6,
+ "spirit": {
+  "start": 5,
+  "per_turn": 1,
+  "phase2_from_turn": 3,
+  "phase2_bonus": 2,
+  "tier_attack_mult": {
+   "weak": 0.7,
+   "normal": 1.0,
+   "empowered": 1.3,
+   "berserk": 1.5
+  },
+  "weak_below": 3,
+  "empowered_from": 6,
+  "berserk_from": 8
+ },
+ "seal_rule": {
+  "min_seal_points": 2,
+  "min_spirit": 6
+ },
+ "player": {
+  "name": "凛音",
+  "sprite": "res://assets/chars/rinne_idle.png",
+  "hp": 30,
+  "height_px": 450,
+  "pos": [
+   210,
+   930
+  ],
+  "anims": {
+   "idle": [
+    "res://assets/chars/anims/rinne_idle_f1.png",
+    "res://assets/chars/anims/rinne_idle_f2.png",
+    "res://assets/chars/anims/rinne_idle_f3.png",
+    "res://assets/chars/anims/rinne_idle_f4.png"
+   ],
+   "walk": [
+    "res://assets/chars/anims/rinne_walk_f1.png",
+    "res://assets/chars/anims/rinne_walk_f2.png",
+    "res://assets/chars/anims/rinne_walk_f3.png",
+    "res://assets/chars/anims/rinne_walk_f4.png",
+    "res://assets/chars/anims/rinne_walk_f5.png",
+    "res://assets/chars/anims/rinne_walk_f6.png"
+   ],
+   "cast": [
+    "res://assets/chars/anims/rinne_cast_f1.png",
+    "res://assets/chars/anims/rinne_cast_f2.png",
+    "res://assets/chars/anims/rinne_cast_f3.png",
+    "res://assets/chars/anims/rinne_cast_f4.png",
+    "res://assets/chars/anims/rinne_cast_f5.png"
+   ],
+   "fps": 10
+  }
+ },
+ "deck": {
+  "copies": 2,
+  "hand_limit": 5,
+  "comment": "牌组循环：每张卡 copies 份入抽牌堆，回合补牌至 hand_limit，弃牌堆耗尽重洗"
+ },
+ "demo_note": "两波压制：抬棺纸人会猛扑（重击）。灵气≥6 且阵眼≥2 时贴符可封印斩杀。",
+ "enemies": [
+  {
+   "name": "纸人形·抬棺",
+   "sprite": "res://assets/chars/enemy_paper_doll.png",
+   "hp": 30,
+   "attack": 7,
+   "height_px": 540,
+   "pos": [
+    1400,
+    800
+   ],
+   "fear_attack_mult": 0.5,
+   "stun_skip": true,
+   "pattern": [
+    "attack",
+    "pounce",
+    "attack",
+    "howl"
+   ],
+   "intent_text": {
+    "attack": "扑击",
+    "pounce": "猛扑（重击）",
+    "howl": "尖啸 —— 灵气上升！"
+   },
+   "pounce_mult": 1.8,
+   "howl_spirit": 2,
+   "anims": {
+    "idle": [
+     "res://assets/chars/anims/paperdoll_idle_f1.png",
+     "res://assets/chars/anims/paperdoll_idle_f2.png",
+     "res://assets/chars/anims/paperdoll_idle_f3.png",
+     "res://assets/chars/anims/paperdoll_idle_f4.png"
+    ],
+    "fps": 5
+   },
+   "count": 2,
+   "spacing_px": 300
+  },
+  {
+   "name": "纸人形·残响",
+   "comment": "第二波：独立立绘（日式批次生成，紫怨纸人），波次轮换登场验证",
+   "sprite": "res://assets/chars/enemy_paper_doll_echo.png",
+   "hp": 22,
+   "attack": 6,
+   "height_px": 440,
+   "pos": [
+    1400,
+    800
+   ],
+   "fear_attack_mult": 0.5,
+   "stun_skip": true,
+   "pattern": [
+    "pounce",
+    "attack",
+    "attack"
+   ],
+   "intent_text": {
+    "attack": "扑击",
+    "pounce": "猛扑（重击）"
+   },
+   "pounce_mult": 1.6,
+   "howl_spirit": 2
+  }
+ ],
+ "slots": [
+  {
+   "id": "slot_shoji",
+   "name": "纸门",
+   "pos": [
+    0.13,
+    0.38
+   ],
+   "state": "idle",
+   "adjacent": [
+    "slot_rope"
+   ]
+  },
+  {
+   "id": "slot_rope",
+   "name": "注连绳",
+   "pos": [
+    0.38,
+    0.22
+   ],
+   "state": "idle",
+   "adjacent": [
+    "slot_shoji",
+    "slot_bell"
+   ],
+   "seal_point": true
+  },
+  {
+   "id": "slot_bell",
+   "name": "吊钟",
+   "pos": [
+    0.53,
+    0.3
+   ],
+   "state": "idle",
+   "adjacent": [
+    "slot_rope",
+    "slot_basin"
+   ]
+  },
+  {
+   "id": "slot_basin",
+   "name": "水钵",
+   "pos": [
+    0.68,
+    0.55
+   ],
+   "state": "idle",
+   "adjacent": [
+    "slot_bell",
+    "slot_eaves"
+   ],
+   "extinguish": true
+  },
+  {
+   "id": "slot_eaves",
+   "name": "檐角",
+   "pos": [
+    0.87,
+    0.32
+   ],
+   "state": "idle",
+   "adjacent": [
+    "slot_basin"
+   ],
+   "seal_point": true
+  }
+ ],
+ "cards": [
+  {
+   "id": "slash",
+   "name": "居合斩",
+   "cost": 2,
+   "type": "attack",
+   "owner": "rinne",
+   "power": 8,
+   "tags": [
+    "weapon"
+   ],
+   "art": "res://assets/ui/cardart_val_slash.png",
+   "desc": "挥刀斩击敌方立绘，造成等同于牌面的伤害。燃烧的敌人受到恐惧侵蚀。"
+  },
+  {
+   "id": "ignite",
+   "name": "引燃",
+   "cost": 1,
+   "type": "slot",
+   "owner": "homura",
+   "slot_state": "burning",
+   "tags": [
+    "fire"
+   ],
+   "art": "res://assets/ui/cardart_val_ignite.png",
+   "desc": "点燃目标场景槽。火势每回合沿相连槽位蔓延，灼烧其中的敌人并令其恐惧。"
+  },
+  {
+   "id": "bell",
+   "name": "鸣钟",
+   "cost": 1,
+   "type": "slot",
+   "owner": "mint",
+   "slot_state": "ringing",
+   "tags": [
+    "bell",
+    "sound"
+   ],
+   "art": "res://assets/ui/cardart_val_bell.png",
+   "desc": "摇响吊钟：敌人下回合眩晕无法行动；鸣响也会惊起连锁，清除场景上的燃烧。"
+  },
+  {
+   "id": "seal",
+   "name": "结界符",
+   "cost": 2,
+   "type": "seal",
+   "owner": "zhongkui",
+   "slot_state": "sealed",
+   "tags": [
+    "talisman"
+   ],
+   "art": "res://assets/ui/cardart_val_seal.png",
+   "desc": "将结界符贴在阵眼上。集齐 2 处阵眼且灵气≥6 时，封印敌人，直接退治。"
+  },
+  {
+   "id": "seal2",
+   "name": "结界符·贰",
+   "cost": 2,
+   "type": "seal",
+   "owner": "zhongkui",
+   "slot_state": "sealed",
+   "tags": [
+    "talisman"
+   ],
+   "art": "res://assets/ui/cardart_val_seal.png",
+   "desc": "将结界符贴在阵眼上。集齐 2 处阵眼且灵气≥6 时，封印敌人，直接退治。"
+  },
+  {
+   "id": "guard",
+   "name": "守势",
+   "cost": 1,
+   "type": "skill",
+   "owner": "rinne",
+   "power": 0,
+   "effects": {
+    "shield": 4
+   },
+   "tags": [
+    "talisman"
+   ],
+   "unlock": "start",
+   "art": "res://assets/ui/cardart_e_defense_stance.png",
+   "desc": "获得 4 点护盾。护盾先于生命承伤，到你下次回合开始清空。"
+  },
+  {
+   "id": "amulet",
+   "name": "护身符",
+   "cost": 2,
+   "type": "skill",
+   "owner": "zhongkui",
+   "power": 0,
+   "effects": {
+    "shield": 7,
+    "cleanse": 1
+   },
+   "tags": [
+    "talisman"
+   ],
+   "unlock": "start",
+   "art": "res://assets/ui/cardart_e_paper_amulet.png",
+   "desc": "获得 7 点护盾，并净化一个可净化的负面状态。"
+  },
+  {
+   "id": "expose",
+   "name": "识破",
+   "cost": 1,
+   "type": "skill",
+   "owner": "mint",
+   "target": "enemy",
+   "power": 0,
+   "effects": {
+    "mark": 1
+   },
+   "tags": [
+    "sight"
+   ],
+   "unlock": "start",
+   "art": "res://assets/ui/cardart_e_seeing_eye.png",
+   "desc": "对一名敌人附加 1 层标记。标记最多 3 层，留存至本场战斗结束，只被明确消耗它的牌消耗。"
+  },
+  {
+   "id": "chase_slash",
+   "name": "追符斩",
+   "cost": 2,
+   "type": "attack",
+   "owner": "rinne",
+   "target": "enemy",
+   "power": 6,
+   "effects": {
+    "consume_mark": 1,
+    "bonus": 5
+   },
+   "tags": [
+    "weapon",
+    "talisman"
+   ],
+   "unlock": "start",
+   "art": "res://assets/ui/cardart_val_slash.png",
+   "desc": "造成 6 点伤害；消耗目标 1 层标记时，额外造成 5 点伤害。"
+  },
+  {
+   "id": "breath",
+   "name": "净息",
+   "cost": 1,
+   "type": "skill",
+   "owner": "zhongkui",
+   "power": 0,
+   "effects": {
+    "spirit": -2
+   },
+   "tags": [
+    "breath"
+   ],
+   "unlock": "start",
+   "art": "res://assets/ui/cardart_val_bell.png",
+   "desc": "灵气降低 2。可能避开灵压高压，也可能推迟封印时机。"
+  },
+  {
+   "id": "flame_slash",
+   "name": "流火斩",
+   "cost": 2,
+   "type": "attack",
+   "owner": "homura",
+   "power": 7,
+   "tags": [
+    "weapon",
+    "fire"
+   ],
+   "art": "res://assets/ui/cardart_e_flame_katana.png",
+   "desc": "焰华一脉的燃火斩击，造成 7 点伤害。场上有燃烧槽位时，攻击照旧获得火助。"
+  },
+  {
+   "id": "twin_swallow",
+   "name": "双燕斩",
+   "cost": 3,
+   "type": "attack",
+   "owner": "rinne",
+   "power": 12,
+   "tags": [
+    "weapon"
+   ],
+   "art": "res://assets/ui/cardart_e_twin_arc.png",
+   "desc": "双弧交斩的全力一击，造成 12 点伤害。"
+  },
+  {
+   "id": "stack_sigil",
+   "name": "叠符",
+   "cost": 1,
+   "type": "skill",
+   "owner": "mint",
+   "target": "enemy",
+   "power": 0,
+   "effects": {
+    "mark": 2
+   },
+   "tags": [
+    "talisman"
+   ],
+   "art": "res://assets/ui/cardart_e_talisman_stack.png",
+   "desc": "为敌方贴上 2 层标记。标记满层时，将被追符斩类卡牌迸发。"
+  },
+  {
+   "id": "break_ward",
+   "name": "破障",
+   "cost": 1,
+   "type": "attack",
+   "owner": "mint",
+   "power": 4,
+   "effects": {
+    "consume_mark": 1,
+    "bonus": 4
+   },
+   "tags": [
+    "weapon"
+   ],
+   "art": "res://assets/ui/cardart_e_barrier_break.png",
+   "desc": "消耗 1 层标记，使本次伤害 +4；无标记时退为一道普通快斩。"
+  },
+  {
+   "id": "pure_fire",
+   "name": "净火",
+   "cost": 1,
+   "type": "skill",
+   "owner": "zhongkui",
+   "power": 0,
+   "effects": {
+    "cleanse": 2,
+    "spirit": -1
+   },
+   "tags": [
+    "fire"
+   ],
+   "art": "res://assets/ui/cardart_e_purify_flame.png",
+   "desc": "净火焚秽：净化 2 层负面效果，并以一缕净火压低全场灵气 1 点。"
+  },
+  {
+   "id": "gather_ink",
+   "name": "蓄墨",
+   "cost": 0,
+   "type": "skill",
+   "owner": "generic",
+   "power": 0,
+   "effects": {
+    "draw": 1
+   },
+   "tags": [
+    "ink"
+   ],
+   "art": "res://assets/ui/cardart_e_ink_brush.png",
+   "desc": "不耗灵墨。凝神蓄墨，立即抽 1 张牌。"
+  }
+ ]
+}

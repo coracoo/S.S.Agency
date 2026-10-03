@@ -124,7 +124,7 @@
    590
   ]
  ],
+ "player_anims_from": "res://assets/chars/rinne_25d/animation_manifest.json",
  "next": "res://scenes/v3/stage_corridor.tscn",
- "comment_ground": "参道石阶：前景平地 y930 → 960 起 10 级台阶（踏面95/rise34）→ 顶部平台 y560；逐段折线贴台阶前缘",
- "player_anims_from": "res://assets/chars/rinne_25d/animation_manifest.json"
+ "comment_ground": "参道石阶：前景平地 y930 → 960 起 10 级台阶（踏面95/rise34）→ 顶部平台 y560；逐段折线贴台阶前缘"
 }

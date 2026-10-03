@@ -1,7 +1,7 @@
 {
  "id": "night_patrol",
- "name": "逢魔神社 · 夜巡（样章结案）",
- "comment": "GDD §6 样章真相：灯笼/钟鸣/棺守三线归一；两种处理方式有余波差异",
+ "name": "逢魔神社 · 夜巡（第一章「棺女」结案）",
+ "comment": "第一章五夜真相：棺女小夜——七十年前没送成的葬；双分支结局（送行/镇守），镇守线留第二章伏笔",
  "nodes": {
   "t1": {
    "speaker": "rinne",
@@ -9,7 +9,7 @@
    "color": "vermilion_500",
    "portrait": "res://assets/chars/portraits/rinne_half.png",
    "side": "left",
-   "text": "三夜查明白了。参道水钵里的灯笼、回廊自鸣的吊钟、棺守等的人——都是同一件事：几十年前那场没送成的葬。",
+   "text": "五夜查明白了。水钵里的灯笼、无风的钟、夜行的棺、棺中的镜——都是同一件事：七十年前，一场没送成的葬。",
    "next": "t2"
   },
   "t2": {
@@ -28,6 +28,7 @@
    "portrait": "res://assets/chars/portraits/rinne_half.png",
    "side": "left",
    "text": "现在，轮到我了。",
+   "next": "",
    "choices": [
     {
      "text": "（送行）念引路词，送它远行",
@@ -40,13 +41,40 @@
    ]
   },
   "e_send": {
+   "speaker": "sayo",
+   "name": "？？？",
+   "color": "paper_300",
+   "portrait": "",
+   "side": "right",
+   "text": "……谢谢你。七十年了，终于有人听懂钟声里的意思。",
+   "next": "s1"
+  },
+  "s1": {
    "speaker": "rinne",
    "name": "凛音",
    "color": "vermilion_500",
    "portrait": "res://assets/chars/portraits/rinne_half.png",
    "side": "left",
-   "text": "引灯走在前，铃声断在后。棺守的执念随着火光淡下去——回廊尽头，晨雾第一次照了进来。",
-   "next": "t4"
+   "text": "（引路词）魂兮归来，莫恋此乡。灯前有路，路尽有光——去吧。",
+   "next": "s2"
+  },
+  "s2": {
+   "speaker": "sayo",
+   "name": "？？？",
+   "color": "paper_300",
+   "portrait": "",
+   "side": "right",
+   "text": "再见了，祭主爷爷。这七十年的更次，辛苦你了。",
+   "next": "s3"
+  },
+  "s3": {
+   "speaker": "rinne",
+   "name": "凛音",
+   "color": "vermilion_500",
+   "portrait": "res://assets/chars/portraits/rinne_half.png",
+   "side": "left",
+   "text": "（她的身影随灯火轻轻一礼，淡下去。老祭主的纸躯委顿于地，像终于卸下了肩上的棺。逢魔之刻的雾，第一次在天亮前散尽了。）",
+   "next": ""
   },
   "e_seal": {
    "speaker": "rinne",
@@ -54,16 +82,26 @@
    "color": "vermilion_500",
    "portrait": "res://assets/chars/portraits/rinne_half.png",
    "side": "left",
-   "text": "朱印落在棺头，钟声沉进地底。它不会再等了——有些送别，是以不再等待的方式完成的。",
-   "next": "t4"
+   "text": "（立朱印）以逢魔之名，镇其归处。自此异象不起，百夜无更。",
+   "next": "z1"
   },
-  "t4": {
+  "z1": {
    "speaker": "rinne",
    "name": "凛音",
    "color": "vermilion_500",
    "portrait": "res://assets/chars/portraits/rinne_half.png",
    "side": "left",
-   "text": "案件已结。退魔寮的绘卷上，多了一页会自己发暖的残页。"
+   "text": "（朱印落下，钟鸣、纸响、棺纹一齐寂然。只有棺底极轻极轻地——叩了一声。像还有话，被封在了里面。）",
+   "next": "z2"
+  },
+  "z2": {
+   "speaker": "sayo",
+   "name": "？？？",
+   "color": "paper_300",
+   "portrait": "",
+   "side": "right",
+   "text": "……没关系。已经，习惯了。",
+   "next": ""
   }
  },
  "rewards": {

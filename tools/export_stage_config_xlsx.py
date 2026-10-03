@@ -48,6 +48,7 @@ STAGE_FIELDS = [
     ("bounds", "bounds(活动范围JSON)", "json"),
     ("ground_profile", "ground_profile(地面剖面JSON)", "json"),
     ("player_anims", "player_anims(动画JSON)", "json"),
+    ("player_anims_from", "player_anims_from(动画清单路径,优先)", "str"),
     ("next", "next(下一幕场景,可空)", "str"),
     ("comment_ground", "comment_ground(剖面备注)", "str"),
 ]
@@ -183,7 +184,9 @@ def export() -> None:
         where = f"舞台[{sid}]"
         check_res_file(s["bg"], where)
         check_res_file(s.get("player_sprite", ""), where)
-        if "player_anims" in s:
+        if s.get("player_anims_from"):
+            check_res_file(s["player_anims_from"], where)
+        elif "player_anims" in s:
             check_anims(s["player_anims"], where)
         b = s["bounds"]
         if not (isinstance(b, list) and len(b) == 2 and b[0] < b[1]):
@@ -219,6 +222,10 @@ def export() -> None:
     for s in stages:
         out = {k: v for k, v in s.items() if not k.startswith("_")}
         out.pop("file", None)
+        if out.get("player_anims_from"):
+            # 清单优先：清单内含锚点/移速/逐帧时长，旧内联字段与 move_speed 不再输出
+            out.pop("player_anims", None)
+            out.pop("move_speed", None)
         path = os.path.join(STAGES_DIR, s["file"] + ".json")
         with open(path, "w", encoding="utf-8") as f:
             json.dump(out, f, ensure_ascii=False, indent=1)

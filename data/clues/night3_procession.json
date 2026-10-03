@@ -1,0 +1,25 @@
+{
+ "stage": "night3_procession",
+ "comment": "第三夜画面线索（第一章棺女）：夜行抬棺——棺中三叩，像在数谁的脚步。",
+ "clues": [
+  {
+   "id": "coffin_procession",
+   "type": "visual",
+   "name": "抬棺队列",
+   "x": 700.0,
+   "y_offset": -120.0,
+   "y_abs": 575.0,
+   "radius": 150.0,
+   "anomaly": {
+    "kind": "cold_light",
+    "color": "hi_500",
+    "flicker_speed": 3.2,
+    "glow_radius": 110,
+    "shape": "none"
+   },
+   "hint": "纸人形列队而过，抬着一口空棺。棺盖缝隙透出微光——有节奏地，亮三下。",
+   "resolve_text": "空棺轻得像一页纸，又沉得压弯了抬棺的纸肩。第三声叩响落下，队列齐刷刷转向了你。",
+   "battle": "res://scenes/v3/battle_night3.tscn"
+  }
+ ]
+}

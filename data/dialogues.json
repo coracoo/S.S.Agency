@@ -129,6 +129,145 @@
      "choices": []
     }
    }
+  },
+  "corridor_act": {
+   "enter": "c1",
+   "hotspots": [],
+   "nodes": {
+    "c1": {
+     "speaker": "rinne",
+     "name": "凛音",
+     "color": "vermilion_500",
+     "portrait": "res://assets/chars/portraits/rinne_half.png",
+     "side": "left",
+     "text": "第二夜。回廊的灯比昨夜低了三寸——雾在往屋里走。",
+     "next": "c2",
+     "choices": []
+    },
+    "c2": {
+     "speaker": "hakuyo",
+     "name": "薄荷",
+     "color": "fuji_500",
+     "portrait": "res://assets/chars/portraits/hakuyo_half.png",
+     "side": "right",
+     "text": "钟就在头上。没有风，注连绳却是湿的……像被谁的眼泪泡过。",
+     "next": "",
+     "choices": []
+    }
+   }
+  },
+  "night3_procession": {
+   "enter": "p1",
+   "hotspots": [
+    {
+     "x": 700.0,
+     "node": "p3"
+    }
+   ],
+   "nodes": {
+    "p1": {
+     "speaker": "hakuyo",
+     "name": "薄荷",
+     "color": "fuji_500",
+     "portrait": "res://assets/chars/portraits/hakuyo_half.png",
+     "side": "right",
+     "text": "凛音，你听。纸在响——好多好多张纸，在夜里摩擦的声音。",
+     "next": "p2",
+     "choices": []
+    },
+    "p2": {
+     "speaker": "rinne",
+     "name": "凛音",
+     "color": "vermilion_500",
+     "portrait": "res://assets/chars/portraits/rinne_half.png",
+     "side": "left",
+     "text": "列队。纸人形抬着一口空棺，正沿着回廊往本殿去。……棺是空的，重量却在。",
+     "next": "",
+     "choices": []
+    },
+    "p3": {
+     "speaker": "sayo",
+     "name": "？？？",
+     "color": "paper_300",
+     "portrait": "",
+     "side": "right",
+     "text": "（棺中传来三声轻叩。不快，不慢，像在数谁的脚步。）",
+     "next": "",
+     "choices": []
+    }
+   }
+  },
+  "night4_mirror": {
+   "enter": "m1",
+   "hotspots": [],
+   "nodes": {
+    "m1": {
+     "speaker": "rinne",
+     "name": "凛音",
+     "color": "vermilion_500",
+     "portrait": "res://assets/chars/portraits/rinne_half.png",
+     "side": "left",
+     "text": "第四夜。棺停在御神木下了。树洞里那圈纹路，和棺盖上的一模一样。",
+     "next": "m2",
+     "choices": []
+    },
+    "m2": {
+     "speaker": "hakuyo",
+     "name": "薄荷",
+     "color": "fuji_500",
+     "portrait": "res://assets/chars/portraits/hakuyo_half.png",
+     "side": "right",
+     "text": "棺里没有尸气，凛音……棺底嵌着一面镜子。镜中的人，穿着七十年前的嫁衣。",
+     "next": "m3",
+     "choices": []
+    },
+    "m3": {
+     "speaker": "rinne",
+     "name": "凛音",
+     "color": "vermilion_500",
+     "portrait": "res://assets/chars/portraits/rinne_half.png",
+     "side": "left",
+     "text": "不是怨灵。四夜的异象，从头到尾，只是一个人想被好好送走。",
+     "next": "",
+     "choices": []
+    }
+   }
+  },
+  "honden_act": {
+   "enter": "hd1",
+   "hotspots": [],
+   "nodes": {
+    "hd1": {
+     "speaker": "hakuyo",
+     "name": "薄荷",
+     "color": "fuji_500",
+     "portrait": "res://assets/chars/portraits/hakuyo_half.png",
+     "side": "right",
+     "text": "逢魔刻。纸人形都在本殿前列队了——它们在等一个仪式开始。",
+     "next": "hd2",
+     "choices": []
+    },
+    "hd2": {
+     "speaker": "rinne",
+     "name": "凛音",
+     "color": "vermilion_500",
+     "portrait": "res://assets/chars/portraits/rinne_half.png",
+     "side": "left",
+     "text": "也是结束。它催人三夜，叩门三声。今晚，换我叩门。",
+     "next": "h3",
+     "choices": []
+    },
+    "hd3": {
+     "speaker": "guanshou",
+     "name": "棺守",
+     "color": "ink_700",
+     "portrait": "",
+     "side": "right",
+     "text": "来者——是送行的，还是夺棺的？",
+     "next": "",
+     "choices": []
+    }
+   }
   }
  }
 }

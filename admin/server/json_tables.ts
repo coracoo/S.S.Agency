@@ -106,7 +106,8 @@ export function buildItems(
   sheet: SheetData,
   rows: JCell[][],
   errors: string[],
-  typeHints?: Record<string, unknown>[]
+  typeHints?: Record<string, unknown>[],
+  checkId = true
 ): Record<string, unknown>[] {
   const cols = sheet.headers.map((h) => ({
     key: h.endsWith(JSON_MARK) ? h.slice(0, -JSON_MARK.length) : h,
@@ -150,7 +151,7 @@ export function buildItems(
   })
   // id 唯一性（存在 id 列时）
   const idCol = cols.findIndex((c) => c.key === "id")
-  if (idCol >= 0) {
+  if (checkId && idCol >= 0) {
     const seen = new Map<string, number>()
     out.forEach((o, i) => {
       const id = String(o.id ?? "")
@@ -243,7 +244,9 @@ function mergedAdapter(
   }
 }
 
-/** 键值簿：整棵 JSON 拍平成 path/value 两行列表（复合值走 JSON 列） */
+/** 键值簿：整棵 JSON 拍平成 path/value 两行列表（复合值走 JSON 列）。
+ *  注意：键可能含 "."（如 asset_facings 的 "res://*.png"），因此回写不按路径解析，
+ *  而是按 flatten 的 DFS 顺序位置对应——路径列仅作展示/校验，禁止增删改行顺序。 */
 function keyValueAdapter(rel: string): SheetAdapter {
   const file = () => path.resolve(__dirname, "..", "..", rel)
   const flattenTree = (obj: unknown, prefix: string, rows: [string, unknown][]) => {
@@ -255,6 +258,27 @@ function keyValueAdapter(rel: string): SheetAdapter {
     if (entries.length === 0) rows.push([prefix, obj])
     for (const [k, v] of entries) flattenTree(v, prefix ? `${prefix}.${k}` : k, rows)
   }
+  /** 深度克隆树并按 rows 顺序位置回写叶子值（leafIndex 由 flatten 顺序决定） */
+  const applyLeaves = (obj: unknown, rows: [string, unknown][], errors: string[]): unknown => {
+    let i = 0
+    const walk = (o: unknown): unknown => {
+      const isLeaf = !isComplex(o) || Array.isArray(o) || Object.keys(o as object).length === 0
+      if (isLeaf) {
+        const row = rows[i]
+        i++
+        const raw = row?.[1]
+        if (raw === undefined || raw === null || String(raw) === "") return o
+        try { return JSON.parse(String(raw)) } catch {
+          errors.push(`「${row?.[0] ?? `#${i}`}」JSON 解析失败`)
+          return o
+        }
+      }
+      const out: Record<string, unknown> = {}
+      for (const [k, v] of Object.entries(o as Record<string, unknown>)) out[k] = walk(v)
+      return out
+    }
+    return walk(obj)
+  }
   return {
     flatten: () => {
       const rows: [string, unknown][] = []
@@ -265,19 +289,21 @@ function keyValueAdapter(rel: string): SheetAdapter {
       }
     },
     build: (rows, errors) => {
-      const d = readJson(file()) as Record<string, unknown>
+      const d = readJson(file())
+      const expected: [string, unknown][] = []
+      flattenTree(d, "", expected)
+      if (rows.length !== expected.length) {
+        errors.push(`键值行数 ${rows.length} 与原文件 ${expected.length} 不一致（禁止增删行）`)
+        return { [rel]: d }
+      }
       for (const [i, r] of rows.entries()) {
         const p = String(r[0] ?? "").trim()
-        if (!p) continue
-        const raw = r[1]
-        if (raw === null || raw === "") continue
-        try {
-          setPath(d, p, JSON.parse(String(raw)))
-        } catch {
-          errors.push(`第${i + 2}行「${p}」JSON 解析失败`)
+        if (p !== expected[i][0]) {
+          errors.push(`第${i + 2}行路径 "${p}" 与原文件 "${expected[i][0]}" 不符（禁止改行顺序/路径）`)
+          return { [rel]: d }
         }
       }
-      return { [rel]: d }
+      return { [rel]: applyLeaves(d, rows.map((r) => [String(r[0]), r[1]] as [string, unknown]), errors) }
     },
   }
 }
@@ -346,6 +372,162 @@ function approachAdapter(rel: string): { sheets: Record<string, SheetAdapter> } 
   return { sheets: { 锚点: anchorsAdapter, 调查点: targetsAdapter, 场景参数: paramsAdapter } }
 }
 
+// ---------- 战斗关卡（data/battles/*.json）：关卡参数 / 敌方 / 机关点位 ----------
+// 卡池(cards)由 battle xlsx 簿经导出管线维护，此处不回写（保留当前文件值）。
+function battleBook(): Book {
+  const dirRel = "data/battles"
+  const dir = () => path.resolve(__dirname, "..", "..", dirRel)
+  // _extra.json 是无 id 的卡库补充文件（由 battle xlsx 簿维护），不属于战斗关卡
+  const files = () => jsonFiles(dir()).filter((f) => read(f).id !== undefined)
+  const read = (f: string) => readJson(f) as Record<string, unknown>
+  const battleId = (f: string) => String(read(f).id ?? path.basename(f, ".json"))
+
+  /** 非列表叶子拍平（对象递归点路径；数组与空对象 → JSON 列） */
+  const leafCols = (obj: Record<string, unknown>, prefix: string, cols: string[]) => {
+    for (const [k, v] of Object.entries(obj)) {
+      const key = prefix ? `${prefix}.${k}` : k
+      if (Array.isArray(v) || (v !== null && typeof v === "object" && Object.keys(v).length === 0)) {
+        if (!cols.includes(key)) cols.push(key)
+      } else if (v !== null && typeof v === "object") {
+        leafCols(v as Record<string, unknown>, key, cols)
+      } else if (!cols.includes(key)) cols.push(key)
+    }
+  }
+  const leafGet = (obj: unknown, dotted: string): unknown => getPath(obj, dotted)
+
+  const mergedList = (listKey: string): SheetAdapter => ({
+    flatten: () => {
+      const grouped = files().flatMap((f) => {
+        const d = read(f)
+        return ((d[listKey] as Record<string, unknown>[]) ?? []).map((it) => ({ 战斗: battleId(f), ...it }))
+      })
+      const sheet = flattenItems(grouped)
+      sheet.headers = ["战斗", ...sheet.headers.filter((h) => h !== "战斗")]
+      return sheet
+    },
+    build: (rows, errors) => {
+      const out: Record<string, unknown> = {}
+      // 表头顺序必须与 flatten() 全局一致（行数据按该顺序），逐文件仅作类型提示
+      const sheet = mergedList(listKey).flatten()
+      for (const f of files()) {
+        const d = read(f)
+        const cur = ((d[listKey] as Record<string, unknown>[]) ?? []).map((it) => ({ 战斗: battleId(f), ...it }))
+        const rebuilt = buildItems(sheet, rows, errors, cur, false)
+        const mine = rebuilt.filter((o) => String(o.战斗) === battleId(f))
+        out[path.relative(path.resolve(__dirname, "..", ".."), f).split(path.sep).join("/")] = {
+          ...d,
+          [listKey]: mine.map((o) => {
+            const rest = { ...o }
+            delete rest.战斗
+            return rest
+          }),
+        }
+      }
+      return out
+    },
+  })
+
+  const params: SheetAdapter = {
+    flatten: () => {
+      const cols: string[] = []
+      const objs = files().map((f) => read(f))
+      for (const o of objs) {
+        const rest = { ...o }
+        delete rest.enemies; delete rest.slots; delete rest.cards
+        leafCols(rest, "", cols)
+      }
+      const headers = ["战斗", ...cols.map((c) => {
+        const isJson = objs.some((o) => Array.isArray(leafGet(o, c)) || (leafGet(o, c) !== null && typeof leafGet(o, c) === "object" && Object.keys(leafGet(o, c) as object).length === 0))
+        return isJson ? c + JSON_MARK : c
+      })]
+      const rows = files().map((f) => {
+        const o = read(f)
+        const rest = { ...o }
+        delete rest.enemies; delete rest.slots; delete rest.cards
+        return [battleId(f), ...cols.map((c): JCell => {
+          const v = leafGet(rest, c)
+          if (v === undefined || v === null) return null
+          if (Array.isArray(v) || (typeof v === "object" && Object.keys(v).length === 0)) return JSON.stringify(v)
+          return v as JCell
+        })]
+      })
+      return { headers, rows }
+    },
+    build: (rows, errors) => {
+      const out: Record<string, unknown> = {}
+      for (const f of files()) {
+        const d = read(f)
+        const bid = battleId(f)
+        const r = rows.find((row) => String(row[0]) === bid)
+        if (!r) continue
+        const sheet = params.flatten()
+        for (let i = 1; i < sheet.headers.length; i++) {
+          const h = sheet.headers[i]
+          const raw = r[i]
+          if (raw === null) continue
+          const key = h.endsWith(JSON_MARK) ? h.slice(0, -JSON_MARK.length) : h
+          if (h.endsWith(JSON_MARK)) {
+            if (raw === "") continue
+            try { setPath(d, key, JSON.parse(String(raw))) } catch { errors.push(`关卡「${bid}」${key} JSON 解析失败`) }
+          } else {
+            setPath(d, key, typeof leafGet(d, key) === "number" ? Number(raw) : String(raw))
+          }
+        }
+        out[path.relative(path.resolve(__dirname, "..", ".."), f).split(path.sep).join("/")] = d
+      }
+      return out
+    },
+  }
+
+  return {
+    desc: "卡牌战斗关卡：data/battles/*.json 的关卡参数/敌方波次/机关点位，保存即生效（卡池由 battle xlsx 簿维护）",
+    sheets: { 关卡参数: params, 敌方: mergedList("enemies"), 机关点位: mergedList("slots") },
+  }
+}
+
+// ---------- 案件对话节点（data/cases/*.json 的 nodes 字典）：一行一个节点 ----------
+function casesAdapter(dirRel: string): SheetAdapter {
+  const dir = () => path.resolve(__dirname, "..", "..", dirRel)
+  const files = () => jsonFiles(dir())
+  const read = (f: string) => readJson(f) as Record<string, unknown>
+  const caseId = (f: string) => String(read(f).id ?? path.basename(f, ".json"))
+  const flat = () =>
+    files().flatMap((f) => {
+      const nodes = (read(f).nodes ?? {}) as Record<string, unknown>
+      return Object.entries(nodes).map(([nid, n]) => ({ 案件: caseId(f), 节点: nid, ...(n as Record<string, unknown>) }))
+    })
+  const sheetOf = () => {
+    const sheet = flattenItems(flat())
+    sheet.headers = ["案件", "节点", ...sheet.headers.filter((h) => h !== "案件" && h !== "节点")]
+    return sheet
+  }
+  return {
+    flatten: sheetOf,
+    build: (rows, errors) => {
+      const out: Record<string, unknown> = {}
+      // 表头顺序与 flatten() 全局一致
+      const sheet = sheetOf()
+      for (const f of files()) {
+        const d = read(f)
+        const cur = flat().filter((o) => o.案件 === caseId(f))
+        const rebuilt = buildItems(sheet, rows, errors, cur, false)
+        const mine = rebuilt.filter((o) => String(o.案件) === caseId(f))
+        const nodes: Record<string, unknown> = {}
+        for (const o of mine) {
+          const nid = String(o.节点 ?? "").trim()
+          if (!nid) { errors.push(`案件「${caseId(f)}」存在空节点 id`); continue }
+          if (nid in nodes) errors.push(`案件「${caseId(f)}」节点 "${nid}" 重复`)
+          const rest = { ...o }
+          delete rest.案件; delete rest.节点
+          nodes[nid] = rest
+        }
+        out[path.relative(path.resolve(__dirname, "..", ".."), f).split(path.sep).join("/")] = { ...d, nodes }
+      }
+      return out
+    },
+  }
+}
+
 // ---------- 簿注册表 ----------
 export const JSON_BOOKS: Record<string, Book> = (() => {
   const rpg = (rel: string): SheetAdapter => listAdapter(rel, "definitions")
@@ -361,6 +543,7 @@ export const JSON_BOOKS: Record<string, Book> = (() => {
         道具: rpg("data/rpg/items.json"),
         状态: rpg("data/rpg/statuses.json"),
         遭遇: rpg("data/rpg/encounters.json"),
+        演出布局: keyValueAdapter("data/rpg/presentation.json"),
       },
     },
     roster: {
@@ -382,11 +565,13 @@ export const JSON_BOOKS: Record<string, Book> = (() => {
       desc: "委托/案件/仪式内容：data/commissions.json + data/cases/*.json + data/rituals/*.json，保存即生效",
       sheets: {
         委托: listAdapter("data/commissions.json", "commissions"),
+        案件节点: casesAdapter("data/cases"),
         仪式参数: ritualParamsAdapter(),
         仪式卡牌: listKeyOf("data/rituals/ritual_lamp.json", "cards"),
         仪式道具: listKeyOf("data/rituals/ritual_lamp.json", "items"),
       },
     },
+    battles: battleBook(),
     theme: {
       desc: "UI 主题数值：data/ui_theme.json 键值对（颜色/字号/尺寸），保存即生效",
       sheets: { 主题键值: keyValueAdapter("data/ui_theme.json") },

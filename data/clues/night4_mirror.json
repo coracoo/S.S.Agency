@@ -1,0 +1,25 @@
+{
+ "stage": "night4_mirror",
+ "comment": "第四夜画面线索（第一章棺女）：棺中镜——照见棺女生前模样。",
+ "clues": [
+  {
+   "id": "mirror_in_coffin",
+   "type": "reflection",
+   "name": "棺中之镜",
+   "x": 420.0,
+   "y_offset": -120.0,
+   "y_abs": 575.0,
+   "radius": 150.0,
+   "anomaly": {
+    "kind": "cold_light",
+    "color": "hi_500",
+    "flicker_speed": 3.2,
+    "glow_radius": 110,
+    "shape": "none"
+   },
+   "hint": "棺底嵌着一面铜镜。镜中没有你的倒影——只有一个穿嫁衣的背影。",
+   "resolve_text": "镜面冰凉。她隔着七十年望过来，唇形像是在说：「送我走。」",
+   "battle": "res://scenes/v3/battle_night4.tscn"
+  }
+ ]
+}

@@ -62,8 +62,8 @@ const BOOKS: BookMeta[] = [
     key: "rpg",
     title: "RPG 数值",
     kind: "json",
-    desc: "回合制 RPG：职业 / 技能 / 敌人 / 装备 / 道具 / 状态 / 遭遇（data/rpg/*.json），保存即生效",
-    sheetTitles: { 职业: "职业", 技能: "技能", 敌人: "敌人", 装备: "装备", 道具: "道具", 状态: "状态", 遭遇: "遭遇" },
+    desc: "回合制 RPG：职业 / 技能 / 敌人 / 装备 / 道具 / 状态 / 遭遇 / 战斗演出布局（data/rpg/*.json），保存即生效",
+    sheetTitles: { 职业: "职业", 技能: "技能", 敌人: "敌人", 装备: "装备", 道具: "道具", 状态: "状态", 遭遇: "遭遇", 演出布局: "战斗演出布局" },
   },
   {
     key: "roster",
@@ -83,8 +83,15 @@ const BOOKS: BookMeta[] = [
     key: "content",
     title: "委托仪式",
     kind: "json",
-    desc: "委托列表 / 仪式参数 / 仪式卡牌与道具（data/commissions.json + data/rituals/*.json），保存即生效",
-    sheetTitles: { 委托: "委托", 仪式参数: "仪式参数", 仪式卡牌: "仪式卡牌", 仪式道具: "仪式道具" },
+    desc: "委托列表 / 案件对话节点 / 仪式参数 / 仪式卡牌与道具（data/commissions.json + data/cases/*.json + data/rituals/*.json），保存即生效",
+    sheetTitles: { 委托: "委托", 案件节点: "案件对话节点", 仪式参数: "仪式参数", 仪式卡牌: "仪式卡牌", 仪式道具: "仪式道具" },
+  },
+  {
+    key: "battles",
+    title: "战斗关卡",
+    kind: "json",
+    desc: "卡牌战斗关卡：关卡参数（灵气/封印/玩家/牌组）/ 敌方波次 / 机关点位（data/battles/*.json），保存即生效；卡池由 battle xlsx 簿维护",
+    sheetTitles: { 关卡参数: "关卡参数", 敌方: "敌方波次", 机关点位: "机关点位" },
   },
   {
     key: "theme",

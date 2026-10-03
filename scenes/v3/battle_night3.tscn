@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/scenes/battle_canvas.gd" id="1"]
+
+[node name="Battle" type="Node2D"]
+script = ExtResource("1")
+battle_data_path = "res://data/battles/ch1_night3.json"

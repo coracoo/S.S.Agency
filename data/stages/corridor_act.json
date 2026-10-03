@@ -49,6 +49,6 @@
    880
   ]
  ],
- "next": "res://scenes/v3/stage_honden.tscn",
- "player_anims_from": "res://assets/chars/rinne_25d/animation_manifest.json"
+ "player_anims_from": "res://assets/chars/rinne_25d/animation_manifest.json",
+ "next": "res://scenes/v3/stage_night3.tscn"
 }
