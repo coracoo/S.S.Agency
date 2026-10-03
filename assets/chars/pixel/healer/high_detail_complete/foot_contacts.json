@@ -1,0 +1,467 @@
+{
+  "schema_version": 1,
+  "character_id": "healer",
+  "canvas": [
+    1088,
+    1152
+  ],
+  "anchor": [
+    544,
+    1072
+  ],
+  "annotation_method": "Manually corrected visible sandal sole/toe centres after inspecting native PNG coordinate foot crops. Airborne swing feet excluded. Painted2D contact hints only, not skeletal simulation; no inferred knees under opaque trousers.",
+  "frames": {
+    "idle1": {
+      "sha256": "e820df0b414266179a48082b3880425a0af113653b401537d6f193505590848f",
+      "contacts": [
+        {
+          "point": [
+            476,
+            1067
+          ],
+          "width_px": 105,
+          "strength": 1.0,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            608,
+            1033
+          ],
+          "width_px": 115,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "idle2": {
+      "sha256": "0cb61c7e6898dc9d43beedb4ce55cb721a80e35ac499ff06e5e2b648a4a74efa",
+      "contacts": [
+        {
+          "point": [
+            474,
+            1067
+          ],
+          "width_px": 105,
+          "strength": 1.0,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            607,
+            1034
+          ],
+          "width_px": 115,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "idle3": {
+      "sha256": "fd6ab2e2f5dba257b132f50fa69568b2b6ab814833fde8eda694a3f9fd3a2ce8",
+      "contacts": [
+        {
+          "point": [
+            476,
+            1067
+          ],
+          "width_px": 105,
+          "strength": 1.0,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            609,
+            1034
+          ],
+          "width_px": 115,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "idle4": {
+      "sha256": "47abda1d295d70c173d36c6d3fbf327ba400aa0659d8c93a78958701187b6ff7",
+      "contacts": [
+        {
+          "point": [
+            474,
+            1067
+          ],
+          "width_px": 105,
+          "strength": 1.0,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            610,
+            1032
+          ],
+          "width_px": 115,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "walk1": {
+      "sha256": "26f04c3652c1547e30a3e710c5258e5500fcdb745f75f9ca444c4ce34107567c",
+      "contacts": [
+        {
+          "point": [
+            410,
+            1030
+          ],
+          "width_px": 55,
+          "strength": 0.72,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            734,
+            1067
+          ],
+          "width_px": 135,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "walk2": {
+      "sha256": "dbc0b423a159f473b98700a5820ab84d10ca95e5b562e6208ae3e78019303bd8",
+      "contacts": [
+        {
+          "point": [
+            665,
+            1067
+          ],
+          "width_px": 135,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "walk3": {
+      "sha256": "354ca52af8d497bdf37cd696ffc7cfdcef460ee29a0e4ac448806be367bd0ed2",
+      "contacts": [
+        {
+          "point": [
+            532,
+            1068
+          ],
+          "width_px": 125,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "walk4": {
+      "sha256": "1640aa44a0c84d3550d3bcaf73877c3950292a0a4723ae488246d2f8bb021fb3",
+      "contacts": [
+        {
+          "point": [
+            378,
+            1052
+          ],
+          "width_px": 50,
+          "strength": 0.72,
+          "kind": "foot"
+        }
+      ]
+    },
+    "walk5": {
+      "sha256": "b6a6395d473fd7a7ac898c62e6fe4410c811f352a52e2c5ce6963051e286983c",
+      "contacts": [
+        {
+          "point": [
+            380,
+            1054
+          ],
+          "width_px": 50,
+          "strength": 0.72,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            781,
+            1067
+          ],
+          "width_px": 125,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "walk6": {
+      "sha256": "f07e879137d4bcc861123ab877997ce9b55c1dc102cd854433d8379406d37336",
+      "contacts": [
+        {
+          "point": [
+            682,
+            1067
+          ],
+          "width_px": 125,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "walk7": {
+      "sha256": "4920e8b79f085a69d87e6e999533d8b16b51a6c22115eb4f293c57b4eeb6f942",
+      "contacts": [
+        {
+          "point": [
+            528,
+            1068
+          ],
+          "width_px": 125,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "walk8": {
+      "sha256": "5652799064d438f9e9f4aa82ebf9ec923af24c64557e647241d013261e24b829",
+      "contacts": [
+        {
+          "point": [
+            420,
+            1032
+          ],
+          "width_px": 60,
+          "strength": 0.72,
+          "kind": "foot"
+        }
+      ]
+    },
+    "attack1": {
+      "sha256": "82bbdb2a034ccf6fd8e8a9b2499589866bb4b58b7b0bd50059c3948e371624f3",
+      "contacts": [
+        {
+          "point": [
+            422,
+            1067
+          ],
+          "width_px": 105,
+          "strength": 1.0,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            658,
+            1049
+          ],
+          "width_px": 115,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "attack2": {
+      "sha256": "009c1736d912fb8a1abd157025f5134de55fd8af954114ce6c91f33026075108",
+      "contacts": [
+        {
+          "point": [
+            378,
+            1067
+          ],
+          "width_px": 105,
+          "strength": 1.0,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            534,
+            1030
+          ],
+          "width_px": 115,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "attack3": {
+      "sha256": "3ab18e0efda881fd9dfd1866d3640ed6bb22172712d4cfeb5f1ee4b3366eb57c",
+      "contacts": [
+        {
+          "point": [
+            444,
+            1067
+          ],
+          "width_px": 105,
+          "strength": 1.0,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            644,
+            1029
+          ],
+          "width_px": 115,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "attack4": {
+      "sha256": "18a9c49606588783ba28419b26e9d90fe9b1a422e8f234ce0ef91316d70b15ce",
+      "contacts": [
+        {
+          "point": [
+            290,
+            1067
+          ],
+          "width_px": 105,
+          "strength": 1.0,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            532,
+            1030
+          ],
+          "width_px": 115,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "attack5": {
+      "sha256": "121fbcd8c9a82b0398ec093aaafe6f1e6337ccc570a514bc7f33ae865b9e2c85",
+      "contacts": [
+        {
+          "point": [
+            481,
+            1068
+          ],
+          "width_px": 100,
+          "strength": 1.0,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            602,
+            1032
+          ],
+          "width_px": 110,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "attack6": {
+      "sha256": "cf8fd0c107b2e2e3c7d25ff6e5727837d51896ce370433a0cae133efb275576b",
+      "contacts": [
+        {
+          "point": [
+            496,
+            1068
+          ],
+          "width_px": 105,
+          "strength": 1.0,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            619,
+            1049
+          ],
+          "width_px": 110,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "hit": {
+      "sha256": "6de9b65a3dd98807bbbcccc732abc481234fcc8bfa16ef7b72353b877d8b6759",
+      "contacts": [
+        {
+          "point": [
+            444,
+            1067
+          ],
+          "width_px": 105,
+          "strength": 1.0,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            638,
+            1045
+          ],
+          "width_px": 115,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "defend": {
+      "sha256": "f5213c27b73b251cf5e2524d1ae4d895eee976bb580db7dd31ce80fb83e12b02",
+      "contacts": [
+        {
+          "point": [
+            224,
+            1067
+          ],
+          "width_px": 100,
+          "strength": 1.0,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            596,
+            1008
+          ],
+          "width_px": 120,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "down": {
+      "sha256": "96e7ec4394addbf097ced0721b9d269faf3743ce69950aa972d95eee148b4799",
+      "contacts": [
+        {
+          "point": [
+            444,
+            1068
+          ],
+          "width_px": 105,
+          "strength": 1.0,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            585,
+            1035
+          ],
+          "width_px": 115,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "recover": {
+      "sha256": "159e040c58d47d221fec99bd61cf8af916f7730604da4f62450aff7dfbb4eb20",
+      "contacts": [
+        {
+          "point": [
+            373,
+            1068
+          ],
+          "width_px": 100,
+          "strength": 1.0,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            618,
+            1034
+          ],
+          "width_px": 115,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    }
+  }
+}
