@@ -5,6 +5,7 @@ import { inspectAttr } from 'kimi-plugin-inspect-react'
 import XLSX from "xlsx"
 import { execFile } from "child_process"
 import fs from "fs"
+import { loadJsonBook, saveJsonBook } from "./server/json_tables"
 
 // ---------- 游戏配置后台 API（Vite 开发服务器中间件，仅本地使用） ----------
 // 单一事实源 = config/*.xlsx；保存时写回 xlsx 并调用 Python 导出管线
@@ -267,6 +268,28 @@ function configApi(): Plugin {
           saveBook(book.xlsx, body.sheets)
           const result = await runExporter(book.exporter)
           send(res, 200, { ok: result.code === 0, code: result.code, log: result.log })
+        } catch (e) {
+          send(res, 500, { error: String(e) })
+        }
+      })
+
+      // ---- JSON 填表簿（RPG 数值/装备/坐标/台词内容/UI 主题）----
+      server.middlewares.use("/api/load-json", async (req, res) => {
+        try {
+          const key = String((req as unknown as { url?: string }).url?.replace(/^\//, "") || "")
+          send(res, 200, { sheets: loadJsonBook(key) })
+        } catch (e) {
+          send(res, 500, { error: String(e) })
+        }
+      })
+      server.middlewares.use("/api/save-json", async (req, res) => {
+        try {
+          const body = JSON.parse(await readBody(req)) as {
+            book?: string
+            sheets?: Record<string, SheetData>
+          }
+          if (!body.book || !body.sheets) return send(res, 400, { error: "缺少 book/sheets" })
+          send(res, 200, saveJsonBook(body.book, body.sheets))
         } catch (e) {
           send(res, 500, { error: String(e) })
         }

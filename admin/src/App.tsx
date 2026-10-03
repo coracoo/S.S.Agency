@@ -29,6 +29,8 @@ interface BookMeta {
   title: string
   desc: string
   sheetTitles: Record<string, string>
+  /** xlsx = 走导出管线；json = 直接读写 data/*.json（保存即生效） */
+  kind?: "xlsx" | "json"
 }
 
 const BOOKS: BookMeta[] = [
@@ -56,6 +58,41 @@ const BOOKS: BookMeta[] = [
     desc: "手动涂绘各舞台的可行走区域（白 = 可行走）：左侧选舞台，右侧在背景上涂抹，绿线为逐列落脚线预览，保存即写入 assets/bg/walkmasks/<舞台>.png，游戏内立即生效",
     sheetTitles: {},
   },
+  {
+    key: "rpg",
+    title: "RPG 数值",
+    kind: "json",
+    desc: "回合制 RPG：职业 / 技能 / 敌人 / 装备 / 道具 / 状态 / 遭遇（data/rpg/*.json），保存即生效",
+    sheetTitles: { 职业: "职业", 技能: "技能", 敌人: "敌人", 装备: "装备", 道具: "道具", 状态: "状态", 遭遇: "遭遇" },
+  },
+  {
+    key: "roster",
+    title: "角色法器",
+    kind: "json",
+    desc: "卡牌线角色数值（stats/牌组/道具）与法器（data/units.json + data/artifacts.json），保存即生效",
+    sheetTitles: { 角色数值: "角色数值", 法器: "法器" },
+  },
+  {
+    key: "coords",
+    title: "坐标",
+    kind: "json",
+    desc: "异象坐标 / 遮挡体坐标（2D 舞台，单位=场景像素）+ 参道 3D 锚点与调查点（单位=米），保存即生效",
+    sheetTitles: { 异象坐标: "异象坐标", 遮挡坐标: "遮挡坐标", 锚点: "参道3D锚点", 调查点: "参道3D调查点", 场景参数: "参道3D场景参数" },
+  },
+  {
+    key: "content",
+    title: "委托仪式",
+    kind: "json",
+    desc: "委托列表 / 仪式参数 / 仪式卡牌与道具（data/commissions.json + data/rituals/*.json），保存即生效",
+    sheetTitles: { 委托: "委托", 仪式参数: "仪式参数", 仪式卡牌: "仪式卡牌", 仪式道具: "仪式道具" },
+  },
+  {
+    key: "theme",
+    title: "UI 主题",
+    kind: "json",
+    desc: "UI 主题键值：颜色 / 语义色 / 字号 / 尺寸 / 动效（data/ui_theme.json），路径点分隔，保存即生效",
+    sheetTitles: { 主题键值: "主题键值" },
+  },
 ]
 
 /** 枚举列：表头包含 key 时用下拉框（值来自导出校验的合法枚举） */
@@ -67,6 +104,13 @@ const ENUM_COLS: { match: string; options: string[] }[] = [
   { match: "trigger", options: ["", "enter", "hotspot"] },
   { match: "side", options: ["left", "right"] },
   { match: "state(初始状态)", options: ["idle", "burning", "ringing", "spilled", "sealed"] },
+  // RPG 域
+  { match: "element", options: ["neutral", "fire", "water", "wood", "light", "dark"] },
+  { match: "damage_type", options: ["physical", "magical", "none"] },
+  { match: "target_rule", options: ["", "self", "single_ally", "other_ally", "all_allies", "single_enemy", "all_enemies", "dead_ally"] },
+  { match: "default_attack", options: ["physical", "magical"] },
+  { match: "slot(装备部位)", options: ["", "weapon", "armor", "accessory"] },
+  { match: "clock", options: ["", "next_owner_slot", "turn_start", "turn_end"] },
 ]
 
 function isJsonCol(header: string): boolean {
@@ -106,7 +150,7 @@ export default function App() {
         setLog({ ok: null, text: "" })
         return
       }
-      const r = await fetch(`/api/load/${key}`)
+      const r = await fetch(book.kind === "json" ? `/api/load-json/${key}` : `/api/load/${key}`)
       const data = await r.json()
       if (!r.ok) throw new Error(data.error || `HTTP ${r.status}`)
       setSheets(data.sheets)
@@ -182,7 +226,7 @@ export default function App() {
     }
     setSaving(true)
     try {
-      const r = await fetch("/api/save", {
+      const r = await fetch(book.kind === "json" ? "/api/save-json" : "/api/save", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ book: book.key, sheets }),
@@ -227,7 +271,7 @@ export default function App() {
               </Button>
               <Button size="sm" onClick={save} disabled={saving || loading || !dirty}>
                 <Save className="mr-1 h-4 w-4" />
-                {saving ? "导出中…" : "保存并导出"}
+                {saving ? "校验写入中…" : book.kind === "json" ? "保存" : "保存并导出"}
               </Button>
             </>
           )}
@@ -384,12 +428,20 @@ export default function App() {
           </Alert>
         )}
 
+        {book.kind === "json" ? (
+        <p className="mt-6 text-xs text-stone-400 leading-relaxed">
+          工作流（JSON 簿）：改表 →「保存」→ 服务端 JSON 列解析校验 + id 唯一性校验 → 每文件自动 .bak
+          备份后写回 data/*.json（游戏运行时源），游戏内立即生效，无导出环节。嵌套对象已展开成点路径列；
+          标 (json) 的列为数组/对象（JSON 文本）。空白单元格 = 该字段缺省不写回。
+        </p>
+        ) : (
         <p className="mt-6 text-xs text-stone-400 leading-relaxed">
           工作流：改表 → 「保存并导出」→ 服务端写回 xlsx（自动留 .bak 备份）→ 运行 Python
           导出管线（14 项校验）→ 校验通过则 data/ 下游戏 JSON 更新，游戏内立即生效。
           校验失败时 xlsx 已写入但游戏 JSON 保持旧值，按上方报告修表后重新保存即可；
           如需回滚 xlsx，取 config/*.xlsx.bak。
         </p>
+        )}
           </>
         )}
       </main>
