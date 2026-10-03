@@ -2,6 +2,8 @@
 class_name RpgCampaign
 extends RefCounted
 
+const TrialProfile = preload("res://scripts/exploration_3d/trial_profile.gd")
+const WorldSnapshot = preload("res://scripts/exploration_3d/world_snapshot.gd")
 const Catalog = preload("res://scripts/rpg/catalog.gd")
 const Factory = preload("res://scripts/rpg/actor_factory.gd")
 const State = preload("res://scripts/rpg/battle_state.gd")
@@ -22,7 +24,7 @@ func _init(catalog: RefCounted = null, store: RefCounted = null, path: String = 
 	_store = store if store != null else Store.new(_catalog)
 	_path = path
 
-func new_run(class_ids: Array[String], level: int = 5) -> Dictionary:
+func new_run(class_ids: Array[String], level: int = 5, profile: Dictionary = {}) -> Dictionary:
 	if class_ids.size() != 3 or level < 1 or level > 10: return _fail("新局需要三个不同职业与1–10级")
 	var party: Array[String] = []
 	for id in class_ids:
@@ -34,6 +36,14 @@ func new_run(class_ids: Array[String], level: int = 5) -> Dictionary:
 	var inventory: Dictionary = {}
 	for item in _catalog.get_all("items"): inventory[item.id] = item.initial_stock
 	var candidate := {"schema_version": 1, "rules_version": _catalog.rules_version, "run_id": Crypto.new().generate_random_bytes(16).hex_encode(), "phase": "preparation", "level": level, "xp": 0, "roster": roster, "party": party, "inventory": inventory, "world": {}, "applied_battle_ids": [], "battle_counter": 0, "next_encounter_id": "slice_1", "pending_battle": {}, "return_scene": ""}
+	if not profile.is_empty():
+		var errors := TrialProfile.validate(profile)
+		if not errors.is_empty() or not profile.get("world") is Dictionary or class_ids != TrialProfile.CLASS_IDS or level != 5: return _fail("试玩初始化配置非法")
+		candidate["run_profile"] = {"id": profile.id, "bindings": profile.bindings.duplicate(true)}
+		candidate.world = profile.world.duplicate(true)
+		candidate.phase = "exploration"
+		candidate.next_encounter_id = "approach_basin"
+		for id in TrialProfile.PARTY: candidate.roster[id].merge(profile.bindings[id], true)
 	return _commit(candidate, true)
 
 func load_run() -> Dictionary:
@@ -55,6 +65,9 @@ func safe_snapshot() -> Dictionary:
 # 可选补丁只由场景路由提供；不携带Node、旧奖励或自创剧情。
 func begin_battle(encounter_id: String, world: Dictionary, story_patch: Dictionary = {}) -> Dictionary:
 	if not _outside(): return _fail("当前不在可进战的安全状态")
+	if (encounter_id == "approach_basin" or world.has("world_version")) and not _safe.has("run_profile"): return _fail("参道遭遇仅允许独立试玩的三维世界")
+	if _safe.has("run_profile"):
+		if encounter_id != "approach_basin" or not WorldSnapshot.same_story(_safe.world, world) or not world.get("event_flags", {}).has("basin_inspected") or world.get("event_flags", {}).has("basin_cleared"): return _fail("参道遭遇前置不符或已完成")
 	var definition: Dictionary = _catalog.get_definition("encounters", encounter_id)
 	if definition.is_empty(): return _fail("未知遭遇：" + encounter_id)
 	var world_errors := Store.validate_world(world)
@@ -111,6 +124,7 @@ func apply_result(result: Dictionary) -> Dictionary:
 	_add_xp(candidate, result.xp)
 	var patch: Dictionary = candidate.pending_battle.story_patch
 	if patch.has("resolved"): candidate.world.resolved.merge(patch.resolved, true)
+	if patch.has("event_flags"): candidate.world.event_flags.merge(patch.event_flags, true)
 	candidate["return_scene"] = patch.get("next_scene", candidate.world.get("scene_path", "res://scenes/rpg/launcher.tscn"))
 	var encounter: Dictionary = _catalog.get_definition("encounters", candidate.pending_battle.encounter_id)
 	candidate.next_encounter_id = encounter.next_id
@@ -128,8 +142,26 @@ func save_exploration(world: Dictionary) -> Dictionary:
 	if not _outside(): return _fail("当前不能打开探索整备")
 	var errors := Store.validate_world(world)
 	if world.is_empty() or not errors.is_empty(): return _fail("探索整备缺少有效世界")
+	if _safe.has("run_profile") and not WorldSnapshot.same_story(_safe.world, world): return _fail("保存位置不能修改剧情标记")
 	var candidate := safe_snapshot()
 	candidate.world = world.duplicate(true)
+	candidate.return_scene = world.scene_path
+	return _commit(candidate)
+
+# 剧情只沿已登记顺序提交；画面拿到成功后才开放下一操作。
+func commit_world_event(world: Dictionary, event_id: String) -> Dictionary:
+	if not _outside() or not _safe.has("run_profile"): return _fail("当前不是可提交事件的试玩探索")
+	if not WorldSnapshot.validate(world).is_empty() or not WorldSnapshot.same_story(_safe.world, world): return _fail("事件世界与已保存剧情不符")
+	var allowed := {"approach_entered": "", "basin_observed": "approach_entered", "basin_inspected": "basin_observed", "approach_complete": "basin_cleared"}
+	if not allowed.has(event_id): return _fail("该事件不能由探索提交")
+	if world.event_flags.has(event_id): return _ok(true)
+	var required: String = allowed[event_id]
+	if not required.is_empty() and not world.event_flags.has(required): return _fail("剧情事件缺少前置")
+	var candidate := safe_snapshot()
+	candidate.world = world.duplicate(true)
+	candidate.world.event_flags[event_id] = true
+	if event_id == "approach_entered": candidate.world.dlg_fired["a1"] = true
+	if event_id == "basin_observed": candidate.world.dlg_fired["h1"] = true
 	candidate.return_scene = world.scene_path
 	return _commit(candidate)
 

@@ -12,7 +12,11 @@ GODOT = os.environ.get("GODOT_BIN", "/usr/local/bin/godot")
 
 
 class IsolationRunnerTests(unittest.TestCase):
-    def run_fake_engine(self, behavior: str) -> tuple[subprocess.CompletedProcess, list[str]]:
+    def test_approach_suite_is_registered(self):
+        from tools.rpg.run_checks import SUITES
+        self.assertIn("approach", SUITES)
+
+    def run_fake_engine(self, behavior: str, extra_args=None) -> tuple[subprocess.CompletedProcess, list[str]]:
         with tempfile.TemporaryDirectory(prefix="rpg-runner-contract-") as directory:
             root = Path(directory)
             engine = root / "fake_godot.py"
@@ -26,9 +30,35 @@ class IsolationRunnerTests(unittest.TestCase):
                 encoding="utf-8",
             )
             engine.chmod(0o755)
-            result = subprocess.run([sys.executable, str(RUNNER), "--suite", "data", "--legacy",
+            result = subprocess.run([sys.executable, str(RUNNER), *(extra_args or ["--suite", "data", "--legacy"]),
                                      "--godot", str(engine)], text=True, capture_output=True)
-            return result, log.read_text().splitlines()
+            return result, log.read_text().splitlines() if log.exists() else []
+
+    def test_visual_rejects_unverified_user_directory(self):
+        result, calls = self.run_fake_engine("print('RPG_ISOLATION_OK:/tmp/outside')\n", ["--suite", "approach", "--approach-visual", "--output-dir", "/tmp/approach-visual-contract"])
+        self.assertEqual(result.returncode, 1)
+        self.assertEqual(len(calls), 1)
+
+    def test_visual_only_graphic_step_omits_headless(self):
+        result, calls = self.run_fake_engine(
+            "if is_preflight: print('RPG_ISOLATION_OK:' + os.environ['XDG_DATA_HOME'] + '/user')\n"
+            "else: print('PASS: synthetic step')\n", ["--suite", "approach", "--approach-visual", "--output-dir", "/tmp/approach-visual-contract"])
+        self.assertEqual(result.returncode, 0)
+        self.assertEqual(len(calls), 4)
+        self.assertTrue(all('--headless' in call for call in calls[:3]))
+        self.assertNotIn('--headless', calls[-1])
+        self.assertIn('capture_approach.gd', calls[-1])
+
+    def test_visual_output_is_kept_in_evidence_directory(self):
+        with tempfile.TemporaryDirectory(prefix="ssa-visual-log-contract-") as directory:
+            result, calls = self.run_fake_engine(
+                "if is_preflight: print('RPG_ISOLATION_OK:' + os.environ['XDG_DATA_HOME'] + '/user')\n"
+                "elif any('capture_approach.gd' in arg for arg in sys.argv): print('CAPTURE_TEST_OUTPUT')\n"
+                "else: print('PASS: synthetic step')\n", ["--suite", "approach", "--approach-visual", "--output-dir", directory])
+            self.assertEqual(result.returncode, 0)
+            log = Path(directory) / "godot.log"
+            self.assertTrue(log.is_file(), "图形日志必须与截图/帧耗时一起保留")
+            self.assertIn("CAPTURE_TEST_OUTPUT", log.read_text())
 
     def test_outside_user_directory_blocks_import_and_legacy(self):
         result, calls = self.run_fake_engine("print('RPG_ISOLATION_OK:/tmp/outside-user-dir')\n")

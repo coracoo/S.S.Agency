@@ -1,0 +1,196 @@
+{
+  "id": "controller_high_detail_complete",
+  "character_id": "controller",
+  "identity_id": "controller",
+  "display_name": "清明",
+  "pilot": false,
+  "complete_animation": true,
+  "dir": "res://assets/chars/pixel/controller/high_detail_complete/frames/",
+  "canvas": {
+    "w": 1152,
+    "h": 1152,
+    "anchor": [
+      576,
+      1074
+    ],
+    "content_height_px": 1024,
+    "height_m": 1.6
+  },
+  "move_speed_mps": 2.6,
+  "mirror_allowed": true,
+  "anims": {
+    "idle": {
+      "frames": [
+        "idle1",
+        "idle2",
+        "idle3",
+        "idle4"
+      ],
+      "durations_ms": [
+        900,
+        490,
+        120,
+        880
+      ],
+      "loop": true,
+      "pingpong": true,
+      "atlas": {
+        "path": "res://assets/chars/pixel/controller/high_detail_complete/atlases/idle.png",
+        "columns": 3,
+        "rows": 2,
+        "frame_size": [
+          1152,
+          1152
+        ]
+      }
+    },
+    "walk": {
+      "frames": [
+        "walk1",
+        "walk2",
+        "walk3",
+        "walk4",
+        "walk5",
+        "walk6",
+        "walk7",
+        "walk8"
+      ],
+      "durations_ms": [
+        62.8775,
+        62.8775,
+        62.8775,
+        62.8775,
+        62.8775,
+        62.8775,
+        62.8775,
+        62.8775
+      ],
+      "loop": true,
+      "atlas": {
+        "path": "res://assets/chars/pixel/controller/high_detail_complete/atlases/walk.png",
+        "columns": 3,
+        "rows": 3,
+        "frame_size": [
+          1152,
+          1152
+        ]
+      }
+    },
+    "attack": {
+      "frames": [
+        "attack1",
+        "attack2",
+        "attack3",
+        "attack4",
+        "attack5",
+        "attack6"
+      ],
+      "durations_ms": [
+        75,
+        55,
+        95,
+        55,
+        80,
+        100
+      ],
+      "loop": false,
+      "atlas": {
+        "path": "res://assets/chars/pixel/controller/high_detail_complete/atlases/attack.png",
+        "columns": 3,
+        "rows": 2,
+        "frame_size": [
+          1152,
+          1152
+        ]
+      }
+    },
+    "hit": {
+      "frames": [
+        "hit"
+      ],
+      "durations_ms": [
+        180
+      ],
+      "loop": false,
+      "single_pose": true,
+      "atlas": {
+        "path": "res://assets/chars/pixel/controller/high_detail_complete/atlases/hit.png",
+        "columns": 1,
+        "rows": 1,
+        "frame_size": [
+          1152,
+          1152
+        ]
+      }
+    },
+    "defend": {
+      "frames": [
+        "defend"
+      ],
+      "durations_ms": [
+        300
+      ],
+      "loop": false,
+      "single_pose": true,
+      "atlas": {
+        "path": "res://assets/chars/pixel/controller/high_detail_complete/atlases/defend.png",
+        "columns": 1,
+        "rows": 1,
+        "frame_size": [
+          1152,
+          1152
+        ]
+      }
+    },
+    "down": {
+      "frames": [
+        "down"
+      ],
+      "durations_ms": [
+        1000
+      ],
+      "loop": false,
+      "single_pose": true,
+      "hold_last_frame": true,
+      "down_semantics": "standing_exhausted_hold",
+      "atlas": {
+        "path": "res://assets/chars/pixel/controller/high_detail_complete/atlases/down.png",
+        "columns": 1,
+        "rows": 1,
+        "frame_size": [
+          1152,
+          1152
+        ]
+      }
+    },
+    "recover": {
+      "frames": [
+        "recover"
+      ],
+      "durations_ms": [
+        300
+      ],
+      "loop": false,
+      "single_pose": true,
+      "atlas": {
+        "path": "res://assets/chars/pixel/controller/high_detail_complete/atlases/recover.png",
+        "columns": 1,
+        "rows": 1,
+        "frame_size": [
+          1152,
+          1152
+        ]
+      }
+    }
+  },
+  "layers": [],
+  "scene_integration": {
+    "contact_metadata": "res://assets/chars/pixel/controller/high_detail_complete/foot_contacts.json"
+  },
+  "status": "drawn_animation_candidate",
+  "limitations": [
+    "绘制帧之间保留少量衣摆与轮廓变化；hit/defend/down/recover为单姿态，down按清单语义保持。",
+    "地面阴影来自逐帧绘制接触点投影，不是骨骼脚锁。"
+  ],
+  "form_id": "controller"
+}

@@ -1,0 +1,57 @@
+import importlib.util
+import json
+from pathlib import Path
+import tempfile
+import subprocess
+import sys
+import unittest
+from PIL import Image
+
+class AssetsTest(unittest.TestCase):
+    def test_validator_detects_dirty_alpha_and_missing_motion(self):
+        path = Path(__file__).with_name('validate_assets.py')
+        self.assertTrue(path.exists(), '生产资产校验器尚未实现')
+        spec = importlib.util.spec_from_file_location('validator', path)
+        validator = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(validator)
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            image = Image.new('RGBA', (192, 160))
+            image.putpixel((96,148), (40,50,60,255))
+            image.save(root/'sample.png')
+            manifest = {'canvas':{'w':192,'h':160,'anchor':[96,148]},'dir':'res://',
+                        'anims':{'idle':{'frames':['sample'],'durations_ms':[3000],'loop':True}}}
+            (root/'manifest.json').write_text(json.dumps(manifest))
+            errors = validator.validate_manifest(root/'manifest.json',root)
+            self.assertTrue(any('walk' in x for x in errors))
+            self.assertTrue(any('idle' in x for x in errors))
+            image.putpixel((20,20), (255,255,255,7)); image.save(root/'sample.png')
+            errors = validator.validate_manifest(root/'manifest.json',root)
+            self.assertTrue(any('alpha' in x for x in errors))
+            image = Image.new('RGBA',(191,160));image.save(root/'sample.png')
+            errors = validator.validate_manifest(root/'manifest.json',root)
+            self.assertTrue(any('192' in x for x in errors))
+    def test_equal_total_cannot_hide_changed_walk_phase(self):
+        path=Path(__file__).with_name('validate_assets.py')
+        spec=importlib.util.spec_from_file_location('validator',path)
+        validator=importlib.util.module_from_spec(spec);spec.loader.exec_module(validator)
+        root=Path(__file__).resolve().parents[2]
+        manifest=json.loads((root/'assets/chars/pixel/rinne/manifest.json').read_text())
+        durations=manifest['anims']['walk']['durations_ms']
+        durations[0],durations[4]=durations[4],durations[0]
+        with tempfile.TemporaryDirectory() as tmp:
+            candidate=Path(tmp)/'manifest.json'
+            candidate.write_text(json.dumps(manifest))
+            self.assertTrue(any('相位' in x for x in validator.validate_manifest(candidate,root)))
+    def test_accepted_eight_phase_material_revision_is_valid(self):
+        path=Path(__file__).with_name('validate_assets.py')
+        spec=importlib.util.spec_from_file_location('validator',path)
+        validator=importlib.util.module_from_spec(spec);spec.loader.exec_module(validator)
+        root=Path(__file__).resolve().parents[2]
+        self.assertEqual([],validator.validate_manifest(root/'assets/chars/pixel/rinne/frame_material_refined/manifest.json',root))
+    def test_all_resolves_delivery_roster_revisions(self):
+        result=subprocess.run([sys.executable,str(Path(__file__).with_name('validate_assets.py')),'--all'],capture_output=True,text=True)
+        self.assertEqual(result.returncode,0,result.stdout)
+        self.assertIn('healer: PASS',result.stdout)
+        self.assertEqual(result.stdout.count(': PASS'),7)
+if __name__ == '__main__': unittest.main()

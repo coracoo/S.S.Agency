@@ -1,0 +1,199 @@
+{
+  "id": "mint_high_detail_complete",
+  "character_id": "mint",
+  "identity_id": "mint",
+  "form_id": "mint",
+  "display_name": "薄荷",
+  "dir": "res://assets/chars/pixel/mint/high_detail_complete/frames/",
+  "canvas": {
+    "w": 1280,
+    "h": 1152,
+    "anchor": [
+      640,
+      1062
+    ],
+    "content_height_px": 1024,
+    "height_m": 1.6
+  },
+  "move_speed_mps": 2.6,
+  "mirror_allowed": true,
+  "anims": {
+    "idle": {
+      "frames": [
+        "idle_right_f1",
+        "idle_right_f2",
+        "idle_right_f3",
+        "idle_right_f4"
+      ],
+      "durations_ms": [
+        900,
+        490,
+        120,
+        880
+      ],
+      "loop": true,
+      "pingpong": true,
+      "atlas": {
+        "path": "res://assets/chars/pixel/mint/high_detail_complete/atlases/idle.png",
+        "columns": 3,
+        "rows": 2,
+        "frame_size": [
+          1280,
+          1152
+        ]
+      }
+    },
+    "walk": {
+      "frames": [
+        "walk_right_f1",
+        "walk_right_f2",
+        "walk_right_f3",
+        "walk_right_f4",
+        "walk_right_f5",
+        "walk_right_f6",
+        "walk_right_f7",
+        "walk_right_f8"
+      ],
+      "durations_ms": [
+        62.8775,
+        62.8775,
+        62.8775,
+        62.8775,
+        62.8775,
+        62.8775,
+        62.8775,
+        62.8775
+      ],
+      "loop": true,
+      "pingpong": false,
+      "atlas": {
+        "path": "res://assets/chars/pixel/mint/high_detail_complete/atlases/walk.png",
+        "columns": 3,
+        "rows": 3,
+        "frame_size": [
+          1280,
+          1152
+        ]
+      }
+    },
+    "attack": {
+      "frames": [
+        "attack_right_f1",
+        "attack_right_f2",
+        "attack_right_f3",
+        "attack_right_f4",
+        "attack_right_f5",
+        "attack_right_f6"
+      ],
+      "durations_ms": [
+        75,
+        55,
+        95,
+        55,
+        80,
+        100
+      ],
+      "loop": false,
+      "pingpong": false,
+      "atlas": {
+        "path": "res://assets/chars/pixel/mint/high_detail_complete/atlases/attack.png",
+        "columns": 3,
+        "rows": 2,
+        "frame_size": [
+          1280,
+          1152
+        ]
+      }
+    },
+    "hit": {
+      "frames": [
+        "hit_right_f1"
+      ],
+      "durations_ms": [
+        180
+      ],
+      "loop": false,
+      "pingpong": false,
+      "single_pose": true,
+      "atlas": {
+        "path": "res://assets/chars/pixel/mint/high_detail_complete/atlases/hit.png",
+        "columns": 1,
+        "rows": 1,
+        "frame_size": [
+          1280,
+          1152
+        ]
+      }
+    },
+    "defend": {
+      "frames": [
+        "defend_right_f1"
+      ],
+      "durations_ms": [
+        300
+      ],
+      "loop": false,
+      "pingpong": false,
+      "single_pose": true,
+      "atlas": {
+        "path": "res://assets/chars/pixel/mint/high_detail_complete/atlases/defend.png",
+        "columns": 1,
+        "rows": 1,
+        "frame_size": [
+          1280,
+          1152
+        ]
+      }
+    },
+    "down": {
+      "frames": [
+        "down_right_f1"
+      ],
+      "durations_ms": [
+        1000
+      ],
+      "loop": false,
+      "pingpong": false,
+      "single_pose": true,
+      "hold_until": "recover",
+      "atlas": {
+        "path": "res://assets/chars/pixel/mint/high_detail_complete/atlases/down.png",
+        "columns": 1,
+        "rows": 1,
+        "frame_size": [
+          1280,
+          1152
+        ]
+      }
+    },
+    "recover": {
+      "frames": [
+        "recover_right_f1"
+      ],
+      "durations_ms": [
+        300
+      ],
+      "loop": false,
+      "pingpong": false,
+      "single_pose": true,
+      "atlas": {
+        "path": "res://assets/chars/pixel/mint/high_detail_complete/atlases/recover.png",
+        "columns": 1,
+        "rows": 1,
+        "frame_size": [
+          1280,
+          1152
+        ]
+      }
+    }
+  },
+  "layers": [],
+  "scene_integration": {
+    "contact_metadata": "res://data/characters/scene_integration/mint_high_detail_contacts.json"
+  },
+  "status": "drawn_animation_candidate",
+  "limitations": [
+    "绘制帧之间保留少量衣摆与轮廓变化；hit/defend/down/recover为单姿态，down按清单语义保持。",
+    "地面阴影来自逐帧绘制接触点投影，不是骨骼脚锁。"
+  ]
+}

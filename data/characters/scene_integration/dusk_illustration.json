@@ -1,0 +1,10 @@
+{
+  "id": "dusk_illustration",
+  "version": 1,
+  "character_shader": "res://scripts/characters/illustration_scene_light.gdshader",
+  "scene_light_mix": 0.38,
+  "shadow_opacity": 0.36,
+  "root_shadow_opacity": 0.2,
+  "shadow_surface_offset_m": 0.08,
+  "notes": "Approved right-side appearance. Optional manifest.scene_integration.contact_metadata supplies character-specific verified foot hints; otherwise only a weak root ground shadow is used."
+}

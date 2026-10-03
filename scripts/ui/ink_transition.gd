@@ -5,7 +5,10 @@ extends Control
 
 signal opened
 
-var _p := 0.0
+var _p := 0.0:
+	set(value):
+		_p = value
+		queue_redraw()
 var _ink := Color("#14110E")
 var _mid: Callable
 
@@ -34,16 +37,25 @@ func _on_closed() -> void:
 
 func _finish() -> void:
 	opened.emit()
-	queue_free()
+	if get_parent() is CanvasLayer: get_parent().queue_free()
+	else: queue_free()
+
+func _coverage_rects() -> Array[Rect2]:
+	# CanvasLayer 的 draw 坐标已经按 stretch 缩放，不能再次使用窗口物理像素。
+	var canvas_size := get_viewport().get_visible_rect().size
+	var w := canvas_size.x
+	var h := canvas_size.y
+	var half_w := w * 0.5 * _p
+	var half_h := h * 0.5 * _p
+	return [
+		Rect2(0, 0, w, half_h),
+		Rect2(0, h - half_h, w, half_h),
+		Rect2(0, half_h, half_w, h - half_h * 2.0),
+		Rect2(w - half_w, half_h, half_w, h - half_h * 2.0),
+	]
 
 func _draw() -> void:
 	if _p <= 0.0:
 		return
-	var w := float(get_viewport().size.x)
-	var h := float(get_viewport().size.y)
-	var half_w := w * 0.5 * _p
-	var half_h := h * 0.5 * _p
-	draw_rect(Rect2(0, 0, w, half_h), _ink)                      # 上
-	draw_rect(Rect2(0, h - half_h, w, half_h), _ink)             # 下
-	draw_rect(Rect2(0, half_h, half_w, h - half_h * 2.0), _ink)  # 左
-	draw_rect(Rect2(w - half_w, half_h, half_w, h - half_h * 2.0), _ink) # 右
+	for rect in _coverage_rects():
+		draw_rect(rect, _ink)

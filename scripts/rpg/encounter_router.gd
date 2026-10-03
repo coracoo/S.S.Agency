@@ -46,8 +46,8 @@ func begin(source_scene: String, battle_scene: String, world: Dictionary, pendin
 	var route := _route(source_scene, battle_scene, pending_clue_id)
 	if route.is_empty(): return {"ok": false, "handled": false, "error": "未映射战斗，沿用现有入口"}
 	if world.get("scene_path") != source_scene: return _failure("来源场景与世界快照不符")
-	var patch: Dictionary = {}
-	if not pending_clue_id.is_empty(): patch["resolved"] = {pending_clue_id: true}
+	var patch: Dictionary = route.get("story_patch", {}).duplicate(true)
+	if patch.is_empty() and not pending_clue_id.is_empty(): patch["resolved"] = {pending_clue_id: true}
 	var started: Dictionary = campaign.begin_battle(route.encounter_id, world, patch)
 	if not started.ok: return started
 	_setup = started.duplicate(true)
@@ -149,11 +149,13 @@ func result_from_engine() -> Dictionary:
 
 func finish(result: Dictionary) -> Dictionary:
 	var applied: Dictionary = campaign.apply_result(result)
-	if not applied.ok or applied.already_applied or result.get("outcome") != "victory": return applied
-	var world: Dictionary = campaign.safe_snapshot().world
+	if not applied.ok or result.get("outcome") != "victory": return applied
+	var safe: Dictionary = campaign.safe_snapshot()
+	var world: Dictionary = safe.world
 	_return_world = world.duplicate(true)
 	applied["world"] = world.duplicate(true)
-	applied["next_scene"] = applied.story_patch.get("next_scene", world.get("scene_path", "res://scenes/rpg/launcher.tscn"))
+	applied["next_scene"] = safe.get("return_scene", "")
+	if applied.next_scene.is_empty(): applied.next_scene = world.get("scene_path", "res://scenes/rpg/launcher.tscn")
 	return applied
 
 func retry() -> Dictionary:
@@ -188,7 +190,9 @@ func _route(source: String, battle: String, clue: String, route_field: String = 
 	for encounter in _catalog.get_all("encounters"):
 		for route in encounter.get(route_field, []):
 			if route.source_scene == source and route.battle_scene == battle and (route.get("clue_id", "") == clue or (route_field == "ritual_routes" and clue.is_empty())):
-				return {"encounter_id": encounter.id, "clue_id": route.get("clue_id", "")}
+				var matched: Dictionary = route.duplicate(true)
+				matched["encounter_id"] = encounter.id
+				return matched
 	return {}
 
 func _failure(message: String) -> Dictionary:

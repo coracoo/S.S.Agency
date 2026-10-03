@@ -2,6 +2,8 @@
 class_name RpgSaveStore
 extends RefCounted
 
+const TrialProfile = preload("res://scripts/exploration_3d/trial_profile.gd")
+const WorldSnapshot = preload("res://scripts/exploration_3d/world_snapshot.gd")
 const Catalog = preload("res://scripts/rpg/catalog.gd")
 const State = preload("res://scripts/rpg/battle_state.gd")
 const Factory = preload("res://scripts/rpg/actor_factory.gd")
@@ -82,9 +84,14 @@ func normalize(value: Dictionary) -> Dictionary:
 	if saved.has("roster"): saved.roster = normalized.actors
 	if saved.has("inventory"): saved.inventory = normalized.inventory
 	if saved.get("world") is Dictionary:
-		State._int_fields(saved.world, ["facing", "spirit", "party_index"])
+		if saved.world.has("world_version"):
+			saved.world = WorldSnapshot.normalize(saved.world)
+		else:
+			State._int_fields(saved.world, ["facing", "spirit", "party_index"])
 	if saved.get("pending_battle") is Dictionary:
 		State._int_fields(saved.pending_battle, ["seed", "xp"])
+		if saved.pending_battle.get("story_patch") is Dictionary:
+			State._int_fields(saved.pending_battle.story_patch, ["patch_version"])
 	return saved
 
 func validate(saved: Dictionary) -> Array[String]:
@@ -138,6 +145,16 @@ func validate(saved: Dictionary) -> Array[String]:
 			if not id is String or not roster.has(id) or seen.has(id): errors.append("编队引用缺失/重复")
 			seen[id] = true
 	errors.append_array(validate_world(saved.get("world")))
+	if saved.has("run_profile"):
+		if not saved.run_profile is Dictionary:
+			errors.append("试玩配置不是字典")
+		else:
+			errors.append_array(TrialProfile.validate(saved.run_profile))
+			if saved.get("party") != TrialProfile.PARTY or not saved.get("world") is Dictionary or saved.get("world", {}).get("world_version") != 2: errors.append("试玩队伍或世界不符")
+			for id in TrialProfile.PARTY:
+				for field in ["identity_id", "form_id"]:
+					if saved.roster[id].get(field) != TrialProfile.BINDINGS[id][field]: errors.append("试玩人物身份不符：" + id)
+
 	var applied = saved.get("applied_battle_ids")
 	if not applied is Array:
 		errors.append("缺少已提交战斗ID")
@@ -155,6 +172,7 @@ func validate(saved: Dictionary) -> Array[String]:
 		if not pending.get("xp") is int or pending.get("xp") != definition.get("xp"): errors.append("战前经验与遭遇冲突")
 		if pending.get("battle_id") is String and applied is Array and applied.has(pending.battle_id): errors.append("已交付战果不能仍待处理")
 		if saved.get("world") is Dictionary: errors.append_array(validate_story_patch(pending.get("story_patch"), saved.world))
+		if saved.get("world") is Dictionary and saved.world.get("world_version") == 2 and pending.get("encounter_id") != "approach_basin": errors.append("3D 战前上下文遭遇归属不符")
 	return errors
 
 static func _actor_shape(actor: Dictionary) -> Array[String]:
@@ -190,6 +208,7 @@ func branch_ids(class_id: String) -> Array[String]:
 static func validate_world(world) -> Array[String]:
 	var errors: Array[String] = []
 	if not world is Dictionary or not State._plain(world): return ["世界状态必须为纯JSON字典"]
+	if world.has("world_version"): return WorldSnapshot.validate(world)
 	if world.is_empty(): return errors # 独立切片尚未进入旧舞台。
 	if not world.get("scene_path") is String or not world.get("scene_path", "").begins_with("res://scenes/") or not world.get("scene_path", "").ends_with(".tscn"): errors.append("世界场景路径非法")
 	if not (world.get("player_x") is int or world.get("player_x") is float) or not is_finite(float(world.get("player_x", NAN))): errors.append("玩家位置非法")
@@ -207,6 +226,7 @@ static func validate_world(world) -> Array[String]:
 
 static func validate_story_patch(patch, world: Dictionary) -> Array[String]:
 	if not patch is Dictionary: return ["剧情补丁必须为字典"]
+	if world.has("world_version"): return WorldSnapshot.validate_patch(patch, world)
 	for key in patch:
 		if not key in ["resolved", "next_scene"]: return ["剧情补丁仅支持现有线索及场景出口"]
 	if patch.has("resolved"):

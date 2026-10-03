@@ -1,0 +1,53 @@
+{
+  "id": "guard_high_detail_pilot",
+  "character_id": "guard",
+  "display_name": "岑照",
+  "pilot": true,
+  "complete_animation": false,
+  "dir": "res://assets/chars/pixel/guard/high_detail_pilot/frames/",
+  "canvas": {
+    "w": 1088,
+    "h": 1216,
+    "anchor": [
+      544,
+      1121
+    ],
+    "content_height_px": 1024,
+    "height_m": 1.7333333333333334
+  },
+  "move_speed_mps": 2.6,
+  "mirror_allowed": true,
+  "anims": {
+    "idle": {
+      "frames": [
+        "idle"
+      ],
+      "durations_ms": [
+        1000
+      ],
+      "loop": false
+    },
+    "walk": {
+      "frames": [
+        "contact",
+        "passing"
+      ],
+      "durations_ms": [
+        62.8775,
+        62.8775
+      ],
+      "loop": false
+    },
+    "attack": {
+      "frames": [
+        "attack"
+      ],
+      "durations_ms": [
+        460
+      ],
+      "loop": false
+    }
+  },
+  "layers": [],
+  "status": "regression_fixture"
+}

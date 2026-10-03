@@ -1,0 +1,156 @@
+{
+  "id": "rinne_frame_material_refined_v1",
+  "character_id": "rinne",
+  "identity_id": "rinne",
+  "dir": "res://assets/chars/pixel/rinne/frame_material_refined/frames/",
+  "canvas": {
+    "w": 192,
+    "h": 160,
+    "anchor": [
+      96,
+      148
+    ],
+    "content_height_px": 96,
+    "height_m": 1.6
+  },
+  "move_speed_mps": 2.6,
+  "mirror_allowed": true,
+  "anims": {
+    "idle": {
+      "frames": [
+        "idle_right_f1",
+        "idle_right_f2",
+        "idle_right_f3",
+        "idle_right_f4"
+      ],
+      "durations_ms": [
+        900,
+        490,
+        120,
+        880
+      ],
+      "pingpong": true,
+      "loop": true,
+      "note": "4张原绘待机，第3张真实闭眼；往返展开总3.0秒，闭眼每次120ms"
+    },
+    "walk": {
+      "frames": [
+        "walk_right_f1",
+        "walk_right_f2",
+        "walk_right_f3",
+        "walk_right_f4",
+        "walk_right_f5",
+        "walk_right_f6",
+        "walk_right_f7",
+        "walk_right_f8"
+      ],
+      "durations_ms": [
+        62.8775,
+        62.8775,
+        62.8775,
+        62.8775,
+        62.8775,
+        62.8775,
+        62.8775,
+        62.8775
+      ],
+      "period_s": 0.50302,
+      "loop": true,
+      "phase_names": [
+        "near_contact",
+        "near_support",
+        "far_passing",
+        "far_precontact",
+        "far_contact",
+        "far_support",
+        "near_passing",
+        "near_precontact"
+      ],
+      "note": "真实原绘contact/support/passing/precontact双半周期；8帧取代旧10，均匀时值保留原总周期，待实际循环验收"
+    },
+    "attack": {
+      "frames": [
+        "attack_right_f1",
+        "attack_right_f2",
+        "attack_right_f3",
+        "attack_right_f4",
+        "attack_right_f5",
+        "attack_right_f6"
+      ],
+      "durations_ms": [
+        75,
+        55,
+        95,
+        55,
+        80,
+        100
+      ],
+      "loop": false
+    },
+    "hit": {
+      "frames": [
+        "hit_right_f1"
+      ],
+      "durations_ms": [
+        180
+      ],
+      "loop": false,
+      "single_pose": true,
+      "note": "单张真实受击姿势，非连续帧动作"
+    },
+    "defend": {
+      "frames": [
+        "defend_right_f1"
+      ],
+      "durations_ms": [
+        300
+      ],
+      "loop": false,
+      "single_pose": true,
+      "note": "单张真实防御姿势，非连续帧动作"
+    },
+    "down": {
+      "frames": [
+        "down_right_f1"
+      ],
+      "durations_ms": [
+        1000
+      ],
+      "loop": false,
+      "hold_last_frame": true,
+      "single_pose": true,
+      "note": "单张跪地姿势并保持，非倒地过程动画"
+    },
+    "recover": {
+      "frames": [
+        "recover_right_f1"
+      ],
+      "durations_ms": [
+        300
+      ],
+      "loop": false,
+      "single_pose": true,
+      "note": "单张起身姿势再回待机，非完整连续起身动画"
+    }
+  },
+  "layers": [
+    {
+      "id": "rear_hair_tip",
+      "frames": [
+        "res://assets/chars/pixel/rinne/layers/idle_rear_hair_f1.png",
+        "res://assets/chars/pixel/rinne/layers/idle_rear_hair_f2.png",
+        "res://assets/chars/pixel/rinne/layers/idle_rear_hair_f3.png",
+        "res://assets/chars/pixel/rinne/layers/idle_rear_hair_f4.png"
+      ],
+      "pingpong": true,
+      "z_index": -1,
+      "amplitude_px": 1,
+      "period_s": 3.0,
+      "root_y": 64,
+      "full_motion_y": 70,
+      "axis": "x",
+      "idle_only": true
+    }
+  ],
+  "status": "regression_fixture"
+}
