@@ -75,6 +75,35 @@
       "xp": 40,
       "next_id": "",
       "rest_after": false
+    },
+    {
+      "id": "approach_basin",
+      "name": "参道水钵纸妖",
+      "level": 5,
+      "enemy_ids": [
+        "hound",
+        "shield_soldier"
+      ],
+      "xp": 40,
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [
+        {
+          "source_scene": "res://scenes/exploration_3d/approach.tscn",
+          "battle_scene": "res://scenes/rpg/battle.tscn",
+          "clue_id": "basin_reflection",
+          "story_patch": {
+            "patch_version": 2,
+            "encounter_id": "approach_basin",
+            "event_flags": {
+              "basin_cleared": true
+            },
+            "resolved": {
+              "basin_reflection": true
+            }
+          }
+        }
+      ]
     }
   ]
 }

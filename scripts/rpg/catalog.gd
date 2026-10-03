@@ -226,6 +226,22 @@ static func _validate_catalog(data: Dictionary, errors: Array[String]) -> void:
 					errors.append(id + " 缺敌人引用：" + str(enemy_id))
 		if not row.get("next_id") is String or (not row.next_id.is_empty() and not data.encounters.has(row.next_id)) or not row.get("rest_after") is bool:
 			errors.append(id + " 后续遭遇／休息非法")
+		for route_kind in ["scene_routes", "ritual_routes"]:
+			if not row.get(route_kind, []) is Array:
+				errors.append(id + " 场景路由必须为数组")
+				continue
+			for route in row.get(route_kind, []):
+				if not route is Dictionary:
+					errors.append(id + " 路由必须为字典")
+					continue
+				for field in ["source_scene", "battle_scene"]:
+					if not route.get(field) is String or not route.get(field, "").begins_with("res://scenes/") or not route.get(field, "").ends_with(".tscn"): errors.append(id + " 路由场景路径非法")
+				if not route.get("clue_id", "") is String: errors.append(id + " 路由线索 ID 非法")
+				if route.get("source_scene") == "res://scenes/exploration_3d/approach.tscn":
+					var expected := {"patch_version": 2, "encounter_id": "approach_basin", "event_flags": {"basin_cleared": true}, "resolved": {"basin_reflection": true}}
+					if id != "approach_basin" or route_kind != "scene_routes" or route.get("clue_id") != "basin_reflection" or route.get("battle_scene") != "res://scenes/rpg/battle.tscn" or route.get("story_patch") != expected: errors.append(id + " 参道路由与补丁归属不符")
+				elif route.has("story_patch"):
+					errors.append(id + " 旧路由不能携带新剧情补丁")
 
 static func _validate_ability(row: Dictionary, data: Dictionary, errors: Array[String]) -> void:
 	var id: String = row.id

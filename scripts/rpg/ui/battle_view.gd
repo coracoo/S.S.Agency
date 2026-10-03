@@ -1,6 +1,12 @@
 # 可操作视图只提交六字段命令；HP/费用/意图/战果全部读取模型。
 class_name RpgBattleView
 extends Control
+signal presentation_tick
+const TrialSession = preload("res://scripts/exploration_3d/approach_session.gd")
+const Portraits = preload("res://scripts/characters/identity_portraits.gd")
+const LegacyActor = preload("res://scripts/rpg/ui/legacy_actor_view.gd")
+const HdActor = preload("res://scripts/rpg/ui/hd_actor_view.gd")
+const HdEvents = preload("res://scripts/rpg/ui/hd_event_player.gd")
 const Catalog = preload("res://scripts/rpg/catalog.gd")
 const Router = preload("res://scripts/rpg/encounter_router.gd")
 const Presenter = preload("res://scripts/rpg/ui/battle_presenter.gd")
@@ -30,6 +36,15 @@ var _items: Control
 var _preview_panel: Control
 var _log_panel: Control
 var _built := false
+var _hd_views: Dictionary = {}
+var _presentation_views: Dictionary = {}
+var _hd_player: Node
+var _presentation_generation := 0
+var _navigating := false
+var _hd_failed := false
+var _exit_confirmation: Control
+var _asset_error_panel: Control
+var _asset_loading := false
 
 func _init() -> void:
 	_catalog.load_all()
@@ -49,6 +64,7 @@ func _ready() -> void:
 		_hud.prompt.text = last_error
 
 func bind(battle_engine: RefCounted, campaign_model: RefCounted) -> void:
+	_cancel_presentation()
 	engine = battle_engine
 	campaign = campaign_model
 	pending_command = {}
@@ -57,11 +73,17 @@ func bind(battle_engine: RefCounted, campaign_model: RefCounted) -> void:
 	if engine == null:
 		last_error = "战斗创建失败" if router == null else router.last_error
 		return
+	if _built: _build_actors()
+	if _hd_failed:
+		processing = true
+		_show_hd_error()
+		return
+	processing = _hd_enabled()
 	_consume_events(engine.advance())
 	if _built:
-		_build_actors()
 		_render()
-		_check_result()
+		if processing: _finish_initial_presentation(_presentation_generation)
+		else: _check_result()
 
 func select_command(kind: String, ability_id: String = "") -> void:
 	if processing or engine == null: return
@@ -117,12 +139,36 @@ func confirm_command() -> void:
 	if is_inside_tree(): _continue_after_action()
 
 func _continue_after_action() -> void:
-	await get_tree().create_timer(0.48).timeout
-	if not is_inside_tree(): return
+	var generation := _presentation_generation
+	if _hd_enabled():
+		if not await _await_presentation(generation): return
+	else:
+		await get_tree().create_timer(0.48).timeout
+	if generation != _presentation_generation or not is_inside_tree(): return
 	_consume_events(engine.advance())
+	if _hd_enabled() and not await _await_presentation(generation): return
 	processing = false
 	_render()
 	_check_result()
+func _finish_initial_presentation(generation: int) -> void:
+	if not await _await_presentation(generation): return
+	processing = false
+	_render()
+	_check_result()
+func _await_presentation(generation: int) -> bool:
+	while generation == _presentation_generation and is_inside_tree() and _hd_player != null and _hd_player.is_busy():
+		await presentation_tick
+	return generation == _presentation_generation and is_inside_tree()
+func _process(_delta: float) -> void:
+	presentation_tick.emit()
+func _cancel_presentation() -> void:
+	_presentation_generation += 1
+	presentation_tick.emit()
+	if is_instance_valid(_hd_player): _hd_player.cancel()
+	processing = false
+func _hd_enabled() -> bool:
+	return TrialSession.current != null and TrialSession.current.router == router
+
 
 # 候选仅由真实预览探测，避免视图复制目标规则/免疫/成本判断。
 func command_options(kind: String, ability_id: String = "") -> Dictionary:
@@ -221,6 +267,10 @@ func _resize_canvas() -> void:
 	_canvas.position = (available - Vector2(1920, 1080) * factor) / 2.0
 
 func _build_actors() -> void:
+	if is_instance_valid(_hd_player): _hd_player.cancel()
+	_hd_views.clear()
+	_presentation_views.clear()
+	_hd_failed = false
 	for widgets in _actors.values():
 		for node in widgets.values():
 			if is_instance_valid(node) and node is Node: node.free()
@@ -259,7 +309,25 @@ func _build_actors() -> void:
 		var art: String = _config.class_art[actor.class_id].actor if ally else _config.enemy_art.get(actor.class_id, _config.enemy_art.default)
 		var native_facing: String = _config.asset_facings.get(art, "right")
 		var toward_right: bool = not ally if _config.near_side == "right" else ally
-		var sprite := Kit.actor_sprite(_canvas, art, float(layout[2]), Kit.flip_for(native_facing, toward_right))
+		var sprite: Node2D
+		if ally and _hd_enabled():
+			var hd := HdActor.new()
+			var definition: Dictionary = TrialSession.current.bundle.get_definition(actor.get("identity_id", "")) if TrialSession.current.bundle != null else {}
+			if not hd.configure(definition, float(layout[2]), 1 if toward_right else -1):
+				_hd_failed = true
+				last_error = "人物高清素材未就绪，请重试加载"
+			sprite = hd
+			_canvas.add_child(sprite)
+			_hd_views[id] = hd
+		else:
+			sprite = Kit.actor_sprite(_canvas, art, float(layout[2]), Kit.flip_for(native_facing, toward_right))
+			if _hd_enabled():
+				_canvas.remove_child(sprite)
+				var adapter := LegacyActor.new()
+				adapter.configure(sprite, float(layout[2]), native_facing, toward_right)
+				_canvas.add_child(adapter)
+				sprite = adapter
+		if _hd_enabled(): _presentation_views[id] = sprite
 		sprite.set_meta("source_facing", native_facing)
 		sprite.set_meta("foot_point", foot)
 		sprite.set_meta("content_height", float(layout[2]))
@@ -277,9 +345,29 @@ func _build_actors() -> void:
 		for style in ["normal", "hover", "pressed", "focus", "disabled"]: target.add_theme_stylebox_override(style, StyleBoxEmpty.new())
 		target.mouse_filter = Control.MOUSE_FILTER_PASS
 		var card: Panel
+		var avatar: TextureRect
 		if ally:
 			card = Kit.panel(_canvas, Rect2(48 + slot * 234, 810, 222, 210))
-			Kit.image(card, _config.class_art[actor.class_id].badge, Rect2(12, 12, 48, 48))
+			if _hd_enabled():
+				var identity: String = actor.get("identity_id", "")
+				var definition: Dictionary = TrialSession.current.bundle.get_definition(identity) if TrialSession.current.bundle != null else {}
+				var face := Portraits.from_definition(definition, identity, "avatar")
+				avatar = TextureRect.new()
+				avatar.position = Vector2(12, 12)
+				avatar.size = Vector2(48, 48)
+				avatar.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+				avatar.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+				avatar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+				if face.ok:
+					avatar.texture = face.texture
+					avatar.set_meta("identity_id", identity)
+					avatar.set_meta("source_path", face.source_path)
+				else:
+					_hd_failed = true
+					last_error = face.error
+				card.add_child(avatar)
+			else:
+				avatar = Kit.image(card, _config.class_art[actor.class_id].badge, Rect2(12, 12, 48, 48))
 		else:
 			var card_x: float = (55.0 if _config.near_side == "right" else 1535.0) if actor.class_id == "gatekeeper" else foot.x - 164
 			card = Kit.panel(_canvas, Rect2(foot.x - 107, 184, 214, 172) if compact else Rect2(card_x, 180 + slot * 8, 328, 205))
@@ -312,7 +400,12 @@ func _build_actors() -> void:
 			intent.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 			intent.add_theme_color_override("font_outline_color", Kit.color("ink_900"))
 			intent.add_theme_constant_override("outline_size", 6)
-		_actors[id] = {"sprite": sprite, "shadow": shadow, "ring": ring, "target": target, "card": card, "title": title, "hp": hp, "mp": mp, "hpbar": hpbar, "status": status, "intent": intent}
+		_actors[id] = {"sprite": sprite, "shadow": shadow, "ring": ring, "target": target, "card": card, "avatar": avatar, "title": title, "hp": hp, "mp": mp, "hpbar": hpbar, "status": status, "intent": intent}
+	if _hd_enabled():
+		if not is_instance_valid(_hd_player):
+			_hd_player = HdEvents.new()
+			add_child(_hd_player)
+		_hd_player.bind_actors(_presentation_views)
 	# 模态保持在人物及点选热区前。
 	for node in [_preview_panel, _items, _log_panel, _result]: _canvas.move_child(node, -1)
 
@@ -466,11 +559,12 @@ func _consume_events(events: Array) -> void:
 	for event in events:
 		var line := Presenter.event_line(event, state, _catalog)
 		if not line.is_empty(): _log_lines.append(line)
-		if _built:
+		if _built and not _hd_enabled():
 			_event_fx(event)
 			if event.type == "damage" and not played.has(event.actor_id):
 				played[event.actor_id] = true
 				_play_action(event.actor_id, [event.target_id])
+	if _hd_enabled() and is_instance_valid(_hd_player): _hd_player.enqueue(events, state)
 	while _log_lines.size() > 80: _log_lines.pop_front()
 
 func _check_result() -> void:
@@ -506,10 +600,11 @@ func _show_result() -> void:
 			var actor: Dictionary = saved.roster[id]
 			lines.append("%s　HP %d/%d　MP %d/%d" % [Presenter.actor_name(actor, _catalog), actor.hp, actor.stats.hp, actor.mp, actor.stats.mp])
 		lines.append("库存：" + _inventory_text(saved.inventory))
-		lines.append("连战完成" if saved.next_encounter_id.is_empty() else ("下一步：休息准备点" if saved.phase == "rest" else "下一场普通战"))
+		lines.append("水钵异常已解决 · 返回参道" if _hd_enabled() else ("连战完成" if saved.next_encounter_id.is_empty() else ("下一步：休息准备点" if saved.phase == "rest" else "下一场普通战")))
 	else:
 		lines.append("重试将恢复同一战前状态、库存与种子")
 		lines.append("没有额外补给或经验")
+	if result_saved and not last_error.is_empty(): lines.append(last_error)
 	_hud.result_body.text = "\n".join(lines)
 	_hud.result_action.text = "重试保存战果" if not result_saved else ("继续" if victory else "同条件重试")
 
@@ -519,6 +614,7 @@ func _inventory_text(inventory: Dictionary) -> String:
 	return "　".join(entries)
 
 func _result_action() -> void:
+	if _navigating: return
 	if not result_saved:
 		save_result()
 		return
@@ -533,13 +629,74 @@ func _result_action() -> void:
 		_log_lines.clear()
 		bind(router.create_engine(), campaign)
 	else:
-		get_tree().change_scene_to_file(result_response.get("next_scene", "res://scenes/rpg/launcher.tscn"))
+		_navigating = true
+		var error := _change_scene(result_response.get("next_scene", "res://scenes/rpg/launcher.tscn"))
+		if error != OK:
+			_navigating = false
+			last_error = "返场失败（%d），安全战果已保存，可重试返回" % error
+			_show_result()
 
 func _return_title() -> void:
+	if _hd_enabled():
+		if is_instance_valid(_exit_confirmation): return
+		_exit_confirmation = Kit.panel(_canvas, Rect2(0, 0, 1920, 1080))
+		_exit_confirmation.mouse_filter = Control.MOUSE_FILTER_STOP
+		Kit.label(_exit_confirmation, "返回标题？", Rect2(470, 280, 980, 70), 42)
+		var message := "继续试玩会从同一战前状态重试。未提交的战斗过程不会保存。"
+		if engine != null and engine.snapshot().outcome == "victory" and not result_saved: message = "战果尚未保存。返回标题会丢失本场未提交战果，继续试玩将回到同一战前状态。"
+		if result_saved and engine != null and engine.snapshot().outcome == "victory": message = "战果已安全保存。继续试玩将回到参道。"
+		var body := Kit.label(_exit_confirmation, message, Rect2(470, 380, 980, 150), 30)
+		body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		Kit.button(_exit_confirmation, "返回标题", Rect2(470, 610, 460, 84), _confirm_return_title)
+		Kit.button(_exit_confirmation, "取消", Rect2(970, 610, 460, 84), _cancel_return_title)
+		return
+	_confirm_return_title()
+func _cancel_return_title() -> void:
+	if is_instance_valid(_exit_confirmation): _exit_confirmation.queue_free()
+	_exit_confirmation = null
+func _confirm_return_title() -> void:
+	var session: RefCounted = TrialSession.current if _hd_enabled() else null
+	var error := _change_scene("res://scenes/v3/title.tscn")
+	if error != OK:
+		last_error = "标题未能打开（%d），会话仍保留" % error
+		_cancel_return_title()
+		return
+	_cancel_presentation()
+	if session != null: session.close()
 	Router.clear_session()
-	get_tree().change_scene_to_file("res://scenes/v3/title.tscn")
+func _change_scene(path: String) -> Error:
+	return get_tree().change_scene_to_file(path)
+func _show_hd_error() -> void:
+	if is_instance_valid(_asset_error_panel): _asset_error_panel.queue_free()
+	_asset_error_panel = Kit.panel(_canvas, Rect2(430, 300, 1060, 470), true)
+	Kit.label(_asset_error_panel, "人物素材尚未就绪", Rect2(42, 32, 970, 60), 38, true)
+	var body := Kit.label(_asset_error_panel, last_error + "\n战前状态保持不变，请重试加载。", Rect2(42, 115, 970, 170), 28, true)
+	body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	Kit.button(_asset_error_panel, "重试加载", Rect2(42, 335, 464, 80), _retry_hd_assets)
+	Kit.button(_asset_error_panel, "返回标题", Rect2(546, 335, 464, 80), _return_title)
+func _retry_hd_assets() -> void:
+	if not _hd_enabled() or _asset_loading: return
+	_asset_loading = true
+	var generation := _presentation_generation
+	var result: Dictionary = await TrialSession.current.prepare_assets()
+	_asset_loading = false
+	if generation != _presentation_generation or not is_inside_tree(): return
+	if not result.ok:
+		last_error = result.error
+		_show_hd_error()
+		return
+	if is_instance_valid(_asset_error_panel): _asset_error_panel.queue_free()
+	_asset_error_panel = null
+	bind(router.create_engine(), campaign)
+func _exit_tree() -> void:
+	_cancel_presentation()
+
 
 func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel") and is_instance_valid(_exit_confirmation):
+		get_viewport().set_input_as_handled()
+		_cancel_return_title()
+		return
 	if event.is_action_pressed("ui_cancel"):
 		cancel_command()
 		get_viewport().set_input_as_handled()

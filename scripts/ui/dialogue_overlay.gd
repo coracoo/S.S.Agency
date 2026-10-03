@@ -11,6 +11,13 @@ extends CanvasLayer
 
 signal finished
 signal advanced(node_id: String)
+signal portrait_failed(message: String)
+var portrait_provider: Callable = Callable()
+var portrait_error := ""
+
+var advance_action: StringName = &"ui_accept"
+var require_release := false
+var _advance_armed := true
 
 var _theme = null # UITheme（stage_scene 传入，设计令牌禁硬编码）
 
@@ -20,6 +27,11 @@ var _typing := false
 var _advance := false # 翻页信号（_unhandled_input 事件驱动，一次按键只算一次）
 var _waiting_choice := false
 var _choice_next := ""
+var _playing_id := ""
+var _phase := ""
+var _remaining_delay := 0.0
+var _text_index := 0
+var _current_choices: Array = []
 
 # 屏幕固定布局（令牌 canvas 基准 1920×1080）
 var _portraits: Dictionary = {} # side -> {ctrl, tex, name}
@@ -54,23 +66,19 @@ func _ready() -> void:
 func play(nodes: Dictionary, start_id: String) -> void:
 	_nodes = nodes
 	_active = true
-	var id := start_id
-	while _active and not id.is_empty() and _nodes.has(id):
-		_choice_next = ""
-		_waiting_choice = false
-		await _show_node(_nodes[id], id)
-		advanced.emit(id)
-		if _choice_next != "":
-			id = _choice_next
-		else:
-			id = String(_nodes[id].get("next", ""))
-	_active = false
-	finished.emit()
+	_advance_armed = not require_release or not Input.is_action_pressed(advance_action)
+	_present_node(start_id)
+	if _active: await finished
 
-## 中途强制结束（切场景等）
+## 结束信号先释放play等待者；不留下跨离场的逐字计时协程。
 func abort() -> void:
+	var was_active := _active
 	_active = false
+	_typing = false
+	_advance = false
+	_phase = ""
 	_hide_choices()
+	if was_active: finished.emit()
 
 # ---------- 内部 ----------
 
@@ -125,63 +133,81 @@ func _mk_label(pos: Vector2, sz: int, color_key: String) -> Label:
 		l.add_theme_color_override("font_color", _theme.color(color_key))
 	return l
 
-func _show_node(node: Dictionary, node_id: String) -> void:
-	# 立绘：换边/换图（滑入 + 说话者提亮，另一方压暗）
-	_update_portrait(String(node.get("side", "left")),
-		String(node.get("portrait", "")))
-	# 姓名牌
-	var speaker_color := String(node.get("color", "vermilion_500"))
+# 单一逐帧时钟保持原30字/秒与标点停顿，避免free时悬挂嵌套SceneTreeTimer。
+func _present_node(node_id: String) -> void:
+	if node_id.is_empty() or not _nodes.has(node_id):
+		_active = false
+		_phase = ""
+		finished.emit()
+		return
+	_playing_id = node_id
+	var node: Dictionary = _nodes[node_id]
+	_choice_next = ""
+	_waiting_choice = false
+	_update_portrait(String(node.get("side", "left")), String(node.get("portrait", "")), String(node.get("speaker", "")))
+	if portrait_provider.is_valid() and not portrait_error.is_empty(): return
 	_name_label.text = String(node.get("name", ""))
 	if _theme:
-		_name_strip.color = _theme.color(speaker_color)
-		_name_label.add_theme_color_override("font_color",
-			Color(_theme.color("paper_100")))
-	# 打字机正文（逐字定时器驱动：不依赖 _process，无头截图同样推进）
-	var full: String = node.get("text", "")
-	_text_label.text = full
+		_name_strip.color = _theme.color(String(node.get("color", "vermilion_500")))
+		_name_label.add_theme_color_override("font_color", Color(_theme.color("paper_100")))
+	_text_label.text = node.get("text", "")
 	_text_label.visible_characters = 0
 	_hint_label.visible = false
 	_typing = true
 	_advance = false
-	var total := full.length()
-	for i in range(total):
-		if not _typing:
-			break
-		_text_label.visible_characters = i + 1
-		var ch := full.substr(i, 1)
-		var delay := 1.0 / TYPE_SPEED
-		if PAUSE_CHARS.contains(ch):
-			delay += 0.09
-		await get_tree().create_timer(delay).timeout
-	_typing = false
-	_text_label.visible_characters = -1
-	# 分支：弹按钮等选择；否则等翻页（快进键不算翻页，需再按一次）
-	var choices: Array = node.get("choices", [])
-	if not choices.is_empty():
-		_show_choices(choices)
+	_text_index = 0
+	_remaining_delay = 0.0
+	_current_choices = node.get("choices", [])
+	_phase = "typing"
+func _process(delta: float) -> void:
+	if not _active: return
+	if _phase == "typing":
+		if _typing:
+			_remaining_delay -= delta
+			while _remaining_delay <= 0 and _text_index < _text_label.text.length():
+				var character := _text_label.text.substr(_text_index, 1)
+				_text_index += 1
+				_text_label.visible_characters = _text_index
+				_remaining_delay += 1.0 / TYPE_SPEED + (0.09 if PAUSE_CHARS.contains(character) else 0.0)
+		if not _typing or _text_index >= _text_label.text.length():
+			_typing = false
+			_text_label.visible_characters = -1
+			if not _current_choices.is_empty():
+				_show_choices(_current_choices)
+				_phase = "choice"
+				_remaining_delay = 0.35
+			else:
+				_hint_label.visible = true
+				_phase = "wait"
+				_remaining_delay = 0.18
+		return
+	if _phase == "choice":
 		if _auto and not _pause_at_choice:
-			await get_tree().create_timer(0.35).timeout
-			_pick_choice(String(choices[0].get("next", "")))
-		while _waiting_choice and _active:
-			await get_tree().process_frame
-	else:
-		_hint_label.visible = true
-		if _auto:
-			await get_tree().create_timer(0.18).timeout
-			return
-		await _wait_advance()
-
-## 等一次翻页输入（_unhandled_input 置 _advance，事件驱动天然消抖）
-func _wait_advance() -> void:
-	_advance = false
-	while _active and not _advance:
-		await get_tree().process_frame
-	_advance = false
+			_remaining_delay -= delta
+			if _remaining_delay <= 0: _pick_choice(String(_current_choices[0].get("next", "")))
+		if not _waiting_choice: _complete_current()
+	elif _phase == "wait":
+		if _auto: _remaining_delay -= delta
+		if _advance or (_auto and _remaining_delay <= 0):
+			_advance = false
+			_complete_current()
+func _complete_current() -> void:
+	var id := _playing_id
+	advanced.emit(id)
+	if not _active: return
+	var next: String = _choice_next if not _choice_next.is_empty() else String(_nodes[id].get("next", ""))
+	_present_node(next)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not _active:
 		return
-	var is_advance: bool = event.is_action_pressed("ui_accept") \
+	if require_release:
+		if event.is_action_released(advance_action) or (event is InputEventMouseButton and not event.pressed and event.button_index == MOUSE_BUTTON_LEFT):
+			_advance_armed = true
+			return
+		if not _advance_armed: return
+	if event is InputEventKey and event.echo: return
+	var is_advance: bool = event.is_action_pressed(advance_action) \
 		or (event is InputEventMouseButton and event.pressed \
 			and event.button_index == MOUSE_BUTTON_LEFT)
 	# 数字键选分支（1-9，echo 过滤长按重复）
@@ -195,6 +221,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			return
 	if not is_advance:
 		return
+	if require_release: _advance_armed = false
 	if _typing:
 		# 打字中：本次按键只快进不翻页
 		_typing = false
@@ -242,8 +269,24 @@ func _hide_choices() -> void:
 		b.queue_free()
 
 ## 立绘管理：每侧一个封面裁切图，说话侧提亮、另一侧压暗；换图滑入
-func _update_portrait(side: String, portrait_path: String) -> void:
-	if portrait_path.is_empty():
+func _update_portrait(side: String, portrait_path: String, speaker: String = "") -> void:
+	var supplied: Dictionary = {}
+	var key := portrait_path
+	if portrait_provider.is_valid():
+		supplied = portrait_provider.call(speaker)
+		if not supplied.get("ok", false) or not supplied.get("texture") is Texture2D:
+			portrait_error = str(supplied.get("error", "人物立绘尚未就绪"))
+			var previous: Dictionary = _portraits.get(side, {})
+			if not previous.is_empty():
+				previous.tex = null
+				previous.ctrl.tex = null
+				previous.ctrl.queue_redraw()
+			portrait_failed.emit(portrait_error)
+			abort()
+			return
+		key = supplied.get("key", "identity:" + speaker)
+		portrait_error = ""
+	elif portrait_path.is_empty():
 		return
 	for s in ["left", "right"]:
 		var speaking: bool = (s == side)
@@ -252,11 +295,12 @@ func _update_portrait(side: String, portrait_path: String) -> void:
 			entry = _make_portrait(s)
 			_portraits[s] = entry
 		var ctrl: PortraitView = entry.get("ctrl")
-		if speaking and entry.get("path", "") != portrait_path:
-			var tex: Texture2D = PngLoader.load_texture(portrait_path)
+		if speaking and entry.get("path", "") != key:
+			var tex: Texture2D = supplied.texture if portrait_provider.is_valid() else PngLoader.load_texture(portrait_path)
 			entry["tex"] = tex
-			entry["path"] = portrait_path
+			entry["path"] = key
 			ctrl.tex = tex
+			ctrl.flip_h = portrait_provider.is_valid() and side == "right"
 			ctrl.queue_redraw()
 		# 旧 tween 先杀，避免同属性叠帧
 		var old: Tween = entry.get("tw")
@@ -292,9 +336,11 @@ func _make_portrait(side: String) -> Dictionary:
 ## 封面裁切立绘（同 stage_scene.CoverImage 思路：等比铺满裁边）
 class PortraitView extends Control:
 	var tex: Texture2D = null
+	var flip_h := false
 	func _draw() -> void:
 		if tex == null:
 			return
+		if flip_h: draw_set_transform(Vector2(size.x, 0), 0.0, Vector2(-1, 1))
 		var tw := float(tex.get_width())
 		var th := float(tex.get_height())
 		var s: float = maxf(size.x / maxf(tw, 1.0), size.y / maxf(th, 1.0))

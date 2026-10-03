@@ -4,7 +4,10 @@ extends Node2D
 ## 全屏实时渲染绘卷背景：直接实例化探索场景作活背景（参道 + 凛音待机 + 鼠标视差），
 ## 其上叠樱吹雪粒子与 UI 层。竖排题字 + 朱红落款章，按钮悬停金线 120ms 左→右扫过。
 
+const Portraits = preload("res://scripts/characters/identity_portraits.gd")
 const RpgRouter = preload("res://scripts/rpg/encounter_router.gd")
+const TrialSession = preload("res://scripts/exploration_3d/approach_session.gd")
+const TRIAL_MENU_SCENE := "res://scenes/exploration_3d/trial_menu.tscn"
 
 const STAGE_SCENE := "res://scenes/v3/stage.tscn"
 const FIRST_STAGE := "res://scenes/v3/stage.tscn" # 「继续退治」直连；「新的委托」走挂轴
@@ -14,21 +17,25 @@ const InkTransitionScript = preload("res://scripts/ui/ink_transition.gd")
 const SfxScript = preload("res://scripts/ui/sfx.gd")
 const StageSceneScript = preload("res://scripts/scenes/stage_scene.gd")
 
+var _navigating := false
 var _theme = null
 var _hud: CanvasLayer = null
 var _toast: Label = null
 var _bg_stage: Variant = null
+var _title_art_error := ""
 
 # 樱吹雪粒子（绘卷背景的氛围层，标题屏专属；正式版迁 StageScene 氛围系统）
 var _petals: Array = []
 var _petal_colors: Array = []
 
 func _ready() -> void:
+	if TrialSession.current != null: TrialSession.current.close()
 	RpgRouter.clear_session()
 	_theme = UIThemeScript.load_theme()
 	_build_live_background()
 	_spawn_petals()
 	_build_ui()
+	if not _title_art_error.is_empty(): _show_toast(_title_art_error)
 	set_process(true)
 
 # ---------- 实时绘卷背景 ----------
@@ -44,6 +51,25 @@ func _build_live_background() -> void:
 		_bg_stage.set("input_enabled", false)
 		_bg_stage.set("backdrop_mode", true)
 	add_child(_bg_stage)
+	_apply_title_identity()
+
+func _apply_title_identity() -> void:
+	var definition := Portraits.load_idle_definition("rinne")
+	if not definition.get("ok", false):
+		_title_art_error = definition.get("error", "高清标题人物未就绪")
+		if _bg_stage._player != null: _bg_stage._player.hide()
+		return
+	var player: AnimatedSprite2D = _bg_stage._player
+	var canvas: Dictionary = definition.manifest.canvas
+	player.sprite_frames = definition.frames
+	player.offset = Vector2(canvas.w, canvas.h) * 0.5 - Vector2(canvas.anchor[0], canvas.anchor[1])
+	player.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+	player.set_meta("identity_id", "rinne")
+	_bg_stage._anim_manifest = definition.manifest
+	_bg_stage._player_base_scale = float(_bg_stage._cfg.get("player_height_px", 500)) / float(canvas.content_height_px)
+	_bg_stage._has_attack_anim = false
+	player.play(&"idle")
+	_bg_stage._update_player_transform(0.0)
 
 # ---------- 樱吹雪 ----------
 
@@ -95,7 +121,7 @@ func _build_ui() -> void:
 	_build_menu()
 	_build_footer()
 	# 未开放功能 toast
-	_toast = _label("", Vector2(660, 880), 20)
+	_toast = _label("", Vector2(660, 920), 20)
 	_toast.add_theme_color_override("font_color", _theme.color("paper_300"))
 	_hud.add_child(_toast)
 
@@ -129,7 +155,8 @@ func _build_title_column() -> void:
 
 func _build_menu() -> void:
 	var items := [
-		{"text": "继续退治", "primary": true, "action": _on_start},
+		{"text": "参道篇试玩", "primary": true, "action": _on_approach_trial},
+		{"text": "继续退治", "primary": false, "action": _on_start},
 		{"text": "回合制 RPG 试作", "primary": false, "action": _on_rpg_prototype},
 		{"text": "新的委托", "primary": false, "action": _on_commission},
 		{"text": "妖怪手帖", "primary": false, "action": _on_codex_todo},
@@ -138,7 +165,7 @@ func _build_menu() -> void:
 	for i in range(items.size()):
 		var it: Dictionary = items[i]
 		var btn := _menu_button(String(it["text"]), bool(it["primary"]))
-		btn.position = Vector2(820, 450 + i * 86)
+		btn.position = Vector2(820, 400 + i * 82)
 		btn.pressed.connect(it["action"])
 		_hud.add_child(btn)
 
@@ -199,20 +226,34 @@ func _build_footer() -> void:
 # ---------- 动作 ----------
 
 func _on_start() -> void:
+	if _navigating: return
+	_navigating = true
 	RpgRouter.clear_session()
 	SfxScript.play(self, "card_play")
 	InkTransitionScript.transition(get_tree(), func() -> void:
 		get_tree().change_scene_to_file(FIRST_STAGE))
 
 func _on_commission() -> void:
+	if _navigating: return
+	_navigating = true
 	RpgRouter.clear_session()
 	SfxScript.play(self, "card_play")
 	InkTransitionScript.transition(get_tree(), func() -> void:
 		get_tree().change_scene_to_file(COMMISSION_SCENE))
 
 func _on_rpg_prototype() -> void:
+	if _navigating: return
+	_navigating = true
 	RpgRouter.clear_session()
 	get_tree().change_scene_to_file("res://scenes/rpg/launcher.tscn")
+
+func _on_approach_trial() -> void:
+	if _navigating: return
+	_navigating = true
+	var error := get_tree().change_scene_to_file(TRIAL_MENU_SCENE)
+	if error != OK:
+		_navigating = false
+		_show_toast("参道试玩入口暂时无法加载，请重试。")
 
 func _on_codex_todo() -> void:
 	_show_toast("妖怪手帖编纂中……先退治几笔再说吧。")

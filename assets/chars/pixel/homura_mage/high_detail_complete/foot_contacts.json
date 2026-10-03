@@ -1,0 +1,467 @@
+{
+  "schema_version": 1,
+  "character_id": "homura",
+  "canvas": [
+    1024,
+    1088
+  ],
+  "anchor": [
+    512,
+    1055
+  ],
+  "annotation_method": "Source-space visually inspected sole midpoints transformed by exact source_map scale/root. Airborne swing boots excluded. These are painted contact hints, not skeletal simulation.",
+  "frames": {
+    "idle1": {
+      "sha256": "baabb95dd6a60763bd98d4365bf18f4f343e0cb5dcdf6e88ebf670c8c5aaa2e4",
+      "contacts": [
+        {
+          "point": [
+            479,
+            1003
+          ],
+          "width_px": 65,
+          "strength": 1,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            580,
+            1050
+          ],
+          "width_px": 71,
+          "strength": 1,
+          "kind": "foot"
+        }
+      ]
+    },
+    "idle2": {
+      "sha256": "2aaf255a55737cb516e406d73e32a3f6e6c5fd3e9298195f1c7693b5c533fcc7",
+      "contacts": [
+        {
+          "point": [
+            479,
+            1003
+          ],
+          "width_px": 65,
+          "strength": 1,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            583,
+            1049
+          ],
+          "width_px": 71,
+          "strength": 1,
+          "kind": "foot"
+        }
+      ]
+    },
+    "idle3": {
+      "sha256": "496a9ff3b0ed185bb060a974aee65c2e24aad5d274e44b173e955b852f44f711",
+      "contacts": [
+        {
+          "point": [
+            479,
+            1003
+          ],
+          "width_px": 65,
+          "strength": 1,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            581,
+            1049
+          ],
+          "width_px": 71,
+          "strength": 1,
+          "kind": "foot"
+        }
+      ]
+    },
+    "idle4": {
+      "sha256": "c701ae5a89f0ed25f1f71395487b6b440320dd922db254cb0596101076fefc78",
+      "contacts": [
+        {
+          "point": [
+            479,
+            1003
+          ],
+          "width_px": 65,
+          "strength": 1,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            581,
+            1050
+          ],
+          "width_px": 71,
+          "strength": 1,
+          "kind": "foot"
+        }
+      ]
+    },
+    "walk1": {
+      "sha256": "0b4708e8560ff8c5bffebf964b745838d65220b82f7f2a329ac74c73b090e43c",
+      "contacts": [
+        {
+          "point": [
+            667,
+            1050
+          ],
+          "width_px": 85,
+          "strength": 1,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            326,
+            1010
+          ],
+          "width_px": 44,
+          "strength": 0.55,
+          "kind": "foot"
+        }
+      ]
+    },
+    "walk2": {
+      "sha256": "663b175f3f045773b27bce2f57d5ece2a964dd0697c2ecff8a64e29bff5b92fc",
+      "contacts": [
+        {
+          "point": [
+            689,
+            1050
+          ],
+          "width_px": 85,
+          "strength": 1,
+          "kind": "foot"
+        }
+      ]
+    },
+    "walk3": {
+      "sha256": "77d4f0bd4bd49f2d6040241565d7aa3a57710a25f61a70ed2d5f4353f8584c8e",
+      "contacts": [
+        {
+          "point": [
+            511,
+            1050
+          ],
+          "width_px": 71,
+          "strength": 1,
+          "kind": "foot"
+        }
+      ]
+    },
+    "walk4": {
+      "sha256": "2bdeee11ff0dd8986120e5fd9b4912396bbef6eb042d8db1df1d847f64cb1618",
+      "contacts": [
+        {
+          "point": [
+            303,
+            1050
+          ],
+          "width_px": 44,
+          "strength": 0.65,
+          "kind": "foot"
+        }
+      ]
+    },
+    "walk5": {
+      "sha256": "e782e6a522066fa3bd9426518c7f94023d4560773e2c506290ba7a03a5980fce",
+      "contacts": [
+        {
+          "point": [
+            670,
+            1050
+          ],
+          "width_px": 78,
+          "strength": 1,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            329,
+            1022
+          ],
+          "width_px": 44,
+          "strength": 0.55,
+          "kind": "foot"
+        }
+      ]
+    },
+    "walk6": {
+      "sha256": "f05920fc20c6442bcbe129174c46bb1e55c26cc9585021cd576b7cce9a9d2807",
+      "contacts": [
+        {
+          "point": [
+            693,
+            1050
+          ],
+          "width_px": 78,
+          "strength": 1,
+          "kind": "foot"
+        }
+      ]
+    },
+    "walk7": {
+      "sha256": "0d61dc2ad817c8ebf19d0f05e6cde724f5d3349362ab3e81cc68cdcbf64314f0",
+      "contacts": [
+        {
+          "point": [
+            560,
+            1050
+          ],
+          "width_px": 78,
+          "strength": 1,
+          "kind": "foot"
+        }
+      ]
+    },
+    "walk8": {
+      "sha256": "f313f699225c718ce0c1ef266036af767a0242ce5a7b6ec2dc00683c2dee44fd",
+      "contacts": [
+        {
+          "point": [
+            254,
+            1050
+          ],
+          "width_px": 48,
+          "strength": 0.65,
+          "kind": "foot"
+        }
+      ]
+    },
+    "attack1": {
+      "sha256": "2656e8e8059a30b61fcd172ab89a167599a6b64d1044b61cf082970d65e4b705",
+      "contacts": [
+        {
+          "point": [
+            363,
+            1050
+          ],
+          "width_px": 68,
+          "strength": 1,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            696,
+            1017
+          ],
+          "width_px": 75,
+          "strength": 1,
+          "kind": "foot"
+        }
+      ]
+    },
+    "attack2": {
+      "sha256": "35d2d556609362433c97477cb4535d3927966fbfae811f88d418b3fd66ad3a88",
+      "contacts": [
+        {
+          "point": [
+            366,
+            1050
+          ],
+          "width_px": 68,
+          "strength": 1,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            699,
+            1018
+          ],
+          "width_px": 75,
+          "strength": 1,
+          "kind": "foot"
+        }
+      ]
+    },
+    "attack3": {
+      "sha256": "b7f303a06fef974589a031202c8f32b0b5d13c5763a5588ea81640599fe799d1",
+      "contacts": [
+        {
+          "point": [
+            430,
+            1004
+          ],
+          "width_px": 80,
+          "strength": 1,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            655,
+            1049
+          ],
+          "width_px": 88,
+          "strength": 1,
+          "kind": "foot"
+        }
+      ]
+    },
+    "attack4": {
+      "sha256": "635f9853fa170d464392602fb2e17e7849a2f526b9a6a22f864e0841a12a5090",
+      "contacts": [
+        {
+          "point": [
+            401,
+            986
+          ],
+          "width_px": 61,
+          "strength": 1,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            603,
+            1050
+          ],
+          "width_px": 75,
+          "strength": 1,
+          "kind": "foot"
+        }
+      ]
+    },
+    "attack5": {
+      "sha256": "49a58c0f2d18e26812bf57b61931b2c9b9521ced277339a0c244b981d90fd926",
+      "contacts": [
+        {
+          "point": [
+            409,
+            988
+          ],
+          "width_px": 61,
+          "strength": 1,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            619,
+            1049
+          ],
+          "width_px": 75,
+          "strength": 1,
+          "kind": "foot"
+        }
+      ]
+    },
+    "attack6": {
+      "sha256": "5f5c9708d5e2f4a963acc5d0a67f025404496a343d9b75dbc03a88a98dd75a7e",
+      "contacts": [
+        {
+          "point": [
+            479,
+            1003
+          ],
+          "width_px": 65,
+          "strength": 1,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            581,
+            1049
+          ],
+          "width_px": 71,
+          "strength": 1,
+          "kind": "foot"
+        }
+      ]
+    },
+    "hit": {
+      "sha256": "ebd9ae16c8abe7423d94cc16a6d2a89c2c9334c73629840b6716c8541abbaae5",
+      "contacts": [
+        {
+          "point": [
+            467,
+            1003
+          ],
+          "width_px": 68,
+          "strength": 1,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            625,
+            1050
+          ],
+          "width_px": 75,
+          "strength": 1,
+          "kind": "foot"
+        }
+      ]
+    },
+    "defend": {
+      "sha256": "5cb1602377e3d7a57660222972e037b4d7b00523b56126c6965687749e5ea0a8",
+      "contacts": [
+        {
+          "point": [
+            363,
+            1050
+          ],
+          "width_px": 68,
+          "strength": 1,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            761,
+            961
+          ],
+          "width_px": 68,
+          "strength": 1,
+          "kind": "foot"
+        }
+      ]
+    },
+    "down": {
+      "sha256": "153c6f659059fe9e5281cd0537a3058c1b65ee1a041011fd1285617461ab57e0",
+      "contacts": [
+        {
+          "point": [
+            479,
+            1050
+          ],
+          "width_px": 68,
+          "strength": 1,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            568,
+            1035
+          ],
+          "width_px": 65,
+          "strength": 1,
+          "kind": "foot"
+        }
+      ]
+    },
+    "recover": {
+      "sha256": "89e2e6dd5d2bef1243ab286b7713aa75719c80f58ce7cfac0fb8ede0d7ed973a",
+      "contacts": [
+        {
+          "point": [
+            475,
+            1002
+          ],
+          "width_px": 61,
+          "strength": 1,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            573,
+            1050
+          ],
+          "width_px": 68,
+          "strength": 1,
+          "kind": "foot"
+        }
+      ]
+    }
+  }
+}

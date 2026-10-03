@@ -3,8 +3,14 @@ class_name RpgBattlePresenter
 extends RefCounted
 const Resolver = preload("res://scripts/rpg/effect_resolver.gd")
 static var presentation: Dictionary = {}
+static var identity_names: Dictionary = {}
 
 static func presentation_name(actor: Dictionary, definition: Dictionary) -> String:
+	if actor.get("side") == "player" and not str(actor.get("identity_id", "")).is_empty():
+		if identity_names.is_empty():
+			var roster: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets/chars/pixel/roster.json"))
+			for identity in roster.get("identities", []): identity_names[identity.id] = identity.display_name
+		if identity_names.has(actor.identity_id): return identity_names[actor.identity_id]
 	if presentation.is_empty(): presentation = JSON.parse_string(FileAccess.get_file_as_string("res://data/rpg/presentation.json"))
 	return presentation.get("enemy_labels", {}).get(actor.class_id, definition.get("name", actor.class_id)) if actor.side == "enemy" else definition.get("name", actor.class_id)
 

@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "note": "六身份七高细节逐帧形态；身体1024px，画布与脚锚由各形态清单指定。展示层不复制焰华的角色资源，也不替代剧情解锁规则。",
+  "identities": [
+    {
+      "id": "rinne",
+      "display_name": "凛音",
+      "class_presentation": "swordsman",
+      "default_form": "rinne"
+    },
+    {
+      "id": "homura",
+      "display_name": "焰华",
+      "class_presentation": "swordsman/mage",
+      "default_form": "homura_sword",
+      "unlock_form": "homura_mage",
+      "unlock_condition": "story",
+      "switch_policy": "presentation_only_shared_actor"
+    },
+    {
+      "id": "mint",
+      "display_name": "薄荷",
+      "class_presentation": "ranger",
+      "default_form": "mint"
+    },
+    {
+      "id": "guard",
+      "display_name": "岑照",
+      "class_presentation": "guard",
+      "default_form": "guard"
+    },
+    {
+      "id": "healer",
+      "display_name": "苏合",
+      "class_presentation": "healer",
+      "default_form": "healer"
+    },
+    {
+      "id": "controller",
+      "display_name": "清明",
+      "class_presentation": "controller",
+      "default_form": "controller"
+    }
+  ],
+  "forms": [
+    {
+      "id": "rinne",
+      "identity_id": "rinne",
+      "manifest": "res://assets/chars/pixel/rinne/high_detail_complete/manifest.json",
+      "preview_only": true
+    },
+    {
+      "id": "homura_sword",
+      "identity_id": "homura",
+      "manifest": "res://assets/chars/pixel/homura_sword/high_detail_complete/manifest.json",
+      "preview_only": true
+    },
+    {
+      "id": "homura_mage",
+      "identity_id": "homura",
+      "manifest": "res://assets/chars/pixel/homura_mage/high_detail_complete/manifest.json",
+      "preview_only": true
+    },
+    {
+      "id": "mint",
+      "identity_id": "mint",
+      "manifest": "res://assets/chars/pixel/mint/high_detail_complete/manifest.json",
+      "preview_only": true
+    },
+    {
+      "id": "guard",
+      "identity_id": "guard",
+      "manifest": "res://assets/chars/pixel/guard/high_detail_complete/manifest.json",
+      "preview_only": true
+    },
+    {
+      "id": "healer",
+      "identity_id": "healer",
+      "manifest": "res://assets/chars/pixel/healer/high_detail_complete/manifest.json",
+      "preview_only": true,
+      "costume_note": "青色不透明裤装适配候选；与原坐姿设定有服装变化，待用户确认。"
+    },
+    {
+      "id": "controller",
+      "identity_id": "controller",
+      "manifest": "res://assets/chars/pixel/controller/high_detail_complete/manifest.json",
+      "preview_only": true
+    }
+  ],
+  "asset_profile": "high_detail"
+}

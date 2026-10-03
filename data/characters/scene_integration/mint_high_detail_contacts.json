@@ -1,0 +1,467 @@
+{
+  "schema_version": 1,
+  "character_id": "mint",
+  "canvas": [
+    1280,
+    1152
+  ],
+  "anchor": [
+    640,
+    1062
+  ],
+  "annotation_method": "Manual visual sole/toe/heel/knee points on exact normalized PNG using coordinate-grid foot crops. Only visibly supporting limbs included; swing feet omitted. Approximate painted 2D contact hints, not skeleton or physical gait simulation.",
+  "frames": {
+    "idle_right_f1": {
+      "sha256": "92cb18f5f218767927479a29a08b08a9c0f4218597b5c8ef9a3dd51cc9dd1b1b",
+      "contacts": [
+        {
+          "point": [
+            632,
+            1058
+          ],
+          "width_px": 100,
+          "strength": 1.0,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            680,
+            1037
+          ],
+          "width_px": 90,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "idle_right_f2": {
+      "sha256": "e19123098f47884e87a6e2f869f88706b476e69821d51498378eade8637c5c35",
+      "contacts": [
+        {
+          "point": [
+            632,
+            1058
+          ],
+          "width_px": 100,
+          "strength": 1.0,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            680,
+            1037
+          ],
+          "width_px": 90,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "idle_right_f3": {
+      "sha256": "da78c98a601f453c146b727316a243f76134fdcc66d0f97b0e244ecb0566b39d",
+      "contacts": [
+        {
+          "point": [
+            632,
+            1058
+          ],
+          "width_px": 100,
+          "strength": 1.0,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            680,
+            1037
+          ],
+          "width_px": 90,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "idle_right_f4": {
+      "sha256": "9790cb47915b3edce019abd7af8d0051154f4454def6bcd6a444719bfee9db98",
+      "contacts": [
+        {
+          "point": [
+            632,
+            1058
+          ],
+          "width_px": 100,
+          "strength": 1.0,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            680,
+            1037
+          ],
+          "width_px": 90,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "walk_right_f1": {
+      "sha256": "1edef69add2f32db8880bba66d54ad3f2886374dda8f96de02a886b25d2bc482",
+      "contacts": [
+        {
+          "point": [
+            828,
+            1058
+          ],
+          "width_px": 125,
+          "strength": 1.0,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            526,
+            1050
+          ],
+          "width_px": 50,
+          "strength": 1.0,
+          "kind": "toe"
+        }
+      ]
+    },
+    "walk_right_f2": {
+      "sha256": "ade63a5b86b049736a280218139e5b9fb3b80c747c10a2663082ff7ffffa2749",
+      "contacts": [
+        {
+          "point": [
+            711,
+            1058
+          ],
+          "width_px": 125,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "walk_right_f3": {
+      "sha256": "f4c80e080f4d9a9b7539a4b757f30ef8df85b0f603079c429d4ab352340605e9",
+      "contacts": [
+        {
+          "point": [
+            626,
+            1058
+          ],
+          "width_px": 110,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "walk_right_f4": {
+      "sha256": "799c70be816b2258747a03012f334c886f9077481702b3841ed190c6bc0b5a23",
+      "contacts": [
+        {
+          "point": [
+            470,
+            1058
+          ],
+          "width_px": 115,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "walk_right_f5": {
+      "sha256": "98fbde3576d4f1c2cb8601cc53b283ce677650a5243b45af72dbfee803c50609",
+      "contacts": [
+        {
+          "point": [
+            807,
+            1058
+          ],
+          "width_px": 55,
+          "strength": 1.0,
+          "kind": "heel"
+        },
+        {
+          "point": [
+            475,
+            1048
+          ],
+          "width_px": 50,
+          "strength": 1.0,
+          "kind": "toe"
+        }
+      ]
+    },
+    "walk_right_f6": {
+      "sha256": "9bdeb53b4e9103938691df9f4460d2b131e795ac6a133b58985543249362b5b8",
+      "contacts": [
+        {
+          "point": [
+            747,
+            1058
+          ],
+          "width_px": 125,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "walk_right_f7": {
+      "sha256": "998dfb1b0cc830cb96126b5f2cea3d371af2011e3206f39e38de7f393fbd8627",
+      "contacts": [
+        {
+          "point": [
+            550,
+            1058
+          ],
+          "width_px": 125,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "walk_right_f8": {
+      "sha256": "0bb15dcbb4ae43d1a114b94293fddd2214b74c3ba58c4ceddcf262fb9a81f920",
+      "contacts": [
+        {
+          "point": [
+            480,
+            1058
+          ],
+          "width_px": 115,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "attack_right_f1": {
+      "sha256": "cfaf345557c3c53590e021925fcaea9b5b3b2b6e9b3c6649df0ab383f0a8f04c",
+      "contacts": [
+        {
+          "point": [
+            400,
+            1058
+          ],
+          "width_px": 115,
+          "strength": 1.0,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            860,
+            1041
+          ],
+          "width_px": 135,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "attack_right_f2": {
+      "sha256": "c75e4e4a566abfd049a4e0b5d156c986e73826d0379546901e06a3d2ed6092d4",
+      "contacts": [
+        {
+          "point": [
+            425,
+            1058
+          ],
+          "width_px": 115,
+          "strength": 1.0,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            810,
+            1048
+          ],
+          "width_px": 140,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "attack_right_f3": {
+      "sha256": "b68b66d78b704ebee1bffe4bdafa297f286016c6ce2932ab6a98e24876111e3b",
+      "contacts": [
+        {
+          "point": [
+            285,
+            1058
+          ],
+          "width_px": 105,
+          "strength": 1.0,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            917,
+            1058
+          ],
+          "width_px": 135,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "attack_right_f4": {
+      "sha256": "b442678679fc11968795d007ff9bf8f29c446c30656d85ecaf4c5adade3f60c5",
+      "contacts": [
+        {
+          "point": [
+            300,
+            1058
+          ],
+          "width_px": 115,
+          "strength": 1.0,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            770,
+            1052
+          ],
+          "width_px": 135,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "attack_right_f5": {
+      "sha256": "8c4fac0fe7133ad11d8ff5bf69ed8ab776ea9d3c3e944e2c70a1953754fe3b81",
+      "contacts": [
+        {
+          "point": [
+            460,
+            1058
+          ],
+          "width_px": 115,
+          "strength": 1.0,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            851,
+            1058
+          ],
+          "width_px": 135,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "attack_right_f6": {
+      "sha256": "d46cc3d4b0f18bc2467e75be9c0c947f11e80d80089ddfcf2b77c825c779ede5",
+      "contacts": [
+        {
+          "point": [
+            610,
+            1058
+          ],
+          "width_px": 115,
+          "strength": 1.0,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            717,
+            1033
+          ],
+          "width_px": 115,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "hit_right_f1": {
+      "sha256": "5851e0cdc07dd4eb9dac3e633672ae3d3ab9d909b2807764300156a166c84840",
+      "contacts": [
+        {
+          "point": [
+            590,
+            1058
+          ],
+          "width_px": 85,
+          "strength": 1.0,
+          "kind": "toe"
+        },
+        {
+          "point": [
+            754,
+            1033
+          ],
+          "width_px": 125,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "defend_right_f1": {
+      "sha256": "badbbdb70311269ae08ecb6299802196529db570cf5822af8e56419b44006d55",
+      "contacts": [
+        {
+          "point": [
+            478,
+            1058
+          ],
+          "width_px": 115,
+          "strength": 1.0,
+          "kind": "foot"
+        },
+        {
+          "point": [
+            837,
+            1008
+          ],
+          "width_px": 125,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "down_right_f1": {
+      "sha256": "ad77f089b3ac943e442dfe913fc32ca24b78a4ed2b860376e9b5c2212e13ef61",
+      "contacts": [
+        {
+          "point": [
+            565,
+            1030
+          ],
+          "width_px": 105,
+          "strength": 1.0,
+          "kind": "knee"
+        },
+        {
+          "point": [
+            896,
+            1015
+          ],
+          "width_px": 125,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    },
+    "recover_right_f1": {
+      "sha256": "ffc620ab447ab698307183acb2a2c8e150ae3be96bf383cb1c7e0af4e86d66f2",
+      "contacts": [
+        {
+          "point": [
+            363,
+            1058
+          ],
+          "width_px": 70,
+          "strength": 1.0,
+          "kind": "toe"
+        },
+        {
+          "point": [
+            711,
+            986
+          ],
+          "width_px": 115,
+          "strength": 1.0,
+          "kind": "foot"
+        }
+      ]
+    }
+  }
+}
