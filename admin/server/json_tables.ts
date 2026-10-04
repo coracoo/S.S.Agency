@@ -308,7 +308,8 @@ function keyValueAdapter(rel: string): SheetAdapter {
   }
 }
 
-// ---------- 3D 参道（exploration_3d/approach.json）：锚点/调查点/场景参数 三表 ----------
+// ---------- 3D 探索场景（data/exploration_3d/<场景>.json）：锚点/调查点/场景参数 三表 ----------
+/** 单场景三表（rel = 项目相对路径，如 data/exploration_3d/approach.json） */
 function approachAdapter(rel: string): { sheets: Record<string, SheetAdapter> } {
   const file = () => path.resolve(__dirname, "..", "..", rel)
   const data = () => readJson(file()) as Record<string, unknown>
@@ -370,6 +371,22 @@ function approachAdapter(rel: string): { sheets: Record<string, SheetAdapter> } 
     },
   }
   return { sheets: { 锚点: anchorsAdapter, 调查点: targetsAdapter, 场景参数: paramsAdapter } }
+}
+
+/** data/exploration_3d/ 下每个场景文件 → 三张表（<场景>·锚点 / <场景>·调查点 / <场景>·场景参数）。
+ *  新增 3D 场景 JSON 即自动出现在簿里，无需改注册表。 */
+function scene3dSheets(): Record<string, SheetAdapter> {
+  const root = path.resolve(__dirname, "..", "..")
+  const sheets: Record<string, SheetAdapter> = {}
+  for (const f of jsonFiles(path.join(root, "data", "exploration_3d"))) {
+    const rel = path.relative(root, f).split(path.sep).join("/")
+    const name = path.basename(f, ".json")
+    const a = approachAdapter(rel).sheets
+    sheets[`${name}·锚点`] = a["锚点"]
+    sheets[`${name}·调查点`] = a["调查点"]
+    sheets[`${name}·场景参数`] = a["场景参数"]
+  }
+  return sheets
 }
 
 // ---------- 战斗关卡（data/battles/*.json）：关卡参数 / 敌方 / 机关点位 ----------
@@ -531,7 +548,6 @@ function casesAdapter(dirRel: string): SheetAdapter {
 // ---------- 簿注册表 ----------
 export const JSON_BOOKS: Record<string, Book> = (() => {
   const rpg = (rel: string): SheetAdapter => listAdapter(rel, "definitions")
-  const approach = approachAdapter("data/exploration_3d/approach.json")
   return {
     rpg: {
       desc: "回合制 RPG 模式数值：data/rpg/*.json（游戏运行时源），保存即生效，自动 .bak 备份",
@@ -554,11 +570,10 @@ export const JSON_BOOKS: Record<string, Book> = (() => {
       },
     },
     coords: {
-      desc: "探索坐标：异象/遮挡体（2D 舞台）+ 参道 3D 锚点/调查点，单位=场景像素/米，保存即生效",
+      desc: "3D 探索场景配置：data/exploration_3d/<场景>.json（锚点/调查点/边界/行走多边形，单位=米）+ 异象线索文本（data/clues/*.json），保存即生效",
       sheets: {
-        异象坐标: mergedAdapter("data/clues", "clues", "stage", ["comment"]),
-        遮挡坐标: mergedAdapter("data/occluders", "occluders", "stage", []),
-        ...approach.sheets,
+        ...scene3dSheets(),
+        异象线索: mergedAdapter("data/clues", "clues", "stage", ["comment"]),
       },
     },
     content: {

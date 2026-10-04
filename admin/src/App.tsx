@@ -14,7 +14,6 @@ import {
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Plus, Trash2, RefreshCw, Save, CircleCheck, CircleX } from "lucide-react"
-import MaskEditor from "@/sections/MaskEditor"
 
 // ---------- 配置域元数据（与 tools/export_*_xlsx.py 的表结构对应） ----------
 type Cell = string | number | boolean | null
@@ -47,18 +46,6 @@ const BOOKS: BookMeta[] = [
     sheetTitles: { battle: "场次", enemy: "敌方波次", slot: "场景槽位", card: "技能卡牌" },
   },
   {
-    key: "stage",
-    title: "舞台线索",
-    desc: "config/stage_config.xlsx → data/stages/*.json + data/clues/*.json：探索舞台 / 画面线索",
-    sheetTitles: { stage: "探索舞台", clue: "画面线索" },
-  },
-  {
-    key: "mask",
-    title: "行走遮罩",
-    desc: "手动涂绘各舞台的可行走区域（白 = 可行走）：左侧选舞台，右侧在背景上涂抹，绿线为逐列落脚线预览，保存即写入 assets/bg/walkmasks/<舞台>.png，游戏内立即生效",
-    sheetTitles: {},
-  },
-  {
     key: "rpg",
     title: "RPG 数值",
     kind: "json",
@@ -74,10 +61,10 @@ const BOOKS: BookMeta[] = [
   },
   {
     key: "coords",
-    title: "坐标",
+    title: "3D 场景",
     kind: "json",
-    desc: "异象坐标 / 遮挡体坐标（2D 舞台，单位=场景像素）+ 参道 3D 锚点与调查点（单位=米），保存即生效",
-    sheetTitles: { 异象坐标: "异象坐标", 遮挡坐标: "遮挡坐标", 锚点: "参道3D锚点", 调查点: "参道3D调查点", 场景参数: "参道3D场景参数" },
+    desc: "3D 探索场景：data/exploration_3d/<场景>.json 的锚点 / 调查点 / 边界 / 行走多边形（单位=米）+ 异象线索文本（data/clues/*.json），保存即生效",
+    sheetTitles: { 异象线索: "异象线索" },
   },
   {
     key: "content",
@@ -149,14 +136,6 @@ export default function App() {
     setLoading(true)
     setError("")
     try {
-      if (key === "mask") {
-        // 遮罩页自管数据（走 /api/stages、/api/walkmask），无需加载表格
-        setSheets({})
-        setBaseline({})
-        setSheetIdx(0)
-        setLog({ ok: null, text: "" })
-        return
-      }
       const r = await fetch(book.kind === "json" ? `/api/load-json/${key}` : `/api/load/${key}`)
       const data = await r.json()
       if (!r.ok) throw new Error(data.error || `HTTP ${r.status}`)
@@ -270,27 +249,19 @@ export default function App() {
           <Badge variant={dirty ? "default" : "secondary"}>
             {dirty ? "有未保存修改" : "已同步"}
           </Badge>
-          {book.key !== "mask" && (
-            <>
-              <Button variant="outline" size="sm" onClick={() => load(book.key)} disabled={loading}>
-                <RefreshCw className={`mr-1 h-4 w-4 ${loading ? "animate-spin" : ""}`} />
-                重新加载
-              </Button>
-              <Button size="sm" onClick={save} disabled={saving || loading || !dirty}>
-                <Save className="mr-1 h-4 w-4" />
-                {saving ? "校验写入中…" : book.kind === "json" ? "保存" : "保存并导出"}
-              </Button>
-            </>
-          )}
+          <Button variant="outline" size="sm" onClick={() => load(book.key)} disabled={loading}>
+            <RefreshCw className={`mr-1 h-4 w-4 ${loading ? "animate-spin" : ""}`} />
+            重新加载
+          </Button>
+          <Button size="sm" onClick={save} disabled={saving || loading || !dirty}>
+            <Save className="mr-1 h-4 w-4" />
+            {saving ? "校验写入中…" : book.kind === "json" ? "保存" : "保存并导出"}
+          </Button>
         </div>
         <p className="mx-auto max-w-[1600px] px-6 pb-2 text-xs text-stone-500">{book.desc}</p>
       </header>
 
       <main className="mx-auto max-w-[1600px] px-6 py-4">
-        {book.key === "mask" ? (
-          <MaskEditor />
-        ) : (
-          <>
         {error && (
           <Alert variant="destructive" className="mb-4">
             <AlertTitle>加载失败</AlertTitle>
@@ -448,8 +419,6 @@ export default function App() {
           校验失败时 xlsx 已写入但游戏 JSON 保持旧值，按上方报告修表后重新保存即可；
           如需回滚 xlsx，取 config/*.xlsx.bak。
         </p>
-        )}
-          </>
         )}
       </main>
     </div>
