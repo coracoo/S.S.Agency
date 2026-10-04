@@ -50,30 +50,57 @@
    "next": "s1"
   },
   "s1": {
-   "speaker": "rinne",
-   "name": "凛音",
-   "color": "vermilion_500",
-   "portrait": "res://assets/chars/portraits/rinne_half.png",
-   "side": "left",
-   "text": "（引路词）魂兮归来，莫恋此乡。灯前有路，路尽有光——去吧。",
-   "next": "s2"
-  },
-  "s2": {
    "speaker": "sayo",
    "name": "？？？",
    "color": "paper_300",
    "portrait": "",
    "side": "right",
-   "text": "再见了，祭主爷爷。这七十年的更次，辛苦你了。",
-   "next": "s3"
+   "text": "我叫小夜。山下村子，顾家的媳妇——虽然还没来得及过门。（她低头看自己的手）外头……仗打完了吗？",
+   "next": "s2"
   },
-  "s3": {
+  "s2": {
    "speaker": "rinne",
    "name": "凛音",
    "color": "vermilion_500",
    "portrait": "res://assets/chars/portraits/rinne_half.png",
    "side": "left",
-   "text": "（她的身影随灯火轻轻一礼，淡下去。老祭主的纸躯委顿于地，像终于卸下了肩上的棺。逢魔之刻的雾，第一次在天亮前散尽了。）",
+   "text": "打完了。七十年前就打完了。村子的人迁去了南边，开枝散叶，活得很好。顾家的后人里，有一个做了退魔师——她让我替她还一盏灯。",
+   "next": "s3"
+  },
+  "s3": {
+   "speaker": "sayo",
+   "name": "？？？",
+   "color": "paper_300",
+   "portrait": "",
+   "side": "right",
+   "text": "那就好，那就好……（她转向棺守的纸躯，端端正正福了一礼）祭主爷爷，更次你替我数了三万次，辛苦你了。",
+   "next": "s4"
+  },
+  "s4": {
+   "speaker": "rinne",
+   "name": "凛音",
+   "color": "vermilion_500",
+   "portrait": "res://assets/chars/portraits/rinne_half.png",
+   "side": "left",
+   "text": "（引路词）魂兮归来，莫恋此乡。灯前有路，路尽有光。顾氏小夜——拜堂，起灵，上路！",
+   "next": "s5"
+  },
+  "s5": {
+   "speaker": "sayo",
+   "name": "？？？",
+   "color": "paper_300",
+   "portrait": "",
+   "side": "right",
+   "text": "（她终于穿上那身嫁衣的影子，就着灯火，端端正正拜了下去。一礼既成，身影随灯而起，淡如晨雾）替我向山下问好。就说——小夜先走一步，回有太阳的山坡去了。",
+   "next": "s6"
+  },
+  "s6": {
+   "speaker": "rinne",
+   "name": "凛音",
+   "color": "vermilion_500",
+   "portrait": "res://assets/chars/portraits/rinne_half.png",
+   "side": "left",
+   "text": "（棺守的纸躯委顿于地，像卸下了肩上的棺。逢魔之刻的雾，第一次在天亮前散尽了。薄荷在哭，哭得很小声，怕吵到谁似的。）……结案。退魔寮乙字科凛音：逢魔神社夜巡，五夜，送行者一，安魂。",
    "next": ""
   },
   "e_seal": {
@@ -86,15 +113,24 @@
    "next": "z1"
   },
   "z1": {
+   "speaker": "guanshou",
+   "name": "棺守",
+   "color": "ink_700",
+   "portrait": "",
+   "side": "right",
+   "text": "镇……？你要……镇她？她等了七十年……你们山下人，七十年前弃她而去，如今还要把她钉在这口棺里——？！",
+   "next": "z2"
+  },
+  "z2": {
    "speaker": "rinne",
    "name": "凛音",
    "color": "vermilion_500",
    "portrait": "res://assets/chars/portraits/rinne_half.png",
    "side": "left",
-   "text": "（朱印落下，钟鸣、纸响、棺纹一齐寂然。只有棺底极轻极轻地——叩了一声。像还有话，被封在了里面。）",
-   "next": "z2"
+   "text": "（朱印落下，钟鸣、纸响、棺纹一齐寂然。只有棺底极轻极轻地，叩了一声。像还有话，被封在了里面。）薄荷，记下来：本案未结，改「续监」。……我总有一天，会回来把这句话听完。",
+   "next": "z3"
   },
-  "z2": {
+  "z3": {
    "speaker": "sayo",
    "name": "？？？",
    "color": "paper_300",

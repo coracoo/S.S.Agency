@@ -4,6 +4,10 @@
    "enter": "a1",
    "hotspots": [
     {
+     "x": 300.0,
+     "node": "r1"
+    },
+    {
      "x": 850.0,
      "node": "h1"
     }
@@ -127,6 +131,36 @@
      "text": "靠近石钵，按 E 确认那道倒影。看完就走——天黑之前，我们还有一场架要打。",
      "next": "",
      "choices": []
+    },
+    "r1": {
+     "speaker": "rinne",
+     "name": "凛音",
+     "color": "vermilion_500",
+     "portrait": "res://assets/chars/portraits/rinne_half.png",
+     "side": "left",
+     "text": "这条石阶……祖母讲过。她说小时候从山上下来，就是踩着这些台阶，一手牵着她娘，一手拎着那盏没送出去的灯。",
+     "next": "r2",
+     "choices": []
+    },
+    "r2": {
+     "speaker": "hakuyo",
+     "name": "薄荷",
+     "color": "fuji_500",
+     "portrait": "res://assets/chars/portraits/hakuyo_half.png",
+     "side": "right",
+     "text": "没送出去的灯？……委托单上写的是「查明异象的来路」——你从看到地名的那一刻起，就知道来路了吧。",
+     "next": "r3",
+     "choices": []
+    },
+    "r3": {
+     "speaker": "rinne",
+     "name": "凛音",
+     "color": "vermilion_500",
+     "portrait": "res://assets/chars/portraits/rinne_half.png",
+     "side": "left",
+     "text": "嗯。所以才接。「退魔寮乙字科，凛音——接下逢魔神社的夜巡。」这句话，我练了十年。",
+     "next": "",
+     "choices": []
     }
    }
   },
@@ -151,6 +185,46 @@
      "portrait": "res://assets/chars/portraits/hakuyo_half.png",
      "side": "right",
      "text": "钟就在头上。没有风，注连绳却是湿的……像被谁的眼泪泡过。",
+     "next": "c3",
+     "choices": []
+    },
+    "c3": {
+     "speaker": "hakuyo",
+     "name": "薄荷",
+     "color": "fuji_500",
+     "portrait": "res://assets/chars/portraits/hakuyo_half.png",
+     "side": "right",
+     "text": "我看过了，这口吊钟是旧式送钟——不是报时用的，是给人「送行」的。鸣三响，起灵；鸣九响，下葬。",
+     "next": "c4",
+     "choices": []
+    },
+    "c4": {
+     "speaker": "rinne",
+     "name": "凛音",
+     "color": "vermilion_500",
+     "portrait": "res://assets/chars/portraits/rinne_half.png",
+     "side": "left",
+     "text": "它昨夜鸣了几响？",
+     "next": "c5",
+     "choices": []
+    },
+    "c5": {
+     "speaker": "hakuyo",
+     "name": "薄荷",
+     "color": "fuji_500",
+     "portrait": "res://assets/chars/portraits/hakuyo_half.png",
+     "side": "right",
+     "text": "……三响。凛音，这口钟不是在报时，是在起灵。有人在这座神社里，办了一场没人看见的葬礼——办了七十年。",
+     "next": "c6",
+     "choices": []
+    },
+    "c6": {
+     "speaker": "rinne",
+     "name": "凛音",
+     "color": "vermilion_500",
+     "portrait": "res://assets/chars/portraits/rinne_half.png",
+     "side": "left",
+     "text": "那就让它办完。",
      "next": "",
      "choices": []
     }
@@ -182,7 +256,7 @@
      "portrait": "res://assets/chars/portraits/rinne_half.png",
      "side": "left",
      "text": "列队。纸人形抬着一口空棺，正沿着回廊往本殿去。……棺是空的，重量却在。",
-     "next": "",
+     "next": "p4",
      "choices": []
     },
     "p3": {
@@ -192,6 +266,36 @@
      "portrait": "",
      "side": "right",
      "text": "（棺中传来三声轻叩。不快，不慢，像在数谁的脚步。）",
+     "next": "",
+     "choices": []
+    },
+    "p4": {
+     "speaker": "hakuyo",
+     "name": "薄荷",
+     "color": "fuji_500",
+     "portrait": "res://assets/chars/portraits/hakuyo_half.png",
+     "side": "right",
+     "text": "书上写过这种列队——扎纸守灵。人走了，心里的念头没走，就会附在守灵的纸人身上，一遍一遍，继续做生前没做完的那件事。",
+     "next": "p5",
+     "choices": []
+    },
+    "p5": {
+     "speaker": "rinne",
+     "name": "凛音",
+     "color": "vermilion_500",
+     "portrait": "res://assets/chars/portraits/rinne_half.png",
+     "side": "left",
+     "text": "它们抬了七十年。抬棺的人不累——因为走路的早就不是人了。累的是那个下命令的。",
+     "next": "p6",
+     "choices": []
+    },
+    "p6": {
+     "speaker": "hakuyo",
+     "name": "薄荷",
+     "color": "fuji_500",
+     "portrait": "res://assets/chars/portraits/hakuyo_half.png",
+     "side": "right",
+     "text": "凛音，我在数——每圈列队经过，棺里都叩三下。她在催人。可她催的不是我们……是让她等的那个人。",
      "next": "",
      "choices": []
     }
@@ -228,6 +332,46 @@
      "portrait": "res://assets/chars/portraits/rinne_half.png",
      "side": "left",
      "text": "不是怨灵。四夜的异象，从头到尾，只是一个人想被好好送走。",
+     "next": "m4",
+     "choices": []
+    },
+    "m4": {
+     "speaker": "hakuyo",
+     "name": "薄荷",
+     "color": "fuji_500",
+     "portrait": "res://assets/chars/portraits/hakuyo_half.png",
+     "side": "right",
+     "text": "我能听见她。很轻，像隔着很深的水……她说她叫小夜。她说等的人一直没来，问我们是不是「山下顾家派来的」。",
+     "next": "m5",
+     "choices": []
+    },
+    "m5": {
+     "speaker": "rinne",
+     "name": "凛音",
+     "color": "vermilion_500",
+     "portrait": "res://assets/chars/portraits/rinne_half.png",
+     "side": "left",
+     "text": "（沉默了一会儿）顾家。……我祖母的娘家，就姓顾。当年订下这门亲事的，是小夜的兄长。战乱起的那年，顾家整族南迁——那盏聘礼之灯，没来得及送上山。",
+     "next": "m6",
+     "choices": []
+    },
+    "m6": {
+     "speaker": "hakuyo",
+     "name": "薄荷",
+     "color": "fuji_500",
+     "portrait": "res://assets/chars/portraits/hakuyo_half.png",
+     "side": "right",
+     "text": "所以送葬的仪式差了最后一环，乡俗里她就进不了祖坟……七十年，就卡在这一盏灯上？",
+     "next": "m7",
+     "choices": []
+    },
+    "m7": {
+     "speaker": "rinne",
+     "name": "凛音",
+     "color": "vermilion_500",
+     "portrait": "res://assets/chars/portraits/rinne_half.png",
+     "side": "left",
+     "text": "卡在「没人记得」上。灯、钟、棺、镜——她把路标一个一个点亮了。明天是逢魔刻。该有人把这盏灯，送到她面前了。",
      "next": "",
      "choices": []
     }
@@ -254,7 +398,7 @@
      "portrait": "res://assets/chars/portraits/rinne_half.png",
      "side": "left",
      "text": "也是结束。它催人三夜，叩门三声。今晚，换我叩门。",
-     "next": "h3",
+     "next": "hd3",
      "choices": []
     },
     "hd3": {
@@ -264,6 +408,26 @@
      "portrait": "",
      "side": "right",
      "text": "来者——是送行的，还是夺棺的？",
+     "next": "hd4",
+     "choices": []
+    },
+    "hd4": {
+     "speaker": "rinne",
+     "name": "凛音",
+     "color": "vermilion_500",
+     "portrait": "res://assets/chars/portraits/rinne_half.png",
+     "side": "left",
+     "text": "送行的。退魔寮乙字科，凛音——受山下顾家之托，送顾氏未过门的媳妇，小夜姑娘，上路。",
+     "next": "hd5",
+     "choices": []
+    },
+    "hd5": {
+     "speaker": "guanshou",
+     "name": "棺守",
+     "color": "ink_700",
+     "portrait": "",
+     "side": "right",
+     "text": "……顾。七十年了。原来山下还有人，记得这个姓。（他让开了半步）……那么，拜托了。",
      "next": "",
      "choices": []
     }
