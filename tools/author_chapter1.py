@@ -60,7 +60,7 @@ def author_battle():
         "phase2_bonus": 2, "tier_attack_mult": {"weak": 0.7, "normal": 1.0, "empowered": 1.3, "berserk": 1.5},
         "weak_below": 3, "empowered_from": 6, "berserk_from": 8}, ensure_ascii=False)
     b1 = demo[:]
-    setc(b1, m, **{'file': 'ch1_night1', 'id': 'ch1_night1',
+    setc(b1, m, **{'file': 'ch1_night1', 'id': 'ch1_night1', 'bg': 'res://assets/bg/approach_battle.png',
                    'name': '第一夜 · 参道灯笼影（教学战）',
                    'comment': '第一章棺女·夜一：仅扑击/尖啸，认识灵墨与出牌',
                    'ap_per_turn': '5', 'spirit': spirit(3),
@@ -163,6 +163,8 @@ def node(speaker, name, color, portrait, side, text, next='', choices=None):
 RINNE = ('rinne', '凛音', 'vermilion_500', 'res://assets/chars/portraits/rinne_half.png', 'left')
 HAKUYO = ('hakuyo', '薄荷', 'fuji_500', 'res://assets/chars/portraits/hakuyo_half.png', 'right')
 SAYO = ('sayo', '？？？', 'paper_300', '', 'right')
+# 结案真相场景用半身立绘（探索阶段保持无立绘，维持悬念）
+SAYO_FULL = ('sayo', '小夜', 'paper_300', 'res://assets/chars/portraits/sayo_half.png', 'right')
 GUANSHOU = ('guanshou', '棺守', 'ink_700', '', 'right')
 
 
@@ -250,16 +252,16 @@ def author_stage():
         't3': node(*RINNE, '现在，轮到我了。', '', [
             {'text': '（送行）念引路词，送它远行', 'next': 'e_send'},
             {'text': '（镇守）立朱印，镇其归处', 'next': 'e_seal'}]),
-        'e_send': node(*SAYO, '……谢谢你。七十年了，终于有人听懂钟声里的意思。', 's1'),
-        's1': node(*SAYO, '我叫小夜。山下村子，顾家的媳妇——虽然还没来得及过门。'
+        'e_send': node(*SAYO_FULL, '……谢谢你。七十年了，终于有人听懂钟声里的意思。', 's1'),
+        's1': node(*SAYO_FULL, '我叫小夜。山下村子，顾家的媳妇——虽然还没来得及过门。'
                           '（她低头看自己的手）外头……仗打完了吗？', 's2'),
         's2': node(*RINNE, '打完了。七十年前就打完了。村子的人迁去了南边，开枝散叶，活得很好。'
                           '顾家的后人里，有一个做了退魔师——她让我替她还一盏灯。', 's3'),
-        's3': node(*SAYO, '那就好，那就好……（她转向棺守的纸躯，端端正正福了一礼）'
+        's3': node(*SAYO_FULL, '那就好，那就好……（她转向棺守的纸躯，端端正正福了一礼）'
                          '祭主爷爷，更次你替我数了三万次，辛苦你了。', 's4'),
         's4': node(*RINNE, '（引路词）魂兮归来，莫恋此乡。灯前有路，路尽有光。'
                           '顾氏小夜——拜堂，起灵，上路！', 's5'),
-        's5': node(*SAYO, '（她终于穿上那身嫁衣的影子，就着灯火，端端正正拜了下去。'
+        's5': node(*SAYO_FULL, '（她终于穿上那身嫁衣的影子，就着灯火，端端正正拜了下去。'
                          '一礼既成，身影随灯而起，淡如晨雾）替我向山下问好。'
                          '就说——小夜先走一步，回有太阳的山坡去了。', 's6'),
         's6': node(*RINNE, '（棺守的纸躯委顿于地，像卸下了肩上的棺。逢魔之刻的雾，第一次在天亮前散尽了。'
@@ -271,7 +273,7 @@ def author_stage():
         'z2': node(*RINNE, '（朱印落下，钟鸣、纸响、棺纹一齐寂然。只有棺底极轻极轻地，叩了一声。'
                           '像还有话，被封在了里面。）薄荷，记下来：本案未结，改「续监」。'
                           '……我总有一天，会回来把这句话听完。', 'z3'),
-        'z3': node(*SAYO, '……没关系。已经，习惯了。', ''),
+        'z3': node(*SAYO_FULL, '……没关系。已经，习惯了。', ''),
     }
     for i, r in enumerate(list(ws.iter_rows(values_only=True))[1:], start=2):
         if r and r[0] == 'night_patrol':

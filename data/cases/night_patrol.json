@@ -42,18 +42,18 @@
   },
   "e_send": {
    "speaker": "sayo",
-   "name": "？？？",
+   "name": "小夜",
    "color": "paper_300",
-   "portrait": "",
+   "portrait": "res://assets/chars/portraits/sayo_half.png",
    "side": "right",
    "text": "……谢谢你。七十年了，终于有人听懂钟声里的意思。",
    "next": "s1"
   },
   "s1": {
    "speaker": "sayo",
-   "name": "？？？",
+   "name": "小夜",
    "color": "paper_300",
-   "portrait": "",
+   "portrait": "res://assets/chars/portraits/sayo_half.png",
    "side": "right",
    "text": "我叫小夜。山下村子，顾家的媳妇——虽然还没来得及过门。（她低头看自己的手）外头……仗打完了吗？",
    "next": "s2"
@@ -69,9 +69,9 @@
   },
   "s3": {
    "speaker": "sayo",
-   "name": "？？？",
+   "name": "小夜",
    "color": "paper_300",
-   "portrait": "",
+   "portrait": "res://assets/chars/portraits/sayo_half.png",
    "side": "right",
    "text": "那就好，那就好……（她转向棺守的纸躯，端端正正福了一礼）祭主爷爷，更次你替我数了三万次，辛苦你了。",
    "next": "s4"
@@ -87,9 +87,9 @@
   },
   "s5": {
    "speaker": "sayo",
-   "name": "？？？",
+   "name": "小夜",
    "color": "paper_300",
-   "portrait": "",
+   "portrait": "res://assets/chars/portraits/sayo_half.png",
    "side": "right",
    "text": "（她终于穿上那身嫁衣的影子，就着灯火，端端正正拜了下去。一礼既成，身影随灯而起，淡如晨雾）替我向山下问好。就说——小夜先走一步，回有太阳的山坡去了。",
    "next": "s6"
@@ -132,9 +132,9 @@
   },
   "z3": {
    "speaker": "sayo",
-   "name": "？？？",
+   "name": "小夜",
    "color": "paper_300",
-   "portrait": "",
+   "portrait": "res://assets/chars/portraits/sayo_half.png",
    "side": "right",
    "text": "……没关系。已经，习惯了。",
    "next": ""

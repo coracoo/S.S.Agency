@@ -2,7 +2,7 @@
  "id": "ch1_night1",
  "name": "第一夜 · 参道灯笼影（教学战）",
  "comment": "第一章棺女·夜一：仅扑击/尖啸，认识灵墨与出牌",
- "bg": "res://assets/bg/corridor_battle_test.png",
+ "bg": "res://assets/bg/approach_battle.png",
  "ap_per_turn": 5,
  "spirit": {
   "start": 3,
