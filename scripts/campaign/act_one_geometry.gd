@@ -50,7 +50,38 @@ func _construct() -> void:
 	_inner_regions()
 	_perimeter()
 	_configure_shadow_receivers()
+	_embellish_washi_materials()
 	update_visibility(Vector3(8.5,FLOOR,0))
+
+## 和纸材质点缀：GLB 导入的"Weathered washi"在各模型里是共享导入资源，统一改为
+## 逐实例 override（不改导入源）。纸人/纸棺/纸Panel 太平板的原因是无光照细节+泛白：
+## 压一点明度、提粗糙度、加冷色 rim（月光轮廓光）把纸人从石墙背景里托出来，
+## 并给极微弱暖自发光模拟纸质透光，保持夜晚氛围不发灰。
+func _embellish_washi_materials() -> void:
+	var cache := {}
+	for chunk in _chunks:
+		_embellish_washi_node(chunk.node, cache)
+
+func _embellish_washi_node(node: Node, cache: Dictionary) -> void:
+	if node is MeshInstance3D:
+		var mesh_node := node as MeshInstance3D
+		for surface in range(mesh_node.mesh.get_surface_count()):
+			var original := mesh_node.get_active_material(surface)
+			if original == null: continue
+			if not original.resource_name.contains("Weathered washi"): continue
+			if not cache.has(original):
+				var enhanced := original.duplicate() as StandardMaterial3D
+				enhanced.resource_name = original.resource_name + " • night"
+				enhanced.albedo_color = Color(.84,.82,.78)
+				enhanced.roughness = .93
+				enhanced.rim_enabled = true
+				enhanced.rim_color = Color("9fb4d8"); enhanced.rim_size = .42; enhanced.rim_fade = .55
+				enhanced.emission_enabled = true
+				enhanced.emission = Color("ffe9c8"); enhanced.emission_energy_multiplier = .05
+				cache[original] = enhanced
+			mesh_node.set_surface_override_material(surface, cache[original])
+	for child in node.get_children():
+		_embellish_washi_node(child, cache)
 
 func update_visibility(position: Vector3, delta: float = 1.0/60.0, camera: Camera3D = null) -> void:
 	for entry in _chunks:
