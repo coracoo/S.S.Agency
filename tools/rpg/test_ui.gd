@@ -64,6 +64,7 @@ static func run() -> Array[String]:
 	F.expect(view.current_preview().effective_target_ids == ["e_1"], "全体技能显示模型全部目标", failures)
 	view.free()
 	await _test_automatic_target_clicks(View, catalog, failures)
+	await _test_single_target_auto_select(View, catalog, failures)
 	_test_intent_details(Presenter, catalog, failures)
 	_test_model_projection(Presenter, View, catalog, failures)
 	await _test_intent_label_bounds(View, catalog, failures)
@@ -369,6 +370,38 @@ static func _test_automatic_target_clicks(View, catalog, failures: Array[String]
 			F.expect(after.actors[id].hp < before.actors[id].hp if row[0] == "swordsman" else after.actors[id].hp > before.actors[id].hp, row[1] + "确认改变每个目标真实HP：" + id, failures)
 		await tree.create_timer(0.6).timeout
 		view.free()
+
+static func _test_single_target_auto_select(View, catalog, failures: Array[String]) -> void:
+	var tree: SceneTree = Engine.get_main_loop()
+	# 单场只剩一个敌人：选技能即预填唯一目标，一步确认即可出手。
+	var actors := {"p_guard": F.actor("guard", "p_guard"), "p_swordsman": F.actor("swordsman", "p_swordsman"), "e_1": F.enemy("hound", "e_1")}
+	actors.p_swordsman.stats.spd = 100
+	var engine := Battle.new(catalog)
+	engine.start({"actors": actors, "inventory": {"healing_potion": 3}}, 1701)
+	var view = View.new()
+	view.bind(engine, null)
+	tree.root.add_child(view)
+	await tree.process_frame
+	view.select_command("attack_physical")
+	F.expect(view.pending_command.target_ids == ["e_1"], "单敌普攻自动选中唯一目标", failures)
+	F.expect(view.current_preview().legal, "自动选中后预览直接合法", failures)
+	F.expect(view._hud.prompt.text.contains("唯一目标已自动选中，可直接确认"), "单敌自动选中提示", failures)
+	F.expect(not view._hud.confirm.disabled, "单敌自动选中后确认可用", failures)
+	view._hud.confirm.pressed.emit()
+	F.expect(engine.snapshot().command_log.size() == 1, "单敌免点选直接确认执行", failures)
+	# 多目标时保持手动点选，不预填。
+	var multi := {"p_guard": F.actor("guard", "p_guard"), "p_swordsman": F.actor("swordsman", "p_swordsman"), "e_1": F.enemy("hound", "e_1"), "e_2": F.enemy("cultist", "e_2")}
+	multi.p_swordsman.stats.spd = 100
+	var engine2 := Battle.new(catalog)
+	engine2.start({"actors": multi, "inventory": {}}, 1701)
+	var view2 = View.new()
+	view2.bind(engine2, null)
+	tree.root.add_child(view2)
+	await tree.process_frame
+	view2.select_command("attack_physical")
+	F.expect(view2.pending_command.target_ids.is_empty(), "多敌不自动选中，保持手动点选", failures)
+	view2.free()
+	view.free()
 
 static func _intent_text(Presenter, state: Dictionary, catalog, id: String) -> String:
 	for actor in Presenter.present(state, catalog).actors:
