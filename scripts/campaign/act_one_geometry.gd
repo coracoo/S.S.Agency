@@ -50,7 +50,61 @@ func _construct() -> void:
 	_inner_regions()
 	_perimeter()
 	_configure_shadow_receivers()
+	_embellish_washi_materials()
 	update_visibility(Vector3(8.5,FLOOR,0))
+
+## 导入材质点缀：GLB 共享导入资源统一逐实例 override（不改导入源），同源缓存去重。
+## - 和纸（纸人/纸棺/纸Panel）：压明度+粗糙度、冷月光 rim、极微弱暖自发光，治平板泛白；
+## - 瓦顶（glazed clay / tile rim）：夜间釉面高光，粗糙度降到 .52、specular 提到 .55，
+##   让月光在瓦面上有 gleam，屋顶不再是死黑一片；
+## - 老木（cedar / timber joints / worn edge）：粗糙度 .82，并按材质随机 uv1_offset，
+##   打乱各建筑间木纹贴图的相位，缓解大面积重复感。
+func _embellish_washi_materials() -> void:
+	var cache := {}
+	for chunk in _chunks:
+		_embellish_washi_node(chunk.node, cache)
+
+func _embellish_washi_node(node: Node, cache: Dictionary) -> void:
+	if node is MeshInstance3D:
+		var mesh_node := node as MeshInstance3D
+		for surface in range(mesh_node.mesh.get_surface_count()):
+			var original := mesh_node.get_active_material(surface)
+			if original == null: continue
+			var signature := original.resource_name
+			var enhanced: StandardMaterial3D = null
+			if signature.contains("Weathered washi"):
+				if not cache.has(original):
+					var m := original.duplicate() as StandardMaterial3D
+					m.resource_name = signature + " • night"
+					m.albedo_color = Color(.84,.82,.78)
+					m.roughness = .93
+					m.rim_enabled = true
+					m.rim_color = Color("9fb4d8"); m.rim_size = .42; m.rim_fade = .55
+					m.emission_enabled = true
+					m.emission = Color("ffe9c8"); m.emission_energy_multiplier = .05
+					cache[original] = m
+				enhanced = cache[original]
+			elif signature.contains("glazed clay") or signature.contains("Tile rim"):
+				if not cache.has(original):
+					var m := original.duplicate() as StandardMaterial3D
+					m.resource_name = signature + " • night"
+					m.roughness = .52
+					m.specular_mode = BaseMaterial3D.SPECULAR_SCHLICK_GGX
+					m.specular = .55
+					cache[original] = m
+				enhanced = cache[original]
+			elif signature.contains("Aged cedar") or signature.contains("timber joints") or signature.contains("Worn wood edge"):
+				if not cache.has(original):
+					var m := original.duplicate() as StandardMaterial3D
+					m.resource_name = signature + " • night"
+					m.roughness = .82
+					m.uv1_offset = Vector3(randf(), randf(), 0.0)
+					cache[original] = m
+				enhanced = cache[original]
+			if enhanced != null:
+				mesh_node.set_surface_override_material(surface, enhanced)
+	for child in node.get_children():
+		_embellish_washi_node(child, cache)
 
 func update_visibility(position: Vector3, delta: float = 1.0/60.0, camera: Camera3D = null) -> void:
 	for entry in _chunks:
