@@ -327,9 +327,9 @@ static func _test_card_bounds(catalog, failures: Array[String]) -> void:
 		tree.root.add_child(view)
 		await tree.process_frame
 		for button in view._skill_buttons:
-			F.expect(button.size.x <= 316, class_id + "技能按钮不因长文案撑出固定卡位", failures)
+			F.expect(button.size.x <= 336, class_id + "技能按钮不因长文案撑出固定卡位", failures)
 			for line in button.text.split("\n"):
-				F.expect(button.get_theme_font("font").get_string_size(line, HORIZONTAL_ALIGNMENT_LEFT, -1, button.get_theme_font_size("font_size")).x <= 296, class_id + "卡内文案有20像素边距：" + line, failures)
+				F.expect(button.get_theme_font("font").get_string_size(line, HORIZONTAL_ALIGNMENT_LEFT, -1, button.get_theme_font_size("font_size")).x <= button.size.x - 68, class_id + "卡内文案在金色内缘外另留20像素：" + line, failures)
 		view.free()
 
 static func _test_low_level_cards(catalog, failures: Array[String]) -> void:

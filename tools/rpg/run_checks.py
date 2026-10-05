@@ -82,6 +82,11 @@ def main() -> int:
         code, output = run(engine, project, env, ["--script", "res://tools/rpg/run_tests.gd", "--", "--suite", args.suite])
         if code or re.search(r"(^|\n)(?:SCRIPT ERROR|ERROR):", output):
             return 1
+        # 道具效果回归复用同一已核验的隔离目录，纳入常规引擎与全量门禁。
+        if args.suite in ("engine", "all"):
+            code, output = run(engine, project, env, ["--script", "res://tools/rpg/test_item_effectiveness.gd"])
+            if code or re.search(r"(^|\n)(?:SCRIPT ERROR|ERROR):", output):
+                return 1
         if args.legacy:
             failed = False
             for script in ("tools/test_v4_battle_rules.gd", "tools/test_rinne_v3_timing.gd",

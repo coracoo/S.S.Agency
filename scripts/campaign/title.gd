@@ -4,7 +4,11 @@ const Session = preload("res://scripts/campaign/chapter_session.gd")
 const Catalog = preload("res://scripts/campaign/chapter_catalog.gd")
 const TitleAtmosphere = preload("res://scripts/campaign/title_atmosphere.gd")
 const Kit = preload("res://scripts/rpg/ui/ui_kit.gd")
+const Art = preload("res://scripts/campaign/presentation/night_menu_art.gd")
 var _root: Control
+var _menu: Control
+var _shade: ColorRect
+var _replace_card: Panel
 var _status: Label
 var _buttons: Array[Button] = []
 var _busy := false
@@ -26,27 +30,46 @@ func _ready() -> void:
 	var layer := CanvasLayer.new()
 	add_child(layer)
 	_root = Control.new()
-	_root.size = Vector2(1920, 1080)
 	layer.add_child(_root)
-	var shade := ColorRect.new()
-	shade.color = Color(0.025, 0.06, 0.065, 0.4)
-	shade.size = _root.size
-	shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_root.add_child(shade)
-	Kit.panel(_root, Rect2(1080, 212, 650, 692))
-	Kit.muted(Kit.label(_root, "五 夜 · 巡 山", Rect2(1124, 256, 560, 36), 23))
-	Kit.label(_root, "逢魔退治帖", Rect2(1118, 303, 560, 104), 70)
-	Kit.muted(Kit.label(_root, "第一章 · 棺女", Rect2(1124, 414, 560, 55), 28))
-	_buttons.append(Kit.button(_root, "开始新游戏", Rect2(1124, 514, 560, 74), _request_new, true))
-	_buttons.append(Kit.button(_root, "继续游戏", Rect2(1124, 608, 560, 66), _continue))
-	_buttons.append(Kit.button(_root, "退出游戏", Rect2(1124, 694, 560, 66), func(): get_tree().quit()))
-	_status = Kit.muted(Kit.label(_root, "从上山路启程，循着灯火探明五夜旧事。", Rect2(1124, 798, 560, 66), 21))
-	_cancel_button = Kit.button(_root, "取消加载", Rect2(1490, 798, 194, 62), _cancel_loading)
+	_shade = ColorRect.new()
+	_shade.color = Color(0.025, 0.06, 0.065, 0.4)
+	_shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_root.add_child(_shade)
+	_menu = Control.new()
+	_menu.size = Vector2(700, 842)
+	_root.add_child(_menu)
+	Art.panel(_menu, Rect2(0, 0, 700, 842)).name = "TitlePanel"
+	var eyebrow := Kit.label(_menu, "五 夜 · 巡 山", Rect2(60, 56, 580, 36), 23)
+	eyebrow.add_theme_color_override("font_color", Color("d8c4a0"))
+	Kit.label(_menu, "逢魔退治帖", Rect2(54, 111, 592, 104), 70)
+	Kit.label(_menu, "第一章 · 棺女", Rect2(60, 224, 580, 48), 28).add_theme_color_override("font_color", Color("d8c4a0"))
+	_buttons.append(Art.button(_menu, "开始新游戏", Rect2(60, 312, 580, 80), _request_new, true))
+	_buttons.append(Art.button(_menu, "继续游戏", Rect2(60, 408, 580, 80), _continue))
+	_buttons.append(Art.button(_menu, "退出游戏", Rect2(60, 504, 580, 80), func(): get_tree().quit()))
+	Art.panel(_menu, Rect2(48, 612, 604, 172), true).name = "TitleNotice"
+	_status = Kit.label(_menu, "从上山路启程，循着灯火探明五夜旧事。", Rect2(76, 638, 548, 120), 22)
+	_status.add_theme_color_override("font_color", Color("e3d8bf"))
+	_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_status.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_cancel_button = Art.button(_menu, "取消加载", Rect2(76, 688, 548, 72), _cancel_loading)
 	_cancel_button.focus_mode = Control.FOCUS_ALL
 	_cancel_button.hide()
-	_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	for button in _buttons: button.focus_mode = Control.FOCUS_ALL
+	get_viewport().size_changed.connect(_layout)
+	_layout()
 	_buttons[0].grab_focus()
+func _layout() -> void:
+	if _root == null: return
+	_root.size = get_viewport().get_visible_rect().size
+	_shade.size = _root.size
+	_menu.position = Vector2(_root.size.x - 840, (_root.size.y - _menu.size.y) * 0.5)
+	if is_instance_valid(_replace_panel):
+		_replace_panel.size = _root.size
+		_replace_panel.get_child(0).size = _root.size
+		var origin := (_root.size - Vector2(1020, 488)) * 0.5
+		_replace_card.position = origin
+		for child in _replace_panel.get_children():
+			if child.has_meta("card_offset"): child.position = origin + child.get_meta("card_offset")
 func _request_new() -> void:
 	if _busy: return
 	if FileAccess.file_exists(Catalog.SAVE_PATH): _confirm_replace()
@@ -55,19 +78,26 @@ func _confirm_replace() -> void:
 	if is_instance_valid(_replace_panel): return
 	for button in _buttons: button.focus_mode = Control.FOCUS_NONE
 	_replace_panel = Control.new()
-	_replace_panel.size = Vector2(1920, 1080)
 	_root.add_child(_replace_panel)
 	var shade := ColorRect.new()
 	shade.color = Color(0, 0, 0, 0.76)
-	shade.size = _replace_panel.size
 	_replace_panel.add_child(shade)
-	Kit.panel(_replace_panel, Rect2(480, 322, 960, 436))
-	Kit.label(_replace_panel, "替换正式主线存档？", Rect2(528, 358, 864, 64), 38)
-	var body := Kit.label(_replace_panel, "当前五夜主线进度将被新游戏替换。确认后才写入，取消会保留当前存档。", Rect2(528, 452, 864, 96), 27)
+	_replace_card = Art.panel(_replace_panel, Rect2(0, 0, 1020, 488))
+	_replace_card.name = "ReplaceSavePanel"
+	var heading := Kit.label(_replace_panel, "替换正式主线存档？", Rect2(0, 0, 904, 64), 38)
+	heading.set_meta("card_offset", Vector2(58, 50))
+	var body := Kit.label(_replace_panel, "当前五夜主线进度将被新游戏替换。确认后才写入，取消会保留当前存档。", Rect2(0, 0, 904, 132), 27)
+	body.set_meta("card_offset", Vector2(58, 146))
 	body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	Kit.button(_replace_panel, "替换并开始", Rect2(528, 606, 410, 74), _launch_new.bind(true), true).focus_mode = Control.FOCUS_ALL
-	var keep := Kit.button(_replace_panel, "保留存档", Rect2(982, 606, 410, 74), _cancel_replace)
-	keep.focus_mode = Control.FOCUS_ALL
+	var replace := Art.button(_replace_panel, "替换并开始", Rect2(0, 0, 432, 84), _launch_new.bind(true), true)
+	replace.set_meta("card_offset", Vector2(58, 340))
+	var keep := Art.button(_replace_panel, "保留存档", Rect2(0, 0, 432, 84), _cancel_replace)
+	keep.set_meta("card_offset", Vector2(530, 340))
+	for pair in [[replace, keep], [keep, replace]]:
+		pair[0].focus_mode = Control.FOCUS_ALL
+		for direction in ["next", "previous", "neighbor_left", "neighbor_right", "neighbor_top", "neighbor_bottom"]:
+			pair[0].set("focus_" + direction, pair[0].get_path_to(pair[1]))
+	_layout()
 	keep.grab_focus()
 func _cancel_replace() -> void:
 	if _busy: return
@@ -77,6 +107,8 @@ func _cancel_replace() -> void:
 	_buttons[0].grab_focus()
 func _launch_new(replace_confirmed: bool) -> void:
 	if _busy: return
+	# 确认后先收起遮罩，取消加载必须仍可点击。
+	if is_instance_valid(_replace_panel): _cancel_replace()
 	_set_busy(true)
 	_generation += 1
 	var token := _generation
@@ -114,7 +146,11 @@ func _prepare_and_enter(result: Dictionary, token: int) -> void:
 func _set_busy(value: bool) -> void:
 	_busy = value
 	if _cancel_button != null: _cancel_button.visible = value
-	if _status != null: _status.size.x = 348 if value else 560
+	if _status != null:
+		# 先换短加载文案，再缩高度，避免沿用上次多行错误的最小高度。
+		if value: _status.text = "正在装配高清人物素材……"
+		_status.position.y = 632 if value else 638
+		_status.size = Vector2(548, 44 if value else 120)
 	for button in _buttons:
 		button.disabled = value
 		button.focus_mode = Control.FOCUS_ALL if not is_instance_valid(_replace_panel) else Control.FOCUS_NONE

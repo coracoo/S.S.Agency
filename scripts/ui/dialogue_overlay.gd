@@ -39,13 +39,14 @@ var _current_choices: Array = []
 # 屏幕固定布局（令牌 canvas 基准 1920×1080）
 var _portraits: Dictionary = {} # side -> {ctrl, tex, name}
 var _name_label: Label = null
-var _name_strip: ColorRect = null
+var _panel: Panel = null
 var _text_label: Label = null
 var _hint_label: Label = null
 var _choices_box: VBoxContainer = null
 var _root: Control = null
 
 const Kit = preload("res://scripts/rpg/ui/ui_kit.gd")
+const Art = preload("res://scripts/campaign/presentation/night_menu_art.gd")
 
 const TYPE_SPEED := 30.0 # 字/秒（CJK 全角一字一符）
 const PAUSE_CHARS := "，。！？；：、—…" # 标点后额外停顿
@@ -88,39 +89,80 @@ func abort() -> void:
 # ---------- 内部 ----------
 
 func _build_layout() -> void:
-	var cw := float(_theme.canvas("base_width")) if _theme else 1920.0
-	var ch := float(_theme.canvas("base_height")) if _theme else 1080.0
 	_root = Control.new()
-	_root.size = Vector2(cw, ch)
 	_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_root)
-	# 深色底保留场景气氛；面板/装饰忽略鼠标，点击快进仍交给原输入防连按逻辑。
-	var panel := Kit.panel(_root, Rect2(cw * 0.5 - 670, ch - 282, 1340, 238))
-	panel.name = "DialoguePanel"
-	_name_strip = ColorRect.new()
-	_name_strip.position = Vector2(30, 28)
-	_name_strip.size = Vector2(3, 28)
-	_name_strip.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	panel.add_child(_name_strip)
-	_name_label = _mk_label(Vector2(48, 21), 24, "ui_text")
-	_name_label.size = Vector2(620, 42)
-	panel.add_child(_name_label)
-	_text_label = _mk_label(Vector2(48, 78), 28, "ui_text")
-	_text_label.size = Vector2(1244, 110)
+	# 生图只负责底板；正文仍是可量测、可逐字显示的清晰字体。
+	_panel = Art.panel(_root, Rect2(0, 0, 1536, 292))
+	_panel.name = "DialoguePanel"
+	_name_label = _mk_label(Vector2(56, 38), 24, "ui_text")
+	_name_label.size = Vector2(980, 40)
+	_name_label.add_theme_color_override("font_color", Color("e2c99b"))
+	_panel.add_child(_name_label)
+	_text_label = _mk_label(Vector2(56, 104), 28, "ui_text")
 	_text_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_text_label.add_theme_constant_override("line_spacing", 8)
-	panel.add_child(_text_label)
-	_hint_label = _mk_label(Vector2(1010, 192), 19, "ui_muted")
-	_hint_label.size = Vector2(280, 30)
+	_panel.add_child(_text_label)
+	_hint_label = _mk_label(Vector2.ZERO, 19, "ui_muted")
+	_hint_label.size = Vector2(320, 28)
 	_hint_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	_hint_label.text = "E / 点击　继续 ▾" if advance_action == &"approach_interact" else "确认 / 点击　继续 ▾"
-	panel.add_child(_hint_label)
+	_panel.add_child(_hint_label)
 	_choices_box = VBoxContainer.new()
-	_choices_box.position = Vector2(cw * 0.5 - 360, ch - 554)
-	_choices_box.size = Vector2(720, 240)
-	_choices_box.add_theme_constant_override("separation", 12)
+	_choices_box.add_theme_constant_override("separation", 14)
 	_choices_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_root.add_child(_choices_box)
+	get_viewport().size_changed.connect(_layout)
+	_layout()
+
+func _layout() -> void:
+	if _root == null: return
+	_root.size = get_viewport().get_visible_rect().size
+	var width := minf(1536, _root.size.x - 112)
+	_text_label.size.x = width - 112
+	var text_height := maxf(112, _wrapped_height(_text_label, _text_label.size.x))
+	_text_label.size.y = text_height
+	_panel.size = Vector2(width, text_height + 180)
+	_panel.position = Vector2((_root.size.x - width) * 0.5, _root.size.y - 44 - _panel.size.y)
+	_hint_label.position = Vector2(width - 376, _panel.size.y - 64)
+	var choice_width := minf(1160, width - 112)
+	var choices_height := 0.0
+	for button in _choices_box.get_children():
+		var label := button.get_node("ChoiceText") as Label
+		label.size.x = choice_width - 72
+		var content_height := _wrapped_height(label, label.size.x)
+		var button_height := maxf(80, content_height + 48)
+		button.custom_minimum_size = Vector2(choice_width, button_height)
+		button.size = Vector2(choice_width, button_height)
+		label.position = Vector2(36, (button_height - content_height) * 0.5)
+		label.size = Vector2(choice_width - 72, content_height)
+		choices_height += button_height + 14
+	if _choices_box.get_child_count() > 0: choices_height -= 14
+	_choices_box.size = Vector2(choice_width, choices_height)
+	_choices_box.position = Vector2((_root.size.x - choice_width) * 0.5, _panel.position.y - 24 - choices_height)
+	for side in _portraits:
+		var ctrl: Control = _portraits[side].ctrl
+		var home := _portrait_home(side)
+		# 同一画布的换句不重置滑入动画；只有实际锚点变化才重新定位。
+		if ctrl.get_meta("home") != home:
+			var old: Tween = _portraits[side].get("tw")
+			if old != null and old.is_valid(): old.kill()
+			ctrl.set_meta("home", home)
+			ctrl.position = home
+			if not str(_portraits[side].get("path", "")).is_empty():
+				var speaking: bool = str(_nodes.get(_playing_id, {}).get("side", "left")) == str(side)
+				ctrl.modulate.a = 1.0 if speaking else 0.45
+				ctrl.modulate.v = 1.0 if speaking else 0.7
+
+func _wrapped_height(label: Label, width: float) -> float:
+	var paragraph := TextParagraph.new()
+	paragraph.width = width
+	paragraph.break_flags = TextServer.BREAK_MANDATORY | TextServer.BREAK_WORD_BOUND | TextServer.BREAK_ADAPTIVE
+	paragraph.add_string(label.text, label.get_theme_font("font"), label.get_theme_font_size("font_size"))
+	return ceilf(paragraph.get_size().y + maxf(0, paragraph.get_line_count() - 1) * label.get_theme_constant("line_spacing"))
+
+func _portrait_home(side: String) -> Vector2:
+	return Vector2(_root.size.x - 48 - PORTRAIT_SIZE.x if side == "right" else 48.0, _panel.position.y - PORTRAIT_SIZE.y + 40)
 
 func _mk_label(pos: Vector2, sz: int, color_key: String) -> Label:
 	var l := Label.new()
@@ -130,8 +172,9 @@ func _mk_label(pos: Vector2, sz: int, color_key: String) -> Label:
 	if f:
 		l.add_theme_font_override("font", f)
 	l.add_theme_font_size_override("font_size", sz)
-	if _theme:
-		l.add_theme_color_override("font_color", _theme.color(color_key))
+	l.add_theme_color_override("font_color", Color("e3d8bf") if color_key == "ui_muted" else Color("f8edd5"))
+	l.add_theme_constant_override("outline_size", 2)
+	l.add_theme_color_override("font_outline_color", Color("111919"))
 	return l
 
 # 单一逐帧时钟保持原30字/秒与标点停顿，避免free时悬挂嵌套SceneTreeTimer。
@@ -148,10 +191,8 @@ func _present_node(node_id: String) -> void:
 	_update_portrait(String(node.get("side", "left")), String(node.get("portrait", "")), String(node.get("speaker", "")))
 	if portrait_provider.is_valid() and not portrait_error.is_empty(): return
 	_name_label.text = String(node.get("name", ""))
-	if _theme:
-		_name_strip.color = _theme.color("ui_accent_hover")
-		_name_label.add_theme_color_override("font_color", _theme.color("ui_text"))
 	_text_label.text = node.get("text", "")
+	_layout()
 	_text_label.visible_characters = 0
 	_hint_label.visible = false
 	_typing = true
@@ -232,17 +273,29 @@ func _unhandled_input(event: InputEvent) -> void:
 	get_viewport().set_input_as_handled()
 
 func _show_choices(choices: Array) -> void:
+	_hide_choices()
 	_waiting_choice = true
 	_choice_next = ""
 	for i in range(choices.size()):
 		var c: Dictionary = choices[i]
-		var btn := Kit.button(_choices_box, "%d  ·  %s" % [i + 1, String(c.get("text", ""))], Rect2(0, 0, 720, 62))
-		btn.custom_minimum_size = Vector2(720, 62)
+		var text := "%d  ·  %s" % [i + 1, String(c.get("text", ""))]
+		var btn := Art.button(_choices_box, "", Rect2(0, 0, 1160, 80))
 		btn.focus_mode = Control.FOCUS_NONE
-		btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		btn.tooltip_text = text
+		# 按钮自带文字不换行；独立Label保留完整长选项，避免clip_text悄悄裁字。
+		var label := _mk_label(Vector2(36, 24), 24, "ui_text")
+		label.name = "ChoiceText"
+		# 先给换行宽度，再加入树，避免首帧按0宽度缓存成数十行最小高度。
+		label.size = Vector2(minf(1160, _panel.size.x - 112) - 72, 34)
+		label.text = text
+		label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		label.add_theme_constant_override("line_spacing", 5)
+		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		btn.add_child(label)
 		var nxt := String(c.get("next", ""))
 		btn.pressed.connect(func() -> void:
 			_pick_choice(nxt))
+	_layout()
 
 func _pick_choice(next: String) -> void:
 	if not _active or not _waiting_choice: return
@@ -256,7 +309,9 @@ func _pick_choice(next: String) -> void:
 	_hide_choices()
 
 func _hide_choices() -> void:
+	if _choices_box == null: return
 	for b in _choices_box.get_children():
+		_choices_box.remove_child(b)
 		b.queue_free()
 
 ## 立绘管理：每侧一个封面裁切图，说话侧提亮、另一侧压暗；换图滑入
@@ -325,16 +380,12 @@ func _clear_portrait(side: String) -> void:
 	entry.ctrl.queue_redraw()
 
 func _make_portrait(side: String) -> Dictionary:
-	var cw := float(_theme.canvas("base_width")) if _theme else 1920.0
-	var ch := float(_theme.canvas("base_height")) if _theme else 1080.0
 	var ctrl := PortraitView.new()
 	ctrl.size = PORTRAIT_SIZE
 	ctrl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	# UI 最顶层：立绘沉一层（z=-1），对话面板/文字/选项始终压在立绘之上
 	ctrl.z_index = -1
-	var home := Vector2(48, ch - 300 - PORTRAIT_SIZE.y + 40)
-	if side == "right":
-		home.x = cw - 48 - PORTRAIT_SIZE.x
+	var home := _portrait_home(side)
 	ctrl.position = home
 	ctrl.set_meta("home", home)
 	ctrl.modulate.a = 0.0
