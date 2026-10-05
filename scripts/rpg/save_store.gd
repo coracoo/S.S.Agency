@@ -87,7 +87,11 @@ func normalize(value: Dictionary) -> Dictionary:
 	State._int_fields(saved, ["schema_version", "level", "xp", "battle_counter", "night"])
 	var normalized := State.normalize_snapshot({"actors": saved.get("roster", {}), "inventory": saved.get("inventory", {})})
 	if saved.has("roster"): saved.roster = normalized.actors
-	if saved.has("inventory"): saved.inventory = normalized.inventory
+	if saved.has("inventory"):
+		saved.inventory = normalized.inventory
+		# 目录新增道具时旧档补发初始库存，与 gear 持有表同级的数据迁移。
+		for item in _catalog.get_all("items"):
+			if not saved.inventory.has(item.id): saved.inventory[item.id] = item.initial_stock
 	if saved.get("gear") is Dictionary:
 		saved.gear = Catalog._integerize(saved.gear)
 	else:
