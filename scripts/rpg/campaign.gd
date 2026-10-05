@@ -2,6 +2,8 @@
 class_name RpgCampaign
 extends RefCounted
 
+const Forms = preload("res://scripts/rpg/dual_form.gd")
+const Chapters = preload("res://scripts/campaign/chapter_catalog.gd")
 const TrialProfile = preload("res://scripts/exploration_3d/trial_profile.gd")
 const WorldSnapshot = preload("res://scripts/exploration_3d/world_snapshot.gd")
 const Catalog = preload("res://scripts/rpg/catalog.gd")
@@ -36,7 +38,14 @@ func new_run(class_ids: Array[String], level: int = 5, profile: Dictionary = {})
 	var inventory: Dictionary = {}
 	for item in _catalog.get_all("items"): inventory[item.id] = item.initial_stock
 	var candidate := {"schema_version": 1, "rules_version": _catalog.rules_version, "run_id": Crypto.new().generate_random_bytes(16).hex_encode(), "phase": "preparation", "level": level, "xp": 0, "roster": roster, "party": party, "inventory": inventory, "world": {}, "applied_battle_ids": [], "battle_counter": 0, "next_encounter_id": "slice_1", "pending_battle": {}, "return_scene": ""}
-	if not profile.is_empty():
+	if profile.get("id") == Chapters.PROFILE_ID:
+		if profile.get("bindings") != Chapters.BINDINGS or not profile.get("world") is Dictionary or profile.world != Chapters.initial_world(1) or level != 5: return _fail("正式初始化配置非法")
+		for key in profile:
+			if not key in ["id", "bindings", "world"]: return _fail("正式初始化含未知配置字段")
+		candidate.merge({"schema_version": 2, "campaign_id": Chapters.PROFILE_ID, "story_phase": "exploration", "night": 1, "scene_id": "night_1", "world": profile.world.duplicate(true), "world_history": {"night_1": profile.world.duplicate(true)}, "resolution": "", "case_status": "open", "chapter_complete": false, "phase": "exploration", "next_encounter_id": Chapters.night(1).encounter_id}, true)
+		for id in Chapters.BINDINGS: candidate.roster[id].merge(Chapters.BINDINGS[id], true)
+		Forms.initialize(candidate.roster.p_mage, _catalog)
+	elif not profile.is_empty():
 		var errors := TrialProfile.validate(profile)
 		if not errors.is_empty() or not profile.get("world") is Dictionary or class_ids != TrialProfile.CLASS_IDS or level != 5: return _fail("试玩初始化配置非法")
 		candidate["run_profile"] = {"id": profile.id, "bindings": profile.bindings.duplicate(true)}
@@ -65,9 +74,11 @@ func safe_snapshot() -> Dictionary:
 # 可选补丁只由场景路由提供；不携带Node、旧奖励或自创剧情。
 func begin_battle(encounter_id: String, world: Dictionary, story_patch: Dictionary = {}) -> Dictionary:
 	if not _outside(): return _fail("当前不在可进战的安全状态")
-	if (encounter_id == "approach_basin" or world.has("world_version")) and not _safe.has("run_profile"): return _fail("参道遭遇仅允许独立试玩的三维世界")
+	if (encounter_id == "approach_basin" or world.has("world_version")) and not _safe.has("run_profile") and not _formal(): return _fail("参道遭遇仅允许独立试玩的三维世界")
 	if _safe.has("run_profile"):
 		if encounter_id != "approach_basin" or not WorldSnapshot.same_story(_safe.world, world) or not world.get("event_flags", {}).has("basin_inspected") or world.get("event_flags", {}).has("basin_cleared"): return _fail("参道遭遇前置不符或已完成")
+	if _formal():
+		if not _chapter_world_ok(world) or encounter_id != Chapters.night(world.night).encounter_id or not Chapters.validate_patch(story_patch, world).is_empty(): return _fail("正式遭遇未登记、前置不足或世界剧情不符")
 	var definition: Dictionary = _catalog.get_definition("encounters", encounter_id)
 	if definition.is_empty(): return _fail("未知遭遇：" + encounter_id)
 	var world_errors := Store.validate_world(world)
@@ -78,6 +89,7 @@ func begin_battle(encounter_id: String, world: Dictionary, story_patch: Dictiona
 	if not alive: return _fail("出战三人全部倒地，请先复苏或休息")
 	var candidate := safe_snapshot()
 	candidate.world = world.duplicate(true)
+	if _formal(): candidate.world_history[world.scene_id] = candidate.world.duplicate(true)
 	candidate["return_scene"] = ""
 	candidate.battle_counter += 1
 	var battle_id: String = candidate.run_id + ":" + str(candidate.battle_counter)
@@ -97,7 +109,6 @@ func retry_battle() -> Dictionary:
 func apply_result(result: Dictionary) -> Dictionary:
 	if _safe.is_empty(): return _fail("尚未建立队伍")
 	if not result.get("battle_id") is String or result.battle_id.is_empty(): return _fail("战果缺少battle_id")
-	if _safe.applied_battle_ids.has(result.battle_id): return _ok(true)
 	# 读取持久提交记录，避免加载同一战前档的另一实例再次公布奖励/剧情。
 	var durable: Dictionary = _store.load_safe(_path)
 	if not durable.ok: return _fail("无法核验已提交战果：" + durable.error)
@@ -119,6 +130,7 @@ func apply_result(result: Dictionary) -> Dictionary:
 		var persisted: Dictionary = candidate.roster[actor.actor_id]
 		persisted.hp = actor.hp
 		persisted.mp = actor.mp
+		if _formal() and actor.actor_id == "p_mage": Forms.apply(persisted, actor.form_id, _catalog)
 		_clear_battle_state(persisted)
 	candidate.inventory = result.inventory.duplicate(true)
 	_add_xp(candidate, result.xp)
@@ -128,11 +140,21 @@ func apply_result(result: Dictionary) -> Dictionary:
 	candidate["return_scene"] = patch.get("next_scene", candidate.world.get("scene_path", "res://scenes/rpg/launcher.tscn"))
 	var encounter: Dictionary = _catalog.get_definition("encounters", candidate.pending_battle.encounter_id)
 	candidate.next_encounter_id = encounter.next_id
+	var unlocked_mage := false
+	if _formal():
+		if candidate.world.night == 1 and candidate.roster.p_mage.unlocked_forms == Forms.LOCKED_FORMS:
+			candidate.roster.p_mage.unlocked_forms = Forms.UNLOCKED_FORMS.duplicate()
+			unlocked_mage = true
+		# 同一大地图战斗只离开表现层；持久战前位置、朝向和扩展均原样返场。
+		candidate.world.player_x = candidate.world.position[0]
+		candidate.next_encounter_id = "" if candidate.world.night == 5 else Chapters.night(candidate.world.night).encounter_id
+		candidate.world_history[candidate.world.scene_id] = candidate.world.duplicate(true)
 	candidate.phase = "rest" if encounter.rest_after else "exploration"
 	candidate.applied_battle_ids.append(result.battle_id)
 	candidate.pending_battle = {}
 	var committed := _commit(candidate)
 	if committed.ok:
+		if unlocked_mage: committed["unlocked_forms"] = ["mage"]
 		committed.story_patch = patch.duplicate(true)
 		committed.world = _safe.world.duplicate(true)
 	return committed
@@ -142,10 +164,12 @@ func save_exploration(world: Dictionary) -> Dictionary:
 	if not _outside(): return _fail("当前不能打开探索整备")
 	var errors := Store.validate_world(world)
 	if world.is_empty() or not errors.is_empty(): return _fail("探索整备缺少有效世界")
+	if _formal() and (_safe.story_phase == "complete" or not _chapter_world_ok(world)): return _fail("保存位置不能改变正式剧情、场景或已完成结尾")
 	if _safe.has("run_profile") and not WorldSnapshot.same_story(_safe.world, world): return _fail("保存位置不能修改剧情标记")
 	var candidate := safe_snapshot()
 	candidate.world = world.duplicate(true)
 	candidate.return_scene = world.scene_path
+	if _formal(): candidate.world_history[world.scene_id] = world.duplicate(true)
 	return _commit(candidate)
 
 # 剧情只沿已登记顺序提交；画面拿到成功后才开放下一操作。
@@ -154,7 +178,7 @@ func commit_world_event(world: Dictionary, event_id: String) -> Dictionary:
 	if not WorldSnapshot.validate(world).is_empty() or not WorldSnapshot.same_story(_safe.world, world): return _fail("事件世界与已保存剧情不符")
 	var allowed := {"approach_entered": "", "basin_observed": "approach_entered", "basin_inspected": "basin_observed", "approach_complete": "basin_cleared"}
 	if not allowed.has(event_id): return _fail("该事件不能由探索提交")
-	if world.event_flags.has(event_id): return _ok(true)
+	if world.event_flags.has(event_id): return _unchanged()
 	var required: String = allowed[event_id]
 	if not required.is_empty() and not world.event_flags.has(required): return _fail("剧情事件缺少前置")
 	var candidate := safe_snapshot()
@@ -286,8 +310,13 @@ func _result_errors(result: Dictionary) -> Array[String]:
 			continue
 		seen[actor.actor_id] = true
 		var original: Dictionary = _safe.roster[actor.actor_id]
-		for field in ["actor_id", "side", "class_id", "level", "stats", "equipment", "skill_ids", "branch"]:
+		for field in ["actor_id", "side", "class_id", "level", "stats", "equipment", "branch"]:
 			if typeof(actor.get(field)) != typeof(original[field]) or actor.get(field) != original[field]: errors.append("战果不能改写角色设定：" + field)
+		if _formal() and actor.actor_id == "p_mage":
+			errors.append_array(Forms.validate(actor, _catalog))
+			for field in ["identity_id", "dual_form_version", "unlocked_forms"]:
+				if typeof(actor.get(field)) != typeof(original.get(field)) or actor.get(field) != original.get(field): errors.append("战果不能伪造焰华身份/解锁：" + field)
+		elif not actor.get("skill_ids") is Array or actor.skill_ids != original.skill_ids: errors.append("战果不能改写角色技能")
 		for field in ["hp", "mp"]:
 			if not State._natural(actor.get(field)) or actor[field] > original.stats[field]: errors.append("战果资源越界：" + field)
 		if State._natural(actor.get("hp")) and actor.hp > 0: alive = true
@@ -324,16 +353,15 @@ func _outside() -> bool:
 	return not _safe.is_empty() and _mode in Store.SAFE_PHASES and _safe.pending_battle.is_empty()
 
 func _preparing() -> bool:
+	if _formal(): return _outside() and _safe.get("story_phase") in ["exploration", "ritual"]
 	return _outside() and _mode in ["preparation", "rest"] and _safe.pending_battle.is_empty()
 
 func _commit(candidate: Dictionary, explicit_new_run: bool = false) -> Dictionary:
 	# 所有普通修改共享同一版本前置条件，不能用陈旧准备/休息态撤销已交付ID。
 	# 当前Godot主线程同步调用在核验与write间不让出执行；不承诺多进程互斥。
 	if not explicit_new_run:
-		if _safe.is_empty(): return _fail("普通修改缺少已读取的安全基线")
-		var durable: Dictionary = _store.load_safe(_path)
-		if not durable.ok: return _fail("无法核验安全基线：" + durable.error)
-		if durable.snapshot != _safe: return _fail("安全进度已更新，请重新读取后重试")
+		var verified := _verify_baseline()
+		if not verified.ok: return verified
 	var error: Error = _store.write_safe(candidate, _path)
 	if error != OK: return _fail("安全存档写入失败（%d），原进度和战果未改动" % error)
 	# 与磁盘同一次JSON运输规范化，保留扩展且便于后续冲突核验。
@@ -348,3 +376,97 @@ func _ok(already_applied: bool = false) -> Dictionary:
 func _fail(message: String) -> Dictionary:
 	last_error = message
 	return {"ok": false, "already_applied": false, "error": message, "story_patch": {}}
+
+func _formal() -> bool:
+	return _safe.get("schema_version") == 2
+
+func _chapter_world_ok(world: Dictionary) -> bool:
+	return _formal() and Chapters.validate_world(world).is_empty() and Chapters.same_story(_safe.world, world)
+
+func commit_chapter_event(world: Dictionary, event_id: String) -> Dictionary:
+	if not _outside() or not _chapter_world_ok(world) or not _safe.story_phase in ["exploration", "ritual"]: return _fail("当前正式事件世界与安全档不符")
+	var allowed := Chapters.events(world.night)
+	if not allowed.has(event_id): return _fail("未登记的正式事件")
+	if world.event_flags.has(event_id): return _unchanged()
+	for required in allowed[event_id]:
+		if not world.event_flags.has(required): return _fail("正式事件缺少前置：" + required)
+	var candidate := safe_snapshot()
+	candidate.world = world.duplicate(true)
+	candidate.world.event_flags[event_id] = true
+	if event_id.begins_with("dialogue:"): candidate.world.dlg_fired[event_id.trim_prefix("dialogue:")] = true
+	if event_id.begins_with("ritual:"): candidate.story_phase = "ritual"
+	if event_id == "ritual:guide":
+		candidate.world.resolved["coffin_sendoff"] = true
+		candidate.story_phase = "exploration"
+	candidate.return_scene = world.scene_path
+	candidate.world_history[world.scene_id] = candidate.world.duplicate(true)
+	return _commit(candidate)
+
+func advance_chapter(world: Dictionary) -> Dictionary:
+	if not _outside() or not _chapter_world_ok(world) or not _safe.story_phase in ["exploration", "ritual"] or not Chapters.complete(world): return _fail("尚未完成本夜必需事件，或出口世界不符")
+	var candidate := safe_snapshot()
+	candidate.world_history[world.scene_id] = world.duplicate(true)
+	candidate.phase = "exploration"
+	if world.night == 5:
+		candidate.world = world.duplicate(true)
+		candidate.story_phase = "ending"
+	else:
+		candidate.world = Chapters.initial_world(world.night + 1)
+		# 推进时间不传送玩家。新夜只换剧情登记，连续地图空间仍为当前位置。
+		candidate.world.position = world.position.duplicate()
+		candidate.world.player_x = world.position[0]
+		candidate.world.facing = world.facing
+		candidate.world_history[candidate.world.scene_id] = candidate.world.duplicate(true)
+		candidate.night = candidate.world.night
+		candidate.scene_id = candidate.world.scene_id
+		candidate.next_encounter_id = Chapters.night(candidate.night).encounter_id
+		candidate.story_phase = "exploration"
+	candidate.return_scene = candidate.world.scene_path
+	return _commit(candidate)
+
+func choose_resolution(world: Dictionary, resolution: String) -> Dictionary:
+	if not _outside() or not _chapter_world_ok(world) or _safe.story_phase != "ending" or not Chapters.complete(world): return _fail("结局选择缺少五夜完成检查点")
+	if not resolution in ["sendoff", "seal_monitoring"]: return _fail("未登记的结局选择")
+	if not _safe.resolution.is_empty():
+		return _unchanged() if _safe.resolution == resolution else _fail("已保存结局不可改选")
+	var candidate := safe_snapshot()
+	candidate.world = world.duplicate(true)
+	candidate.world_history[world.scene_id] = candidate.world.duplicate(true)
+	candidate.resolution = resolution
+	candidate.case_status = "closed" if resolution == "sendoff" else "monitoring"
+	return _commit(candidate)
+
+func finish_ending(world: Dictionary) -> Dictionary:
+	if not _outside() or not _chapter_world_ok(world) or not _safe.story_phase in ["ending", "complete"] or _safe.resolution.is_empty(): return _fail("结尾提交缺少已保存结局")
+	if _safe.story_phase == "complete": return _unchanged()
+	var candidate := safe_snapshot()
+	candidate.world = world.duplicate(true)
+	candidate.world_history[world.scene_id] = candidate.world.duplicate(true)
+	candidate.story_phase = "complete"
+	candidate.chapter_complete = true
+	candidate.return_scene = Chapters.ENDING_PATH
+	return _commit(candidate)
+
+func set_form(actor_id: String, form_id: String) -> Dictionary:
+	if not _preparing() or not _formal() or actor_id != "p_mage" or not form_id in ["mage", "sword"]: return _fail("仅正式安全整备中的焰华可切换mage/sword形态")
+	if not _safe.roster[actor_id].unlocked_forms.has(form_id): return _fail("法师形态尚未解锁")
+	if _safe.roster[actor_id].form_id == form_id: return _unchanged()
+	var candidate := safe_snapshot()
+	Forms.apply(candidate.roster[actor_id], form_id, _catalog)
+	return _commit(candidate)
+
+# Even a no-op is a claim about current durable state. Never publish a stale
+# repeated event/form/choice/completion as successful, and never rewrite a valid
+# duplicate checkpoint just to verify it.
+func _verify_baseline() -> Dictionary:
+	if _safe.is_empty(): return _fail("普通修改缺少已读取的安全基线")
+	var durable: Dictionary = _store.load_safe(_path)
+	if not durable.ok: return _fail("无法核验安全基线：" + durable.error)
+	if durable.snapshot != _safe: return _fail("安全进度已更新，请重新读取后重试")
+	return _ok()
+
+func _unchanged() -> Dictionary:
+	var verified := _verify_baseline()
+	if not verified.ok: return verified
+	last_error = ""
+	return _ok(true)

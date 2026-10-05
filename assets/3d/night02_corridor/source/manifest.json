@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "iteration": 3,
+  "original_blend_filename": "Omagatoki_Corridor.blend",
+  "original_blend_sha256": "94886b03ddbca36c01a431e69345ebd7b6863bd0c232b5e528aba7ecd2ea2727",
+  "production_sha256": "a95880eeb4ebe20c1c7dd20867273c2ae56fc7b94bfd9d918641d3c6480ec893",
+  "original_textures_reused": 5,
+  "blender_version": "4.3.2",
+  "mesh_objects": 80,
+  "triangles": 232942,
+  "coordinate_system": "glTF Y up; Godot直接载入，无wrapper缩放",
+  "source_reuse": "原始回廊旧木/和纸/青瓦/石材/灰泥纹理，以及门格栅、编绳、铜铃、椽瓦、岩石、树木、石灯、水钵网格。仅文书与旧物箱为源材质补建。",
+  "collision_policy": "不导出碰撞，不修改旧碰撞。五柱/后墙/木箱对位，灯钟高挂，石灯水钵界外。",
+  "runtime_lighting": "由Godot集成层接入；资产不含相机灯光。"
+}

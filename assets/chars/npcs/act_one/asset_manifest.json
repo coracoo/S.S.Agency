@@ -1,0 +1,256 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-10-05",
+  "method": "OpenAI built-in image_gen",
+  "notes": "两名本轮新加普通成年NPC；独立生成并以图像工具修整透明背景。未复用敌图、未改主角素材。原始PNG不经过程序绘制、裁剪或抠图。",
+  "assets": [
+    {
+      "id": "liang",
+      "label": "守山人·老梁",
+      "file": "liang_world.png",
+      "height_cm": 172,
+      "canvas": [
+        1024,
+        1536
+      ],
+      "crown_px": [
+        525,
+        64
+      ],
+      "sole_pixel_px": [
+        400,
+        1483
+      ],
+      "ground_y_px": 1487,
+      "anchor_px": [
+        510,
+        1487
+      ],
+      "prompt": "Create the matching FULL-BODY WORLD SPRITE for this exact NPC. Image 1 is the NEW HALF-BODY DIALOGUE PORTRAIT and is authoritative for the person's face, age, gender, hairstyle, costume colors, linework and anime illustration style. Image 2 is the older full-body pose/layout reference ONLY: preserve its general standing pose, complete costume design below the waist and handheld prop, but discard its realistic watercolor texture, skin pore detail, grainy cloth and background haze. Image 3 is the accepted player-character game sprite: use the same clean anime-game line weight, smooth broad thick-painted cloth shading, polished precise hair highlights, clear line-art definition and simplified material details. This is a single coherent character in the same game, not a realistic illustration.\nRedraw Lao Liang, the same approximately 60-year-old man with short gray hair, short mustache and goatee, indigo robe, brown waist sash, straw rain cape and wooden staff from head to feet. Preserve male age and identity. Adult proportions approximately 7.5 heads tall. Full original clothing coverage, natural ordinary work-clothes silhouette. Calm right-facing three-quarter idle stance. Full head, every piece of hair, complete robe hems, both entire shoes and the entire staff/broom fit inside the canvas with at least 5% transparent margin at top, bottom and sides. Feet grounded on one line. Do not enlarge head to chibi proportions. No extra character.\nOutput a standalone transparent PNG CUTOUT. Every pixel outside the immediate antialiased character-and-prop silhouette must be alpha=0; no background, no brown cloud, no lighting aura, no glow, no vignette, no cast shadow or ground patch. No text, no border, no scenery. Portrait canvas 2:3. Keep head at 5–8% and shoe soles at about 93–95% canvas height. This image is the fully standing world sprite, not another half-body portrait.",
+      "revision": "2026-10-05统一主角anime厚涂画风；地图全身与专用半身分离",
+      "sha256": "c524a1425a94074124d5932701e46cd9fe848fc2555a0c05bff15b8bccb08ae8",
+      "references": [
+        "liang_half.png",
+        "liang.png",
+        "res://assets/chars/pixel/rinne/high_detail_complete/frames/idle1.png"
+      ]
+    },
+    {
+      "id": "acheng",
+      "label": "扫庭人·阿诚",
+      "file": "acheng_world.png",
+      "height_cm": 176,
+      "canvas": [
+        1024,
+        1536
+      ],
+      "crown_px": [
+        518,
+        62
+      ],
+      "sole_pixel_px": [
+        380,
+        1493
+      ],
+      "ground_y_px": 1497,
+      "anchor_px": [
+        470,
+        1497
+      ],
+      "prompt": "Create the matching FULL-BODY WORLD SPRITE for this exact NPC. Image 1 is the NEW HALF-BODY DIALOGUE PORTRAIT and is authoritative for the person's face, age, gender, hairstyle, costume colors, linework and anime illustration style. Image 2 is the older full-body pose/layout reference ONLY: preserve its general standing pose, complete costume design below the waist and handheld prop, but discard its realistic watercolor texture, skin pore detail, grainy cloth and background haze. Image 3 is the accepted player-character game sprite: use the same clean anime-game line weight, smooth broad thick-painted cloth shading, polished precise hair highlights, clear line-art definition and simplified material details. This is a single coherent character in the same game, not a realistic illustration.\nRedraw A Cheng, the same approximately 35-year-old adult man with cloth headwrap and tied dark hair, subtle stubble, sage-gray/cream work clothes, brown sash, holding a plain yard broom from head to feet. Preserve male age and identity. Adult proportions approximately 7.5 heads tall. Full original clothing coverage, natural ordinary work-clothes silhouette. Calm right-facing three-quarter idle stance. Full head, every piece of hair, complete robe hems, both entire shoes and the entire staff/broom fit inside the canvas with at least 5% transparent margin at top, bottom and sides. Feet grounded on one line. Do not enlarge head to chibi proportions. No extra character.\nOutput a standalone transparent PNG CUTOUT. Every pixel outside the immediate antialiased character-and-prop silhouette must be alpha=0; no background, no brown cloud, no lighting aura, no glow, no vignette, no cast shadow or ground patch. No text, no border, no scenery. Portrait canvas 2:3. Keep head at 5–8% and shoe soles at about 93–95% canvas height. This image is the fully standing world sprite, not another half-body portrait.",
+      "revision": "2026-10-05统一主角anime厚涂画风；地图全身与专用半身分离",
+      "sha256": "0d35589aa901b822f27e07c4374e4b9c117710aa5b7f1b6af407da7547e2a9dd",
+      "references": [
+        "acheng_half.png",
+        "acheng.png",
+        "res://assets/chars/pixel/rinne/high_detail_complete/frames/idle1.png"
+      ]
+    }
+  ],
+  "portraits": [
+    {
+      "id": "liang_half",
+      "identity_id": "liang",
+      "file": "liang_half.png",
+      "framing": "half_body",
+      "prompt": "Edit/style-transfer + reframing for this NPC. Reference image 1 and image 2 are the CURRENT APPROVED MAIN CHARACTER GAME ART: match their clean dark tapered contour lines, refined anime facial construction, controlled thick-painted/cel-shaded colors, smooth broad fabric folds, compact glossy highlights, crisp separated hair strands, clean edge treatment and polished hand-painted game portrait finish. Image 3 is ONLY the NPC IDENTITY AND COSTUME reference. Discard image 3's photorealistic pores, fibrous fabric noise, watercolor/grainy texture, brown aura and lighting effects. Redraw the SAME NPC in the exact visual language of images 1 and 2.\nSubject: Lao Liang, an approximately 60-year-old East Asian MAN, mature angular face, short salt-and-pepper hair, a short gray mustache and goatee, tired kind eyes; preserve his indigo layered work robes, brown sash, straw rain cape over shoulders, hand resting on top of the wooden staff. Remain unmistakably this adult male of this age. Do not copy the gender, body, face or clothes of the female style references. Normal modest fully covering work clothing.\nOutput framing is a dedicated WAIST-UP HALF-BODY DIALOGUE PORTRAIT. Show head, neck, both shoulders, chest and arms down to belt/waist only. NO thighs, knees, legs, feet or floor. The top of the head at about 6% of canvas height; entire head including hair visible. Head and upper torso fill the 2:3 portrait frame, not a small full figure. Cropping naturally at waist at bottom edge. Three-quarter side orientation with eyes looking right into the dialogue scene. Only upper part of the staff/broom if naturally within this half-body frame. Single person only.\nBackground: absolutely clean TRUE TRANSPARENT ALPHA, alpha=0 directly outside silhouette, no glow, no halo, no fog, no brown/gray backdrop, no vignette, no shadow, no paper texture, no text or border. Preserve transparent cutout; no gradient backdrop. Make a coherent polished anime game character half-portrait, not a photograph, not a realistic painted portrait, not a pencil or watercolor illustration.",
+      "identity_reference": "liang.png",
+      "sha256": "ab3cb76fc3d7b3354c6c444b59b2fee97370aed645704c4333c607bd77e00b51",
+      "canvas": [
+        1024,
+        1536
+      ],
+      "method": "OpenAI built-in image_gen",
+      "references": [
+        {
+          "role": "style_reference",
+          "file": "res://assets/chars/pixel/rinne/high_detail_complete/frames/idle1.png",
+          "runtime_region": [
+            384,
+            24,
+            576,
+            864
+          ],
+          "inspection": "从正式IdentityPortraits路由导出并view_image目检"
+        },
+        {
+          "role": "style_reference",
+          "file": "res://assets/chars/pixel/guard/high_detail_complete/frames/idle1.png",
+          "runtime_region": [
+            336,
+            24,
+            640,
+            960
+          ],
+          "inspection": "从正式IdentityPortraits路由导出并view_image目检"
+        }
+      ],
+      "alpha_probe_points": [
+        [
+          100,
+          100
+        ],
+        [
+          800,
+          200
+        ],
+        [
+          300,
+          100
+        ],
+        [
+          50,
+          400
+        ],
+        [
+          900,
+          500
+        ],
+        [
+          800,
+          70
+        ]
+      ]
+    },
+    {
+      "id": "acheng_half",
+      "identity_id": "acheng",
+      "file": "acheng_half.png",
+      "framing": "half_body",
+      "prompt": "Edit/style-transfer + reframing for this NPC. Reference image 1 and image 2 are the CURRENT APPROVED MAIN CHARACTER GAME ART: match their clean dark tapered contour lines, refined anime facial construction, controlled thick-painted/cel-shaded colors, smooth broad fabric folds, compact glossy highlights, crisp separated hair strands, clean edge treatment and polished hand-painted game portrait finish. Image 3 is ONLY the NPC IDENTITY AND COSTUME reference. Discard image 3's photorealistic pores, fibrous fabric noise, watercolor/grainy texture, brown aura and lighting effects. Redraw the SAME NPC in the exact visual language of images 1 and 2.\nSubject: A Cheng, an approximately 35-year-old East Asian MAN, calm lean masculine face, dark hair with off-white cloth headwrap and small tied hair knot, subtle stubble; preserve his sage-gray and cream plain work clothes, brown waist sash, hands lightly holding the wooden broom handle. Remain unmistakably this adult male of this age. Do not copy the gender, body, face or clothes of the female style references. Normal modest fully covering work clothing.\nOutput framing is a dedicated WAIST-UP HALF-BODY DIALOGUE PORTRAIT. Show head, neck, both shoulders, chest and arms down to belt/waist only. NO thighs, knees, legs, feet or floor. The top of the head at about 6% of canvas height; entire head including hair visible. Head and upper torso fill the 2:3 portrait frame, not a small full figure. Cropping naturally at waist at bottom edge. Three-quarter side orientation with eyes looking right into the dialogue scene. Only upper part of the staff/broom if naturally within this half-body frame. Single person only.\nBackground: absolutely clean TRUE TRANSPARENT ALPHA, alpha=0 directly outside silhouette, no glow, no halo, no fog, no brown/gray backdrop, no vignette, no shadow, no paper texture, no text or border. Preserve transparent cutout; no gradient backdrop. Make a coherent polished anime game character half-portrait, not a photograph, not a realistic painted portrait, not a pencil or watercolor illustration.",
+      "identity_reference": "acheng.png",
+      "sha256": "2c7e627c625218e88b95e2fb467e2f06a63f1a876ef2a01372b7ef402ed4be84",
+      "canvas": [
+        1024,
+        1536
+      ],
+      "method": "OpenAI built-in image_gen",
+      "references": [
+        {
+          "role": "style_reference",
+          "file": "res://assets/chars/pixel/rinne/high_detail_complete/frames/idle1.png",
+          "runtime_region": [
+            384,
+            24,
+            576,
+            864
+          ],
+          "inspection": "从正式IdentityPortraits路由导出并view_image目检"
+        },
+        {
+          "role": "style_reference",
+          "file": "res://assets/chars/pixel/guard/high_detail_complete/frames/idle1.png",
+          "runtime_region": [
+            336,
+            24,
+            640,
+            960
+          ],
+          "inspection": "从正式IdentityPortraits路由导出并view_image目检"
+        }
+      ],
+      "alpha_probe_points": [
+        [
+          100,
+          100
+        ],
+        [
+          800,
+          200
+        ],
+        [
+          300,
+          100
+        ],
+        [
+          50,
+          400
+        ],
+        [
+          900,
+          500
+        ],
+        [
+          800,
+          70
+        ]
+      ]
+    }
+  ],
+  "legacy_assets": [
+    {
+      "id": "liang",
+      "label": "守山人·老梁",
+      "file": "liang.png",
+      "height_cm": 172,
+      "canvas": [
+        1024,
+        1536
+      ],
+      "crown_px": [
+        510,
+        58
+      ],
+      "sole_pixel_px": [
+        370,
+        1478
+      ],
+      "ground_y_px": 1483,
+      "anchor_px": [
+        510,
+        1483
+      ],
+      "prompt": "Use case: illustration-story. Asset type: one transparent full-body game NPC sprite for a high-detail East Asian ink-and-color fantasy RPG. Generate one ORIGINAL adult male mountain-path caretaker, Lao Liang, about 60, ordinary realistic adult proportions (7.5 heads tall), lean sturdy body, weathered warm face, short salt-and-pepper hair, modest side three-quarter stance facing right, both feet on a common ground line. He wears practical FULLY COVERING worn indigo and umber layered cotton travel/work robes, bound cloth trousers, cloth shoes, simple tied sash, a plain small straw rain cape over shoulders. One hand loosely resting on an ordinary wooden walking staff shorter than his head. Calm, alert, helpful but serious expression. Fine hand-painted crisp linework, refined detailed anime illustrated game character, restrained painterly shading, clear silhouette at small scale, natural soft lighting, muted indigo/earth/brown palette, visually grounded and unglamorous. Isolated SINGLE whole person from bare head to soles, entire walking staff visible, portrait canvas, generous transparent margins all sides, neither cropped nor a close-up. Actual transparent alpha background. No text, no labels, no scenery, no ground patch, no cast shadow, no glow, no weapons, no armor, no elaborate religious symbols, no monsters, no second figure. This is a mundane helpful mountain keeper, not an enemy, no caricature or chibi proportions.",
+      "revision": "移除背景光晕，保留人物、服装、姿势与完整脚和杖",
+      "sha256": "2aea27fb10e8d1ce71f3dc6af9266a67f276a3984d6d2361a90143d30cdebb6b",
+      "status": "2026-10-05用户要求统一画风后停用，保留原稿"
+    },
+    {
+      "id": "acheng",
+      "label": "扫庭人·阿诚",
+      "file": "acheng.png",
+      "height_cm": 176,
+      "canvas": [
+        1024,
+        1536
+      ],
+      "crown_px": [
+        480,
+        48
+      ],
+      "sole_pixel_px": [
+        370,
+        1478
+      ],
+      "ground_y_px": 1484,
+      "anchor_px": [
+        470,
+        1484
+      ],
+      "prompt": "Use case: illustration-story. Asset type: one transparent full-body game NPC sprite for a high-detail East Asian ink-and-color fantasy RPG. Generate one ORIGINAL adult male grounds sweeper, A Cheng, about 35, ordinary realistic adult proportions (7.5 heads tall), average slim build, unremarkable kind face, dark hair tied in a small practical cloth head-wrap, side three-quarter stance facing right, relaxed upright idle stance with both feet on a common ground line. He wears practical FULLY COVERING plain sage-gray and off-white long-sleeved cotton work clothes, loose full-length tied trousers, plain fabric shoes and a narrow brown sash. Both hands lightly hold a simple straw yard broom vertically beside him, broom bristles resting at ground level, broom no taller than his head. Calm reserved expression. Fine hand-painted crisp linework, refined detailed anime illustrated game character, restrained painterly shading, clear silhouette at small scale, natural soft lighting, muted sage-gray/cream/wood palette, visually grounded and unglamorous. Isolated SINGLE whole person from head to soles including the entire broom, portrait canvas, generous transparent margins all sides, no cropped limbs or props. Actual transparent alpha background. No text, no labels, no scenery, no ground patch, no cast shadow, no glow, no weapons, no armor, no religious vestments, no prayer beads, no shaved monk head, no monsters, no second figure. This is a mundane helpful sweeper, not clergy or an enemy, no caricature or chibi proportions.",
+      "revision": "移除背景光晕，保留人物、服装、姿势与完整脚和扫帚",
+      "sha256": "ef9e3282e1cd1feeb80ea6d445b1242838037740efa82cbfef839422c9752c97",
+      "status": "2026-10-05用户要求统一画风后停用，保留原稿"
+    }
+  ]
+}

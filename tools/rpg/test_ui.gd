@@ -171,7 +171,10 @@ static func _test_battle_scene_ready(View, catalog, failures: Array[String]) -> 
 	F.expect(view._skill_buttons[0].text.split("\n").size() <= 2, "技能卡只用两行，不挤出和纸面板", failures)
 	F.expect(view._skill_buttons.size() == 4 and view._skill_buttons[0].text.contains("150%物攻"), "真实战斗ready显示四槽与预览真实伤害摘要", failures)
 	F.expect(view._skill_buttons[3].text.contains("2次行动"), "技能状态时长含行动单位", failures)
-	F.expect(view._actors.e_1.sprite.get_child(0).flip_h, "左向敌图必须镜像面向右侧我方", failures)
+	if OS.get_environment("RPG_TEST_LEGACY_CONTRACTS") == "1":
+		F.expect(view._actors.e_1.sprite.get_child(0).flip_h, "历史契约：左向敌图必须镜像面向右侧我方", failures)
+	else:
+		F.expect(not view._actors.e_1.sprite.get_child(0).flip_h and view._config.enemy_art.hound == "res://assets/chars/enemies/current/hound.png", "正式疾行敌图原生右向，在左侧不重复镜像", failures)
 	F.expect(view._actors.p_swordsman.sprite.get_child(0).flip_h, "右向凛音镜像面向左侧敌方", failures)
 	F.expect(view._actors.e_1.intent.text.contains("预计伤害"), "敌方意图显示模型数字", failures)
 	F.expect(view._preview_panel.size.y < 300 and view._preview_panel.size.x >= 400, "预览面板紧凑且可读", failures)

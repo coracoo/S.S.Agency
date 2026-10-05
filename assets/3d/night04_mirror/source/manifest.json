@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "iteration": 4,
+  "original_blend_filename": "Omagatoki_Corridor.blend",
+  "original_blend_sha256": "94886b03ddbca36c01a431e69345ebd7b6863bd0c232b5e528aba7ecd2ea2727",
+  "production_sha256": "840085b61861bf2fa73bf9f320198ec0aa016263fad7fe4906c6f601099e6b40",
+  "original_textures_reused": 5,
+  "blender_version": "4.3.2",
+  "mesh_objects": 55,
+  "triangles": 158254,
+  "floor_top": 0.022,
+  "collision_policy": "保留原碰撞，无新碰撞",
+  "coordinate_system": "Blender Z-up to glTF Y-up; Godot原位载入",
+  "tree_roof_gap_metres": 0.36,
+  "approach_vegetation_sha256": "4ae9f539a3b879836984baedfd78a16c53386275decfa4d51dd85c4527ab0bb1",
+  "story_hero": "棺底斜铜镜、半开纸门、庭后神木；无新增剧情",
+  "lighting_anchors_godot": {
+    "mirror": [
+      1.03,
+      0.62,
+      -1.58
+    ],
+    "left_lamp": [
+      -4.72,
+      2.45,
+      -2.42
+    ],
+    "right_lamp": [
+      4.68,
+      2.45,
+      -2.42
+    ],
+    "courtyard_lamp": [
+      0.4,
+      0.63,
+      -5.0
+    ]
+  }
+}

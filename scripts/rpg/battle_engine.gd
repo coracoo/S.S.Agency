@@ -2,6 +2,7 @@
 class_name RpgBattleEngine
 extends RefCounted
 
+const Forms = preload("res://scripts/rpg/dual_form.gd")
 const Catalog = preload("res://scripts/rpg/catalog.gd")
 const State = preload("res://scripts/rpg/battle_state.gd")
 const Commands = preload("res://scripts/rpg/command_rules.gd")
@@ -53,6 +54,7 @@ func submit(command: Dictionary) -> Dictionary:
 	var preview_result := preview(command)
 	if not preview_result.legal:
 		return {"accepted": false, "reasons": preview_result.reasons, "events": [], "revision": _state.get("revision", 0)}
+	if command.kind == "switch_form": return _submit_form(command)
 	var candidate := _state.duplicate(true)
 	var rng := RandomNumberGenerator.new()
 	rng.state = candidate.rng_state.to_int()
@@ -224,3 +226,19 @@ static func _clear_battle_effects(state: Dictionary, events: Array[Dictionary]) 
 			actor.cooldown_until = {}
 		actor.intent = {}
 		if not actor.boss.is_empty(): actor.boss["charge_valid"] = false
+
+# A form command is an atomic model change, not a second action or an effect.
+func _submit_form(command: Dictionary) -> Dictionary:
+	var candidate := _state.duplicate(true)
+	var actor: Dictionary = candidate.actors[command.actor_id]
+	var previous_form: String = actor.form_id
+	Forms.apply(actor, command.form_id, _catalog)
+	var events: Array[Dictionary] = [Resolver.event("command_accepted", actor.actor_id, "", {"command": command.duplicate(true), "resolved_target_ids": []}), Resolver.event("form_changed", actor.actor_id, actor.actor_id, {"previous_form": previous_form, "form_id": actor.form_id, "active_class_id": actor.active_class_id, "skill_ids": actor.skill_ids.duplicate()})]
+	candidate.revision += 1
+	candidate.accepted_commands[command.command_id] = candidate.revision
+	candidate.command_log.append(command.duplicate(true))
+	_append_events(candidate, events)
+	last_errors = State.validate(candidate)
+	if not last_errors.is_empty(): return {"accepted": false, "reasons": last_errors.duplicate(), "events": [], "revision": _state.revision}
+	_state = candidate
+	return {"accepted": true, "reasons": [], "events": events.duplicate(true), "revision": _state.revision}

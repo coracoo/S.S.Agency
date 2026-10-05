@@ -2,6 +2,7 @@
 class_name RpgCatalog
 extends RefCounted
 
+const Forms = preload("res://scripts/rpg/dual_form.gd")
 const KINDS := ["classes", "skills", "statuses", "enemies", "items", "equipment", "encounters"]
 const CLASS_IDS := ["guard", "swordsman", "ranger", "mage", "healer", "controller"]
 const STAT_KEYS := ["hp", "mp", "atk", "matk", "def", "mdef", "spd"]
@@ -70,7 +71,7 @@ func get_all(kind: String) -> Array[Dictionary]:
 # 四个固定卡位保留解锁元数据；仅单一职业分支达到6/9级时覆盖定义中的对应项。
 func skill_for(actor: Dictionary, skill_id: String) -> Dictionary:
 	var skill := get_definition("skills", skill_id)
-	var own: Array = get_definition("classes", actor.get("class_id", "")).get("skill_ids", [])
+	var own: Array = get_definition("classes", Forms.active_class(actor)).get("skill_ids", [])
 	if skill.is_empty() or not own.has(skill_id): return {}
 	var branch: Dictionary = actor.get("branch", {})
 	if int(actor.get("level", 1)) < 6 or branch.size() != 1 or not branch.get("id") is String: return skill

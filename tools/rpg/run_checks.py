@@ -25,6 +25,7 @@ def main() -> int:
     parser.add_argument("--suite", choices=SUITES, default="all")
     parser.add_argument("--approach-visual", action="store_true", help="隔离预检后启动仅人工操作的参道图形验收，F12截图、F10结束")
     parser.add_argument("--legacy", action="store_true", help="核验后依次执行旧 v4、凛音时序、3D预览测试")
+    parser.add_argument("--legacy-contracts", action="store_true", help="诊断旧默认入口/左向敌图/回廊直本殿契约；当前五夜版本预期报告这些历史差异")
     parser.add_argument("--import", dest="do_import", action="store_true", help="隔离目录中导入资源")
     parser.add_argument("--godot", default=os.environ.get("GODOT_BIN", "godot"))
     parser.add_argument("--sweep", choices=("chain", "boss_only", "both"), help="固定20组合×3策略×3种子批测")
@@ -54,6 +55,7 @@ def main() -> int:
             env[variable] = str(location)
         env["RPG_TEST_ROOT"] = str(root)
         env["RPG_TEST_ISOLATED"] = "0"
+        env["RPG_TEST_LEGACY_CONTRACTS"] = "1" if args.legacy_contracts else "0"
         env.pop("RPG_SWEEP_MODE", None)
         env.pop("RPG_SWEEP_OUTPUT", None)
         env.pop("RPG_APPROACH_OUTPUT", None)

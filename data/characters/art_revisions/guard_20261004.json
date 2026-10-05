@@ -1,0 +1,1444 @@
+{
+  "schema_version": 1,
+  "identity_id": "guard",
+  "revision": "2026-10-04-approved-art",
+  "generator": "built_in_image_gen",
+  "body_scale_rule": "每帧仅whole-image统一等比与平移注册；运行时全动作使用idle本体固定比例，不按武器/弯膝bbox fit。",
+  "source_archive": "原始生成PNG与精确历史保留外部源归档，以raw_sha256和source_filename核对。",
+  "limitations": [
+    "绘制动作仍有轻微轮廓变化；不以局部程序变形修改身体。"
+  ],
+  "frames": {
+    "idle1": {
+      "selection": "generated",
+      "source_filename": "full-set-raw/idle1.png",
+      "original_source": "assets/chars/pixel/guard/high_detail_complete/frames/idle1.png",
+      "original_sha256": "4886bc69293c8edbdfb43b531494316c4aa480146f3091a44234f4cf440bc993",
+      "raw_sha256": "172ad200b37b0408faaefb6c42a6c9a8f4329091efb221afc7f641a5573f4fb6",
+      "production_path": "res://assets/chars/pixel/guard/high_detail_complete/frames/idle1.png",
+      "production_sha256": "ad80c9fe91f5b3d6d866f45833f47b303e49a991b9bb9719a58a7198891ed43b",
+      "prompt": "Use case: identity-preserve. Asset type: transparent high-detail 2D RPG game character sprite, corrected idle pose. Edit target: the single attached real source image is 岑照/Cen Zhao, guard idle1. Make a conservative art correction of this exact character, not a redesign. Primary corrections: enlarge the head including face and hair silhouette by approximately 13% relative to the unchanged body, centered near the neck attachment, so her tall adult anime body reads around 7.4–7.6 heads tall rather than an undersized-head 8+ heads. Maintain her face identity, golden-brown eyes, same long charcoal ponytail and bun with gold hair stick, profile looking right, same expression. Reduce the excessively wide rear flowing white-and-blue robe/cape at the lower-left behind her by about 35% in lateral spread. Bring its far-left flying cloth close to the staff/body, with a narrower tasteful trailing silhouette while preserving the same blue edge pattern, folds, bronze decorations, and visual weight. This specifically means narrower REAR CAPE, not shrinking sleeves or increasing exposed skin. Preserve every other original detail: exact upright idle stance, long legs and existing proportions outside head, hand positions, clothes and white/blue/bronze palette, modesty and same existing skin coverage, sandals and foot positions, tall bronze teal polearm on left and ornate shield on right, original weapon shapes and lengths, no new skin exposure. Do not elongate the body or stretch the whole sprite; game height will be set in rendering later. Full body and entire weapons must remain visible with generous transparent margins; preserve original composition and pose. Match the existing detailed anime illustration rendering, clean line art, painted folds, and sharp edges. Output one isolated sprite on genuine RGBA transparent background. No background, floor, cast shadow, text, caption, comparison layout, frame, watermark, or extra objects.",
+      "mechanical_transform": {
+        "uniform_scale": 0.8935427574171029,
+        "resize_wh": [
+          1121,
+          1121
+        ],
+        "offset_px": [
+          9,
+          30
+        ],
+        "filter": "LANCZOS",
+        "basis": "未改盾体/母版同一物理大小；不按动作或武器bbox"
+      }
+    },
+    "idle2": {
+      "selection": "generated",
+      "source_filename": "full-set-raw/idle2.png",
+      "original_source": "assets/chars/pixel/guard/high_detail_complete/frames/idle2.png",
+      "original_sha256": "c8b3023dc026381c0f0527badb13101e450205757e10dd685524e759555b3d16",
+      "raw_sha256": "2ee70c999ebb4348afb696e8e7a10c820a303ae959134c316e0b255b5ee7f718",
+      "production_path": "res://assets/chars/pixel/guard/high_detail_complete/frames/idle2.png",
+      "production_sha256": "f31e2b1220cea0762dd04acad1567b11bc109130737e88860a905312deb6fca7",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific pose: idle2. This is the subtle breathing idle2; preserve its relaxed stance and OPEN EYES.",
+      "mechanical_transform": {
+        "uniform_scale": 0.8904558460120836,
+        "resize_wh": [
+          1117,
+          1117
+        ],
+        "offset_px": [
+          7,
+          33
+        ],
+        "filter": "LANCZOS",
+        "basis": "未改盾体/母版同一物理大小；不按动作或武器bbox"
+      }
+    },
+    "idle3": {
+      "selection": "generated",
+      "source_filename": "full-set-raw/idle3.png",
+      "original_source": "assets/chars/pixel/guard/high_detail_complete/frames/idle3.png",
+      "original_sha256": "2dfec7520a9baeaa66d2cddd47ab5f21a758236121423b4e7ea530ee11103d9d",
+      "raw_sha256": "7071bd127d9fab86ab449594864ae3adff08d58f10f92e7dd242348ff0579c19",
+      "production_path": "res://assets/chars/pixel/guard/high_detail_complete/frames/idle3.png",
+      "production_sha256": "d7da0efa8f11cef2bed8d0c256455f4b830b48198a9c16f0ac74b416cc6d50c9",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific pose: idle3. The target has eyes completely closed for a blink; preserve CLOSED EYES.",
+      "mechanical_transform": {
+        "uniform_scale": 0.8888101267695538,
+        "resize_wh": [
+          1115,
+          1115
+        ],
+        "offset_px": [
+          8,
+          35
+        ],
+        "filter": "LANCZOS",
+        "basis": "未改盾体/母版同一物理大小；不按动作或武器bbox"
+      }
+    },
+    "idle4": {
+      "selection": "generated",
+      "source_filename": "full-set-raw/idle4.png",
+      "original_source": "assets/chars/pixel/guard/high_detail_complete/frames/idle4.png",
+      "original_sha256": "3c81e71b9698ee9ef68bc9967787fbd1a3ef7b2000d8e74f95159289693a2902",
+      "raw_sha256": "f92e1d59766966bfac5f541e6a68871556768bade03bfddb0f322b16c529a7d6",
+      "production_path": "res://assets/chars/pixel/guard/high_detail_complete/frames/idle4.png",
+      "production_sha256": "0c3723a165e1d9f65699d57be1257ebdcc3e32f5a95777ca8d5954929a5a28e3",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific pose: idle4. Subtle breathing idle4, eyes OPEN, original upright relaxed stance.",
+      "mechanical_transform": {
+        "uniform_scale": 0.8943790368455227,
+        "resize_wh": [
+          1122,
+          1122
+        ],
+        "offset_px": [
+          4,
+          31
+        ],
+        "filter": "LANCZOS",
+        "basis": "未改盾体/母版同一物理大小；不按动作或武器bbox"
+      }
+    },
+    "walk1": {
+      "selection": "generated",
+      "source_filename": "full-set-raw/walk1.png",
+      "original_source": "assets/chars/pixel/guard/high_detail_complete/frames/walk1.png",
+      "original_sha256": "0839e039540daa16cc953555a0a027a27f823bea543670ad3349f31b085631df",
+      "raw_sha256": "9782a01ce925f74018dc3d93d6d9874807faef5668d91e47b5f11b79e08bbf69",
+      "production_path": "res://assets/chars/pixel/guard/high_detail_complete/frames/walk1.png",
+      "production_sha256": "0aad768a7e40cc47de60dce654909a3cda82652202c43da10163a7b30d088432",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific pose: walk1. Walking first stride pose, legs wide crossing stride with rear left foot and forward right foot, tilted polearm, shield carried forward; match the stride target precisely. Do NOT turn into idle stance.",
+      "mechanical_transform": {
+        "uniform_scale": 0.893542757417103,
+        "resize_wh": [
+          1121,
+          1121
+        ],
+        "offset_px": [
+          16,
+          39
+        ],
+        "filter": "LANCZOS",
+        "basis": "未改盾体/母版同一物理大小；不按动作或武器bbox"
+      }
+    },
+    "walk2": {
+      "selection": "generated",
+      "source_filename": "full-set-raw/walk2.png",
+      "original_source": "assets/chars/pixel/guard/high_detail_complete/frames/walk2.png",
+      "original_sha256": "d68bec4e5dae5b414b43776d5750e668a2238c5485626ddb4c46ace3cb42476b",
+      "raw_sha256": "46eda5bdc6e309e27478d3efd33493c204ead6d47bf683b826cc46bd2ccea75f",
+      "production_path": "res://assets/chars/pixel/guard/high_detail_complete/frames/walk2.png",
+      "production_sha256": "9da6304d564f1af2e3aa6decd2180adae1172a7814defaf8769a8a2c6658ec3d",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific pose walk2 of the walking gait: retain exact original planted foot and opposite bent-leg swing phase, foot spacing and heel lift. DO NOT replace walking legs with idle reference legs. Match original polearm and shield orientation.",
+      "mechanical_transform": {
+        "uniform_scale": 0.9354697070264407,
+        "resize_wh": [
+          1173,
+          1173
+        ],
+        "offset_px": [
+          -66,
+          -26
+        ],
+        "filter": "LANCZOS",
+        "basis": "未改盾体/母版同一物理大小；不按动作或武器bbox"
+      }
+    },
+    "walk3": {
+      "selection": "generated",
+      "source_filename": "full-set-raw/walk3.png",
+      "original_source": "assets/chars/pixel/guard/high_detail_complete/frames/walk3.png",
+      "original_sha256": "6137774794e303b7537f1cc274dffed8cae3ddf16200af6c71d0d017ecdfc6f7",
+      "raw_sha256": "26ac09bb29a8e8185e13b5dc77cfe7aa681ae5640d679a03de14b2731fcde175",
+      "production_path": "res://assets/chars/pixel/guard/high_detail_complete/frames/walk3.png",
+      "production_sha256": "bf04ee65acbfaa8c7b3a53c539c3c2ae0cc8c3e6d23e2729c9580495838e40f6",
+      "prompt": "Use case: identity-preserve. Edit the FIRST attached image, guard walking frame walk3. Second attached image is ONLY corrected head/cape art reference, NOT pose. Preserve image1 WALKING posture literally. Especially keep image1's BACK FOOT (image-left foot) lifted with heel raised, steep diagonal sandal angle and toe lower than heel, bending the back knee behind front leg. FRONT FOOT (image-right foot) alone is planted with its original angle. Keep the original close front/back foot spacing and original knee bend. Do not convert into idle standing posture, do not put both soles flat, do not use second image's idle legs. Keep original hand/polearm/shield positions and angles unchanged. Art correction: copy proportion language from second reference: enlarge original face/head about13%, same face identity, golden eyes, charcoal bun and hair stick, long hair, narrowed rear white-blue trailing cape with same ornate edging. Keep white/blue/bronze outfit, same skin coverage and footwear. Only head proportion and rear cape silhouette change; pose/legs/weapon are locked to original. Full figure and weapons on genuine transparent RGBA background, generous margins, no shadow/background/text/watermark. Retain first image's body pixel scale/framing, no stretching.",
+      "mechanical_transform": {
+        "uniform_scale": 0.9229856278614406,
+        "resize_wh": [
+          1157,
+          1157
+        ],
+        "offset_px": [
+          -25,
+          -7
+        ],
+        "filter": "LANCZOS",
+        "basis": "未改盾体/母版同一物理大小；不按动作或武器bbox"
+      }
+    },
+    "walk4": {
+      "selection": "generated",
+      "source_filename": "full-set-raw/walk4.png",
+      "original_source": "assets/chars/pixel/guard/high_detail_complete/frames/walk4.png",
+      "original_sha256": "3e14b51e75557e72073ca39bff3fe86f79446df6075f3a7800167abfc8cc3d22",
+      "raw_sha256": "f54ed173f3cfb0952c639b6ba9a085c6bac11368323cd9b9b74be3f55c4033ad",
+      "production_path": "res://assets/chars/pixel/guard/high_detail_complete/frames/walk4.png",
+      "production_sha256": "9edc054933661290617b9e9dc112a01d41db81bd99842e7b050daea61b5026f1",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific pose walk4: opposite walking stride with back-left leg forward leaning/extended knee and front-right leg behind; left foot (image-left) near lower baseline and image-right foot at the rear, BOTH separated, matching exact source. Preserve source heel/toe angles, bent knees, support/swing phase. DO NOT use idle crossed-legs stance. Preserve vertical polearm and carried shield.",
+      "mechanical_transform": {
+        "uniform_scale": 0.890298876859145,
+        "resize_wh": [
+          1116,
+          1116
+        ],
+        "offset_px": [
+          -14,
+          56
+        ],
+        "filter": "LANCZOS",
+        "basis": "未改盾体/母版同一物理大小；不按动作或武器bbox"
+      }
+    },
+    "walk5": {
+      "selection": "generated",
+      "source_filename": "full-set-raw/walk5.png",
+      "original_source": "assets/chars/pixel/guard/high_detail_complete/frames/walk5.png",
+      "original_sha256": "f32ea4cff9997c66a49c7da4dfeeac1e6a354f31fa67812965a62770b8caeb20",
+      "raw_sha256": "5f5104b8c2a2de0d661c674e40e19523863af11ded078b243fb4768eccac4428",
+      "production_path": "res://assets/chars/pixel/guard/high_detail_complete/frames/walk5.png",
+      "production_sha256": "e829d941854eb408a8bf4821d7227da6a809ca4d53b93e86f5d041d78425281b",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific pose walk5: opposite walking stride with back-left leg forward leaning/extended knee and front-right leg behind; left foot (image-left) near lower baseline and image-right foot at the rear, BOTH separated, matching exact source. Preserve source heel/toe angles, bent knees, support/swing phase. DO NOT use idle crossed-legs stance. Preserve vertical polearm and carried shield.",
+      "mechanical_transform": {
+        "uniform_scale": 0.9091940864369817,
+        "resize_wh": [
+          1140,
+          1140
+        ],
+        "offset_px": [
+          -64,
+          18
+        ],
+        "filter": "LANCZOS",
+        "basis": "未改盾体/母版同一物理大小；不按动作或武器bbox"
+      }
+    },
+    "walk6": {
+      "selection": "generated",
+      "source_filename": "full-set-raw/walk6.png",
+      "original_source": "assets/chars/pixel/guard/high_detail_complete/frames/walk6.png",
+      "original_sha256": "e00777bd00a224d1fe6295fb0e3e2a930527129481ec59868b02b7ab2c326810",
+      "raw_sha256": "018a47fab44219a066a5f358f8cd69fe62df082402ca0c635c822f289f30f917",
+      "production_path": "res://assets/chars/pixel/guard/high_detail_complete/frames/walk6.png",
+      "production_sha256": "f7c9d885ceb1750eb3b70c800d359eaf2a4ff4187f6784ada6862a7325af5150",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific pose walk6: walking with back leg lifting heel and front leg near vertical supporting ground, exact original separated feet; do not replace it with idle. Preserve original staff and shield angles.",
+      "mechanical_transform": {
+        "uniform_scale": 0.920917589145461,
+        "resize_wh": [
+          1155,
+          1155
+        ],
+        "offset_px": [
+          -37,
+          -1
+        ],
+        "filter": "LANCZOS",
+        "basis": "未改盾体/母版同一物理大小；不按动作或武器bbox"
+      }
+    },
+    "walk7": {
+      "selection": "generated",
+      "source_filename": "full-set-raw/walk7.png",
+      "original_source": "assets/chars/pixel/guard/high_detail_complete/frames/walk7.png",
+      "original_sha256": "7a84c3ff2b451cbae54178c0cadc9beaae36de854ffcf38a431b2d0343a7cf82",
+      "raw_sha256": "a41c96d30a7021388ffb62618e03a7cbb69cb8757ec641f656169956bca4f658",
+      "production_path": "res://assets/chars/pixel/guard/high_detail_complete/frames/walk7.png",
+      "production_sha256": "e9d4e7b373035621366e3bb3838ef91ae3195ae7de3bdd8ed75c3e9018273259",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific pose walk7: walking swing phase with one knee lifted forward in front of the support leg, lifted sandal not touching ground. Keep this visibly lifted knee and foot, not idle crossed legs. Preserve original staff and shield angles.",
+      "mechanical_transform": {
+        "uniform_scale": 0.9093286506377323,
+        "resize_wh": [
+          1140,
+          1140
+        ],
+        "offset_px": [
+          -15,
+          18
+        ],
+        "filter": "LANCZOS",
+        "basis": "未改盾体/母版同一物理大小；不按动作或武器bbox"
+      }
+    },
+    "walk8": {
+      "selection": "generated",
+      "source_filename": "full-set-raw/walk8.png",
+      "original_source": "assets/chars/pixel/guard/high_detail_complete/frames/walk8.png",
+      "original_sha256": "ea1f7d6947483214d6f49cfdf2b5bd1b86c95840812a5349e3f38e28b9108488",
+      "raw_sha256": "6fe48270e847552b5f3dd2d0f77a2cb14903ba3d41932e3eede2cd3072c85ff8",
+      "production_path": "res://assets/chars/pixel/guard/high_detail_complete/frames/walk8.png",
+      "production_sha256": "97610c079977da41039be9b9e015946828563218dd42d1a5eb8eba1c0c6eee83",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific pose walk8: final walking stride phase, separated legs with image-right foot forward planted and image-left foot rear toe lift, source knees and ankles unchanged. Do not substitute idle reference legs.",
+      "mechanical_transform": {
+        "uniform_scale": 0.893542757417103,
+        "resize_wh": [
+          1121,
+          1121
+        ],
+        "offset_px": [
+          -24,
+          28
+        ],
+        "filter": "LANCZOS",
+        "basis": "未改盾体/母版同一物理大小；不按动作或武器bbox"
+      }
+    },
+    "attack1": {
+      "selection": "generated",
+      "source_filename": "full-set-raw/attack1.png",
+      "original_source": "assets/chars/pixel/guard/high_detail_complete/frames/attack1.png",
+      "original_sha256": "dac79a23695a8494d2d8673de8a17895ce9067f31c438127a014edca00269177",
+      "raw_sha256": "792202d773879f885b3f4c8b929aedbf95f4be0b47b9a02c709d954126ff5311",
+      "production_path": "res://assets/chars/pixel/guard/high_detail_complete/frames/attack1.png",
+      "production_sha256": "6214e0bd6134c8411ea5da409db5e2dc7e51b8d044691f398ef0626e845797db",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\n\nPOSE LOCK FOR THIS FRAME: Exact attack1 pose: a broad planted ready stance facing screen-right, rear leg extended down-left and leading foot down-right. The polearm crosses diagonally from the rear tip at upper-left through the near hand at waist height to the large bladed spear point at lower-right. The ornate shield is raised vertically in front on screen-right, top just below head height. Keep both feet, both hands, shield size and angle, and the diagonally downward spear exactly as in target.",
+      "mechanical_transform": {
+        "uniform_scale": 0.8000191423342432,
+        "resize_wh": [
+          1003,
+          1003
+        ],
+        "offset_px": [
+          93,
+          139
+        ],
+        "filter": "LANCZOS",
+        "basis": "未改盾体/母版同一物理大小；不按动作或武器bbox"
+      }
+    },
+    "attack2": {
+      "selection": "generated",
+      "source_filename": "full-set-raw/attack2.png",
+      "original_source": "assets/chars/pixel/guard/high_detail_complete/frames/attack2.png",
+      "original_sha256": "74b887523c88bc22a11d9fb6fb310e04264f1195e200b50be563f7b8b12f5b4c",
+      "raw_sha256": "01ccb802f0e7abb5174414b7eec889d73fa035e39ea8524c58853d6d39438939",
+      "production_path": "res://assets/chars/pixel/guard/high_detail_complete/frames/attack2.png",
+      "production_sha256": "f14db0642bd95f26f62282da1514cf24d3bc6657a5bea3f196da4b659fd8e100",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\n\nPOSE LOCK FOR THIS FRAME: Exact attack2 pose: a high shoulder-level wind-up facing screen-right, polearm almost horizontal across in front of lower face, sharp spear blade on screen-right and small rear tip on screen-left. The visible spear hand is lifted beside left shoulder, elbow bent high. Forward leg reaches down-right with slight knee bend, rear foot planted down-left; ornate shield is raised at front on screen-right. Preserve the near-horizontal spear and all original hand/leg positions.",
+      "mechanical_transform": {
+        "uniform_scale": 0.7515113890802295,
+        "resize_wh": [
+          942,
+          942
+        ],
+        "offset_px": [
+          125,
+          192
+        ],
+        "filter": "LANCZOS",
+        "basis": "未改盾体/母版同一物理大小；不按动作或武器bbox"
+      }
+    },
+    "attack3": {
+      "selection": "generated",
+      "source_filename": "full-set-raw/attack3.png",
+      "original_source": "assets/chars/pixel/guard/high_detail_complete/frames/attack3.png",
+      "original_sha256": "f57cf3feaa54930dbbfd75266ead5bc11a1c02094639155b2ffb0ead657f1e43",
+      "raw_sha256": "f205a1897d10a0f11c164b0102ab3e1e53753200f12548d79b8e065fbb9a9f66",
+      "production_path": "res://assets/chars/pixel/guard/high_detail_complete/frames/attack3.png",
+      "production_sha256": "d0b250e3796461b74b62e2546bc14a1170294a74d442a0ee0220499f6d57f278",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\n\nPOSE LOCK FOR THIS FRAME: Exact attack3 pose: the character makes a wide, low forward thrust toward screen-right, torso leaning forward, leading knee bent at screen-right and rear leg stretched toward bottom-left. Polearm is almost horizontal with a slight up-right slope, crossing at upper-chest height, major pointed blade on far-right and rear spike on far-left. Spear hand is before the upper chest; shield is held nearer edge-on in front of the torso. Hair streams left. Keep this long extended stride and spear direction exactly.",
+      "mechanical_transform": {
+        "uniform_scale": 0.8092506351062092,
+        "resize_wh": [
+          1015,
+          1015
+        ],
+        "offset_px": [
+          66,
+          129
+        ],
+        "filter": "LANCZOS",
+        "basis": "未改盾体/母版同一物理大小；不按动作或武器bbox"
+      }
+    },
+    "attack4": {
+      "selection": "generated",
+      "source_filename": "full-set-raw/attack4.png",
+      "original_source": "assets/chars/pixel/guard/high_detail_complete/frames/attack4.png",
+      "original_sha256": "16aa8bea808f11ff32b1efbeb782af37528c948afa671f885488f8a75dfef8b4",
+      "raw_sha256": "57f0ab8f87f3856211b61ff1182499b0768645e91988dbef78ca91dd18d71be7",
+      "production_path": "res://assets/chars/pixel/guard/high_detail_complete/frames/attack4.png",
+      "production_sha256": "15258cc4f68d20fb4620a51cc8fcf0e0ff30a29f776c9c18011c8f15bcfd8ca9",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\n\nPOSE LOCK FOR THIS FRAME: Exact attack4 pose: an energetic bent-knee forward thrust continuation facing screen-right, front knee raised/bent and leading foot at bottom-right, rear leg stretched back with foot at lower-left. Torso leans forward. The spear is held at shoulder level with slight up-right slope, blade pointing to upper-right and small back tip to left. Shield is upright at screen-right and angled slightly with body, front hand visible on its left edge. Preserve the target stance and original swept-back sleeve motion.",
+      "mechanical_transform": {
+        "uniform_scale": 0.7336053159968892,
+        "resize_wh": [
+          920,
+          920
+        ],
+        "offset_px": [
+          111,
+          179
+        ],
+        "filter": "LANCZOS",
+        "basis": "未改盾体/母版同一物理大小；不按动作或武器bbox"
+      }
+    },
+    "attack5": {
+      "selection": "generated",
+      "source_filename": "full-set-raw/attack5.png",
+      "original_source": "assets/chars/pixel/guard/high_detail_complete/frames/attack5.png",
+      "original_sha256": "81a5e2df0bb3d668ebc76739078b61c922efd9b95ef4054630e7517fd28b9b7c",
+      "raw_sha256": "ae58312c7152368d025c951187fe4703a450e64ac7970f4bf05fc51f85d04339",
+      "production_path": "res://assets/chars/pixel/guard/high_detail_complete/frames/attack5.png",
+      "production_sha256": "ba48e38fc19cecec4a3536d8ccd03c997eeb81999e9451cba415529732169698",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\n\nPOSE LOCK FOR THIS FRAME: Exact attack5 pose: returning upright toward screen-right, wide feet nearly planted, knees straighter; shield is upright and raised at screen-right. Polearm is diagonal rising from small rear spike at lower-left through gripping hand at mid-torso to large spear blade at upper-right. Keep precisely this upward-diagonal weapon recovery angle, hand at chest/waist level and the original foot placement.",
+      "mechanical_transform": {
+        "uniform_scale": 0.9383906417423811,
+        "resize_wh": [
+          1177,
+          1177
+        ],
+        "offset_px": [
+          14,
+          -7
+        ],
+        "filter": "LANCZOS",
+        "basis": "未改盾体/母版同一物理大小；不按动作或武器bbox"
+      }
+    },
+    "attack6": {
+      "selection": "generated",
+      "source_filename": "full-set-raw/attack6.png",
+      "original_source": "assets/chars/pixel/guard/high_detail_complete/frames/attack6.png",
+      "original_sha256": "eedb166b4fab99197755135648eafdf20fab338098e05e640ef926068a8c67d8",
+      "raw_sha256": "39c96d738b7a85d1f9115dc9f1cfb8cc430262dd6a83375d4b1b8622f7e57ec7",
+      "production_path": "res://assets/chars/pixel/guard/high_detail_complete/frames/attack6.png",
+      "production_sha256": "2a021aed7cbb57581976d8ceb0cbe201feb0dc93f3179c4b65d2a9676ec225db",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\n\nPOSE LOCK FOR THIS FRAME: Exact attack6 pose: recovered upright standing posture facing screen-right, feet close with near leg crossing slightly in front, shield lowered on screen-right with shield-hand relaxed over its top edge. Polearm nearly vertical on screen-left with big blade upper-left and rear spike at bottom-left; gripping hand at waist level. Preserve this target recovered pose and its distinct limb positions, not the reference idle image's placement.",
+      "mechanical_transform": {
+        "uniform_scale": 0.906546121177704,
+        "resize_wh": [
+          1137,
+          1137
+        ],
+        "offset_px": [
+          -10,
+          13
+        ],
+        "filter": "LANCZOS",
+        "basis": "未改盾体/母版同一物理大小；不按动作或武器bbox"
+      }
+    },
+    "hit": {
+      "selection": "generated",
+      "source_filename": "full-set-raw/hit.png",
+      "original_source": "assets/chars/pixel/guard/high_detail_complete/frames/hit.png",
+      "original_sha256": "8f997d360c639b0cd98ce0955d82623a09a1ab0f53ddedeb5b9c5c8485621984",
+      "raw_sha256": "2804f7bb8fc215c4ce90b4602ac809b17193d2dfd3b4dbcb411f6214c9c3279c",
+      "production_path": "res://assets/chars/pixel/guard/high_detail_complete/frames/hit.png",
+      "production_sha256": "c59dcce38ce1f4b7f8fd0d680ac9afd44e076d84a98696f70925d7ba8336029e",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific pose hit: HIT REACTION: keep original torso leaning back, pained squinting/closed eyes and slightly open mouth, head tilt, knees bent and feet apart, shield lifted diagonally forward, staff tilted across left side. Do not replace this with idle expression or posture.",
+      "mechanical_transform": {
+        "uniform_scale": 0.8588785912468576,
+        "resize_wh": [
+          1077,
+          1077
+        ],
+        "offset_px": [
+          35,
+          72
+        ],
+        "filter": "LANCZOS",
+        "basis": "未改盾体/母版同一物理大小；不按动作或武器bbox"
+      }
+    },
+    "defend": {
+      "selection": "generated",
+      "source_filename": "full-set-raw/defend.png",
+      "original_source": "assets/chars/pixel/guard/high_detail_complete/frames/defend.png",
+      "original_sha256": "8d6b8e5a5c08af22039f9d0f953a41f9d2006d01eb159887635dff4d37c6dca9",
+      "raw_sha256": "83867eb0eda8f98ea8e6a04e3210d108878ecf57c86b21aae87ce6e48a062d8b",
+      "production_path": "res://assets/chars/pixel/guard/high_detail_complete/frames/defend.png",
+      "production_sha256": "e10ac31ef9d7532204a1be1d8eca044503c58f61c93f9efc1077dc10ffaf735e",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific pose defend: GUARD DEFENSE: keep original defensive bent-knee wide stance, torso leaning forward behind raised shield on image-right, staff leaning diagonal to lower-left with original weapon tip. Keep knees bent and original strong defensive expression; do NOT stand in idle pose.",
+      "mechanical_transform": {
+        "uniform_scale": 0.8442169053918681,
+        "resize_wh": [
+          1059,
+          1059
+        ],
+        "offset_px": [
+          30,
+          96
+        ],
+        "filter": "LANCZOS",
+        "basis": "未改盾体/母版同一物理大小；不按动作或武器bbox"
+      }
+    },
+    "down": {
+      "selection": "generated",
+      "source_filename": "full-set-raw/down.png",
+      "original_source": "assets/chars/pixel/guard/high_detail_complete/frames/down.png",
+      "original_sha256": "89383d6c4d73751fe6db7633bff09cb25f2776f562b24ef016f580da08f9a2fd",
+      "raw_sha256": "daaffd168b84c4550a9a9df06f53dc572cfe990f919046f22333d74c6a3b85a0",
+      "production_path": "res://assets/chars/pixel/guard/high_detail_complete/frames/down.png",
+      "production_sha256": "67ff255b984eaa909422a4c8ce34340b3be53c580cba93297f1a180a78592bc6",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific pose down: DOWN/INCAPACITATED: keep EXACT one-knee kneeling pose from image1 with rear knee grounded and forward raised knee, leaning forward wearily while bracing hand on shield and holding polearm. Keep lower kneeling height, empty transparent space above, feet/knee positions as target. DO NOT turn it into standing or fill the whole canvas by enlarging the kneeling body. Keep torso and limbs same PIXEL SCALE as original target, only enlarged head and narrowed cape.",
+      "mechanical_transform": {
+        "uniform_scale": 0.7387529032371747,
+        "resize_wh": [
+          926,
+          926
+        ],
+        "offset_px": [
+          96,
+          204
+        ],
+        "filter": "LANCZOS",
+        "basis": "未改盾体/母版同一物理大小；不按动作或武器bbox"
+      }
+    },
+    "recover": {
+      "selection": "generated",
+      "source_filename": "full-set-raw/recover.png",
+      "original_source": "assets/chars/pixel/guard/high_detail_complete/frames/recover.png",
+      "original_sha256": "504daa9854a41c77a9553688eb27d444a7168a191bea66a8345fb1743e933b2c",
+      "raw_sha256": "1635c8d3bdaddf252c992ab43579c4f87b47ea2a765da26df7a1440e4e2dcc2b",
+      "production_path": "res://assets/chars/pixel/guard/high_detail_complete/frames/recover.png",
+      "production_sha256": "b952e57c6fae5c5a3c26155bcdc003fe06723ce66a6006b332beaa3198bf6d5d",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific RECOVER pose: image1 is rising from a kneel with one knee bent forward and the other leg behind, torso leaning forward, one foot grounded ahead and other heel lifted behind, hand braced on shield and upright polearm support. Keep exact original bent-leg positions and original hand, shield, staff angles. Do not make this an idle stance or a fully kneeling down pose. Keep pixel scale and blank margins similar to source.",
+      "mechanical_transform": {
+        "uniform_scale": 0.8717783011389303,
+        "resize_wh": [
+          1093,
+          1093
+        ],
+        "offset_px": [
+          14,
+          70
+        ],
+        "filter": "LANCZOS",
+        "basis": "未改盾体/母版同一物理大小；不按动作或武器bbox"
+      }
+    }
+  },
+  "generation_history": [
+    {
+      "frame": "idle1",
+      "pass": 1,
+      "source_relative": "assets/chars/pixel/guard/high_detail_complete/frames/idle1.png",
+      "source_sha256": "4886bc69293c8edbdfb43b531494316c4aa480146f3091a44234f4cf440bc993",
+      "proportion_master_sha256": null,
+      "generator_output_basename": "exec-60f511b0-c892-4693-bab2-d23272a607fa.png",
+      "generator_output_sha256": "172ad200b37b0408faaefb6c42a6c9a8f4329091efb221afc7f641a5573f4fb6",
+      "prompt": "Use case: identity-preserve. Asset type: transparent high-detail 2D RPG game character sprite, corrected idle pose. Edit target: the single attached real source image is 岑照/Cen Zhao, guard idle1. Make a conservative art correction of this exact character, not a redesign. Primary corrections: enlarge the head including face and hair silhouette by approximately 13% relative to the unchanged body, centered near the neck attachment, so her tall adult anime body reads around 7.4–7.6 heads tall rather than an undersized-head 8+ heads. Maintain her face identity, golden-brown eyes, same long charcoal ponytail and bun with gold hair stick, profile looking right, same expression. Reduce the excessively wide rear flowing white-and-blue robe/cape at the lower-left behind her by about 35% in lateral spread. Bring its far-left flying cloth close to the staff/body, with a narrower tasteful trailing silhouette while preserving the same blue edge pattern, folds, bronze decorations, and visual weight. This specifically means narrower REAR CAPE, not shrinking sleeves or increasing exposed skin. Preserve every other original detail: exact upright idle stance, long legs and existing proportions outside head, hand positions, clothes and white/blue/bronze palette, modesty and same existing skin coverage, sandals and foot positions, tall bronze teal polearm on left and ornate shield on right, original weapon shapes and lengths, no new skin exposure. Do not elongate the body or stretch the whole sprite; game height will be set in rendering later. Full body and entire weapons must remain visible with generous transparent margins; preserve original composition and pose. Match the existing detailed anime illustration rendering, clean line art, painted folds, and sharp edges. Output one isolated sprite on genuine RGBA transparent background. No background, floor, cast shadow, text, caption, comparison layout, frame, watermark, or extra objects.",
+      "final_selected": true
+    },
+    {
+      "frame": "idle3",
+      "pass": 1,
+      "source_relative": "assets/chars/pixel/guard/high_detail_complete/frames/idle3.png",
+      "source_sha256": "2dfec7520a9baeaa66d2cddd47ab5f21a758236121423b4e7ea530ee11103d9d",
+      "proportion_master_sha256": "172ad200b37b0408faaefb6c42a6c9a8f4329091efb221afc7f641a5573f4fb6",
+      "generator_output_basename": "exec-b39e2730-276f-42c7-a4e2-cd4a0c0bf194.png",
+      "generator_output_sha256": "7071bd127d9fab86ab449594864ae3adff08d58f10f92e7dd242348ff0579c19",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific pose: idle3. The target has eyes completely closed for a blink; preserve CLOSED EYES.",
+      "final_selected": true
+    },
+    {
+      "frame": "idle2",
+      "pass": 1,
+      "source_relative": "assets/chars/pixel/guard/high_detail_complete/frames/idle2.png",
+      "source_sha256": "c8b3023dc026381c0f0527badb13101e450205757e10dd685524e759555b3d16",
+      "proportion_master_sha256": "172ad200b37b0408faaefb6c42a6c9a8f4329091efb221afc7f641a5573f4fb6",
+      "generator_output_basename": "exec-80a7ba79-5dd0-4294-bbec-7758f6e7727b.png",
+      "generator_output_sha256": "2ee70c999ebb4348afb696e8e7a10c820a303ae959134c316e0b255b5ee7f718",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific pose: idle2. This is the subtle breathing idle2; preserve its relaxed stance and OPEN EYES.",
+      "final_selected": true
+    },
+    {
+      "frame": "walk1",
+      "pass": 1,
+      "source_relative": "assets/chars/pixel/guard/high_detail_complete/frames/walk1.png",
+      "source_sha256": "0839e039540daa16cc953555a0a027a27f823bea543670ad3349f31b085631df",
+      "proportion_master_sha256": "172ad200b37b0408faaefb6c42a6c9a8f4329091efb221afc7f641a5573f4fb6",
+      "generator_output_basename": "exec-feaa9eeb-c571-41ed-8e49-7744ddd395b5.png",
+      "generator_output_sha256": "9782a01ce925f74018dc3d93d6d9874807faef5668d91e47b5f11b79e08bbf69",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific pose: walk1. Walking first stride pose, legs wide crossing stride with rear left foot and forward right foot, tilted polearm, shield carried forward; match the stride target precisely. Do NOT turn into idle stance.",
+      "final_selected": true
+    },
+    {
+      "frame": "idle4",
+      "pass": 1,
+      "source_relative": "assets/chars/pixel/guard/high_detail_complete/frames/idle4.png",
+      "source_sha256": "3c81e71b9698ee9ef68bc9967787fbd1a3ef7b2000d8e74f95159289693a2902",
+      "proportion_master_sha256": "172ad200b37b0408faaefb6c42a6c9a8f4329091efb221afc7f641a5573f4fb6",
+      "generator_output_basename": "exec-9a23ed88-a463-4892-9921-7d622072a1b8.png",
+      "generator_output_sha256": "f92e1d59766966bfac5f541e6a68871556768bade03bfddb0f322b16c529a7d6",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific pose: idle4. Subtle breathing idle4, eyes OPEN, original upright relaxed stance.",
+      "final_selected": true
+    },
+    {
+      "frame": "walk2",
+      "pass": 1,
+      "source_relative": "assets/chars/pixel/guard/high_detail_complete/frames/walk2.png",
+      "source_sha256": "d68bec4e5dae5b414b43776d5750e668a2238c5485626ddb4c46ace3cb42476b",
+      "proportion_master_sha256": "172ad200b37b0408faaefb6c42a6c9a8f4329091efb221afc7f641a5573f4fb6",
+      "generator_output_basename": "exec-b1d9ee39-d9f4-4e26-ab6f-356eb430824a.png",
+      "generator_output_sha256": "46eda5bdc6e309e27478d3efd33493c204ead6d47bf683b826cc46bd2ccea75f",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific pose walk2 of the walking gait: retain exact original planted foot and opposite bent-leg swing phase, foot spacing and heel lift. DO NOT replace walking legs with idle reference legs. Match original polearm and shield orientation.",
+      "final_selected": true
+    },
+    {
+      "frame": "walk3",
+      "pass": 1,
+      "source_relative": "assets/chars/pixel/guard/high_detail_complete/frames/walk3.png",
+      "source_sha256": "6137774794e303b7537f1cc274dffed8cae3ddf16200af6c71d0d017ecdfc6f7",
+      "proportion_master_sha256": "172ad200b37b0408faaefb6c42a6c9a8f4329091efb221afc7f641a5573f4fb6",
+      "generator_output_basename": "exec-ae14169e-968c-4882-951c-d93e357a2e75.png",
+      "generator_output_sha256": "b9de7b9bfa82517ac9ef2c0892c815ca0ef7c6045a991e2eebd7c5f47cab30c5",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific pose walk3 of the walking gait: retain exact original planted foot and opposite bent-leg swing phase, foot spacing and heel lift. DO NOT replace walking legs with idle reference legs. Match original polearm and shield orientation.",
+      "final_selected": false
+    },
+    {
+      "frame": "walk5",
+      "pass": 1,
+      "source_relative": "assets/chars/pixel/guard/high_detail_complete/frames/walk5.png",
+      "source_sha256": "f32ea4cff9997c66a49c7da4dfeeac1e6a354f31fa67812965a62770b8caeb20",
+      "proportion_master_sha256": "172ad200b37b0408faaefb6c42a6c9a8f4329091efb221afc7f641a5573f4fb6",
+      "generator_output_basename": "exec-bbcdfb99-e380-484a-a8ec-a973b4545e68.png",
+      "generator_output_sha256": "5f5104b8c2a2de0d661c674e40e19523863af11ded078b243fb4768eccac4428",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific pose walk5: opposite walking stride with back-left leg forward leaning/extended knee and front-right leg behind; left foot (image-left) near lower baseline and image-right foot at the rear, BOTH separated, matching exact source. Preserve source heel/toe angles, bent knees, support/swing phase. DO NOT use idle crossed-legs stance. Preserve vertical polearm and carried shield.",
+      "final_selected": true
+    },
+    {
+      "frame": "walk4",
+      "pass": 1,
+      "source_relative": "assets/chars/pixel/guard/high_detail_complete/frames/walk4.png",
+      "source_sha256": "3e14b51e75557e72073ca39bff3fe86f79446df6075f3a7800167abfc8cc3d22",
+      "proportion_master_sha256": "172ad200b37b0408faaefb6c42a6c9a8f4329091efb221afc7f641a5573f4fb6",
+      "generator_output_basename": "exec-f6fb9480-9c82-4bf2-8f3c-485d1e49596a.png",
+      "generator_output_sha256": "f54ed173f3cfb0952c639b6ba9a085c6bac11368323cd9b9b74be3f55c4033ad",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific pose walk4: opposite walking stride with back-left leg forward leaning/extended knee and front-right leg behind; left foot (image-left) near lower baseline and image-right foot at the rear, BOTH separated, matching exact source. Preserve source heel/toe angles, bent knees, support/swing phase. DO NOT use idle crossed-legs stance. Preserve vertical polearm and carried shield.",
+      "final_selected": true
+    },
+    {
+      "frame": "walk6",
+      "pass": 1,
+      "source_relative": "assets/chars/pixel/guard/high_detail_complete/frames/walk6.png",
+      "source_sha256": "e00777bd00a224d1fe6295fb0e3e2a930527129481ec59868b02b7ab2c326810",
+      "proportion_master_sha256": "172ad200b37b0408faaefb6c42a6c9a8f4329091efb221afc7f641a5573f4fb6",
+      "generator_output_basename": "exec-835655b2-dd59-4b06-aa7b-4fececcc0645.png",
+      "generator_output_sha256": "018a47fab44219a066a5f358f8cd69fe62df082402ca0c635c822f289f30f917",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific pose walk6: walking with back leg lifting heel and front leg near vertical supporting ground, exact original separated feet; do not replace it with idle. Preserve original staff and shield angles.",
+      "final_selected": true
+    },
+    {
+      "frame": "walk7",
+      "pass": 1,
+      "source_relative": "assets/chars/pixel/guard/high_detail_complete/frames/walk7.png",
+      "source_sha256": "7a84c3ff2b451cbae54178c0cadc9beaae36de854ffcf38a431b2d0343a7cf82",
+      "proportion_master_sha256": "172ad200b37b0408faaefb6c42a6c9a8f4329091efb221afc7f641a5573f4fb6",
+      "generator_output_basename": "exec-b7a6c798-a1ef-4ae6-9bf1-f64b5ebaecf4.png",
+      "generator_output_sha256": "a41c96d30a7021388ffb62618e03a7cbb69cb8757ec641f656169956bca4f658",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific pose walk7: walking swing phase with one knee lifted forward in front of the support leg, lifted sandal not touching ground. Keep this visibly lifted knee and foot, not idle crossed legs. Preserve original staff and shield angles.",
+      "final_selected": true
+    },
+    {
+      "frame": "walk8",
+      "pass": 1,
+      "source_relative": "assets/chars/pixel/guard/high_detail_complete/frames/walk8.png",
+      "source_sha256": "ea1f7d6947483214d6f49cfdf2b5bd1b86c95840812a5349e3f38e28b9108488",
+      "proportion_master_sha256": "172ad200b37b0408faaefb6c42a6c9a8f4329091efb221afc7f641a5573f4fb6",
+      "generator_output_basename": "exec-d745d921-6a41-4413-b0e6-26264816909f.png",
+      "generator_output_sha256": "6fe48270e847552b5f3dd2d0f77a2cb14903ba3d41932e3eede2cd3072c85ff8",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific pose walk8: final walking stride phase, separated legs with image-right foot forward planted and image-left foot rear toe lift, source knees and ankles unchanged. Do not substitute idle reference legs.",
+      "final_selected": true
+    },
+    {
+      "frame": "hit",
+      "pass": 1,
+      "source_relative": "assets/chars/pixel/guard/high_detail_complete/frames/hit.png",
+      "source_sha256": "8f997d360c639b0cd98ce0955d82623a09a1ab0f53ddedeb5b9c5c8485621984",
+      "proportion_master_sha256": "172ad200b37b0408faaefb6c42a6c9a8f4329091efb221afc7f641a5573f4fb6",
+      "generator_output_basename": "exec-63a11309-1af9-4016-92d5-dcbb13053a44.png",
+      "generator_output_sha256": "2804f7bb8fc215c4ce90b4602ac809b17193d2dfd3b4dbcb411f6214c9c3279c",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific pose hit: HIT REACTION: keep original torso leaning back, pained squinting/closed eyes and slightly open mouth, head tilt, knees bent and feet apart, shield lifted diagonally forward, staff tilted across left side. Do not replace this with idle expression or posture.",
+      "final_selected": true
+    },
+    {
+      "frame": "defend",
+      "pass": 1,
+      "source_relative": "assets/chars/pixel/guard/high_detail_complete/frames/defend.png",
+      "source_sha256": "8d6b8e5a5c08af22039f9d0f953a41f9d2006d01eb159887635dff4d37c6dca9",
+      "proportion_master_sha256": "172ad200b37b0408faaefb6c42a6c9a8f4329091efb221afc7f641a5573f4fb6",
+      "generator_output_basename": "exec-f8a7b514-4927-42e1-9afc-cd86eb552a79.png",
+      "generator_output_sha256": "83867eb0eda8f98ea8e6a04e3210d108878ecf57c86b21aae87ce6e48a062d8b",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific pose defend: GUARD DEFENSE: keep original defensive bent-knee wide stance, torso leaning forward behind raised shield on image-right, staff leaning diagonal to lower-left with original weapon tip. Keep knees bent and original strong defensive expression; do NOT stand in idle pose.",
+      "final_selected": true
+    },
+    {
+      "frame": "down",
+      "pass": 1,
+      "source_relative": "assets/chars/pixel/guard/high_detail_complete/frames/down.png",
+      "source_sha256": "89383d6c4d73751fe6db7633bff09cb25f2776f562b24ef016f580da08f9a2fd",
+      "proportion_master_sha256": "172ad200b37b0408faaefb6c42a6c9a8f4329091efb221afc7f641a5573f4fb6",
+      "generator_output_basename": "exec-7e288f90-3652-4575-a238-ed871177fe79.png",
+      "generator_output_sha256": "daaffd168b84c4550a9a9df06f53dc572cfe990f919046f22333d74c6a3b85a0",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific pose down: DOWN/INCAPACITATED: keep EXACT one-knee kneeling pose from image1 with rear knee grounded and forward raised knee, leaning forward wearily while bracing hand on shield and holding polearm. Keep lower kneeling height, empty transparent space above, feet/knee positions as target. DO NOT turn it into standing or fill the whole canvas by enlarging the kneeling body. Keep torso and limbs same PIXEL SCALE as original target, only enlarged head and narrowed cape.",
+      "final_selected": true
+    },
+    {
+      "frame": "recover",
+      "pass": 1,
+      "source_relative": "assets/chars/pixel/guard/high_detail_complete/frames/recover.png",
+      "source_sha256": "504daa9854a41c77a9553688eb27d444a7168a191bea66a8345fb1743e933b2c",
+      "proportion_master_sha256": "172ad200b37b0408faaefb6c42a6c9a8f4329091efb221afc7f641a5573f4fb6",
+      "generator_output_basename": "exec-cda2a8a1-c170-4248-a33b-7f03667556d1.png",
+      "generator_output_sha256": "1635c8d3bdaddf252c992ab43579c4f87b47ea2a765da26df7a1440e4e2dcc2b",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\nSpecific RECOVER pose: image1 is rising from a kneel with one knee bent forward and the other leg behind, torso leaning forward, one foot grounded ahead and other heel lifted behind, hand braced on shield and upright polearm support. Keep exact original bent-leg positions and original hand, shield, staff angles. Do not make this an idle stance or a fully kneeling down pose. Keep pixel scale and blank margins similar to source.",
+      "final_selected": true
+    },
+    {
+      "frame": "walk3",
+      "pass": 2,
+      "source_relative": "assets/chars/pixel/guard/high_detail_complete/frames/walk3.png",
+      "source_sha256": "6137774794e303b7537f1cc274dffed8cae3ddf16200af6c71d0d017ecdfc6f7",
+      "proportion_master_sha256": "172ad200b37b0408faaefb6c42a6c9a8f4329091efb221afc7f641a5573f4fb6",
+      "generator_output_basename": "exec-46c4740c-1da0-4bdc-86ff-482b7edbf878.png",
+      "generator_output_sha256": "26ac09bb29a8e8185e13b5dc77cfe7aa681ae5640d679a03de14b2731fcde175",
+      "prompt": "Use case: identity-preserve. Edit the FIRST attached image, guard walking frame walk3. Second attached image is ONLY corrected head/cape art reference, NOT pose. Preserve image1 WALKING posture literally. Especially keep image1's BACK FOOT (image-left foot) lifted with heel raised, steep diagonal sandal angle and toe lower than heel, bending the back knee behind front leg. FRONT FOOT (image-right foot) alone is planted with its original angle. Keep the original close front/back foot spacing and original knee bend. Do not convert into idle standing posture, do not put both soles flat, do not use second image's idle legs. Keep original hand/polearm/shield positions and angles unchanged. Art correction: copy proportion language from second reference: enlarge original face/head about13%, same face identity, golden eyes, charcoal bun and hair stick, long hair, narrowed rear white-blue trailing cape with same ornate edging. Keep white/blue/bronze outfit, same skin coverage and footwear. Only head proportion and rear cape silhouette change; pose/legs/weapon are locked to original. Full figure and weapons on genuine transparent RGBA background, generous margins, no shadow/background/text/watermark. Retain first image's body pixel scale/framing, no stretching.",
+      "final_selected": true
+    },
+    {
+      "frame": "attack1",
+      "generatorOutput": "generated_images/exec-3878a180-e933-4ce5-a2c4-35677e9f089c.png",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\n\nPOSE LOCK FOR THIS FRAME: Exact attack1 pose: a broad planted ready stance facing screen-right, rear leg extended down-left and leading foot down-right. The polearm crosses diagonally from the rear tip at upper-left through the near hand at waist height to the large bladed spear point at lower-right. The ornate shield is raised vertically in front on screen-right, top just below head height. Keep both feet, both hands, shield size and angle, and the diagonally downward spear exactly as in target.",
+      "referenced_image_paths": [
+        "assets/chars/pixel/guard/high_detail_complete/frames/attack1.png",
+        "cenzhao-idle1-proportion-candidate-transparent.png"
+      ],
+      "transparent_background": true,
+      "mode": "built-in image_gen",
+      "observations": "Visual review: original broad ready stance, raised shield, downward diagonal polearm, identity and palette retained. Head visibly enlarged and rear cape reduced relative to body. Generated framing fills more of canvas than original despite pose lock; all hands, feet and weapon tips remain visible. No programmatic art alteration.",
+      "path": "full-set-raw/attack1.png",
+      "sha256": "792202d773879f885b3f4c8b929aedbf95f4be0b47b9a02c709d954126ff5311",
+      "size": [
+        1254,
+        1254
+      ],
+      "imageMode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPixels": 904536,
+      "partialAlphaPixels": 666974,
+      "opaquePixels": 1006,
+      "alphaBBox": [
+        0,
+        11,
+        1210,
+        1254
+      ],
+      "validatedUTC": "2026-10-04T13:23:05.735595+00:00",
+      "inputSHA256": [
+        {
+          "path": "assets/chars/pixel/guard/high_detail_complete/frames/attack1.png",
+          "sha256": "dac79a23695a8494d2d8673de8a17895ce9067f31c438127a014edca00269177"
+        },
+        {
+          "path": "cenzhao-idle1-proportion-candidate-transparent.png",
+          "sha256": "172ad200b37b0408faaefb6c42a6c9a8f4329091efb221afc7f641a5573f4fb6"
+        }
+      ],
+      "outputShaMatchesUnmodifiedGeneratorFile": true,
+      "alphaThresholdBBoxes": {
+        "8": [
+          140,
+          14,
+          1049,
+          1243
+        ],
+        "32": [
+          140,
+          14,
+          1048,
+          1243
+        ],
+        "128": [
+          141,
+          15,
+          1048,
+          1243
+        ],
+        "254": [
+          144,
+          16,
+          1044,
+          1238
+        ]
+      },
+      "finalArtApproval": "Pending lead art worker full-set normalized review",
+      "consistencyReviewCaveat": "The enlarged head is clear. Dynamic sleeve/cape movement remains wide; actual rear-cape narrowing is visually less pronounced than attack5-6 and should not be assumed to meet an exact 35% reduction. Lead art worker must judge lower rear cape after scale normalization.",
+      "generationPasses": [
+        {
+          "frame": "attack1",
+          "generatorOutput": "generated_images/exec-3878a180-e933-4ce5-a2c4-35677e9f089c.png",
+          "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\n\nPOSE LOCK FOR THIS FRAME: Exact attack1 pose: a broad planted ready stance facing screen-right, rear leg extended down-left and leading foot down-right. The polearm crosses diagonally from the rear tip at upper-left through the near hand at waist height to the large bladed spear point at lower-right. The ornate shield is raised vertically in front on screen-right, top just below head height. Keep both feet, both hands, shield size and angle, and the diagonally downward spear exactly as in target.",
+          "referenced_image_paths": [
+            "assets/chars/pixel/guard/high_detail_complete/frames/attack1.png",
+            "cenzhao-idle1-proportion-candidate-transparent.png"
+          ],
+          "transparent_background": true,
+          "mode": "built-in image_gen",
+          "observations": "Visual review: original broad ready stance, raised shield, downward diagonal polearm, identity and palette retained. Head visibly enlarged and rear cape reduced relative to body. Generated framing fills more of canvas than original despite pose lock; all hands, feet and weapon tips remain visible. No programmatic art alteration.",
+          "path": "full-set-raw/attack1.png",
+          "sha256": "792202d773879f885b3f4c8b929aedbf95f4be0b47b9a02c709d954126ff5311",
+          "size": [
+            1254,
+            1254
+          ],
+          "imageMode": "RGBA",
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "transparentPixels": 904536,
+          "partialAlphaPixels": 666974,
+          "opaquePixels": 1006,
+          "alphaBBox": [
+            0,
+            11,
+            1210,
+            1254
+          ],
+          "validatedUTC": "2026-10-04T13:23:05.735595+00:00",
+          "inputSHA256": [
+            {
+              "path": "assets/chars/pixel/guard/high_detail_complete/frames/attack1.png",
+              "sha256": "dac79a23695a8494d2d8673de8a17895ce9067f31c438127a014edca00269177"
+            },
+            {
+              "path": "cenzhao-idle1-proportion-candidate-transparent.png",
+              "sha256": "172ad200b37b0408faaefb6c42a6c9a8f4329091efb221afc7f641a5573f4fb6"
+            }
+          ],
+          "outputShaMatchesUnmodifiedGeneratorFile": true,
+          "alphaThresholdBBoxes": {
+            "8": [
+              140,
+              14,
+              1049,
+              1243
+            ],
+            "32": [
+              140,
+              14,
+              1048,
+              1243
+            ],
+            "128": [
+              141,
+              15,
+              1048,
+              1243
+            ],
+            "254": [
+              144,
+              16,
+              1044,
+              1238
+            ]
+          },
+          "finalArtApproval": "Pending lead art worker full-set normalized review",
+          "consistencyReviewCaveat": "The enlarged head is clear. Dynamic sleeve/cape movement remains wide; actual rear-cape narrowing is visually less pronounced than attack5-6 and should not be assumed to meet an exact 35% reduction. Lead art worker must judge lower rear cape after scale normalization.",
+          "preservedCopy": "attack-original-pass1/attack1-original-pass1.png"
+        }
+      ],
+      "reviewUpdate": "Second artistic pass paused before any imagegen invocation. Keep pass1 unchanged for game-size full-set review. Do not use a rigid cape-width percentage as the acceptance criterion; dynamic attack fabric may naturally spread."
+    },
+    {
+      "frame": "attack2",
+      "generatorOutput": "generated_images/exec-6891e68b-696d-4d54-9032-330098b85855.png",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\n\nPOSE LOCK FOR THIS FRAME: Exact attack2 pose: a high shoulder-level wind-up facing screen-right, polearm almost horizontal across in front of lower face, sharp spear blade on screen-right and small rear tip on screen-left. The visible spear hand is lifted beside left shoulder, elbow bent high. Forward leg reaches down-right with slight knee bend, rear foot planted down-left; ornate shield is raised at front on screen-right. Preserve the near-horizontal spear and all original hand/leg positions.",
+      "referenced_image_paths": [
+        "assets/chars/pixel/guard/high_detail_complete/frames/attack2.png",
+        "cenzhao-idle1-proportion-candidate-transparent.png"
+      ],
+      "transparent_background": true,
+      "mode": "built-in image_gen",
+      "observations": "Visual review: original shoulder-height nearly horizontal spear wind-up, raised shield and forward-stride legs retained; enlarged head and narrower rear fabric preserve identity and palette. Generated framing fills more of canvas than original; all weapon tips, hands and feet visible. No programmatic art alteration.",
+      "path": "full-set-raw/attack2.png",
+      "sha256": "01ccb802f0e7abb5174414b7eec889d73fa035e39ea8524c58853d6d39438939",
+      "size": [
+        1254,
+        1254
+      ],
+      "imageMode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPixels": 909166,
+      "partialAlphaPixels": 662576,
+      "opaquePixels": 774,
+      "alphaBBox": [
+        35,
+        16,
+        1198,
+        1254
+      ],
+      "validatedUTC": "2026-10-04T13:23:05.782244+00:00",
+      "inputSHA256": [
+        {
+          "path": "assets/chars/pixel/guard/high_detail_complete/frames/attack2.png",
+          "sha256": "74b887523c88bc22a11d9fb6fb310e04264f1195e200b50be563f7b8b12f5b4c"
+        },
+        {
+          "path": "cenzhao-idle1-proportion-candidate-transparent.png",
+          "sha256": "172ad200b37b0408faaefb6c42a6c9a8f4329091efb221afc7f641a5573f4fb6"
+        }
+      ],
+      "outputShaMatchesUnmodifiedGeneratorFile": true,
+      "alphaThresholdBBoxes": {
+        "8": [
+          146,
+          18,
+          1122,
+          1241
+        ],
+        "32": [
+          147,
+          18,
+          1122,
+          1240
+        ],
+        "128": [
+          148,
+          19,
+          1119,
+          1240
+        ],
+        "254": [
+          174,
+          29,
+          1104,
+          1239
+        ]
+      },
+      "finalArtApproval": "Pending lead art worker full-set normalized review",
+      "consistencyReviewCaveat": "The enlarged head is clear. Dynamic sleeve/cape movement remains wide; actual rear-cape narrowing is visually less pronounced than attack5-6 and should not be assumed to meet an exact 35% reduction. Lead art worker must judge lower rear cape after scale normalization.",
+      "generationPasses": [
+        {
+          "frame": "attack2",
+          "generatorOutput": "generated_images/exec-6891e68b-696d-4d54-9032-330098b85855.png",
+          "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\n\nPOSE LOCK FOR THIS FRAME: Exact attack2 pose: a high shoulder-level wind-up facing screen-right, polearm almost horizontal across in front of lower face, sharp spear blade on screen-right and small rear tip on screen-left. The visible spear hand is lifted beside left shoulder, elbow bent high. Forward leg reaches down-right with slight knee bend, rear foot planted down-left; ornate shield is raised at front on screen-right. Preserve the near-horizontal spear and all original hand/leg positions.",
+          "referenced_image_paths": [
+            "assets/chars/pixel/guard/high_detail_complete/frames/attack2.png",
+            "cenzhao-idle1-proportion-candidate-transparent.png"
+          ],
+          "transparent_background": true,
+          "mode": "built-in image_gen",
+          "observations": "Visual review: original shoulder-height nearly horizontal spear wind-up, raised shield and forward-stride legs retained; enlarged head and narrower rear fabric preserve identity and palette. Generated framing fills more of canvas than original; all weapon tips, hands and feet visible. No programmatic art alteration.",
+          "path": "full-set-raw/attack2.png",
+          "sha256": "01ccb802f0e7abb5174414b7eec889d73fa035e39ea8524c58853d6d39438939",
+          "size": [
+            1254,
+            1254
+          ],
+          "imageMode": "RGBA",
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "transparentPixels": 909166,
+          "partialAlphaPixels": 662576,
+          "opaquePixels": 774,
+          "alphaBBox": [
+            35,
+            16,
+            1198,
+            1254
+          ],
+          "validatedUTC": "2026-10-04T13:23:05.782244+00:00",
+          "inputSHA256": [
+            {
+              "path": "assets/chars/pixel/guard/high_detail_complete/frames/attack2.png",
+              "sha256": "74b887523c88bc22a11d9fb6fb310e04264f1195e200b50be563f7b8b12f5b4c"
+            },
+            {
+              "path": "cenzhao-idle1-proportion-candidate-transparent.png",
+              "sha256": "172ad200b37b0408faaefb6c42a6c9a8f4329091efb221afc7f641a5573f4fb6"
+            }
+          ],
+          "outputShaMatchesUnmodifiedGeneratorFile": true,
+          "alphaThresholdBBoxes": {
+            "8": [
+              146,
+              18,
+              1122,
+              1241
+            ],
+            "32": [
+              147,
+              18,
+              1122,
+              1240
+            ],
+            "128": [
+              148,
+              19,
+              1119,
+              1240
+            ],
+            "254": [
+              174,
+              29,
+              1104,
+              1239
+            ]
+          },
+          "finalArtApproval": "Pending lead art worker full-set normalized review",
+          "consistencyReviewCaveat": "The enlarged head is clear. Dynamic sleeve/cape movement remains wide; actual rear-cape narrowing is visually less pronounced than attack5-6 and should not be assumed to meet an exact 35% reduction. Lead art worker must judge lower rear cape after scale normalization.",
+          "preservedCopy": "attack-original-pass1/attack2-original-pass1.png"
+        }
+      ],
+      "reviewUpdate": "Second artistic pass paused before any imagegen invocation. Keep pass1 unchanged for game-size full-set review. Do not use a rigid cape-width percentage as the acceptance criterion; dynamic attack fabric may naturally spread."
+    },
+    {
+      "frame": "attack3",
+      "generatorOutput": "generated_images/exec-29f057e5-ce5f-4377-abf0-6c2907cb2b7d.png",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\n\nPOSE LOCK FOR THIS FRAME: Exact attack3 pose: the character makes a wide, low forward thrust toward screen-right, torso leaning forward, leading knee bent at screen-right and rear leg stretched toward bottom-left. Polearm is almost horizontal with a slight up-right slope, crossing at upper-chest height, major pointed blade on far-right and rear spike on far-left. Spear hand is before the upper chest; shield is held nearer edge-on in front of the torso. Hair streams left. Keep this long extended stride and spear direction exactly.",
+      "referenced_image_paths": [
+        "assets/chars/pixel/guard/high_detail_complete/frames/attack3.png",
+        "cenzhao-idle1-proportion-candidate-transparent.png"
+      ],
+      "transparent_background": true,
+      "mode": "built-in image_gen",
+      "observations": "Visual review: wide low forward thrust, rear leg extension, bent leading knee, forward hand, near-horizontal polearm and near-edge-on shield retained. Head enlarged in approved direction; narrower rear cape retains white-blue patterned folds. Canvas occupancy enlarged by generator; complete feet and spear tips visible, right spear tip has a small margin. No programmatic art alteration.",
+      "path": "full-set-raw/attack3.png",
+      "sha256": "f205a1897d10a0f11c164b0102ab3e1e53753200f12548d79b8e065fbb9a9f66",
+      "size": [
+        1254,
+        1254
+      ],
+      "imageMode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPixels": 908493,
+      "partialAlphaPixels": 662047,
+      "opaquePixels": 1976,
+      "alphaBBox": [
+        0,
+        21,
+        1242,
+        1234
+      ],
+      "validatedUTC": "2026-10-04T13:25:58.745478+00:00",
+      "inputSHA256": [
+        {
+          "path": "assets/chars/pixel/guard/high_detail_complete/frames/attack3.png",
+          "sha256": "f57cf3feaa54930dbbfd75266ead5bc11a1c02094639155b2ffb0ead657f1e43"
+        },
+        {
+          "path": "cenzhao-idle1-proportion-candidate-transparent.png",
+          "sha256": "172ad200b37b0408faaefb6c42a6c9a8f4329091efb221afc7f641a5573f4fb6"
+        }
+      ],
+      "outputShaMatchesUnmodifiedGeneratorFile": true,
+      "alphaThresholdBBoxes": {
+        "8": [
+          113,
+          60,
+          1240,
+          1223
+        ],
+        "32": [
+          113,
+          61,
+          1239,
+          1223
+        ],
+        "128": [
+          115,
+          62,
+          1237,
+          1222
+        ],
+        "254": [
+          118,
+          64,
+          1225,
+          1221
+        ]
+      },
+      "finalArtApproval": "Pending lead art worker full-set normalized review",
+      "consistencyReviewCaveat": "The enlarged head is clear. Dynamic sleeve/cape movement remains wide; actual rear-cape narrowing is visually less pronounced than attack5-6 and should not be assumed to meet an exact 35% reduction. Lead art worker must judge lower rear cape after scale normalization.",
+      "generationPasses": [
+        {
+          "frame": "attack3",
+          "generatorOutput": "generated_images/exec-29f057e5-ce5f-4377-abf0-6c2907cb2b7d.png",
+          "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\n\nPOSE LOCK FOR THIS FRAME: Exact attack3 pose: the character makes a wide, low forward thrust toward screen-right, torso leaning forward, leading knee bent at screen-right and rear leg stretched toward bottom-left. Polearm is almost horizontal with a slight up-right slope, crossing at upper-chest height, major pointed blade on far-right and rear spike on far-left. Spear hand is before the upper chest; shield is held nearer edge-on in front of the torso. Hair streams left. Keep this long extended stride and spear direction exactly.",
+          "referenced_image_paths": [
+            "assets/chars/pixel/guard/high_detail_complete/frames/attack3.png",
+            "cenzhao-idle1-proportion-candidate-transparent.png"
+          ],
+          "transparent_background": true,
+          "mode": "built-in image_gen",
+          "observations": "Visual review: wide low forward thrust, rear leg extension, bent leading knee, forward hand, near-horizontal polearm and near-edge-on shield retained. Head enlarged in approved direction; narrower rear cape retains white-blue patterned folds. Canvas occupancy enlarged by generator; complete feet and spear tips visible, right spear tip has a small margin. No programmatic art alteration.",
+          "path": "full-set-raw/attack3.png",
+          "sha256": "f205a1897d10a0f11c164b0102ab3e1e53753200f12548d79b8e065fbb9a9f66",
+          "size": [
+            1254,
+            1254
+          ],
+          "imageMode": "RGBA",
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "transparentPixels": 908493,
+          "partialAlphaPixels": 662047,
+          "opaquePixels": 1976,
+          "alphaBBox": [
+            0,
+            21,
+            1242,
+            1234
+          ],
+          "validatedUTC": "2026-10-04T13:25:58.745478+00:00",
+          "inputSHA256": [
+            {
+              "path": "assets/chars/pixel/guard/high_detail_complete/frames/attack3.png",
+              "sha256": "f57cf3feaa54930dbbfd75266ead5bc11a1c02094639155b2ffb0ead657f1e43"
+            },
+            {
+              "path": "cenzhao-idle1-proportion-candidate-transparent.png",
+              "sha256": "172ad200b37b0408faaefb6c42a6c9a8f4329091efb221afc7f641a5573f4fb6"
+            }
+          ],
+          "outputShaMatchesUnmodifiedGeneratorFile": true,
+          "alphaThresholdBBoxes": {
+            "8": [
+              113,
+              60,
+              1240,
+              1223
+            ],
+            "32": [
+              113,
+              61,
+              1239,
+              1223
+            ],
+            "128": [
+              115,
+              62,
+              1237,
+              1222
+            ],
+            "254": [
+              118,
+              64,
+              1225,
+              1221
+            ]
+          },
+          "finalArtApproval": "Pending lead art worker full-set normalized review",
+          "consistencyReviewCaveat": "The enlarged head is clear. Dynamic sleeve/cape movement remains wide; actual rear-cape narrowing is visually less pronounced than attack5-6 and should not be assumed to meet an exact 35% reduction. Lead art worker must judge lower rear cape after scale normalization.",
+          "preservedCopy": "attack-original-pass1/attack3-original-pass1.png"
+        }
+      ],
+      "reviewUpdate": "Second artistic pass paused before any imagegen invocation. Keep pass1 unchanged for game-size full-set review. Do not use a rigid cape-width percentage as the acceptance criterion; dynamic attack fabric may naturally spread."
+    },
+    {
+      "frame": "attack4",
+      "generatorOutput": "generated_images/exec-2d3b4d97-3f48-42f3-8ea3-dffc0bd81546.png",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\n\nPOSE LOCK FOR THIS FRAME: Exact attack4 pose: an energetic bent-knee forward thrust continuation facing screen-right, front knee raised/bent and leading foot at bottom-right, rear leg stretched back with foot at lower-left. Torso leans forward. The spear is held at shoulder level with slight up-right slope, blade pointing to upper-right and small back tip to left. Shield is upright at screen-right and angled slightly with body, front hand visible on its left edge. Preserve the target stance and original swept-back sleeve motion.",
+      "referenced_image_paths": [
+        "assets/chars/pixel/guard/high_detail_complete/frames/attack4.png",
+        "cenzhao-idle1-proportion-candidate-transparent.png"
+      ],
+      "transparent_background": true,
+      "mode": "built-in image_gen",
+      "observations": "Visual review: energetic bent-knee forward thrust continuation retains body lean, distinct more flexed leading knee, shield angle, upward-sloping shoulder-height spear, identity and palette. Head enlarged and rear cape tighter relative to body; sleeves kept. Generated framing fills more of canvas than original, with hands, feet and tips still intact. No programmatic art alteration.",
+      "path": "full-set-raw/attack4.png",
+      "sha256": "57f0ab8f87f3856211b61ff1182499b0768645e91988dbef78ca91dd18d71be7",
+      "size": [
+        1254,
+        1254
+      ],
+      "imageMode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPixels": 904871,
+      "partialAlphaPixels": 666665,
+      "opaquePixels": 980,
+      "alphaBBox": [
+        0,
+        9,
+        1240,
+        1237
+      ],
+      "validatedUTC": "2026-10-04T13:25:58.788661+00:00",
+      "inputSHA256": [
+        {
+          "path": "assets/chars/pixel/guard/high_detail_complete/frames/attack4.png",
+          "sha256": "16aa8bea808f11ff32b1efbeb782af37528c948afa671f885488f8a75dfef8b4"
+        },
+        {
+          "path": "cenzhao-idle1-proportion-candidate-transparent.png",
+          "sha256": "172ad200b37b0408faaefb6c42a6c9a8f4329091efb221afc7f641a5573f4fb6"
+        }
+      ],
+      "outputShaMatchesUnmodifiedGeneratorFile": true,
+      "alphaThresholdBBoxes": {
+        "8": [
+          129,
+          28,
+          1196,
+          1234
+        ],
+        "32": [
+          130,
+          28,
+          1196,
+          1233
+        ],
+        "128": [
+          131,
+          29,
+          1194,
+          1232
+        ],
+        "254": [
+          138,
+          32,
+          1178,
+          1230
+        ]
+      },
+      "finalArtApproval": "Pending lead art worker full-set normalized review",
+      "consistencyReviewCaveat": "The enlarged head is clear. Dynamic sleeve/cape movement remains wide; actual rear-cape narrowing is visually less pronounced than attack5-6 and should not be assumed to meet an exact 35% reduction. Lead art worker must judge lower rear cape after scale normalization.",
+      "generationPasses": [
+        {
+          "frame": "attack4",
+          "generatorOutput": "generated_images/exec-2d3b4d97-3f48-42f3-8ea3-dffc0bd81546.png",
+          "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\n\nPOSE LOCK FOR THIS FRAME: Exact attack4 pose: an energetic bent-knee forward thrust continuation facing screen-right, front knee raised/bent and leading foot at bottom-right, rear leg stretched back with foot at lower-left. Torso leans forward. The spear is held at shoulder level with slight up-right slope, blade pointing to upper-right and small back tip to left. Shield is upright at screen-right and angled slightly with body, front hand visible on its left edge. Preserve the target stance and original swept-back sleeve motion.",
+          "referenced_image_paths": [
+            "assets/chars/pixel/guard/high_detail_complete/frames/attack4.png",
+            "cenzhao-idle1-proportion-candidate-transparent.png"
+          ],
+          "transparent_background": true,
+          "mode": "built-in image_gen",
+          "observations": "Visual review: energetic bent-knee forward thrust continuation retains body lean, distinct more flexed leading knee, shield angle, upward-sloping shoulder-height spear, identity and palette. Head enlarged and rear cape tighter relative to body; sleeves kept. Generated framing fills more of canvas than original, with hands, feet and tips still intact. No programmatic art alteration.",
+          "path": "full-set-raw/attack4.png",
+          "sha256": "57f0ab8f87f3856211b61ff1182499b0768645e91988dbef78ca91dd18d71be7",
+          "size": [
+            1254,
+            1254
+          ],
+          "imageMode": "RGBA",
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "transparentPixels": 904871,
+          "partialAlphaPixels": 666665,
+          "opaquePixels": 980,
+          "alphaBBox": [
+            0,
+            9,
+            1240,
+            1237
+          ],
+          "validatedUTC": "2026-10-04T13:25:58.788661+00:00",
+          "inputSHA256": [
+            {
+              "path": "assets/chars/pixel/guard/high_detail_complete/frames/attack4.png",
+              "sha256": "16aa8bea808f11ff32b1efbeb782af37528c948afa671f885488f8a75dfef8b4"
+            },
+            {
+              "path": "cenzhao-idle1-proportion-candidate-transparent.png",
+              "sha256": "172ad200b37b0408faaefb6c42a6c9a8f4329091efb221afc7f641a5573f4fb6"
+            }
+          ],
+          "outputShaMatchesUnmodifiedGeneratorFile": true,
+          "alphaThresholdBBoxes": {
+            "8": [
+              129,
+              28,
+              1196,
+              1234
+            ],
+            "32": [
+              130,
+              28,
+              1196,
+              1233
+            ],
+            "128": [
+              131,
+              29,
+              1194,
+              1232
+            ],
+            "254": [
+              138,
+              32,
+              1178,
+              1230
+            ]
+          },
+          "finalArtApproval": "Pending lead art worker full-set normalized review",
+          "consistencyReviewCaveat": "The enlarged head is clear. Dynamic sleeve/cape movement remains wide; actual rear-cape narrowing is visually less pronounced than attack5-6 and should not be assumed to meet an exact 35% reduction. Lead art worker must judge lower rear cape after scale normalization.",
+          "preservedCopy": "attack-original-pass1/attack4-original-pass1.png"
+        }
+      ],
+      "reviewUpdate": "Second artistic pass paused before any imagegen invocation. Keep pass1 unchanged for game-size full-set review. Do not use a rigid cape-width percentage as the acceptance criterion; dynamic attack fabric may naturally spread."
+    },
+    {
+      "frame": "attack5",
+      "generatorOutput": "generated_images/exec-2260277d-1162-4813-8209-e0108f77f962.png",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\n\nPOSE LOCK FOR THIS FRAME: Exact attack5 pose: returning upright toward screen-right, wide feet nearly planted, knees straighter; shield is upright and raised at screen-right. Polearm is diagonal rising from small rear spike at lower-left through gripping hand at mid-torso to large spear blade at upper-right. Keep precisely this upward-diagonal weapon recovery angle, hand at chest/waist level and the original foot placement.",
+      "referenced_image_paths": [
+        "assets/chars/pixel/guard/high_detail_complete/frames/attack5.png",
+        "cenzhao-idle1-proportion-candidate-transparent.png"
+      ],
+      "transparent_background": true,
+      "mode": "built-in image_gen",
+      "observations": "Visual review: original upright recovery with wide planted feet, upward-diagonal polearm and raised frontal shield retained. Head/face enlarged, cape narrowed with identity, charcoal bun/hair, gold eyes and white-blue-bronze palette preserved. Full spear blade and both feet visible. Generated framing fills more canvas than original. No programmatic art alteration.",
+      "path": "full-set-raw/attack5.png",
+      "sha256": "ae58312c7152368d025c951187fe4703a450e64ac7970f4bf05fc51f85d04339",
+      "size": [
+        1254,
+        1254
+      ],
+      "imageMode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPixels": 1061978,
+      "partialAlphaPixels": 509163,
+      "opaquePixels": 1375,
+      "alphaBBox": [
+        19,
+        23,
+        1218,
+        1220
+      ],
+      "validatedUTC": "2026-10-04T13:28:49.900244+00:00",
+      "inputSHA256": [
+        {
+          "path": "assets/chars/pixel/guard/high_detail_complete/frames/attack5.png",
+          "sha256": "81a5e2df0bb3d668ebc76739078b61c922efd9b95ef4054630e7517fd28b9b7c"
+        },
+        {
+          "path": "cenzhao-idle1-proportion-candidate-transparent.png",
+          "sha256": "172ad200b37b0408faaefb6c42a6c9a8f4329091efb221afc7f641a5573f4fb6"
+        }
+      ],
+      "outputShaMatchesUnmodifiedGeneratorFile": true,
+      "alphaThresholdBBoxes": {
+        "8": [
+          256,
+          32,
+          984,
+          1214
+        ],
+        "32": [
+          256,
+          33,
+          984,
+          1212
+        ],
+        "128": [
+          257,
+          34,
+          983,
+          1212
+        ],
+        "254": [
+          267,
+          37,
+          982,
+          1210
+        ]
+      },
+      "finalArtApproval": "Pending lead art worker full-set normalized review",
+      "consistencyReviewCaveat": "Head and rear cape correction is more visible in these upright recovery poses; global canvas occupancy still needs consistent normalization."
+    },
+    {
+      "frame": "attack6",
+      "generatorOutput": "generated_images/exec-57200540-49e6-496c-bb39-d67745c4e9f9.png",
+      "prompt": "Use case: identity-preserve. Asset type: a single transparent high-detail 2D RPG sprite animation pose. INPUT 1 is the exact original POSE EDIT TARGET. INPUT 2 is an approved corrected idle1 PROPORTION REFERENCE ONLY. Edit the target image 1, do not output image 2's idle pose. Correct only the undersized head and excessively wide rear cape of image 1 to match the approved head/body ratio and narrower rear white-blue cape silhouette of image 2. Enlarge original face/head by about 13% relative to original unchanged body, attached naturally to the same neck. Keep same face identity and golden eyes, same charcoal bun with hair stick and flowing long hair, same expression and head direction as target. Narrow far-left/rear flowing cape lateral flare about35%, with matching white-blue folds and patterned blue edging, while preserving sleeves, fabric coverage, bronze fixtures and ornaments. Preserve the EXACT target pose and action of image1: foot and knee positions, planted/swing legs, body lean, hands, elbow angles, ornate shield position/angle, bronze-teal polearm position/angle and length. Preserve white/blue/bronze clothing, footwear, chest/thigh coverage, existing skin only with no increased exposed skin. Preserve camera profile, detailed anime illustration shading, target character scale and target framing. Do not stretch body, do not enlarge entire character as correction, do not reframe or crop any hands/feet/weapon tips, no new objects. Give one complete isolated sprite in RGBA with genuine transparent background, no floor, shadow, caption, text, watermark or grid. Aim same1216x1216canvas layout as image1; generous transparent margins. Repeat: pose from image1, corrected art proportions only from image2.\n\nPOSE LOCK FOR THIS FRAME: Exact attack6 pose: recovered upright standing posture facing screen-right, feet close with near leg crossing slightly in front, shield lowered on screen-right with shield-hand relaxed over its top edge. Polearm nearly vertical on screen-left with big blade upper-left and rear spike at bottom-left; gripping hand at waist level. Preserve this target recovered pose and its distinct limb positions, not the reference idle image's placement.",
+      "referenced_image_paths": [
+        "assets/chars/pixel/guard/high_detail_complete/frames/attack6.png",
+        "cenzhao-idle1-proportion-candidate-transparent.png"
+      ],
+      "transparent_background": true,
+      "mode": "built-in image_gen",
+      "observations": "Visual review: recovered nearly upright spear and lowered shield, relaxed shield-top hand and close crossed-leg stance retained; head and narrower rear cape match approved idle proportions closely. Spear shaft slants slightly more than original, shield face has expected generative ornament variation. Full silhouette and tips remain intact. No programmatic art alteration.",
+      "path": "full-set-raw/attack6.png",
+      "sha256": "39c96d738b7a85d1f9115dc9f1cfb8cc430262dd6a83375d4b1b8622f7e57ec7",
+      "size": [
+        1254,
+        1254
+      ],
+      "imageMode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPixels": 1058331,
+      "partialAlphaPixels": 512784,
+      "opaquePixels": 1401,
+      "alphaBBox": [
+        23,
+        20,
+        1214,
+        1230
+      ],
+      "validatedUTC": "2026-10-04T13:28:49.934914+00:00",
+      "inputSHA256": [
+        {
+          "path": "assets/chars/pixel/guard/high_detail_complete/frames/attack6.png",
+          "sha256": "eedb166b4fab99197755135648eafdf20fab338098e05e640ef926068a8c67d8"
+        },
+        {
+          "path": "cenzhao-idle1-proportion-candidate-transparent.png",
+          "sha256": "172ad200b37b0408faaefb6c42a6c9a8f4329091efb221afc7f641a5573f4fb6"
+        }
+      ],
+      "outputShaMatchesUnmodifiedGeneratorFile": true,
+      "alphaThresholdBBoxes": {
+        "8": [
+          292,
+          30,
+          969,
+          1226
+        ],
+        "32": [
+          292,
+          31,
+          968,
+          1225
+        ],
+        "128": [
+          293,
+          32,
+          968,
+          1225
+        ],
+        "254": [
+          295,
+          37,
+          967,
+          1223
+        ]
+      },
+      "finalArtApproval": "Pending lead art worker full-set normalized review",
+      "consistencyReviewCaveat": "Head and rear cape correction is more visible in these upright recovery poses; global canvas occupancy still needs consistent normalization."
+    }
+  ]
+}

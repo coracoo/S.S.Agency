@@ -2,6 +2,8 @@
 class_name RpgBattleView
 extends Control
 signal presentation_tick
+const Stature = preload("res://scripts/characters/character_stature.gd")
+const ChapterSession = preload("res://scripts/campaign/chapter_session.gd")
 const TrialSession = preload("res://scripts/exploration_3d/approach_session.gd")
 const Portraits = preload("res://scripts/characters/identity_portraits.gd")
 const LegacyActor = preload("res://scripts/rpg/ui/legacy_actor_view.gd")
@@ -43,6 +45,7 @@ var _presentation_generation := 0
 var _navigating := false
 var _hd_failed := false
 var _exit_confirmation: Control
+var _exit_previous_focus: Control
 var _asset_error_panel: Control
 var _asset_loading := false
 
@@ -51,6 +54,10 @@ func _init() -> void:
 	_config = JSON.parse_string(FileAccess.get_file_as_string("res://data/rpg/presentation.json"))
 
 func _ready() -> void:
+	if router == null and Router.session != null:
+		router = Router.session
+		campaign = router.campaign
+	if campaign == null and router != null: campaign = router.campaign
 	_build()
 	get_viewport().size_changed.connect(_resize_canvas)
 	_resize_canvas()
@@ -166,8 +173,18 @@ func _cancel_presentation() -> void:
 	presentation_tick.emit()
 	if is_instance_valid(_hd_player): _hd_player.cancel()
 	processing = false
+func _asset_session() -> RefCounted:
+	if ChapterSession.current != null and ChapterSession.current.router == router: return ChapterSession.current
+	if TrialSession.current != null and TrialSession.current.router == router: return TrialSession.current
+	return null
 func _hd_enabled() -> bool:
-	return TrialSession.current != null and TrialSession.current.router == router
+	return _is_chapter() or _asset_session() != null
+func _is_chapter() -> bool:
+	return (campaign != null and campaign.safe_snapshot().get("schema_version") == 2) or (ChapterSession.current != null and ChapterSession.current.router == router)
+func _actor_definition(actor: Dictionary) -> Dictionary:
+	var session := _asset_session()
+	if session == null or session.bundle == null: return {}
+	return session.bundle.get_definition(actor.get("identity_id", ""), actor.get("form_id", ""))
 
 
 # 候选仅由真实预览探测，避免视图复制目标规则/免疫/成本判断。
@@ -198,20 +215,24 @@ func _build() -> void:
 	_canvas.size = Vector2(1920, 1080)
 	_canvas.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_canvas)
-	Kit.backdrop(_canvas, _config)
+	var background_config: Dictionary = _config
+	if _is_chapter() and campaign != null: background_config = Kit.config_for_night(_config, int(campaign.safe_snapshot().get("world", {}).get("night", 1)))
+	_canvas.set_meta("background_path", background_config.fallback_background)
+	Kit.backdrop(_canvas, background_config)
 	_danger_layer = Node2D.new()
 	_danger_layer.z_index = 1
 	_canvas.add_child(_danger_layer)
-	Kit.panel(_canvas, Rect2(32, 28, 1856, 124))
-	_hud.title = Kit.label(_canvas, "逢魔退治帖　／　回合制 RPG", Rect2(56, 39, 590, 42), 30)
-	_hud.turn = Kit.label(_canvas, "", Rect2(56, 84, 580, 45), 26)
-	_hud.queue = Kit.label(_canvas, "", Rect2(650, 48, 950, 90), 25)
+	Kit.panel(_canvas, Rect2(32, 24, 570, 114))
+	Kit.panel(_canvas, Rect2(622, 24, 948, 114))
+	_hud.title = Kit.label(_canvas, "遭遇  ·  夜巡异象", Rect2(56, 36, 522, 36), 27)
+	_hud.turn = Kit.label(_canvas, "", Rect2(56, 84, 522, 36), 25)
+	_hud.queue = Kit.label(_canvas, "", Rect2(646, 38, 900, 86), 23)
 	_hud.queue.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	Kit.button(_canvas, "日志", Rect2(1610, 46, 106, 76), _toggle_log)
-	Kit.button(_canvas, "返回标题", Rect2(1728, 46, 138, 76), _return_title)
+	Kit.button(_canvas, "日志", Rect2(1606, 28, 100, 52), _toggle_log)
+	Kit.button(_canvas, "返回标题", Rect2(1718, 28, 164, 52), _return_title)
 	Kit.label(_canvas, "远处 · 敌方", Rect2(1490 if _config.near_side == "left" else 55, 154, 370, 26), 22)
 	Kit.label(_canvas, "近处 · 出战队员", Rect2(55 if _config.near_side == "left" else 1490, 154, 370, 26), 22)
-	Kit.panel(_canvas, Rect2(32, 750, 1856, 292), true)
+	Kit.panel(_canvas, Rect2(32, 750, 1856, 292))
 	_hud.prompt = Kit.label(_canvas, "选择技能 → 点击目标 → 确认　／　Esc 取消选择", Rect2(770, 704, 1090, 40), 25)
 	for index in range(4):
 		var x := 770 + (index % 2) * 330
@@ -222,6 +243,9 @@ func _build() -> void:
 	for row in [["attack_physical", "物理普攻", 812], ["defend", "防御", 882], ["item", "道具", 952]]:
 		_basic_buttons[row[0]] = Kit.button(_canvas, row[1], Rect2(1440, row[2], 185, 61), _basic_pressed.bind(row[0]))
 	_basic_buttons.attack_magic = Kit.button(_canvas, "中性魔攻", Rect2(1637, 812, 225, 61), select_command.bind("attack_magic"))
+	_hud.form = Kit.button(_canvas, "焰华切换职业", Rect2(1440, 758, 420, 44), switch_active_form)
+	_hud.form.add_theme_font_size_override("font_size", 22)
+	_hud.form.hide()
 	_hud.cancel = Kit.button(_canvas, "取消选择", Rect2(1637, 882, 225, 61), cancel_command)
 	_hud.confirm = Kit.button(_canvas, "确认行动", Rect2(1637, 952, 225, 61), confirm_command, true)
 	_preview_panel = Kit.panel(_canvas, Rect2(60 if _config.near_side == "left" else 940, 154, 920, 180))
@@ -251,9 +275,9 @@ func _build() -> void:
 	_log_panel.add_child(_hud.log)
 	_log_panel.visible = false
 	_hud.latest = Kit.label(_canvas, "", Rect2(50, 1044, 1550, 32), 22)
-	_result = Kit.panel(_canvas, Rect2(435, 220, 1050, 660), true)
-	_hud.result_title = Kit.label(_result, "", Rect2(48, 38, 950, 72), 46, true)
-	_hud.result_body = Kit.label(_result, "", Rect2(48, 128, 950, 342), 29, true)
+	_result = Kit.panel(_canvas, Rect2(435, 220, 1050, 660))
+	_hud.result_title = Kit.label(_result, "", Rect2(48, 38, 950, 72), 46)
+	_hud.result_body = Kit.label(_result, "", Rect2(48, 128, 950, 342), 29)
 	_hud.result_body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_hud.result_action = Kit.button(_result, "", Rect2(48, 510, 455, 86), _result_action, true)
 	Kit.button(_result, "返回标题 · 保留安全档", Rect2(532, 510, 465, 86), _return_title)
@@ -294,6 +318,9 @@ func _build_actors() -> void:
 		var id: String = allies[slot] if ally else enemies[slot]
 		var actor: Dictionary = state.actors[id]
 		var layout: Array = _config.ally_slots[slot] if ally else (_config.boss_slot if actor.class_id == "gatekeeper" else _config.enemy_slots[slot])
+		if ally and _hd_enabled():
+			# 所有友方同一地面与px/m；只按身份物理身高，不按slot或武器画布fit。
+			layout = [layout[0], Stature.battle_ground_y(), Stature.battle_body_height(actor.get("identity_id", ""))]
 		# 三/四敌共享独立窄列；不把双敌面板放到交错脚点上互相覆盖。
 		var compact := crowded and not ally
 		if compact: layout = [150 + slot * 224, 575, 220]
@@ -312,7 +339,7 @@ func _build_actors() -> void:
 		var sprite: Node2D
 		if ally and _hd_enabled():
 			var hd := HdActor.new()
-			var definition: Dictionary = TrialSession.current.bundle.get_definition(actor.get("identity_id", "")) if TrialSession.current.bundle != null else {}
+			var definition := _actor_definition(actor)
 			if not hd.configure(definition, float(layout[2]), 1 if toward_right else -1):
 				_hd_failed = true
 				last_error = "人物高清素材未就绪，请重试加载"
@@ -320,7 +347,7 @@ func _build_actors() -> void:
 			_canvas.add_child(sprite)
 			_hd_views[id] = hd
 		else:
-			sprite = Kit.actor_sprite(_canvas, art, float(layout[2]), Kit.flip_for(native_facing, toward_right))
+			sprite = Kit.actor_sprite(_canvas, art, float(layout[2]), Kit.flip_for(native_facing, toward_right), _config.get("enemy_geometry", {}).get(actor.class_id, {}) if not ally else {})
 			if _hd_enabled():
 				_canvas.remove_child(sprite)
 				var adapter := LegacyActor.new()
@@ -337,8 +364,8 @@ func _build_actors() -> void:
 		var ring_points := points.duplicate()
 		ring_points.append(points[0])
 		ring.points = ring_points
-		ring.width = 4
-		ring.default_color = Kit.color("gold_500")
+		ring.width = 2.5
+		ring.default_color = Kit.color("ui_focus")
 		ring.position = foot
 		_canvas.add_child(ring)
 		var target := Kit.button(_canvas, "", Rect2(foot.x - 110, foot.y - float(layout[2]), 220, float(layout[2]) + 34), select_target.bind(id))
@@ -350,7 +377,7 @@ func _build_actors() -> void:
 			card = Kit.panel(_canvas, Rect2(48 + slot * 234, 810, 222, 210))
 			if _hd_enabled():
 				var identity: String = actor.get("identity_id", "")
-				var definition: Dictionary = TrialSession.current.bundle.get_definition(identity) if TrialSession.current.bundle != null else {}
+				var definition := _actor_definition(actor)
 				var face := Portraits.from_definition(definition, identity, "avatar")
 				avatar = TextureRect.new()
 				avatar.position = Vector2(12, 12)
@@ -370,13 +397,14 @@ func _build_actors() -> void:
 				avatar = Kit.image(card, _config.class_art[actor.class_id].badge, Rect2(12, 12, 48, 48))
 		else:
 			var card_x: float = (55.0 if _config.near_side == "right" else 1535.0) if actor.class_id == "gatekeeper" else foot.x - 164
-			card = Kit.panel(_canvas, Rect2(foot.x - 107, 184, 214, 172) if compact else Rect2(card_x, 180 + slot * 8, 328, 205))
-		var title := Kit.label(card, "", Rect2(66 if ally else 12, 10, 150 if ally else 300, 38), 26)
-		var hp := Kit.label(card, "", Rect2(12, 55 if ally else 48, 210 if ally else 300, 32), 24)
-		var hpbar := Kit.bar(card, Rect2(12, 89 if ally else 82, 198 if ally else 304, 9), Kit.color("successful"))
-		var mp := Kit.label(card, "", Rect2(12, 104 if ally else 96, 210 if ally else 300, 32), 24)
-		mp.add_theme_color_override("font_color", Kit.color("mizu_500"))
-		var status := Kit.scroll_text(card, Rect2(12, 144 if ally else 133, 198 if ally else 304, 56 if ally else 62), 23)
+			card = Kit.panel(_canvas, Rect2(foot.x - 107, 176, 214, 164) if compact else Rect2(card_x, 174 + slot * 4, 328, 164))
+		var title := Kit.label(card, "", Rect2(66 if ally else 12, 10, 150 if ally else 300, 34), 24)
+		var hp := Kit.label(card, "", Rect2(12, 58 if ally else 47, 198 if ally else 180, 29), 22)
+		var hpbar := Kit.bar(card, Rect2(12, 90 if ally else 82, 198 if ally else 304, 7), Kit.color("ui_selected_line"))
+		var mp := Kit.label(card, "", Rect2(12 if ally else 200, 102 if ally else 47, 198 if ally else 116, 29), 21 if ally else 18)
+		mp.add_theme_color_override("font_color", Kit.color("ui_muted"))
+		var status := Kit.scroll_text(card, Rect2(12, 143 if ally else 98, 198 if ally else 304, 58 if ally else 58), 20 if ally else 18)
+		status.add_theme_color_override("default_color", Kit.color("ui_muted"))
 		if compact:
 			title.position = Vector2(10, 8)
 			title.size = Vector2(194, 28)
@@ -384,13 +412,13 @@ func _build_actors() -> void:
 			hp.position = Vector2(10, 38)
 			hp.size = Vector2(194, 27)
 			hp.add_theme_font_size_override("font_size", 20)
-			hpbar.position = Vector2(10, 68)
-			hpbar.size = Vector2(194, 9)
-			mp.position = Vector2(10, 80)
-			mp.size = Vector2(194, 27)
-			mp.add_theme_font_size_override("font_size", 20)
-			status.position = Vector2(10, 111)
-			status.size = Vector2(194, 51)
+			hpbar.position = Vector2(10, 66)
+			hpbar.size = Vector2(194, 6)
+			mp.position = Vector2(10, 77)
+			mp.size = Vector2(194, 24)
+			mp.add_theme_font_size_override("font_size", 18)
+			status.position = Vector2(10, 103)
+			status.size = Vector2(194, 53)
 			status.add_theme_font_size_override("normal_font_size", 18)
 		var intent: Label
 		if not ally:
@@ -414,14 +442,18 @@ func _render() -> void:
 	var state: Dictionary = engine.snapshot()
 	var model := Presenter.present(state, _catalog, _display_actor_id if processing else "")
 	if _actors.is_empty(): _build_actors()
+	if _hd_failed:
+		processing = true
+		_show_hd_error()
+		return
 	_render_danger(model.danger)
 	var active: Dictionary = state.actors.get(_display_actor_id if processing else state.active_actor_id, {})
 	_hud.turn.text = "第 %d 轮　·　%s%s" % [state.round, Presenter.actor_name(active, _catalog), " 结算中…" if processing else " 行动"]
 	var queue: Array[String] = []
 	for index in range(model.queue.size()):
 		var name := Presenter.actor_name(state.actors[model.queue[index]], _catalog)
-		queue.append(("▶" if index == model.queue_index else ("✓" if index < model.queue_index else "")) + name)
-	_hud.queue.add_theme_font_size_override("font_size", 20 if queue.size() > 5 else 25)
+		queue.append(("当前·" if index == model.queue_index else ("已行·" if index < model.queue_index else "")) + name)
+	_hud.queue.add_theme_font_size_override("font_size", 20 if queue.size() > 5 else 23)
 	_hud.queue.text = "本轮顺序\n" + " → ".join(queue)
 	var preview := current_preview()
 	var automatic: bool = not pending_command.is_empty() and command_options(pending_command.kind, pending_command.ability_id).get("automatic", false)
@@ -442,7 +474,7 @@ func _render() -> void:
 		w.status.tooltip_text = w.status.text
 		w.sprite.modulate = Color(0.4, 0.4, 0.4, 0.55) if row.hp == 0 else Color.WHITE
 		w.ring.visible = row.active or preview.effective_target_ids.has(row.actor_id)
-		w.ring.default_color = Kit.color("vermilion_500") if preview.effective_target_ids.has(row.actor_id) else Kit.color("gold_500")
+		w.ring.default_color = Kit.color("vermilion_500") if preview.effective_target_ids.has(row.actor_id) else Kit.color("ui_focus")
 		w.target.disabled = processing or pending_command.is_empty() or automatic
 		w.target.tooltip_text = "%s\n%s" % [row.label, w.status.text]
 		if w.intent != null:
@@ -470,12 +502,20 @@ func _render() -> void:
 			button.add_theme_font_size_override("font_size", font_size)
 			if Array(button.text.split("\n")).all(func(line): return Kit.font.get_string_size(line, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x <= 296): break
 		button.size = Vector2(316, 96)
+		Kit.set_selected(button, pending_command.get("kind", "") == "skill" and pending_command.get("ability_id", "") == slot.id)
 		button.tooltip_text = button.text + "\n" + full_effect_text + "\n" + slot.target_label + ("\n" + " / ".join(reasons) if not reasons.is_empty() else "")
 	for kind in _basic_buttons:
 		_basic_buttons[kind].disabled = processing or active.is_empty() or not state.outcome.is_empty()
+		Kit.set_selected(_basic_buttons[kind], pending_command.get("kind", "") == kind)
 	_basic_buttons.attack_magic.visible = model.commands.basic.has("attack_magic")
 	_hud.confirm.disabled = processing or not preview.legal
 	_hud.cancel.disabled = processing or pending_command.is_empty()
+	var is_homura: bool = active.get("identity_id") == "homura"
+	var unlocked: bool = active.get("unlocked_forms", []).has("mage")
+	_hud.form.visible = is_homura
+	_hud.form.disabled = processing or not unlocked or state.get("phase") != "action_selection" or state.active_actor_id != active.get("actor_id")
+	_hud.form.text = ("法师 → 剑士 · 自由切换" if active.get("form_id") == "mage" else "剑士 → 法师 · 自由切换") if unlocked else "剑士 · 法师第一夜战斗后解锁"
+	_hud.form.tooltip_text = "共用HP/MP、CD、状态、装备和当前行动槽；切换不消耗行动，不治疗、不补蓝"
 	var selection_prompt := ("全体目标已选，可直接确认" if preview.effective_target_ids.size() > 1 else "目标已选，可直接确认") if automatic else "点击目标后确认"
 	_hud.prompt.text = last_error if not last_error.is_empty() else (selection_prompt + " · Esc 可取消" if not pending_command.is_empty() else "选择技能 → 点击目标 → 确认　／　Esc 取消选择")
 	_preview_panel.visible = not pending_command.is_empty()
@@ -487,6 +527,58 @@ func _render() -> void:
 		_hud["item_" + id].disabled = processing
 	_hud.log.text = "\n".join(_log_lines)
 	_hud.latest.text = _log_lines.back() if not _log_lines.is_empty() else "HP/MP与库存跨战保留 · 道具占用一次行动"
+
+# 自由切换也是权威引擎的一次标准命令；不调用advance、不结束当前行动槽。
+func switch_active_form() -> Dictionary:
+	if processing or engine == null: return {"accepted": false, "reasons": ["当前表现尚未结束"]}
+	var state: Dictionary = engine.snapshot()
+	var actor: Dictionary = state.get("actors", {}).get(state.get("active_actor_id", ""), {})
+	if actor.get("identity_id") != "homura" or state.get("phase") != "action_selection": return {"accepted": false, "reasons": ["仅焰华自己的行动机会可以切换"]}
+	var target := "mage" if actor.get("form_id") == "sword" else "sword"
+	_nonce += 1
+	var command := {"command_id": "form_%d_%d" % [state.revision, _nonce], "expected_revision": int(state.revision), "actor_id": actor.actor_id, "kind": "switch_form", "ability_id": "", "target_ids": [], "form_id": target}
+	var preview: Dictionary = engine.preview(command)
+	if not preview.get("legal", false):
+		last_error = "；".join(preview.get("reasons", []))
+		if _built: _render()
+		return {"accepted": false, "reasons": preview.get("reasons", [])}
+	var form_actor := actor.duplicate(true)
+	form_actor.form_id = target
+	if _hd_enabled() and not _actor_definition(form_actor).get("ok", false):
+		last_error = "焰华另一形态资源尚未就绪，请重试加载"
+		_hd_failed = true
+		if _built: _show_hd_error()
+		return {"accepted": false, "reasons": [last_error]}
+	var result: Dictionary = engine.submit(command)
+	if not result.get("accepted", false):
+		last_error = "；".join(result.get("reasons", []))
+		if _built: _render()
+		return result
+	pending_command = {}
+	last_error = ""
+	_display_actor_id = ""
+	_sync_hd_forms(engine.snapshot())
+	_consume_events(result.events)
+	if _built: _render()
+	return result
+
+func _sync_hd_forms(state: Dictionary) -> void:
+	for actor_id in _hd_views:
+		var actor: Dictionary = state.actors[actor_id]
+		var hd: Node2D = _hd_views[actor_id]
+		if hd._definition.get("manifest", {}).get("form_id") == actor.get("form_id"): continue
+		var definition := _actor_definition(actor)
+		if not hd.configure(definition, float(hd.get_meta("content_height")), 1 if hd.get_meta("facing_right") else -1):
+			_hd_failed = true
+			last_error = "焰华高清形态未能切换，请重试资源"
+			continue
+		var face := Portraits.from_definition(definition, actor.identity_id, "avatar")
+		if not face.ok:
+			_hd_failed = true
+			last_error = face.error
+			continue
+		_actors[actor_id].avatar.texture = face.texture
+		_actors[actor_id].avatar.set_meta("source_path", face.source_path)
 
 func _select_skill_slot(index: int) -> void:
 	var model := Presenter.present(engine.snapshot(), _catalog)
@@ -564,7 +656,11 @@ func _consume_events(events: Array) -> void:
 			if event.type == "damage" and not played.has(event.actor_id):
 				played[event.actor_id] = true
 				_play_action(event.actor_id, [event.target_id])
-	if _hd_enabled() and is_instance_valid(_hd_player): _hd_player.enqueue(events, state)
+	if _hd_enabled() and is_instance_valid(_hd_player):
+		# free switch_form没有攻击动作；command_accepted仍进入日志，模型事件不丢失。
+		var visual_events: Array = events.filter(func(event): return not (event.get("type") == "command_accepted" and event.get("payload", {}).get("command", {}).get("kind") == "switch_form"))
+		if visual_events.any(func(event): return event.get("type") != "form_changed"):
+			_hd_player.enqueue(visual_events, state)
 	while _log_lines.size() > 80: _log_lines.pop_front()
 
 func _check_result() -> void:
@@ -588,7 +684,7 @@ func _show_result() -> void:
 	if not _built or engine == null: return
 	var state: Dictionary = engine.snapshot()
 	var victory: bool = state.outcome == "victory"
-	_hud.result_title.text = "退治成功" if victory else "队伍败北"
+	_hud.result_title.text = "异象平息" if victory else "队伍败北"
 	var lines: Array[String] = []
 	if not result_saved:
 		lines.append("战果尚未保存：" + last_error)
@@ -600,7 +696,7 @@ func _show_result() -> void:
 			var actor: Dictionary = saved.roster[id]
 			lines.append("%s　HP %d/%d　MP %d/%d" % [Presenter.actor_name(actor, _catalog), actor.hp, actor.stats.hp, actor.mp, actor.stats.mp])
 		lines.append("库存：" + _inventory_text(saved.inventory))
-		lines.append("水钵异常已解决 · 返回参道" if _hd_enabled() else ("连战完成" if saved.next_encounter_id.is_empty() else ("下一步：休息准备点" if saved.phase == "rest" else "下一场普通战")))
+		lines.append("本夜战斗已完成 · 返回调查现场" if _is_chapter() else ("水钵异常已解决 · 返回参道" if _hd_enabled() else ("连战完成" if saved.next_encounter_id.is_empty() else ("下一步：休息准备点" if saved.phase == "rest" else "下一场普通战"))))
 	else:
 		lines.append("重试将恢复同一战前状态、库存与种子")
 		lines.append("没有额外补给或经验")
@@ -639,24 +735,34 @@ func _result_action() -> void:
 func _return_title() -> void:
 	if _hd_enabled():
 		if is_instance_valid(_exit_confirmation): return
+		_exit_previous_focus = get_viewport().gui_get_focus_owner()
 		_exit_confirmation = Kit.panel(_canvas, Rect2(0, 0, 1920, 1080))
 		_exit_confirmation.mouse_filter = Control.MOUSE_FILTER_STOP
 		Kit.label(_exit_confirmation, "返回标题？", Rect2(470, 280, 980, 70), 42)
-		var message := "继续试玩会从同一战前状态重试。未提交的战斗过程不会保存。"
-		if engine != null and engine.snapshot().outcome == "victory" and not result_saved: message = "战果尚未保存。返回标题会丢失本场未提交战果，继续试玩将回到同一战前状态。"
-		if result_saved and engine != null and engine.snapshot().outcome == "victory": message = "战果已安全保存。继续试玩将回到参道。"
+		var message := "继续游戏会从同一战前状态重试。未提交的战斗过程不会保存。"
+		if engine != null and engine.snapshot().outcome == "victory" and not result_saved: message = "战果尚未保存。返回标题会丢失本场未提交战果，继续游戏将回到同一战前状态。"
+		if result_saved and engine != null and engine.snapshot().outcome == "victory": message = "战果已安全保存。继续游戏将回到调查现场。"
 		var body := Kit.label(_exit_confirmation, message, Rect2(470, 380, 980, 150), 30)
 		body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		Kit.button(_exit_confirmation, "返回标题", Rect2(470, 610, 460, 84), _confirm_return_title)
-		Kit.button(_exit_confirmation, "取消", Rect2(970, 610, 460, 84), _cancel_return_title)
+		var leave := Kit.button(_exit_confirmation, "返回标题", Rect2(470, 610, 460, 84), _confirm_return_title)
+		var cancel := Kit.button(_exit_confirmation, "取消", Rect2(970, 610, 460, 84), _cancel_return_title)
+		# Tab与四方向都只在当前确认框内循环，默认保留本场。
+		leave.focus_next = cancel.get_path(); leave.focus_previous = cancel.get_path()
+		cancel.focus_next = leave.get_path(); cancel.focus_previous = leave.get_path()
+		for direction in ["focus_neighbor_left", "focus_neighbor_right", "focus_neighbor_top", "focus_neighbor_bottom"]:
+			leave.set(direction, cancel.get_path())
+			cancel.set(direction, leave.get_path())
+		cancel.grab_focus()
 		return
 	_confirm_return_title()
 func _cancel_return_title() -> void:
 	if is_instance_valid(_exit_confirmation): _exit_confirmation.queue_free()
 	_exit_confirmation = null
+	if is_instance_valid(_exit_previous_focus): _exit_previous_focus.grab_focus()
+	_exit_previous_focus = null
 func _confirm_return_title() -> void:
-	var session: RefCounted = TrialSession.current if _hd_enabled() else null
-	var error := _change_scene("res://scenes/v3/title.tscn")
+	var session := _asset_session()
+	var error := _change_scene("res://scenes/campaign/title.tscn" if _is_chapter() else "res://scenes/v3/title.tscn")
 	if error != OK:
 		last_error = "标题未能打开（%d），会话仍保留" % error
 		_cancel_return_title()
@@ -668,17 +774,22 @@ func _change_scene(path: String) -> Error:
 	return get_tree().change_scene_to_file(path)
 func _show_hd_error() -> void:
 	if is_instance_valid(_asset_error_panel): _asset_error_panel.queue_free()
-	_asset_error_panel = Kit.panel(_canvas, Rect2(430, 300, 1060, 470), true)
-	Kit.label(_asset_error_panel, "人物素材尚未就绪", Rect2(42, 32, 970, 60), 38, true)
-	var body := Kit.label(_asset_error_panel, last_error + "\n战前状态保持不变，请重试加载。", Rect2(42, 115, 970, 170), 28, true)
+	_asset_error_panel = Kit.panel(_canvas, Rect2(430, 300, 1060, 470))
+	Kit.label(_asset_error_panel, "人物素材尚未就绪", Rect2(42, 32, 970, 60), 38)
+	var body := Kit.label(_asset_error_panel, last_error + "\n战前状态保持不变，请重试加载。", Rect2(42, 115, 970, 170), 28)
 	body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	Kit.button(_asset_error_panel, "重试加载", Rect2(42, 335, 464, 80), _retry_hd_assets)
 	Kit.button(_asset_error_panel, "返回标题", Rect2(546, 335, 464, 80), _return_title)
 func _retry_hd_assets() -> void:
 	if not _hd_enabled() or _asset_loading: return
+	var session := _asset_session()
+	if session == null:
+		last_error = "正式人物会话已失效，请返回标题继续安全档"
+		_show_hd_error()
+		return
 	_asset_loading = true
 	var generation := _presentation_generation
-	var result: Dictionary = await TrialSession.current.prepare_assets()
+	var result: Dictionary = await session.prepare_assets()
 	_asset_loading = false
 	if generation != _presentation_generation or not is_inside_tree(): return
 	if not result.ok:

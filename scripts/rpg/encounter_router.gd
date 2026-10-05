@@ -2,6 +2,7 @@
 class_name RpgEncounterRouter
 extends RefCounted
 
+const Chapters = preload("res://scripts/campaign/chapter_catalog.gd")
 const Catalog = preload("res://scripts/rpg/catalog.gd")
 const Campaign = preload("res://scripts/rpg/campaign.gd")
 const Battle = preload("res://scripts/rpg/battle_engine.gd")
@@ -16,6 +17,7 @@ var _setup: Dictionary = {}
 var _initial: Dictionary = {}
 var _return_world: Dictionary = {}
 var _ritual_context: Dictionary = {}
+var _unlocked_forms: Array[String] = []
 
 func _init(campaign_model: RefCounted = null, catalog: RefCounted = null) -> void:
 	_catalog = catalog
@@ -39,14 +41,25 @@ static func take_world(scene_path: String) -> Dictionary:
 	session._return_world = {}
 	return world
 
+# A transient result notice survives the battle-to-stage scene change once.
+# It is not story text, a world flag, or a second persisted reward.
+static func take_unlocked_forms() -> Array[String]:
+	if session == null: return []
+	var forms: Array[String] = session._unlocked_forms.duplicate()
+	session._unlocked_forms.clear()
+	return forms
+
 func supports(source_scene: String, battle_scene: String, pending_clue_id: String = "") -> bool:
 	return not _route(source_scene, battle_scene, pending_clue_id).is_empty()
 
 func begin(source_scene: String, battle_scene: String, world: Dictionary, pending_clue_id: String = "") -> Dictionary:
 	var route := _route(source_scene, battle_scene, pending_clue_id)
-	if route.is_empty(): return {"ok": false, "handled": false, "error": "未映射战斗，沿用现有入口"}
+	if route.is_empty():
+		if campaign.safe_snapshot().get("schema_version") == 2: return _failure("未登记的正式战斗，禁止回退旧入口")
+		return {"ok": false, "handled": false, "error": "未映射战斗，沿用现有入口"}
 	if world.get("scene_path") != source_scene: return _failure("来源场景与世界快照不符")
 	var patch: Dictionary = route.get("story_patch", {}).duplicate(true)
+	if world.get("world_version") == 3: patch = Chapters.battle_patch(world)
 	if patch.is_empty() and not pending_clue_id.is_empty(): patch["resolved"] = {pending_clue_id: true}
 	var started: Dictionary = campaign.begin_battle(route.encounter_id, world, patch)
 	if not started.ok: return started
@@ -151,6 +164,8 @@ func finish(result: Dictionary) -> Dictionary:
 	var applied: Dictionary = campaign.apply_result(result)
 	if not applied.ok or result.get("outcome") != "victory": return applied
 	var safe: Dictionary = campaign.safe_snapshot()
+	if applied.has("unlocked_forms"):
+		for form in applied.unlocked_forms: _unlocked_forms.append(form)
 	var world: Dictionary = safe.world
 	_return_world = world.duplicate(true)
 	applied["world"] = world.duplicate(true)
@@ -172,6 +187,7 @@ func load_safe_run() -> Dictionary:
 	_initial = {}
 	_setup = {}
 	_ritual_context = {}
+	_unlocked_forms.clear()
 	var safe: Dictionary = campaign.safe_snapshot()
 	loaded["pending_battle"] = not safe.pending_battle.is_empty()
 	if loaded.pending_battle:
@@ -187,6 +203,13 @@ func load_safe_run() -> Dictionary:
 	return loaded
 
 func _route(source: String, battle: String, clue: String, route_field: String = "scene_routes") -> Dictionary:
+	if campaign.safe_snapshot().get("schema_version") == 2:
+		if route_field != "scene_routes" or battle != "res://scenes/rpg/battle.tscn": return {}
+		for id in range(1, 6):
+			var night := Chapters.night(id)
+			if source == night.scene_path and clue == night.clue_id:
+				return {"source_scene": source, "battle_scene": battle, "clue_id": clue, "encounter_id": night.encounter_id}
+		return {}
 	for encounter in _catalog.get_all("encounters"):
 		for route in encounter.get(route_field, []):
 			if route.source_scene == source and route.battle_scene == battle and (route.get("clue_id", "") == clue or (route_field == "ritual_routes" and clue.is_empty())):

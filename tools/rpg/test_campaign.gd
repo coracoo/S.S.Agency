@@ -650,7 +650,10 @@ static func _test_ritual_flow(Campaign, Store, Router, failures: Array[String]) 
 	var expected: Dictionary = before.duplicate(true)
 	expected.resolved["coffin_sendoff"] = true
 	F.expect(stage.export_rpg_world() == expected and not stage._dlg_playing, "取消返场完整保留线索/位置/朝向/对话/出口/灵气/队员且不重播", failures)
-	F.expect(stage._all_clues_resolved() and stage._cfg.next == "res://scenes/v3/stage_honden.tscn", "原本殿出口可继续，不重复钟鸣战斗", failures)
+	if OS.get_environment("RPG_TEST_LEGACY_CONTRACTS") == "1":
+		F.expect(stage._all_clues_resolved() and stage._cfg.next == "res://scenes/v3/stage_honden.tscn", "历史契约：原本殿出口可继续，不重复钟鸣战斗", failures)
+	else:
+		F.expect(stage._all_clues_resolved() and stage._cfg.next == "res://scenes/v3/stage_night3.tscn", "保留兼容舞台的五夜叙事顺序，回廊先到第三夜且不重打钟鸣", failures)
 	F.expect(FileAccess.get_file_as_string("user://build.json") == build and FileAccess.get_file_as_string("user://progress.json") == progress, "仪式取消返回不改旧档字节", failures)
 	var resumed = Router.new(Campaign.new(null, Store.new(), "user://rpg_v1/tests/ritual_flow.json"))
 	var loaded: Dictionary = resumed.load_safe_run()

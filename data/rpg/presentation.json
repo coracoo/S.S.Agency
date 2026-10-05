@@ -84,11 +84,15 @@
     }
   },
   "enemy_art": {
-    "gatekeeper": "res://assets/chars/enemy_kanju.png",
-    "cultist": "res://assets/chars/enemy_paper_doll_echo.png",
-    "default": "res://assets/chars/enemy_paper_doll.png"
+    "gatekeeper": "res://assets/chars/enemies/current/gatekeeper.png",
+    "cultist": "res://assets/chars/enemies/current/cultist.png",
+    "default": "res://assets/chars/enemies/current/hound.png",
+    "hound": "res://assets/chars/enemies/current/hound.png",
+    "shield_soldier": "res://assets/chars/enemies/current/shield_soldier.png",
+    "fire_spirit": "res://assets/chars/enemies/current/fire_spirit.png",
+    "elite_shield_soldier": "res://assets/chars/enemies/current/elite_shield_soldier.png"
   },
-  "art_note": "职业槽位复用凛音／薄荷两套既有立绘；敌方复用纸妖素材。职业标签不改变人物设定。",
+  "art_note": "正式战斗采用六身份七高清形态；焰华两形态共享同一角色资源。敌方为六张右向透明静态立绘。",
   "camera_target": [
     0.6,
     0.8,
@@ -107,7 +111,88 @@
     "mint": "right",
     "res://assets/chars/enemy_paper_doll.png": "left",
     "res://assets/chars/enemy_paper_doll_echo.png": "left",
-    "res://assets/chars/enemy_kanju.png": "left"
+    "res://assets/chars/enemy_kanju.png": "left",
+    "res://assets/chars/enemies/current/hound.png": "right",
+    "res://assets/chars/enemies/current/shield_soldier.png": "right",
+    "res://assets/chars/enemies/current/fire_spirit.png": "right",
+    "res://assets/chars/enemies/current/cultist.png": "right",
+    "res://assets/chars/enemies/current/elite_shield_soldier.png": "right",
+    "res://assets/chars/enemies/current/gatekeeper.png": "right"
   },
-  "facing_note": "已目检：凛音/薄荷为右向，三套敌图为左偏三分之四视角。镜像调整相向构图；敌图没有独立侧身攻击帧，薄荷没有帧动画或分层Live2D模型。"
+  "facing_note": "最终敌图原生右向位于左侧；友方高清形态原生右向位于右侧朝左。脚点按真实图像主体登记，保留原始PNG不改绘。",
+  "enemy_geometry": {
+    "hound": {
+      "canvas": [
+        1024,
+        1536
+      ],
+      "anchor": [
+        560,
+        1450
+      ],
+      "content_height_px": 1393
+    },
+    "shield_soldier": {
+      "canvas": [
+        1024,
+        1536
+      ],
+      "anchor": [
+        568,
+        1498
+      ],
+      "content_height_px": 1440
+    },
+    "fire_spirit": {
+      "canvas": [
+        1024,
+        1536
+      ],
+      "anchor": [
+        600,
+        1432
+      ],
+      "content_height_px": 1313
+    },
+    "cultist": {
+      "canvas": [
+        1024,
+        1536
+      ],
+      "anchor": [
+        595,
+        1424
+      ],
+      "content_height_px": 1284
+    },
+    "elite_shield_soldier": {
+      "canvas": [
+        1024,
+        1536
+      ],
+      "anchor": [
+        595,
+        1466
+      ],
+      "content_height_px": 1392
+    },
+    "gatekeeper": {
+      "canvas": [
+        1024,
+        1536
+      ],
+      "anchor": [
+        600,
+        1477
+      ],
+      "content_height_px": 1431
+    }
+  },
+  "night_backgrounds": {
+    "1": "res://assets/bg/approach_battle.png",
+    "2": "res://assets/bg/corridor_battle_test.png",
+    "3": "res://assets/bg/corridor_battle_test.png",
+    "4": "res://assets/bg/honden_battle.png",
+    "5": "res://assets/bg/honden_battle.png"
+  }
 }

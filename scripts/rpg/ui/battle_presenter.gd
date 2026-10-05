@@ -38,10 +38,10 @@ static func present(state: Dictionary, catalog: RefCounted, display_actor_id: St
 	var skills: Array[Dictionary] = []
 	var basic: Array[String] = ["attack_physical", "defend", "item"]
 	if not active.is_empty() and active.side == "player":
-		for skill_id in catalog.get_definition("classes", active.class_id).skill_ids:
+		for skill_id in active.get("skill_ids", catalog.get_definition("classes", active.get("active_class_id", active.class_id)).skill_ids):
 			var definition: Dictionary = Resolver.ability_for(active, {"kind": "skill", "ability_id": skill_id}, catalog)
 			skills.append({"id": skill_id, "name": definition.name, "mp_cost": definition.mp_cost, "cooldown": definition.cooldown, "target_label": TARGET_NAMES.get(definition.target_rule, definition.target_rule), "target_short": TARGET_SHORT.get(definition.target_rule, ""), "effects": definition.effects.duplicate(true)})
-		if active.class_id in ["mage", "healer", "controller"]: basic.push_front("attack_magic")
+		if active.get("active_class_id", active.class_id) in ["mage", "healer", "controller"]: basic.push_front("attack_magic")
 	return {"round": state.get("round", 0), "active_actor_id": state.get("active_actor_id", ""), "queue": state.get("queue", []).duplicate(), "queue_index": state.get("queue_index", 0), "actors": actors, "commands": {"skills": skills, "basic": basic}, "inventory": state.get("inventory", {}).duplicate(), "outcome": state.get("outcome", ""), "danger": danger_markers(state, catalog)}
 
 # 意图的状态/取消/等待来自解析器预览；准备时只读已承诺释放的目录信息，不推算伤害。
@@ -149,6 +149,7 @@ static func event_line(event: Dictionary, state: Dictionary, catalog: RefCounted
 	var target := actor_name(state.actors.get(event.target_id, {}), catalog)
 	var p: Dictionary = event.payload
 	match event.type:
+		"form_changed": return "%s 切换为%s · 保留当前行动" % [source, "法师" if p.get("form_id") == "mage" else "剑士"]
 		"damage": return "%s → %s  %s%d" % [source, target, "暴击 " if p.critical else "伤害 ", p.damage]
 		"healed": return "%s  HP +%d" % [target, p.actual]
 		"mp_restored": return "%s  MP +%d" % [target, p.actual]

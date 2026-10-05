@@ -20,7 +20,22 @@
         "fuji_500": "#7A6FF0",
         "mizu_500": "#5FA8A0",
         "hi_500": "#E8A33D",
-        "successful": "#6FA86F"
+        "successful": "#6FA86F",
+        "ui_ink": "#101C1D",
+        "ui_surface": "#172729",
+        "ui_text": "#F0ECE2",
+        "ui_muted": "#AAB8AF",
+        "ui_line": "#52645E",
+        "ui_accent": "#733930",
+        "ui_accent_hover": "#914B40",
+        "ui_accent_pressed": "#502B27",
+        "ui_hover": "#2B423E",
+        "ui_pressed": "#152322",
+        "ui_disabled": "#172021",
+        "ui_disabled_text": "#84928C",
+        "ui_focus": "#DECBA1",
+        "ui_selected": "#304C44",
+        "ui_selected_line": "#8AAA98"
     },
 
     "semantic_colors": {

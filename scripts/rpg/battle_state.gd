@@ -2,6 +2,7 @@
 class_name RpgBattleState
 extends RefCounted
 
+const Forms = preload("res://scripts/rpg/dual_form.gd")
 const Catalog = preload("res://scripts/rpg/catalog.gd")
 static var _catalog_cache: RefCounted
 
@@ -108,9 +109,11 @@ static func _validate_actor(id: String, actor: Dictionary, errors: Array[String]
 				var equipment: Dictionary = _catalog_cache.get_definition("equipment", equipment_id)
 				if equipment.is_empty() or equipment.get("slot") != slot:
 					errors.append(id + " 装备引用缺失／槽错配")
+	if Forms.has_data(actor): errors.append_array(Forms.validate(actor, _catalog_cache))
+	var available_skills := Forms.available_skills(actor, _catalog_cache)
 	if actor.get("cooldown_until") is Dictionary:
 		for skill in actor.cooldown_until:
-			if not skill is String or not _natural(actor.cooldown_until[skill]) or not actor.get("skill_ids") is Array or not actor.skill_ids.has(skill):
+			if not skill is String or not _natural(actor.cooldown_until[skill]) or not actor.get("skill_ids") is Array or not available_skills.has(skill):
 				errors.append(id + " 冷却计数非法")
 	if not actor.get("skill_ids") is Array or (actor.get("side") == "player" and actor.skill_ids.size() != 4):
 		errors.append(id + " 技能卡位非法")
@@ -123,7 +126,7 @@ static func _validate_actor(id: String, actor: Dictionary, errors: Array[String]
 			if _catalog_cache.get_definition("abilities", str(skill)).is_empty():
 				errors.append(id + " 技能引用缺失")
 		if actor.get("side") == "player":
-			var definition: Dictionary = _catalog_cache.get_definition("classes", str(actor.get("class_id", "")))
+			var definition: Dictionary = _catalog_cache.get_definition("classes", Forms.active_class(actor))
 			if actor.skill_ids != definition.get("skill_ids", []):
 				errors.append(id + " 职业固定卡位不符")
 	if not actor.get("statuses") is Array:
@@ -197,7 +200,7 @@ static func normalize_snapshot(saved: Dictionary) -> Dictionary:
 	if state.get("actors") is Dictionary:
 		for actor in state.actors.values():
 			if not actor is Dictionary: continue
-			_int_fields(actor, ["level", "hp", "mp", "slot_count", "opportunity_count", "revived_round", "status_generation", "last_slot_round"])
+			_int_fields(actor, ["level", "hp", "mp", "slot_count", "opportunity_count", "revived_round", "status_generation", "last_slot_round", "dual_form_version"])
 			for field in ["stats", "cooldown_until"]:
 				if actor.get(field) is Dictionary: _int_fields(actor[field], actor[field].keys())
 			if actor.get("boss") is Dictionary:
@@ -296,6 +299,7 @@ static func _validate_logs(state: Dictionary, errors: Array[String]) -> void:
 			if not command is Dictionary or not command.get("command_id") is String:
 				errors.append("指令日志结构非法")
 				continue
+			if command.get("kind") is String and command.kind == "switch_form" and not Forms.valid_switch_command(command): errors.append("切换形态日志结构非法")
 			var id: String = command.command_id
 			if id.is_empty() or seen.has(id) or not state.get("accepted_commands") is Dictionary or state.accepted_commands.get(id) != index + 1: errors.append("执行指令索引不一致")
 			seen[id] = true

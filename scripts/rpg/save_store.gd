@@ -2,6 +2,8 @@
 class_name RpgSaveStore
 extends RefCounted
 
+const Forms = preload("res://scripts/rpg/dual_form.gd")
+const Chapters = preload("res://scripts/campaign/chapter_catalog.gd")
 const TrialProfile = preload("res://scripts/exploration_3d/trial_profile.gd")
 const WorldSnapshot = preload("res://scripts/exploration_3d/world_snapshot.gd")
 const Catalog = preload("res://scripts/rpg/catalog.gd")
@@ -27,11 +29,14 @@ func load_safe(path: String = DEFAULT_PATH) -> Dictionary:
 	var read_error := file.get_error()
 	file.close()
 	if read_error != OK and read_error != ERR_FILE_EOF: return _failure("读取安全存档失败", read_error)
-	return _decode(contents)
+	var decoded := _decode(contents)
+	if decoded.ok and not _schema_path(decoded.snapshot, path): return _failure("存档版本与独立目录不符")
+	return decoded
 
 func write_safe(snapshot: Dictionary, path: String = DEFAULT_PATH) -> Error:
 	last_error = ""
 	if not _allowed_path(path): return _write_error("禁止写入rpg_v1之外或经过链接的路径", ERR_FILE_BAD_PATH)
+	if not _schema_path(snapshot, path): return _write_error("存档版本与独立目录不符", ERR_FILE_BAD_PATH)
 	var errors := validate(snapshot)
 	if not errors.is_empty(): return _write_error("；".join(errors), ERR_INVALID_DATA)
 	# 不把未知schema、损坏或不兼容规则的原档当成空槽；也不擅自备份/删除它。
@@ -79,15 +84,20 @@ func _decode(contents: String) -> Dictionary:
 
 func normalize(value: Dictionary) -> Dictionary:
 	var saved := value.duplicate(true)
-	State._int_fields(saved, ["schema_version", "level", "xp", "battle_counter"])
+	State._int_fields(saved, ["schema_version", "level", "xp", "battle_counter", "night"])
 	var normalized := State.normalize_snapshot({"actors": saved.get("roster", {}), "inventory": saved.get("inventory", {})})
 	if saved.has("roster"): saved.roster = normalized.actors
 	if saved.has("inventory"): saved.inventory = normalized.inventory
 	if saved.get("world") is Dictionary:
-		if saved.world.has("world_version"):
+		if (saved.world.get("world_version") is int or saved.world.get("world_version") is float) and saved.world.world_version == 3:
+			saved.world = Chapters.normalize(saved.world)
+		elif saved.world.has("world_version"):
 			saved.world = WorldSnapshot.normalize(saved.world)
 		else:
 			State._int_fields(saved.world, ["facing", "spirit", "party_index"])
+	if saved.get("world_history") is Dictionary:
+		for id in saved.world_history:
+			if saved.world_history[id] is Dictionary: saved.world_history[id] = Chapters.normalize(saved.world_history[id])
 	if saved.get("pending_battle") is Dictionary:
 		State._int_fields(saved.pending_battle, ["seed", "xp"])
 		if saved.pending_battle.get("story_patch") is Dictionary:
@@ -97,7 +107,7 @@ func normalize(value: Dictionary) -> Dictionary:
 func validate(saved: Dictionary) -> Array[String]:
 	var errors: Array[String] = []
 	if not State._plain(saved): return ["存档只允许有限JSON值"]
-	if not saved.get("schema_version") is int or saved.get("schema_version") != 1: errors.append("未知存档schema_version，保留文件原样")
+	if not saved.get("schema_version") is int or not saved.get("schema_version") in [1, 2]: errors.append("未知存档schema_version，保留文件原样")
 	if not saved.get("rules_version") is String or saved.get("rules_version") != _catalog.rules_version: errors.append("存档规则版本不兼容")
 	if not SAFE_PHASES.has(saved.get("phase")): errors.append("只允许战外安全状态保存，战斗或过场不可存档")
 	if not saved.get("run_id") is String or saved.get("run_id", "").is_empty(): errors.append("缺少运行ID")
@@ -144,8 +154,14 @@ func validate(saved: Dictionary) -> Array[String]:
 		for id in party:
 			if not id is String or not roster.has(id) or seen.has(id): errors.append("编队引用缺失/重复")
 			seen[id] = true
-	errors.append_array(validate_world(saved.get("world")))
-	if saved.has("run_profile"):
+	if saved.get("schema_version") == 2:
+		if not saved.get("world") is Dictionary: errors.append("正式世界必须为字典")
+		else: errors.append_array(Chapters.validate_world(saved.world))
+	else:
+		errors.append_array(validate_world(saved.get("world")))
+	if saved.has("run_profile") and saved.get("schema_version") == 2:
+		errors.append("正式档不可携带旧试玩profile")
+	elif saved.has("run_profile"):
 		if not saved.run_profile is Dictionary:
 			errors.append("试玩配置不是字典")
 		else:
@@ -155,6 +171,11 @@ func validate(saved: Dictionary) -> Array[String]:
 				for field in ["identity_id", "form_id"]:
 					if saved.roster[id].get(field) != TrialProfile.BINDINGS[id][field]: errors.append("试玩人物身份不符：" + id)
 
+	if saved.get("schema_version") == 1:
+		for actor in roster.values():
+			if Forms.has_data(actor): errors.append("双职业元数据仅允许正式schema2存档")
+	if saved.get("schema_version") == 1 and saved.get("world") is Dictionary and saved.world.get("world_version") == 3: errors.append("正式3D世界必须使用独立schema2")
+	if saved.get("schema_version") == 2: errors.append_array(_validate_campaign(saved))
 	var applied = saved.get("applied_battle_ids")
 	if not applied is Array:
 		errors.append("缺少已提交战斗ID")
@@ -208,6 +229,7 @@ func branch_ids(class_id: String) -> Array[String]:
 static func validate_world(world) -> Array[String]:
 	var errors: Array[String] = []
 	if not world is Dictionary or not State._plain(world): return ["世界状态必须为纯JSON字典"]
+	if world.get("world_version") is int and world.world_version == 3: return Chapters.validate_world(world)
 	if world.has("world_version"): return WorldSnapshot.validate(world)
 	if world.is_empty(): return errors # 独立切片尚未进入旧舞台。
 	if not world.get("scene_path") is String or not world.get("scene_path", "").begins_with("res://scenes/") or not world.get("scene_path", "").ends_with(".tscn"): errors.append("世界场景路径非法")
@@ -226,6 +248,7 @@ static func validate_world(world) -> Array[String]:
 
 static func validate_story_patch(patch, world: Dictionary) -> Array[String]:
 	if not patch is Dictionary: return ["剧情补丁必须为字典"]
+	if world.get("world_version") is int and world.world_version == 3: return Chapters.validate_patch(patch, world)
 	if world.has("world_version"): return WorldSnapshot.validate_patch(patch, world)
 	for key in patch:
 		if not key in ["resolved", "next_scene"]: return ["剧情补丁仅支持现有线索及场景出口"]
@@ -237,7 +260,11 @@ static func validate_story_patch(patch, world: Dictionary) -> Array[String]:
 	return []
 
 func _allowed_path(path: String) -> bool:
-	if not path.begins_with("user://rpg_v1/") or path.ends_with("/") or path.contains("\\"): return false
+	if path.ends_with("/") or path.contains("\\"): return false
+	if path.begins_with("user://campaign_v1/"):
+		var regex := RegEx.create_from_string("^user://campaign_v1/slot_01\\.json(?:\\.tmp-[0-9a-f]{24})?$")
+		if regex.search(path) == null: return false
+	elif not path.begins_with("user://rpg_v1/"): return false
 	var relative := path.trim_prefix("user://")
 	var current := "user://"
 	for part in relative.split("/"):
@@ -254,3 +281,87 @@ func _failure(message: String, code: Error = ERR_INVALID_DATA) -> Dictionary:
 func _write_error(message: String, code: Error) -> Error:
 	last_error = message
 	return code
+
+# A formal run has a separate schema, story phase and per-scene checkpoints.
+# Legacy TrialProfile validation above is intentionally unchanged.
+func _validate_campaign(saved: Dictionary) -> Array[String]:
+	var errors: Array[String] = []
+	for field in ["campaign_id", "scene_id", "story_phase", "resolution", "case_status"]:
+		if not saved.get(field) is String: errors.append("正式档字符串字段非法：" + field)
+	if not saved.get("night") is int: errors.append("正式夜晚必须为整数")
+	var applied = saved.get("applied_battle_ids")
+	if not applied is Array:
+		errors.append("正式已提交ID必须为数组")
+	else:
+		for id in applied:
+			if not id is String or id.is_empty(): errors.append("正式已提交ID必须为非空字符串")
+	var pending = saved.get("pending_battle")
+	if not pending is Dictionary:
+		errors.append("正式战前上下文必须为字典")
+	elif not pending.is_empty():
+		for field in ["battle_id", "encounter_id"]:
+			if not pending.get(field) is String: errors.append("正式战前字符串字段非法：" + field)
+		for field in ["seed", "xp"]:
+			if not pending.get(field) is int: errors.append("正式战前整数字段非法：" + field)
+		if not pending.get("story_patch") is Dictionary: errors.append("正式战果补丁必须为字典")
+	if not errors.is_empty(): return errors
+	if saved.has("run_profile") or saved.get("campaign_id") != Chapters.PROFILE_ID: errors.append("正式档身份与试玩配置冲突")
+	if not saved.get("world") is Dictionary or not Chapters.validate_world(saved.world).is_empty(): return ["正式档世界非法"]
+	var world: Dictionary = saved.world
+	if saved.get("night") != world.night or saved.get("scene_id") != world.scene_id: errors.append("正式档章节与世界不符")
+	if not saved.get("story_phase") in ["exploration", "ritual", "ending", "complete"]: errors.append("正式剧情阶段非法")
+	if not saved.get("phase") in ["exploration", "rest"]: errors.append("正式档只能保留安全战外阶段")
+	if not saved.get("chapter_complete") is bool or saved.chapter_complete != (saved.get("story_phase") == "complete"): errors.append("本章完成记录不符")
+	if not saved.get("resolution") in ["", "sendoff", "seal_monitoring"]: errors.append("结局选择非法")
+	var resolution: String = str(saved.get("resolution", ""))
+	var status: String = "open" if resolution.is_empty() else ("closed" if resolution == "sendoff" else "monitoring")
+	if saved.get("case_status") != status: errors.append("案件状态与结局不符")
+	if saved.get("story_phase") in ["ending", "complete"]:
+		if world.night != 5 or not Chapters.complete(world): errors.append("结案缺少五夜完成前置")
+	elif not resolution.is_empty(): errors.append("结局不能出现在探索或仪式阶段")
+	if saved.get("story_phase") == "complete" and resolution.is_empty(): errors.append("本章完成缺少已保存选择")
+	var ritual_pending: bool = world.night == 2 and world.event_flags.has("ritual:identify") and not world.event_flags.has("ritual:guide")
+	if (saved.get("story_phase") == "ritual") != ritual_pending: errors.append("仪式阶段与步骤不符")
+	if not saved.get("world_history") is Dictionary: return ["缺少各夜场景检查点"]
+	if saved.world_history.size() != world.night: errors.append("场景历史数量与已到达夜晚不符")
+	var cleared := 0
+	var first_night_cleared := false
+	for id in range(1, world.night + 1):
+		var key := "night_%d" % id
+		var checkpoint = saved.world_history.get(key)
+		if not checkpoint is Dictionary or not Chapters.validate_world(checkpoint).is_empty() or checkpoint.get("night") != id:
+			errors.append("场景历史非法：" + key)
+			continue
+		if id < world.night and not Chapters.complete(checkpoint): errors.append("未完成前夜不能进入后夜")
+		if checkpoint.event_flags.has("battle:cleared"):
+			cleared += 1
+			if id == 1: first_night_cleared = true
+		if id == world.night and checkpoint != world: errors.append("当前世界与场景检查点不符")
+	var expected_xp: int = cleared * 40 + (80 if world.night == 5 and world.event_flags.has("battle:cleared") else 0)
+	if saved.get("level") != 5 or saved.get("xp") != expected_xp: errors.append("正式等级/经验与已提交五夜遭遇不符")
+	if saved.get("applied_battle_ids") is Array and saved.applied_battle_ids.size() != cleared: errors.append("胜利数与已提交战果数不符")
+	if saved.get("battle_counter") is int and saved.get("pending_battle") is Dictionary and saved.get("applied_battle_ids") is Array:
+		if saved.battle_counter != saved.applied_battle_ids.size() + (0 if saved.pending_battle.is_empty() else 1): errors.append("战斗计数与提交记录不符")
+		for index in range(saved.applied_battle_ids.size()):
+			if saved.applied_battle_ids[index] != saved.run_id + ":" + str(index + 1): errors.append("已提交战斗ID不属于本局顺序")
+		if not saved.pending_battle.is_empty():
+			if saved.pending_battle.get("battle_id") is String and saved.pending_battle.get("seed") is int and saved.pending_battle.seed != int(saved.pending_battle.battle_id.hash()): errors.append("重试种子与固定战斗ID不符")
+			if saved.pending_battle.get("encounter_id") != Chapters.night(world.night).encounter_id or saved.pending_battle.get("battle_id") != saved.run_id + ":" + str(saved.battle_counter): errors.append("战前上下文不属于当前夜晚/本局")
+	if saved.get("next_encounter_id") != ("" if world.night == 5 and world.event_flags.has("battle:cleared") else Chapters.night(world.night).encounter_id): errors.append("正式后续遭遇不属于当前夜晚")
+	if saved.story_phase == "complete" and saved.get("return_scene", "") != Chapters.ENDING_PATH: errors.append("已完成正式档必须返回登记结尾画面")
+	if saved.get("return_scene", "") not in ["", world.scene_path, Chapters.ENDING_PATH]: errors.append("正式返回场景未登记")
+	if saved.get("return_scene") == Chapters.ENDING_PATH and saved.get("story_phase") != "complete": errors.append("未完成不能返回结尾画面")
+	for actor_id in Chapters.BINDINGS:
+		var actor: Dictionary = saved.roster.get(actor_id, {})
+		if not actor.get("identity_id") is String or actor.identity_id != Chapters.BINDINGS[actor_id].identity_id: errors.append("正式角色身份不符：" + actor_id)
+		if actor_id == "p_mage":
+			errors.append_array(Forms.validate(actor, _catalog))
+			var mage_unlocked: bool = first_night_cleared
+			var expected_forms: Array = Forms.UNLOCKED_FORMS if mage_unlocked else Forms.LOCKED_FORMS
+			if not actor.get("unlocked_forms") is Array or actor.unlocked_forms != expected_forms: errors.append("焰华法师解锁与首夜持久胜利不符")
+		elif not actor.get("form_id") is String or actor.form_id != Chapters.BINDINGS[actor_id].form_id: errors.append("正式角色形态不符：" + actor_id)
+	return errors
+
+func _schema_path(saved: Dictionary, path: String) -> bool:
+	if not saved.get("schema_version") is int: return false
+	return (saved.get("schema_version") == 2 and path.begins_with("user://campaign_v1/")) or (saved.get("schema_version") == 1 and path.begins_with("user://rpg_v1/"))

@@ -65,3 +65,46 @@ func washi_panel() -> StyleBoxTexture:
 		sb.set_content_margin_all(WASHI_PANEL_MARGIN + 14)
 		_washi_sb = sb
 	return _washi_sb
+
+## 当前主线的烟墨面板。和纸接口保留供历史内容使用，正式界面不叠加纹样。
+func surface_style(raised: bool = false) -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(color("ui_surface" if raised else "ui_ink"), 0.97 if raised else 0.92)
+	style.border_color = Color(color("ui_line"), 0.55)
+	style.set_border_width_all(1)
+	style.set_corner_radius_all(3)
+	style.set_content_margin_all(16)
+	style.shadow_color = Color(0.0, 0.0, 0.0, 0.18)
+	style.shadow_size = 5
+	style.shadow_offset = Vector2(0, 3)
+	return style
+
+func button_style(state: String, primary: bool = false) -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.set_corner_radius_all(3)
+	style.set_content_margin_all(12)
+	style.set_border_width_all(1)
+	style.border_color = Color(color("ui_line"), 0.75)
+	match state:
+		"hover":
+			style.bg_color = color("ui_accent_hover" if primary else "ui_hover")
+			style.border_color = color("ui_muted")
+		"pressed":
+			style.bg_color = color("ui_accent_pressed" if primary else "ui_pressed")
+			style.border_color = color("ui_muted")
+			style.border_width_top = 3
+		"disabled":
+			style.bg_color = color("ui_disabled")
+			style.border_color = Color(color("ui_line"), 0.3)
+		"focus":
+			style.draw_center = false
+			style.set_border_width_all(2)
+			style.border_color = color("ui_focus")
+			style.expand_margin_left = 3
+			style.expand_margin_right = 3
+			style.expand_margin_top = 3
+			style.expand_margin_bottom = 3
+		_:
+			style.bg_color = color("ui_accent" if primary else "ui_surface")
+			if primary: style.border_color = color("ui_accent_hover")
+	return style

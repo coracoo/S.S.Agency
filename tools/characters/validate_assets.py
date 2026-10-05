@@ -9,6 +9,16 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[2]
 REQUIRED = ('idle','walk','attack','hit','defend','down','recover')
 
+def high_detail_alpha_errors(image: Image.Image, label: str) -> list[str]:
+    errors=[]
+    if image.mode!='RGBA': errors.append(label+': 高清帧须保留RGBA透明通道')
+    rgba=image.convert('RGBA'); histogram=rgba.getchannel('A').histogram()
+    if not histogram[0]: errors.append(label+': 缺少透明背景，不能使用整张不透明底')
+    # 允许绘制素材的真实软边；alpha>=128的实体须超过孤立噪点规模。
+    if sum(histogram[128:]) < max(16,math.ceil(rgba.width*rgba.height*0.0001)):
+        errors.append(label+': 缺少有效人物主体，空帧或稀疏噪点不能通过')
+    return errors
+
 def validate_manifest(path: Path, root: Path = ROOT, profile: str = 'legacy_pixel') -> list[str]:
     errors = []
     if not path.exists(): return [f'缺少清单: {path}']
@@ -47,16 +57,15 @@ def validate_manifest(path: Path, root: Path = ROOT, profile: str = 'legacy_pixe
                 image = original.convert('RGBA')
                 if image.size != expected_size: errors.append(frame+(': 与清单原生画布不符' if high_detail else ': 必须192×160'))
                 if high_detail:
-                    alpha_histogram=image.getchannel('A').histogram()
-                    if sum(alpha_histogram[1:255]): errors.append(frame+': alpha不是二值')
-                    if not alpha_histogram[255]: errors.append(frame+': 空帧')
+                    errors.extend(high_detail_alpha_errors(original,frame))
                 else:
                     pixels = list(image.get_flattened_data())
                     if any(a not in (0,255) for r,g,b,a in pixels): errors.append(frame+': alpha不是二值')
                     opaque = [(r,g,b) for r,g,b,a in pixels if a]
                     if not opaque: errors.append(frame+': 空帧')
                     all_colors.update(opaque)
-                bounds = image.getchannel('A').getbbox()
+                # 高清生成源的alpha=1等近透明噪点原样保留，裁边按可见软边实体判断。
+                bounds = image.getchannel('A').point(lambda alpha: 255 if alpha>=8 else 0).getbbox() if high_detail else image.getchannel('A').getbbox()
                 if bounds and (bounds[0]==0 or bounds[1]==0 or bounds[2]==image.width or bounds[3]==image.height):
                     errors.append(frame+': 接触画布边缘，可能裁切')
     if len(all_colors)>64: errors.append(f'共享调色板超过64色: {len(all_colors)}')
@@ -74,7 +83,9 @@ def validate_manifest(path: Path, root: Path = ROOT, profile: str = 'legacy_pixe
             with Image.open(file) as raw:
                 layer_image=raw.convert('RGBA')
                 if layer_image.size!=expected_size: errors.append('layer须匹配原生画布')
-                if sum(layer_image.getchannel('A').histogram()[1:255]): errors.append('layer alpha不是二值')
+                if high_detail:
+                    errors.extend(high_detail_alpha_errors(raw,'layer'))
+                elif sum(layer_image.getchannel('A').histogram()[1:255]): errors.append('layer alpha不是二值')
                 if not high_detail:
                     all_colors.update((r,g,b) for r,g,b,a in layer_image.get_flattened_data() if a)
     if len(all_colors)>64: errors.append(f'包含layers的共享调色板超过64色: {len(all_colors)}')

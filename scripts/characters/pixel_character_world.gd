@@ -1,6 +1,7 @@
 extends CharacterBody3D
 ## 世界原点固定脚底；仅视觉拥有状态机，不拥有HP或行动资源。
 const Definition = preload('res://scripts/characters/pixel_character_definition.gd')
+const BodyStature = preload('res://scripts/characters/character_stature.gd')
 const Animator = preload('res://scripts/characters/pixel_character_animator.gd')
 var animator = Animator.new()
 var composite := SubViewport.new()
@@ -95,8 +96,9 @@ func select_manifest(id: String, path: String) -> bool:
 	var canvas: Dictionary = definition.manifest.canvas
 	composite.size = Vector2i(canvas.w, canvas.h)
 	# Sprite3D offset.y为向上，和2D画布方向相反。
-	billboard.offset = Vector2(float(canvas.w) * 0.5 - float(canvas.anchor[0]), float(canvas.anchor[1]) - float(canvas.h) * 0.5)
-	billboard.pixel_size = float(canvas.height_m) / float(canvas.content_height_px)
+	var body_anchor := BodyStature.body_anchor(definition)
+	billboard.offset = Vector2(float(canvas.w) * 0.5 - body_anchor.x, body_anchor.y - float(canvas.h) * 0.5)
+	billboard.pixel_size = BodyStature.world_pixel_size(definition)
 	_reference_speed = float(definition.manifest.move_speed_mps)
 	velocity = Vector3.ZERO
 	motion_axis = 0

@@ -1,0 +1,431 @@
+{
+  "schema_version": 1,
+  "identity_id": "rinne",
+  "revision": "2026-10-04-approved-art",
+  "generator": "built_in_image_gen",
+  "body_scale_rule": "每帧仅whole-image统一等比与平移注册；运行时全动作使用idle本体固定比例，不按武器/弯膝bbox fit。",
+  "source_archive": "原始生成PNG与精确历史保留外部源归档，以raw_sha256和source_filename核对。",
+  "limitations": [
+    "walk5/walk6/down保留各自原版；其余19帧采用本轮发型修正。"
+  ],
+  "frames": {
+    "idle1": {
+      "selection": "generated",
+      "source_filename": "raw/idle1_v2.png",
+      "original_source": "assets/chars/pixel/rinne/high_detail_complete/frames/idle1.png",
+      "original_sha256": "8e8e91a8e1f83cd4a79d71bac405b197916968600ded0d26d945171bf276df22",
+      "raw_sha256": "cc57054c872debb74dcf79edac95c0382d68bece0455425f2988d3e23413a949",
+      "production_path": "res://assets/chars/pixel/rinne/high_detail_complete/frames/idle1.png",
+      "production_sha256": "2084561b61e34abffd689bb5d7b52325d2d95bed4011c27073f73f7d8d379af6",
+      "prompt": "Use case: precise-object-edit.\nAsset type: one transparent full-body 2D game sprite.\nInput image 1 is the edit target: the first refined idle1 candidate. Input image 2 is the original idle1 used only as a reference for exact face identity, costume, weapon and full-body pose.\n\nMake one targeted further correction to the twin ponytail design in image 1: the far-side ponytail currently looks like an unexplained dangling hair lump beside the face. Explicitly show its small red tie at its high root on the far right edge of the skull, just behind the upper right bangs, at a similar height to the near-side ponytail tie. It must be visible above the eye/temple level, not hang below the chin. Connect this red tie to a narrow tapered far-side tail behind the head, with a simple smooth continuous outer curve. Reduce the far-side tail's thickness and volume by another 35%, end it just above shoulder level. Remove the long red tassel currently hanging next to the jaw; replace it with one very short red ribbon at that high tie root. Keep the existing reduced near-side ponytail, but shorten its red tie tassel to about half its current length. Remove the long curl hanging onto the exposed chest; retain one short neat cheek-side lock ending near the jaw. Both ponytails must remain clearly recognizable distinct tied tails, not buns.\n\nKeep absolutely everything else in image 1 unchanged: face identity and expression, face and head scale, head orientation, anatomy, body shape and proportions, pose, all clothes, hands, sword, scabbard, feet, canvas framing, character size and position, and soft hand-painted anime style. No wisps, no floating curved strands, no new ornaments. Output a single full-body sprite with genuinely transparent background, clean opaque character interior and antialiased alpha only at boundaries.\n",
+      "mechanical_transform": {
+        "uniform_scale": 0.9893618073626851,
+        "offset_px": [
+          -0.646071682861455,
+          1.890182649022449
+        ],
+        "filter": "BICUBIC",
+        "basis": "未改身体区域对原帧RGB的等比+平移注册，头发不参与拟合"
+      }
+    },
+    "idle2": {
+      "selection": "generated",
+      "source_filename": "raw/idle2_v1.png",
+      "original_source": "assets/chars/pixel/rinne/high_detail_complete/frames/idle2.png",
+      "original_sha256": "3d1a429886fdceaa23e3590f0bc8223055324725d7c315e2b7dda38a0549f405",
+      "raw_sha256": "02df775e20f671bb47ad033b148ee21424b88029ca9af7dbbc5962a2ae02c7ad",
+      "production_path": "res://assets/chars/pixel/rinne/high_detail_complete/frames/idle2.png",
+      "production_sha256": "438420b527c89c05f79d1079142943d815eab95409b6e20c7d1838171f87a5f6",
+      "prompt": "Use case: precise-object-edit.\nAsset type: single transparent full-body 2D game animation sprite.\nInput image 1 is the EDIT TARGET: Rinne's original idle2 animation frame. Input image 2 is the APPROVED HAIRSTYLE REFERENCE (refined idle1), not a pose reference.\nEdit only the brown hair and red hair ties of image 1 to apply exactly the same twin-ponytail design as image 2, naturally following image 1's head angle and existing motion. Keep two distinct compact tapered ponytails, reduced bulk, simple smooth contours with a few broad locks, shoulder-length ends, visibly connected high roots, a small red high tie on each side. The far-side tie is a little red knot at the high far edge of the skull behind the bangs, never a dangling red tassel beside the jaw. Keep the short near-side red tie, remove excess wispy arcs and loose fine strands, and keep the small neat cheek lock. No bulky hair clump obscuring the far cheek, no floating arcs, no buns, no single ponytail. Match reference image 2's brown palette and clean shading, but allow the tails to follow image 1's movement.\nABSOLUTE INVARIANTS from image 1: exact face identity, expression including whether eyes are open or closed, gaze, head direction, face and head size, full body position and proportions, pose, arms, hands, finger placement, sword/scabbard shape and orientation, clothes and folds, colors, boots, foot positions, motion, canvas proportions, empty margins and full-body framing. Do not borrow the idle pose from image 2. Keep the same painted anime game illustration style. Do not redesign anything below the hair. No extra ornaments, text, effects, ground shadow or background. Deliver exactly one frame, not a sheet.\nBackground must be genuinely transparent. The entire character interior must be fully opaque, with anti-aliased alpha confined to silhouette boundaries. Keep clean edge colors without colored fringe. Preserve original image 1 canvas proportions and character scale.\n",
+      "mechanical_transform": {
+        "uniform_scale": 0.9900484776441558,
+        "offset_px": [
+          1.9399059465126662,
+          1.253275895204551
+        ],
+        "filter": "BICUBIC",
+        "basis": "未改身体区域对原帧RGB的等比+平移注册，头发不参与拟合"
+      }
+    },
+    "idle3": {
+      "selection": "generated",
+      "source_filename": "raw/idle3_v1.png",
+      "original_source": "assets/chars/pixel/rinne/high_detail_complete/frames/idle3.png",
+      "original_sha256": "84bfc0a9e7b440aabd64670f528cb928b9c6202762023d957e1ae2c07fff1444",
+      "raw_sha256": "d282c7cbc2c2c7a7520ee482ee4e4827d875b51da960004b50fe7781b049eea3",
+      "production_path": "res://assets/chars/pixel/rinne/high_detail_complete/frames/idle3.png",
+      "production_sha256": "519b8242f6e4fd187c24d47b1bda5a9c1fa494d569cbbbba2b19339713c130eb",
+      "prompt": "Use case: precise-object-edit.\nAsset type: single transparent full-body 2D game animation sprite.\nInput image 1 is the EDIT TARGET: Rinne's original idle3 animation frame. Input image 2 is the APPROVED HAIRSTYLE REFERENCE (refined idle1), not a pose reference.\nEdit only the brown hair and red hair ties of image 1 to apply exactly the same twin-ponytail design as image 2, naturally following image 1's head angle and existing motion. Keep two distinct compact tapered ponytails, reduced bulk, simple smooth contours with a few broad locks, shoulder-length ends, visibly connected high roots, a small red high tie on each side. The far-side tie is a little red knot at the high far edge of the skull behind the bangs, never a dangling red tassel beside the jaw. Keep the short near-side red tie, remove excess wispy arcs and loose fine strands, and keep the small neat cheek lock. No bulky hair clump obscuring the far cheek, no floating arcs, no buns, no single ponytail. Match reference image 2's brown palette and clean shading, but allow the tails to follow image 1's movement.\nABSOLUTE INVARIANTS from image 1: exact face identity, expression including whether eyes are open or closed, gaze, head direction, face and head size, full body position and proportions, pose, arms, hands, finger placement, sword/scabbard shape and orientation, clothes and folds, colors, boots, foot positions, motion, canvas proportions, empty margins and full-body framing. Do not borrow the idle pose from image 2. Keep the same painted anime game illustration style. Do not redesign anything below the hair. No extra ornaments, text, effects, ground shadow or background. Deliver exactly one frame, not a sheet.\nBackground must be genuinely transparent. The entire character interior must be fully opaque, with anti-aliased alpha confined to silhouette boundaries. Keep clean edge colors without colored fringe. Preserve original image 1 canvas proportions and character scale.\nThe original idle3 has both eyelids closed: preserve its blink exactly.\n",
+      "mechanical_transform": {
+        "uniform_scale": 0.9895852888320059,
+        "offset_px": [
+          1.0590987957295712,
+          1.631543727342932
+        ],
+        "filter": "BICUBIC",
+        "basis": "未改身体区域对原帧RGB的等比+平移注册，头发不参与拟合"
+      }
+    },
+    "idle4": {
+      "selection": "generated",
+      "source_filename": "raw/idle4_v1.png",
+      "original_source": "assets/chars/pixel/rinne/high_detail_complete/frames/idle4.png",
+      "original_sha256": "d34241fe79dbbfd51d8acd5d130d5f80b9edb1372374b5eb350bccc44ae88e97",
+      "raw_sha256": "1e7b3975712221d706b17d6bd9d067a594c19c6236c56c384247b1045316c233",
+      "production_path": "res://assets/chars/pixel/rinne/high_detail_complete/frames/idle4.png",
+      "production_sha256": "eefb509220b3896cef448e1125e058d2bc617b18a217424305624d9dec435316",
+      "prompt": "Use case: precise-object-edit.\nAsset type: single transparent full-body 2D game animation sprite.\nInput image 1 is the EDIT TARGET: Rinne's original idle4 animation frame. Input image 2 is the APPROVED HAIRSTYLE REFERENCE (refined idle1), not a pose reference.\nEdit only the brown hair and red hair ties of image 1 to apply exactly the same twin-ponytail design as image 2, naturally following image 1's head angle and existing motion. Keep two distinct compact tapered ponytails, reduced bulk, simple smooth contours with a few broad locks, shoulder-length ends, visibly connected high roots, a small red high tie on each side. The far-side tie is a little red knot at the high far edge of the skull behind the bangs, never a dangling red tassel beside the jaw. Keep the short near-side red tie, remove excess wispy arcs and loose fine strands, and keep the small neat cheek lock. No bulky hair clump obscuring the far cheek, no floating arcs, no buns, no single ponytail. Match reference image 2's brown palette and clean shading, but allow the tails to follow image 1's movement.\nABSOLUTE INVARIANTS from image 1: exact face identity, expression including whether eyes are open or closed, gaze, head direction, face and head size, full body position and proportions, pose, arms, hands, finger placement, sword/scabbard shape and orientation, clothes and folds, colors, boots, foot positions, motion, canvas proportions, empty margins and full-body framing. Do not borrow the idle pose from image 2. Keep the same painted anime game illustration style. Do not redesign anything below the hair. No extra ornaments, text, effects, ground shadow or background. Deliver exactly one frame, not a sheet.\nBackground must be genuinely transparent. The entire character interior must be fully opaque, with anti-aliased alpha confined to silhouette boundaries. Keep clean edge colors without colored fringe. Preserve original image 1 canvas proportions and character scale.\n",
+      "mechanical_transform": {
+        "uniform_scale": 0.9859026379983232,
+        "offset_px": [
+          1.914617027403862,
+          4.040355853534724
+        ],
+        "filter": "BICUBIC",
+        "basis": "未改身体区域对原帧RGB的等比+平移注册，头发不参与拟合"
+      }
+    },
+    "walk1": {
+      "selection": "generated",
+      "source_filename": "raw/walk1_v1.png",
+      "original_source": "assets/chars/pixel/rinne/high_detail_complete/frames/walk1.png",
+      "original_sha256": "0c0b9fc68d5d237784ad153fa2aa472444c8f012e8de8530d98d55f79d7a5d0d",
+      "raw_sha256": "2909c738c548238cb840c61f7ff5b8f9c80ba5b17773b5f168075d9785b2d659",
+      "production_path": "res://assets/chars/pixel/rinne/high_detail_complete/frames/walk1.png",
+      "production_sha256": "f4adb5aa13acc2c37be45ea9c65af862cfe77fbb2f92bd3625e851f604abf053",
+      "prompt": "Use case: precise-object-edit.\nAsset type: single transparent full-body 2D game animation sprite.\nInput image 1 is the EDIT TARGET: Rinne's original walk1 animation frame. Input image 2 is the APPROVED HAIRSTYLE REFERENCE (refined idle1), not a pose reference.\nEdit only the brown hair and red hair ties of image 1 to apply exactly the same twin-ponytail design as image 2, naturally following image 1's head angle and existing motion. Keep two distinct compact tapered ponytails, reduced bulk, simple smooth contours with a few broad locks, shoulder-length ends, visibly connected high roots, a small red high tie on each side. The far-side tie is a little red knot at the high far edge of the skull behind the bangs, never a dangling red tassel beside the jaw. Keep the short near-side red tie, remove excess wispy arcs and loose fine strands, and keep the small neat cheek lock. No bulky hair clump obscuring the far cheek, no floating arcs, no buns, no single ponytail. Match reference image 2's brown palette and clean shading, but allow the tails to follow image 1's movement.\nABSOLUTE INVARIANTS from image 1: exact face identity, expression including whether eyes are open or closed, gaze, head direction, face and head size, full body position and proportions, pose, arms, hands, finger placement, sword/scabbard shape and orientation, clothes and folds, colors, boots, foot positions, motion, canvas proportions, empty margins and full-body framing. Do not borrow the idle pose from image 2. Keep the same painted anime game illustration style. Do not redesign anything below the hair. No extra ornaments, text, effects, ground shadow or background. Deliver exactly one frame, not a sheet.\nBackground must be genuinely transparent. The entire character interior must be fully opaque, with anti-aliased alpha confined to silhouette boundaries. Keep clean edge colors without colored fringe. Preserve original image 1 canvas proportions and character scale.\n",
+      "mechanical_transform": {
+        "uniform_scale": 0.9892392064078979,
+        "offset_px": [
+          1.0688723150666308,
+          1.816927201065692
+        ],
+        "filter": "BICUBIC",
+        "basis": "未改身体区域对原帧RGB的等比+平移注册，头发不参与拟合"
+      }
+    },
+    "walk2": {
+      "selection": "generated",
+      "source_filename": "raw/walk2_v1.png",
+      "original_source": "assets/chars/pixel/rinne/high_detail_complete/frames/walk2.png",
+      "original_sha256": "7c2dddb8a17a68a2750093d6089731506983632e1ce9fa1abb2822481dfb2016",
+      "raw_sha256": "d02f78343037374041ff5a6a4dcc1db444e4fc0390a77ccd9f838acfa884dcbf",
+      "production_path": "res://assets/chars/pixel/rinne/high_detail_complete/frames/walk2.png",
+      "production_sha256": "3fbee007235a1e368ea77abd8e887cdf3647e5ba9db9352cfec4632522bee20c",
+      "prompt": "Use case: precise-object-edit.\nAsset type: single transparent full-body 2D game animation sprite.\nInput image 1 is the EDIT TARGET: Rinne's original walk2 animation frame. Input image 2 is the APPROVED HAIRSTYLE REFERENCE (refined idle1), not a pose reference.\nEdit only the brown hair and red hair ties of image 1 to apply exactly the same twin-ponytail design as image 2, naturally following image 1's head angle and existing motion. Keep two distinct compact tapered ponytails, reduced bulk, simple smooth contours with a few broad locks, shoulder-length ends, visibly connected high roots, a small red high tie on each side. The far-side tie is a little red knot at the high far edge of the skull behind the bangs, never a dangling red tassel beside the jaw. Keep the short near-side red tie, remove excess wispy arcs and loose fine strands, and keep the small neat cheek lock. No bulky hair clump obscuring the far cheek, no floating arcs, no buns, no single ponytail. Match reference image 2's brown palette and clean shading, but allow the tails to follow image 1's movement.\nABSOLUTE INVARIANTS from image 1: exact face identity, expression including whether eyes are open or closed, gaze, head direction, face and head size, full body position and proportions, pose, arms, hands, finger placement, sword/scabbard shape and orientation, clothes and folds, colors, boots, foot positions, motion, canvas proportions, empty margins and full-body framing. Do not borrow the idle pose from image 2. Keep the same painted anime game illustration style. Do not redesign anything below the hair. No extra ornaments, text, effects, ground shadow or background. Deliver exactly one frame, not a sheet.\nBackground must be genuinely transparent. The entire character interior must be fully opaque, with anti-aliased alpha confined to silhouette boundaries. Keep clean edge colors without colored fringe. Preserve original image 1 canvas proportions and character scale.\n",
+      "mechanical_transform": {
+        "uniform_scale": 0.9701787979234696,
+        "offset_px": [
+          5.221065826292564,
+          6.425544086998014
+        ],
+        "filter": "BICUBIC",
+        "basis": "未改身体区域对原帧RGB的等比+平移注册，头发不参与拟合"
+      }
+    },
+    "walk3": {
+      "selection": "generated",
+      "source_filename": "raw/walk3_v1.png",
+      "original_source": "assets/chars/pixel/rinne/high_detail_complete/frames/walk3.png",
+      "original_sha256": "f936febacbc417918d9cf34303a96d540f213b7146f085d5ac6627642b2421f7",
+      "raw_sha256": "a242b0d113a720e5ce5a0fd17cf75bb26151150f255879f808d9ce02aa33892c",
+      "production_path": "res://assets/chars/pixel/rinne/high_detail_complete/frames/walk3.png",
+      "production_sha256": "8eb776a109c623cdfb5bcd329052a3ae1b713201137bddb118093bcf99e1a531",
+      "prompt": "Use case: precise-object-edit.\nAsset type: single transparent full-body 2D game animation sprite.\nInput image 1 is the EDIT TARGET: Rinne's original walk3 animation frame. Input image 2 is the APPROVED HAIRSTYLE REFERENCE (refined idle1), not a pose reference.\nEdit only the brown hair and red hair ties of image 1 to apply exactly the same twin-ponytail design as image 2, naturally following image 1's head angle and existing motion. Keep two distinct compact tapered ponytails, reduced bulk, simple smooth contours with a few broad locks, shoulder-length ends, visibly connected high roots, a small red high tie on each side. The far-side tie is a little red knot at the high far edge of the skull behind the bangs, never a dangling red tassel beside the jaw. Keep the short near-side red tie, remove excess wispy arcs and loose fine strands, and keep the small neat cheek lock. No bulky hair clump obscuring the far cheek, no floating arcs, no buns, no single ponytail. Match reference image 2's brown palette and clean shading, but allow the tails to follow image 1's movement.\nABSOLUTE INVARIANTS from image 1: exact face identity, expression including whether eyes are open or closed, gaze, head direction, face and head size, full body position and proportions, pose, arms, hands, finger placement, sword/scabbard shape and orientation, clothes and folds, colors, boots, foot positions, motion, canvas proportions, empty margins and full-body framing. Do not borrow the idle pose from image 2. Keep the same painted anime game illustration style. Do not redesign anything below the hair. No extra ornaments, text, effects, ground shadow or background. Deliver exactly one frame, not a sheet.\nBackground must be genuinely transparent. The entire character interior must be fully opaque, with anti-aliased alpha confined to silhouette boundaries. Keep clean edge colors without colored fringe. Preserve original image 1 canvas proportions and character scale.\n",
+      "mechanical_transform": {
+        "uniform_scale": 0.9835152019735065,
+        "offset_px": [
+          -2.708136210885302,
+          5.246670959422157
+        ],
+        "filter": "BICUBIC",
+        "basis": "未改身体区域对原帧RGB的等比+平移注册，头发不参与拟合"
+      }
+    },
+    "walk4": {
+      "selection": "generated",
+      "source_filename": "raw/walk4_v1.png",
+      "original_source": "assets/chars/pixel/rinne/high_detail_complete/frames/walk4.png",
+      "original_sha256": "360fc9a2dc280f965fd97232823c9d0b66cdc3dd9d590abad6d6e0089d6208ec",
+      "raw_sha256": "e4b7dd8cce43980c18b02fc3a84c434383e41823c5c3719386f4cbcf0c91c31e",
+      "production_path": "res://assets/chars/pixel/rinne/high_detail_complete/frames/walk4.png",
+      "production_sha256": "cdbdc55d31f23dc3df8ad3164cfe4fc4add7776b9ee33bc98d420af92985e4b7",
+      "prompt": "Use case: precise-object-edit.\nAsset type: single transparent full-body 2D game animation sprite.\nInput image 1 is the EDIT TARGET: Rinne's original walk4 animation frame. Input image 2 is the APPROVED HAIRSTYLE REFERENCE (refined idle1), not a pose reference.\nEdit only the brown hair and red hair ties of image 1 to apply exactly the same twin-ponytail design as image 2, naturally following image 1's head angle and existing motion. Keep two distinct compact tapered ponytails, reduced bulk, simple smooth contours with a few broad locks, shoulder-length ends, visibly connected high roots, a small red high tie on each side. The far-side tie is a little red knot at the high far edge of the skull behind the bangs, never a dangling red tassel beside the jaw. Keep the short near-side red tie, remove excess wispy arcs and loose fine strands, and keep the small neat cheek lock. No bulky hair clump obscuring the far cheek, no floating arcs, no buns, no single ponytail. Match reference image 2's brown palette and clean shading, but allow the tails to follow image 1's movement.\nABSOLUTE INVARIANTS from image 1: exact face identity, expression including whether eyes are open or closed, gaze, head direction, face and head size, full body position and proportions, pose, arms, hands, finger placement, sword/scabbard shape and orientation, clothes and folds, colors, boots, foot positions, motion, canvas proportions, empty margins and full-body framing. Do not borrow the idle pose from image 2. Keep the same painted anime game illustration style. Do not redesign anything below the hair. No extra ornaments, text, effects, ground shadow or background. Deliver exactly one frame, not a sheet.\nBackground must be genuinely transparent. The entire character interior must be fully opaque, with anti-aliased alpha confined to silhouette boundaries. Keep clean edge colors without colored fringe. Preserve original image 1 canvas proportions and character scale.\n",
+      "mechanical_transform": {
+        "uniform_scale": 0.9884233574443959,
+        "offset_px": [
+          2.130952266542837,
+          1.816995912638867
+        ],
+        "filter": "BICUBIC",
+        "basis": "未改身体区域对原帧RGB的等比+平移注册，头发不参与拟合"
+      }
+    },
+    "walk5": {
+      "selection": "retained_original",
+      "source_filename": "original/walk5.png",
+      "original_source": "assets/chars/pixel/rinne/high_detail_complete/frames/walk5.png",
+      "original_sha256": "c0511a79e389f6492fe62c0f4a08e504a7d8d350b5257276bab6bf5188fc9f27",
+      "raw_sha256": "c0511a79e389f6492fe62c0f4a08e504a7d8d350b5257276bab6bf5188fc9f27",
+      "production_path": "res://assets/chars/pixel/rinne/high_detail_complete/frames/walk5.png",
+      "production_sha256": "c0511a79e389f6492fe62c0f4a08e504a7d8d350b5257276bab6bf5188fc9f27",
+      "prompt": "",
+      "mechanical_transform": {
+        "uniform_scale": 1,
+        "offset_px": [
+          0,
+          0
+        ],
+        "filter": "BICUBIC",
+        "basis": "未改身体区域对原帧RGB的等比+平移注册，头发不参与拟合"
+      }
+    },
+    "walk6": {
+      "selection": "retained_original",
+      "source_filename": "original/walk6.png",
+      "original_source": "assets/chars/pixel/rinne/high_detail_complete/frames/walk6.png",
+      "original_sha256": "fb50f0401b8a657ca2528ee7f11fb5da4b86eeb27c812a1cc62fa7aa388aa3e5",
+      "raw_sha256": "fb50f0401b8a657ca2528ee7f11fb5da4b86eeb27c812a1cc62fa7aa388aa3e5",
+      "production_path": "res://assets/chars/pixel/rinne/high_detail_complete/frames/walk6.png",
+      "production_sha256": "fb50f0401b8a657ca2528ee7f11fb5da4b86eeb27c812a1cc62fa7aa388aa3e5",
+      "prompt": "",
+      "mechanical_transform": {
+        "uniform_scale": 1,
+        "offset_px": [
+          0,
+          0
+        ],
+        "filter": "BICUBIC",
+        "basis": "未改身体区域对原帧RGB的等比+平移注册，头发不参与拟合"
+      }
+    },
+    "walk7": {
+      "selection": "generated",
+      "source_filename": "raw/walk7_v1.png",
+      "original_source": "assets/chars/pixel/rinne/high_detail_complete/frames/walk7.png",
+      "original_sha256": "ed896bc29df29aa8585639ec6cb14f7458a557d04e5b6d75b2ccd578803f6be9",
+      "raw_sha256": "c40852a8200cc8c81f25301ba856928a07b6e28dc29aaaa5701a83d04f5c9b6b",
+      "production_path": "res://assets/chars/pixel/rinne/high_detail_complete/frames/walk7.png",
+      "production_sha256": "b9cfa76305fcdf91031faa40e3ab4fef3a6d2df284888d34242c078cfddb5888",
+      "prompt": "Use case: precise-object-edit.\nAsset type: single transparent full-body 2D game animation sprite.\nInput image 1 is the EDIT TARGET: Rinne's original walk7 animation frame. Input image 2 is the APPROVED HAIRSTYLE REFERENCE (refined idle1), not a pose reference.\nEdit only the brown hair and red hair ties of image 1 to apply exactly the same twin-ponytail design as image 2, naturally following image 1's head angle and existing motion. Keep two distinct compact tapered ponytails, reduced bulk, simple smooth contours with a few broad locks, shoulder-length ends, visibly connected high roots, a small red high tie on each side. The far-side tie is a little red knot at the high far edge of the skull behind the bangs, never a dangling red tassel beside the jaw. Keep the short near-side red tie, remove excess wispy arcs and loose fine strands, and keep the small neat cheek lock. No bulky hair clump obscuring the far cheek, no floating arcs, no buns, no single ponytail. Match reference image 2's brown palette and clean shading, but allow the tails to follow image 1's movement.\nABSOLUTE INVARIANTS from image 1: exact face identity, expression including whether eyes are open or closed, gaze, head direction, face and head size, full body position and proportions, pose, arms, hands, finger placement, sword/scabbard shape and orientation, clothes and folds, colors, boots, foot positions, motion, canvas proportions, empty margins and full-body framing. Do not borrow the idle pose from image 2. Keep the same painted anime game illustration style. Do not redesign anything below the hair. No extra ornaments, text, effects, ground shadow or background. Deliver exactly one frame, not a sheet.\nBackground must be genuinely transparent. The entire character interior must be fully opaque, with anti-aliased alpha confined to silhouette boundaries. Keep clean edge colors without colored fringe. Preserve original image 1 canvas proportions and character scale.\n",
+      "mechanical_transform": {
+        "uniform_scale": 0.9844138649580328,
+        "offset_px": [
+          -24.16137892893119,
+          3.7322411763038437
+        ],
+        "filter": "BICUBIC",
+        "basis": "未改身体区域对原帧RGB的等比+平移注册，头发不参与拟合"
+      }
+    },
+    "walk8": {
+      "selection": "generated",
+      "source_filename": "raw/walk8_v1.png",
+      "original_source": "assets/chars/pixel/rinne/high_detail_complete/frames/walk8.png",
+      "original_sha256": "55ed2304bead1c118ff1dccb669f1083c3e750bba350bbd59993aa8cd55421ef",
+      "raw_sha256": "cd76269eac4a64492cf46fb0892456ffd0a89cdb4f44634406bf6ea930161ec0",
+      "production_path": "res://assets/chars/pixel/rinne/high_detail_complete/frames/walk8.png",
+      "production_sha256": "c6244a9987b822f94e96a675a0ae56ac054059b2e121f79e8ab70b7f594d3747",
+      "prompt": "Use case: precise-object-edit.\nAsset type: single transparent full-body 2D game animation sprite.\nInput image 1 is the EDIT TARGET: Rinne's original walk8 animation frame. Input image 2 is the APPROVED HAIRSTYLE REFERENCE (refined idle1), not a pose reference.\nEdit only the brown hair and red hair ties of image 1 to apply exactly the same twin-ponytail design as image 2, naturally following image 1's head angle and existing motion. Keep two distinct compact tapered ponytails, reduced bulk, simple smooth contours with a few broad locks, shoulder-length ends, visibly connected high roots, a small red high tie on each side. The far-side tie is a little red knot at the high far edge of the skull behind the bangs, never a dangling red tassel beside the jaw. Keep the short near-side red tie, remove excess wispy arcs and loose fine strands, and keep the small neat cheek lock. No bulky hair clump obscuring the far cheek, no floating arcs, no buns, no single ponytail. Match reference image 2's brown palette and clean shading, but allow the tails to follow image 1's movement.\nABSOLUTE INVARIANTS from image 1: exact face identity, expression including whether eyes are open or closed, gaze, head direction, face and head size, full body position and proportions, pose, arms, hands, finger placement, sword/scabbard shape and orientation, clothes and folds, colors, boots, foot positions, motion, canvas proportions, empty margins and full-body framing. Do not borrow the idle pose from image 2. Keep the same painted anime game illustration style. Do not redesign anything below the hair. No extra ornaments, text, effects, ground shadow or background. Deliver exactly one frame, not a sheet.\nBackground must be genuinely transparent. The entire character interior must be fully opaque, with anti-aliased alpha confined to silhouette boundaries. Keep clean edge colors without colored fringe. Preserve original image 1 canvas proportions and character scale.\n",
+      "mechanical_transform": {
+        "uniform_scale": 0.9485219587447214,
+        "offset_px": [
+          20.68497901783493,
+          28.153209417024204
+        ],
+        "filter": "BICUBIC",
+        "basis": "未改身体区域对原帧RGB的等比+平移注册，头发不参与拟合"
+      }
+    },
+    "attack1": {
+      "selection": "generated",
+      "source_filename": "raw/attack1_v1.png",
+      "original_source": "assets/chars/pixel/rinne/high_detail_complete/frames/attack1.png",
+      "original_sha256": "414afd82067b6d45f3cbf3afd56f8285bfde14fe0411334f876433cfc3af9e0b",
+      "raw_sha256": "f93871092c3390f9740970c24c8ef496f34db1adee88cbcc02f7bb3c10580cd6",
+      "production_path": "res://assets/chars/pixel/rinne/high_detail_complete/frames/attack1.png",
+      "production_sha256": "9c19a9b0beb51c28bf24e7968417da692dab09f66054224fcbf1df4e1635c200",
+      "prompt": "Use case: precise-object-edit.\nAsset type: single transparent full-body 2D game animation sprite.\nInput image 1 is the EDIT TARGET: Rinne's original attack1 animation frame. Input image 2 is the APPROVED HAIRSTYLE REFERENCE (refined idle1), not a pose reference.\nEdit only the brown hair and red hair ties of image 1 to apply exactly the same twin-ponytail design as image 2, naturally following image 1's head angle and existing motion. Keep two distinct compact tapered ponytails, reduced bulk, simple smooth contours with a few broad locks, shoulder-length ends, visibly connected high roots, a small red high tie on each side. The far-side tie is a little red knot at the high far edge of the skull behind the bangs, never a dangling red tassel beside the jaw. Keep the short near-side red tie, remove excess wispy arcs and loose fine strands, and keep the small neat cheek lock. No bulky hair clump obscuring the far cheek, no floating arcs, no buns, no single ponytail. Match reference image 2's brown palette and clean shading, but allow the tails to follow image 1's movement.\nABSOLUTE INVARIANTS from image 1: exact face identity, expression including whether eyes are open or closed, gaze, head direction, face and head size, full body position and proportions, pose, arms, hands, finger placement, sword/scabbard shape and orientation, clothes and folds, colors, boots, foot positions, motion, canvas proportions, empty margins and full-body framing. Do not borrow the idle pose from image 2. Keep the same painted anime game illustration style. Do not redesign anything below the hair. No extra ornaments, text, effects, ground shadow or background. Deliver exactly one frame, not a sheet.\nBackground must be genuinely transparent. The entire character interior must be fully opaque, with anti-aliased alpha confined to silhouette boundaries. Keep clean edge colors without colored fringe. Preserve original image 1 canvas proportions and character scale.\nPreserve this exact attack keyframe, including the full original weapon reach and arm silhouette.\n",
+      "mechanical_transform": {
+        "uniform_scale": 0.8500375915022514,
+        "offset_px": [
+          100.09666207890616,
+          105.68926988188562
+        ],
+        "filter": "BICUBIC",
+        "basis": "未改身体区域对原帧RGB的等比+平移注册，头发不参与拟合"
+      }
+    },
+    "attack2": {
+      "selection": "generated",
+      "source_filename": "raw/attack2_v1.png",
+      "original_source": "assets/chars/pixel/rinne/high_detail_complete/frames/attack2.png",
+      "original_sha256": "6d5a6c48d3a61897d8687b5081b08db2957400e2b543fc575b8e8e15537b2a0d",
+      "raw_sha256": "6ef9059b6ce0a3210182ef54f2405c97d2e3fa84495a801d4392fbb32a9864d8",
+      "production_path": "res://assets/chars/pixel/rinne/high_detail_complete/frames/attack2.png",
+      "production_sha256": "ed5f6fd23a2dc758832cfa1a8cee4c811b0eb38599627205360b51c315f7fffa",
+      "prompt": "Use case: precise-object-edit.\nAsset type: single transparent full-body 2D game animation sprite.\nInput image 1 is the EDIT TARGET: Rinne's original attack2 animation frame. Input image 2 is the APPROVED HAIRSTYLE REFERENCE (refined idle1), not a pose reference.\nEdit only the brown hair and red hair ties of image 1 to apply exactly the same twin-ponytail design as image 2, naturally following image 1's head angle and existing motion. Keep two distinct compact tapered ponytails, reduced bulk, simple smooth contours with a few broad locks, shoulder-length ends, visibly connected high roots, a small red high tie on each side. The far-side tie is a little red knot at the high far edge of the skull behind the bangs, never a dangling red tassel beside the jaw. Keep the short near-side red tie, remove excess wispy arcs and loose fine strands, and keep the small neat cheek lock. No bulky hair clump obscuring the far cheek, no floating arcs, no buns, no single ponytail. Match reference image 2's brown palette and clean shading, but allow the tails to follow image 1's movement.\nABSOLUTE INVARIANTS from image 1: exact face identity, expression including whether eyes are open or closed, gaze, head direction, face and head size, full body position and proportions, pose, arms, hands, finger placement, sword/scabbard shape and orientation, clothes and folds, colors, boots, foot positions, motion, canvas proportions, empty margins and full-body framing. Do not borrow the idle pose from image 2. Keep the same painted anime game illustration style. Do not redesign anything below the hair. No extra ornaments, text, effects, ground shadow or background. Deliver exactly one frame, not a sheet.\nBackground must be genuinely transparent. The entire character interior must be fully opaque, with anti-aliased alpha confined to silhouette boundaries. Keep clean edge colors without colored fringe. Preserve original image 1 canvas proportions and character scale.\nPreserve this exact attack keyframe, including the full original weapon reach and arm silhouette.\n",
+      "mechanical_transform": {
+        "uniform_scale": 0.920789341650725,
+        "offset_px": [
+          23.288486325148934,
+          61.34400127126028
+        ],
+        "filter": "BICUBIC",
+        "basis": "未改身体区域对原帧RGB的等比+平移注册，头发不参与拟合"
+      }
+    },
+    "attack3": {
+      "selection": "generated",
+      "source_filename": "raw/attack3_v1.png",
+      "original_source": "assets/chars/pixel/rinne/high_detail_complete/frames/attack3.png",
+      "original_sha256": "dd36ea9ef7c845a1df668f9468264dd3d9560c25335839e3c5c810f02f6cf58f",
+      "raw_sha256": "583c50e546d4b5f5cbca73c0bb3e8dae10de37d3ea838058d7ecd9bc8cf72ed8",
+      "production_path": "res://assets/chars/pixel/rinne/high_detail_complete/frames/attack3.png",
+      "production_sha256": "f2380b9285f77ee7e2492d49a16edfb235d69cb3d094daf28437bd57dfad3563",
+      "prompt": "Use case: precise-object-edit.\nAsset type: single transparent full-body 2D game animation sprite.\nInput image 1 is the EDIT TARGET: Rinne's original attack3 animation frame. Input image 2 is the APPROVED HAIRSTYLE REFERENCE (refined idle1), not a pose reference.\nEdit only the brown hair and red hair ties of image 1 to apply exactly the same twin-ponytail design as image 2, naturally following image 1's head angle and existing motion. Keep two distinct compact tapered ponytails, reduced bulk, simple smooth contours with a few broad locks, shoulder-length ends, visibly connected high roots, a small red high tie on each side. The far-side tie is a little red knot at the high far edge of the skull behind the bangs, never a dangling red tassel beside the jaw. Keep the short near-side red tie, remove excess wispy arcs and loose fine strands, and keep the small neat cheek lock. No bulky hair clump obscuring the far cheek, no floating arcs, no buns, no single ponytail. Match reference image 2's brown palette and clean shading, but allow the tails to follow image 1's movement.\nABSOLUTE INVARIANTS from image 1: exact face identity, expression including whether eyes are open or closed, gaze, head direction, face and head size, full body position and proportions, pose, arms, hands, finger placement, sword/scabbard shape and orientation, clothes and folds, colors, boots, foot positions, motion, canvas proportions, empty margins and full-body framing. Do not borrow the idle pose from image 2. Keep the same painted anime game illustration style. Do not redesign anything below the hair. No extra ornaments, text, effects, ground shadow or background. Deliver exactly one frame, not a sheet.\nBackground must be genuinely transparent. The entire character interior must be fully opaque, with anti-aliased alpha confined to silhouette boundaries. Keep clean edge colors without colored fringe. Preserve original image 1 canvas proportions and character scale.\nPreserve this exact attack keyframe, including the full original weapon reach and arm silhouette.\n",
+      "mechanical_transform": {
+        "uniform_scale": 0.9870875941228711,
+        "offset_px": [
+          1.2904091199827459,
+          4.859225804151395
+        ],
+        "filter": "BICUBIC",
+        "basis": "未改身体区域对原帧RGB的等比+平移注册，头发不参与拟合"
+      }
+    },
+    "attack4": {
+      "selection": "generated",
+      "source_filename": "raw/attack4_v1.png",
+      "original_source": "assets/chars/pixel/rinne/high_detail_complete/frames/attack4.png",
+      "original_sha256": "c9172340374038961f2af0a9f48e0d6c60cc413c362201ef95920f104244f6d5",
+      "raw_sha256": "11de65bb88ca78f5fe703650fd5e85c72f8b42b78638466df89ae7353815bb16",
+      "production_path": "res://assets/chars/pixel/rinne/high_detail_complete/frames/attack4.png",
+      "production_sha256": "1c308f75e3443c5cf42505e509d578e5737e6f1ef1b1f84839367bb7315eb778",
+      "prompt": "Use case: precise-object-edit.\nAsset type: single transparent full-body 2D game animation sprite.\nInput image 1 is the EDIT TARGET: Rinne's original attack4 animation frame. Input image 2 is the APPROVED HAIRSTYLE REFERENCE (refined idle1), not a pose reference.\nEdit only the brown hair and red hair ties of image 1 to apply exactly the same twin-ponytail design as image 2, naturally following image 1's head angle and existing motion. Keep two distinct compact tapered ponytails, reduced bulk, simple smooth contours with a few broad locks, shoulder-length ends, visibly connected high roots, a small red high tie on each side. The far-side tie is a little red knot at the high far edge of the skull behind the bangs, never a dangling red tassel beside the jaw. Keep the short near-side red tie, remove excess wispy arcs and loose fine strands, and keep the small neat cheek lock. No bulky hair clump obscuring the far cheek, no floating arcs, no buns, no single ponytail. Match reference image 2's brown palette and clean shading, but allow the tails to follow image 1's movement.\nABSOLUTE INVARIANTS from image 1: exact face identity, expression including whether eyes are open or closed, gaze, head direction, face and head size, full body position and proportions, pose, arms, hands, finger placement, sword/scabbard shape and orientation, clothes and folds, colors, boots, foot positions, motion, canvas proportions, empty margins and full-body framing. Do not borrow the idle pose from image 2. Keep the same painted anime game illustration style. Do not redesign anything below the hair. No extra ornaments, text, effects, ground shadow or background. Deliver exactly one frame, not a sheet.\nBackground must be genuinely transparent. The entire character interior must be fully opaque, with anti-aliased alpha confined to silhouette boundaries. Keep clean edge colors without colored fringe. Preserve original image 1 canvas proportions and character scale.\nPreserve this exact attack keyframe, including the full original weapon reach and arm silhouette.\n",
+      "mechanical_transform": {
+        "uniform_scale": 0.9801992839302804,
+        "offset_px": [
+          2.2445926836939614,
+          8.896322253459346
+        ],
+        "filter": "BICUBIC",
+        "basis": "未改身体区域对原帧RGB的等比+平移注册，头发不参与拟合"
+      }
+    },
+    "attack5": {
+      "selection": "generated",
+      "source_filename": "raw/attack5_v1.png",
+      "original_source": "assets/chars/pixel/rinne/high_detail_complete/frames/attack5.png",
+      "original_sha256": "2088daf21661a7a9e091ff223363e1f746d37b810ba94530e0735f1fc3650761",
+      "raw_sha256": "a14312f92c8ebbdd167485e50850311ca37f0f7a384ffd156d9e32539c1ab13c",
+      "production_path": "res://assets/chars/pixel/rinne/high_detail_complete/frames/attack5.png",
+      "production_sha256": "99a53d67680a5fb5284b4cb0cfe1c90b3421ffdc99dae4ba919d29b69b96479d",
+      "prompt": "Use case: precise-object-edit.\nAsset type: single transparent full-body 2D game animation sprite.\nInput image 1 is the EDIT TARGET: Rinne's original attack5 animation frame. Input image 2 is the APPROVED HAIRSTYLE REFERENCE (refined idle1), not a pose reference.\nEdit only the brown hair and red hair ties of image 1 to apply exactly the same twin-ponytail design as image 2, naturally following image 1's head angle and existing motion. Keep two distinct compact tapered ponytails, reduced bulk, simple smooth contours with a few broad locks, shoulder-length ends, visibly connected high roots, a small red high tie on each side. The far-side tie is a little red knot at the high far edge of the skull behind the bangs, never a dangling red tassel beside the jaw. Keep the short near-side red tie, remove excess wispy arcs and loose fine strands, and keep the small neat cheek lock. No bulky hair clump obscuring the far cheek, no floating arcs, no buns, no single ponytail. Match reference image 2's brown palette and clean shading, but allow the tails to follow image 1's movement.\nABSOLUTE INVARIANTS from image 1: exact face identity, expression including whether eyes are open or closed, gaze, head direction, face and head size, full body position and proportions, pose, arms, hands, finger placement, sword/scabbard shape and orientation, clothes and folds, colors, boots, foot positions, motion, canvas proportions, empty margins and full-body framing. Do not borrow the idle pose from image 2. Keep the same painted anime game illustration style. Do not redesign anything below the hair. No extra ornaments, text, effects, ground shadow or background. Deliver exactly one frame, not a sheet.\nBackground must be genuinely transparent. The entire character interior must be fully opaque, with anti-aliased alpha confined to silhouette boundaries. Keep clean edge colors without colored fringe. Preserve original image 1 canvas proportions and character scale.\nPreserve this exact attack keyframe, including the full original weapon reach and arm silhouette.\n",
+      "mechanical_transform": {
+        "uniform_scale": 0.9902928821103432,
+        "offset_px": [
+          -0.8319789141283701,
+          1.2104058939497928
+        ],
+        "filter": "BICUBIC",
+        "basis": "未改身体区域对原帧RGB的等比+平移注册，头发不参与拟合"
+      }
+    },
+    "attack6": {
+      "selection": "generated",
+      "source_filename": "raw/attack6_v1.png",
+      "original_source": "assets/chars/pixel/rinne/high_detail_complete/frames/attack6.png",
+      "original_sha256": "4c9a7a15071a0187d05589ae1c6910b7cfa858b0df078ed76334937655ac8175",
+      "raw_sha256": "b9afe7942817177ba7996f6260dba67ff83400d74c96b1357753bcb909f5ac62",
+      "production_path": "res://assets/chars/pixel/rinne/high_detail_complete/frames/attack6.png",
+      "production_sha256": "a0620fe5d598893c14707fbc5a8d916dce5191c78eeb4cf1dd34b0fea8a95678",
+      "prompt": "Use case: precise-object-edit.\nAsset type: single transparent full-body 2D game animation sprite.\nInput image 1 is the EDIT TARGET: Rinne's original attack6 animation frame. Input image 2 is the APPROVED HAIRSTYLE REFERENCE (refined idle1), not a pose reference.\nEdit only the brown hair and red hair ties of image 1 to apply exactly the same twin-ponytail design as image 2, naturally following image 1's head angle and existing motion. Keep two distinct compact tapered ponytails, reduced bulk, simple smooth contours with a few broad locks, shoulder-length ends, visibly connected high roots, a small red high tie on each side. The far-side tie is a little red knot at the high far edge of the skull behind the bangs, never a dangling red tassel beside the jaw. Keep the short near-side red tie, remove excess wispy arcs and loose fine strands, and keep the small neat cheek lock. No bulky hair clump obscuring the far cheek, no floating arcs, no buns, no single ponytail. Match reference image 2's brown palette and clean shading, but allow the tails to follow image 1's movement.\nABSOLUTE INVARIANTS from image 1: exact face identity, expression including whether eyes are open or closed, gaze, head direction, face and head size, full body position and proportions, pose, arms, hands, finger placement, sword/scabbard shape and orientation, clothes and folds, colors, boots, foot positions, motion, canvas proportions, empty margins and full-body framing. Do not borrow the idle pose from image 2. Keep the same painted anime game illustration style. Do not redesign anything below the hair. No extra ornaments, text, effects, ground shadow or background. Deliver exactly one frame, not a sheet.\nBackground must be genuinely transparent. The entire character interior must be fully opaque, with anti-aliased alpha confined to silhouette boundaries. Keep clean edge colors without colored fringe. Preserve original image 1 canvas proportions and character scale.\nPreserve this exact attack keyframe, including the full original weapon reach and arm silhouette.\n",
+      "mechanical_transform": {
+        "uniform_scale": 0.9850483379205858,
+        "offset_px": [
+          -0.677661930908168,
+          4.058579979994847
+        ],
+        "filter": "BICUBIC",
+        "basis": "未改身体区域对原帧RGB的等比+平移注册，头发不参与拟合"
+      }
+    },
+    "hit": {
+      "selection": "generated",
+      "source_filename": "raw/hit_v1.png",
+      "original_source": "assets/chars/pixel/rinne/high_detail_complete/frames/hit.png",
+      "original_sha256": "b8060b15e18562a78c70b15de2fee6a70c6041967f13ea89846ed03fff84bbb5",
+      "raw_sha256": "016051a72f903ee85ae35aeabd3d651fe20eb6986ba3c6de220045012d3f09bc",
+      "production_path": "res://assets/chars/pixel/rinne/high_detail_complete/frames/hit.png",
+      "production_sha256": "f83d392f4542f33971b2790cedc9d448f1d8b5ff23e0b2db244382abe6f5f4e5",
+      "prompt": "Use case: precise-object-edit.\nAsset type: single transparent full-body 2D game animation sprite.\nInput image 1 is the EDIT TARGET: Rinne's original hit animation frame. Input image 2 is the APPROVED HAIRSTYLE REFERENCE (refined idle1), not a pose reference.\nEdit only the brown hair and red hair ties of image 1 to apply exactly the same twin-ponytail design as image 2, naturally following image 1's head angle and existing motion. Keep two distinct compact tapered ponytails, reduced bulk, simple smooth contours with a few broad locks, shoulder-length ends, visibly connected high roots, a small red high tie on each side. The far-side tie is a little red knot at the high far edge of the skull behind the bangs, never a dangling red tassel beside the jaw. Keep the short near-side red tie, remove excess wispy arcs and loose fine strands, and keep the small neat cheek lock. No bulky hair clump obscuring the far cheek, no floating arcs, no buns, no single ponytail. Match reference image 2's brown palette and clean shading, but allow the tails to follow image 1's movement.\nABSOLUTE INVARIANTS from image 1: exact face identity, expression including whether eyes are open or closed, gaze, head direction, face and head size, full body position and proportions, pose, arms, hands, finger placement, sword/scabbard shape and orientation, clothes and folds, colors, boots, foot positions, motion, canvas proportions, empty margins and full-body framing. Do not borrow the idle pose from image 2. Keep the same painted anime game illustration style. Do not redesign anything below the hair. No extra ornaments, text, effects, ground shadow or background. Deliver exactly one frame, not a sheet.\nBackground must be genuinely transparent. The entire character interior must be fully opaque, with anti-aliased alpha confined to silhouette boundaries. Keep clean edge colors without colored fringe. Preserve original image 1 canvas proportions and character scale.\n",
+      "mechanical_transform": {
+        "uniform_scale": 0.9772983059365326,
+        "offset_px": [
+          2.2763692627873997,
+          9.948677417315084
+        ],
+        "filter": "BICUBIC",
+        "basis": "未改身体区域对原帧RGB的等比+平移注册，头发不参与拟合"
+      }
+    },
+    "defend": {
+      "selection": "generated",
+      "source_filename": "raw/defend_v1.png",
+      "original_source": "assets/chars/pixel/rinne/high_detail_complete/frames/defend.png",
+      "original_sha256": "06a7c522867682ea8cedafd812001411f680e58b718f8bccd1078168b46ff253",
+      "raw_sha256": "b933e5d74af4be52b5e0a4045d4d57ae14b330b46a40a575f6bcc2dcfc7c4fa6",
+      "production_path": "res://assets/chars/pixel/rinne/high_detail_complete/frames/defend.png",
+      "production_sha256": "9316199310258e0b91495be59441405408963e20bb8bf45b8c7c1dd36d1517b8",
+      "prompt": "Use case: precise-object-edit.\nAsset type: single transparent full-body 2D game animation sprite.\nInput image 1 is the EDIT TARGET: Rinne's original defend animation frame. Input image 2 is the APPROVED HAIRSTYLE REFERENCE (refined idle1), not a pose reference.\nEdit only the brown hair and red hair ties of image 1 to apply exactly the same twin-ponytail design as image 2, naturally following image 1's head angle and existing motion. Keep two distinct compact tapered ponytails, reduced bulk, simple smooth contours with a few broad locks, shoulder-length ends, visibly connected high roots, a small red high tie on each side. The far-side tie is a little red knot at the high far edge of the skull behind the bangs, never a dangling red tassel beside the jaw. Keep the short near-side red tie, remove excess wispy arcs and loose fine strands, and keep the small neat cheek lock. No bulky hair clump obscuring the far cheek, no floating arcs, no buns, no single ponytail. Match reference image 2's brown palette and clean shading, but allow the tails to follow image 1's movement.\nABSOLUTE INVARIANTS from image 1: exact face identity, expression including whether eyes are open or closed, gaze, head direction, face and head size, full body position and proportions, pose, arms, hands, finger placement, sword/scabbard shape and orientation, clothes and folds, colors, boots, foot positions, motion, canvas proportions, empty margins and full-body framing. Do not borrow the idle pose from image 2. Keep the same painted anime game illustration style. Do not redesign anything below the hair. No extra ornaments, text, effects, ground shadow or background. Deliver exactly one frame, not a sheet.\nBackground must be genuinely transparent. The entire character interior must be fully opaque, with anti-aliased alpha confined to silhouette boundaries. Keep clean edge colors without colored fringe. Preserve original image 1 canvas proportions and character scale.\n",
+      "mechanical_transform": {
+        "uniform_scale": 0.9890972430464177,
+        "offset_px": [
+          0.9839085998633391,
+          3.264103855104745
+        ],
+        "filter": "BICUBIC",
+        "basis": "未改身体区域对原帧RGB的等比+平移注册，头发不参与拟合"
+      }
+    },
+    "down": {
+      "selection": "retained_original",
+      "source_filename": "original/down.png",
+      "original_source": "assets/chars/pixel/rinne/high_detail_complete/frames/down.png",
+      "original_sha256": "6caf18d128d82e271c8bc2e937c39465475c09f54c3092292c2b4f5ccb7ed388",
+      "raw_sha256": "6caf18d128d82e271c8bc2e937c39465475c09f54c3092292c2b4f5ccb7ed388",
+      "production_path": "res://assets/chars/pixel/rinne/high_detail_complete/frames/down.png",
+      "production_sha256": "6caf18d128d82e271c8bc2e937c39465475c09f54c3092292c2b4f5ccb7ed388",
+      "prompt": "",
+      "mechanical_transform": {
+        "uniform_scale": 1,
+        "offset_px": [
+          0,
+          0
+        ],
+        "filter": "BICUBIC",
+        "basis": "未改身体区域对原帧RGB的等比+平移注册，头发不参与拟合"
+      }
+    },
+    "recover": {
+      "selection": "generated",
+      "source_filename": "raw/recover_v1.png",
+      "original_source": "assets/chars/pixel/rinne/high_detail_complete/frames/recover.png",
+      "original_sha256": "4654ac9d36162dd0ba3a531e7a2e51a60fbc84a633b3341b1627d1884d89d6f3",
+      "raw_sha256": "f6e96f439acf217047c03cb32cdde5bbaf8cfba0916e06f6fa0631dec980e2cb",
+      "production_path": "res://assets/chars/pixel/rinne/high_detail_complete/frames/recover.png",
+      "production_sha256": "aa916c69228cfb5b461e3c533037481def3fdb0192e15f9a6700168c8775cac8",
+      "prompt": "Use case: precise-object-edit.\nAsset type: single transparent full-body 2D game animation sprite.\nInput image 1 is the EDIT TARGET: Rinne's original recover animation frame. Input image 2 is the APPROVED HAIRSTYLE REFERENCE (refined idle1), not a pose reference.\nEdit only the brown hair and red hair ties of image 1 to apply exactly the same twin-ponytail design as image 2, naturally following image 1's head angle and existing motion. Keep two distinct compact tapered ponytails, reduced bulk, simple smooth contours with a few broad locks, shoulder-length ends, visibly connected high roots, a small red high tie on each side. The far-side tie is a little red knot at the high far edge of the skull behind the bangs, never a dangling red tassel beside the jaw. Keep the short near-side red tie, remove excess wispy arcs and loose fine strands, and keep the small neat cheek lock. No bulky hair clump obscuring the far cheek, no floating arcs, no buns, no single ponytail. Match reference image 2's brown palette and clean shading, but allow the tails to follow image 1's movement.\nABSOLUTE INVARIANTS from image 1: exact face identity, expression including whether eyes are open or closed, gaze, head direction, face and head size, full body position and proportions, pose, arms, hands, finger placement, sword/scabbard shape and orientation, clothes and folds, colors, boots, foot positions, motion, canvas proportions, empty margins and full-body framing. Do not borrow the idle pose from image 2. Keep the same painted anime game illustration style. Do not redesign anything below the hair. No extra ornaments, text, effects, ground shadow or background. Deliver exactly one frame, not a sheet.\nBackground must be genuinely transparent. The entire character interior must be fully opaque, with anti-aliased alpha confined to silhouette boundaries. Keep clean edge colors without colored fringe. Preserve original image 1 canvas proportions and character scale.\n",
+      "mechanical_transform": {
+        "uniform_scale": 0.8953242168043031,
+        "offset_px": [
+          48.479571694166246,
+          81.36263489311669
+        ],
+        "filter": "BICUBIC",
+        "basis": "未改身体区域对原帧RGB的等比+平移注册，头发不参与拟合"
+      }
+    }
+  }
+}

@@ -104,6 +104,100 @@
           }
         }
       ]
+    },
+    {
+      "id": "campaign_night_1",
+      "name": "正式主线第1夜",
+      "level": 5,
+      "enemy_ids": [
+        "hound",
+        "shield_soldier"
+      ],
+      "xp": 40,
+      "next_id": "campaign_night_2",
+      "rest_after": false,
+      "scene_routes": [
+        {
+          "source_scene": "res://scenes/campaign/night_1.tscn",
+          "battle_scene": "res://scenes/rpg/battle.tscn",
+          "clue_id": "basin_reflection"
+        }
+      ]
+    },
+    {
+      "id": "campaign_night_2",
+      "name": "正式主线第2夜",
+      "level": 5,
+      "enemy_ids": [
+        "hound",
+        "cultist"
+      ],
+      "xp": 40,
+      "next_id": "campaign_night_3",
+      "rest_after": true,
+      "scene_routes": [
+        {
+          "source_scene": "res://scenes/campaign/night_2.tscn",
+          "battle_scene": "res://scenes/rpg/battle.tscn",
+          "clue_id": "bell_self_ring"
+        }
+      ]
+    },
+    {
+      "id": "campaign_night_3",
+      "name": "正式主线第3夜",
+      "level": 5,
+      "enemy_ids": [
+        "shield_soldier",
+        "elite_shield_soldier"
+      ],
+      "xp": 40,
+      "next_id": "campaign_night_4",
+      "rest_after": false,
+      "scene_routes": [
+        {
+          "source_scene": "res://scenes/campaign/night_3.tscn",
+          "battle_scene": "res://scenes/rpg/battle.tscn",
+          "clue_id": "coffin_procession"
+        }
+      ]
+    },
+    {
+      "id": "campaign_night_4",
+      "name": "正式主线第4夜",
+      "level": 5,
+      "enemy_ids": [
+        "cultist",
+        "fire_spirit"
+      ],
+      "xp": 40,
+      "next_id": "campaign_night_5",
+      "rest_after": false,
+      "scene_routes": [
+        {
+          "source_scene": "res://scenes/campaign/night_4.tscn",
+          "battle_scene": "res://scenes/rpg/battle.tscn",
+          "clue_id": "mirror_in_coffin"
+        }
+      ]
+    },
+    {
+      "id": "campaign_night_5",
+      "name": "正式主线第5夜",
+      "level": 5,
+      "enemy_ids": [
+        "gatekeeper"
+      ],
+      "xp": 120,
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [
+        {
+          "source_scene": "res://scenes/campaign/night_5.tscn",
+          "battle_scene": "res://scenes/rpg/battle.tscn",
+          "clue_id": "hollow_coffin_glow"
+        }
+      ]
     }
   ]
 }

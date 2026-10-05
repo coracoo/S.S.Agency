@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "units": "角色身高cm；探索m；战斗统一px/m",
+  "battle": {
+    "pixels_per_metre": 190,
+    "ground_y": 680
+  },
+  "identities": {
+    "rinne": {
+      "height_cm": 168,
+      "source": "本轮设计配置；未发现旧人设cm值"
+    },
+    "mint": {
+      "height_cm": 158,
+      "source": "本轮设计配置；未发现旧人设cm值"
+    },
+    "guard": {
+      "height_cm": 186,
+      "source": "本轮选择186cm；未发现旧人设cm值"
+    },
+    "homura": {
+      "height_cm": 170,
+      "source": "本轮设计配置；未发现旧人设cm值"
+    },
+    "healer": {
+      "height_cm": 162,
+      "source": "本轮设计配置；未发现旧人设cm值"
+    },
+    "controller": {
+      "height_cm": 166,
+      "source": "本轮设计配置；未发现旧人设cm值"
+    }
+  },
+  "forms": {
+    "rinne": {
+      "identity_id": "rinne",
+      "reference_frame": "res://assets/chars/pixel/rinne/high_detail_complete/frames/idle1.png",
+      "reference_sha256": "2084561b61e34abffd689bb5d7b52325d2d95bed4011c27073f73f7d8d379af6",
+      "crown_px": [
+        665,
+        64
+      ],
+      "sole_pixel_px": [
+        600,
+        1082
+      ],
+      "ground_y_px": 1083,
+      "measurement_note": "站立本体头顶至鞋底地面边界；排除武器、纸垂、透明留白、发饰和高举马尾/散发。仅用idle参考定固定比例，动画帧不重新fit。"
+    },
+    "mint": {
+      "identity_id": "mint",
+      "reference_frame": "res://assets/chars/pixel/mint/high_detail_complete/frames/idle_right_f1.png",
+      "reference_sha256": "92cb18f5f218767927479a29a08b08a9c0f4218597b5c8ef9a3dd51cc9dd1b1b",
+      "crown_px": [
+        616,
+        50
+      ],
+      "sole_pixel_px": [
+        650,
+        1062
+      ],
+      "ground_y_px": 1063,
+      "measurement_note": "站立本体头顶至鞋底地面边界；排除武器、纸垂、透明留白、发饰和高举马尾/散发。仅用idle参考定固定比例，动画帧不重新fit。"
+    },
+    "guard": {
+      "identity_id": "guard",
+      "reference_frame": "res://assets/chars/pixel/guard/high_detail_complete/frames/idle1.png",
+      "reference_sha256": "ad80c9fe91f5b3d6d866f45833f47b303e49a991b9bb9719a58a7198891ed43b",
+      "crown_px": [
+        565,
+        97
+      ],
+      "sole_pixel_px": [
+        744,
+        1122
+      ],
+      "ground_y_px": 1123,
+      "measurement_note": "站立本体头顶至鞋底地面边界；排除武器、纸垂、透明留白、发饰和高举马尾/散发。仅用idle参考定固定比例，动画帧不重新fit。"
+    },
+    "homura_mage": {
+      "identity_id": "homura",
+      "reference_frame": "res://assets/chars/pixel/homura_mage/high_detail_complete/frames/idle1.png",
+      "reference_sha256": "baabb95dd6a60763bd98d4365bf18f4f343e0cb5dcdf6e88ebf670c8c5aaa2e4",
+      "crown_px": [
+        500,
+        48
+      ],
+      "sole_pixel_px": [
+        606,
+        1055
+      ],
+      "ground_y_px": 1056,
+      "measurement_note": "站立本体头顶至鞋底地面边界；排除武器、纸垂、透明留白、发饰和高举马尾/散发。仅用idle参考定固定比例，动画帧不重新fit。"
+    },
+    "homura_sword": {
+      "identity_id": "homura",
+      "reference_frame": "res://assets/chars/pixel/homura_sword/high_detail_complete/frames/idle1.png",
+      "reference_sha256": "5d5596d94e64e56e27f4589ae0799c2a7e6cb157c31134ef3d26d8519cf22f63",
+      "crown_px": [
+        821,
+        90
+      ],
+      "sole_pixel_px": [
+        645,
+        1066
+      ],
+      "ground_y_px": 1067,
+      "measurement_note": "站立本体头顶至鞋底地面边界；排除武器、纸垂、透明留白、发饰和高举马尾/散发。仅用idle参考定固定比例，动画帧不重新fit。"
+    },
+    "healer": {
+      "identity_id": "healer",
+      "reference_frame": "res://assets/chars/pixel/healer/high_detail_complete/frames/idle1.png",
+      "reference_sha256": "e820df0b414266179a48082b3880425a0af113653b401537d6f193505590848f",
+      "crown_px": [
+        524,
+        48
+      ],
+      "sole_pixel_px": [
+        498,
+        1071
+      ],
+      "ground_y_px": 1072,
+      "measurement_note": "站立本体头顶至鞋底地面边界；排除武器、纸垂、透明留白、发饰和高举马尾/散发。仅用idle参考定固定比例，动画帧不重新fit。"
+    },
+    "controller": {
+      "identity_id": "controller",
+      "reference_frame": "res://assets/chars/pixel/controller/high_detail_complete/frames/idle1.png",
+      "reference_sha256": "bf4e31d84f3efe0491f4f79e411b3844835f70ac506d616e7aca07e8f18a4176",
+      "crown_px": [
+        504,
+        50
+      ],
+      "sole_pixel_px": [
+        638,
+        1073
+      ],
+      "ground_y_px": 1074,
+      "measurement_note": "站立本体头顶至鞋底地面边界；排除武器、纸垂、透明留白、发饰和高举马尾/散发。仅用idle参考定固定比例，动画帧不重新fit。"
+    }
+  }
+}

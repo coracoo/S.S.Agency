@@ -1,5 +1,6 @@
 # 本场景专用的镜头平面 WASD；不改变原角色预览的左右操作。
 extends "res://scripts/characters/pixel_character_world.gd"
+const Stature = preload("res://scripts/characters/character_stature.gd")
 var move_input := Vector2.ZERO
 var keyboard_input := true
 var _movement_armed := true
@@ -13,8 +14,9 @@ func apply_definition(id: String, definition: Dictionary) -> bool:
 	form_id = id
 	var canvas: Dictionary = definition.manifest.canvas
 	composite.size = Vector2i(canvas.w, canvas.h)
-	billboard.offset = Vector2(float(canvas.w) * 0.5 - float(canvas.anchor[0]), float(canvas.anchor[1]) - float(canvas.h) * 0.5)
-	billboard.pixel_size = float(canvas.height_m) / float(canvas.content_height_px)
+	var body_anchor := Stature.body_anchor(definition)
+	billboard.offset = Vector2(float(canvas.w) * 0.5 - body_anchor.x, body_anchor.y - float(canvas.h) * 0.5)
+	billboard.pixel_size = Stature.world_pixel_size(definition)
 	_reference_speed = float(definition.manifest.move_speed_mps)
 	return true
 func set_move_input(axis: Vector2) -> void:
@@ -34,7 +36,9 @@ func set_camera_basis(value: Basis) -> void:
 func _physics_process(delta: float) -> void:
 	if keyboard_input and input_enabled:
 		var current_axis := Input.get_vector("approach_left", "approach_right", "approach_forward", "approach_back")
-		if not _movement_armed and current_axis == Vector2.ZERO: _movement_armed = true
+		# A+D/W+S的合成轴为零仍代表按住；关闭菜单后必须四个action全松。
+		if not _movement_armed and not Input.is_action_pressed("approach_left") and not Input.is_action_pressed("approach_right") and not Input.is_action_pressed("approach_forward") and not Input.is_action_pressed("approach_back"):
+			_movement_armed = true
 		move_input = current_axis if _movement_armed else Vector2.ZERO
 	var axis := move_input.limit_length(1.0) if input_enabled and not animator.is_action_locked() else Vector2.ZERO
 	if absf(axis.x) > 0.001: facing = 1 if axis.x > 0 else -1

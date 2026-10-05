@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "status": "archived",
+  "prepared_utc": "2026-10-04T12:35:23.959482+00:00",
+  "pre_archive_commit": "b76d64579190faad64a92cf46264fdd981c26745",
+  "approved_baseline": "6c14f659613d7eafb769441dde8e173ee533341a",
+  "archive_commit": "Identify the independent commit that added this manifest; cannot self-reference its own Git hash.",
+  "entries": [
+    {
+      "from": "scenes/v3/stage_mountain.tscn",
+      "to": "archive/2026-10-04-retired/scenes/v3/stage_mountain.tscn",
+      "sha256": "dfebf56da1c1a62b2d4a4dd7f7b8c618d97496df5cf5e13329b8d8017dd27aef",
+      "size_bytes": 257,
+      "git_blob_oid": "930febf031461c86d2b8a6fa29639f794386fb11",
+      "replacement_path": "scenes/campaign/title.tscn",
+      "reason": "retired standalone 2.5D validation entry",
+      "incoming_evidence": [],
+      "runtime_gate": "not in recomputed formal-root conservative closure; protected approved sources/raw sheets and untracked files untouched"
+    },
+    {
+      "from": "assets/bg/mountain_path/fg.png",
+      "to": "archive/2026-10-04-retired/assets/bg/mountain_path/fg.png",
+      "sha256": "d766fe0f0790f701a6dc27ab3156c5f8e7e4a0106bb15f4f854a0f330ae43878",
+      "size_bytes": 1642322,
+      "git_blob_oid": "7d0f6d6fde64f4b1fbeb28e4e4cae08c9406aab5",
+      "replacement_path": "assets/bg/parallax/mountain_path_fg1.png",
+      "reason": "byte-identical duplicate foreground; retained parallax original remains at active development path",
+      "incoming_evidence": [
+        {
+          "source": "assets/bg/mountain_path/fg.png.import",
+          "target": "assets/bg/mountain_path/fg.png",
+          "kind": "direct_uri",
+          "line": 13
+        }
+      ],
+      "runtime_gate": "not in recomputed formal-root conservative closure; protected approved sources/raw sheets and untracked files untouched"
+    },
+    {
+      "from": "assets/bg/mountain_path/fg.png.import",
+      "to": "archive/2026-10-04-retired/assets/bg/mountain_path/fg.png.import",
+      "sha256": "614723ecc4925902a53f2be8b156d76b8ca959bd16e8cc5f057d32e441087016",
+      "size_bytes": 933,
+      "git_blob_oid": "aec67973ca8bd6b202d04d1124c21b169cf9628f",
+      "replacement_path": "assets/bg/parallax/mountain_path_fg1.png",
+      "reason": "byte-identical duplicate foreground; retained parallax original remains at active development path",
+      "incoming_evidence": [
+        {
+          "source": "assets/bg/mountain_path/fg.png.import",
+          "target": "assets/bg/mountain_path/fg.png",
+          "kind": "direct_uri",
+          "line": 13
+        }
+      ],
+      "runtime_gate": "not in recomputed formal-root conservative closure; protected approved sources/raw sheets and untracked files untouched"
+    },
+    {
+      "from": "tools/test_ai_behaviors.gd.uid",
+      "to": "archive/2026-10-04-retired/tools/test_ai_behaviors.gd.uid",
+      "sha256": "e61f61166368659f973907fbad86dff35371ab9326e4b205c4d646e201f8496d",
+      "size_bytes": 20,
+      "git_blob_oid": "94520ec91f9e5a7d6d738c4c16df096123c34fd7",
+      "replacement_path": null,
+      "reason": "orphan UID: source absent and no referring UID",
+      "incoming_evidence": [],
+      "runtime_gate": "not in recomputed formal-root conservative closure; protected approved sources/raw sheets and untracked files untouched"
+    },
+    {
+      "from": "tools/test_fear_passives.gd.uid",
+      "to": "archive/2026-10-04-retired/tools/test_fear_passives.gd.uid",
+      "sha256": "ec7863813d3755d00cb58e4a4d282f10d78cc87a566a929ed63919768b85ffff",
+      "size_bytes": 20,
+      "git_blob_oid": "21e813c7cd0f564dcd384ef22d2be068b63e6195",
+      "replacement_path": null,
+      "reason": "orphan UID: source absent and no referring UID",
+      "incoming_evidence": [],
+      "runtime_gate": "not in recomputed formal-root conservative closure; protected approved sources/raw sheets and untracked files untouched"
+    },
+    {
+      "from": "tools/test_level_flow.gd.uid",
+      "to": "archive/2026-10-04-retired/tools/test_level_flow.gd.uid",
+      "sha256": "ae514becafef8e5f855a1a268d2f1257edc002935133f8576a0353f5753fe70e",
+      "size_bytes": 19,
+      "git_blob_oid": "773e46634c7b757440dc35ceb1ed636c81238d31",
+      "replacement_path": null,
+      "reason": "orphan UID: source absent and no referring UID",
+      "incoming_evidence": [],
+      "runtime_gate": "not in recomputed formal-root conservative closure; protected approved sources/raw sheets and untracked files untouched"
+    },
+    {
+      "from": "tools/test_noise_spirit_accept.gd.uid",
+      "to": "archive/2026-10-04-retired/tools/test_noise_spirit_accept.gd.uid",
+      "sha256": "84115f34b973bca961f6493311944328b28fbcbf22797c2f2a03a99a97c3dff6",
+      "size_bytes": 19,
+      "git_blob_oid": "f77f4cbd3203b2697bdec10b1e322beee9bcd91a",
+      "replacement_path": null,
+      "reason": "orphan UID: source absent and no referring UID",
+      "incoming_evidence": [],
+      "runtime_gate": "not in recomputed formal-root conservative closure; protected approved sources/raw sheets and untracked files untouched"
+    },
+    {
+      "from": "tools/test_pull.gd.uid",
+      "to": "archive/2026-10-04-retired/tools/test_pull.gd.uid",
+      "sha256": "955162bc76cd448d4d5f6e459ec1329239409428db9963d8ce62d8f3d7f2d9eb",
+      "size_bytes": 19,
+      "git_blob_oid": "d097e249238d3fe3622d7019831f6ef8f90c9419",
+      "replacement_path": null,
+      "reason": "orphan UID: source absent and no referring UID",
+      "incoming_evidence": [],
+      "runtime_gate": "not in recomputed formal-root conservative closure; protected approved sources/raw sheets and untracked files untouched"
+    }
+  ],
+  "total_files": 8,
+  "total_bytes": 1643609,
+  "verification_evidence": [
+    "current-dependencies.json",
+    "release/candidate-v3/pack-audit.json",
+    "release/candidate-v3/release-commands.json",
+    "controller-owned actual GUI acceptance"
+  ],
+  "retained_scope": [
+    "seven high_detail_complete forms including source atlases",
+    "XLSX editing sources",
+    "latest 38+14 dialogue nodes",
+    "six finalized enemies",
+    "all untracked files",
+    "shared/legacy compatibility implementations and dependent old tests",
+    "arch/far/mountain JSON source/tool consumers remain at original paths",
+    "friendly galleries and pilot/refined frames retained for still-active historical validation consumers"
+  ],
+  "recovery": "git revert the independent archive commit; or restore exact original tree in a separate checkout, verify hashes, then merge without overwriting dirty/untracked files",
+  "executed_utc": "2026-10-04T12:45:04.466524+00:00",
+  "controller_gui_gate": {
+    "approved_utc": "2026-10-04T12:43:20Z",
+    "evidence": "manual-user-u7qevgyc/07_battle.png,08_night_1.png,09_night_1.png,10_night_2.png + actual input event log",
+    "scope": "actual title new game, a1/r1/h1, first battle real three-round victory 40XP, same-night return, stair exit and night2 entry; full two endings remain separately tracked"
+  }
+}

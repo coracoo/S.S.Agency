@@ -1,4 +1,4 @@
-# 和纸/墨色工具与固定3D镜头，只有表现职责。
+# 烟墨/灰绿/暗朱的共用UI工具与固定3D镜头，只有表现职责。
 class_name RpgUiKit
 extends RefCounted
 const ThemeData = preload("res://scripts/ui/theme.gd")
@@ -25,7 +25,7 @@ static func panel(parent: Node, rect: Rect2, paper: bool = false) -> Panel:
 		style = tokens.washi_panel().duplicate()
 		style.set_content_margin_all(18)
 	else:
-		style = box(Color(color("ink_900"), 0.91), Color(color("gold_500"), 0.5))
+		style = tokens.surface_style()
 	node.add_theme_stylebox_override("panel", style)
 	parent.add_child(node)
 	return node
@@ -47,7 +47,7 @@ static func label(parent: Node, text: String, rect: Rect2, font_size: int = 26, 
 	node.size = rect.size
 	node.add_theme_font_override("font", font)
 	node.add_theme_font_size_override("font_size", font_size)
-	node.add_theme_color_override("font_color", color("ink_900" if dark else "paper_100"))
+	node.add_theme_color_override("font_color", color("ink_900" if dark else "ui_text"))
 	node.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	parent.add_child(node)
 	return node
@@ -60,7 +60,7 @@ static func scroll_text(parent: Node, rect: Rect2, font_size: int = 23) -> RichT
 	node.size = rect.size
 	node.add_theme_font_override("normal_font", font)
 	node.add_theme_font_size_override("normal_font_size", font_size)
-	node.add_theme_color_override("default_color", color("paper_100"))
+	node.add_theme_color_override("default_color", color("ui_text"))
 	node.scroll_active = true
 	node.clip_contents = true
 	parent.add_child(node)
@@ -73,15 +73,41 @@ static func button(parent: Node, text: String, rect: Rect2, callback: Callable =
 	node.position = rect.position
 	node.size = rect.size
 	node.add_theme_font_override("font", font)
-	node.add_theme_font_size_override("font_size", 26)
-	node.add_theme_color_override("font_color", color("paper_100"))
-	node.add_theme_color_override("font_disabled_color", Color(color("paper_300"), 0.6))
-	node.add_theme_stylebox_override("normal", box(Color(color("vermilion_500") if primary else color("ink_900"), 0.92), color("gold_500")))
-	node.add_theme_stylebox_override("hover", box(Color(color("gold_500"), 0.32), color("paper_100")))
-	node.add_theme_stylebox_override("pressed", box(Color(color("vermilion_500"), 0.65), color("paper_100")))
-	node.add_theme_stylebox_override("disabled", box(Color(color("ink_900"), 0.7), Color(color("paper_300"), 0.3)))
+	node.add_theme_font_size_override("font_size", 24)
+	node.add_theme_color_override("font_color", color("ui_text"))
+	node.add_theme_color_override("font_hover_color", color("ui_text"))
+	node.add_theme_color_override("font_pressed_color", color("ui_text"))
+	node.add_theme_color_override("font_focus_color", color("ui_text"))
+	node.add_theme_color_override("font_disabled_color", color("ui_disabled_text"))
+	for state in ["normal", "hover", "pressed", "disabled", "focus"]:
+		node.add_theme_stylebox_override(state, tokens.button_style(state, primary))
+	node.set_meta("ui_primary", primary)
+	node.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	if callback.is_valid(): node.pressed.connect(callback)
 	parent.add_child(node)
+	return node
+
+# 选择是表现状态，不使用toggle_mode改变原输入/提交机制。
+static func set_selected(node: Button, selected: bool) -> void:
+	if node.get_meta("ui_selected", false) == selected: return
+	node.set_meta("ui_selected", selected)
+	var style: StyleBoxFlat = tokens.button_style("normal", node.get_meta("ui_primary", false))
+	if selected:
+		style.bg_color = color("ui_selected")
+		style.border_color = color("ui_selected_line")
+		style.border_width_left = 3
+	node.add_theme_stylebox_override("normal", style)
+
+static func quiet_button(node: Button) -> void:
+	var style: StyleBoxFlat = tokens.button_style("normal")
+	style.bg_color = Color(color("ui_ink"), 0.94)
+	style.set_border_width_all(0)
+	node.add_theme_stylebox_override("normal", style)
+	node.add_theme_color_override("font_color", color("ui_muted"))
+
+
+static func muted(node: Label) -> Label:
+	node.add_theme_color_override("font_color", color("ui_muted"))
 	return node
 
 static func image(parent: Node, path: String, rect: Rect2) -> TextureRect:
@@ -98,18 +124,36 @@ static func image(parent: Node, path: String, rect: Rect2) -> TextureRect:
 static func bar(parent: Node, rect: Rect2, tint: Color) -> ProgressBar:
 	var node := ProgressBar.new()
 	node.position = rect.position
-	node.size = rect.size
 	node.show_percentage = false
 	node.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	node.add_theme_stylebox_override("background", box(Color(0.04, 0.04, 0.05, 0.8), Color(tint, 0.4)))
-	node.add_theme_stylebox_override("fill", box(tint, tint))
+	# 血条不可复用按钮的内容边距，否则Godot会把细条撑成厚块并压住数值。
+	var background := StyleBoxFlat.new()
+	background.bg_color = color("ui_pressed")
+	background.set_content_margin_all(0)
+	background.set_corner_radius_all(2)
+	var fill := StyleBoxFlat.new()
+	fill.bg_color = tint
+	fill.set_content_margin_all(0)
+	fill.set_corner_radius_all(2)
+	node.add_theme_stylebox_override("background", background)
+	node.add_theme_stylebox_override("fill", fill)
 	parent.add_child(node)
+	node.size = rect.size
 	return node
+
+static func config_for_night(config: Dictionary, night: int) -> Dictionary:
+	var value := config.duplicate(true)
+	var background: String = value.get("night_backgrounds", {}).get(str(night), "")
+	if not background.is_empty():
+		value.fallback_background = background
+		# 正式各夜使用各自已保留背景，不能让参道预览盖住第二至五夜。
+		value.backdrop_scene = ""
+	return value
 
 static func backdrop(parent: Node, config: Dictionary) -> void:
 	image(parent, config.fallback_background, Rect2(0, 0, 1920, 1080))
 	# 复用检查场景的3D模型/灯光，但移除检查输入与HUD；没有探索脚本。
-	if not ResourceLoader.exists(config.backdrop_scene): return
+	if str(config.get("backdrop_scene", "")).is_empty() or not ResourceLoader.exists(config.backdrop_scene): return
 	var packed: PackedScene = load(config.backdrop_scene)
 	if packed == null: return
 	var world: Node3D = packed.instantiate()
@@ -138,7 +182,7 @@ static func backdrop(parent: Node, config: Dictionary) -> void:
 	shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	parent.add_child(shade)
 
-static func actor_sprite(parent: Node, art: String, height: float, flip: bool) -> Node2D:
+static func actor_sprite(parent: Node, art: String, height: float, flip: bool, geometry: Dictionary = {}) -> Node2D:
 	var root := Node2D.new()
 	parent.add_child(root)
 	if art == "rinne":
@@ -179,8 +223,18 @@ static func actor_sprite(parent: Node, art: String, height: float, flip: bool) -
 				atlas.region = Rect2(210, 0, 620, 1536)
 				texture = atlas
 			sprite.texture = texture
-			sprite.scale = Vector2.ONE * height / float(texture.get_height())
-			sprite.offset.y = -float(texture.get_height()) / 2.0
+			sprite.set_meta("source_path", "res://assets/chars/hakuyo_idle.png" if art == "mint" else art)
+			if geometry.is_empty():
+				sprite.scale = Vector2.ONE * height / float(texture.get_height())
+				sprite.offset.y = -float(texture.get_height()) / 2.0
+			else:
+				var anchor: Array = geometry.anchor
+				sprite.scale = Vector2.ONE * height / float(geometry.content_height_px)
+				sprite.set_meta("source_anchor", Vector2(anchor[0], anchor[1]))
+				sprite.set_meta("canvas_size", texture.get_size())
+				var anchor_x: float = texture.get_width() - anchor[0] if flip else anchor[0]
+				sprite.offset = texture.get_size() / 2.0 - Vector2(anchor_x, anchor[1])
+				sprite.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 			sprite.flip_h = flip
 		root.add_child(sprite)
 	return root
@@ -192,4 +246,9 @@ static func face_actor(actor: Node2D, toward_right: bool) -> void:
 	var flipped := flip_for(actor.get_meta("source_facing", "right"), toward_right)
 	actor.set_meta("facing_right", toward_right)
 	for child in actor.get_children():
-		if child is Sprite2D or child is AnimatedSprite2D: child.flip_h = flipped
+		if child is Sprite2D or child is AnimatedSprite2D:
+			child.flip_h = flipped
+			if child.has_meta("source_anchor"):
+				var anchor: Vector2 = child.get_meta("source_anchor")
+				var canvas: Vector2 = child.get_meta("canvas_size")
+				child.offset = canvas / 2.0 - Vector2(canvas.x - anchor.x if flipped else anchor.x, anchor.y)

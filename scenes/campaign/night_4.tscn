@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://scripts/campaign/chapter_stage.gd" id="1"]
+[node name="Night4" type="Node3D"]
+script = ExtResource("1")
+night_id = 4

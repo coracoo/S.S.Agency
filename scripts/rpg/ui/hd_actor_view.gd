@@ -2,6 +2,7 @@
 class_name HdActorView
 extends Node2D
 signal visual_warning(message: String)
+const Stature = preload("res://scripts/characters/character_stature.gd")
 const Animator = preload("res://scripts/characters/pixel_character_animator.gd")
 var animator := Animator.new()
 var feedback_label := Label.new()
@@ -31,7 +32,7 @@ func configure(definition: Dictionary, height_px: float, facing: int) -> bool:
 	if not animator.configure(definition): return false
 	_definition = definition
 	_height_px = height_px
-	animator.scale = Vector2.ONE * height_px / float(canvas.content_height_px)
+	animator.scale = Vector2.ONE * height_px / Stature.body_reference_pixels(definition)
 	# 高清缩小使用线性过滤，素材与时序容器保持不变。
 	animator.sprite.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	set_facing(facing)
@@ -44,9 +45,10 @@ func set_facing(facing: int) -> void:
 	animator.set_motion(0.0, _facing)
 	if _definition.is_empty(): return
 	var canvas: Dictionary = _definition.manifest.canvas
-	var anchor_x := float(canvas.anchor[0])
+	var anchor := Stature.body_anchor(_definition)
+	var anchor_x := anchor.x
 	if animator.sprite.flip_h: anchor_x = float(canvas.w) - anchor_x
-	animator.position = -Vector2(anchor_x, float(canvas.anchor[1])) * animator.scale
+	animator.position = -Vector2(anchor_x, anchor.y) * animator.scale
 
 func play_action(action: StringName) -> bool:
 	if action == &"recover" and not animator.is_downed():

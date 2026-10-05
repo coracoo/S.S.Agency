@@ -12,10 +12,10 @@
     "h": 1216,
     "anchor": [
       608,
-      1122
+      1123
     ],
     "content_height_px": 1024,
-    "height_m": 1.7333333333333334
+    "height_m": 1.86
   },
   "move_speed_mps": 2.6,
   "mirror_allowed": true,
@@ -187,9 +187,12 @@
   "scene_integration": {
     "contact_metadata": "res://data/characters/scene_integration/guard_high_detail_contacts.json"
   },
-  "status": "drawn_animation_candidate",
+  "status": "approved_campaign_art",
   "limitations": [
-    "绘制帧之间保留少量衣摆与轮廓变化；hit/defend/down/recover为单姿态，down按清单语义保持。",
-    "地面阴影来自逐帧绘制接触点投影，不是骨骼脚锁。"
-  ]
+    "绘制动作仍有轻微轮廓变化；不以局部程序变形修改身体。"
+  ],
+  "art_revision": {
+    "revision": "2026-10-04-approved-art",
+    "provenance": "res://data/characters/art_revisions/guard_20261004.json"
+  }
 }

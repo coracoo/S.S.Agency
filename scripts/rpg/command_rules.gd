@@ -2,6 +2,7 @@
 class_name RpgCommandRules
 extends RefCounted
 
+const Forms = preload("res://scripts/rpg/dual_form.gd")
 const Resolver = preload("res://scripts/rpg/effect_resolver.gd")
 const State = preload("res://scripts/rpg/battle_state.gd")
 
@@ -26,6 +27,12 @@ static func preview(state: Dictionary, command: Dictionary, catalog: RefCounted)
 	var source: Dictionary = state.actors[command.actor_id]
 	if source.hp <= 0:
 		reasons.append("倒地角色不能行动")
+	if command.kind == "switch_form":
+		var reason := Forms.switch_reason(source, command.form_id)
+		if not reason.is_empty(): reasons.append(reason)
+		result["form_id"] = command.form_id
+		result.legal = reasons.is_empty()
+		return result
 	var ability := Resolver.ability_for(source, command, catalog)
 	if ability.is_empty():
 		reasons.append("技能或道具不存在")
@@ -43,7 +50,7 @@ static func preview(state: Dictionary, command: Dictionary, catalog: RefCounted)
 		if int(state.inventory.get(command.ability_id, 0)) < 1: reasons.append("道具库存不足")
 	elif not command.ability_id.is_empty():
 		reasons.append("基础指令不接受技能ID")
-	if command.kind == "attack_magic" and source.side == "player" and not source.class_id in ["mage", "healer", "controller"]:
+	if command.kind == "attack_magic" and source.side == "player" and not Forms.active_class(source) in ["mage", "healer", "controller"]:
 		reasons.append("该职业没有魔法普攻")
 	var targets := _targets(state, source, ability.target_rule, command.target_ids, reasons)
 	result.effective_target_ids = targets.duplicate()
@@ -106,6 +113,7 @@ static func _targets(state: Dictionary, source: Dictionary, rule: String, reques
 	return [requested[0]]
 
 static func _valid_command(command: Dictionary) -> bool:
+	if command.get("kind") is String and command.kind == "switch_form": return Forms.valid_switch_command(command)
 	if command.size() != 6:
 		return false
 	for key in ["command_id", "actor_id", "kind", "ability_id"]:

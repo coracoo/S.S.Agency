@@ -8,6 +8,7 @@ var profile: Dictionary = {}
 var _actor
 var _material := ShaderMaterial.new()
 var _baseline_material: Material
+var _baseline_cast_shadow := GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 var _baseline_shadow_visible := false
 var _metadata: Dictionary = {}
 var _active_metadata_path := ''
@@ -24,6 +25,7 @@ func attach_to(actor, profile_path: String = DEFAULT_PROFILE) -> bool:
 	profile = decoded
 	_actor = actor
 	_baseline_material = actor.billboard.material_override
+	_baseline_cast_shadow = actor.billboard.cast_shadow
 	_baseline_shadow_visible = actor.shadow.visible
 	_material.shader = load(str(profile.character_shader))
 	_material.set_shader_parameter('art_texture', actor.billboard.texture)
@@ -45,6 +47,7 @@ func set_enabled(value: bool) -> void:
 	if _actor == null: return
 	enabled = value
 	_actor.billboard.material_override = _material if enabled else _baseline_material
+	_actor.billboard.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_DOUBLE_SIDED if enabled else _baseline_cast_shadow
 	_actor.shadow.visible = false if enabled else _baseline_shadow_visible
 	if _stage != null:
 		_stage.get_node('WorldEnvironment').environment = _environment_blended if enabled else _environment_original
@@ -128,7 +131,8 @@ func canvas_point_to_world(point: Vector2) -> Vector3:
 	right.y = 0.0
 	right = right.normalized()
 	var density: float = _actor.billboard.pixel_size
-	return _actor.global_position + right*(x-float(canvas.anchor[0]))*density + Vector3.UP*(float(canvas.anchor[1])-point.y)*density
+	var body_anchor: Vector2 = load("res://scripts/characters/character_stature.gd").body_anchor(_actor.animator.definition)
+	return _actor.global_position + right*(x-body_anchor.x)*density + Vector3.UP*(body_anchor.y-point.y)*density
 func _ground_ray(from: Vector3, to: Vector3) -> Dictionary:
 	var query := PhysicsRayQueryParameters3D.create(from,to,_actor.collision_mask,[_actor.get_rid()])
 	var hit: Dictionary = _actor.get_world_3d().direct_space_state.intersect_ray(query)
@@ -176,6 +180,8 @@ func _process(_delta: float) -> void:
 func _exit_tree() -> void:
 	# helper可单独移除；恢复仍存活的actor，不把材质/隐藏影遗留给调用方。
 	if is_instance_valid(_actor):
-		if is_instance_valid(_actor.billboard): _actor.billboard.material_override = _baseline_material
+		if is_instance_valid(_actor.billboard):
+			_actor.billboard.material_override = _baseline_material
+			_actor.billboard.cast_shadow = _baseline_cast_shadow
 		if is_instance_valid(_actor.shadow): _actor.shadow.visible = _baseline_shadow_visible
 	restore_stage()

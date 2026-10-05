@@ -12,6 +12,9 @@ extends CanvasLayer
 signal finished
 signal advanced(node_id: String)
 signal portrait_failed(message: String)
+signal choice_failed(message: String)
+# 分支切换前同步提交选择；失败时停留原选项，不进入未保存分支。
+var choice_guard: Callable = Callable()
 var portrait_provider: Callable = Callable()
 var portrait_error := ""
 
@@ -41,6 +44,8 @@ var _text_label: Label = null
 var _hint_label: Label = null
 var _choices_box: VBoxContainer = null
 var _root: Control = null
+
+const Kit = preload("res://scripts/rpg/ui/ui_kit.gd")
 
 const TYPE_SPEED := 30.0 # 字/秒（CJK 全角一字一符）
 const PAUSE_CHARS := "，。！？；：、—…" # 标点后额外停顿
@@ -89,42 +94,38 @@ func _build_layout() -> void:
 	_root.size = Vector2(cw, ch)
 	_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_root)
-	# 对话面板（和纸九图，底部居中）
-	var panel := Panel.new()
-	panel.position = Vector2(cw * 0.5 - 660, ch - 300)
-	panel.size = Vector2(1320, 252)
-	if _theme:
-		panel.add_theme_stylebox_override("panel", _theme.washi_panel())
-	_root.add_child(panel)
-	# 姓名牌（朱红小签，面板左上）
+	# 深色底保留场景气氛；面板/装饰忽略鼠标，点击快进仍交给原输入防连按逻辑。
+	var panel := Kit.panel(_root, Rect2(cw * 0.5 - 670, ch - 282, 1340, 238))
+	panel.name = "DialoguePanel"
 	_name_strip = ColorRect.new()
-	_name_strip.position = Vector2(36, 16)
-	_name_strip.size = Vector2(150, 40)
+	_name_strip.position = Vector2(30, 28)
+	_name_strip.size = Vector2(3, 28)
+	_name_strip.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	panel.add_child(_name_strip)
-	_name_label = _mk_label(Vector2(36, 20), 22, "paper_100")
+	_name_label = _mk_label(Vector2(48, 21), 24, "ui_text")
+	_name_label.size = Vector2(620, 42)
 	panel.add_child(_name_label)
-	# 正文（打字机）
-	_text_label = _mk_label(Vector2(48, 70), 26, "ink_900")
-	_text_label.size = Vector2(1224, 160)
-	_text_label.autowrap_mode = TextServer.AUTOWRAP_WORD
+	_text_label = _mk_label(Vector2(48, 78), 28, "ui_text")
+	_text_label.size = Vector2(1244, 110)
+	_text_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_text_label.add_theme_constant_override("line_spacing", 8)
 	panel.add_child(_text_label)
-	# 翻页提示 ▼（呼吸闪烁）
-	_hint_label = _mk_label(Vector2(1252, 210), 22, "gold_500")
-	_hint_label.text = "▼"
+	_hint_label = _mk_label(Vector2(1010, 192), 19, "ui_muted")
+	_hint_label.size = Vector2(280, 30)
+	_hint_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	_hint_label.text = "E / 点击　继续 ▾" if advance_action == &"approach_interact" else "确认 / 点击　继续 ▾"
 	panel.add_child(_hint_label)
-	var blink: Tween = _hint_label.create_tween().set_loops()
-	blink.tween_property(_hint_label, "modulate:a", 0.15, 0.5)
-	blink.tween_property(_hint_label, "modulate:a", 1.0, 0.5)
-	# 分支按钮盒（面板上方的屏幕居中）
 	_choices_box = VBoxContainer.new()
-	_choices_box.position = Vector2(cw * 0.5 - 320, ch - 560)
-	_choices_box.size = Vector2(640, 240)
-	_choices_box.add_theme_constant_override("separation", 14)
+	_choices_box.position = Vector2(cw * 0.5 - 360, ch - 554)
+	_choices_box.size = Vector2(720, 240)
+	_choices_box.add_theme_constant_override("separation", 12)
+	_choices_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_root.add_child(_choices_box)
 
 func _mk_label(pos: Vector2, sz: int, color_key: String) -> Label:
 	var l := Label.new()
 	l.position = pos
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var f: Font = load("res://assets/fonts/Alibaba-PuHuiTi-Regular.ttf")
 	if f:
 		l.add_theme_font_override("font", f)
@@ -148,8 +149,8 @@ func _present_node(node_id: String) -> void:
 	if portrait_provider.is_valid() and not portrait_error.is_empty(): return
 	_name_label.text = String(node.get("name", ""))
 	if _theme:
-		_name_strip.color = _theme.color(String(node.get("color", "vermilion_500")))
-		_name_label.add_theme_color_override("font_color", Color(_theme.color("paper_100")))
+		_name_strip.color = _theme.color("ui_accent_hover")
+		_name_label.add_theme_color_override("font_color", _theme.color("ui_text"))
 	_text_label.text = node.get("text", "")
 	_text_label.visible_characters = 0
 	_hint_label.visible = false
@@ -235,31 +236,21 @@ func _show_choices(choices: Array) -> void:
 	_choice_next = ""
 	for i in range(choices.size()):
 		var c: Dictionary = choices[i]
-		var btn := Button.new()
-		btn.text = "%d  ·  %s" % [i + 1, String(c.get("text", ""))]
-		btn.custom_minimum_size = Vector2(640, 56)
+		var btn := Kit.button(_choices_box, "%d  ·  %s" % [i + 1, String(c.get("text", ""))], Rect2(0, 0, 720, 62))
+		btn.custom_minimum_size = Vector2(720, 62)
 		btn.focus_mode = Control.FOCUS_NONE
-		var f: Font = load("res://assets/fonts/Alibaba-PuHuiTi-Regular.ttf")
-		if f:
-			btn.add_theme_font_override("font", f)
-		btn.add_theme_font_size_override("font_size", 24)
-		if _theme:
-			btn.add_theme_color_override("font_color", _theme.color("ink_900"))
-			var sb := StyleBoxFlat.new()
-			sb.bg_color = Color(_theme.color("paper_100"), 0.92)
-			sb.set_border_width_all(2)
-			sb.border_color = _theme.color("gold_500")
-			sb.set_corner_radius_all(6)
-			btn.add_theme_stylebox_override("normal", sb)
-			var sbh := sb.duplicate() as StyleBoxFlat
-			sbh.bg_color = Color(_theme.color("gold_500"), 0.28)
-			btn.add_theme_stylebox_override("hover", sbh)
+		btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		var nxt := String(c.get("next", ""))
 		btn.pressed.connect(func() -> void:
 			_pick_choice(nxt))
-		_choices_box.add_child(btn)
 
 func _pick_choice(next: String) -> void:
+	if not _active or not _waiting_choice: return
+	if choice_guard.is_valid():
+		var result: Dictionary = choice_guard.call(next)
+		if not result.get("ok", false):
+			choice_failed.emit(str(result.get("error", "选择未能保存，请重试")))
+			return
 	_choice_next = next
 	_waiting_choice = false
 	_hide_choices()
@@ -274,6 +265,10 @@ func _update_portrait(side: String, portrait_path: String, speaker: String = "")
 	var key := portrait_path
 	if portrait_provider.is_valid():
 		supplied = portrait_provider.call(speaker)
+		if supplied.get("ok", false) and supplied.get("empty", false):
+			_clear_portrait(side)
+			portrait_error = ""
+			return
 		if not supplied.get("ok", false) or not supplied.get("texture") is Texture2D:
 			portrait_error = str(supplied.get("error", "人物立绘尚未就绪"))
 			var previous: Dictionary = _portraits.get(side, {})
@@ -287,6 +282,7 @@ func _update_portrait(side: String, portrait_path: String, speaker: String = "")
 		key = supplied.get("key", "identity:" + speaker)
 		portrait_error = ""
 	elif portrait_path.is_empty():
+		_clear_portrait(side)
 		return
 	for s in ["left", "right"]:
 		var speaking: bool = (s == side)
@@ -317,11 +313,23 @@ func _update_portrait(side: String, portrait_path: String, speaker: String = "")
 			tw.tween_property(ctrl, "position", home, 0.35)\
 				.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
+func _clear_portrait(side: String) -> void:
+	var entry: Dictionary = _portraits.get(side, {})
+	if entry.is_empty(): return
+	var tween: Tween = entry.get("tw")
+	if tween != null and tween.is_valid(): tween.kill()
+	entry.tex = null
+	entry.path = ""
+	entry.ctrl.tex = null
+	entry.ctrl.modulate.a = 0.0
+	entry.ctrl.queue_redraw()
+
 func _make_portrait(side: String) -> Dictionary:
 	var cw := float(_theme.canvas("base_width")) if _theme else 1920.0
 	var ch := float(_theme.canvas("base_height")) if _theme else 1080.0
 	var ctrl := PortraitView.new()
 	ctrl.size = PORTRAIT_SIZE
+	ctrl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	# UI 最顶层：立绘沉一层（z=-1），对话面板/文字/选项始终压在立绘之上
 	ctrl.z_index = -1
 	var home := Vector2(48, ch - 300 - PORTRAIT_SIZE.y + 40)

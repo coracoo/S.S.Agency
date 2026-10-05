@@ -1,10 +1,10 @@
 {
   "id": "dusk_illustration",
-  "version": 1,
+  "version": 2,
   "character_shader": "res://scripts/characters/illustration_scene_light.gdshader",
-  "scene_light_mix": 0.38,
-  "shadow_opacity": 0.36,
-  "root_shadow_opacity": 0.2,
-  "shadow_surface_offset_m": 0.08,
-  "notes": "Approved right-side appearance. Optional manifest.scene_integration.contact_metadata supplies character-specific verified foot hints; otherwise only a weak root ground shadow is used."
+  "scene_light_mix": 0.65,
+  "shadow_opacity": 0.72,
+  "root_shadow_opacity": 0.42,
+  "shadow_surface_offset_m": 0.012,
+  "notes": "主摄像机朝向的真实薄片投影；逐脚小面积接触影补足阴影bias，保持原PNG与固定身高。"
 }

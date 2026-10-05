@@ -21,3 +21,6 @@ tmp_*.png.import
 
 # 试玩包导出产物（体积大，不入库）
 build/
+
+# Dream Loop视觉迭代工作文件，不导入或发布
+.dream-loop/

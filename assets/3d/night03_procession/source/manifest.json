@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "iteration": 2,
+  "original_blend_filename": "Omagatoki_Corridor.blend",
+  "original_blend_sha256": "94886b03ddbca36c01a431e69345ebd7b6863bd0c232b5e528aba7ecd2ea2727",
+  "approach_glb_sha256": "4ae9f539a3b879836984baedfd78a16c53386275decfa4d51dd85c4527ab0bb1",
+  "production_sha256": "6bef1e0f0a3ab6430ba79881655dec44c5d4de5205e6472ad40e281f7a7ebb84",
+  "blender_version": "4.3.2",
+  "mesh_objects": 65,
+  "triangles": 97408,
+  "embedded_images": 3,
+  "paper_attendants": 7,
+  "visual_wall_height": 0.6,
+  "coordinate_system": "Godot(x,y,z)=(Blender x,z,-y)，wrapper不缩放",
+  "runtime_lighting": "GLB没有相机或灯，灯光由集成层所有",
+  "source_reuse": "原回廊旧木/和纸/石材、石灯、自然岩石；首夜石板、片簇杉树、真实木鸟居、草叶。纸列与棺使用原图正确UV补建。",
+  "collision_policy": "无新增碰撞；五柱/棺/木箱保持旧足迹，七纸人和石灯均在旧后墙外。"
+}

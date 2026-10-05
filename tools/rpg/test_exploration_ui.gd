@@ -158,12 +158,16 @@ static func run(failures: Array[String], catalog) -> void:
 			stage = tree.current_scene
 			F.expect(stage.export_rpg_world() == world and _button(stage) != null, "Continue保留原世界且准备入口可达", failures)
 			F.expect(stage._all_clues_resolved(), "回廊原有出口前置不变", failures)
-			tree.change_scene_to_file(stage._cfg.next)
-			await _settle(tree)
-			tree.current_scene._rpg_pending_clue = "hollow_coffin_glow"
-			tree.current_scene._go_battle("res://scenes/v3/battle_honden.tscn")
-			await _settle(tree)
-			F.expect(tree.current_scene.scene_file_path == "res://scenes/rpg/battle.tscn" and Router.session.campaign.safe_snapshot().pending_battle.encounter_id == "slice_boss", "保留原仪式/本殿顺序进入Boss", failures)
+			if OS.get_environment("RPG_TEST_LEGACY_CONTRACTS") == "1":
+				# 保存原复现断言；正式全篇顺序由campaign场景/状态与真实引擎E2E覆盖。
+				tree.change_scene_to_file(stage._cfg.next)
+				await _settle(tree)
+				tree.current_scene._rpg_pending_clue = "hollow_coffin_glow"
+				tree.current_scene._go_battle("res://scenes/v3/battle_honden.tscn")
+				await _settle(tree)
+				F.expect(tree.current_scene.scene_file_path == "res://scenes/rpg/battle.tscn" and Router.session.campaign.safe_snapshot().pending_battle.encounter_id == "slice_boss", "历史契约：保留原仪式/本殿顺序进入Boss", failures)
+			else:
+				F.expect(stage._cfg.next == "res://scenes/v3/stage_night3.tscn" and Router.session.campaign.safe_snapshot().pending_battle.is_empty(), "兼容回廊不再跳过第三、四夜直接Boss；正式五战由campaign E2E验收", failures)
 	if tree.current_scene != null:
 		tree.current_scene.free()
 		tree.current_scene = null

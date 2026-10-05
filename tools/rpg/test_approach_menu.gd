@@ -64,7 +64,10 @@ static func _test_title(failures: Array[String]) -> void:
 	for child in title._hud.get_children():
 		if child is Button: labels.append(child.text)
 	F.expect(labels.has("参道篇试玩") and labels.has("回合制 RPG 试作") and labels.has("继续退治") and labels.has("新的委托"), "标题新旧三个玩法入口共存", failures)
-	F.expect(ProjectSettings.get_setting("application/run/main_scene") == "res://scenes/v3/title.tscn", "默认主场景未替换", failures)
+	if OS.get_environment("RPG_TEST_LEGACY_CONTRACTS") == "1":
+		F.expect(ProjectSettings.get_setting("application/run/main_scene") == "res://scenes/v3/title.tscn", "历史契约：默认主场景未替换", failures)
+	else:
+		F.expect(ProjectSettings.get_setting("application/run/main_scene") == "res://scenes/campaign/title.tscn", "正式默认入口为统一五夜主线；旧标题仅作兼容复现", failures)
 	title.free()
 
 static func _test_new_and_overwrite(Menu, failures: Array[String]) -> void:

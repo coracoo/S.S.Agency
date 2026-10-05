@@ -1,0 +1,140 @@
+{
+  "project": "S.S.Agency / 逢魔退治帖",
+  "source_commit": "a2efb6de8ceebe83c3532354c392de8bf6ac25de",
+  "generation": "内置imagegen",
+  "scope": "已批准最终六张静态敌方立绘，原始透明PNG字节不变",
+  "assets": [
+    {
+      "order": 1,
+      "enemy_id": "hound",
+      "display_name": "纸妖·疾行",
+      "direction": "right",
+      "image": "hound.png",
+      "actual_prompt": "hound/纸妖_疾行_完整实际提示词.txt",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "color_mode": "RGBA",
+      "alpha_range": [
+        0,
+        254
+      ],
+      "transparent_pixel_count": 839280,
+      "sha256": "19e3c8da9e1b9e79b67cd842aa3751a2ccf0e4fb42dd0c71125fc0286e294fd7",
+      "library_image_id": "libfile_e539af54aa5481918567441fd5a127ba",
+      "library_prompt_id": "libfile_ccf8a4051a648191ac1fa74b82edd94b",
+      "source_image": "hound/纸妖_疾行_右向.png"
+    },
+    {
+      "order": 2,
+      "enemy_id": "shield_soldier",
+      "display_name": "纸妖·守盾",
+      "direction": "right",
+      "image": "shield_soldier.png",
+      "actual_prompt": "shield_soldier/shield_soldier_actual_prompts.txt",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "color_mode": "RGBA",
+      "alpha_range": [
+        0,
+        254
+      ],
+      "transparent_pixel_count": 765643,
+      "sha256": "1339c65fa163550b306b4d70fc77891ed5dbd6cf8fae3904abc1adbd518c5760",
+      "library_image_id": "libfile_d43631c9865881918a39d63dfd141ce2",
+      "library_prompt_id": "libfile_f580c962473881918f76ab34f85de010",
+      "source_image": "shield_soldier/shield_soldier.png"
+    },
+    {
+      "order": 3,
+      "enemy_id": "fire_spirit",
+      "display_name": "纸妖·炎灵",
+      "direction": "right",
+      "image": "fire_spirit.png",
+      "actual_prompt": "fire_spirit/fire_spirit_full_prompts.txt",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "color_mode": "RGBA",
+      "alpha_range": [
+        0,
+        254
+      ],
+      "transparent_pixel_count": 900658,
+      "sha256": "18d735e30df7a86eead3a8f5b2127fac78a505963ec563105d511b12e01ccc7b",
+      "library_image_id": "libfile_9252870e6ef081919e12f69098b9037c",
+      "library_prompt_id": "libfile_21bdae4c534881919dfb70e3ca8326f5",
+      "source_image": "fire_spirit/fire_spirit_right.png"
+    },
+    {
+      "order": 4,
+      "enemy_id": "cultist",
+      "display_name": "纸妖·咒术",
+      "direction": "right",
+      "image": "cultist.png",
+      "actual_prompt": "cultist/cultist_full_prompts.txt",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "color_mode": "RGBA",
+      "alpha_range": [
+        0,
+        254
+      ],
+      "transparent_pixel_count": 909218,
+      "sha256": "e385bbac0b89cc43dda769a61744cf81028f9fcc0b9ebb9fe641ff0677eb67c5",
+      "library_image_id": "libfile_69a09d3107c48191855313f203080926",
+      "library_prompt_id": "libfile_48f75329e9848191a23f9124357d0b30",
+      "source_image": "cultist/cultist_right.png"
+    },
+    {
+      "order": 5,
+      "enemy_id": "elite_shield_soldier",
+      "display_name": "纸妖·精锐守盾",
+      "direction": "right",
+      "image": "elite_shield_soldier.png",
+      "actual_prompt": "elite_shield_soldier/elite_shield_soldier_actual_prompts.txt",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "color_mode": "RGBA",
+      "alpha_range": [
+        0,
+        254
+      ],
+      "transparent_pixel_count": 705676,
+      "sha256": "7ab602d1a2122e661bef2101cba2025c9711017861a53e5fa967f83dd217d1b2",
+      "library_image_id": "libfile_00b485f5977c819195395e636c2173fa",
+      "library_prompt_id": "libfile_82c049707c588191bd2c843897fefdf7",
+      "source_image": "elite_shield_soldier/elite_shield_soldier.png"
+    },
+    {
+      "order": 6,
+      "enemy_id": "gatekeeper",
+      "display_name": "棺守",
+      "direction": "right",
+      "image": "gatekeeper.png",
+      "actual_prompt": "gatekeeper/棺守_实际生成提示词.txt",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "color_mode": "RGBA",
+      "alpha_range": [
+        0,
+        254
+      ],
+      "transparent_pixel_count": 695720,
+      "sha256": "3319142b7b7b827890752261b8b50caa901fa0e9b19b658622dbc3fbdcacae12",
+      "library_image_id": "libfile_931fa26bd0088191b4269a9b03b58398",
+      "library_prompt_id": "libfile_6061068d4f3c81919832a13797731be0",
+      "source_image": "gatekeeper/棺守_右向.png"
+    }
+  ]
+}
