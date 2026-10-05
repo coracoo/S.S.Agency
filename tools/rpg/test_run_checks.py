@@ -34,6 +34,23 @@ class IsolationRunnerTests(unittest.TestCase):
                                      "--godot", str(engine)], text=True, capture_output=True)
             return result, log.read_text().splitlines() if log.exists() else []
 
+    def test_item_effectiveness_runs_in_engine_and_all(self):
+        for suite in ("engine", "all"):
+            with self.subTest(suite=suite):
+                result, calls = self.run_fake_engine(
+                    "if is_preflight: print('RPG_ISOLATION_OK:' + os.environ['XDG_DATA_HOME'] + '/user')\n"
+                    "else: print('PASS: step')\n", ["--suite", suite])
+                self.assertEqual(result.returncode, 0)
+                self.assertEqual(sum('test_item_effectiveness.gd' in call for call in calls), 1)
+
+    def test_item_effectiveness_error_fails_standard_runner(self):
+        result, calls = self.run_fake_engine(
+            "if is_preflight: print('RPG_ISOLATION_OK:' + os.environ['XDG_DATA_HOME'] + '/user')\n"
+            "elif any('test_item_effectiveness.gd' in a for a in sys.argv): print('SCRIPT ERROR: item failure')\n"
+            "else: print('PASS: step')\n", ["--suite", "engine"])
+        self.assertEqual(result.returncode, 1)
+        self.assertTrue(any('test_item_effectiveness.gd' in call for call in calls))
+
     def test_visual_rejects_unverified_user_directory(self):
         result, calls = self.run_fake_engine("print('RPG_ISOLATION_OK:/tmp/outside')\n", ["--suite", "approach", "--approach-visual", "--output-dir", "/tmp/approach-visual-contract"])
         self.assertEqual(result.returncode, 1)
