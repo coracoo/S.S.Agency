@@ -66,14 +66,15 @@ func _build() -> void:
 	_canvas = Control.new()
 	_canvas.size = Vector2(1920, 1080)
 	_root.add_child(_canvas)
-	Art.panel(_canvas, Rect2(288, 150, 1344, 780))
-	_hud.heading = Kit.label(_canvas, "夜巡整备", Rect2(322, 169, 335, 62), 34)
+	Art.panel(_canvas, Rect2(288, 130, 1344, 820))
+	_hud.heading = Kit.label(_canvas, "夜巡整备", Rect2(322, 167, 335, 72), 34)
 	_hud.heading.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_hud.heading.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	for index in 3:
 		var page: String = ["party", "inventory", "equipment"][index]
-		_tabs[page] = Art.button(_canvas, ["队伍", "行囊", "武具"][index], Rect2(716 + index * 188, 175, 178, 58), show_page.bind(page))
-	_hud.close = Art.button(_canvas, "返回探索", Rect2(1392, 175, 204, 58), close_panel)
-	_hud.count = Kit.muted(Kit.label(_canvas, "", Rect2(322, 237, 1280, 35), 21))
+		_tabs[page] = Art.button(_canvas, ["队伍", "行囊", "武具"][index], Rect2(716 + index * 188, 167, 178, 72), show_page.bind(page))
+	_hud.close = Art.button(_canvas, "返回探索", Rect2(1392, 167, 204, 72), close_panel)
+	_hud.count = Kit.muted(Kit.label(_canvas, "", Rect2(322, 243, 1280, 35), 21))
 	for page in ["menu", "party", "inventory", "equipment"]:
 		var node := Control.new()
 		node.name = "Page_" + page
@@ -88,24 +89,26 @@ func _build() -> void:
 	_hud.roster_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	for index in CLASSES.size():
 		var actor_id := "p_" + CLASSES[index]
-		var y := 337 + index * 84
-		var row := Art.button(_roster_panel, "", Rect2(334, y, 324, 76), select_actor.bind(actor_id))
+		var y := 327 + index * 86
+		var row := Art.button(_roster_panel, "", Rect2(334, y, 324, 84), select_actor.bind(actor_id))
 		Art.center_text(row, 12, 228)
 		row.add_theme_font_size_override("font_size", 20)
-		_rows[actor_id] = {"detail": row, "toggle": Art.button(_pages.party, "", Rect2(700, y, 196, 68), toggle_member.bind(actor_id))}
+		_rows[actor_id] = {"detail": row, "toggle": Art.button(_pages.party, "", Rect2(700, y + 6, 196, 72), toggle_member.bind(actor_id))}
 		row.add_theme_font_size_override("font_size", 22)
-		Kit.label(_roster_panel, "HP", Rect2(435, y + 10, 32, 25), 18)
+		Kit.label(_roster_panel, "HP", Rect2(435, y + 20, 32, 25), 18)
 		Kit.label(_roster_panel, "MP", Rect2(435, y + 40, 32, 25), 18)
-		_rows[actor_id].hpbar = Art.gauge(_roster_panel, "hp", Rect2(469, y + 16, 80, 14))
-		_rows[actor_id].mpbar = Art.gauge(_roster_panel, "mp", Rect2(469, y + 46, 80, 14))
-		_rows[actor_id].hp = Kit.label(_roster_panel, "", Rect2(557, y + 10, 90, 25), 18)
+		_rows[actor_id].hpbar = Art.gauge(_roster_panel, "hp", Rect2(469, y + 25, 80, 14))
+		_rows[actor_id].mpbar = Art.gauge(_roster_panel, "mp", Rect2(469, y + 45, 80, 14))
+		_rows[actor_id].hp = Kit.label(_roster_panel, "", Rect2(557, y + 20, 90, 25), 18)
 		_rows[actor_id].mp = Kit.label(_roster_panel, "", Rect2(557, y + 40, 90, 25), 18)
 	_build_party()
 	_build_inventory()
 	_build_equipment()
 	_build_menu()
-	_hud.back = Art.button(_canvas, "返回菜单 [Esc]", Rect2(1392, 870, 204, 40), back)
+	_hud.back = Art.button(_canvas, "返回菜单 [Esc]", Rect2(1392, 862, 204, 68), back)
 	_hud.back.add_theme_font_size_override("font_size", 19)
+	_hud.back.custom_minimum_size.y = 68
+	_hud.back.size.y = 68
 	_hud.error = Kit.label(_canvas, "", Rect2(324, 870, 1040, 42), 20)
 	_hud.error.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	if is_inside_tree():
@@ -120,14 +123,14 @@ func _build_party() -> void:
 	for index in 4: _skills.append(Kit.label(page, "", Rect2(940, 439 + index * 42, 638, 39), 19))
 	for index in 3:
 		var branch: String = ["", "economy", "power"][index]
-		_branches[branch] = Art.button(page, "", Rect2(940 + index * 150, 626, 142, 44), preview_branch.bind(branch))
+		_branches[branch] = Art.button(page, "", Rect2(940 + index * 150, 610, 142, 72), preview_branch.bind(branch))
 		_branches[branch].add_theme_font_size_override("font_size", 20)
-	_hud.branch_apply = Art.button(page, "应用分支", Rect2(1398, 626, 178, 44), apply_branch)
+	_hud.branch_apply = Art.button(page, "应用分支", Rect2(1398, 610, 178, 72), apply_branch)
 	_hud.branch_apply.add_theme_font_size_override("font_size", 20)
-	_hud.branch_preview = Kit.scroll_text(page, Rect2(942, 690, 630, 78), 20)
-	_hud.form = Art.button(page, "", Rect2(940, 790, 290, 48), toggle_form)
+	_hud.branch_preview = Kit.scroll_text(page, Rect2(942, 694, 630, 62), 20)
+	_hud.form = Art.button(page, "", Rect2(940, 768, 290, 72), toggle_form)
 	_hud.form.add_theme_font_size_override("font_size", 20)
-	_hud.apply = Art.button(page, "保存三人编队", Rect2(1250, 790, 326, 48), apply_party, true)
+	_hud.apply = Art.button(page, "保存三人编队", Rect2(1250, 768, 326, 72), apply_party, true)
 func _build_inventory() -> void:
 	var page: Control = _pages.inventory
 	Art.panel(page, Rect2(688, 277, 374, 582), true)
@@ -149,7 +152,7 @@ func _build_inventory() -> void:
 	_hud.item_target = Kit.label(page, "", Rect2(1104, 501, 468, 145), 25)
 	_hud.item_reason = Kit.label(page, "", Rect2(1104, 665, 466, 75), 21)
 	_hud.item_reason.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_hud.item_use = Art.button(page, "使用道具", Rect2(1110, 780, 456, 60), confirm_item, true)
+	_hud.item_use = Art.button(page, "使用道具", Rect2(1110, 772, 456, 72), confirm_item, true)
 func _build_equipment() -> void:
 	var page: Control = _pages.equipment
 	Art.panel(page, Rect2(688, 277, 374, 582), true)
@@ -157,10 +160,10 @@ func _build_equipment() -> void:
 	Kit.label(page, "装备槽位", Rect2(710, 290, 330, 40), 25).horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	for index in 3:
 		var slot: String = ["weapon", "armor", "accessory"][index]
-		_equipment[slot] = Art.button(page, "", Rect2(708, 347 + index * 87, 334, 75), select_slot.bind(slot))
+		_equipment[slot] = Art.button(page, "", Rect2(708, 347 + index * 92, 334, 88), select_slot.bind(slot))
 		_equipment[slot].add_theme_font_size_override("font_size", 21)
 		Art.center_text(_equipment[slot], 86, 20)
-		Art.icon(page, slot, Rect2(719, 355 + index * 87, 59, 59))
+		Art.icon(page, slot, Rect2(732, 369 + index * 92, 44, 44))
 	Kit.muted(Kit.label(page, "本槽装备 · 现有标准配装", Rect2(710, 624, 328, 40), 20))
 	_hud.equip_standard = Art.button(page, "", Rect2(708, 680, 334, 64), select_standard_equipment)
 	_hud.equip_empty = Art.button(page, "卸下此槽装备", Rect2(708, 763, 334, 64), select_equipment.bind("", ""))
@@ -170,7 +173,7 @@ func _build_equipment() -> void:
 	_hud.equipment_stats = Kit.label(page, "", Rect2(1110, 404, 448, 294), 24)
 	_hud.equipment_note = Kit.label(page, "", Rect2(1108, 711, 458, 60), 20)
 	_hud.equipment_note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_hud.equipment_apply = Art.button(page, "确认更换", Rect2(1110, 790, 456, 50), confirm_equipment, true)
+	_hud.equipment_apply = Art.button(page, "确认更换", Rect2(1110, 772, 456, 72), confirm_equipment, true)
 func _build_menu() -> void:
 	var page: Control = _pages.menu
 	Art.panel(page, Rect2(324, 280, 620, 578), true)
@@ -181,10 +184,10 @@ func _build_menu() -> void:
 	for index in actions.size():
 		Art.button(page, actions[index][0], Rect2(982, 298 + index * 81, 576, 66), show_page.bind(actions[index][1]))
 	_hud.rest = Art.button(page, "休息 · 全员恢复", Rect2(982, 541, 576, 60), rest_party)
-	_hud.save = Art.button(page, "保存当前位置", Rect2(982, 613, 280, 60), _emit_menu.bind("save"))
-	_hud.depth = Art.button(page, "景深", Rect2(1278, 613, 280, 60), _emit_menu.bind("depth"))
-	Art.button(page, "返回标题", Rect2(982, 690, 576, 60), _emit_menu.bind("title"))
-	Art.button(page, "继续探索", Rect2(982, 774, 576, 64), close_panel, true)
+	_hud.save = Art.button(page, "保存当前位置", Rect2(982, 622, 280, 72), _emit_menu.bind("save"))
+	_hud.depth = Art.button(page, "景深", Rect2(1278, 622, 280, 72), _emit_menu.bind("depth"))
+	Art.button(page, "返回标题", Rect2(982, 703, 576, 72), _emit_menu.bind("title"))
+	Art.button(page, "继续探索", Rect2(982, 784, 576, 72), close_panel, true)
 func show_page(page: String) -> void:
 	if busy or not _pages.has(page): return
 	current_page = page
@@ -311,7 +314,7 @@ func _render() -> void:
 	for id in _rows:
 		var row: Dictionary = _rows[id]
 		var entry: Dictionary = state.roster[id]
-		row.detail.text = "%s\n%s" % [actor_name(entry), "出战" if state.party.has(id) else "待命"]
+		row.detail.text = actor_name(entry)
 		row.hpbar.max_value = entry.stats.hp
 		row.hpbar.value = entry.hp
 		row.mpbar.max_value = maxi(1, entry.stats.mp)

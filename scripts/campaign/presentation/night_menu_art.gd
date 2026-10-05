@@ -43,7 +43,7 @@ static func button(parent: Node, text: String, rect: Rect2, action: Callable = C
 	var node := Button.new()
 	node.position = rect.position
 	node.size = rect.size
-	node.custom_minimum_size.y = 52
+	node.custom_minimum_size.y = 72
 	node.text = text
 	node.alignment = HORIZONTAL_ALIGNMENT_CENTER
 	node.clip_text = true
@@ -73,12 +73,12 @@ static func selected(node: Button, value: bool) -> void:
 	node.add_theme_stylebox_override("hover", style(base, 24, Color(1.15,1.12,1.05)))
 	_apply_text_padding(node)
 # 文字在自己的可读区域居中；图标、血蓝条和数值继续各用独立列。
-static func center_text(node: Button, left: float = 12.0, right: float = 12.0, vertical: float = 6.0) -> void:
+static func center_text(node: Button, left: float = 24.0, right: float = 24.0, vertical: float = 20.0) -> void:
 	node.alignment = HORIZONTAL_ALIGNMENT_CENTER
 	node.set_meta("art_text_padding", Vector3(left, right, vertical))
 	_apply_text_padding(node)
 static func _apply_text_padding(node: Button) -> void:
-	var padding: Vector3 = node.get_meta("art_text_padding", Vector3(12, 12, 6))
+	var padding: Vector3 = node.get_meta("art_text_padding", Vector3(24, 24, 20))
 	for state in ["normal", "hover", "pressed", "disabled", "focus"]:
 		var value: StyleBox = node.get_theme_stylebox(state).duplicate()
 		value.content_margin_left = padding.x

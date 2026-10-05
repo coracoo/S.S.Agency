@@ -46,7 +46,40 @@ func _run() -> void:
 			await RenderingServer.frame_post_draw
 			var filename := "%s_%dx%d.png" % [page, size.x, size.y]
 			if root.get_texture().get_image().save_png(output.path_join(filename)) != OK: quit(1); return
+			await _capture_text_mask(panel, filename)
 	print("MENU_CAPTURE: 12 screenshots")
 	stage.free()
 	session.close()
 	quit(0)
+
+# 成对实拍隔离实际字形像素：只临时隐藏字体/文字节点，不改变控件尺寸或皮肤。
+func _capture_text_mask(panel, filename: String) -> void:
+	var backups: Array[Dictionary] = []
+	var buttons: Array[Dictionary] = []
+	var pending: Array[Node] = [panel._canvas]
+	while not pending.is_empty():
+		var node: Node = pending.pop_back()
+		pending.append_array(node.get_children())
+		if not node is Control or not node.is_visible_in_tree(): continue
+		if node is Button:
+			var rect: Rect2 = node.get_global_rect()
+			buttons.append({"text": node.text, "rect": [rect.position.x, rect.position.y, rect.size.x, rect.size.y]})
+			var colors: Dictionary = {}
+			for key in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color", "font_disabled_color", "font_outline_color", "font_shadow_color"]:
+				colors[key] = node.get_theme_color(key)
+				node.add_theme_color_override(key, Color.TRANSPARENT)
+			backups.append({"node": node, "colors": colors})
+		elif node is Label or node is RichTextLabel:
+			backups.append({"node": node, "modulate": node.self_modulate})
+			node.self_modulate = Color(1, 1, 1, 0)
+	for frame in 2: await process_frame
+	await RenderingServer.frame_post_draw
+	root.get_texture().get_image().save_png(output.path_join(filename.trim_suffix(".png") + "_notext.png"))
+	var file := FileAccess.open(output.path_join(filename.trim_suffix(".png") + "_text_bounds.json"), FileAccess.WRITE)
+	file.store_string(JSON.stringify({"image": filename, "scale": panel._canvas.scale.y, "buttons": buttons}, "\t"))
+	file.close()
+	for saved in backups:
+		if saved.has("colors"):
+			for key in saved.colors: saved.node.add_theme_color_override(key, saved.colors[key])
+		else: saved.node.self_modulate = saved.modulate
+	await process_frame

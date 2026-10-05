@@ -19,7 +19,9 @@ func _run() -> void:
 	var panel = Party.new()
 	root.add_child(panel)
 	panel.open(session)
+	await process_frame
 	_text_alignment(panel)
+	_text_safe_interiors(panel)
 	for id in panel._rows:
 		check(panel._rows[id].has("hpbar") and panel._rows[id].has("mpbar"), "生图HP/MP条用于每个队员：" + id)
 	check(panel.has_method("show_page"), "有队伍、行囊、武具三个独立页面")
@@ -140,7 +142,7 @@ func _mouse_keyboard(panel, session) -> void:
 	check(panel.current_page == "menu", "真实鼠标返回菜单")
 
 func _text_alignment(panel) -> void:
-	check(panel._hud.back.get_combined_minimum_size().y >= 52, "窄按钮保持足够厚度，文字不压住生图内边框")
+	check(panel._hud.back.get_combined_minimum_size().y >= 68, "窄按钮保持足够厚度，文字不压住生图内边框")
 	for id in panel._rows:
 		var button: Button = panel._rows[id].detail
 		check(button.alignment == HORIZONTAL_ALIGNMENT_CENTER, "队员姓名在独立姓名列中居中：" + id)
@@ -153,5 +155,27 @@ func _text_alignment(panel) -> void:
 		for state in ["normal", "hover", "pressed", "disabled", "focus"]:
 			var style: StyleBox = button.get_theme_stylebox(state)
 			check(style.get_content_margin(SIDE_LEFT) >= 82, "居中文字避开图标：" + state)
-			check(style.get_content_margin(SIDE_TOP) == style.get_content_margin(SIDE_BOTTOM) and style.get_content_margin(SIDE_TOP) <= 8, "按钮上下内边距均衡：" + state)
+			check(style.get_content_margin(SIDE_TOP) == style.get_content_margin(SIDE_BOTTOM) and style.get_content_margin(SIDE_TOP) >= 20, "按钮上下内边距均衡：" + state)
 	for button in panel._tabs.values(): check(button.alignment == HORIZONTAL_ALIGNMENT_CENTER, "页签文字保持中心对齐")
+
+func _text_safe_interiors(panel) -> void:
+	check(panel._hud.branch_preview.get_content_height() <= panel._hud.branch_preview.size.y, "默认分支两行说明完整显示，不截半行")
+	var nodes: Array[Node] = [panel._canvas]
+	while not nodes.is_empty():
+		var node: Node = nodes.pop_back()
+		nodes.append_array(node.get_children())
+		if not node is Button or node.text.is_empty(): continue
+		var font: Font = node.get_theme_font("font")
+		var font_size: int = node.get_theme_font_size("font_size")
+		var measured: Vector2 = font.get_multiline_string_size(node.text, HORIZONTAL_ALIGNMENT_CENTER, -1, font_size)
+		# 铜框及斜切角在控件矩形内占20px；不能把透明边缘也算作文字留白。
+		check(node.size.y - measured.y >= 40, "完整字行高度必须落在上下各20px的安全内框：" + node.text)
+	for id in panel._rows:
+		check(not panel._rows[id].detail.text.contains("\n"), "角色姓名不挤双行，出战状态由编队控件显示")
+		check(panel._rows[id].detail.size.y >= 84, "角色卡给两行资源保留足够内框高度")
+
+	for child in panel._pages.equipment.get_children():
+		if not child is TextureRect: continue
+		for button in panel._equipment.values():
+			if button.get_rect().encloses(child.get_rect()):
+				check(button.get_rect().grow(-20).encloses(child.get_rect()), "装备图标也必须在金属框内留白")
