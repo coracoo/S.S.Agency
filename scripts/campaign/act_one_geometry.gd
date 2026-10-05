@@ -17,6 +17,7 @@ const MIRROR := preload("res://assets/3d/night04_mirror/night04_mirror.glb")
 const HONDEN := preload("res://assets/3d/night05_honden/night05_honden.glb")
 const OLD_GEOMETRY := preload("res://scripts/campaign/chapter_geometry.gd")
 const LAYOUT := preload("res://scripts/campaign/act_one_layout.gd")
+const SKY_WALL_SHADER := preload("res://scripts/campaign/sky_wall.gdshader")
 const FLOOR := LAYOUT.TEMPLE_HEIGHT
 var _walk_rects: Array[Rect2] = []
 const ROOM_RECTS := [Rect2(17.9,-10.25,14.2,6.3),Rect2(37.2,1.1,11.6,5.8),Rect2(37.2,-15.85,11.6,5.7),Rect2(55.2,-7.85,11.6,5.7)]
@@ -42,6 +43,7 @@ func _construct() -> void:
 	_make_materials()
 	_make_source_library()
 	_environment()
+	_distant_silhouette()
 	_approach()
 	_courtyards()
 	_landscape()
@@ -75,8 +77,8 @@ func _environment() -> void:
 	var environment := Environment.new()
 	environment.background_mode = Environment.BG_COLOR; environment.background_color = Color("172438")
 	environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-	environment.ambient_light_color = Color("9baac3"); environment.ambient_light_energy = .25
-	environment.fog_enabled = true; environment.fog_light_color = Color("293b50"); environment.fog_density = .0035
+	environment.ambient_light_color = Color("9baac3"); environment.ambient_light_energy = .36
+	environment.fog_enabled = true; environment.fog_light_color = Color("2c3f58"); environment.fog_density = .0045
 	node.environment = environment; add_child(node)
 	var key := DirectionalLight3D.new(); key.name = "ActOneMoonKey"
 	key.rotation_degrees = Vector3(-46,-28,0); key.light_color = Color("c7c5cf"); key.light_energy = .42
@@ -90,6 +92,33 @@ func _environment() -> void:
 	# 原美术使用双面材质；实景A/B确认反向剔面去除岩石与瓦顶自阴影细纹。
 	key.shadow_reverse_cull_face = true
 	add_child(key)
+	# 冷色环境补光：从月光反方向抬暗部（树冠背光面/土坡），无阴影纯提亮，避免死黑。
+	var fill := DirectionalLight3D.new(); fill.name = "ActOneSkyFill"
+	fill.rotation_degrees = Vector3(-58,152,0); fill.light_color = Color("6f7fa0"); fill.light_energy = .32
+	fill.shadow_enabled = false
+	add_child(fill)
+
+## 正交下视相机的"天空"是投影出来的：俯角 + z≈-18 树墙/土坡把北侧远景全部封死
+## （红色诊断证明 z=-50 的远山在任何玩法机位都不可见，"死黑带"其实是没被照到的前景树冠），
+## 高远物体（月亮、高山）做不出来。本函数只保留天幕墙：
+## z=-58 垂直渐变（下深藏青 → 上浅灰蓝），吃掉地图边缘与树缝间落在背景色上的死黑。
+func _distant_silhouette() -> void:
+	var root := Node3D.new(); root.name = "DistantSilhouette"; add_child(root)
+	_sky_wall(root)
+
+## 大 Quad 天幕：world_y 垂直渐变，unshaded 不吃光照与雾，尺寸远大于所有机位画框。
+func _sky_wall(parent: Node3D) -> void:
+	var quad := QuadMesh.new(); quad.size = Vector2(340.0, 70.0)
+	var instance := MeshInstance3D.new()
+	instance.name = "NightSkyWall"
+	instance.mesh = quad
+	instance.position = Vector3(30.0, -19.0, -58.0)
+	var material := ShaderMaterial.new()
+	material.shader = SKY_WALL_SHADER
+	material.set_shader_parameter("top_color", Color("2e4266"))
+	material.set_shader_parameter("bottom_color", Color("0e1728"))
+	instance.material_override = material
+	parent.add_child(instance)
 
 func _approach() -> void:
 	var art := _chunk("ApproachArt",Vector2(0,0),30)
