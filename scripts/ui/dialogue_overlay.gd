@@ -39,6 +39,7 @@ var _current_choices: Array = []
 # 屏幕固定布局（令牌 canvas 基准 1920×1080）
 var _portraits: Dictionary = {} # side -> {ctrl, tex, name}
 var _name_label: Label = null
+var _name_rule: ColorRect = null
 var _panel: Panel = null
 var _text_label: Label = null
 var _hint_label: Label = null
@@ -99,6 +100,13 @@ func _build_layout() -> void:
 	_name_label.size = Vector2(980, 40)
 	_name_label.add_theme_color_override("font_color", Color("e2c99b"))
 	_panel.add_child(_name_label)
+	# 名牌与正文之间的暗金分隔线，宽度随面板自适应（_layout 同步）。
+	_name_rule = ColorRect.new()
+	_name_rule.color = Color("e2c99b", 0.38)
+	_name_rule.position = Vector2(56, 90)
+	_name_rule.size = Vector2(1424, 2)
+	_name_rule.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_panel.add_child(_name_rule)
 	_text_label = _mk_label(Vector2(56, 104), 28, "ui_text")
 	_text_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_text_label.add_theme_constant_override("line_spacing", 8)
@@ -120,6 +128,7 @@ func _layout() -> void:
 	_root.size = get_viewport().get_visible_rect().size
 	var width := minf(1536, _root.size.x - 112)
 	_text_label.size.x = width - 112
+	_name_rule.size.x = width - 112
 	var text_height := maxf(112, _wrapped_height(_text_label, _text_label.size.x))
 	_text_label.size.y = text_height
 	_panel.size = Vector2(width, text_height + 180)
