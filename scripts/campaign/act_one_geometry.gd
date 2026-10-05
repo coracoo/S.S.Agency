@@ -18,6 +18,8 @@ const HONDEN := preload("res://assets/3d/night05_honden/night05_honden.glb")
 const OLD_GEOMETRY := preload("res://scripts/campaign/chapter_geometry.gd")
 const LAYOUT := preload("res://scripts/campaign/act_one_layout.gd")
 const SKY_WALL_SHADER := preload("res://scripts/campaign/sky_wall.gdshader")
+const LEAF_PILE_SHADER := preload("res://scripts/campaign/leaf_pile.gdshader")
+const WEATHER := preload("res://scripts/campaign/act_one_weather.gd")
 const FLOOR := LAYOUT.TEMPLE_HEIGHT
 var _walk_rects: Array[Rect2] = []
 const ROOM_RECTS := [Rect2(17.9,-10.25,14.2,6.3),Rect2(37.2,1.1,11.6,5.8),Rect2(37.2,-15.85,11.6,5.7),Rect2(55.2,-7.85,11.6,5.7)]
@@ -30,6 +32,7 @@ var _source_leaves: Array[Dictionary] = []
 var _atmosphere_materials: Dictionary = {}
 var _tree_occluders: Array[Dictionary] = []
 var _earth_material: StandardMaterial3D
+var _weather: Node3D
 
 static func build(_config: Dictionary) -> Node3D:
 	var world := new()
@@ -51,6 +54,9 @@ func _construct() -> void:
 	_perimeter()
 	_configure_shadow_receivers()
 	_embellish_washi_materials()
+	_dressing()
+	_weather = WEATHER.build(FLOOR)
+	add_child(_weather)
 	update_visibility(Vector3(8.5,FLOOR,0))
 
 ## 导入材质点缀：GLB 共享导入资源统一逐实例 override（不改导入源），同源缓存去重。
@@ -111,6 +117,60 @@ func update_visibility(position: Vector3, delta: float = 1.0/60.0, camera: Camer
 		# 只裁美术与该区灯光，不销毁物理，不导致跨区换场。
 		entry.node.visible = Vector2(position.x,position.z).distance_to(entry.center) < float(entry.radius)
 	update_tree_occlusion(position,delta,camera)
+	if is_instance_valid(_weather): _weather.update(position,delta)
+
+## 庭院细节点缀：石灯（一盏微光一盏熄）、苔藓石组、落叶堆。
+# 全部纯视觉无碰撞，贴着各区 walk rect 边缘放，不挡主路。
+func _dressing() -> void:
+	var art := _chunk("CourtyardDressing",Vector2(32,-4),40)
+	_stone_lantern(art,Vector3(12.3,FLOOR,-4.1),true)
+	_stone_lantern(art,Vector3(26.4,FLOOR,4.6),false)
+	_stone_lantern(art,Vector3(30.6,FLOOR,-8.9),true)
+	_stone_lantern(art,Vector3(53.9,FLOOR,-.4),false)
+	_place_stone(art,11,Vector3(54.6,FLOOR-.05,-8.9),.42,.05)
+	_place_stone(art,23,Vector3(55.3,FLOOR-.08,-8.2),.30,.08)
+	_leaf_pile(art,Vector3(34.0,FLOOR+.012,-8.9),1.1)
+	_leaf_pile(art,Vector3(49.0,FLOOR+.012,-8.8),.9)
+	_leaf_pile(art,Vector3(31.6,FLOOR+.012,-.7),.8)
+	_leaf_pile(art,Vector3(13.4,FLOOR+.012,4.8),1.0)
+	_leaf_pile(art,Vector3(64.6,FLOOR+.012,-3.4),.9)
+
+## 石质灯笼：方柱+发光灯室（微暖自发光，不加点光源控成本）+ 切角石盖。
+func _stone_lantern(parent: Node3D, at: Vector3, lit: bool) -> void:
+	var lantern := Node3D.new(); lantern.name = "StoneLantern"; lantern.position = at
+	parent.add_child(lantern)
+	_visual_box(lantern,"Base",Vector3(0,.12,0),Vector3(.56,.24,.56),"stone")
+	_visual_box(lantern,"Pillar",Vector3(0,.62,0),Vector3(.22,.76,.22),"stone")
+	_visual_box(lantern,"Firebox",Vector3(0,1.18,0),Vector3(.46,.34,.46),"stone")
+	var cap := _visual_box(lantern,"Cap",Vector3(0,1.44,0),Vector3(.72,.16,.72),"stone")
+	cap.rotation.y = PI/4
+	if lit:
+		var glow := StandardMaterial3D.new()
+		glow.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		glow.albedo_color = Color("ffd9a0"); glow.emission_enabled = true
+		glow.emission = Color("ffc784"); glow.emission_energy_multiplier = 1.4
+		for yaw in [0.0,PI/2]:
+			var panel := MeshInstance3D.new(); panel.name = "GlowPanel"
+			var quad := QuadMesh.new(); quad.size = Vector2(.20,.18); quad.material = glow
+			panel.mesh = quad
+			panel.position = Vector3(0,1.18,.235 if yaw == 0.0 else 0.0)
+			panel.rotation.y = yaw
+			if yaw != 0.0: panel.position = Vector3(.235,1.18,0)
+			lantern.add_child(panel)
+
+## 落叶堆：贴地椭圆片，shader 做径向羽化+噪声斑驳，读作堆积落叶而非色块。
+func _leaf_pile(parent: Node3D, at: Vector3, radius: float) -> void:
+	var material := ShaderMaterial.new()
+	material.shader = LEAF_PILE_SHADER
+	var pile := MeshInstance3D.new(); pile.name = "LeafPile"
+	var quad := QuadMesh.new(); quad.size = Vector2(2.0,2.0)
+	pile.mesh = quad
+	pile.material_override = material
+	pile.position = at
+	pile.rotation.x = -PI/2
+	pile.rotation.z = randf() * TAU
+	pile.scale = Vector3(radius,radius * (.72 + randf() * .3),1.0)
+	parent.add_child(pile)
 
 func _chunk(name_value: String, center: Vector2, radius: float = 29.0) -> Node3D:
 	var node := Node3D.new(); node.name = name_value; add_child(node)
