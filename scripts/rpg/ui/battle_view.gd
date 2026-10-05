@@ -278,8 +278,10 @@ func _build() -> void:
 	_hud.cancel = _art_button(_canvas, "取消选择", Rect2(1656, 856, 208, 92), cancel_command)
 	_hud.confirm = _art_button(_canvas, "确认行动", Rect2(1656, 952, 208, 92), confirm_command, true)
 	_preview_panel = Art.panel(_canvas, Rect2(60 if _config.near_side == "left" else 956, 594, 932, 160))
-	_hud.preview_title = Kit.label(_preview_panel, "行动预览", Rect2(40, 28, 852, 30), 23)
-	_hud.preview = Kit.scroll_text(_preview_panel, Rect2(40, 74, 852, 56), 22)
+	_hud.preview_title = Kit.label(_preview_panel, "", Rect2(40, 22, 560, 38), 26)
+	_hud.preview_cost = Kit.muted(Kit.label(_preview_panel, "", Rect2(600, 30, 292, 28), 20))
+	_hud.preview_cost.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	_hud.preview = Kit.scroll_text(_preview_panel, Rect2(40, 66, 852, 84), 20)
 	_popup_shade = ColorRect.new()
 	_popup_shade.size = Vector2(1920, 1080)
 	_popup_shade.color = Color(0.01, 0.018, 0.026, 0.7)
@@ -295,7 +297,7 @@ func _build() -> void:
 		var item: Dictionary = _catalog.get_definition("items", id)
 		var button := _art_button(_items, item.name, Rect2(32, 124 + index * 96, 804, 92), select_command.bind("item", id))
 		button.add_theme_font_size_override("font_size", 21)
-		Art.center_text(button, 100, 34, 28)
+		Art.left_text(button, 100, 40, 28)
 		Art.icon(button, id, Rect2(32, 24, 44, 44))
 		_hud["item_" + id] = button
 	_items.visible = false
@@ -602,13 +604,16 @@ func _render() -> void:
 	_hud.prompt.text = last_error if not last_error.is_empty() else (selection_prompt + " · Esc 可取消" if not pending_command.is_empty() else "选择技能 → 点击目标 → 确认　／　Esc 取消选择")
 	_preview_panel.visible = not pending_command.is_empty()
 	if _preview_panel.visible:
-		_hud.preview_title.text = "%s　MP %d　道具 %d" % [Presenter.ability_name(pending_command.ability_id if not pending_command.ability_id.is_empty() else pending_command.kind, _catalog), preview.mp_cost, preview.item_cost]
+		_hud.preview_title.text = Presenter.ability_name(pending_command.ability_id if not pending_command.ability_id.is_empty() else pending_command.kind, _catalog)
+		var cost_parts: Array[String] = ["MP %d" % preview.mp_cost]
+		if int(preview.get("cooldown", 0)) > 0: cost_parts.append("CD %d" % preview.cooldown)
+		if preview.item_cost > 0: cost_parts.append("道具 %d" % preview.item_cost)
+		_hud.preview_cost.text = " · ".join(cost_parts)
 		var detail_lines: Array[String] = []
 		if pending_command.kind == "skill":
 			for slot in model.commands.skills:
 				if slot.id == pending_command.ability_id:
-					detail_lines.append(Presenter.ability_summary(slot, command_options("skill", slot.id).get("preview", {}), _catalog))
-					detail_lines.append(slot.target_label + (" · CD %d" % slot.cooldown if slot.cooldown > 0 else ""))
+					detail_lines.append(Presenter.ability_summary(slot, preview, _catalog) + "　·　" + slot.target_label)
 		detail_lines.append_array(Presenter.preview_lines(preview, state, _catalog))
 		_hud.preview.text = "\n".join(detail_lines)
 	for id in _catalog.get_ids("items"):

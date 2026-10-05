@@ -77,6 +77,11 @@ static func center_text(node: Button, left: float = 24.0, right: float = 24.0, v
 	node.alignment = HORIZONTAL_ALIGNMENT_CENTER
 	node.set_meta("art_text_padding", Vector3(left, right, vertical))
 	_apply_text_padding(node)
+# 文字左对齐（图标在左、名称随后），与 center_text 同一套内边距语义。
+static func left_text(node: Button, left: float = 24.0, right: float = 24.0, vertical: float = 20.0) -> void:
+	node.alignment = HORIZONTAL_ALIGNMENT_LEFT
+	node.set_meta("art_text_padding", Vector3(left, right, vertical))
+	_apply_text_padding(node)
 static func _apply_text_padding(node: Button) -> void:
 	var padding: Vector3 = node.get_meta("art_text_padding", Vector3(24, 24, 20))
 	for state in ["normal", "hover", "pressed", "disabled", "focus"]:
