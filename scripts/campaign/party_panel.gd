@@ -39,6 +39,7 @@ var _tabs: Dictionary = {}
 var _roster_panel: Control
 var _gear_list: Control
 var _gear_options: Dictionary = {}
+var _menu_cards: Array = []
 var _generation := 0
 var _closing := false
 
@@ -190,10 +191,24 @@ func _build_equipment() -> void:
 	_hud.equipment_apply = Art.button(page, "确认更换", Rect2(1100, 798, 480, 56), confirm_equipment, true)
 func _build_menu() -> void:
 	var page: Control = _pages.menu
-	Art.panel(page, Rect2(324, 280, 620, 578), true)
-	Kit.label(page, "今夜同行", Rect2(358, 305, 540, 44), 28).horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_hud.menu_summary = Kit.label(page, "", Rect2(360, 378, 540, 330), 25)
-	Kit.muted(Kit.label(page, "WASD 行走  ·  E 调查  ·  M 地图", Rect2(358, 781, 554, 40), 20))
+	# 左侧：今夜同行三人状态卡（HP/MP 条 + 状态行）；右侧：功能入口列。
+	Art.panel(page, Rect2(324, 277, 620, 582), true)
+	Kit.label(page, "今夜同行", Rect2(358, 294, 552, 44), 28).horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	for index in 3:
+		var y := 352 + index * 146
+		Art.panel(page, Rect2(348, y, 572, 138), true)
+		var card := {}
+		card.name = Kit.label(page, "", Rect2(368, y + 12, 320, 32), 24)
+		card.status = Kit.muted(Kit.label(page, "", Rect2(688, y + 16, 212, 28), 17))
+		card.status.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		Kit.label(page, "HP", Rect2(368, y + 56, 36, 24), 17)
+		Kit.label(page, "MP", Rect2(368, y + 94, 36, 24), 17)
+		card.hpbar = Art.gauge(page, "hp", Rect2(408, y + 58, 300, 16))
+		card.mpbar = Art.gauge(page, "mp", Rect2(408, y + 96, 300, 16))
+		card.hp = Kit.label(page, "", Rect2(718, y + 52, 112, 28), 20)
+		card.mp = Kit.label(page, "", Rect2(718, y + 90, 112, 28), 20)
+		_menu_cards.append(card)
+	Kit.muted(Kit.label(page, "WASD 行走  ·  E 调查  ·  M 地图", Rect2(358, 792, 554, 40), 20))
 	var actions := [["行囊 · 使用道具", "inventory"], ["武具 · 查看与更换", "equipment"], ["队伍 · 编队与形态", "party"]]
 	for index in actions.size():
 		Art.button(page, actions[index][0], Rect2(982, 298 + index * 81, 576, 66), show_page.bind(actions[index][1]))
@@ -366,16 +381,35 @@ func _render() -> void:
 	_hud.branch_preview.text = Presenter.branch_preview(actor, preview_branch_id, _catalog)
 	_render_inventory(state)
 	_render_equipment(actor, editable)
-	var summary := ""
-	for id in state.party:
-		var entry: Dictionary = state.roster[id]
-		summary += "%s　Lv.%d\nHP %d/%d　MP %d/%d\n\n" % [actor_name(entry), entry.level, entry.hp, entry.stats.hp, entry.mp, entry.stats.mp]
-	_hud.menu_summary.text = summary
+	for index in _menu_cards.size():
+		var visible: bool = index < state.party.size()
+		for key in _menu_cards[index]:
+			var node: Control = _menu_cards[index][key]
+			node.visible = visible
+		if not visible: continue
+		var entry: Dictionary = state.roster[state.party[index]]
+		var card: Dictionary = _menu_cards[index]
+		card.name.text = "%s　Lv.%d" % [actor_name(entry), entry.level]
+		card.status.text = _menu_status_line(entry)
+		card.hpbar.max_value = maxi(1, entry.stats.hp)
+		card.hpbar.value = clampi(entry.hp, 0, entry.stats.hp)
+		card.hp.text = "%d/%d" % [maxi(0, entry.hp), entry.stats.hp]
+		card.mpbar.max_value = maxi(1, entry.stats.mp)
+		card.mpbar.value = clampi(entry.mp, 0, entry.stats.mp)
+		card.mp.text = "%d/%d" % [maxi(0, entry.mp), entry.stats.mp]
 	_hud.error.text = "正在加载当前三人资源…" if busy else last_error
 	if not busy and draft_party != state.party:
 		_hud.error.text = "编队草稿未保存：请在队伍页确认；离开会放弃草稿。" + last_error
 func actor_name(actor: Dictionary) -> String:
 	return Presenter.presentation_name(actor, _catalog.get_definition("classes", actor.class_id))
+func _menu_status_line(entry: Dictionary) -> String:
+	if int(entry.get("hp", 0)) <= 0: return "倒地"
+	var parts: Array[String] = []
+	var shield: Dictionary = entry.get("shield", {})
+	if int(shield.get("amount", 0)) > 0: parts.append("护盾%d·%d" % [int(shield.amount), int(shield.get("remaining", 0))])
+	for status in entry.get("statuses", []):
+		parts.append(Presenter.status_summary(status.id, float(status.get("magnitude", 0.0)), status.clock, int(status.get("remaining", 0)), _catalog))
+	return "　".join(parts) if not parts.is_empty() else "状态良好"
 func select_item(item_id: String) -> void:
 	if busy or not _items.has(item_id): return
 	selected_item_id = item_id

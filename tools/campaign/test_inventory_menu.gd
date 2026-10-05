@@ -38,6 +38,11 @@ func _run() -> void:
 	quit(0 if failures.is_empty() else 1)
 func _flows(panel, session) -> void:
 	var before: Dictionary = session.campaign.safe_snapshot()
+	panel.show_page("menu")
+	check(panel._menu_cards.size() == 3, "菜单页有三张队伍状态卡")
+	check(panel._menu_cards[0].name.text.contains("Lv."), "状态卡显示队员等级")
+	check(panel._menu_cards[0].hpbar.max_value >= 1 and panel._menu_cards[0].hpbar.value <= panel._menu_cards[0].hpbar.max_value, "状态卡HP条数值在范围内")
+	check(session.campaign.safe_snapshot() == before, "打开菜单状态卡不写档")
 	panel.show_page("inventory")
 	panel.select_item("healing_potion")
 	panel.select_actor("p_guard")
