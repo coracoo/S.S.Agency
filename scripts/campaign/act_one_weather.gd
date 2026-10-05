@@ -12,27 +12,88 @@ const FALL_SPEED := 14.0
 
 var _rain: MultiMeshInstance3D
 var _leaves: MultiMeshInstance3D
+var _puddles: Array[MeshInstance3D] = []
+var _flash: DirectionalLight3D
 var _wind := Vector3.ZERO
 var _rain_seed: Array[Vector3] = []
 var _leaf_seed: Array[Vector3] = []
 var _time := 0.0
+# 当前档案强度（0~1），由 data/campaign/weather.json 的夜晚调度决定。
+var _rain_level := .45
+var _wind_level := .4
+var _thunder_level := 0.0
+var _thunder_timer := 0.0
+var _flash_power := 0.0
+static var _profiles_cache: Dictionary = {}
 
-static func build(floor_y: float) -> Node3D:
+## 读天气档案表（运行时源，含缓存；读不到时退回小雨默认，绝不致游戏起不来）。
+static func profiles() -> Dictionary:
+	if not _profiles_cache.is_empty(): return _profiles_cache
+	var data = JSON.parse_string(FileAccess.get_file_as_string("res://data/campaign/weather.json"))
+	if data is Dictionary and data.get("profiles") is Dictionary:
+		_profiles_cache = data
+	return _profiles_cache
+
+static func profile_for_night(night_id: int) -> Dictionary:
+	var data := profiles()
+	var nights: Dictionary = data.get("nights", {})
+	var profiles_map: Dictionary = data.get("profiles", {})
+	var name: String = nights.get(str(night_id), "light_rain")
+	if profiles_map.has(name) and profiles_map[name] is Dictionary:
+		return profiles_map[name]
+	return {"rain": .45, "wind": .4, "leaves": true, "puddles": true, "thunder": 0.0}
+
+static func build(floor_y: float, night_id: int = 1) -> Node3D:
 	var weather := new()
 	weather.name = "ActOneWeather"
 	weather._build_rain()
 	weather._build_leaves()
 	weather._build_puddles(floor_y)
+	weather._build_flash()
+	weather.apply_profile(profile_for_night(night_id))
 	return weather
+
+## 按天气档案调度强度：雨量决定可见雨丝数，风力缩放阵风，雷暴开闪电。
+func apply_profile(profile: Dictionary) -> void:
+	_rain_level = clampf(float(profile.get("rain", .45)), 0.0, 1.0)
+	_wind_level = clampf(float(profile.get("wind", .4)), 0.0, 1.0)
+	_thunder_level = clampf(float(profile.get("thunder", 0.0)), 0.0, 1.0)
+	_rain.multimesh.visible_instance_count = int(RAIN_COUNT * _rain_level)
+	_leaves.multimesh.visible_instance_count = LEAF_COUNT if profile.get("leaves", true) else 0
+	for puddle in _puddles: puddle.visible = profile.get("puddles", true)
+	_thunder_timer = randf_range(2.0, 6.0)
+	if _rain_level <= 0.0: _rain.multimesh.visible_instance_count = 0
+
+func _build_flash() -> void:
+	_flash = DirectionalLight3D.new()
+	_flash.name = "ThunderFlash"
+	_flash.rotation_degrees = Vector3(-52,-18,0)
+	_flash.light_color = Color("cfd9ee")
+	_flash.light_energy = 0.0
+	_flash.shadow_enabled = false
+	add_child(_flash)
 
 ## 每帧由 geometry.update_visibility 驱动：anchor=玩家位置，雨盒/叶盒跟随。
 func update(anchor: Vector3, delta: float) -> void:
 	_time += delta
-	# 阵风：两个不同周期正弦叠加 + 基值，xz 方向摆动。
+	# 阵风：两个不同周期正弦叠加 + 基值，xz 方向摆动；风力档案缩放幅度。
 	var gust := sin(_time * .43) * .5 + sin(_time * 1.17) * .22
-	_wind = Vector3(gust * 2.4 + .8, 0.0, sin(_time * .61) * 1.8 - .6)
+	_wind = Vector3(gust * 2.4 + .8, 0.0, sin(_time * .61) * 1.8 - .6) * (.35 + _wind_level)
 	_update_rain(anchor, delta)
 	_update_leaves(anchor, delta)
+	_update_thunder(delta)
+
+func _update_thunder(delta: float) -> void:
+	if _thunder_level <= 0.0:
+		_flash.light_energy = 0.0
+		return
+	_thunder_timer -= delta
+	if _thunder_timer <= 0.0:
+		# 雷暴：3~8 秒一次随机闪电，先亮后衰。
+		_flash_power = 2.4 * _thunder_level
+		_thunder_timer = randf_range(3.0, 8.0)
+	_flash_power = move_toward(_flash_power, 0.0, delta * 9.0)
+	_flash.light_energy = _flash_power
 
 func _build_rain() -> void:
 	var quad := QuadMesh.new()
@@ -138,3 +199,4 @@ func _build_puddles(floor_y: float) -> void:
 		puddle.rotation.x = -PI / 2
 		puddle.scale = Vector3(spot.r, spot.r, 1.0)
 		add_child(puddle)
+		_puddles.append(puddle)

@@ -591,6 +591,10 @@ export const JSON_BOOKS: Record<string, Book> = (() => {
       desc: "UI 主题数值：data/ui_theme.json 键值对（颜色/字号/尺寸），保存即生效",
       sheets: { 主题键值: keyValueAdapter("data/ui_theme.json") },
     },
+    weather: {
+      desc: "第一幕天气调度：data/campaign/weather.json（profiles=可复用天气档案，nights=夜晚→档案名），保存即生效",
+      sheets: { 天气调度: keyValueAdapter("data/campaign/weather.json") },
+    },
   }
 })()
 

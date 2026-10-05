@@ -1,0 +1,40 @@
+{
+  "comment": "第一幕天气调度：profiles=可复用天气档案，nights=夜晚→档案名。游戏运行时源，保存即生效。rain=雨量0~1，wind=风力0~1，thunder=雷暴强度0~1",
+  "profiles": {
+    "clear": {
+      "rain": 0.0,
+      "wind": 0.35,
+      "leaves": true,
+      "puddles": false,
+      "thunder": 0.0
+    },
+    "light_rain": {
+      "rain": 0.45,
+      "wind": 0.4,
+      "leaves": true,
+      "puddles": true,
+      "thunder": 0.0
+    },
+    "heavy_rain": {
+      "rain": 0.8,
+      "wind": 0.7,
+      "leaves": true,
+      "puddles": true,
+      "thunder": 0.0
+    },
+    "storm": {
+      "rain": 1.0,
+      "wind": 1.0,
+      "leaves": true,
+      "puddles": true,
+      "thunder": 1.0
+    }
+  },
+  "nights": {
+    "1": "light_rain",
+    "2": "clear",
+    "3": "light_rain",
+    "4": "heavy_rain",
+    "5": "storm"
+  }
+}

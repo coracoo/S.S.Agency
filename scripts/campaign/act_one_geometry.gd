@@ -34,13 +34,13 @@ var _tree_occluders: Array[Dictionary] = []
 var _earth_material: StandardMaterial3D
 var _weather: Node3D
 
-static func build(_config: Dictionary) -> Node3D:
+static func build(config: Dictionary) -> Node3D:
 	var world := new()
 	world.name = "ChapterGeometry"
-	world._construct()
+	world._construct(int(config.get("night", 1)))
 	return world
 
-func _construct() -> void:
+func _construct(night_id: int = 1) -> void:
 	for entry in LAYOUT.walk_rects(): _walk_rects.append(entry.rect)
 	_physics = Node3D.new(); _physics.name = "PermanentCollision"; add_child(_physics)
 	_make_materials()
@@ -55,7 +55,7 @@ func _construct() -> void:
 	_configure_shadow_receivers()
 	_embellish_washi_materials()
 	_dressing()
-	_weather = WEATHER.build(FLOOR)
+	_weather = WEATHER.build(FLOOR, night_id)
 	add_child(_weather)
 	update_visibility(Vector3(8.5,FLOOR,0))
 
