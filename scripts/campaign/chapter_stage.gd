@@ -15,6 +15,7 @@ const Dialogue = preload("res://scripts/ui/dialogue_overlay.gd")
 const Portraits = preload("res://scripts/characters/identity_portraits.gd")
 const Router = preload("res://scripts/rpg/encounter_router.gd")
 const Kit = preload("res://scripts/rpg/ui/ui_kit.gd")
+const Art = preload("res://scripts/campaign/presentation/night_menu_art.gd")
 const ThemeData = preload("res://scripts/ui/theme.gd")
 @export var night_id := 1
 @export var hd2d_experiment := true
@@ -492,25 +493,31 @@ func _open_map() -> void:
 	_modal = Control.new()
 	_modal.name = "ActOneMapModal"
 	_modal.size = canvas_size
+	_modal.set_meta("layout_size", canvas_size)
 	_modal.mouse_filter = Control.MOUSE_FILTER_STOP
 	_modal_layer.add_child(_modal)
 	var shade := ColorRect.new()
 	shade.color = Color(0.015, 0.018, 0.035, 0.82)
 	shade.size = canvas_size
 	_modal.add_child(shade)
-	Kit.panel(_modal, Rect2(40, 94, canvas_size.x - 80, canvas_size.y - 188))
-	Kit.label(_modal, "第一幕 · 寺域全图", Rect2(80, 122, 1100, 58), 36)
-	Kit.label(_modal, "白点：当前位置　金环：本夜调查　青点：可交谈人物　/　沿石径自由往返", Rect2(80, 186, canvas_size.x - 160, 42), 24)
+	var width := minf(1440, canvas_size.x - 64)
+	var height := minf(840, canvas_size.y - 64)
+	var left := (canvas_size.x - width) / 2.0
+	var top := (canvas_size.y - height) / 2.0
+	Art.panel(_modal, Rect2(left, top, width, height))
+	Kit.label(_modal, "第一幕 · 寺域全图", Rect2(left + 40, top + 34, width - 340, 58), 34)
+	var legend := Kit.label(_modal, "白点：当前位置　金环：本夜调查　青点：可交谈人物\n沿石径自由往返，地图不提供传送。", Rect2(left + 40, top + 118, width - 80, 66), 22)
+	legend.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	var map_view := WorldMap.new()
 	map_view.name = "WorldMapView"
-	map_view.position = Vector2(80, 248)
-	map_view.size = Vector2(canvas_size.x - 160, canvas_size.y - 398)
+	map_view.position = Vector2(left + 40, top + 202)
+	map_view.size = Vector2(width - 80, height - 242)
 	map_view.player_position = player.position
 	map_view.definition = config.duplicate(true)
 	map_view.world = _world.duplicate(true)
 	map_view.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_modal.add_child(map_view)
-	var button := Kit.button(_modal, "返回行走 [M]", Rect2(canvas_size.x - 330, 126, 250, 62), _modal_action.bind(_resume_explore, operation_token()))
+	var button := Art.button(_modal, "返回行走 [M]", Rect2(left + width - 286, top + 32, 246, 76), _modal_action.bind(_resume_explore, operation_token()))
 	button.focus_mode = Control.FOCUS_ALL
 	button.disabled = true
 	_modal_buttons.append(button)
@@ -651,25 +658,24 @@ func _build_hud() -> void:
 	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_ui_layer.add_child(root)
 	# 无整幅面板，场所与当前目标浮于角落；探索只保留地图/菜单。
-	var information := Kit.panel(root, Rect2(28, 20, 590, 78))
+	var information := Art.panel(root, Rect2(28, 20, 650, 98), true)
 	information.name = "NightInformation"
-	information.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
-	_hud.title = Kit.muted(Kit.label(root, "", Rect2(42, 22, 226, 28), 20))
-	_hud.region = Kit.muted(Kit.label(root, "", Rect2(282, 22, 310, 28), 20))
-	_hud.objective = Kit.label(root, "", Rect2(42, 56, 590, 36), 24)
+	_hud.title = Kit.muted(Kit.label(root, "", Rect2(52, 32, 226, 28), 20))
+	_hud.region = Kit.muted(Kit.label(root, "", Rect2(292, 32, 354, 28), 20))
+	_hud.objective = Kit.label(root, "", Rect2(52, 70, 600, 34), 24)
 	_hud.objective.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	for label in [_hud.title, _hud.region, _hud.objective]:
 		label.add_theme_color_override("font_outline_color", Kit.color("ui_ink"))
 		label.add_theme_constant_override("outline_size", 5)
-	_hud.map = Kit.button(root, "地图 [M]", Rect2(1610, 26, 132, 48), _open_map)
-	_hud.pause = Kit.button(root, "菜单 [Esc]", Rect2(1754, 26, 136, 48), _open_pause)
+	_hud.map = Art.button(root, "地图 [M]", Rect2(1528, 24, 172, 76), _open_map)
+	_hud.pause = Art.button(root, "菜单 [Esc]", Rect2(1718, 24, 172, 76), _open_pause)
 	for tool in [_hud.map, _hud.pause]:
 		tool.focus_mode = Control.FOCUS_NONE
 		tool.add_theme_font_size_override("font_size", 20)
-		Kit.quiet_button(tool)
-	_hud.prompt_panel = Kit.panel(root, Rect2(648, 983, 624, 54))
-	_hud.prompt = Kit.label(root, "", Rect2(666, 992, 588, 34), 23)
+	_hud.prompt_panel = Art.panel(root, Rect2(638, 956, 644, 94), true)
+	_hud.prompt = Kit.label(root, "", Rect2(664, 978, 592, 48), 23)
 	_hud.prompt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_hud.prompt.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	_hud.notice = Kit.label(root, "", Rect2(400, 148, 1120, 70), 25)
 	_hud.notice.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_hud.notice.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -678,6 +684,34 @@ func _build_hud() -> void:
 	_modal_layer = CanvasLayer.new()
 	_modal_layer.layer = 22
 	add_child(_modal_layer)
+	get_viewport().size_changed.connect(_layout_hud)
+	_layout_hud()
+# HUD锚在实际逻辑视口边缘，较高窗口不把提示条留在人物腰部。
+func _layout_hud() -> void:
+	if _hud.is_empty() or _ui_layer == null: return
+	var available := get_viewport().get_visible_rect().size
+	_ui_layer.get_child(0).size = available
+	_hud.map.position = Vector2(available.x - 392, 24)
+	_hud.pause.position = Vector2(available.x - 202, 24)
+	_hud.prompt_panel.position = Vector2((available.x - 644) / 2.0, available.y - 124)
+	_hud.prompt.position = _hud.prompt_panel.position + Vector2(26, 22)
+	_hud.notice.position.x = (available.x - 1120) / 2.0
+	_fit_modal()
+
+# 已打开的地图/长文保留节点、滚动位置和焦点，随比例变化整体适配。
+func _fit_modal() -> void:
+	if not is_instance_valid(_modal): return
+	var design: Vector2 = _modal.get_meta("layout_size", _modal.size)
+	var available := get_viewport().get_visible_rect().size
+	var factor := minf(available.x / design.x, available.y / design.y)
+	_modal.scale = Vector2.ONE * factor
+	_modal.position = (available - design * factor) / 2.0
+	if _modal.get_child_count() > 0 and _modal.get_child(0) is ColorRect:
+		var shade: ColorRect = _modal.get_child(0)
+		shade.scale = Vector2.ONE / factor
+		shade.position = -_modal.position / factor
+		shade.size = available
+
 func _refresh_hud() -> void:
 	if _hud.is_empty(): return
 	_ui_layer.visible = _mode == "explore"
@@ -748,6 +782,7 @@ func _show_modal(title: String, body: String, actions: Array) -> void:
 	var canvas_size: Vector2 = get_viewport().get_visible_rect().size
 	_modal = Control.new()
 	_modal.size = canvas_size
+	_modal.set_meta("layout_size", canvas_size)
 	_modal.mouse_filter = Control.MOUSE_FILTER_STOP
 	_modal_layer.add_child(_modal)
 	var shade := ColorRect.new()
@@ -756,7 +791,7 @@ func _show_modal(title: String, body: String, actions: Array) -> void:
 	_modal.add_child(shade)
 	var panel_width: float = minf(1080.0, canvas_size.x - 64.0)
 	var content_width: float = panel_width - 88.0
-	var panel: Panel = Kit.panel(_modal, Rect2(0, 0, panel_width, 100))
+	var panel: Panel = Art.panel(_modal, Rect2(0, 0, panel_width, 100))
 	var scroll := ScrollContainer.new()
 	scroll.name = "ModalBodyScroll"
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
@@ -775,7 +810,7 @@ func _show_modal(title: String, body: String, actions: Array) -> void:
 	var text_height: float = maxf(112.0, paragraph.get_size().y + maxf(0.0, line_count - 1.0) * label.get_theme_constant("line_spacing"))
 	label.custom_minimum_size = Vector2(content_width - 20.0, text_height)
 	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var buttons_height: float = maxf(0.0, actions.size() * 80.0 - 16.0)
+	var buttons_height: float = maxf(0.0, actions.size() * 96.0 - 16.0)
 	var fixed_height: float = 98.0 + 20.0 + buttons_height + 32.0
 	var body_height: float = minf(text_height, maxf(96.0, canvas_size.y - 64.0 - fixed_height))
 	var height: float = fixed_height + body_height
@@ -789,7 +824,7 @@ func _show_modal(title: String, body: String, actions: Array) -> void:
 	var token := operation_token()
 	for index in range(actions.size()):
 		var action: Dictionary = actions[index]
-		var button := Kit.button(_modal, str(action.text), Rect2(left + 44, top + 118 + body_height + index * 80, content_width, 64), _modal_action.bind(action.call, token), index == 0)
+		var button := Art.button(_modal, str(action.text), Rect2(left + 44, top + 118 + body_height + index * 96, content_width, 80), _modal_action.bind(action.call, token), index == 0)
 		button.focus_mode = Control.FOCUS_ALL
 		button.disabled = true
 		_modal_buttons.append(button)

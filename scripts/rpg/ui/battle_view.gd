@@ -13,6 +13,8 @@ const Catalog = preload("res://scripts/rpg/catalog.gd")
 const Router = preload("res://scripts/rpg/encounter_router.gd")
 const Presenter = preload("res://scripts/rpg/ui/battle_presenter.gd")
 const Kit = preload("res://scripts/rpg/ui/ui_kit.gd")
+const Art = preload("res://scripts/campaign/presentation/night_menu_art.gd")
+const ITEM_ORDER := ["healing_potion", "mana_potion", "revival_potion", "cleansing_powder"]
 
 var engine: RefCounted
 var campaign: RefCounted
@@ -48,6 +50,8 @@ var _exit_confirmation: Control
 var _exit_previous_focus: Control
 var _asset_error_panel: Control
 var _asset_loading := false
+var _items_previous_focus: Control
+var _log_previous_focus: Control
 
 func _init() -> void:
 	_catalog.load_all()
@@ -227,67 +231,86 @@ func _build() -> void:
 	_danger_layer = Node2D.new()
 	_danger_layer.z_index = 1
 	_canvas.add_child(_danger_layer)
-	Kit.panel(_canvas, Rect2(32, 24, 570, 114))
-	Kit.panel(_canvas, Rect2(622, 24, 948, 114))
-	_hud.title = Kit.label(_canvas, "遭遇  ·  夜巡异象", Rect2(56, 36, 522, 36), 27)
-	_hud.turn = Kit.label(_canvas, "", Rect2(56, 84, 522, 36), 25)
-	_hud.queue = Kit.label(_canvas, "", Rect2(646, 38, 900, 86), 23)
+	Art.panel(_canvas, Rect2(32, 24, 550, 130))
+	Art.panel(_canvas, Rect2(602, 24, 922, 130))
+	_hud.title = Kit.label(_canvas, "遭遇  ·  夜巡异象", Rect2(72, 48, 470, 36), 27)
+	_hud.turn = Kit.label(_canvas, "", Rect2(72, 96, 470, 32), 23)
+	_hud.queue = Kit.label(_canvas, "", Rect2(642, 48, 842, 82), 22)
 	_hud.queue.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	Kit.button(_canvas, "日志", Rect2(1606, 28, 100, 52), _toggle_log)
-	Kit.button(_canvas, "返回标题", Rect2(1718, 28, 164, 52), _return_title)
-	Kit.label(_canvas, "远处 · 敌方", Rect2(1490 if _config.near_side == "left" else 55, 154, 370, 26), 22)
-	Kit.label(_canvas, "近处 · 出战队员", Rect2(55 if _config.near_side == "left" else 1490, 154, 370, 26), 22)
-	Kit.panel(_canvas, Rect2(32, 750, 1856, 292))
-	_hud.prompt = Kit.label(_canvas, "选择技能 → 点击目标 → 确认　／　Esc 取消选择", Rect2(770, 704, 1090, 40), 25)
+	_hud.log_toggle = _art_button(_canvas, "日志", Rect2(1540, 28, 144, 92), _toggle_log)
+	_hud.exit = _art_button(_canvas, "返回标题", Rect2(1696, 28, 192, 92), _return_title)
+	_hud.form = _art_button(_canvas, "焰华切换职业", Rect2(1408, 124, 480, 88), switch_active_form)
+	_hud.form.add_theme_font_size_override("font_size", 20)
+	_hud.form.hide()
+	_hud.prompt = Kit.label(_canvas, "选择技能 → 点击目标 → 确认　／　Esc 取消选择", Rect2(1000 if _config.near_side == "right" else 50, 710, 850, 32), 22)
+	_hud.prompt.add_theme_color_override("font_outline_color", Color("101918"))
+	_hud.prompt.add_theme_constant_override("outline_size", 5)
 	for index in range(4):
-		var x := 770 + (index % 2) * 330
-		var y := 812 + (index / 2) * 105
-		var button := Kit.button(_canvas, "技能", Rect2(x, y, 316, 96))
+		var x := 752 + (index % 2) * 348
+		var y := 760 + (index / 2) * 152
+		var button := _art_button(_canvas, "技能", Rect2(x, y, 336, 132))
 		button.pressed.connect(_select_skill_slot.bind(index))
 		_skill_buttons.append(button)
-	for row in [["attack_physical", "物理普攻", 812], ["defend", "防御", 882], ["item", "道具", 952]]:
-		_basic_buttons[row[0]] = Kit.button(_canvas, row[1], Rect2(1440, row[2], 185, 61), _basic_pressed.bind(row[0]))
-	_basic_buttons.attack_magic = Kit.button(_canvas, "中性魔攻", Rect2(1637, 812, 225, 61), select_command.bind("attack_magic"))
-	_hud.form = Kit.button(_canvas, "焰华切换职业", Rect2(1440, 758, 420, 44), switch_active_form)
-	_hud.form.add_theme_font_size_override("font_size", 22)
-	_hud.form.hide()
-	_hud.cancel = Kit.button(_canvas, "取消选择", Rect2(1637, 882, 225, 61), cancel_command)
-	_hud.confirm = Kit.button(_canvas, "确认行动", Rect2(1637, 952, 225, 61), confirm_command, true)
-	_preview_panel = Kit.panel(_canvas, Rect2(60 if _config.near_side == "left" else 940, 154, 920, 180))
-	_hud.preview_title = Kit.label(_preview_panel, "行动预览", Rect2(18, 6, 884, 38), 26)
-	_hud.preview = RichTextLabel.new()
-	_hud.preview.position = Vector2(18, 48)
-	_hud.preview.size = Vector2(884, 118)
-	_hud.preview.add_theme_font_override("normal_font", Kit.font)
-	_hud.preview.add_theme_font_size_override("normal_font_size", 24)
-	_hud.preview.add_theme_color_override("default_color", Kit.color("paper_100"))
-	_preview_panel.add_child(_hud.preview)
-	_items = Kit.panel(_canvas, Rect2(1140, 385, 720, 348))
-	Kit.label(_items, "道具 · 使用占用本次行动", Rect2(20, 14, 680, 40), 27)
-	for index in range(_catalog.get_ids("items").size()):
-		var id: String = _catalog.get_ids("items")[index]
+	for row in [["attack_physical", "物理普攻", 760], ["defend", "防御", 856], ["item", "道具", 952]]:
+		_basic_buttons[row[0]] = _art_button(_canvas, row[1], Rect2(1450, row[2], 194, 92), _basic_pressed.bind(row[0]))
+	_basic_buttons.attack_magic = _art_button(_canvas, "中性魔攻", Rect2(1656, 760, 208, 92), select_command.bind("attack_magic"))
+	_hud.cancel = _art_button(_canvas, "取消选择", Rect2(1656, 856, 208, 92), cancel_command)
+	_hud.confirm = _art_button(_canvas, "确认行动", Rect2(1656, 952, 208, 92), confirm_command, true)
+	_preview_panel = Art.panel(_canvas, Rect2(60 if _config.near_side == "left" else 956, 228, 932, 220))
+	_hud.preview_title = Kit.label(_preview_panel, "行动预览", Rect2(40, 28, 852, 36), 25)
+	_hud.preview = Kit.scroll_text(_preview_panel, Rect2(40, 80, 852, 108), 23)
+	_items = Art.panel(_canvas, Rect2(1020, 168, 868, 526))
+	_items.mouse_filter = Control.MOUSE_FILTER_STOP
+	Kit.label(_items, "道具 · 占用本次行动", Rect2(40, 40, 530, 36), 25)
+	_hud.items_close = _art_button(_items, "返回", Rect2(648, 22, 180, 92), _close_items)
+	for index in range(ITEM_ORDER.size()):
+		var id: String = ITEM_ORDER[index]
 		var item: Dictionary = _catalog.get_definition("items", id)
-		var button := Kit.button(_items, item.name, Rect2(20, 68 + index * 65, 680, 57), select_command.bind("item", id))
+		var button := _art_button(_items, item.name, Rect2(32, 124 + index * 96, 804, 92), select_command.bind("item", id))
+		button.add_theme_font_size_override("font_size", 21)
+		Art.center_text(button, 100, 34, 28)
+		Art.icon(button, id, Rect2(32, 24, 44, 44))
 		_hud["item_" + id] = button
 	_items.visible = false
-	_log_panel = Kit.panel(_canvas, Rect2(48, 220, 760, 500))
-	_hud.log = RichTextLabel.new()
-	_hud.log.position = Vector2(22, 22)
-	_hud.log.size = Vector2(716, 456)
-	_hud.log.add_theme_font_override("normal_font", Kit.font)
-	_hud.log.add_theme_font_size_override("normal_font_size", 25)
-	_hud.log.add_theme_color_override("default_color", Kit.color("paper_100"))
-	_log_panel.add_child(_hud.log)
+	_log_panel = Art.panel(_canvas, Rect2(48, 174, 860, 514))
+	_log_panel.mouse_filter = Control.MOUSE_FILTER_STOP
+	Kit.label(_log_panel, "战斗日志", Rect2(40, 42, 540, 36), 27)
+	_hud.log_close = _art_button(_log_panel, "收起", Rect2(640, 22, 180, 92), _toggle_log)
+	_hud.log = Kit.scroll_text(_log_panel, Rect2(40, 118, 780, 358), 24)
+	_hud.log.scroll_following = true
 	_log_panel.visible = false
-	_hud.latest = Kit.label(_canvas, "", Rect2(50, 1044, 1550, 32), 22)
-	_result = Kit.panel(_canvas, Rect2(435, 220, 1050, 660))
-	_hud.result_title = Kit.label(_result, "", Rect2(48, 38, 950, 72), 46)
-	_hud.result_body = Kit.label(_result, "", Rect2(48, 128, 950, 342), 29)
-	_hud.result_body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_hud.result_action = Kit.button(_result, "", Rect2(48, 510, 455, 86), _result_action, true)
-	Kit.button(_result, "返回标题 · 保留安全档", Rect2(532, 510, 465, 86), _return_title)
+	_hud.latest = Kit.label(_canvas, "", Rect2(50, 1052, 1550, 26), 18)
+	_result = Art.panel(_canvas, Rect2(435, 208, 1050, 688))
+	_result.mouse_filter = Control.MOUSE_FILTER_STOP
+	_hud.result_title = Kit.label(_result, "", Rect2(52, 42, 946, 66), 44)
+	_hud.result_body = Kit.scroll_text(_result, Rect2(52, 138, 946, 340), 28)
+	_hud.result_action = _art_button(_result, "", Rect2(52, 552, 455, 92), _result_action, true)
+	_hud.result_exit = _art_button(_result, "返回标题 · 保留安全档", Rect2(535, 552, 463, 92), _return_title)
 	_result.visible = false
 	_built = true
+
+# 内金边厚约8～12像素，文字再留至少20像素，不能只验证Control外框。
+func _art_button(parent: Node, text: String, rect: Rect2, action: Callable = Callable(), primary: bool = false) -> Button:
+	var button := Art.button(parent, text, rect, action, primary)
+	Art.center_text(button, 34, 34, 28)
+	return button
+
+func _focus_cycle(buttons: Array) -> void:
+	var enabled: Array[Button] = []
+	for button in buttons:
+		if button is Button and button.visible and not button.disabled: enabled.append(button)
+	for index in enabled.size():
+		var previous := enabled[posmod(index - 1, enabled.size())].get_path()
+		var next := enabled[(index + 1) % enabled.size()].get_path()
+		enabled[index].focus_previous = previous
+		enabled[index].focus_next = next
+		for direction in ["focus_neighbor_left", "focus_neighbor_top"]: enabled[index].set(direction, previous)
+		for direction in ["focus_neighbor_right", "focus_neighbor_bottom"]: enabled[index].set(direction, next)
+
+func _close_items() -> void:
+	_items.hide()
+	if is_instance_valid(_items_previous_focus): _items_previous_focus.grab_focus()
+	_items_previous_focus = null
 
 func _resize_canvas() -> void:
 	var available := get_viewport_rect().size
@@ -315,8 +338,6 @@ func _build_actors() -> void:
 	if campaign != null: allies = campaign.snapshot().party.duplicate()
 	enemies.sort()
 	var crowded := enemies.size() > 2
-	_hud.prompt.position = Vector2(1000 if _config.near_side == "right" else 50, 704) if crowded else Vector2(770, 704)
-	_hud.prompt.size = Vector2(850, 40) if crowded else Vector2(1090, 40)
 	for index in range(allies.size() + enemies.size()):
 		var ally := index < allies.size()
 		var slot := index if ally else index - allies.size()
@@ -328,7 +349,7 @@ func _build_actors() -> void:
 			layout = [layout[0], Stature.battle_ground_y(), Stature.battle_body_height(actor.get("identity_id", ""))]
 		# 三/四敌共享独立窄列；不把双敌面板放到交错脚点上互相覆盖。
 		var compact := crowded and not ally
-		if compact: layout = [150 + slot * 224, 575, 220]
+		if compact: layout = [150 + slot * 224, 566, 220]
 		var foot := Vector2(layout[0], layout[1])
 		if _config.near_side == "left": foot.x = 1920 - foot.x
 		var shadow := Polygon2D.new()
@@ -373,20 +394,21 @@ func _build_actors() -> void:
 		ring.default_color = Kit.color("ui_focus")
 		ring.position = foot
 		_canvas.add_child(ring)
-		var target := Kit.button(_canvas, "", Rect2(foot.x - 110, foot.y - float(layout[2]), 220, float(layout[2]) + 34), select_target.bind(id))
-		for style in ["normal", "hover", "pressed", "focus", "disabled"]: target.add_theme_stylebox_override(style, StyleBoxEmpty.new())
+		var target := Art.button(_canvas, "", Rect2(foot.x - 110, foot.y - float(layout[2]), 220, float(layout[2]) + 34), select_target.bind(id))
+		for style in ["normal", "disabled"]: target.add_theme_stylebox_override(style, StyleBoxEmpty.new())
+		for style in ["hover", "pressed", "focus"]: target.add_theme_stylebox_override(style, Art.style("focus", 12))
 		target.mouse_filter = Control.MOUSE_FILTER_PASS
 		var card: Panel
 		var avatar: TextureRect
 		if ally:
-			card = Kit.panel(_canvas, Rect2(48 + slot * 234, 810, 222, 210))
+			card = Art.panel(_canvas, Rect2(48 + slot * 234, 760, 222, 284), true)
 			if _hd_enabled():
 				var identity: String = actor.get("identity_id", "")
 				var definition := _actor_definition(actor)
 				var face := Portraits.from_definition(definition, identity, "avatar")
 				avatar = TextureRect.new()
-				avatar.position = Vector2(12, 12)
-				avatar.size = Vector2(48, 48)
+				avatar.position = Vector2(26, 26)
+				avatar.size = Vector2(40, 40)
 				avatar.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 				avatar.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 				avatar.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -399,41 +421,39 @@ func _build_actors() -> void:
 					last_error = face.error
 				card.add_child(avatar)
 			else:
-				avatar = Kit.image(card, _config.class_art[actor.class_id].badge, Rect2(12, 12, 48, 48))
+				avatar = Kit.image(card, _config.class_art[actor.class_id].badge, Rect2(26, 26, 40, 40))
 		else:
 			var card_x: float = (55.0 if _config.near_side == "right" else 1535.0) if actor.class_id == "gatekeeper" else foot.x - 164
-			card = Kit.panel(_canvas, Rect2(foot.x - 107, 176, 214, 164) if compact else Rect2(card_x, 174 + slot * 4, 328, 164))
-		var title := Kit.label(card, "", Rect2(66 if ally else 12, 10, 150 if ally else 300, 34), 24)
-		var hp := Kit.label(card, "", Rect2(12, 58 if ally else 47, 198 if ally else 180, 29), 22)
-		var hpbar := Kit.bar(card, Rect2(12, 90 if ally else 82, 198 if ally else 304, 7), Kit.color("ui_selected_line"))
-		var mp := Kit.label(card, "", Rect2(12 if ally else 200, 102 if ally else 47, 198 if ally else 116, 29), 21 if ally else 18)
-		mp.add_theme_color_override("font_color", Kit.color("ui_muted"))
-		var status := Kit.scroll_text(card, Rect2(12, 143 if ally else 98, 198 if ally else 304, 58 if ally else 58), 20 if ally else 18)
-		status.add_theme_color_override("default_color", Kit.color("ui_muted"))
+			var card_y := 174.0 + slot * 4
+			if actor.class_id != "gatekeeper": card_y = minf(card_y, foot.y - float(layout[2]) - 202.0)
+			card = Art.panel(_canvas, Rect2(foot.x - 107, 154, 214, 174) if compact else Rect2(card_x, card_y, 328, 194), true)
+		var content_width := card.size.x - 52
+		var title := Kit.label(card, "", Rect2(78 if ally else 26, 26, 118 if ally else content_width, 32), 23 if ally else (18 if compact else 23))
+		title.clip_text = true
+		var hp := Kit.label(card, "", Rect2(26, 80 if ally else 62, content_width, 28), 20 if ally else (18 if compact else 20))
+		var hpbar := Art.gauge(card, "hp", Rect2(26, 116 if ally else 94, content_width, 8))
+		var mp := Kit.label(card, "", Rect2(26, 134 if ally else 108, content_width, 26), 20 if ally else 18)
+		var mpbar: TextureProgressBar
+		if ally: mpbar = Art.gauge(card, "mp", Rect2(26, 170, content_width, 8))
+		var status := Kit.scroll_text(card, Rect2(26, 192 if ally else 142, content_width, 64 if ally else 30), 18 if ally else 17)
+		status.add_theme_color_override("default_color", Color("d3d0b9"))
 		if compact:
-			title.position = Vector2(10, 8)
-			title.size = Vector2(194, 28)
-			title.add_theme_font_size_override("font_size", 20)
-			hp.position = Vector2(10, 38)
-			hp.size = Vector2(194, 27)
-			hp.add_theme_font_size_override("font_size", 20)
-			hpbar.position = Vector2(10, 66)
-			hpbar.size = Vector2(194, 6)
-			mp.position = Vector2(10, 77)
-			mp.size = Vector2(194, 24)
-			mp.add_theme_font_size_override("font_size", 18)
-			status.position = Vector2(10, 103)
-			status.size = Vector2(194, 53)
-			status.add_theme_font_size_override("normal_font_size", 18)
+			title.position.y = 24
+			title.size.y = 24
+			hp.position.y = 54
+			hpbar.position.y = 84
+			mp.position.y = 98
+			status.position.y = 130
+			status.size.y = 24
 		var intent: Label
 		if not ally:
 			var intent_rect := Rect2(55 if _config.near_side == "right" else 1510, 407, 365, 275) if actor.class_id == "gatekeeper" else Rect2(foot.x - 178, foot.y + 2, 356, maxf(52, 744 - (foot.y + 2)))
-			if compact: intent_rect = Rect2(foot.x - 107, 586, 214, 158)
+			if compact: intent_rect = Rect2(foot.x - 101, 574, 202, 124)
 			intent = Kit.label(_canvas, "", intent_rect, 18 if compact else (22 if actor.class_id == "gatekeeper" else 20))
 			intent.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 			intent.add_theme_color_override("font_outline_color", Kit.color("ink_900"))
 			intent.add_theme_constant_override("outline_size", 6)
-		_actors[id] = {"sprite": sprite, "shadow": shadow, "ring": ring, "target": target, "card": card, "avatar": avatar, "title": title, "hp": hp, "mp": mp, "hpbar": hpbar, "status": status, "intent": intent}
+		_actors[id] = {"sprite": sprite, "shadow": shadow, "ring": ring, "target": target, "card": card, "avatar": avatar, "title": title, "hp": hp, "mp": mp, "hpbar": hpbar, "mpbar": mpbar, "status": status, "intent": intent}
 	if _hd_enabled():
 		if not is_instance_valid(_hd_player):
 			_hd_player = HdEvents.new()
@@ -467,23 +487,32 @@ func _render() -> void:
 		w.title.text = (row.label if row.side == "enemy" and model.actors.size() > 5 else row.name) + (" · 倒地" if row.hp == 0 else "")
 		if row.side == "enemy" and model.actors.size() > 5:
 			w.title.tooltip_text = w.title.text
-			for font_size in [20, 18, 16]:
+			for font_size in [18, 17, 16]:
 				w.title.add_theme_font_size_override("font_size", font_size)
-				if Kit.font.get_string_size(w.title.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x <= 194: break
-			w.title.size.x = 194
+				if Kit.font.get_string_size(w.title.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x <= w.card.size.x - 52: break
+			w.title.size.x = w.card.size.x - 52
 		w.hp.text = "HP %d / %d" % [row.hp, row.max_hp]
 		w.hpbar.max_value = row.max_hp
 		w.hpbar.value = row.hp
+		if w.mpbar != null:
+			w.mpbar.max_value = row.max_mp
+			w.mpbar.value = row.mp
 		w.mp.text = "MP %d / %d" % [row.mp, row.max_mp]
-		w.status.text = "盾 %d%s\n%s" % [row.shield, " · %d次行动" % row.shield_remaining if row.shield > 0 else "", " / ".join(row.statuses) if not row.statuses.is_empty() else "无状态"]
-		w.status.tooltip_text = w.status.text
+		var status_text := " / ".join(row.statuses) if not row.statuses.is_empty() else "无状态"
+		var shield_text := "盾 %d%s" % [row.shield, " · %d次行动" % row.shield_remaining if row.shield > 0 else ""]
+		w.status.tooltip_text = shield_text + "\n" + status_text
+		w.status.text = w.status.tooltip_text
+		if row.side == "enemy":
+			# 窄卡首行只放可完整读完的状态名；时钟与全部状态仍可滚动或悬停查看。
+			w.status.text = _enemy_status_summary(state.actors[row.actor_id], row.shield, w.status.size.x, w.status.get_theme_font_size("normal_font_size")) + "\n" + w.status.tooltip_text if not row.statuses.is_empty() else shield_text + " · 无状态"
 		w.sprite.modulate = Color(0.4, 0.4, 0.4, 0.55) if row.hp == 0 else Color.WHITE
 		w.ring.visible = row.active or preview.effective_target_ids.has(row.actor_id)
 		w.ring.default_color = Kit.color("vermilion_500") if preview.effective_target_ids.has(row.actor_id) else Kit.color("ui_focus")
 		w.target.disabled = processing or pending_command.is_empty() or automatic
-		w.target.tooltip_text = "%s\n%s" % [row.label, w.status.text]
+		w.target.add_theme_stylebox_override("normal", Art.style("focus", 12) if preview.effective_target_ids.has(row.actor_id) else StyleBoxEmpty.new())
+		w.target.tooltip_text = "%s\n%s" % [row.label, w.status.tooltip_text]
 		if w.intent != null:
-			w.intent.text = row.intent.get("text", "倒地")
+			w.intent.text = row.intent.get("text", "倒地" if row.hp == 0 else "意图待定")
 			w.intent.tooltip_text = w.intent.text
 	for index in range(4):
 		var button := _skill_buttons[index]
@@ -501,17 +530,17 @@ func _render() -> void:
 		var effect_text := Presenter.card_summary(slot, p, _catalog)
 		var full_effect_text := Presenter.ability_summary(slot, p, _catalog)
 		var cd_text := " · CD%d" % p.get("cooldown", slot.cooldown) if p.get("cooldown", slot.cooldown) > 0 else ""
-		button.text = "%s　MP %d%s · %s\n%s" % [slot.name, p.get("mp_cost", slot.mp_cost), cd_text, slot.target_short, effect_text if p.get("legal", false) or processing else reason]
-		# 三字技能名加MP/CD时最多缩两级，保持四卡固定边界，不让最小尺寸挤压基础指令。
-		for font_size in [24, 22, 20]:
+		button.text = "%s　MP %d%s\n%s" % [slot.name, p.get("mp_cost", slot.mp_cost), cd_text, (slot.target_short + " · " + effect_text) if p.get("legal", false) or processing else reason]
+		# 名称与费用独立成行；第二行只呈现模型摘要，完整效果继续保留悬停及行动预览。
+		for font_size in [22, 20, 18, 17]:
 			button.add_theme_font_size_override("font_size", font_size)
-			if Array(button.text.split("\n")).all(func(line): return Kit.font.get_string_size(line, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x <= 296): break
-		button.size = Vector2(316, 96)
-		Kit.set_selected(button, pending_command.get("kind", "") == "skill" and pending_command.get("ability_id", "") == slot.id)
+			if Array(button.text.split("\n")).all(func(line): return Kit.font.get_string_size(line, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x <= 268): break
+		button.size = Vector2(336, 132)
+		Art.selected(button, pending_command.get("kind", "") == "skill" and pending_command.get("ability_id", "") == slot.id)
 		button.tooltip_text = button.text + "\n" + full_effect_text + "\n" + slot.target_label + ("\n" + " / ".join(reasons) if not reasons.is_empty() else "")
 	for kind in _basic_buttons:
 		_basic_buttons[kind].disabled = processing or active.is_empty() or not state.outcome.is_empty()
-		Kit.set_selected(_basic_buttons[kind], pending_command.get("kind", "") == kind)
+		Art.selected(_basic_buttons[kind], pending_command.get("kind", "") == kind)
 	_basic_buttons.attack_magic.visible = model.commands.basic.has("attack_magic")
 	_hud.confirm.disabled = processing or not preview.legal
 	_hud.cancel.disabled = processing or pending_command.is_empty()
@@ -530,9 +559,21 @@ func _render() -> void:
 		_hud.preview.text = "\n".join(Presenter.preview_lines(preview, state, _catalog))
 	for id in _catalog.get_ids("items"):
 		_hud["item_" + id].text = "%s　×%d" % [_catalog.get_definition("items", id).name, model.inventory.get(id, 0)]
-		_hud["item_" + id].disabled = processing
+		var options := command_options("item", id)
+		_hud["item_" + id].disabled = processing or not options.get("preview", {}).get("legal", false)
+		_hud["item_" + id].tooltip_text = "\n".join(Presenter.preview_lines(options.get("preview", {}), state, _catalog))
 	_hud.log.text = "\n".join(_log_lines)
 	_hud.latest.text = _log_lines.back() if not _log_lines.is_empty() else "HP/MP与库存跨战保留 · 道具占用一次行动"
+
+func _enemy_status_summary(actor: Dictionary, shield: int, width: float, font_size: int) -> String:
+	var names: Array[String] = []
+	for status in actor.get("statuses", []):
+		names.append(_catalog.get_definition("statuses", status.id).get("name", status.id))
+	var prefix := "盾%d · " % shield if shield > 0 else ""
+	for count in range(names.size(), 0, -1):
+		var summary := prefix + " / ".join(names.slice(0, count)) + (" +%d" % (names.size() - count) if count < names.size() else "")
+		if Kit.font.get_string_size(summary, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x <= width - 16: return summary
+	return prefix + "%d种状态" % names.size()
 
 # 自由切换也是权威引擎的一次标准命令；不调用advance、不结束当前行动槽。
 func switch_active_form() -> Dictionary:
@@ -592,11 +633,25 @@ func _select_skill_slot(index: int) -> void:
 
 func _basic_pressed(kind: String) -> void:
 	if kind == "item":
-		if not processing: _items.visible = not _items.visible
+		if not processing:
+			if _items.visible: _close_items()
+			else:
+				_items_previous_focus = get_viewport().gui_get_focus_owner()
+				_items.show()
+				_focus_cycle(_items.get_children())
+				_hud.items_close.grab_focus()
 	else: select_command(kind)
 
 func _toggle_log() -> void:
-	_log_panel.visible = not _log_panel.visible
+	if _log_panel.visible:
+		_log_panel.hide()
+		if is_instance_valid(_log_previous_focus): _log_previous_focus.grab_focus()
+		_log_previous_focus = null
+	else:
+		_log_previous_focus = get_viewport().gui_get_focus_owner()
+		_log_panel.show()
+		_focus_cycle([_hud.log_close])
+		_hud.log_close.grab_focus()
 
 func _play_action(actor_id: String, target_ids: Array = []) -> void:
 	if not _actors.has(actor_id): return
@@ -673,6 +728,10 @@ func _check_result() -> void:
 	if engine == null or engine.snapshot().outcome.is_empty(): return
 	pending_command = {}
 	_result.visible = true
+	_items.hide()
+	_log_panel.hide()
+	_focus_cycle([_hud.result_action, _hud.result_exit])
+	_hud.result_action.grab_focus()
 	if not result_saved: save_result()
 	_show_result()
 
@@ -742,7 +801,10 @@ func _return_title() -> void:
 	if _hd_enabled():
 		if is_instance_valid(_exit_confirmation): return
 		_exit_previous_focus = get_viewport().gui_get_focus_owner()
-		_exit_confirmation = Kit.panel(_canvas, Rect2(0, 0, 1920, 1080))
+		_exit_confirmation = Control.new()
+		_exit_confirmation.size = Vector2(1920, 1080)
+		_canvas.add_child(_exit_confirmation)
+		Art.panel(_exit_confirmation, Rect2(410, 224, 1100, 566))
 		_exit_confirmation.mouse_filter = Control.MOUSE_FILTER_STOP
 		Kit.label(_exit_confirmation, "返回标题？", Rect2(470, 280, 980, 70), 42)
 		var message := "继续游戏会从同一战前状态重试。未提交的战斗过程不会保存。"
@@ -750,8 +812,8 @@ func _return_title() -> void:
 		if result_saved and engine != null and engine.snapshot().outcome == "victory": message = "战果已安全保存。继续游戏将回到调查现场。"
 		var body := Kit.label(_exit_confirmation, message, Rect2(470, 380, 980, 150), 30)
 		body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		var leave := Kit.button(_exit_confirmation, "返回标题", Rect2(470, 610, 460, 84), _confirm_return_title)
-		var cancel := Kit.button(_exit_confirmation, "取消", Rect2(970, 610, 460, 84), _cancel_return_title)
+		var leave := _art_button(_exit_confirmation, "返回标题", Rect2(470, 634, 460, 92), _confirm_return_title)
+		var cancel := _art_button(_exit_confirmation, "取消", Rect2(970, 634, 460, 92), _cancel_return_title)
 		# Tab与四方向都只在当前确认框内循环，默认保留本场。
 		leave.focus_next = cancel.get_path(); leave.focus_previous = cancel.get_path()
 		cancel.focus_next = leave.get_path(); cancel.focus_previous = leave.get_path()
@@ -780,12 +842,12 @@ func _change_scene(path: String) -> Error:
 	return get_tree().change_scene_to_file(path)
 func _show_hd_error() -> void:
 	if is_instance_valid(_asset_error_panel): _asset_error_panel.queue_free()
-	_asset_error_panel = Kit.panel(_canvas, Rect2(430, 300, 1060, 470))
+	_asset_error_panel = Art.panel(_canvas, Rect2(430, 300, 1060, 470))
 	Kit.label(_asset_error_panel, "人物素材尚未就绪", Rect2(42, 32, 970, 60), 38)
 	var body := Kit.label(_asset_error_panel, last_error + "\n战前状态保持不变，请重试加载。", Rect2(42, 115, 970, 170), 28)
 	body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	Kit.button(_asset_error_panel, "重试加载", Rect2(42, 335, 464, 80), _retry_hd_assets)
-	Kit.button(_asset_error_panel, "返回标题", Rect2(546, 335, 464, 80), _return_title)
+	_art_button(_asset_error_panel, "重试加载", Rect2(42, 330, 464, 92), _retry_hd_assets)
+	_art_button(_asset_error_panel, "返回标题", Rect2(546, 330, 464, 92), _return_title)
 func _retry_hd_assets() -> void:
 	if not _hd_enabled() or _asset_loading: return
 	var session := _asset_session()
@@ -813,6 +875,14 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel") and is_instance_valid(_exit_confirmation):
 		get_viewport().set_input_as_handled()
 		_cancel_return_title()
+		return
+	if event.is_action_pressed("ui_cancel") and _log_panel.visible:
+		_toggle_log()
+		get_viewport().set_input_as_handled()
+		return
+	if event.is_action_pressed("ui_cancel") and _items.visible:
+		_close_items()
+		get_viewport().set_input_as_handled()
 		return
 	if event.is_action_pressed("ui_cancel"):
 		cancel_command()
