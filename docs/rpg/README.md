@@ -33,7 +33,7 @@
 
 ## 隔离验证
 
-从仓库根运行，Godot 4.6.3（可用 `--godot /path/to/godot` 或 `GODOT_BIN`）。首次克隆、删除导入缓存或资源发生变化时，首个Godot验证命令必须带 `--import`；它在隔离预检成功后先导入资源和全局脚本类。后续增量验证可省略 `--import`，不提交 `.godot/` 或本次生成的导入侧文件：
+从仓库根运行，Godot 4.7.2（可用 `--godot /path/to/godot` 或 `GODOT_BIN`）。首次克隆、删除导入缓存或资源发生变化时，首个Godot验证命令必须带 `--import`；它在隔离预检成功后先导入资源和全局脚本类。后续增量验证可省略 `--import`，不提交 `.godot/` 或本次生成的导入侧文件：
 
 ```bash
 python3 -m unittest tools.rpg.test_run_checks
