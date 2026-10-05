@@ -68,13 +68,18 @@ static func preview(state: Dictionary, command: Dictionary, catalog: RefCounted)
 	for item in events:
 		if item.type == "effect_ignored":
 			reasons.append(item.payload.reason)
+		elif command.kind == "item" and item.type in ["healed", "mp_restored"] and int(item.payload.actual) <= 0:
+			reasons.append("目标HP已满" if item.type == "healed" else "目标MP已满")
 		else:
 			any_effect = true
 		if item.type == "damage":
 			result.damage_ranges.append({"target_id": item.target_id, "original_target_id": item.payload.original_target_id, "normal": item.payload.normal, "critical": item.payload.critical_damage, "critical_chance": 0.05 if item.payload.can_crit else 0.0})
-	# 附带无效控制只展示原因；纯控制至少有一个真正有效的施加或打断。
-	if pure_control and not any_effect:
-		if reasons.is_empty(): reasons.append("没有可生效目标")
+	# 附带无效控制只展示原因；纯控制及消耗道具至少有一个实际效果。
+	# 恢复量为零的事件和无负面可移除的净化，不能消耗道具或行动。
+	if (pure_control or command.kind == "item") and not any_effect:
+		if reasons.is_empty():
+			var has_cleanse: bool = ability.effects.any(func(effect): return effect.type == "cleanse")
+			reasons.append("目标没有可净化的负面状态" if command.kind == "item" and has_cleanse else "没有可生效目标")
 		return result
 	result.legal = true
 	return result

@@ -112,17 +112,18 @@ func _run() -> void:
 			if child is Button:
 				expect(root.get_visible_rect().encloses(child.get_global_rect()), "右上工具保持可见：%s" % size)
 				expect(child.get_theme_font_size("font_size") <= 24, "工具字级低于夜次标题")
-		expect(not stage._hud.has("hd2d") and not stage._hud.has("exit"), "景深与返回标题已收入暂停，不再常驻探索HUD")
-		expect((stage._hud.map.get_theme_stylebox("normal") as StyleBoxFlat).border_width_left == 0 and (stage._hud.pause.get_theme_stylebox("normal") as StyleBoxFlat).border_width_left == 0, "地图与暂停为次级轻工具，不抢场景权重")
+		expect(stage._hud.has("map") and stage._hud.has("pause") and not stage._hud.has("exit"), "探索只保留地图与菜单，标题和景深收进夜巡菜单")
 		expect(stage._hud.objective.size.x <= 760 and stage._hud.objective.get_theme_font_size("font_size") <= 24, "目标与地点层级紧凑")
 		var dialog := Dialogue.new(ThemeData.load_theme())
 		root.add_child(dialog)
 		var dialogue_panel := dialog._root.find_child("DialoguePanel", true, false) as Panel
 		expect(dialogue_panel != null, "对白使用命名烟墨面板")
 		if dialogue_panel != null:
-			var surface := dialogue_panel.get_theme_stylebox("panel") as StyleBoxFlat
-			expect(surface != null, "对白不再使用厚纸纹/金框")
-			if surface != null: expect(_contrast(dialog._text_label.get_theme_color("font_color"), surface.bg_color) >= 7.0, "对白正文高对比")
+			var surface := dialogue_panel.get_theme_stylebox("panel") as StyleBoxTexture
+			expect(surface != null and surface.texture != null, "对白使用批准的生图皮肤")
+			if surface != null:
+				var background := surface.texture.get_image()
+				expect(_contrast(dialog._text_label.get_theme_color("font_color"), background.get_pixel(background.get_width() / 2, background.get_height() / 2)) >= 7.0, "对白正文在实际生图内底上高对比")
 			expect(dialogue_panel.get_global_rect().encloses(dialog._text_label.get_global_rect()), "中文正文在对白安全区：%s" % size)
 			expect(dialogue_panel.mouse_filter == Control.MOUSE_FILTER_IGNORE, "对白面板不会截断点击快进")
 		var ending: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/cases/night_patrol.json"))
@@ -143,7 +144,7 @@ func _run() -> void:
 	root.add_child(party)
 	party.open(null)
 	for child in party._canvas.get_children():
-		if child is Panel: expect(child.get_theme_stylebox("panel") is StyleBoxFlat, "整备所有面板统一烟墨底")
+		if child is Panel: expect(child.get_theme_stylebox("panel") is StyleBoxTexture, "整备面板使用批准的分层生图纹理")
 	expect(party._hud.count.get_theme_color("font_color") != Kit.color("ink_900"), "整备次要文字避免深底深字")
 	party.free()
 	await _test_actual_focus()
@@ -168,9 +169,9 @@ func _test_battle_readability() -> void:
 			var row: Dictionary = view._actors[id]
 			expect(row.hpbar.size.y <= 10 and row.hpbar.get_combined_minimum_size().y <= 10, "HP条实际尺寸不被StyleBox边距撑高：%s size=%s min=%s" % [id, row.hpbar.size, row.hpbar.get_combined_minimum_size()])
 			expect(not row.hpbar.get_rect().intersects(row.mp.get_rect()), "HP条与MP文字互不遮挡：" + id)
-			expect(not row.status.get_v_scroll_bar().visible, "常态两行状态不出现无意义滚动条：" + id)
+			expect(not row.status.get_v_scroll_bar().visible, "常态状态不出现无意义滚动条：" + id)
 			if id.begins_with("e_"):
-				expect(row.card.size.y <= 164, "敌方状态卡高度紧凑：" + id)
+				expect(row.card.size.y <= 194, "敌方状态卡高度紧凑：" + id)
 				var head: float = row.sprite.position.y - float(row.sprite.get_meta("content_height"))
 				expect(row.card.get_rect().end.y <= head - 8, "敌方资料与人物头部留空：" + id)
 		view.free()

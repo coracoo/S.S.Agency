@@ -93,6 +93,44 @@ class PackTests(unittest.TestCase):
                 self.assertIn("assets/chars/npcs/act_one/" + name, resources)
         self.assertIn("assets/chars/npcs/act_one/asset_manifest.json", originals)
 
+    def test_generated_menu_pngs_are_resource_roots_and_raw_dependencies(self):
+        originals, resources = self.module.formal_dependencies()
+        expected = {path.relative_to(self.module.PROJECT).as_posix()
+                    for path in (self.module.PROJECT / "assets/ui/night_menu").glob("*.png")
+                    if path.is_file()}
+        self.assertIn("assets/ui/night_menu/panel.png", expected, "批准菜单素材必须存在")
+        for collection in (originals, resources):
+            self.assertEqual(expected, {path for path in collection if path.startswith("assets/ui/night_menu/")},
+                             "动态ROOT + id加载的菜单PNG必须进入两份发布闭包")
+
+    def test_menu_dependency_scope_accepts_new_gauges_without_asset_tree_expansion(self):
+        originals, resources = self.module.formal_dependencies()
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            # 只链接现有闭包，菜单夹具独立创建，不改并行任务或仓库素材。
+            for name in set(originals) | set(resources):
+                if name.startswith("assets/ui/night_menu/"):
+                    continue
+                target = root / name
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.symlink_to(self.module.PROJECT / name)
+            expected = {"assets/ui/night_menu/" + name + ".png"
+                        for name in ("panel", "gauge_track", "gauge_hp", "gauge_mp")}
+            excluded = {"assets/ui/night_menu/source/unapproved.png",
+                        "assets/ui/night_menu/panel.png.import", "assets/ui/night_menu/notes.json",
+                        "assets/ui/other_menu/unapproved.png"}
+            for name in expected | excluded:
+                path = root / name
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(b"fixture-bytes")
+            (root / "assets/ui/night_menu/not_a_file.png").mkdir()
+            originals, resources = self.module.formal_dependencies(root)
+            for collection in (originals, resources):
+                self.assertEqual(expected, {path for path in collection if path.startswith("assets/ui/night_menu/")})
+                self.assertFalse(excluded & set(collection), "原稿、导入元数据与旁支素材不能扩大闭包")
+            for name in expected:
+                self.assertEqual(root / name, originals[name], "追加器必须读取所选项目的原PNG")
+
     def test_class_cache_keeps_current_class_and_removes_unexported_legacy(self):
         self.assertTrue(hasattr(self.module, "filter_class_cache"), "选择导出不能留下全项目旧class路径")
         cache = 'list=[{\n"class": &"Current",\n"path": "res://scripts/current.gd"\n}, {\n"class": &"Old",\n"path": "res://tools/old.gd"\n}]\n'

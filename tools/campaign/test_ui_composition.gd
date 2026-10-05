@@ -41,19 +41,22 @@ func _run() -> void:
 	stage._process(12.0)
 	check(not stage._hud.prompt.text.contains("WASD"), "教学结束后没有常驻移动说明")
 	stage._open_pause()
+	await process_frame
+	var menu: CanvasLayer = stage._party_panel
+	var menu_buttons: Array[Button] = []
 	var labels: Array[String] = []
-	for button in stage._modal_buttons: labels.append(button.text)
-	check(labels.any(func(text): return text.contains("景深")) and labels.has("返回标题"), "景深与返回标题已收进暂停且可达")
-	stage._process(0.0)
+	for candidate in menu.find_children("*", "Button", true, false):
+		if candidate.is_visible_in_tree() and not candidate.disabled:
+			menu_buttons.append(candidate); labels.append(candidate.text)
+	check(labels.any(func(text): return text.contains("景深")) and labels.has("返回标题"), "景深与返回标题已收进夜巡菜单且可达")
 	for key in [KEY_TAB, KEY_DOWN, KEY_UP, KEY_RIGHT, KEY_LEFT]:
-		for step in range(stage._modal_buttons.size() + 1):
+		for step in range(menu_buttons.size() + 1):
 			await _key(key)
-			check(root.gui_get_focus_owner() in stage._modal_buttons, "暂停键盘焦点留在五个操作内")
+			check(root.gui_get_focus_owner() in menu_buttons, "夜巡菜单键盘焦点留在可见操作内")
 	for window_size in [Vector2i(1920, 1080), Vector2i(1280, 720)]:
 		root.size = window_size; await process_frame
-		stage._show_pause_menu(); stage._process(0.0); await process_frame
-		for button in stage._modal_buttons:
-			check(root.get_visible_rect().encloses(button.get_global_rect()), "暂停五项在画布内")
+		for button in menu_buttons:
+			check(root.get_visible_rect().encloses(button.get_global_rect()), "夜巡菜单操作在画布内")
 	stage.free()
 	for event in ["dialogue:a1", "dialogue:r1", "dialogue:h1"]: check(session.commit_event(session.campaign.safe_snapshot().world, event).ok, "登记既有战前剧情")
 	check(session.begin_encounter(session.campaign.safe_snapshot().world, "basin_reflection").ok, "正式遭遇入口")
@@ -64,19 +67,22 @@ func _run() -> void:
 		check(not row.status.text.contains("盾 0") and not row.status.text.contains("无状态"), "没有盾0/无状态占位信息")
 		if row.status.text.is_empty():
 			check(not row.status.visible, "空状态控件隐藏")
-			check(row.card.size.y <= (144 if row.intent == null else 112), "空状态卡片不保留占位高度")
+			var visible_bottom: float = row.hpbar.position.y + row.hpbar.size.y
+			if row.mp.visible: visible_bottom = maxf(visible_bottom, row.mp.position.y + row.mp.size.y)
+			if row.mpbar != null: visible_bottom = maxf(visible_bottom, row.mpbar.position.y + row.mpbar.size.y)
+			check(row.card.size.y <= visible_bottom + 28.0, "空状态卡片仅保留生图内框底部留白，不保留状态占位高度")
 		if row.intent != null:
 			check(row.intent.get_line_count() <= 1, "敌目标只保留简明意图")
 			check(row.intent.tooltip_text.contains("预计伤害"), "完整敌意图仍可悬停查阅")
 	check(view._hud.queue.get_line_count() == 1 and not view._hud.queue.text.contains("当前·") and not view._hud.queue.text.contains("已行·"), "轮序为单行简名序列")
-	check(view._preview_panel.position.y >= 650, "完整预览位于操作区，不遮敌人头部")
+	check(view._preview_panel.position.y >= 590, "完整预览位于操作区，不遮敌人头部")
 	for panel in view._canvas.get_children():
 		if panel is Panel and panel.visible:
 			check(not (panel.size.x > 1800 and panel.size.y > 200), "底部不再常驻整幅空操作台")
 	for button in view._skill_buttons:
-		check(button.size.x <= 240 and button.size.y <= 84, "技能改为横向紧凑按钮")
-		if not button.disabled: check(not button.text.contains("%") and not button.text.contains("次行动"), "技能默认只呈现名称与费用")
-		check(button.tooltip_text.contains("MP") and button.tooltip_text.length() > button.text.length(), "完整技能效果仍可查")
+		check(button.size == Vector2(336, 132), "批准的双行生图技能卡保留真实内框留白")
+		if not button.disabled: check(button.text.split("\n").size() <= 2, "技能摘要最多两行，不侵入装饰边框")
+		check(button.tooltip_text.contains("MP") and not button.tooltip_text.is_empty(), "完整技能效果仍可查")
 	view._skill_buttons[0].pressed.emit()
 	check(view._preview_panel.visible and not view._hud.preview.text.is_empty(), "选中技能后呈现完整详情与预览")
 	var target_options: Dictionary = view.command_options(view.pending_command.kind, view.pending_command.ability_id)
