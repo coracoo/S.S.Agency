@@ -112,8 +112,9 @@ func _run() -> void:
 			if child is Button:
 				expect(root.get_visible_rect().encloses(child.get_global_rect()), "右上工具保持可见：%s" % size)
 				expect(child.get_theme_font_size("font_size") <= 24, "工具字级低于夜次标题")
-		expect((stage._hud.hd2d.get_theme_stylebox("normal") as StyleBoxFlat).border_width_left == 0 and (stage._hud.exit.get_theme_stylebox("normal") as StyleBoxFlat).border_width_left == 0, "景深与返回标题为次级轻工具，不抢地图与整备权重")
-		expect(stage._hud.objective.size.x <= 760 and stage._hud.objective.get_theme_font_size("font_size") <= 23, "目标与地点层级紧凑")
+		expect(not stage._hud.has("hd2d") and not stage._hud.has("exit"), "景深与返回标题已收入暂停，不再常驻探索HUD")
+		expect((stage._hud.map.get_theme_stylebox("normal") as StyleBoxFlat).border_width_left == 0 and (stage._hud.pause.get_theme_stylebox("normal") as StyleBoxFlat).border_width_left == 0, "地图与暂停为次级轻工具，不抢场景权重")
+		expect(stage._hud.objective.size.x <= 760 and stage._hud.objective.get_theme_font_size("font_size") <= 24, "目标与地点层级紧凑")
 		var dialog := Dialogue.new(ThemeData.load_theme())
 		root.add_child(dialog)
 		var dialogue_panel := dialog._root.find_child("DialoguePanel", true, false) as Panel

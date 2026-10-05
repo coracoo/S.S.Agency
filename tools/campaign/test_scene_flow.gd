@@ -328,36 +328,48 @@ func _test_opposite_movement_keys(stage: Node, night: int, first: String, second
 	Input.action_release(second)
 	await _frames(2)
 
+func _pause_depth_button(stage: Node3D) -> Button:
+	for button in stage._modal_buttons:
+		if button.text.begins_with("景深："): return button
+	return null
+
 func _test_hd2d_hud(stage: Node3D, id: int) -> void:
-	var button: Button = stage._hud.get("hd2d")
-	check(button != null, "第%d夜全图提供景深开关" % id)
-	if button == null: return
-	stage._confirm_armed = true
-	stage._refresh_hud()
-	check(not button.disabled and button.text == "景深：开", "全图探索可点且默认开启")
+	check(not stage._hud.has("hd2d"), "第%d夜探索HUD不常驻景深开关" % id)
+	stage._open_pause()
+	var button := _pause_depth_button(stage)
+	check(button != null, "第%d夜暂停提供景深开关" % id)
+	if button == null: stage._resume_explore(); return
+	stage._process(0.0)
+	check(not button.disabled and button.text == "景深：开", "暂停中可点且默认开启")
 	var world_before: Dictionary = stage.export_world()
 	var disk_before := FileAccess.get_file_as_string(Chapters.SAVE_PATH)
 	var geometry_id: int = stage._geometry.get_instance_id()
 	button.pressed.emit()
-	check(not stage.hd2d_experiment and button.text == "景深：关", "实际按钮信号关闭景深")
-	check(button.disabled, "按下后等待释放，防止同次输入重入")
-	stage._confirm_armed = true; stage._refresh_hud()
+	button = _pause_depth_button(stage)
+	check(not stage.hd2d_experiment and button.text == "景深：关", "实际暂停按钮信号关闭景深")
+	check(button.disabled, "新暂停按钮等待释放，防止同次输入重入")
 	button.pressed.emit()
+	check(not stage.hd2d_experiment, "释放前第二次按下不会重复切换")
+	stage._process(0.0)
+	button.pressed.emit()
+	button = _pause_depth_button(stage)
 	check(stage.hd2d_experiment and button.text == "景深：开" and is_equal_approx(stage.camera_rig.camera.size, 9.2), "再次点击恢复全图景深，人物尺寸不跳变")
 	check(stage._geometry.get_instance_id() == geometry_id, "开关不将连续世界换回旧小房间")
-	check(stage.export_world() == world_before and FileAccess.get_file_as_string(Chapters.SAVE_PATH) == disk_before, "HUD开关不写世界状态或存档")
-	for mode in ["battle", "ritual", "dialogue", "pause"]:
+	check(stage.export_world() == world_before and FileAccess.get_file_as_string(Chapters.SAVE_PATH) == disk_before, "暂停景深不写世界状态或存档")
+	stage._resume_explore()
+	for mode in ["battle", "ritual", "dialogue"]:
 		stage._confirm_armed = true
 		check(stage.begin_operation(mode), "进入锁定模式" + mode)
 		stage._refresh_hud()
-		check(button.disabled, "锁定模式禁用HD2D按钮" + mode)
-		button.pressed.emit()
+		check(not stage._ui_layer.visible and stage._modal_buttons.is_empty(), "锁定模式没有可用的景深热区" + mode)
+		stage._toggle_depth_from_pause()
 		check(stage.hd2d_experiment, "锁定模式程序触发也不能切换" + mode)
 		stage._resume_explore()
-	stage._confirm_armed = true
-	stage._transition_busy = true; stage._refresh_hud()
-	check(button.disabled, "转场时禁用HD2D")
+	stage._open_pause(); stage._process(0.0)
+	button = _pause_depth_button(stage)
+	stage._transition_busy = true; stage._process(0.0)
+	check(button.disabled, "转场时禁用暂停景深")
 	button.pressed.emit()
 	check(stage.hd2d_experiment, "转场时不切换")
 	stage._transition_busy = false
-	stage._refresh_hud()
+	stage._resume_explore()

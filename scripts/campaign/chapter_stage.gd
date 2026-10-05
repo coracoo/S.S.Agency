@@ -83,7 +83,7 @@ func _ready() -> void:
 		_show_error(restored.error, _return_title)
 		return
 	ready_for_play = true
-	if hd2d_experiment: set_hd2d_experiment(true)
+	set_hd2d_experiment(bool(session.get_meta("hd2d_depth_enabled", hd2d_experiment)))
 	_mode = "explore"
 	set_controls_enabled(true)
 	if not session.get_meta("exploration_tutorial_seen", false):
@@ -105,6 +105,8 @@ func set_hd2d_experiment(enabled: bool) -> bool:
 		_hd2d_profile.configure(camera_rig.camera)
 	if not _hd2d_profile.set_enabled(enabled): return false
 	hd2d_experiment = enabled
+	# 仅在当前会话保留视觉选择，战斗/跨夜重建不能偷偷重开；不写故事档。
+	if session != null: session.set_meta("hd2d_depth_enabled", enabled)
 	if player != null: _hd2d_profile.follow(player.position)
 	return true
 func _toggle_hd2d_from_hud() -> void:

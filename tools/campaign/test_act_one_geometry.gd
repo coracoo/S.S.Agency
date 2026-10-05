@@ -136,6 +136,7 @@ func _run() -> void:
 	if connected_exists:
 		check(world.has_method("update_tree_occlusion"), "前景树具有连续遮挡让位接口")
 		if world.has_method("update_tree_occlusion"): _test_tree_occlusion(world)
+		_test_tree_occlusion_many(world)
 		await _walk_real_capsule(world)
 	world.free()
 	print("ACT ONE GEOMETRY: ", assertions," assertions, ",failures.size()," failures")
@@ -195,3 +196,36 @@ func _test_tree_occlusion(world: Node3D) -> void:
 	for index in range(45): world.update_tree_occlusion(Vector3(30,2.89,-7),1.0/60.0)
 	check(leaves.get_active_material(0)==original, "离开遮挡恢复原材质与不透明度")
 	check(world.find_children("*","CollisionShape3D",true,false).size()==count, "前景渐隐不改变任何物理碰撞")
+
+func _test_tree_occlusion_many(world: Node3D) -> void:
+	check(world.has_method("update_tree_occlusion_many"),"战斗前景让位支持一次检测多个参战身体")
+	if not world.has_method("update_tree_occlusion_many"): return
+	var grove := world.find_child("OuterCedarGrove",true,false)
+	var tree: Node3D
+	for group in grove.get_children():
+		if absf(group.position.x-49)<.1 and absf(group.position.z-11)<.1: tree = group; break
+	check(tree != null,"多人物遮挡测试使用真实x49前景树")
+	if tree == null: return
+	var leaves: MeshInstance3D = tree.find_children("61_Cedar*","MeshInstance3D",true,false)[0]
+	var original: Material = leaves.get_active_material(0)
+	var collision_count := world.find_children("*","CollisionShape3D",true,false).size()
+	var blocked := Vector3(49.19,2.89,4.86)
+	var clear := Vector3(30,2.89,-7)
+	var blocked_first: Array[Vector3] = [blocked,clear]
+	var blocked_last: Array[Vector3] = [clear,blocked]
+	var no_actors: Array[Vector3] = []
+	var clear_only: Array[Vector3] = [clear]
+	world.update_tree_occlusion_many(blocked_first,1.0/60.0)
+	var first_alpha: float = leaves.get_active_material(0).albedo_color.a
+	check(is_equal_approx(first_alpha,1.0-5.5/60.0),"任一身体被遮挡即让位，且每棵树一帧只推进一次透明度")
+	for index in range(18): world.update_tree_occlusion_many(blocked_first,1.0/60.0)
+	check(leaves.get_active_material(0).albedo_color.a<=.02,"未被遮挡的另一身体不能覆盖先前的遮挡结果")
+	for index in range(45): world.update_tree_occlusion_many(no_actors,1.0/60.0)
+	check(leaves.get_active_material(0)==original,"无参战人物时逐帧恢复原树材质")
+	world.update_tree_occlusion_many(blocked_last,1.0/60.0)
+	check(is_equal_approx(leaves.get_active_material(0).albedo_color.a,first_alpha),"身体顺序反转不改变遮挡渐隐结果")
+	for index in range(18): world.update_tree_occlusion_many(blocked_last,1.0/60.0)
+	check(leaves.get_active_material(0).albedo_color.a<=.02,"列表中第二个身体被挡同样完成让位")
+	for index in range(45): world.update_tree_occlusion_many(clear_only,1.0/60.0)
+	check(leaves.get_active_material(0)==original,"所有身体离开后恢复原不透明度")
+	check(world.find_children("*","CollisionShape3D",true,false).size()==collision_count,"多人物树冠让位不改变碰撞")

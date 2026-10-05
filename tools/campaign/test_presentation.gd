@@ -121,7 +121,10 @@ func _test_session_panel() -> void:
 		root.add_child(view)
 		await process_frame
 		check(view._hd_enabled() and view._is_chapter() and view._hd_views.size() == 3 and not view._hd_failed, "正式ChapterSession驱动非默认三人高清战斗")
-		check(view._canvas.get_meta("background_path", "") == "res://assets/bg/approach_battle.png", "真实正式首夜战斗显示新参道背景")
+		check(view._canvas.get_meta("background_path", "") == "res://scripts/campaign/act_one_geometry.gd", "真实正式首夜战斗复用连续寺域几何")
+		check(is_instance_valid(view._world_backdrop) and view._world_backdrop.viewport.own_world_3d and view._world_backdrop.geometry != null, "战斗有独立可渲染的同源3D世界")
+		var origin: Array = resumed.campaign.safe_snapshot().world.position
+		check(view._world_backdrop.get_meta("source_position") == Vector3(origin[0], origin[1], origin[2]) and view._world_backdrop.scene_region == "approach", "战斗舞台按真实战前位置选择参道区，返场坐标保持不变")
 		for actor_id in resumed.campaign.safe_snapshot().party:
 			check(view._actors[actor_id].avatar.get_meta("source_path", "").contains("high_detail_complete/frames/"), "战斗头像来自真实高清帧：" + actor_id)
 		for actor_id in view.engine.snapshot().actors:
