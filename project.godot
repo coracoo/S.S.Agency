@@ -15,8 +15,6 @@ config/description="五夜三维探索与回合制 RPG 主线"
 run/main_scene="res://scenes/campaign/title.tscn"
 config/features=PackedStringArray("4.7")
 
-[autoload]
-
 [display]
 
 window/size/viewport_width=1920
@@ -29,9 +27,6 @@ window/stretch/aspect="expand"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/shaker/plugin.cfg")
-
-[gui]
-
 
 [input]
 

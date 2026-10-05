@@ -3,9 +3,10 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bms1r08e6gd7g"
-path="res://.godot/imported/night05_honden_wood.png-66bee1585ebbbee1a3131059689a5350.ctex"
+path.s3tc="res://.godot/imported/night05_honden_wood.png-66bee1585ebbbee1a3131059689a5350.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 generator_parameters={
 "md5": "37d2f4aadb7c513e2d1212c2961e9c29"
@@ -14,11 +15,11 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/3d/night05_honden/night05_honden_wood.png"
-dest_files=["res://.godot/imported/night05_honden_wood.png-66bee1585ebbbee1a3131059689a5350.ctex"]
+dest_files=["res://.godot/imported/night05_honden_wood.png-66bee1585ebbbee1a3131059689a5350.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -40,4 +41,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0
