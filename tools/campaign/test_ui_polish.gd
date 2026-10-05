@@ -112,8 +112,8 @@ func _run() -> void:
 			if child is Button:
 				expect(root.get_visible_rect().encloses(child.get_global_rect()), "右上工具保持可见：%s" % size)
 				expect(child.get_theme_font_size("font_size") <= 24, "工具字级低于夜次标题")
-		expect((stage._hud.hd2d.get_theme_stylebox("normal") as StyleBoxFlat).border_width_left == 0 and (stage._hud.exit.get_theme_stylebox("normal") as StyleBoxFlat).border_width_left == 0, "景深与返回标题为次级轻工具，不抢地图与整备权重")
-		expect(stage._hud.objective.size.x <= 760 and stage._hud.objective.get_theme_font_size("font_size") <= 23, "目标与地点层级紧凑")
+		expect(stage._hud.has("map") and stage._hud.has("pause") and not stage._hud.has("exit"), "探索只保留地图与菜单，标题和景深收进夜巡菜单")
+		expect(stage._hud.objective.size.x <= 760 and stage._hud.objective.get_theme_font_size("font_size") <= 24, "目标与地点层级紧凑")
 		var dialog := Dialogue.new(ThemeData.load_theme())
 		root.add_child(dialog)
 		var dialogue_panel := dialog._root.find_child("DialoguePanel", true, false) as Panel
@@ -142,7 +142,7 @@ func _run() -> void:
 	root.add_child(party)
 	party.open(null)
 	for child in party._canvas.get_children():
-		if child is Panel: expect(child.get_theme_stylebox("panel") is StyleBoxFlat, "整备所有面板统一烟墨底")
+		if child is Panel: expect(child.get_theme_stylebox("panel") is StyleBoxTexture, "整备面板使用批准的分层生图纹理")
 	expect(party._hud.count.get_theme_color("font_color") != Kit.color("ink_900"), "整备次要文字避免深底深字")
 	party.free()
 	await _test_actual_focus()

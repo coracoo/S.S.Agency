@@ -329,31 +329,31 @@ func _test_opposite_movement_keys(stage: Node, night: int, first: String, second
 	await _frames(2)
 
 func _test_hd2d_hud(stage: Node3D, id: int) -> void:
-	# UI 精修后景深开关降权进暂停菜单（docs/campaign/ui-atmosphere.md），不再占右上 HUD。
+	# 景深开关位于夜巡菜单，不再占右上 HUD；五夜共用同一实际菜单入口。
 	check(stage.hd2d_experiment, "第%d夜全图默认开启分层景深" % id)
 	check(is_equal_approx(stage.camera_rig.camera.size, 9.2), "第%d夜全图景深人物尺寸基线 9.2" % id)
 	check(stage._hud.get("hd2d") == null, "第%d夜景深开关不占探索 HUD 角落" % id)
 	var world_before: Dictionary = stage.export_world()
-	var disk_before := FileAccess.get_file_as_string(Chapters.SAVE_PATH)
 	var geometry_id: int = stage._geometry.get_instance_id()
-	# 暂停菜单里的景深开关：按一次关、再按开，人物尺寸不跳变。
-	check(stage.begin_operation("pause"), "第%d夜进入暂停菜单" % id)
-	stage._confirm_armed = true
-	stage._show_pause_menu()
+	# 菜单入口沿用整备前位置保存；只验证后续景深切换不额外写档。
+	stage._open_pause()
 	await _frames(2)
-	var button: Button = _modal_button(stage, "景深：开")
-	check(button != null, "第%d夜暂停菜单提供景深开关" % id)
+	check(stage._mode == "party" and not stage.controls_enabled and is_instance_valid(stage._party_panel), "第%d夜进入实际夜巡菜单" % id)
+	var disk_before := FileAccess.get_file_as_string(Chapters.SAVE_PATH)
+	var button: Button = _menu_button(stage, "景深：开")
+	check(button != null, "第%d夜夜巡菜单提供景深开关" % id)
 	if button == null:
-		stage._resume_explore()
+		if is_instance_valid(stage._party_panel): await stage._party_panel.close_panel()
+		else: stage._resume_explore()
 		return
 	stage._confirm_armed = true
 	button.pressed.emit()
 	await _frames(2)
 	check(not stage.hd2d_experiment, "实际按钮信号关闭景深")
-	var off_button: Button = _modal_button(stage, "景深：关")
-	check(off_button != null, "关闭后暂停菜单按钮同步为「景深：关」")
+	var off_button: Button = _menu_button(stage, "景深：关")
+	check(off_button != null, "关闭后菜单按钮同步为「景深：关」")
 	if off_button == null:
-		stage._resume_explore()
+		await stage._party_panel.close_panel()
 		return
 	stage._confirm_armed = true
 	off_button.pressed.emit()
@@ -361,8 +361,8 @@ func _test_hd2d_hud(stage: Node3D, id: int) -> void:
 	check(stage.hd2d_experiment and is_equal_approx(stage.camera_rig.camera.size, 9.2), "再次点击恢复全图景深，人物尺寸不跳变")
 	check(stage._geometry.get_instance_id() == geometry_id, "开关不将连续世界换回旧小房间")
 	check(stage.export_world() == world_before and FileAccess.get_file_as_string(Chapters.SAVE_PATH) == disk_before, "景深开关不写世界状态或存档")
-	stage._resume_explore()
-	# 锁定模式守卫：只有暂停模式能切，战斗/仪式/对白与转场中都不能。
+	await stage._party_panel.close_panel()
+	# 锁定模式守卫：只有活动菜单能切，战斗/仪式/对白与转场中都不能。
 	for mode in ["battle", "ritual", "dialogue"]:
 		stage._confirm_armed = true
 		check(stage.begin_operation(mode), "进入锁定模式" + mode)
@@ -377,7 +377,8 @@ func _test_hd2d_hud(stage: Node3D, id: int) -> void:
 	stage._transition_busy = false
 	stage._resume_explore()
 
-func _modal_button(stage: Node3D, text: String) -> Button:
-	for button: Button in stage._modal_buttons:
-		if is_instance_valid(button) and button.text == text: return button
+func _menu_button(stage: Node3D, text: String) -> Button:
+	if not is_instance_valid(stage._party_panel): return null
+	for button in stage._party_panel.find_children("*", "Button", true, false):
+		if button.text == text: return button
 	return null

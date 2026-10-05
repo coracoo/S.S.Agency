@@ -43,6 +43,7 @@ var _hud: Dictionary = {}
 var _ui_layer: CanvasLayer
 var _modal_layer: CanvasLayer
 var _party_panel: CanvasLayer
+var _title_party_draft: Variant = null
 var _theme: RefCounted
 var _tutorial_remaining := 0.0
 var _story_definitions: Dictionary = {}
@@ -161,6 +162,7 @@ func callback_valid(token: int) -> bool:
 func shutdown() -> void:
 	if _closed: return
 	_closed = true
+	_title_party_draft = null
 	_generation += 1
 	set_controls_enabled(false)
 	if is_instance_valid(_dialogue): _dialogue.abort()
@@ -513,45 +515,83 @@ func _open_map() -> void:
 	button.disabled = true
 	_modal_buttons.append(button)
 func _open_pause() -> void:
-	if not begin_operation("pause"): return
-	_show_pause_menu()
+	if _mode != "explore": return
+	_open_party("menu")
 func _show_pause_menu() -> void:
-	_show_modal("暂停夜巡", "WASD 移动 · E 调查 · M 地图。释放移动键后可继续行走。", [{"text": "继续探索", "call": _resume_explore}, {"text": "编队 / 形态 / 道具", "call": _open_party}, {"text": "保存当前位置", "call": _save_position}, {"text": "景深：开" if hd2d_experiment else "景深：关", "call": _toggle_depth_from_pause}, {"text": "返回标题", "call": _ask_title}])
+	_open_party("menu")
 func _toggle_depth_from_pause() -> void:
-	if _closed or not ready_for_play or _mode != "pause" or _transition_busy: return
-	set_hd2d_experiment(not hd2d_experiment)
-	_show_pause_menu()
-func _open_party() -> void:
+	_party_menu_action("depth")
+func _open_party(page: String = "party") -> void:
+	if _closed or not ready_for_play or session == null or _transition_busy or is_instance_valid(_party_panel): return
+	if _mode not in ["explore", "pause", "error"]: return
+	# 菜单与子页共用一个输入锁；入口保存失败时仍保持锁定，重试保留原页面。
+	_generation += 1
+	_mode = "party"
+	_confirm_armed = false
+	set_controls_enabled(false)
 	var saved: Dictionary = session.save_world(export_world())
 	if not saved.get("ok", false):
-		_show_error(str(saved.get("error", "整备前保存失败")), _open_party)
+		_show_error(str(saved.get("error", "整备前保存失败")), _open_party.bind(page))
 		return
 	apply_committed_world(saved.world)
 	_close_modal()
-	_mode = "party"
 	var script: Script = load("res://scripts/campaign/party_panel.gd")
 	if script == null:
-		_show_error("编队界面未能加载。", _open_party)
+		_show_error("夜巡菜单未能加载。", _open_party.bind(page))
 		return
 	_party_panel = script.new()
 	add_child(_party_panel)
 	_party_panel.closed.connect(_party_closed, CONNECT_ONE_SHOT)
-	_party_panel.open(session)
+	_party_panel.menu_action.connect(_party_menu_action)
+	_party_panel.open(session, page)
+	if _title_party_draft is Array:
+		# 标题确认不提交编队；取消后恢复草稿，空编队也必须与“没有草稿”区分。
+		var roster: Dictionary = session.campaign.safe_snapshot().roster
+		var restored_draft: Array[String] = []
+		for actor_id in _title_party_draft:
+			if actor_id is String and roster.has(actor_id) and not restored_draft.has(actor_id): restored_draft.append(actor_id)
+		if restored_draft.size() == _title_party_draft.size() and restored_draft.size() <= 3:
+			_party_panel.draft_party.assign(restored_draft)
+			_party_panel.show_page(page)
+		_title_party_draft = null
+	_party_panel.update_menu(hd2d_experiment)
+func _party_menu_action(action: String) -> void:
+	if _closed or not ready_for_play or _mode != "party" or _transition_busy or not is_instance_valid(_party_panel) or _party_panel.busy: return
+	match action:
+		"save":
+			_save_position()
+		"depth":
+			if set_hd2d_experiment(not hd2d_experiment):
+				_party_panel.update_menu(hd2d_experiment)
+				_party_panel.set_notice("分层景深已开启。" if hd2d_experiment else "分层景深已关闭。")
+		"title":
+			# 先移出场景树，避免面板的 Esc 与遮罩吞掉标题确认的输入。
+			_title_party_draft = _party_panel.draft_party.duplicate()
+			_release_party_panel()
+			_mode = "pause"
+			_ask_title()
+func _release_party_panel() -> void:
+	if is_instance_valid(_party_panel):
+		remove_child(_party_panel)
+		_party_panel.queue_free()
+	_party_panel = null
 func _party_closed() -> void:
 	if _closed: return
-	if is_instance_valid(_party_panel): _party_panel.queue_free()
-	_party_panel = null
+	_title_party_draft = null
+	_release_party_panel()
 	apply_committed_world(session.campaign.safe_snapshot().world)
 	_refresh_npcs()
 	_resume_explore()
 func _save_position() -> void:
+	if _closed or _mode != "party" or _transition_busy or not is_instance_valid(_party_panel) or _party_panel.busy: return
 	var saved: Dictionary = session.save_world(export_world())
 	if not saved.get("ok", false):
-		_show_error(str(saved.get("error", "位置保存失败")), _save_position)
+		last_error = str(saved.get("error", "位置保存失败"))
+		_party_panel.set_notice(last_error)
 		return
 	apply_committed_world(saved.world)
-	_resume_explore()
-	_notice("当前位置与队伍已保存。")
+	last_error = ""
+	_party_panel.set_notice("当前位置已保存。")
 func _ask_title() -> void:
 	if _closed or _transition_busy or _mode == "title": return
 	var previous_mode := _mode
@@ -582,6 +622,7 @@ func _save_and_title() -> void:
 		return
 	_return_title()
 func _return_title() -> void:
+	_title_party_draft = null
 	if session != null: session.close()
 	_go_scene("res://scenes/campaign/title.tscn")
 func _go_scene(path: String) -> void:
@@ -609,7 +650,7 @@ func _build_hud() -> void:
 	root.size = Vector2(1920, 1080)
 	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_ui_layer.add_child(root)
-	# 无整幅面板，场所与当前目标浮于角落；探索只保留地图/暂停。
+	# 无整幅面板，场所与当前目标浮于角落；探索只保留地图/菜单。
 	var information := Kit.panel(root, Rect2(28, 20, 590, 78))
 	information.name = "NightInformation"
 	information.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
@@ -621,7 +662,7 @@ func _build_hud() -> void:
 		label.add_theme_color_override("font_outline_color", Kit.color("ui_ink"))
 		label.add_theme_constant_override("outline_size", 5)
 	_hud.map = Kit.button(root, "地图 [M]", Rect2(1610, 26, 132, 48), _open_map)
-	_hud.pause = Kit.button(root, "暂停 [Esc]", Rect2(1754, 26, 136, 48), _open_pause)
+	_hud.pause = Kit.button(root, "菜单 [Esc]", Rect2(1754, 26, 136, 48), _open_pause)
 	for tool in [_hud.map, _hud.pause]:
 		tool.focus_mode = Control.FOCUS_NONE
 		tool.add_theme_font_size_override("font_size", 20)

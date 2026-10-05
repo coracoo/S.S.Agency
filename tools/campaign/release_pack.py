@@ -193,6 +193,11 @@ def formal_dependencies(project=PROJECT):
     npc_manifest = project / "assets/chars/npcs/act_one/asset_manifest.json"
     if npc_manifest.is_file():
         sources.add(npc_manifest.relative_to(project).as_posix())
+    # NightMenuArt按ROOT + id动态读原PNG；只收批准目录的直接成品，不递归原稿或整个UI树。
+    menu_pngs = {path.relative_to(project).as_posix()
+                 for path in (project / "assets/ui/night_menu").glob("*.png") if path.is_file()}
+    sources.update(menu_pngs)
+    resources.update(menu_pngs)
     # 主线人物provider使用七形态首帧；旧对白portrait URI无需把旧半身/旧候选发包。
     sources.update({"data/dialogues.json", "data/cases/night_patrol.json", "data/ui_theme.json",
                     "data/exploration_3d/approach.json", "assets/ui/panel_washi_9slice.png",
