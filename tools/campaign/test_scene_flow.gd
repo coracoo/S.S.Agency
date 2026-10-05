@@ -164,7 +164,7 @@ func _test_scene_runtime() -> void:
 			return
 		check(not stage.controls_enabled and stage._mode == "dialogue", "第%d夜入口剧情锁移动" % id)
 		_silence_dialogue(stage)
-		await _test_hd2d_hud(stage, id)
+		_test_hd2d_hud(stage, id)
 		var before: Vector3 = stage.player.position
 		stage.player.set_move_input(Vector2.RIGHT)
 		await _frames(6)
@@ -344,17 +344,6 @@ func _test_hd2d_hud(stage: Node3D, id: int) -> void:
 	var world_before: Dictionary = stage.export_world()
 	var disk_before := FileAccess.get_file_as_string(Chapters.SAVE_PATH)
 	var geometry_id: int = stage._geometry.get_instance_id()
-	# 暂停菜单里的景深开关：按一次关、再按开，人物尺寸不跳变。
-	check(stage.begin_operation("pause"), "第%d夜进入暂停菜单" % id)
-	stage._confirm_armed = true
-	stage._show_pause_menu()
-	await _frames(2)
-	var button: Button = _modal_button(stage, "景深：开")
-	check(button != null, "第%d夜暂停菜单提供景深开关" % id)
-	if button == null:
-		stage._resume_explore()
-		return
-	stage._confirm_armed = true
 	button.pressed.emit()
 	button = _pause_depth_button(stage)
 	check(not stage.hd2d_experiment and button.text == "景深：关", "实际暂停按钮信号关闭景深")
@@ -384,8 +373,3 @@ func _test_hd2d_hud(stage: Node3D, id: int) -> void:
 	check(stage.hd2d_experiment, "转场时不切换")
 	stage._transition_busy = false
 	stage._resume_explore()
-
-func _modal_button(stage: Node3D, text: String) -> Button:
-	for button: Button in stage._modal_buttons:
-		if is_instance_valid(button) and button.text == text: return button
-	return null

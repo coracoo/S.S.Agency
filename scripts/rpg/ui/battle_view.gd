@@ -19,6 +19,8 @@ var engine: RefCounted
 var campaign: RefCounted
 var router: RefCounted
 var pending_command: Dictionary = {}
+# 唯一目标为「自动预填」（区别于玩家手动点选），提示语文本区分两种路径。
+var _auto_targeted := false
 var processing := false
 var last_error := ""
 var result_saved := false
@@ -105,11 +107,13 @@ func select_command(kind: String, ability_id: String = "") -> void:
 	_nonce += 1
 	pending_command = {"command_id": "ui_%d_%d" % [state.revision, _nonce], "expected_revision": int(state.revision), "actor_id": state.active_actor_id, "kind": kind, "ability_id": ability_id, "target_ids": []}
 	last_error = ""
+	_auto_targeted = false
 	# 唯一合法目标自动选中：需要点选目标时只剩一个候选（最常见=单场最后一个敌人），
 	# 直接预填目标，玩家一步确认即可；仍可 Esc 取消或改选（当前也无其他候选）。
 	var options: Dictionary = command_options(kind, ability_id)
 	if not options.get("automatic", false) and options.get("targets", []).size() == 1:
 		pending_command.target_ids = [options.targets[0]]
+		_auto_targeted = true
 	if _built:
 		_items.visible = false
 		_render()
@@ -119,6 +123,7 @@ func select_target(actor_id: String) -> void:
 	# 空目标已是合法命令时，模型负责完整集合（全体／自身），点选不能覆写。
 	if command_options(pending_command.kind, pending_command.ability_id).get("automatic", false): return
 	pending_command.target_ids = [actor_id]
+	_auto_targeted = false
 	if _built: _render()
 
 func current_preview() -> Dictionary:
@@ -569,7 +574,7 @@ func _render() -> void:
 	_hud.form.disabled = processing or not unlocked or state.get("phase") != "action_selection" or state.active_actor_id != active.get("actor_id")
 	_hud.form.text = ("法师 → 剑士 · 自由切换" if active.get("form_id") == "mage" else "剑士 → 法师 · 自由切换") if unlocked else "剑士 · 法师第一夜战斗后解锁"
 	_hud.form.tooltip_text = "共用HP/MP、CD、状态、装备和当前行动槽；切换不消耗行动，不治疗、不补蓝"
-	var auto_single: bool = not automatic and not pending_command.is_empty() and pending_command.get("target_ids", []).size() == 1
+	var auto_single: bool = _auto_targeted and pending_command.get("target_ids", []).size() == 1
 	var selection_prompt := ("全体目标已选，可直接确认" if preview.effective_target_ids.size() > 1 else "目标已选，可直接确认") if automatic else ("唯一目标已自动选中，可直接确认" if auto_single else "点击目标后确认")
 	if not automatic and not auto_single and preview.legal and not preview.effective_target_ids.is_empty(): selection_prompt = "目标已选，可确认"
 	_hud.prompt.text = last_error if not last_error.is_empty() else (selection_prompt + " · Esc 可取消" if not pending_command.is_empty() else "选择技能 → 点击目标 → 确认　／　Esc 取消选择")
