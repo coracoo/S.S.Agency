@@ -33,6 +33,8 @@ var selected_equipment_id := "standard_weapon"
 var _pages: Dictionary = {}
 var _tabs: Dictionary = {}
 var _roster_panel: Control
+var _gear_popup: Control
+var _gear_popup_list: Control
 var _generation := 0
 var _closing := false
 
@@ -164,7 +166,9 @@ func _build_equipment() -> void:
 		_equipment[slot].add_theme_font_size_override("font_size", 21)
 		Art.center_text(_equipment[slot], 86, 20)
 		Art.icon(page, slot, Rect2(732, 369 + index * 92, 44, 44))
-	Kit.muted(Kit.label(page, "本槽装备 · 现有标准配装", Rect2(710, 624, 328, 40), 20))
+	Kit.muted(Kit.label(page, "持有装备 · 战斗胜利可获得", Rect2(710, 596, 328, 24), 16))
+	_hud.gear_browse = Art.button(page, "", Rect2(708, 620, 334, 48), open_gear_popup)
+	_hud.gear_browse.add_theme_font_size_override("font_size", 18)
 	_hud.equip_standard = Art.button(page, "", Rect2(708, 680, 334, 64), select_standard_equipment)
 	_hud.equip_empty = Art.button(page, "卸下此槽装备", Rect2(708, 763, 334, 64), select_equipment.bind("", ""))
 	_hud.equipment_title = Kit.label(page, "", Rect2(1100, 292, 472, 45), 27)
@@ -430,6 +434,62 @@ func select_slot(slot: String) -> void:
 	_render()
 func select_standard_equipment() -> void:
 	select_equipment(selected_slot, Factory.STANDARD[selected_slot])
+
+const GEAR_STAT_LABELS := {"hp": "生命", "mp": "灵力", "atk": "攻击", "matk": "术攻", "def": "防御", "mdef": "术防", "spd": "速度"}
+
+static func gear_stat_summary(stats: Dictionary) -> String:
+	var parts: Array[String] = []
+	for key in Factory.STAT_KEYS:
+		if int(stats.get(key, 0)) != 0: parts.append("%s %+d" % [GEAR_STAT_LABELS.get(key, key), int(stats[key])])
+	return " ".join(parts)
+
+func open_gear_popup() -> void:
+	if busy or campaign == null: return
+	_ensure_gear_popup()
+	_render_gear_popup()
+	_gear_popup.visible = true
+
+func close_gear_popup() -> void:
+	if _gear_popup != null: _gear_popup.visible = false
+
+func _ensure_gear_popup() -> void:
+	if _gear_popup != null: return
+	_gear_popup = Control.new()
+	_gear_popup.position = Vector2(620, 230)
+	_gear_popup.size = Vector2(560, 560)
+	_gear_popup.visible = false
+	_gear_popup.mouse_filter = Control.MOUSE_FILTER_STOP
+	_canvas.add_child(_gear_popup)
+	Art.panel(_gear_popup, Rect2(0, 0, 560, 560), true)
+	_hud.gear_popup_title = Kit.label(_gear_popup, "", Rect2(24, 18, 400, 40), 26)
+	Art.button(_gear_popup, "关闭", Rect2(436, 16, 100, 44), close_gear_popup)
+	_gear_popup_list = Control.new()
+	_gear_popup_list.position = Vector2(24, 72)
+	_gear_popup_list.size = Vector2(512, 470)
+	_gear_popup.add_child(_gear_popup_list)
+
+func _render_gear_popup() -> void:
+	for child in _gear_popup_list.get_children(): child.queue_free()
+	var names := {"weapon": "武器", "armor": "护甲", "accessory": "饰品"}
+	_hud.gear_popup_title.text = "持有%s一览 · 点选后确认更换" % names.get(selected_slot, selected_slot)
+	var owned: Dictionary = campaign.safe_snapshot().get("gear", {})
+	var options: Array[Dictionary] = []
+	for gear_id in owned:
+		if int(owned.get(gear_id, 0)) < 1: continue
+		var definition: Dictionary = _catalog.get_definition("equipment", gear_id)
+		if definition.is_empty() or definition.slot != selected_slot: continue
+		options.append({"id": gear_id, "label": "%s　%s" % [definition.name, gear_stat_summary(definition.get("stats", {}))]})
+	options.sort_custom(func(a, b): return a.label < b.label)
+	options.append({"id": "", "label": "（卸下此槽装备）"})
+	for index in options.size():
+		var option: Dictionary = options[index]
+		var button := Art.button(_gear_popup_list, option.label, Rect2(0, index * 68, 512, 60), choose_gear_popup.bind(option.id))
+		button.add_theme_font_size_override("font_size", 18)
+		Art.selected(button, option.id == selected_equipment_id)
+
+func choose_gear_popup(equipment_id: String) -> void:
+	close_gear_popup()
+	select_equipment(selected_slot, equipment_id)
 func select_equipment(slot: String, equipment_id: String) -> void:
 	if busy: return
 	if slot.is_empty(): slot = selected_slot
@@ -454,6 +514,13 @@ func _render_equipment(actor: Dictionary, editable: bool) -> void:
 	_hud.equip_standard.text = _catalog.get_definition("equipment", Factory.STANDARD[selected_slot]).name
 	_hud.equip_standard.disabled = busy
 	_hud.equip_empty.disabled = busy
+	var owned_count := 0
+	var owned_gear: Dictionary = campaign.safe_snapshot().get("gear", {})
+	for gear_id in owned_gear:
+		var owned_definition: Dictionary = _catalog.get_definition("equipment", gear_id)
+		if int(owned_gear.get(gear_id, 0)) >= 1 and not owned_definition.is_empty() and owned_definition.slot == selected_slot: owned_count += 1
+	_hud.gear_browse.text = "持有候选 ×%d · 点选浏览" % owned_count
+	_hud.gear_browse.disabled = busy
 	Art.selected(_hud.equip_standard, not selected_equipment_id.is_empty())
 	Art.selected(_hud.equip_empty, selected_equipment_id.is_empty())
 	_hud.equipment_title.text = "%s · %s" % [actor_name(actor), names[selected_slot]]

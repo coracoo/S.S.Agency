@@ -15,7 +15,7 @@ const Router = preload("res://scripts/rpg/encounter_router.gd")
 const Presenter = preload("res://scripts/rpg/ui/battle_presenter.gd")
 const Kit = preload("res://scripts/rpg/ui/ui_kit.gd")
 const Art = preload("res://scripts/campaign/presentation/night_menu_art.gd")
-const ITEM_ORDER := ["healing_potion", "mana_potion", "revival_potion", "cleansing_powder"]
+const ITEM_ORDER := ["healing_potion", "mana_potion", "revival_potion", "cleansing_powder", "energy_tea", "guard_charm", "moxa_roll"]
 
 var engine: RefCounted
 var campaign: RefCounted
@@ -286,7 +286,7 @@ func _build() -> void:
 	_popup_shade.mouse_filter = Control.MOUSE_FILTER_STOP
 	_popup_shade.hide()
 	_canvas.add_child(_popup_shade)
-	_items = Art.panel(_canvas, Rect2(526, 250, 868, 526))
+	_items = Art.panel(_canvas, Rect2(526, 150, 868, 890))
 	_items.mouse_filter = Control.MOUSE_FILTER_STOP
 	Kit.label(_items, "道具 · 占用本次行动", Rect2(40, 40, 530, 36), 25)
 	_hud.items_close = _art_button(_items, "返回", Rect2(648, 22, 180, 92), _close_items)
