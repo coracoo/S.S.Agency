@@ -95,9 +95,13 @@ func normalize(value: Dictionary) -> Dictionary:
 	if saved.get("gear") is Dictionary:
 		saved.gear = Catalog._integerize(saved.gear)
 	else:
-		# 旧档没有装备持有表：按标准套装补默认，已穿装备不受影响。
+		# 旧档没有装备持有表：按标准套装补默认，并按已清空遭遇一次性补发装备战利品。
 		saved["gear"] = {}
 		for slot in Factory.STANDARD: saved.gear[Factory.STANDARD[slot]] = 1
+		for encounter_id in _cleared_encounter_ids(saved):
+			var loot: Dictionary = _catalog.get_definition("encounters", encounter_id).get("loot", {})
+			for gear_id in loot.get("gear", {}):
+				saved.gear[gear_id] = int(saved.gear.get(gear_id, 0)) + int(loot.gear[gear_id])
 	if saved.get("world") is Dictionary:
 		if (saved.world.get("world_version") is int or saved.world.get("world_version") is float) and saved.world.world_version == 3:
 			saved.world = Chapters.normalize(saved.world)
@@ -113,6 +117,30 @@ func normalize(value: Dictionary) -> Dictionary:
 		if saved.pending_battle.get("story_patch") is Dictionary:
 			State._int_fields(saved.pending_battle.story_patch, ["patch_version"])
 	return saved
+
+# 旧档补迁移用：按登记进度反推已清空遭遇（正式档按夜晚检查点，试玩片按遭遇链）。
+func _cleared_encounter_ids(saved: Dictionary) -> Array[String]:
+	var ids: Array[String] = []
+	if saved.has("run_profile"):
+		return ids
+	if saved.get("schema_version") is int and saved.schema_version == 2 and saved.get("world") is Dictionary:
+		var world: Dictionary = saved.world
+		var history: Dictionary = saved.get("world_history", {})
+		if world.get("night") is int:
+			for night in range(1, int(world.night) + 1):
+				var checkpoint = history.get("night_%d" % night, {})
+				if checkpoint is Dictionary and checkpoint.get("event_flags", {}).has("battle:cleared"):
+					var encounter_id: String = str(Chapters.night(night).get("encounter_id", ""))
+					if not encounter_id.is_empty() and not ids.has(encounter_id): ids.append(encounter_id)
+		return ids
+	var next_id: String = str(saved.get("next_encounter_id", ""))
+	var cursor := "slice_1"
+	var guard := 0
+	while not cursor.is_empty() and cursor != next_id and guard < 20:
+		ids.append(cursor)
+		cursor = str(_catalog.get_definition("encounters", cursor).get("next_id", ""))
+		guard += 1
+	return ids
 
 func validate(saved: Dictionary) -> Array[String]:
 	var errors: Array[String] = []
