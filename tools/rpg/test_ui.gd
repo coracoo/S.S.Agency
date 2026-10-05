@@ -170,14 +170,14 @@ static func _test_battle_scene_ready(View, catalog, failures: Array[String]) -> 
 	tree.root.add_child(view)
 	await tree.process_frame
 	F.expect(view._skill_buttons[0].text.split("\n").size() <= 2, "技能卡只用两行，不挤出和纸面板", failures)
-	F.expect(view._skill_buttons.size() == 4 and view._skill_buttons[0].text.contains("150%物攻"), "真实战斗ready显示四槽与预览真实伤害摘要", failures)
-	F.expect(view._skill_buttons[3].text.contains("2次行动"), "技能状态时长含行动单位", failures)
+	F.expect(view._skill_buttons.size() == 4 and view._skill_buttons[0].tooltip_text.contains("150%物攻"), "真实战斗ready保留四槽，完整悬停详情含真实伤害摘要", failures)
+	F.expect(view._skill_buttons[3].tooltip_text.contains("2次行动"), "技能完整详情的状态时长含行动单位", failures)
 	if OS.get_environment("RPG_TEST_LEGACY_CONTRACTS") == "1":
 		F.expect(view._actors.e_1.sprite.get_child(0).flip_h, "历史契约：左向敌图必须镜像面向右侧我方", failures)
 	else:
 		F.expect(not view._actors.e_1.sprite.get_child(0).flip_h and view._config.enemy_art.hound == "res://assets/chars/enemies/current/hound.png", "正式疾行敌图原生右向，在左侧不重复镜像", failures)
 	F.expect(view._actors.p_swordsman.sprite.get_child(0).flip_h, "右向凛音镜像面向左侧敌方", failures)
-	F.expect(view._actors.e_1.intent.text.contains("预计伤害"), "敌方意图显示模型数字", failures)
+	F.expect(view._actors.e_1.intent.tooltip_text.contains("预计伤害"), "敌方完整意图悬停显示模型数字", failures)
 	F.expect(view._preview_panel.size.y < 300 and view._preview_panel.size.x >= 400, "预览面板紧凑且可读", failures)
 	view._skill_buttons[0].pressed.emit()
 	view.select_target("e_1")
@@ -471,7 +471,7 @@ static func _test_intent_label_bounds(View, catalog, failures: Array[String]) ->
 	tree.root.add_child(view)
 	await tree.process_frame
 	var intent: Label = view._actors.e_cultist.intent
-	F.expect(intent.text.contains("虚弱") and intent.text.contains("2次行动") and intent.tooltip_text == intent.text, "真实意图控件显示完整文字并提供同文tooltip", failures)
+	F.expect(intent.tooltip_text.contains("虚弱") and intent.tooltip_text.contains("2次行动") and intent.text == intent.tooltip_text.get_slice("\n", 0), "真实意图默认简明首行，完整tooltip保留状态及行动时钟", failures)
 	F.expect(intent.get_rect().end.y <= 744 and intent.get_line_count() * Kit.font.get_height(intent.get_theme_font_size("font_size")) <= intent.size.y, "四行虚咒意图在操作板上方完整可读：" + str(intent.get_rect()) + " 行数" + str(intent.get_line_count()) + " 行高" + str(Kit.font.get_height(intent.get_theme_font_size("font_size"))), failures)
 	view.free()
 
@@ -504,7 +504,7 @@ static func _test_four_enemy_layout(View, catalog, failures: Array[String]) -> v
 			for previous in intents: F.expect(not intent.get_rect().intersects(previous), near_side + "四敌意图不重叠：" + id, failures)
 			cards.append(card)
 			intents.append(intent.get_rect())
-			F.expect(intent.get_rect().end.y <= 744 and intent.get_line_count() * Kit.font.get_height(intent.get_theme_font_size("font_size")) <= intent.size.y, near_side + "四敌完整意图不压操作板：" + id, failures)
+			F.expect(intent.get_rect().end.y <= 744 and intent.get_line_count() * Kit.font.get_height(intent.get_theme_font_size("font_size")) <= intent.size.y, near_side + "四敌简明意图不压操作板，完整信息保留tooltip：" + id, failures)
 			F.expect(Rect2(0, 154, 1920, 590).encloses(card), "四敌卡留在安全显示区", failures)
 		F.expect(view._hud.prompt.get_rect().end.y <= 744, "四敌操作提示不压和纸装饰边框", failures)
 		for rect in intents: F.expect(not view._hud.prompt.get_rect().intersects(rect), "四敌提示与意图区分离", failures)

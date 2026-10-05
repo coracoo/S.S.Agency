@@ -2,6 +2,7 @@
 class_name RpgBattleView
 extends Control
 signal presentation_tick
+const WorldBackdrop = preload("res://scripts/rpg/ui/battle_world_backdrop.gd")
 const Stature = preload("res://scripts/characters/character_stature.gd")
 const ChapterSession = preload("res://scripts/campaign/chapter_session.gd")
 const TrialSession = preload("res://scripts/exploration_3d/approach_session.gd")
@@ -26,6 +27,7 @@ var _catalog := Catalog.new()
 var _config: Dictionary
 var _nonce := 0
 var _display_actor_id := ""
+var _world_backdrop: Control
 var _canvas: Control
 var _hud: Dictionary = {}
 var _actors: Dictionary = {}
@@ -48,6 +50,10 @@ var _exit_confirmation: Control
 var _exit_previous_focus: Control
 var _asset_error_panel: Control
 var _asset_loading := false
+var _popup_shade: ColorRect
+var _modal_focus_root: Control
+var _modal_previous_focus: Control
+var _modal_focus_modes: Array[Dictionary] = []
 
 func _init() -> void:
 	_catalog.load_all()
@@ -93,7 +99,7 @@ func bind(battle_engine: RefCounted, campaign_model: RefCounted) -> void:
 		else: _check_result()
 
 func select_command(kind: String, ability_id: String = "") -> void:
-	if processing or engine == null: return
+	if processing or engine == null or (_active_popup() != null and _active_popup() != _items): return
 	var state: Dictionary = engine.snapshot()
 	if state.get("phase") != "action_selection" or state.get("outcome", "") != "" or state.actors[state.active_actor_id].side != "player": return
 	_nonce += 1
@@ -109,7 +115,7 @@ func select_command(kind: String, ability_id: String = "") -> void:
 		_render()
 
 func select_target(actor_id: String) -> void:
-	if processing or pending_command.is_empty(): return
+	if processing or pending_command.is_empty() or _active_popup() != null: return
 	# 空目标已是合法命令时，模型负责完整集合（全体／自身），点选不能覆写。
 	if command_options(pending_command.kind, pending_command.ability_id).get("automatic", false): return
 	pending_command.target_ids = [actor_id]
@@ -120,7 +126,7 @@ func current_preview() -> Dictionary:
 	return Presenter.preview(engine, pending_command)
 
 func cancel_command() -> void:
-	if processing: return
+	if processing or (_active_popup() != null and _active_popup() != _items): return
 	pending_command = {}
 	last_error = ""
 	if _built:
@@ -128,7 +134,7 @@ func cancel_command() -> void:
 		_render()
 
 func confirm_command() -> void:
-	if processing or pending_command.is_empty() or engine == null: return
+	if processing or pending_command.is_empty() or engine == null or _active_popup() != null: return
 	var preview := current_preview()
 	if not preview.legal:
 		last_error = "；".join(preview.reasons)
@@ -171,7 +177,8 @@ func _await_presentation(generation: int) -> bool:
 	while generation == _presentation_generation and is_inside_tree() and _hd_player != null and _hd_player.is_busy():
 		await presentation_tick
 	return generation == _presentation_generation and is_inside_tree()
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	if is_instance_valid(_world_backdrop): _world_backdrop.sync_visuals(delta)
 	presentation_tick.emit()
 func _cancel_presentation() -> void:
 	_presentation_generation += 1
@@ -222,65 +229,87 @@ func _build() -> void:
 	add_child(_canvas)
 	var background_config: Dictionary = _config
 	if _is_chapter() and campaign != null: background_config = Kit.config_for_night(_config, int(campaign.safe_snapshot().get("world", {}).get("night", 1)))
-	_canvas.set_meta("background_path", background_config.fallback_background)
-	Kit.backdrop(_canvas, background_config)
+	if _is_chapter() and campaign != null:
+		_world_backdrop = WorldBackdrop.new()
+		_canvas.add_child(_world_backdrop)
+		var visual_session := _asset_session()
+		var depth_enabled: bool = visual_session.get_meta("hd2d_depth_enabled", true) if visual_session != null else true
+		_world_backdrop.configure(campaign.safe_snapshot().get("world", {}), depth_enabled)
+		_canvas.set_meta("background_path", "res://scripts/campaign/act_one_geometry.gd")
+	else:
+		_canvas.set_meta("background_path", background_config.fallback_background)
+		Kit.backdrop(_canvas, background_config)
 	_danger_layer = Node2D.new()
 	_danger_layer.z_index = 1
 	_canvas.add_child(_danger_layer)
-	Kit.panel(_canvas, Rect2(32, 24, 570, 114))
-	Kit.panel(_canvas, Rect2(622, 24, 948, 114))
-	_hud.title = Kit.label(_canvas, "遭遇  ·  夜巡异象", Rect2(56, 36, 522, 36), 27)
-	_hud.turn = Kit.label(_canvas, "", Rect2(56, 84, 522, 36), 25)
-	_hud.queue = Kit.label(_canvas, "", Rect2(646, 38, 900, 86), 23)
-	_hud.queue.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	Kit.panel(_canvas, Rect2(32, 24, 570, 88))
+	Kit.panel(_canvas, Rect2(622, 24, 948, 88))
+	_hud.title = Kit.muted(Kit.label(_canvas, "遭遇  ·  夜巡异象", Rect2(56, 32, 522, 28), 21))
+	_hud.turn = Kit.label(_canvas, "", Rect2(56, 68, 522, 32), 24)
+	Kit.muted(Kit.label(_canvas, "本轮顺序", Rect2(646, 32, 900, 26), 19))
+	_hud.queue = Kit.label(_canvas, "", Rect2(646, 66, 900, 34), 21)
+	_hud.queue.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	_hud.queue.mouse_filter = Control.MOUSE_FILTER_PASS
 	Kit.button(_canvas, "日志", Rect2(1606, 28, 100, 52), _toggle_log)
 	Kit.button(_canvas, "返回标题", Rect2(1718, 28, 164, 52), _return_title)
-	Kit.label(_canvas, "远处 · 敌方", Rect2(1490 if _config.near_side == "left" else 55, 154, 370, 26), 22)
-	Kit.label(_canvas, "近处 · 出战队员", Rect2(55 if _config.near_side == "left" else 1490, 154, 370, 26), 22)
-	Kit.panel(_canvas, Rect2(32, 750, 1856, 292))
-	_hud.prompt = Kit.label(_canvas, "选择技能 → 点击目标 → 确认　／　Esc 取消选择", Rect2(770, 704, 1090, 40), 25)
+	Kit.muted(Kit.label(_canvas, "敌方", Rect2(1490 if _config.near_side == "left" else 55, 138, 370, 26), 19))
+	Kit.muted(Kit.label(_canvas, "出战队员", Rect2(55 if _config.near_side == "left" else 1490, 138, 370, 26), 19))
+	_hud.prompt = Kit.label(_canvas, "选择行动", Rect2(770, 704, 1090, 40), 23)
 	for index in range(4):
-		var x := 770 + (index % 2) * 330
-		var y := 812 + (index / 2) * 105
-		var button := Kit.button(_canvas, "技能", Rect2(x, y, 316, 96))
+		var button := Kit.button(_canvas, "技能", Rect2(770 + index * 248, 778, 232, 64))
 		button.pressed.connect(_select_skill_slot.bind(index))
 		_skill_buttons.append(button)
-	for row in [["attack_physical", "物理普攻", 812], ["defend", "防御", 882], ["item", "道具", 952]]:
-		_basic_buttons[row[0]] = Kit.button(_canvas, row[1], Rect2(1440, row[2], 185, 61), _basic_pressed.bind(row[0]))
-	_basic_buttons.attack_magic = Kit.button(_canvas, "中性魔攻", Rect2(1637, 812, 225, 61), select_command.bind("attack_magic"))
-	_hud.form = Kit.button(_canvas, "焰华切换职业", Rect2(1440, 758, 420, 44), switch_active_form)
-	_hud.form.add_theme_font_size_override("font_size", 22)
+	for row in [["attack_physical", "物理普攻", 770, 172], ["defend", "防御", 1134, 132], ["item", "道具", 1280, 132]]:
+		_basic_buttons[row[0]] = Kit.button(_canvas, row[1], Rect2(row[2], 974, row[3], 54), _basic_pressed.bind(row[0]))
+	_basic_buttons.attack_magic = Kit.button(_canvas, "中性魔攻", Rect2(954, 974, 168, 54), select_command.bind("attack_magic"))
+	_hud.form = Kit.button(_canvas, "焰华切换职业", Rect2(48, 758, 690, 40), switch_active_form)
+	_hud.form.add_theme_font_size_override("font_size", 21)
 	_hud.form.hide()
-	_hud.cancel = Kit.button(_canvas, "取消选择", Rect2(1637, 882, 225, 61), cancel_command)
-	_hud.confirm = Kit.button(_canvas, "确认行动", Rect2(1637, 952, 225, 61), confirm_command, true)
-	_preview_panel = Kit.panel(_canvas, Rect2(60 if _config.near_side == "left" else 940, 154, 920, 180))
-	_hud.preview_title = Kit.label(_preview_panel, "行动预览", Rect2(18, 6, 884, 38), 26)
+	_hud.cancel = Kit.button(_canvas, "取消选择", Rect2(1434, 974, 184, 54), cancel_command)
+	_hud.confirm = Kit.button(_canvas, "确认行动", Rect2(1634, 974, 228, 54), confirm_command, true)
+	_preview_panel = Kit.panel(_canvas, Rect2(770, 852, 1092, 108))
+	_hud.preview_title = Kit.label(_preview_panel, "行动预览", Rect2(12, 4, 1068, 30), 22)
 	_hud.preview = RichTextLabel.new()
-	_hud.preview.position = Vector2(18, 48)
-	_hud.preview.size = Vector2(884, 118)
+	_hud.preview.position = Vector2(12, 38)
+	_hud.preview.size = Vector2(1068, 66)
 	_hud.preview.add_theme_font_override("normal_font", Kit.font)
-	_hud.preview.add_theme_font_size_override("normal_font_size", 24)
-	_hud.preview.add_theme_color_override("default_color", Kit.color("paper_100"))
+	_hud.preview.add_theme_font_size_override("normal_font_size", 21)
+	_hud.preview.add_theme_color_override("default_color", Kit.color("ui_muted"))
+	_hud.preview.scroll_active = true
+	_hud.preview.focus_mode = Control.FOCUS_ALL
 	_preview_panel.add_child(_hud.preview)
-	_items = Kit.panel(_canvas, Rect2(1140, 385, 720, 348))
+	_popup_shade = ColorRect.new()
+	_popup_shade.size = Vector2(1920, 1080)
+	_popup_shade.color = Color(0.01, 0.018, 0.026, 0.7)
+	_popup_shade.mouse_filter = Control.MOUSE_FILTER_STOP
+	_popup_shade.hide()
+	_canvas.add_child(_popup_shade)
+	_items = Kit.panel(_canvas, Rect2(600, 280, 720, 440))
+	_items.mouse_filter = Control.MOUSE_FILTER_STOP
 	Kit.label(_items, "道具 · 使用占用本次行动", Rect2(20, 14, 680, 40), 27)
 	for index in range(_catalog.get_ids("items").size()):
 		var id: String = _catalog.get_ids("items")[index]
 		var item: Dictionary = _catalog.get_definition("items", id)
 		var button := Kit.button(_items, item.name, Rect2(20, 68 + index * 65, 680, 57), select_command.bind("item", id))
 		_hud["item_" + id] = button
+	Kit.button(_items, "返回行动 [Esc]", Rect2(20, 356, 680, 58), _close_popup)
 	_items.visible = false
-	_log_panel = Kit.panel(_canvas, Rect2(48, 220, 760, 500))
+	_log_panel = Kit.panel(_canvas, Rect2(580, 240, 760, 560))
+	_log_panel.mouse_filter = Control.MOUSE_FILTER_STOP
+	Kit.label(_log_panel, "战斗日志", Rect2(22, 14, 716, 40), 27)
 	_hud.log = RichTextLabel.new()
-	_hud.log.position = Vector2(22, 22)
-	_hud.log.size = Vector2(716, 456)
+	_hud.log.focus_mode = Control.FOCUS_ALL
+	_hud.log.position = Vector2(22, 68)
+	_hud.log.size = Vector2(716, 390)
 	_hud.log.add_theme_font_override("normal_font", Kit.font)
 	_hud.log.add_theme_font_size_override("normal_font_size", 25)
 	_hud.log.add_theme_color_override("default_color", Kit.color("paper_100"))
 	_log_panel.add_child(_hud.log)
+	Kit.button(_log_panel, "返回行动 [Esc]", Rect2(22, 480, 716, 58), _close_popup)
 	_log_panel.visible = false
 	_hud.latest = Kit.label(_canvas, "", Rect2(50, 1044, 1550, 32), 22)
 	_result = Kit.panel(_canvas, Rect2(435, 220, 1050, 660))
+	_result.mouse_filter = Control.MOUSE_FILTER_STOP
 	_hud.result_title = Kit.label(_result, "", Rect2(48, 38, 950, 72), 46)
 	_hud.result_body = Kit.label(_result, "", Rect2(48, 128, 950, 342), 29)
 	_hud.result_body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -296,6 +325,7 @@ func _resize_canvas() -> void:
 	_canvas.position = (available - Vector2(1920, 1080) * factor) / 2.0
 
 func _build_actors() -> void:
+	if is_instance_valid(_world_backdrop): _world_backdrop.clear_visuals()
 	if is_instance_valid(_hd_player): _hd_player.cancel()
 	_hd_views.clear()
 	_presentation_views.clear()
@@ -430,7 +460,10 @@ func _build_actors() -> void:
 			var intent_rect := Rect2(55 if _config.near_side == "right" else 1510, 407, 365, 275) if actor.class_id == "gatekeeper" else Rect2(foot.x - 178, foot.y + 2, 356, maxf(52, 744 - (foot.y + 2)))
 			if compact: intent_rect = Rect2(foot.x - 107, 586, 214, 158)
 			intent = Kit.label(_canvas, "", intent_rect, 18 if compact else (22 if actor.class_id == "gatekeeper" else 20))
-			intent.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			intent.size.y = 34
+			intent.autowrap_mode = TextServer.AUTOWRAP_OFF
+			intent.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+			intent.mouse_filter = Control.MOUSE_FILTER_PASS
 			intent.add_theme_color_override("font_outline_color", Kit.color("ink_900"))
 			intent.add_theme_constant_override("outline_size", 6)
 		_actors[id] = {"sprite": sprite, "shadow": shadow, "ring": ring, "target": target, "card": card, "avatar": avatar, "title": title, "hp": hp, "mp": mp, "hpbar": hpbar, "status": status, "intent": intent}
@@ -439,8 +472,9 @@ func _build_actors() -> void:
 			_hd_player = HdEvents.new()
 			add_child(_hd_player)
 		_hd_player.bind_actors(_presentation_views)
+	if is_instance_valid(_world_backdrop): _world_backdrop.bind_visuals(_actors)
 	# 模态保持在人物及点选热区前。
-	for node in [_preview_panel, _items, _log_panel, _result]: _canvas.move_child(node, -1)
+	for node in [_preview_panel, _popup_shade, _items, _log_panel, _result]: _canvas.move_child(node, -1)
 
 func _render() -> void:
 	if not _built or engine == null: return
@@ -455,11 +489,15 @@ func _render() -> void:
 	var active: Dictionary = state.actors.get(_display_actor_id if processing else state.active_actor_id, {})
 	_hud.turn.text = "第 %d 轮　·　%s%s" % [state.round, Presenter.actor_name(active, _catalog), " 结算中…" if processing else " 行动"]
 	var queue: Array[String] = []
+	var queue_details: Array[String] = []
 	for index in range(model.queue.size()):
-		var name := Presenter.actor_name(state.actors[model.queue[index]], _catalog)
-		queue.append(("当前·" if index == model.queue_index else ("已行·" if index < model.queue_index else "")) + name)
-	_hud.queue.add_theme_font_size_override("font_size", 20 if queue.size() > 5 else 23)
-	_hud.queue.text = "本轮顺序\n" + " → ".join(queue)
+		var queued: Dictionary = state.actors[model.queue[index]]
+		var name := Presenter.actor_name(queued, _catalog)
+		var short_name: String = name.get_slice("·", 1) if queued.side == "enemy" and name.contains("·") else name
+		queue.append(("▸" if index == model.queue_index else ("✓" if index < model.queue_index else "")) + short_name)
+		queue_details.append(("当前 · " if index == model.queue_index else ("已行动 · " if index < model.queue_index else "")) + name)
+	_hud.queue.text = "  →  ".join(queue)
+	_hud.queue.tooltip_text = "本轮顺序\n" + "\n".join(queue_details)
 	var preview := current_preview()
 	var automatic: bool = not pending_command.is_empty() and command_options(pending_command.kind, pending_command.ability_id).get("automatic", false)
 	for row in model.actors:
@@ -475,16 +513,26 @@ func _render() -> void:
 		w.hpbar.max_value = row.max_hp
 		w.hpbar.value = row.hp
 		w.mp.text = "MP %d / %d" % [row.mp, row.max_mp]
-		w.status.text = "盾 %d%s\n%s" % [row.shield, " · %d次行动" % row.shield_remaining if row.shield > 0 else "", " / ".join(row.statuses) if not row.statuses.is_empty() else "无状态"]
+		var status_lines: Array[String] = []
+		if row.shield > 0: status_lines.append("盾 %d · %d次行动" % [row.shield, row.shield_remaining])
+		if not row.statuses.is_empty(): status_lines.append(" / ".join(row.statuses))
+		w.status.text = "\n".join(status_lines)
+		w.status.visible = not status_lines.is_empty()
 		w.status.tooltip_text = w.status.text
+		# 有内容才扩展状态区域，空状态不留下等高大框。
+		var content_bottom: float = w.status.position.y + w.status.size.y if w.status.visible else maxf(w.hpbar.position.y + w.hpbar.size.y, w.mp.position.y + w.mp.size.y if row.side == "player" or row.max_mp > 0 else 0.0)
+		w.card.size.y = content_bottom + 9.0
+		if row.side == "enemy": w.mp.visible = row.max_mp > 0
 		w.sprite.modulate = Color(0.4, 0.4, 0.4, 0.55) if row.hp == 0 else Color.WHITE
 		w.ring.visible = row.active or preview.effective_target_ids.has(row.actor_id)
 		w.ring.default_color = Kit.color("vermilion_500") if preview.effective_target_ids.has(row.actor_id) else Kit.color("ui_focus")
 		w.target.disabled = processing or pending_command.is_empty() or automatic
 		w.target.tooltip_text = "%s\n%s" % [row.label, w.status.text]
 		if w.intent != null:
-			w.intent.text = row.intent.get("text", "倒地")
-			w.intent.tooltip_text = w.intent.text
+			var full_intent: String = row.intent.get("text", "倒地" if row.hp == 0 else "等待行动")
+			w.intent.text = full_intent.get_slice("\n", 0)
+			w.intent.tooltip_text = full_intent
+			w.target.tooltip_text += "\n" + full_intent
 	for index in range(4):
 		var button := _skill_buttons[index]
 		button.disabled = processing or model.commands.skills.size() <= index or not state.outcome.is_empty()
@@ -497,18 +545,18 @@ func _render() -> void:
 		var reasons: Array = p.get("reasons", [])
 		var reason: String = str(reasons[0]) if not p.get("legal", false) and not reasons.is_empty() else slot.target_label
 		if not processing and not p.get("legal", false): button.disabled = true
-		button.add_theme_font_size_override("font_size", 24)
-		var effect_text := Presenter.card_summary(slot, p, _catalog)
 		var full_effect_text := Presenter.ability_summary(slot, p, _catalog)
 		var cd_text := " · CD%d" % p.get("cooldown", slot.cooldown) if p.get("cooldown", slot.cooldown) > 0 else ""
-		button.text = "%s　MP %d%s · %s\n%s" % [slot.name, p.get("mp_cost", slot.mp_cost), cd_text, slot.target_short, effect_text if p.get("legal", false) or processing else reason]
-		# 三字技能名加MP/CD时最多缩两级，保持四卡固定边界，不让最小尺寸挤压基础指令。
-		for font_size in [24, 22, 20]:
+		button.text = "%s  MP %d" % [slot.name, p.get("mp_cost", slot.mp_cost)]
+		if button.disabled and not processing and not reason.is_empty(): button.text += "\n" + reason
+		# 默认只保留名称与费用；不可用原因仍明示，完整效果在悬停和选中预览内。
+		for font_size in [22, 20, 18]:
 			button.add_theme_font_size_override("font_size", font_size)
-			if Array(button.text.split("\n")).all(func(line): return Kit.font.get_string_size(line, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x <= 296): break
-		button.size = Vector2(316, 96)
+			if Array(button.text.split("\n")).all(func(line): return Kit.font.get_string_size(line, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x <= 212): break
+		button.clip_text = true
+		button.size = Vector2(232, 64)
 		Kit.set_selected(button, pending_command.get("kind", "") == "skill" and pending_command.get("ability_id", "") == slot.id)
-		button.tooltip_text = button.text + "\n" + full_effect_text + "\n" + slot.target_label + ("\n" + " / ".join(reasons) if not reasons.is_empty() else "")
+		button.tooltip_text = "%s  MP %d%s\n%s\n%s" % [slot.name, p.get("mp_cost", slot.mp_cost), cd_text, full_effect_text, slot.target_label] + ("\n" + " / ".join(reasons) if not reasons.is_empty() else "")
 	for kind in _basic_buttons:
 		_basic_buttons[kind].disabled = processing or active.is_empty() or not state.outcome.is_empty()
 		Kit.set_selected(_basic_buttons[kind], pending_command.get("kind", "") == kind)
@@ -523,20 +571,29 @@ func _render() -> void:
 	_hud.form.tooltip_text = "共用HP/MP、CD、状态、装备和当前行动槽；切换不消耗行动，不治疗、不补蓝"
 	var auto_single: bool = not automatic and not pending_command.is_empty() and pending_command.get("target_ids", []).size() == 1
 	var selection_prompt := ("全体目标已选，可直接确认" if preview.effective_target_ids.size() > 1 else "目标已选，可直接确认") if automatic else ("唯一目标已自动选中，可直接确认" if auto_single else "点击目标后确认")
+	if not automatic and not auto_single and preview.legal and not preview.effective_target_ids.is_empty(): selection_prompt = "目标已选，可确认"
 	_hud.prompt.text = last_error if not last_error.is_empty() else (selection_prompt + " · Esc 可取消" if not pending_command.is_empty() else "选择技能 → 点击目标 → 确认　／　Esc 取消选择")
 	_preview_panel.visible = not pending_command.is_empty()
 	if _preview_panel.visible:
 		_hud.preview_title.text = "%s　MP %d　道具 %d" % [Presenter.ability_name(pending_command.ability_id if not pending_command.ability_id.is_empty() else pending_command.kind, _catalog), preview.mp_cost, preview.item_cost]
-		_hud.preview.text = "\n".join(Presenter.preview_lines(preview, state, _catalog))
+		var detail_lines: Array[String] = []
+		if pending_command.kind == "skill":
+			for slot in model.commands.skills:
+				if slot.id == pending_command.ability_id:
+					detail_lines.append(Presenter.ability_summary(slot, command_options("skill", slot.id).get("preview", {}), _catalog))
+					detail_lines.append(slot.target_label + (" · CD %d" % slot.cooldown if slot.cooldown > 0 else ""))
+		detail_lines.append_array(Presenter.preview_lines(preview, state, _catalog))
+		_hud.preview.text = "\n".join(detail_lines)
 	for id in _catalog.get_ids("items"):
 		_hud["item_" + id].text = "%s　×%d" % [_catalog.get_definition("items", id).name, model.inventory.get(id, 0)]
 		_hud["item_" + id].disabled = processing
 	_hud.log.text = "\n".join(_log_lines)
 	_hud.latest.text = _log_lines.back() if not _log_lines.is_empty() else "HP/MP与库存跨战保留 · 道具占用一次行动"
+	_sync_modal_focus()
 
 # 自由切换也是权威引擎的一次标准命令；不调用advance、不结束当前行动槽。
 func switch_active_form() -> Dictionary:
-	if processing or engine == null: return {"accepted": false, "reasons": ["当前表现尚未结束"]}
+	if processing or engine == null or _active_popup() != null: return {"accepted": false, "reasons": ["当前表现尚未结束或正在查看弹层"]}
 	var state: Dictionary = engine.snapshot()
 	var actor: Dictionary = state.get("actors", {}).get(state.get("active_actor_id", ""), {})
 	if actor.get("identity_id") != "homura" or state.get("phase") != "action_selection": return {"accepted": false, "reasons": ["仅焰华自己的行动机会可以切换"]}
@@ -591,12 +648,65 @@ func _select_skill_slot(index: int) -> void:
 	if index < model.commands.skills.size(): select_command("skill", model.commands.skills[index].id)
 
 func _basic_pressed(kind: String) -> void:
+	if _active_popup() != null: return
 	if kind == "item":
-		if not processing: _items.visible = not _items.visible
+		if not processing:
+			_items.visible = true
+			_sync_modal_focus()
 	else: select_command(kind)
 
 func _toggle_log() -> void:
-	_log_panel.visible = not _log_panel.visible
+	if _active_popup() == _log_panel: _close_popup(); return
+	if _active_popup() != null: return
+	_log_panel.visible = true
+	_sync_modal_focus()
+
+func _close_popup() -> void:
+	_items.hide()
+	_log_panel.hide()
+	_sync_modal_focus()
+
+func _active_popup() -> Control:
+	for node in [_exit_confirmation, _asset_error_panel, _result, _items, _log_panel]:
+		if is_instance_valid(node) and node.visible: return node
+	return null
+
+func _collect_focus_controls(node: Node, controls: Array[Control]) -> void:
+	if node is Control and node.focus_mode != Control.FOCUS_NONE: controls.append(node)
+	for child in node.get_children(): _collect_focus_controls(child, controls)
+
+# 弹层遮罩挡鼠标，显式撤下后层焦点；关闭后恢复原来的键盘位置。
+func _sync_modal_focus() -> void:
+	var popup := _active_popup()
+	if is_instance_valid(_popup_shade): _popup_shade.visible = popup != null
+	if popup == _modal_focus_root: return
+	for saved in _modal_focus_modes:
+		if is_instance_valid(saved.control): saved.control.focus_mode = saved.mode
+	_modal_focus_modes.clear()
+	if popup == null:
+		_modal_focus_root = null
+		if is_instance_valid(_modal_previous_focus) and _modal_previous_focus.is_visible_in_tree(): _modal_previous_focus.grab_focus()
+		_modal_previous_focus = null
+		return
+	if _modal_focus_root == null: _modal_previous_focus = get_viewport().gui_get_focus_owner()
+	_modal_focus_root = popup
+	var controls: Array[Control] = []
+	_collect_focus_controls(_canvas, controls)
+	var local: Array[Control] = []
+	for control in controls:
+		if popup.is_ancestor_of(control) and control.is_visible_in_tree():
+			if control.focus_mode in [Control.FOCUS_CLICK, Control.FOCUS_ALL] and (not control is BaseButton or not control.disabled): local.append(control)
+		else:
+			_modal_focus_modes.append({"control": control, "mode": control.focus_mode})
+			control.focus_mode = Control.FOCUS_NONE
+	for index in range(local.size()):
+		var current := local[index]
+		var previous := local[(index + local.size() - 1) % local.size()].get_path()
+		var next := local[(index + 1) % local.size()].get_path()
+		current.focus_previous = previous; current.focus_next = next
+		current.focus_neighbor_top = previous; current.focus_neighbor_left = previous
+		current.focus_neighbor_bottom = next; current.focus_neighbor_right = next
+	if not local.is_empty() and not local.has(get_viewport().gui_get_focus_owner()): local[0].grab_focus()
 
 func _play_action(actor_id: String, target_ids: Array = []) -> void:
 	if not _actors.has(actor_id): return
@@ -675,6 +785,7 @@ func _check_result() -> void:
 	_result.visible = true
 	if not result_saved: save_result()
 	_show_result()
+	_sync_modal_focus()
 
 func save_result() -> Dictionary:
 	if router == null:
@@ -728,6 +839,7 @@ func _result_action() -> void:
 			_show_result()
 			return
 		_result.visible = false
+		_sync_modal_focus()
 		_log_lines.clear()
 		bind(router.create_engine(), campaign)
 	else:
@@ -759,11 +871,15 @@ func _return_title() -> void:
 			leave.set(direction, cancel.get_path())
 			cancel.set(direction, leave.get_path())
 		cancel.grab_focus()
+		_sync_modal_focus()
 		return
 	_confirm_return_title()
 func _cancel_return_title() -> void:
-	if is_instance_valid(_exit_confirmation): _exit_confirmation.queue_free()
+	if is_instance_valid(_exit_confirmation):
+		_exit_confirmation.hide()
+		_exit_confirmation.queue_free()
 	_exit_confirmation = null
+	_sync_modal_focus()
 	if is_instance_valid(_exit_previous_focus): _exit_previous_focus.grab_focus()
 	_exit_previous_focus = null
 func _confirm_return_title() -> void:
@@ -786,6 +902,8 @@ func _show_hd_error() -> void:
 	body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	Kit.button(_asset_error_panel, "重试加载", Rect2(42, 335, 464, 80), _retry_hd_assets)
 	Kit.button(_asset_error_panel, "返回标题", Rect2(546, 335, 464, 80), _return_title)
+	_asset_error_panel.mouse_filter = Control.MOUSE_FILTER_STOP
+	_sync_modal_focus()
 func _retry_hd_assets() -> void:
 	if not _hd_enabled() or _asset_loading: return
 	var session := _asset_session()
@@ -804,6 +922,7 @@ func _retry_hd_assets() -> void:
 		return
 	if is_instance_valid(_asset_error_panel): _asset_error_panel.queue_free()
 	_asset_error_panel = null
+	_sync_modal_focus()
 	bind(router.create_engine(), campaign)
 func _exit_tree() -> void:
 	_cancel_presentation()
@@ -815,7 +934,9 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		_cancel_return_title()
 		return
 	if event.is_action_pressed("ui_cancel"):
-		cancel_command()
+		if _active_popup() in [_items, _log_panel] and _active_popup() != null: _close_popup()
+		elif _active_popup() != null: return
+		else: cancel_command()
 		get_viewport().set_input_as_handled()
 
 # 纯表现红色承诺线/范围，使用Presenter给出的原始锁定ID，不挑选新目标。

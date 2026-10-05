@@ -10,6 +10,7 @@ godot --path .
 
 - [运行、验证与发布说明](docs/campaign/README.md)
 - [UI与场景精修](docs/campaign/ui-atmosphere.md)
+- [3D战斗/大地图/UI骨架整合验收](docs/verification/2026-10-05-game-skeleton.md)
 - [已批准范围](docs/superpowers/specs/2026-10-04-five-night-3d-design.md)
 - [文档索引](docs/README.md)
 - [项目约定](AGENTS.md)

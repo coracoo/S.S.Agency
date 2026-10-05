@@ -480,12 +480,14 @@ func _landscape() -> void:
 	var ground := MeshInstance3D.new(); ground.name = "SculptedContinuousMountainGround"; ground.mesh = builder.commit(); terrain.add_child(ground)
 	var grove := _chunk("OuterCedarGrove",Vector2(28,-8),86)
 	# 前庭后方缺口形成两簇杉林，远山树线高低错落，不侵入实际可走面。
-	var places := [Vector2(-15,-8),Vector2(-11,-10),Vector2(-5,-11),Vector2(1,-10),Vector2(7,-8),Vector2(11,-7.6),Vector2(15,-7.4),Vector2(17,-11.8),Vector2(21,-13.8),Vector2(27,-13.7),Vector2(32,-18),Vector2(36,-21),Vector2(42,-22),Vector2(48,-21),Vector2(53,-17),Vector2(58,-16),Vector2(65,-17),Vector2(72,-14),Vector2(74,-7),Vector2(72,2),Vector2(62,3.8),Vector2(60,7.0),Vector2(55,10.5),Vector2(49,11),Vector2(36,10.8),Vector2(29,11),Vector2(23,11),Vector2(16,11.2),Vector2(10,7.5)]
+	var places := [Vector2(-15,-8),Vector2(-11,-10),Vector2(-5,-11),Vector2(1,-10),Vector2(7,-8),Vector2(11,-7.6),Vector2(15,-7.4),Vector2(17,-11.8),Vector2(21,-13.8),Vector2(27,-13.7),Vector2(32,-18),Vector2(36,-21),Vector2(42,-22),Vector2(48,-21),Vector2(53,-17),Vector2(58,-16),Vector2(65,-17),Vector2(72,-14),Vector2(74,-7),Vector2(72,2),Vector2(62,3.8),Vector2(60,7.0),Vector2(55,10.5),Vector2(49,11),Vector2(36,10.8),Vector2(29,11),Vector2(23,11),Vector2(16,11.2)]
 	for index in range(places.size()):
 		var p: Vector2 = places[index]
+		# 原(23,11)树冠投影盖住清明，移到下方独立侧角组，保留总树量。
+		if p == Vector2(23,11): continue
 		var scale_value := .72+float(index%4)*.10
 		if index in [7,14,27]:
-			var snag: Node3D = ATMOSPHERE.dead_tree_at(_atmosphere_materials,Vector3(p.x,_landscape_height(p.x,p.y)-.03,p.y),.78 if index==27 else 1.03,float(index)*.41)
+			var snag: Node3D = ATMOSPHERE.dead_tree_at(_atmosphere_materials,Vector3(p.x,_landscape_surface_height(p.x,p.y)-.03,p.y),.78 if index==27 else 1.03,float(index)*.41,_landscape_surface_height)
 			grove.add_child(snag,true)
 			var branches: Array[MeshInstance3D] = []
 			for mesh in snag.find_children("*","MeshInstance3D",true,false): branches.append(mesh)
@@ -494,12 +496,26 @@ func _landscape() -> void:
 			# 保留已验遮挡位置x49的原树形，其余外林复用原五株的自然高矮差。
 			var variant := 2 if is_equal_approx(p.x,49.0) else posmod(index*3,5)+1
 			_clone_group(source,grove,["60_Cedar_%d_Trunk"%variant,"61_Cedar_%d_Foliage"%variant],Vector3(p.x,_landscape_height(p.x,p.y)-.03,p.y),scale_value,float(index%5)*.57)
+	# 两株原边树外移到镜头侧下缘；根均在可走界外，仍沿用遮挡让位。
+	var accents := _chunk("NearBoundaryCedarAccents",Vector2(18,7),34)
+	for spec in [{"p":Vector2(8.0,6.6),"scale":.58,"variant":4,"yaw":.42},{"p":Vector2(29.8,8.5),"scale":.95,"variant":2,"yaw":1.18}]:
+		var p: Vector2 = spec.p
+		_clone_group(source,accents,["60_Cedar_%d_Trunk"%spec.variant,"61_Cedar_%d_Foliage"%spec.variant],Vector3(p.x,_landscape_surface_height(p.x,p.y)-.08,p.y),spec.scale,spec.yaw)
 	# 原岩组拆成独石后逐块贴当地土坡，界外一石一高程；不再保留山阶原高差。
 	var stones := [Vector2(10.8,-6.1),Vector2(12.1,-6.6),Vector2(13.6,-6.0),Vector2(15.1,-6.5),Vector2(16.5,-6.1),Vector2(12.4,9.0),Vector2(14.0,9.3),Vector2(15.8,9.2),Vector2(17.2,9.3),Vector2(19.0,9.3),Vector2(22.0,9.0),Vector2(24.1,9.2),Vector2(26.0,9.1),Vector2(28.5,9.4),Vector2(31.0,9.0),Vector2(34.0,9.2),Vector2(37.0,9.4),Vector2(51.5,9.0),Vector2(54.4,9.2)]
 	for index in range(stones.size()):
 		var p: Vector2 = stones[index]
 		_place_stone(terrain,index*3,Vector3(p.x,_landscape_height(p.x,p.y),p.y),.95+.2*(index%4),.15)
 	source.free()
+
+# 与生成地形的2米格、0→2对角线一致；根部采样真实三角面而非平滑函数近似。
+func _landscape_surface_height(x: float, z: float) -> float:
+	var x0 := floorf(x / 2.0) * 2.0; var z0 := floorf(z / 2.0) * 2.0
+	var u := (x-x0) * .5; var v := (z-z0) * .5
+	var h00 := _landscape_height(x0,z0); var h11 := _landscape_height(x0+2,z0+2)
+	if u >= v:
+		return h00*(1.0-u)+_landscape_height(x0+2,z0)*(u-v)+h11*v
+	return h00*(1.0-v)+h11*u+_landscape_height(x0,z0+2)*(v-u)
 
 func _landscape_height(x: float, z: float) -> float:
 	var base := clampf((x-.6)*.444,0.0,2.86)-.58
@@ -691,13 +707,18 @@ func _register_tree_occluder(meshes: Array[MeshInstance3D]) -> void:
 	_tree_occluders.append({"meshes":meshes,"bounds":bounds,"opacity":1.0,"occluded":false,"materials":[],"overrides_active":false})
 
 func update_tree_occlusion(position: Vector3, delta: float, camera: Camera3D = null) -> void:
+	update_tree_occlusion_many([position],delta,camera)
+
+func update_tree_occlusion_many(positions: Array[Vector3], delta: float, camera: Camera3D = null) -> void:
 	# 正交相机真实投影框；默认采用正式镜头固定方向，测试/旧单参调用仍可运行。
 	var right := Vector3.RIGHT; var up := Vector3(0,11.0,-6.2).normalized(); var toward_camera := Vector3(0,6.2,11).normalized()
 	if is_instance_valid(camera):
 		right = camera.global_basis.x.normalized(); up = camera.global_basis.y.normalized(); toward_camera = camera.global_basis.z.normalized()
-	var actor_center := position+Vector3.UP*.90
-	var point := Vector2(actor_center.dot(right),actor_center.dot(up))
-	var actor_rect := Rect2(point-Vector2(.72,.95),Vector2(1.44,1.90))
+	var actor_targets: Array[Dictionary] = []
+	for position in positions:
+		var actor_center := position+Vector3.UP*.90
+		var point := Vector2(actor_center.dot(right),actor_center.dot(up))
+		actor_targets.append({"rect":Rect2(point-Vector2(.72,.95),Vector2(1.44,1.90)),"depth":actor_center.dot(toward_camera)})
 	for entry in _tree_occluders:
 		var bounds: AABB = entry.bounds
 		var projection := Rect2(); var initialized := false; var front_depth := -INF
@@ -707,8 +728,13 @@ func update_tree_occlusion(position: Vector3, delta: float, camera: Camera3D = n
 			projection = projection.expand(projected) if initialized else Rect2(projected,Vector2.ZERO)
 			initialized = true; front_depth = maxf(front_depth,corner.dot(toward_camera))
 		# 退出阈值比进入宽0.35m，人物在树冠边缘微动不会逐帧闪烁。
-		var actor_test := actor_rect.grow(.35 if entry.occluded else 0.0)
-		var blocked := front_depth>actor_center.dot(toward_camera)+.20 and projection.intersects(actor_test)
+		# 所有参战身体先合并遮挡结论，再推进一次渐隐；不能被后一个未遮挡身体覆盖。
+		var blocked := false
+		for actor in actor_targets:
+			var actor_rect: Rect2 = actor.rect
+			var actor_test := actor_rect.grow(.35 if entry.occluded else 0.0)
+			if front_depth>float(actor.depth)+.20 and projection.intersects(actor_test):
+				blocked = true; break
 		entry.occluded = blocked
 		var target := .012 if blocked else 1.0
 		var opacity := move_toward(float(entry.opacity),target,clampf(delta,0.0,.10)*(5.5 if blocked else 2.0))

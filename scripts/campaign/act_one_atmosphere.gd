@@ -33,21 +33,21 @@ static func build(materials: Dictionary, floor_y: float) -> Node3D:
 	_stain(scene,"OldTraceAtVerandaSeam",Vector3(19.02,floor_y+.004,-4.66),Vector2(.035,.19),.14,exposed_blood)
 	return scene
 
-static func dead_tree_at(materials: Dictionary, at: Vector3, scale_value: float, yaw: float) -> Node3D:
+static func dead_tree_at(materials: Dictionary, at: Vector3, scale_value: float, yaw: float, ground_height: Callable = Callable()) -> Node3D:
 	var tree := Node3D.new(); tree.name = "QuietDeadCedar"; tree.position = at
 	tree.scale = Vector3.ONE*scale_value; tree.rotation.y = yaw
 	var bark: StandardMaterial3D = materials.bark.duplicate(); bark.roughness = .98
 	bark.uv1_triplanar = false; bark.uv1_scale = Vector3(.60,1.0,1.0)
 	bark.albedo_texture = materials.wood.albedo_texture; bark.albedo_color = Color(.58,.53,.46)
 	var exposed: StandardMaterial3D = materials.wood.duplicate(); exposed.albedo_color = Color(.46,.39,.29)
-	_dead_tree(tree,bark,exposed)
+	_dead_tree(tree,bark,exposed,ground_height)
 	return tree
 
 static func _material(color: Color) -> StandardMaterial3D:
 	var material := StandardMaterial3D.new(); material.albedo_color = color; material.roughness = 1.0
 	return material
 
-static func _dead_tree(parent: Node3D, bark: Material, exposed: Material) -> void:
+static func _dead_tree(parent: Node3D, bark: Material, exposed: Material, ground_height: Callable = Callable()) -> void:
 	# 错节主干、分叉与断口是连续锥管；根的终点埋入土面，避免直插圆柱。
 	_tube(parent,"SplitCedarTrunk",[Vector3(0,-.06,0),Vector3(-.12,.52,.02),Vector3(-.07,1.30,.02),Vector3(.12,2.13,.05),Vector3(.05,2.88,.03),Vector3(.29,3.68,-.02)], [.27,.23,.19,.14,.085,.024],bark,9)
 	_tube(parent,"WestBrokenBough",[Vector3(-.03,1.18,.04),Vector3(-.56,1.64,.12),Vector3(-.89,2.27,.03),Vector3(-1.12,2.60,-.04)], [.16,.105,.065,.018],bark,7)
@@ -73,10 +73,17 @@ static func _dead_tree(parent: Node3D, bark: Material, exposed: Material) -> voi
 		var twig: Array = fine_twigs[index]; var radii: Array[float] = []
 		for knot in range(twig.size()): radii.append(lerpf(.037,.0025,float(knot)/float(twig.size()-1)))
 		_tube(parent,"CrookedFineTwig_%d"%index,twig,radii,bark,5)
+	var roots := Node3D.new(); roots.name = "GroundFollowingRoots"; parent.add_child(roots)
 	for index in range(5):
-		var angle := float(index)*1.23+.22; var end := Vector3(cos(angle),-.035,sin(angle))
+		var angle := float(index)*1.23+.22
 		var knee := Vector3(cos(angle)*.46,.13,sin(angle)*.40)
-		_tube(parent,"ExposedRoot_%d"%index,[Vector3(0,.30,0),knee,end*Vector3(.89,1,.76)],[.15,.11,.012],bark,7)
+		var end := Vector3(cos(angle)*.89,-.055,sin(angle)*.76)
+		if ground_height.is_valid():
+			# 山坡是分片三角面，各根按自身XZ取地面；只按树心采样会让下坡根悬空。
+			knee = _root_on_ground(parent,knee,ground_height,.13)
+			end = _root_on_ground(parent,end,ground_height,-.055)
+		_tube(roots,"ExposedRoot_%d"%index,[Vector3(0,.30,0),knee,end],[.15,.11,.012],bark,7)
+	_compact_surfaces(roots)
 	# 长短不一的树皮裂口沿原干体折线走，保留暗部缝隙与少量撕裂的浅木边。
 	var crack := _material(Color("211e19"))
 	for index in range(7):
@@ -91,6 +98,11 @@ static func _dead_tree(parent: Node3D, bark: Material, exposed: Material) -> voi
 	_tube(parent,"SplitTopSplinter",[Vector3(.18,3.28,.02),Vector3(.34,3.58,.03),Vector3(.40,3.66,.015)],[.027,.021,.002],exposed,4)
 
 	_compact_surfaces(parent)
+
+static func _root_on_ground(tree: Node3D, point: Vector3, ground_height: Callable, above_ground: float) -> Vector3:
+	var world_point := tree.transform * point
+	world_point.y = float(ground_height.call(world_point.x,world_point.z)) + above_ground * tree.scale.y
+	return tree.transform.affine_inverse() * world_point
 
 static func _tablet(parent: Node3D, stone: Material, moss: Material) -> void:
 	var silhouette := PackedVector2Array([Vector2(-.32,-.06),Vector2(.31,-.06),Vector2(.29,.87),Vector2(.17,1.13),Vector2(-.19,1.10),Vector2(-.34,.89)])
