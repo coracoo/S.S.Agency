@@ -37,7 +37,9 @@ func new_run(class_ids: Array[String], level: int = 5, profile: Dictionary = {})
 	for id in Catalog.CLASS_IDS: roster["p_" + id] = factory.create(id, "p_" + id, level, Factory.STANDARD)
 	var inventory: Dictionary = {}
 	for item in _catalog.get_all("items"): inventory[item.id] = item.initial_stock
-	var candidate := {"schema_version": 1, "rules_version": _catalog.rules_version, "run_id": Crypto.new().generate_random_bytes(16).hex_encode(), "phase": "preparation", "level": level, "xp": 0, "roster": roster, "party": party, "inventory": inventory, "world": {}, "applied_battle_ids": [], "battle_counter": 0, "next_encounter_id": "slice_1", "pending_battle": {}, "return_scene": ""}
+	var gear: Dictionary = {}
+	for slot in Factory.STANDARD: gear[Factory.STANDARD[slot]] = 1
+	var candidate := {"schema_version": 1, "rules_version": _catalog.rules_version, "run_id": Crypto.new().generate_random_bytes(16).hex_encode(), "phase": "preparation", "level": level, "xp": 0, "roster": roster, "party": party, "inventory": inventory, "gear": gear, "world": {}, "applied_battle_ids": [], "battle_counter": 0, "next_encounter_id": "slice_1", "pending_battle": {}, "return_scene": ""}
 	if profile.get("id") == Chapters.PROFILE_ID:
 		if profile.get("bindings") != Chapters.BINDINGS or not profile.get("world") is Dictionary or profile.world != Chapters.initial_world(1) or level != 5: return _fail("正式初始化配置非法")
 		for key in profile:
@@ -140,6 +142,12 @@ func apply_result(result: Dictionary) -> Dictionary:
 	candidate["return_scene"] = patch.get("next_scene", candidate.world.get("scene_path", "res://scenes/rpg/launcher.tscn"))
 	var encounter: Dictionary = _catalog.get_definition("encounters", candidate.pending_battle.encounter_id)
 	candidate.next_encounter_id = encounter.next_id
+	# 战利品来自目录配置，只增不减；已提交ID防重复发放，战斗侧不能自报奖励。
+	var loot: Dictionary = encounter.get("loot", {})
+	for item_id in loot.get("items", {}):
+		candidate.inventory[item_id] = int(candidate.inventory.get(item_id, 0)) + int(loot.items[item_id])
+	for gear_id in loot.get("gear", {}):
+		candidate.gear[gear_id] = int(candidate.gear.get(gear_id, 0)) + int(loot.gear[gear_id])
 	var unlocked_mage := false
 	if _formal():
 		if candidate.world.night == 1 and candidate.roster.p_mage.unlocked_forms == Forms.LOCKED_FORMS:
@@ -256,6 +264,7 @@ func equip(actor_id: String, slot: String, item_id: String) -> Dictionary:
 	if not _preparing() or not _safe.roster.has(actor_id) or not Factory.STANDARD.has(slot): return _fail("当前不能更换该装备槽")
 	var definition: Dictionary = _catalog.get_definition("equipment", item_id)
 	if not item_id.is_empty() and (definition.is_empty() or definition.slot != slot): return _fail("装备ID未知或槽位不符")
+	if not item_id.is_empty() and int(_safe.get("gear", {}).get(item_id, 0)) < 1: return _fail("尚未获得该装备")
 	var candidate := safe_snapshot()
 	var actor: Dictionary = candidate.roster[actor_id]
 	actor.equipment[slot] = item_id

@@ -28,6 +28,67 @@
       "stats": {
         "mp": 5
       }
+    },
+    {
+      "id": "exorcism_sword",
+      "name": "退邪剑",
+      "slot": "weapon",
+      "stats": {
+        "atk": 9
+      }
+    },
+    {
+      "id": "spirit_bell",
+      "name": "摄魂铃",
+      "slot": "weapon",
+      "stats": {
+        "matk": 9
+      }
+    },
+    {
+      "id": "swift_tachi",
+      "name": "疾风短刀",
+      "slot": "weapon",
+      "stats": {
+        "atk": 4,
+        "spd": 3
+      }
+    },
+    {
+      "id": "ranger_garb",
+      "name": "夜行衣",
+      "slot": "armor",
+      "stats": {
+        "def": 4,
+        "spd": 3
+      }
+    },
+    {
+      "id": "monk_kesa",
+      "name": "法师袈裟",
+      "slot": "armor",
+      "stats": {
+        "hp": 35,
+        "mdef": 8
+      }
+    },
+    {
+      "id": "bead_bracelet",
+      "name": "念珠手环",
+      "slot": "accessory",
+      "stats": {
+        "mp": 12,
+        "matk": 2
+      }
+    },
+    {
+      "id": "iron_amulet",
+      "name": "铁护身牌",
+      "slot": "accessory",
+      "stats": {
+        "hp": 10,
+        "def": 4
+      }
     }
   ]
 }

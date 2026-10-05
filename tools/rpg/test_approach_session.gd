@@ -32,7 +32,7 @@ static func run() -> Array[String]:
 	var safe: Dictionary = session.campaign.safe_snapshot()
 	F.expect(safe.party == ["p_swordsman", "p_ranger", "p_guard"] and safe.phase == "exploration" and safe.level == 5, "L5 固定三人探索初态", failures)
 	F.expect(safe.roster.p_swordsman.identity_id == "rinne" and safe.roster.p_ranger.form_id == "mint" and safe.roster.p_guard.identity_id == "guard", "人物形态与职业分离", failures)
-	F.expect(safe.inventory == {"healing_potion": 3, "mana_potion": 1, "revival_potion": 1, "cleansing_powder": 1}, "不赠送额外道具", failures)
+	F.expect(safe.inventory == {"healing_potion": 3, "mana_potion": 1, "revival_potion": 1, "cleansing_powder": 1, "energy_tea": 2, "guard_charm": 1, "moxa_roll": 2}, "不赠送额外道具", failures)
 	var before := FileAccess.get_file_as_string(path)
 	F.expect(not session.start_new(false).ok and FileAccess.get_file_as_string(path) == before, "未确认不覆盖有效档", failures)
 	var campaign: RefCounted = session.campaign

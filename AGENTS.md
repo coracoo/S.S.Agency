@@ -44,6 +44,7 @@ godot --path .
 | 唯一标题、五夜3D场景、结尾 | `scenes/campaign/`、`scripts/campaign/` |
 | 主线唯一登记与会话 | `chapter_catalog.gd`、`chapter_session.gd` |
 | RPG规则、路由与存档 | `scripts/rpg/`、`data/rpg/` |
+| 装备/道具数值与战利品 | `data/rpg/equipment.json`、`items.json`、`encounters.json` 的 `loot` 字段（仅装备；道具不免费赠送） |
 | 3D角色、镜头与共享实现 | `scripts/exploration_3d/player_controller.gd`、`camera_rig.gd`、`scripts/characters/` |
 | 七形态原PNG/manifest | `assets/chars/pixel/*/high_detail_complete/` |
 | 六最终敌图与来源校验 | `assets/chars/enemies/current/asset_manifest.json` |

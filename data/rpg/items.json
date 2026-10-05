@@ -49,6 +49,48 @@
           "type": "cleanse"
         }
       ]
+    },
+    {
+      "id": "energy_tea",
+      "name": "醒神茶",
+      "target_rule": "single_ally",
+      "initial_stock": 2,
+      "effects": [
+        {
+          "type": "restore_mp",
+          "fixed": 12
+        }
+      ]
+    },
+    {
+      "id": "guard_charm",
+      "name": "护身纸",
+      "target_rule": "single_ally",
+      "initial_stock": 1,
+      "effects": [
+        {
+          "type": "shield",
+          "fixed": 50,
+          "coefficient": 0,
+          "stat": "def",
+          "duration": 3,
+          "clock": "target_slot"
+        }
+      ]
+    },
+    {
+      "id": "moxa_roll",
+      "name": "艾灸卷",
+      "target_rule": "single_ally",
+      "initial_stock": 2,
+      "effects": [
+        {
+          "type": "heal",
+          "fixed": 40,
+          "coefficient": 0,
+          "stat": "matk"
+        }
+      ]
     }
   ]
 }

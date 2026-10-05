@@ -45,7 +45,12 @@
           "battle_scene": "res://scenes/v3/ritual.tscn",
           "clue_id": "coffin_sendoff"
         }
-      ]
+      ],
+      "loot": {
+        "gear": {
+          "exorcism_sword": 1
+        }
+      }
     },
     {
       "id": "slice_boss",
@@ -63,7 +68,12 @@
           "battle_scene": "res://scenes/v3/battle_honden.tscn",
           "clue_id": "hollow_coffin_glow"
         }
-      ]
+      ],
+      "loot": {
+        "gear": {
+          "bead_bracelet": 1
+        }
+      }
     },
     {
       "id": "elite_test",
@@ -74,7 +84,13 @@
       ],
       "xp": 40,
       "next_id": "",
-      "rest_after": false
+      "rest_after": false,
+      "loot": {
+        "gear": {
+          "iron_amulet": 1,
+          "swift_tachi": 1
+        }
+      }
     },
     {
       "id": "approach_basin",
@@ -141,7 +157,12 @@
           "battle_scene": "res://scenes/rpg/battle.tscn",
           "clue_id": "bell_self_ring"
         }
-      ]
+      ],
+      "loot": {
+        "gear": {
+          "exorcism_sword": 1
+        }
+      }
     },
     {
       "id": "campaign_night_3",
@@ -160,7 +181,12 @@
           "battle_scene": "res://scenes/rpg/battle.tscn",
           "clue_id": "coffin_procession"
         }
-      ]
+      ],
+      "loot": {
+        "gear": {
+          "ranger_garb": 1
+        }
+      }
     },
     {
       "id": "campaign_night_4",
@@ -179,7 +205,13 @@
           "battle_scene": "res://scenes/rpg/battle.tscn",
           "clue_id": "mirror_in_coffin"
         }
-      ]
+      ],
+      "loot": {
+        "gear": {
+          "spirit_bell": 1,
+          "bead_bracelet": 1
+        }
+      }
     },
     {
       "id": "campaign_night_5",
@@ -197,7 +229,12 @@
           "battle_scene": "res://scenes/rpg/battle.tscn",
           "clue_id": "hollow_coffin_glow"
         }
-      ]
+      ],
+      "loot": {
+        "gear": {
+          "monk_kesa": 1
+        }
+      }
     }
   ]
 }

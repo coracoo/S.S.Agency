@@ -88,6 +88,12 @@ func normalize(value: Dictionary) -> Dictionary:
 	var normalized := State.normalize_snapshot({"actors": saved.get("roster", {}), "inventory": saved.get("inventory", {})})
 	if saved.has("roster"): saved.roster = normalized.actors
 	if saved.has("inventory"): saved.inventory = normalized.inventory
+	if saved.get("gear") is Dictionary:
+		saved.gear = Catalog._integerize(saved.gear)
+	else:
+		# 旧档没有装备持有表：按标准套装补默认，已穿装备不受影响。
+		saved["gear"] = {}
+		for slot in Factory.STANDARD: saved.gear[Factory.STANDARD[slot]] = 1
 	if saved.get("world") is Dictionary:
 		if (saved.world.get("world_version") is int or saved.world.get("world_version") is float) and saved.world.world_version == 3:
 			saved.world = Chapters.normalize(saved.world)
@@ -142,6 +148,20 @@ func validate(saved: Dictionary) -> Array[String]:
 			var value = actor.get(field)
 			if not (value is Array or value is Dictionary) or not value.is_empty(): errors.append("安全档不能遗留战斗临时状态：" + id + "/" + field)
 	if not errors.is_empty(): return errors
+	if not saved.get("gear") is Dictionary:
+		errors.append("缺少装备持有表")
+		return errors
+	for gear_id in saved.gear:
+		if not gear_id is String or gear_id.is_empty() or _catalog.get_definition("equipment", gear_id).is_empty():
+			errors.append("装备持有引用未定义：" + str(gear_id))
+		elif not State._natural(saved.gear[gear_id]) or saved.gear[gear_id] < 1:
+			errors.append("装备持有数量非法：" + str(gear_id))
+	if errors.is_empty():
+		for actor in roster.values():
+			for slot in actor.equipment:
+				var equipped: String = actor.equipment[slot]
+				if not equipped.is_empty() and not saved.gear.has(equipped):
+					errors.append("角色装备了未持有装备：" + actor.actor_id + "/" + equipped)
 	var battle := {"schema_version": 1, "rules_version": saved.get("rules_version"), "revision": 0, "seed": 0, "rng_state": "0", "round": 0, "phase": "preparation", "queue": [], "queue_index": 0, "active_actor_id": "", "actors": roster, "inventory": saved.inventory, "outcome": "", "accepted_commands": {}}
 	errors.append_array(State.validate(battle))
 	for item_id in _catalog.get_ids("items"):

@@ -4,7 +4,6 @@ extends CanvasLayer
 signal closed
 const Stature = preload("res://scripts/characters/character_stature.gd")
 const Catalog = preload("res://scripts/rpg/catalog.gd")
-const Factory = preload("res://scripts/rpg/actor_factory.gd")
 const Presenter = preload("res://scripts/rpg/ui/battle_presenter.gd")
 const Kit = preload("res://scripts/rpg/ui/ui_kit.gd")
 const Portraits = preload("res://scripts/characters/identity_portraits.gd")
@@ -25,6 +24,10 @@ var _skills: Array[Label] = []
 var _branches: Dictionary = {}
 var _equipment: Dictionary = {}
 var _items: Dictionary = {}
+var _gear_chooser: Control
+var _gear_chooser_title: Label
+var _gear_chooser_list: Control
+var _chooser_slot := "weapon"
 var _generation := 0
 var _closing := false
 
@@ -86,12 +89,13 @@ func _build() -> void:
 	_hud.branch_preview = Kit.scroll_text(_canvas, Rect2(922, 571, 890, 110), 22)
 	for index in 3:
 		var slot: String = ["weapon", "armor", "accessory"][index]
-		_equipment[slot] = Kit.button(_canvas, "", Rect2(922 + index * 300, 702, 286, 52), toggle_equipment.bind(slot))
+		_equipment[slot] = Kit.button(_canvas, "", Rect2(922 + index * 300, 702, 286, 52), open_gear_chooser.bind(slot))
 	Kit.muted(Kit.label(_canvas, "随身道具  ·  使用于当前查看的队员", Rect2(580, 807, 1220, 40), 24))
 	var item_ids: Array = _catalog.get_ids("items")
 	for index in item_ids.size():
 		var id: String = item_ids[index]
-		_items[id] = Kit.button(_canvas, "", Rect2(580 + index % 2 * 620, 858 + index / 2 * 64, 598, 56), use_item.bind(id))
+		_items[id] = Kit.button(_canvas, "", Rect2(580 + index % 3 * 410, 858 + index / 3 * 60, 398, 54), use_item.bind(id))
+	_build_gear_chooser()
 	_hud.error = Kit.muted(Kit.label(_canvas, "", Rect2(78, 983, 1740, 47), 22))
 	_hud.error.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	if is_inside_tree():
@@ -141,10 +145,65 @@ func preview_branch(branch: String) -> void:
 func apply_branch() -> Dictionary:
 	if busy or campaign == null: return _failure("整备操作暂不可用，请等待人物加载")
 	return _show_response(campaign.set_branch(detail_actor_id, preview_branch_id))
-func toggle_equipment(slot: String) -> Dictionary:
+func open_gear_chooser(slot: String) -> void:
+	if busy or campaign == null or not campaign.can_prepare(): return
+	_chooser_slot = slot
+	_render_gear_chooser()
+	_gear_chooser.visible = true
+
+func close_gear_chooser() -> void:
+	_gear_chooser.visible = false
+
+func _build_gear_chooser() -> void:
+	_gear_chooser = Control.new()
+	_gear_chooser.position = Vector2(560, 300)
+	_gear_chooser.size = Vector2(800, 420)
+	_gear_chooser.visible = false
+	_gear_chooser.mouse_filter = Control.MOUSE_FILTER_STOP
+	_canvas.add_child(_gear_chooser)
+	Kit.panel(_gear_chooser, Rect2(0, 0, 800, 420))
+	_gear_chooser_title = Kit.label(_gear_chooser, "", Rect2(24, 16, 620, 44), 28)
+	Kit.button(_gear_chooser, "关闭", Rect2(664, 16, 112, 48), close_gear_chooser)
+	_gear_chooser_list = Control.new()
+	_gear_chooser_list.position = Vector2(24, 72)
+	_gear_chooser_list.size = Vector2(752, 328)
+	_gear_chooser.add_child(_gear_chooser_list)
+
+const STAT_LABELS := {"hp": "HP", "mp": "MP", "atk": "ATK", "matk": "MATK", "def": "DEF", "mdef": "MDEF", "spd": "SPD"}
+
+static func stat_summary(stats: Dictionary) -> String:
+	var parts: Array[String] = []
+	for key in STAT_LABELS:
+		if stats.get(key, 0) != 0: parts.append("%s+%d" % [STAT_LABELS[key], stats[key]])
+	return " ".join(parts)
+
+func _render_gear_chooser() -> void:
+	if _gear_chooser == null: return
+	for child in _gear_chooser_list.get_children(): child.queue_free()
+	var slot_names := {"weapon": "武器", "armor": "护甲", "accessory": "饰品"}
+	_gear_chooser_title.text = "选择%s · %s" % [slot_names.get(_chooser_slot, _chooser_slot), Presenter.presentation_name(_detail(), _catalog.get_definition("classes", _detail().class_id))]
+	var state: Dictionary = campaign.safe_snapshot()
+	var actor: Dictionary = _detail()
+	var options: Array[Dictionary] = []
+	var owned: Dictionary = state.get("gear", {})
+	for gear_id in owned:
+		var definition: Dictionary = _catalog.get_definition("equipment", gear_id)
+		if definition.is_empty() or definition.slot != _chooser_slot or int(owned[gear_id]) < 1: continue
+		options.append({"id": gear_id, "label": "%s　%s" % [definition.name, stat_summary(definition.get("stats", {}))], "equipped": actor.equipment.get(_chooser_slot, "") == gear_id})
+	options.sort_custom(func(a, b): return a.label < b.label)
+	if not actor.equipment.get(_chooser_slot, "").is_empty():
+		options.append({"id": "", "label": "卸下当前装备", "equipped": false})
+	for index in options.size():
+		var option: Dictionary = options[index]
+		var button := Kit.button(_gear_chooser_list, ("✓ " if option.equipped else "") + option.label, Rect2(0, index * 56, 752, 50), choose_gear.bind(option.id))
+		button.disabled = option.equipped
+	if options.is_empty():
+		Kit.muted(Kit.label(_gear_chooser_list, "尚未持有该槽位装备（战斗胜利可获得）", Rect2(0, 0, 752, 50), 22))
+
+func choose_gear(gear_id: String) -> Dictionary:
+	close_gear_chooser()
 	if busy or campaign == null: return _failure("整备操作暂不可用，请等待人物加载")
-	var actor := _detail()
-	return _show_response(campaign.equip(detail_actor_id, slot, Factory.STANDARD[slot] if actor.equipment.get(slot, "").is_empty() else ""))
+	return _show_response(campaign.equip(detail_actor_id, _chooser_slot, gear_id))
 func use_item(item_id: String) -> Dictionary:
 	if busy or campaign == null: return _failure("整备操作暂不可用，请等待人物加载")
 	return _show_response(campaign.use_item_outside(item_id, detail_actor_id))
@@ -222,7 +281,12 @@ func _render() -> void:
 	_hud.branch_preview.text = Presenter.branch_preview(actor, preview_branch_id, _catalog)
 	for slot in _equipment:
 		var equipment_id: String = actor.equipment.get(slot, "")
-		_equipment[slot].text = ("装备：" + _catalog.get_definition("equipment", Factory.STANDARD[slot]).name) if equipment_id.is_empty() else "卸下：" + _catalog.get_definition("equipment", equipment_id).name
+		var slot_names := {"weapon": "武器", "armor": "护甲", "accessory": "饰品"}
+		if equipment_id.is_empty():
+			_equipment[slot].text = "%s：未装备" % slot_names.get(slot, slot)
+		else:
+			var definition: Dictionary = _catalog.get_definition("equipment", equipment_id)
+			_equipment[slot].text = "%s：%s　%s" % [slot_names.get(slot, slot), definition.name, stat_summary(definition.get("stats", {}))]
 		_equipment[slot].disabled = not editable
 	for id in _items:
 		_items[id].text = "%s ×%d" % [_catalog.get_definition("items", id).name, state.inventory.get(id, 0)]

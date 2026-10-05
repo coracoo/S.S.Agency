@@ -243,6 +243,23 @@ static func _validate_catalog(data: Dictionary, errors: Array[String]) -> void:
 					if id != "approach_basin" or route_kind != "scene_routes" or route.get("clue_id") != "basin_reflection" or route.get("battle_scene") != "res://scenes/rpg/battle.tscn" or route.get("story_patch") != expected: errors.append(id + " 参道路由与补丁归属不符")
 				elif route.has("story_patch"):
 					errors.append(id + " 旧路由不能携带新剧情补丁")
+		if row.has("loot"):
+			if not row.loot is Dictionary or row.loot.is_empty():
+				errors.append(id + " 战利品必须是包含装备/道具的非空字典")
+			else:
+				for kind in ["gear", "items"]:
+					var rewards: Dictionary = row.loot.get(kind, {})
+					if not rewards is Dictionary:
+						errors.append(id + " 战利品" + kind + "必须是字典")
+						continue
+					for reward_id in rewards:
+						var table: String = "equipment" if kind == "gear" else "items"
+						if not reward_id is String or reward_id.is_empty() or not data[table].has(reward_id):
+							errors.append(id + " 战利品引用未定义：" + str(reward_id))
+						elif not _nonnegative_int(rewards[reward_id]) or rewards[reward_id] < 1:
+							errors.append(id + " 战利品数量非法：" + str(reward_id))
+				for key in row.loot:
+					if not key in ["gear", "items"]: errors.append(id + " 战利品只允许装备/道具两类")
 
 static func _validate_ability(row: Dictionary, data: Dictionary, errors: Array[String]) -> void:
 	var id: String = row.id

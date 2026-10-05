@@ -8,6 +8,7 @@ const Battle = preload("res://scripts/rpg/battle_engine.gd")
 const Policy = preload("res://scripts/rpg/enemy_policy.gd")
 const Replay = preload("res://scripts/rpg/replay.gd")
 const SaveBase = preload("res://scripts/rpg/save_store.gd")
+const Factory = preload("res://scripts/rpg/actor_factory.gd")
 
 class RenameFailStore extends SaveBase:
 	func _replace_file(_temporary: String, _destination: String) -> Error:
@@ -44,6 +45,7 @@ static func run() -> Array[String]:
 	_test_router(Campaign, Store, Router, failures)
 	_test_write_failures(Campaign, Store, failures)
 	_test_result_validation(Campaign, Store, failures)
+	_test_gear_loot(Campaign, Store, failures)
 	_test_stage_adapter(failures)
 	_test_schema_types(Campaign, Store, failures)
 	_test_branches_and_rest(Campaign, Store, failures)
@@ -314,6 +316,46 @@ static func _test_result_validation(Campaign, Store, failures: Array[String]) ->
 	F.expect(campaign.apply_result(victory).ok, "首实例提交一次", failures)
 	var duplicate: Dictionary = stale.apply_result(victory)
 	F.expect(duplicate.ok and duplicate.already_applied and duplicate.story_patch.is_empty(), "重复交付必须读取持久已提交ID", failures)
+
+static func _test_gear_loot(Campaign, Store, failures: Array[String]) -> void:
+	var campaign = _new(Campaign, Store, "gear_loot", failures)
+	var state: Dictionary = campaign.safe_snapshot()
+	for standard in ["standard_weapon", "standard_armor", "standard_accessory"]:
+		F.expect(state.gear.get(standard, 0) == 1, "新局持有标准装备：" + standard, failures)
+	var denied: Dictionary = campaign.equip("p_swordsman", "weapon", "exorcism_sword")
+	F.expect(not denied.ok and not denied.error.is_empty(), "未持有装备不能穿戴", failures)
+	F.expect(campaign.safe_snapshot().roster.p_swordsman.equipment.weapon == "standard_weapon", "拒绝后装备保持不变", failures)
+	var with_weapon: int = campaign.safe_snapshot().roster.p_swordsman.stats.atk
+	var unequip: Dictionary = campaign.equip("p_swordsman", "weapon", "")
+	F.expect(unequip.ok, "卸下已持有装备允许", failures)
+	F.expect(campaign.safe_snapshot().roster.p_swordsman.stats.atk == with_weapon - 5, "卸下武器后攻击下降", failures)
+	var requip: Dictionary = campaign.equip("p_swordsman", "weapon", "standard_weapon")
+	F.expect(requip.ok and campaign.safe_snapshot().roster.p_swordsman.stats.atk == with_weapon, "穿回标准武器属性还原", failures)
+	var store = Store.new()
+	var forged: Dictionary = campaign.safe_snapshot()
+	forged.gear = {}
+	F.expect(store.write_safe(forged, "user://rpg_v1/tests/gear_forged.json") != OK, "穿装备却无持有表必须拒绝写入", failures)
+	var legacy: Dictionary = campaign.safe_snapshot()
+	legacy.erase("gear")
+	var legacy_path := "user://rpg_v1/tests/gear_legacy.json"
+	var legacy_file := FileAccess.open(legacy_path, FileAccess.WRITE)
+	legacy_file.store_string(JSON.stringify(legacy, "", true, true))
+	legacy_file.close()
+	var loaded: Dictionary = store.load_safe(legacy_path)
+	F.expect(loaded.ok and loaded.snapshot.gear.get("standard_weapon", 0) == 1, "旧档缺装备表读出时自动补默认", failures)
+	var start: Dictionary = campaign.begin_battle("slice_2", _world())
+	F.expect(start.get("ok", false), "战利品测试进战", failures)
+	var applied: Dictionary = campaign.apply_result(_victory(campaign, start))
+	F.expect(applied.ok, "提交胜利战果", failures)
+	F.expect(campaign.safe_snapshot().gear.get("exorcism_sword", 0) == 1, "胜利获得战利品装备", failures)
+	var again: Dictionary = campaign.apply_result(_victory(campaign, start))
+	F.expect(again.ok and again.already_applied, "重复提交只读已交付记录", failures)
+	F.expect(campaign.safe_snapshot().gear.get("exorcism_sword", 0) == 1, "战利品不重复发放", failures)
+	var equipped: Dictionary = campaign.equip("p_swordsman", "weapon", "exorcism_sword")
+	F.expect(equipped.ok, "获得战利品后可装备", failures)
+	var actor: Dictionary = campaign.safe_snapshot().roster.p_swordsman
+	var expected: Dictionary = Factory.new(null).stats_for("swordsman", actor.level, actor.equipment)
+	F.expect(actor.stats == expected and actor.equipment.weapon == "exorcism_sword", "装备后属性按目录重算", failures)
 
 static func _test_stage_adapter(failures: Array[String]) -> void:
 	var Stage = load("res://scripts/scenes/stage_scene.gd")

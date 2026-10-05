@@ -289,15 +289,16 @@ func _build() -> void:
 	_popup_shade.mouse_filter = Control.MOUSE_FILTER_STOP
 	_popup_shade.hide()
 	_canvas.add_child(_popup_shade)
-	_items = Kit.panel(_canvas, Rect2(600, 280, 720, 440))
+	_items = Kit.panel(_canvas, Rect2(600, 220, 720, 660))
 	_items.mouse_filter = Control.MOUSE_FILTER_STOP
 	Kit.label(_items, "道具 · 使用占用本次行动", Rect2(20, 14, 680, 40), 27)
-	for index in range(_catalog.get_ids("items").size()):
+	var item_count := _catalog.get_ids("items").size()
+	for index in range(item_count):
 		var id: String = _catalog.get_ids("items")[index]
 		var item: Dictionary = _catalog.get_definition("items", id)
-		var button := Kit.button(_items, item.name, Rect2(20, 68 + index * 65, 680, 57), select_command.bind("item", id))
+		var button := Kit.button(_items, item.name, Rect2(20, 68 + index * 58, 680, 50), select_command.bind("item", id))
 		_hud["item_" + id] = button
-	Kit.button(_items, "返回行动 [Esc]", Rect2(20, 356, 680, 58), _close_popup)
+	Kit.button(_items, "返回行动 [Esc]", Rect2(20, 68 + item_count * 58, 680, 54), _close_popup)
 	_items.visible = false
 	_log_panel = Kit.panel(_canvas, Rect2(580, 240, 760, 560))
 	_log_panel.mouse_filter = Control.MOUSE_FILTER_STOP

@@ -167,11 +167,11 @@ func _build() -> void:
 	_hud.error.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_hud.error.add_theme_color_override("font_outline_color", Kit.color("ink_900"))
 	_hud.error.add_theme_constant_override("outline_size", 5)
-	var items := Kit.panel(_canvas, Rect2(100, 610, 1170, 276))
+	var items := Kit.panel(_canvas, Rect2(100, 570, 1170, 366))
 	Kit.label(items, "战外道具 · 点击道具，再选队员（安全探索可用）", Rect2(22, 12, 1120, 44), 27)
 	for index in range(_catalog.get_ids("items").size()):
 		var id: String = _catalog.get_ids("items")[index]
-		_hud["outside_" + id] = Kit.button(items, _catalog.get_definition("items", id).name, Rect2(22 + (index % 2) * 563, 74 + (index / 2) * 88, 542, 72), _choose_item.bind(id))
+		_hud["outside_" + id] = Kit.button(items, _catalog.get_definition("items", id).name, Rect2(22 + (index % 3) * 377, 74 + (index / 3) * 92, 360, 76), _choose_item.bind(id))
 	_hud.item_panel = items
 	_hud.item_panel.visible = false
 	_hud.items = Kit.button(_canvas, "战外道具", Rect2(1030, 260, 242, 60), _toggle_items)
