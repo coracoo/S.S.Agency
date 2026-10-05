@@ -69,7 +69,7 @@ class AssetsTest(unittest.TestCase):
         spec=importlib.util.spec_from_file_location('validator',path)
         validator=importlib.util.module_from_spec(spec);spec.loader.exec_module(validator)
         root=Path(__file__).resolve().parents[2]
-        manifest=json.loads((root/'assets/chars/pixel/rinne/manifest.json').read_text())
+        manifest=json.loads((root/'old/characters/assets/chars/pixel/rinne/manifest.json').read_text())
         durations=manifest['anims']['walk']['durations_ms']
         durations[0],durations[4]=durations[4],durations[0]
         with tempfile.TemporaryDirectory() as tmp:

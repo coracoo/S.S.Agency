@@ -1,5 +1,6 @@
 class_name PngLoader
 extends RefCounted
+const LegacyPaths = preload("res://scripts/characters/legacy_asset_paths.gd")
 ## PNG 贴图加载器：优先 FileAccess 直读原始字节（编辑器/目录直跑，无重压缩损耗）；
 ## 导出 pck 内 png 被导入器重映射、FileAccess 读不到原始文件 → 回退 ResourceLoader
 ## 取导入贴图（.ctex remap），两端行为一致。
@@ -24,6 +25,7 @@ static func load_texture(path: String) -> Texture2D:
 	return tex
 
 static func _load_fresh(path: String) -> Texture2D:
+	path = LegacyPaths.resolve(path)
 	var f := FileAccess.open(path, FileAccess.READ)
 	if f != null:
 		var img := Image.new()

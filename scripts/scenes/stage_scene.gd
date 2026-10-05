@@ -14,6 +14,7 @@ const SfxScript = preload("res://scripts/ui/sfx.gd")
 const DialogueOverlayScript = preload("res://scripts/ui/dialogue_overlay.gd")
 const RpgRouter = preload("res://scripts/rpg/encounter_router.gd")
 const RpgStore = preload("res://scripts/rpg/save_store.gd")
+const LegacyPaths = preload("res://scripts/characters/legacy_asset_paths.gd")
 var _rpg_pending_clue := ""
 
 var _cfg: Dictionary = {}
@@ -391,7 +392,7 @@ func _resolve_player_anims() -> Dictionary:
 	var from: String = _cfg.get("player_anims_from", "")
 	if from.is_empty():
 		return _cfg.get("player_anims", {})
-	var f := FileAccess.open(from, FileAccess.READ)
+	var f := FileAccess.open(LegacyPaths.resolve(from), FileAccess.READ)
 	if f == null:
 		push_error("[StageScene] 找不到动画清单 %s" % from)
 		return _cfg.get("player_anims", {})

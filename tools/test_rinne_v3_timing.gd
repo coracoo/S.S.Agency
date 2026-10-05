@@ -3,6 +3,7 @@
 #       攻击六段边界单调、清单锚点/移速字段在位
 # 用法: Godot --path <项目> --headless --script res://tools/test_rinne_v3_timing.gd
 extends SceneTree
+const LegacyPaths = preload("res://scripts/characters/legacy_asset_paths.gd")
 
 const MANIFEST := "res://assets/chars/rinne_25d/animation_manifest.json"
 const WALK_PERIOD := 0.503
@@ -20,7 +21,7 @@ func _assert(cond: bool, msg: String) -> void:
 		push_error("FAIL: " + msg)
 
 func _initialize() -> void:
-	var f := FileAccess.open(MANIFEST, FileAccess.READ)
+	var f := FileAccess.open(LegacyPaths.resolve(MANIFEST), FileAccess.READ)
 	_assert(f != null, "清单可打开 %s" % MANIFEST)
 	if f == null:
 		quit(1)
@@ -37,7 +38,7 @@ func _initialize() -> void:
 		var spec: Dictionary = anims[state]
 		for n in spec.get("frames", []):
 			total_files += 1
-			if not FileAccess.file_exists(dir + n + ".png"):
+			if not FileAccess.file_exists(LegacyPaths.resolve(dir + n + ".png")):
 				all_exist = false
 				push_error("缺帧: " + dir + n + ".png")
 	_assert(all_exist, "全部 %d 帧文件存在" % total_files)
@@ -79,7 +80,7 @@ func _initialize() -> void:
 	frames.set_animation_speed("walk", 1.0)
 	# Godot 4：帧时长在 add_frame 时给（duration=秒×speed 倒数），无 set_frame_duration
 	var img := Image.new()
-	var probe := FileAccess.open(dir + walk_spec["frames"][0] + ".png", FileAccess.READ)
+	var probe := FileAccess.open(LegacyPaths.resolve(dir + walk_spec["frames"][0] + ".png"), FileAccess.READ)
 	var probe_tex: Texture2D = null
 	if probe != null and img.load_png_from_buffer(probe.get_buffer(probe.get_length())) == OK:
 		probe_tex = ImageTexture.create_from_image(img)

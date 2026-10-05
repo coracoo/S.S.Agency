@@ -19,8 +19,17 @@ def high_detail_alpha_errors(image: Image.Image, label: str) -> list[str]:
         errors.append(label+': 缺少有效人物主体，空帧或稀疏噪点不能通过')
     return errors
 
+def resolve_character_source(path: Path, root: Path) -> Path:
+    if path.is_file(): return path
+    try: relative = path.resolve().relative_to(root.resolve())
+    except ValueError: return path
+    if not relative.as_posix().startswith('assets/chars/'): return path
+    archived = root / 'old/characters' / relative
+    return archived if archived.is_file() else path
+
 def validate_manifest(path: Path, root: Path = ROOT, profile: str = 'legacy_pixel') -> list[str]:
     errors = []
+    path = resolve_character_source(path, root)
     if not path.exists(): return [f'缺少清单: {path}']
     try: manifest = json.loads(path.read_text())
     except (ValueError,OSError) as exc: return [str(exc)]
@@ -52,6 +61,7 @@ def validate_manifest(path: Path, root: Path = ROOT, profile: str = 'legacy_pixe
         if name not in ('idle','walk') and spec.get('loop',False): errors.append(name+': 不得循环')
         for frame in frames:
             image_path = root / (manifest.get('dir','').removeprefix('res://') + frame + '.png')
+            image_path = resolve_character_source(image_path, root)
             if not image_path.exists(): errors.append('缺帧: '+str(image_path));continue
             with Image.open(image_path) as original:
                 image = original.convert('RGBA')
@@ -79,6 +89,7 @@ def validate_manifest(path: Path, root: Path = ROOT, profile: str = 'legacy_pixe
             errors.append('layer帧数须与idle源帧匹配')
         for layer_path in layer.get('frames',[]):
             file=root/layer_path.removeprefix('res://')
+            file = resolve_character_source(file, root)
             if not file.exists(): errors.append('缺少layer: '+str(file));continue
             with Image.open(file) as raw:
                 layer_image=raw.convert('RGBA')

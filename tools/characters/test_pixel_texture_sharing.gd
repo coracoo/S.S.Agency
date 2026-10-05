@@ -1,4 +1,5 @@
 extends SceneTree
+const LegacyPaths = preload("res://scripts/characters/legacy_asset_paths.gd")
 var failed:=0
 func check(value: bool, message: String) -> void:
 	print(('PASS: ' if value else 'FAIL: ')+message)
@@ -14,8 +15,8 @@ func run() -> void:
 	check(first.frames.get_frame_texture('idle',0).get_rid()==second.frames.get_frame_texture('idle',0).get_rid(),'同源多实例共享纹理RID')
 	first.frames.set_frame('idle',0,first.frames.get_frame_texture('idle',0),99.0)
 	check(second.frames.get_frame_duration('idle',0)!=99.0,'时序容器不随纹理共享而互相污染')
-	var original: Dictionary=JSON.parse_string(FileAccess.get_file_as_string(path))
-	var png=FileAccess.get_file_as_bytes(original.dir+original.anims.idle.frames[0]+'.png')
+	var original: Dictionary=JSON.parse_string(FileAccess.get_file_as_string(LegacyPaths.resolve(path)))
+	var png=FileAccess.get_file_as_bytes(LegacyPaths.resolve(original.dir+original.anims.idle.frames[0]+'.png'))
 	var file=FileAccess.open('user://shared_pose.png',FileAccess.WRITE);file.store_buffer(png);file.close()
 	var manifest=original.duplicate(true);manifest.dir='user://'
 	manifest.anims={'idle':{'frames':['shared_pose'],'durations_ms':[500]},'walk':{'frames':['shared_pose'],'durations_ms':[500]},'attack':{'frames':['shared_pose'],'durations_ms':[460],'loop':false}}
