@@ -68,6 +68,7 @@ func _build() -> void:
 	_root.add_child(_canvas)
 	Art.panel(_canvas, Rect2(288, 150, 1344, 780))
 	_hud.heading = Kit.label(_canvas, "夜巡整备", Rect2(322, 169, 335, 62), 34)
+	_hud.heading.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	for index in 3:
 		var page: String = ["party", "inventory", "equipment"][index]
 		_tabs[page] = Art.button(_canvas, ["队伍", "行囊", "武具"][index], Rect2(716 + index * 188, 175, 178, 58), show_page.bind(page))
@@ -84,11 +85,12 @@ func _build() -> void:
 	_canvas.add_child(_roster_panel)
 	Art.panel(_roster_panel, Rect2(318, 277, 356, 582), true)
 	_hud.roster_title = Kit.label(_roster_panel, "使用目标", Rect2(338, 288, 320, 38), 25)
+	_hud.roster_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	for index in CLASSES.size():
 		var actor_id := "p_" + CLASSES[index]
 		var y := 337 + index * 84
 		var row := Art.button(_roster_panel, "", Rect2(334, y, 324, 76), select_actor.bind(actor_id))
-		row.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		Art.center_text(row, 12, 228)
 		row.add_theme_font_size_override("font_size", 20)
 		_rows[actor_id] = {"detail": row, "toggle": Art.button(_pages.party, "", Rect2(700, y, 196, 68), toggle_member.bind(actor_id))}
 		row.add_theme_font_size_override("font_size", 22)
@@ -113,6 +115,7 @@ func _build_party() -> void:
 	var page: Control = _pages.party
 	Art.panel(page, Rect2(914, 277, 686, 582), true)
 	_hud.title = Kit.label(page, "", Rect2(940, 294, 638, 39), 26)
+	_hud.title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_hud.stats = Kit.label(page, "", Rect2(940, 343, 638, 70), 20)
 	for index in 4: _skills.append(Kit.label(page, "", Rect2(940, 439 + index * 42, 638, 39), 19))
 	for index in 3:
@@ -129,16 +132,17 @@ func _build_inventory() -> void:
 	var page: Control = _pages.inventory
 	Art.panel(page, Rect2(688, 277, 374, 582), true)
 	Art.panel(page, Rect2(1074, 277, 526, 582), true)
-	Kit.label(page, "随身道具", Rect2(710, 290, 330, 40), 25)
+	Kit.label(page, "随身道具", Rect2(710, 290, 330, 40), 25).horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	var ids: Array = ["healing_potion", "mana_potion", "revival_potion", "cleansing_powder"]
 	for index in ids.size():
 		var id: String = ids[index]
 		var y := 347 + index * 117
 		_items[id] = Art.button(page, "", Rect2(708, y, 334, 102), select_item.bind(id))
-		_items[id].alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		Art.center_text(_items[id], 104, 24)
 		_items[id].add_theme_font_size_override("font_size", 23)
 		Art.icon(page, id, Rect2(720, y + 12, 76, 76))
 	_hud.item_title = Kit.label(page, "", Rect2(1100, 292, 472, 45), 29)
+	_hud.item_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_hud.item_icon = Art.icon(page, "healing_potion", Rect2(1110, 354, 114, 114))
 	_hud.item_description = Kit.label(page, "", Rect2(1250, 361, 318, 104), 23)
 	_hud.item_description.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -150,17 +154,18 @@ func _build_equipment() -> void:
 	var page: Control = _pages.equipment
 	Art.panel(page, Rect2(688, 277, 374, 582), true)
 	Art.panel(page, Rect2(1074, 277, 526, 582), true)
-	Kit.label(page, "装备槽位", Rect2(710, 290, 330, 40), 25)
+	Kit.label(page, "装备槽位", Rect2(710, 290, 330, 40), 25).horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	for index in 3:
 		var slot: String = ["weapon", "armor", "accessory"][index]
 		_equipment[slot] = Art.button(page, "", Rect2(708, 347 + index * 87, 334, 75), select_slot.bind(slot))
 		_equipment[slot].add_theme_font_size_override("font_size", 21)
-		_equipment[slot].alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		Art.center_text(_equipment[slot], 86, 20)
 		Art.icon(page, slot, Rect2(719, 355 + index * 87, 59, 59))
 	Kit.muted(Kit.label(page, "本槽装备 · 现有标准配装", Rect2(710, 624, 328, 40), 20))
 	_hud.equip_standard = Art.button(page, "", Rect2(708, 680, 334, 64), select_standard_equipment)
 	_hud.equip_empty = Art.button(page, "卸下此槽装备", Rect2(708, 763, 334, 64), select_equipment.bind("", ""))
 	_hud.equipment_title = Kit.label(page, "", Rect2(1100, 292, 472, 45), 27)
+	_hud.equipment_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_hud.equipment_description = Kit.label(page, "", Rect2(1100, 343, 472, 48), 20)
 	_hud.equipment_stats = Kit.label(page, "", Rect2(1110, 404, 448, 294), 24)
 	_hud.equipment_note = Kit.label(page, "", Rect2(1108, 711, 458, 60), 20)
@@ -169,7 +174,7 @@ func _build_equipment() -> void:
 func _build_menu() -> void:
 	var page: Control = _pages.menu
 	Art.panel(page, Rect2(324, 280, 620, 578), true)
-	Kit.label(page, "今夜同行", Rect2(358, 305, 540, 44), 28)
+	Kit.label(page, "今夜同行", Rect2(358, 305, 540, 44), 28).horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_hud.menu_summary = Kit.label(page, "", Rect2(360, 378, 540, 330), 25)
 	Kit.muted(Kit.label(page, "WASD 行走  ·  E 调查  ·  M 地图", Rect2(358, 781, 554, 40), 20))
 	var actions := [["行囊 · 使用道具", "inventory"], ["武具 · 查看与更换", "equipment"], ["队伍 · 编队与形态", "party"]]

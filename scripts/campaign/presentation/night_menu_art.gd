@@ -43,7 +43,9 @@ static func button(parent: Node, text: String, rect: Rect2, action: Callable = C
 	var node := Button.new()
 	node.position = rect.position
 	node.size = rect.size
+	node.custom_minimum_size.y = 52
 	node.text = text
+	node.alignment = HORIZONTAL_ALIGNMENT_CENTER
 	node.clip_text = true
 	node.add_theme_font_override("font", load("res://assets/fonts/Alibaba-PuHuiTi-Regular.ttf"))
 	node.add_theme_font_size_override("font_size", 23)
@@ -58,6 +60,7 @@ static func button(parent: Node, text: String, rect: Rect2, action: Callable = C
 	node.add_theme_stylebox_override("pressed", style("button_selected", 24, Color(0.88,0.88,0.88)))
 	node.add_theme_stylebox_override("disabled", style("button_disabled"))
 	node.add_theme_stylebox_override("focus", style("focus", 12))
+	center_text(node)
 	node.set_meta("art_primary", primary)
 	node.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	if action.is_valid(): node.pressed.connect(action)
@@ -68,6 +71,22 @@ static func selected(node: Button, value: bool) -> void:
 	var base := "button_selected" if value else ("button_primary" if node.get_meta("art_primary", false) else "button")
 	node.add_theme_stylebox_override("normal", style(base))
 	node.add_theme_stylebox_override("hover", style(base, 24, Color(1.15,1.12,1.05)))
+	_apply_text_padding(node)
+# 文字在自己的可读区域居中；图标、血蓝条和数值继续各用独立列。
+static func center_text(node: Button, left: float = 12.0, right: float = 12.0, vertical: float = 6.0) -> void:
+	node.alignment = HORIZONTAL_ALIGNMENT_CENTER
+	node.set_meta("art_text_padding", Vector3(left, right, vertical))
+	_apply_text_padding(node)
+static func _apply_text_padding(node: Button) -> void:
+	var padding: Vector3 = node.get_meta("art_text_padding", Vector3(12, 12, 6))
+	for state in ["normal", "hover", "pressed", "disabled", "focus"]:
+		var value: StyleBox = node.get_theme_stylebox(state).duplicate()
+		value.content_margin_left = padding.x
+		value.content_margin_right = padding.y
+		value.content_margin_top = padding.z
+		value.content_margin_bottom = padding.z
+		node.add_theme_stylebox_override(state, value)
+
 static func icon(parent: Node, id: String, rect: Rect2) -> TextureRect:
 	var node := TextureRect.new()
 	node.position = rect.position

@@ -19,6 +19,7 @@ func _run() -> void:
 	var panel = Party.new()
 	root.add_child(panel)
 	panel.open(session)
+	_text_alignment(panel)
 	for id in panel._rows:
 		check(panel._rows[id].has("hpbar") and panel._rows[id].has("mpbar"), "生图HP/MP条用于每个队员：" + id)
 	check(panel.has_method("show_page"), "有队伍、行囊、武具三个独立页面")
@@ -137,3 +138,20 @@ func _mouse_keyboard(panel, session) -> void:
 	await _click(panel._tabs.inventory)
 	await _click(panel._hud.back)
 	check(panel.current_page == "menu", "真实鼠标返回菜单")
+
+func _text_alignment(panel) -> void:
+	check(panel._hud.back.get_combined_minimum_size().y >= 52, "窄按钮保持足够厚度，文字不压住生图内边框")
+	for id in panel._rows:
+		var button: Button = panel._rows[id].detail
+		check(button.alignment == HORIZONTAL_ALIGNMENT_CENTER, "队员姓名在独立姓名列中居中：" + id)
+		var style: StyleBox = button.get_theme_stylebox("normal")
+		var center: float = button.position.x + (style.get_content_margin(SIDE_LEFT) + button.size.x - style.get_content_margin(SIDE_RIGHT)) / 2.0
+		check(center >= 380 and center <= 400, "姓名列中心与HP列保留间隔")
+		check(panel._rows[id].hp.horizontal_alignment == HORIZONTAL_ALIGNMENT_LEFT, "HP数值保持一致左对齐")
+	for button in panel._items.values() + panel._equipment.values():
+		check(button.alignment == HORIZONTAL_ALIGNMENT_CENTER, "道具与装备文字居中，不贴右侧边框")
+		for state in ["normal", "hover", "pressed", "disabled", "focus"]:
+			var style: StyleBox = button.get_theme_stylebox(state)
+			check(style.get_content_margin(SIDE_LEFT) >= 82, "居中文字避开图标：" + state)
+			check(style.get_content_margin(SIDE_TOP) == style.get_content_margin(SIDE_BOTTOM) and style.get_content_margin(SIDE_TOP) <= 8, "按钮上下内边距均衡：" + state)
+	for button in panel._tabs.values(): check(button.alignment == HORIZONTAL_ALIGNMENT_CENTER, "页签文字保持中心对齐")
