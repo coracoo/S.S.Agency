@@ -1,0 +1,3929 @@
+{
+  "schema_version": 1,
+  "source_commit": "46c37bbce0e5609e5e781f63114d9b2c450794d8",
+  "scope": "退役角色原件迁移，当前主线素材不改；Git历史不重写。",
+  "entries": [
+    {
+      "from": "assets/chars/anims/_raw_paperdoll_idle_sheet.png",
+      "to": "old/characters/assets/chars/anims/_raw_paperdoll_idle_sheet.png",
+      "sha256": "dd79559092f8779a8d25e071a1bd4ec1b99fdf8f0d36d97900794d4ac62d3534",
+      "git_blob_oid": "4396aa04e1bb8062785d2844b33ce7292f74cdb4",
+      "size_bytes": 5208362
+    },
+    {
+      "from": "assets/chars/anims/_raw_paperdoll_idle_sheet.png.import",
+      "to": "old/characters/assets/chars/anims/_raw_paperdoll_idle_sheet.png.import",
+      "sha256": "f6071cecac8fc8c4b9ebfbaeb9a4ec724d9bd6d9328a7befda75db6c6c312644",
+      "git_blob_oid": "f9825d037d163be2554c3cd218ae326cdb4e3867",
+      "size_bytes": 998
+    },
+    {
+      "from": "assets/chars/anims/_raw_rinne_cast_sheet.png",
+      "to": "old/characters/assets/chars/anims/_raw_rinne_cast_sheet.png",
+      "sha256": "403bbf25e2547adb76ad75570c44f7b71256e7d96c30d51e1730b5d872fdf1b3",
+      "git_blob_oid": "cccf4c877f1d17c726d1ff133266032f5e9e5f78",
+      "size_bytes": 4796699
+    },
+    {
+      "from": "assets/chars/anims/_raw_rinne_cast_sheet.png.import",
+      "to": "old/characters/assets/chars/anims/_raw_rinne_cast_sheet.png.import",
+      "sha256": "4aed3b839abf9e7d39aff08471af08e3a1b637782737b6d078dc482dd1ba38ad",
+      "git_blob_oid": "b01681b2b202120544da85ffaaf55e450b3511db",
+      "size_bytes": 985
+    },
+    {
+      "from": "assets/chars/anims/_raw_rinne_idle_sheet.png",
+      "to": "old/characters/assets/chars/anims/_raw_rinne_idle_sheet.png",
+      "sha256": "a000a6c5c07482142579763abb723324f6be5dfdaf4cade95b5ca42cead1db9e",
+      "git_blob_oid": "a45aacd6436a63bd89aa5afd023165e6103b3a59",
+      "size_bytes": 4490328
+    },
+    {
+      "from": "assets/chars/anims/_raw_rinne_idle_sheet.png.import",
+      "to": "old/characters/assets/chars/anims/_raw_rinne_idle_sheet.png.import",
+      "sha256": "ea924b1b1e36c407e87a868f6f19782c6f1c2bc5c4159ddb977c268176a54761",
+      "git_blob_oid": "21c66c8cc66dfc65d40071afe31e092ef6620f2b",
+      "size_bytes": 986
+    },
+    {
+      "from": "assets/chars/anims/_raw_rinne_walk_sheet.png",
+      "to": "old/characters/assets/chars/anims/_raw_rinne_walk_sheet.png",
+      "sha256": "a78f2e1c1e145193eac497680f3e0bd8cbf09e2931159f916eb4ef9f45a07b28",
+      "git_blob_oid": "617ca5e56224cefdfc7ad9ed4e0197b6e635aec9",
+      "size_bytes": 6872988
+    },
+    {
+      "from": "assets/chars/anims/_raw_rinne_walk_sheet.png.import",
+      "to": "old/characters/assets/chars/anims/_raw_rinne_walk_sheet.png.import",
+      "sha256": "b6b2b54749a822858a4621833b275364ecb7845d25d24572a337b4b53533a477",
+      "git_blob_oid": "76bb91f23aa12c64c4e4740549cabdeee39b2ce2",
+      "size_bytes": 985
+    },
+    {
+      "from": "assets/chars/anims/paperdoll_idle_f1.png",
+      "to": "old/characters/assets/chars/anims/paperdoll_idle_f1.png",
+      "sha256": "c29fed0f7297d90bef1dde5e1e84c8fdbe553f01dc021d173ccdf64f06dc4f80",
+      "git_blob_oid": "94debd8dbbe4890b97b5cb857b527091637a030b",
+      "size_bytes": 1227027
+    },
+    {
+      "from": "assets/chars/anims/paperdoll_idle_f1.png.import",
+      "to": "old/characters/assets/chars/anims/paperdoll_idle_f1.png.import",
+      "sha256": "1018eeb92fef6d9cef1bff998a2cac4f664e89313992ed8bdb519c26ebacb89b",
+      "git_blob_oid": "c42f72c1ea9c3c0ec9c89e21b3ecdbf0ab397882",
+      "size_bytes": 974
+    },
+    {
+      "from": "assets/chars/anims/paperdoll_idle_f2.png",
+      "to": "old/characters/assets/chars/anims/paperdoll_idle_f2.png",
+      "sha256": "2c9221a57665ae0d4657e15caafb22223a442ab88c4b6f197fb87213aaa85acd",
+      "git_blob_oid": "702b0672152c19b4a1099edc46dacf986823aa83",
+      "size_bytes": 1451172
+    },
+    {
+      "from": "assets/chars/anims/paperdoll_idle_f2.png.import",
+      "to": "old/characters/assets/chars/anims/paperdoll_idle_f2.png.import",
+      "sha256": "4e3331fd49510e286a496940d64006c72c4e85f9f60196382f02ada5b17e551e",
+      "git_blob_oid": "0f39fe892eafb9dab5988035c23f40da70d0f793",
+      "size_bytes": 974
+    },
+    {
+      "from": "assets/chars/anims/paperdoll_idle_f3.png",
+      "to": "old/characters/assets/chars/anims/paperdoll_idle_f3.png",
+      "sha256": "38387135b3819012ea186089c8a02c249a342c061185fbf075429989e3886210",
+      "git_blob_oid": "9d4377583bc8dd5ae95a2e2a21ede287babe4764",
+      "size_bytes": 1448716
+    },
+    {
+      "from": "assets/chars/anims/paperdoll_idle_f3.png.import",
+      "to": "old/characters/assets/chars/anims/paperdoll_idle_f3.png.import",
+      "sha256": "567e359c4ddade9051ebefc5d6867df5f4a7a35d9e48a2337fdd599b7626e52a",
+      "git_blob_oid": "00144221d768abbc2f4f6e787ccd30df6429b8f2",
+      "size_bytes": 974
+    },
+    {
+      "from": "assets/chars/anims/paperdoll_idle_f4.png",
+      "to": "old/characters/assets/chars/anims/paperdoll_idle_f4.png",
+      "sha256": "fb1e8fc0674b34984f1edefe004f31641c7df96d4bc2dffe445f14076aa07d9f",
+      "git_blob_oid": "3ff8bf99a4e39e32ba1b046f96e61a9ceff1082f",
+      "size_bytes": 1340350
+    },
+    {
+      "from": "assets/chars/anims/paperdoll_idle_f4.png.import",
+      "to": "old/characters/assets/chars/anims/paperdoll_idle_f4.png.import",
+      "sha256": "4c1288d1f6f783a61ade05e0fbddf21a3cc1a14177c2054e8359fc1c2192d146",
+      "git_blob_oid": "a0c37f5db0cafaacffad744162058d2fda8d948d",
+      "size_bytes": 974
+    },
+    {
+      "from": "assets/chars/anims/rinne_cast_f1.png",
+      "to": "old/characters/assets/chars/anims/rinne_cast_f1.png",
+      "sha256": "af7b2c72d6ccedf69fa96b25b66d1353f817ad0ab4c5fafb707bb51979e5533b",
+      "git_blob_oid": "2e6073ff7dc57f4ff030671c188a21d7fd631632",
+      "size_bytes": 1316798
+    },
+    {
+      "from": "assets/chars/anims/rinne_cast_f1.png.import",
+      "to": "old/characters/assets/chars/anims/rinne_cast_f1.png.import",
+      "sha256": "5c4dde3413a87317ffbd73f93386440815bed036ae2825d87f47c60ecabb5ef5",
+      "git_blob_oid": "d00604a44047f5ce54fa0f6b83c1b2ae2b58d81d",
+      "size_bytes": 962
+    },
+    {
+      "from": "assets/chars/anims/rinne_cast_f2.png",
+      "to": "old/characters/assets/chars/anims/rinne_cast_f2.png",
+      "sha256": "132cf30d7daf6aec59d8790cfcfbab3992a74ae04fd194e0c15268b7115dd59e",
+      "git_blob_oid": "2a8877f2ac29918d3e203c4d1a483d04888d042d",
+      "size_bytes": 1773846
+    },
+    {
+      "from": "assets/chars/anims/rinne_cast_f2.png.import",
+      "to": "old/characters/assets/chars/anims/rinne_cast_f2.png.import",
+      "sha256": "fa4ba3c17cfb2d5248135c1a16754928a405c5af9a7de6ea5749c70849a31aed",
+      "git_blob_oid": "10cf0eb5815f9f5ec258cf304d73c2340787466d",
+      "size_bytes": 962
+    },
+    {
+      "from": "assets/chars/anims/rinne_cast_f3.png",
+      "to": "old/characters/assets/chars/anims/rinne_cast_f3.png",
+      "sha256": "d566fce745d8bf6a2a088348ff563c4d34cb153535c4cd778035561ee2d511b2",
+      "git_blob_oid": "74ddde22ec818f288bd23f36ce7d300f2e14a998",
+      "size_bytes": 1880217
+    },
+    {
+      "from": "assets/chars/anims/rinne_cast_f3.png.import",
+      "to": "old/characters/assets/chars/anims/rinne_cast_f3.png.import",
+      "sha256": "2678db19a82503dea92a6bf17d71f19b418b4d33e9c9f421509cd82bcd9d0e96",
+      "git_blob_oid": "5392ea4f9d09f762d480eeb98005a933cdafb148",
+      "size_bytes": 962
+    },
+    {
+      "from": "assets/chars/anims/rinne_cast_f4.png",
+      "to": "old/characters/assets/chars/anims/rinne_cast_f4.png",
+      "sha256": "1ae12e280f8e4790c0d975ee8d3d9fc0a8dfcd8da9613110f5507208ae0a4f1b",
+      "git_blob_oid": "fca10a58232525623da8010509d72598369e8bc4",
+      "size_bytes": 1684617
+    },
+    {
+      "from": "assets/chars/anims/rinne_cast_f4.png.import",
+      "to": "old/characters/assets/chars/anims/rinne_cast_f4.png.import",
+      "sha256": "2f89a99ffdc653d9e1e42d045dba1cd9b90e696fc51807eb367080fdf1460ce9",
+      "git_blob_oid": "7c8fc7fa4a9c8ac7f6eee1df13dfc177ae34408a",
+      "size_bytes": 962
+    },
+    {
+      "from": "assets/chars/anims/rinne_cast_f5.png",
+      "to": "old/characters/assets/chars/anims/rinne_cast_f5.png",
+      "sha256": "4ec0d554f86a066e49185d0479247105b839927615f8ed2100f4aa925e2814ff",
+      "git_blob_oid": "9bc7796bcb4d529f7d390d99d936046e74c5244d",
+      "size_bytes": 1254272
+    },
+    {
+      "from": "assets/chars/anims/rinne_cast_f5.png.import",
+      "to": "old/characters/assets/chars/anims/rinne_cast_f5.png.import",
+      "sha256": "20bf52b02bee4e7f75029a70a5572c14a2d61c53ebee4e7eeee538a61a7c4efc",
+      "git_blob_oid": "aa890c17ffb1b84228a37eb98b146ec00c9e3a2d",
+      "size_bytes": 962
+    },
+    {
+      "from": "assets/chars/anims/rinne_idle_f2.png",
+      "to": "old/characters/assets/chars/anims/rinne_idle_f2.png",
+      "sha256": "ccb0467c7087e77deacf0310aeda0e4c5d95a3d2bc7ae8755ee9423218781a6a",
+      "git_blob_oid": "bfe7911c959ce23a0504c5cd57afc313a5801a93",
+      "size_bytes": 1106326
+    },
+    {
+      "from": "assets/chars/anims/rinne_idle_f2.png.import",
+      "to": "old/characters/assets/chars/anims/rinne_idle_f2.png.import",
+      "sha256": "60494b4713277d58d20cfca86373faf83c49c106c0cfbff27a8a16e7b4dc3cbc",
+      "git_blob_oid": "9f9c23ce93590cb8d547d3bd0c4218c7b3f8c9ab",
+      "size_bytes": 962
+    },
+    {
+      "from": "assets/chars/anims/rinne_idle_f3.png",
+      "to": "old/characters/assets/chars/anims/rinne_idle_f3.png",
+      "sha256": "86ccfb2ada4989bc99efa0302bd44fb3b4eeda0cb3910c53853c4954f8d29a54",
+      "git_blob_oid": "04859a174afdbd6d586df05d44214cd8d05210f9",
+      "size_bytes": 1108326
+    },
+    {
+      "from": "assets/chars/anims/rinne_idle_f3.png.import",
+      "to": "old/characters/assets/chars/anims/rinne_idle_f3.png.import",
+      "sha256": "bbf9e4d8fadac5e2359b79586e09b9068090bae94141b88e2ad48b550fa8fce0",
+      "git_blob_oid": "ba7a3c08c2431439e099c719421c0a0a53b40666",
+      "size_bytes": 962
+    },
+    {
+      "from": "assets/chars/anims/rinne_idle_f4.png",
+      "to": "old/characters/assets/chars/anims/rinne_idle_f4.png",
+      "sha256": "e422f4fb903f2b0717e21d937e50fd63c4a08670ec653e6a4d430634bb996900",
+      "git_blob_oid": "e4f7e90eccfc9f5a275cc5019b122952e21f1c4e",
+      "size_bytes": 1090381
+    },
+    {
+      "from": "assets/chars/anims/rinne_idle_f4.png.import",
+      "to": "old/characters/assets/chars/anims/rinne_idle_f4.png.import",
+      "sha256": "3d01a3d4af0bc50d3aa9295c89998b5d60b6c589820645b0f5544088b193a2e8",
+      "git_blob_oid": "81a7f03ee05079ca98d43765e590ae86b134833e",
+      "size_bytes": 962
+    },
+    {
+      "from": "assets/chars/anims/rinne_walk_f1.png",
+      "to": "old/characters/assets/chars/anims/rinne_walk_f1.png",
+      "sha256": "202c5c8c6b5d972fb799c01a07b5593683a9b3eabaaa3b87cdd79cfc67cfa40d",
+      "git_blob_oid": "8810582b65fcd6464c0a10083bbd05174cf66055",
+      "size_bytes": 1240907
+    },
+    {
+      "from": "assets/chars/anims/rinne_walk_f1.png.import",
+      "to": "old/characters/assets/chars/anims/rinne_walk_f1.png.import",
+      "sha256": "5bdfd6d457b61a772c0997e6349118c57fa66d73d625a9cffee678aec4dd2fff",
+      "git_blob_oid": "22d3798aa390c40461e9aa7b80bf3f9cdd1f480b",
+      "size_bytes": 962
+    },
+    {
+      "from": "assets/chars/anims/rinne_walk_f2.png",
+      "to": "old/characters/assets/chars/anims/rinne_walk_f2.png",
+      "sha256": "7e016909f5d63336c7e6934a44534a96c4d43219f67341c4ce108fb5537b693f",
+      "git_blob_oid": "8b6c208a29eeb6525e75827e29fcf41a9883edbd",
+      "size_bytes": 1062514
+    },
+    {
+      "from": "assets/chars/anims/rinne_walk_f2.png.import",
+      "to": "old/characters/assets/chars/anims/rinne_walk_f2.png.import",
+      "sha256": "0fcf1fd2f268403af76383e3a8278809e04e3ae161d1fc09872c2c6a0e218f21",
+      "git_blob_oid": "9d94a599152f472272b1566dff7af09e9e7ef6c0",
+      "size_bytes": 962
+    },
+    {
+      "from": "assets/chars/anims/rinne_walk_f3.png",
+      "to": "old/characters/assets/chars/anims/rinne_walk_f3.png",
+      "sha256": "5de3ec3fc7a918f4bd570beaab18381d143aa9ccd9625861eabd7938aa9afc9c",
+      "git_blob_oid": "8aa2b9443f49819a4db9c300ca960d58cd066ac8",
+      "size_bytes": 1315580
+    },
+    {
+      "from": "assets/chars/anims/rinne_walk_f3.png.import",
+      "to": "old/characters/assets/chars/anims/rinne_walk_f3.png.import",
+      "sha256": "77d8e2dfa825bc0d0c924226c35ba33424d7c93ffd2c7ee04046c5cd79e8368d",
+      "git_blob_oid": "b0443fe9246a952f057813e1edabf6b5c0fa85d8",
+      "size_bytes": 962
+    },
+    {
+      "from": "assets/chars/anims/rinne_walk_f4.png",
+      "to": "old/characters/assets/chars/anims/rinne_walk_f4.png",
+      "sha256": "8398284c4f72d29809482d8b4c20a2f8dcdd8946bc0f10bd6e8b7f42b994bb9b",
+      "git_blob_oid": "592bff50750b1f8c02546fa46183a4a21f8d72f9",
+      "size_bytes": 1206225
+    },
+    {
+      "from": "assets/chars/anims/rinne_walk_f4.png.import",
+      "to": "old/characters/assets/chars/anims/rinne_walk_f4.png.import",
+      "sha256": "957eee0a8eaa86f855915065a28918dd5491bb32eb0c89f929774da1119585f4",
+      "git_blob_oid": "435510648169bc775e8824c03a7a31c50cf10ce8",
+      "size_bytes": 962
+    },
+    {
+      "from": "assets/chars/anims/rinne_walk_f5.png",
+      "to": "old/characters/assets/chars/anims/rinne_walk_f5.png",
+      "sha256": "b20ff000d44ce4e1e075724770dcc71b9c2b314d6c2d0302895e6a1ce70368af",
+      "git_blob_oid": "21edb9c98485ff82a6f13f9ec931f836116830b4",
+      "size_bytes": 1118810
+    },
+    {
+      "from": "assets/chars/anims/rinne_walk_f5.png.import",
+      "to": "old/characters/assets/chars/anims/rinne_walk_f5.png.import",
+      "sha256": "8cedc0ed538d7f778c01c87613405941ea676c8d953398974a07711e9a5a3548",
+      "git_blob_oid": "d634aeb90963b6bd71fadc22124cd4e9e378a699",
+      "size_bytes": 962
+    },
+    {
+      "from": "assets/chars/anims/rinne_walk_f6.png",
+      "to": "old/characters/assets/chars/anims/rinne_walk_f6.png",
+      "sha256": "787c1e28c9b5bf0593a746555aca7c356768c6862d2e614f587c3179bdf61bf6",
+      "git_blob_oid": "2bc1150fb10a18780eca1e5e8092b521dd9e1685",
+      "size_bytes": 1236500
+    },
+    {
+      "from": "assets/chars/anims/rinne_walk_f6.png.import",
+      "to": "old/characters/assets/chars/anims/rinne_walk_f6.png.import",
+      "sha256": "f8efad64ff41d7fc2442ea070d773dbbd44921319887d49d232c33d4986953e1",
+      "git_blob_oid": "115e584fecc8a578886e5cf6f462ea2b08805bb2",
+      "size_bytes": 962
+    },
+    {
+      "from": "assets/chars/enemy_kanju.png",
+      "to": "old/characters/assets/chars/enemy_kanju.png",
+      "sha256": "1ae7f1f36a8a2e9ed3d29b19cdcdafcc2503a9d8e90a43de6cad64ea900f8012",
+      "git_blob_oid": "e1f9a5dc7dd808fd4351ca73ee6fc28476f6bf47",
+      "size_bytes": 2506645
+    },
+    {
+      "from": "assets/chars/enemy_kanju.png.import",
+      "to": "old/characters/assets/chars/enemy_kanju.png.import",
+      "sha256": "f52fbadd2b975251c2beb4bd461e8e9128d5e680426dbf9539121e5bd75566d6",
+      "git_blob_oid": "49d451d44b776b84700ea698e0d64a969839ae90",
+      "size_bytes": 950
+    },
+    {
+      "from": "assets/chars/enemy_paper_doll.png",
+      "to": "old/characters/assets/chars/enemy_paper_doll.png",
+      "sha256": "3c6d6b3a1bb3f27c43d96232ff855827b02ca82a404267811bf0092b23ef44ce",
+      "git_blob_oid": "f17a85aaa5162195a5f675150ef6a58b6c09e310",
+      "size_bytes": 2109895
+    },
+    {
+      "from": "assets/chars/enemy_paper_doll.png.import",
+      "to": "old/characters/assets/chars/enemy_paper_doll.png.import",
+      "sha256": "78eeaf9ac3283f28ee29a1e054cf9d1b0f4b38815fa5909c07fbb8e5bef0b55d",
+      "git_blob_oid": "746a831af6b1fd70cb5329d80495b1581fda7c7f",
+      "size_bytes": 965
+    },
+    {
+      "from": "assets/chars/enemy_paper_doll_echo.png",
+      "to": "old/characters/assets/chars/enemy_paper_doll_echo.png",
+      "sha256": "8ef408109ea121e3633423dcbd19ca1c67236e037461acf8b74feeb16f9e31c9",
+      "git_blob_oid": "1cd6b4dd08fcba69c97e82aa5bfe5b5696a55c3d",
+      "size_bytes": 1975885
+    },
+    {
+      "from": "assets/chars/enemy_paper_doll_echo.png.import",
+      "to": "old/characters/assets/chars/enemy_paper_doll_echo.png.import",
+      "sha256": "b62ca685a8fa0d8a0e5aacb50c308e09969402383438c8fd7d1dbc53949dfc72",
+      "git_blob_oid": "0eaf6499303422000b079c03fc7b58399aa3cb78",
+      "size_bytes": 980
+    },
+    {
+      "from": "assets/chars/hakuyo_idle.png",
+      "to": "old/characters/assets/chars/hakuyo_idle.png",
+      "sha256": "b9ea9c5514482bb58f28b64cd7319ae37f157ea9e672bbb1676355e43b3aa512",
+      "git_blob_oid": "e5c65159630480d229665210777bdc0c28eee210",
+      "size_bytes": 1230593
+    },
+    {
+      "from": "assets/chars/hakuyo_idle.png.import",
+      "to": "old/characters/assets/chars/hakuyo_idle.png.import",
+      "sha256": "854ccdd94322e3faf44dab64bf9a696cdf3b7e0393b50ca31c8bcb07ef47de55",
+      "git_blob_oid": "6fb2a4d493bdff9fa520df9815794d542ac3e57e",
+      "size_bytes": 950
+    },
+    {
+      "from": "assets/chars/pixel/guard/high_detail_pilot/frames/attack.png",
+      "to": "old/characters/assets/chars/pixel/guard/high_detail_pilot/frames/attack.png",
+      "sha256": "720e9622d9e017dc8820c232819e591de10e5e46aae6a79b4b0aac1f10a46382",
+      "git_blob_oid": "a53b0243222f84811e8281aa0139feb73d2dc63a",
+      "size_bytes": 925718
+    },
+    {
+      "from": "assets/chars/pixel/guard/high_detail_pilot/frames/attack.png.import",
+      "to": "old/characters/assets/chars/pixel/guard/high_detail_pilot/frames/attack.png.import",
+      "sha256": "5bd18ac8964531952f46f2034a94620a435f0cdca7b0add10eadeaf87b7d2ec4",
+      "git_blob_oid": "fe0f09f664c7a75449d606cf31c3672e8c39c624",
+      "size_bytes": 972
+    },
+    {
+      "from": "assets/chars/pixel/guard/high_detail_pilot/frames/contact.png",
+      "to": "old/characters/assets/chars/pixel/guard/high_detail_pilot/frames/contact.png",
+      "sha256": "34419586fc740d783992813e9dff7780f9dd40f848a0e255abb777a301747f4d",
+      "git_blob_oid": "a2369318eabb1159b804bd408e08ccb0cca06053",
+      "size_bytes": 925236
+    },
+    {
+      "from": "assets/chars/pixel/guard/high_detail_pilot/frames/contact.png.import",
+      "to": "old/characters/assets/chars/pixel/guard/high_detail_pilot/frames/contact.png.import",
+      "sha256": "728532f162405f91fc5f33004a973958ad06e3a8e21f17211e7ce67323468f32",
+      "git_blob_oid": "fd626101ee0eaea245c5ee2d3e808793c8ae1194",
+      "size_bytes": 975
+    },
+    {
+      "from": "assets/chars/pixel/guard/high_detail_pilot/frames/idle.png",
+      "to": "old/characters/assets/chars/pixel/guard/high_detail_pilot/frames/idle.png",
+      "sha256": "b71934a00707a3d5d3f77d26bab3de4f93aba64702562d26f03d401fbdaddafe",
+      "git_blob_oid": "18ab95c63989d0a207f73231c4d62957bae45ed1",
+      "size_bytes": 984447
+    },
+    {
+      "from": "assets/chars/pixel/guard/high_detail_pilot/frames/idle.png.import",
+      "to": "old/characters/assets/chars/pixel/guard/high_detail_pilot/frames/idle.png.import",
+      "sha256": "7e88e94f72e08b7ec898e4bc5ea39885522ce654e81ef9f0723481b0e2529704",
+      "git_blob_oid": "99622fdb95e1ed397c123c837055d2976abce819",
+      "size_bytes": 966
+    },
+    {
+      "from": "assets/chars/pixel/guard/high_detail_pilot/frames/passing.png",
+      "to": "old/characters/assets/chars/pixel/guard/high_detail_pilot/frames/passing.png",
+      "sha256": "be14086db248940559e26159a780095645c6ea3a276ab336fe7853f7184ba36f",
+      "git_blob_oid": "28447951fea88d4c27a75c501e93030055bc40e3",
+      "size_bytes": 952816
+    },
+    {
+      "from": "assets/chars/pixel/guard/high_detail_pilot/frames/passing.png.import",
+      "to": "old/characters/assets/chars/pixel/guard/high_detail_pilot/frames/passing.png.import",
+      "sha256": "d3ffc6a6ff30d6f1271151c3d783ba0ef2423b0a045116e76e1f9a0104ed767b",
+      "git_blob_oid": "670513071e6b1a2749ecadd76ddf4079b432f0be",
+      "size_bytes": 975
+    },
+    {
+      "from": "assets/chars/pixel/guard/high_detail_pilot/manifest.json",
+      "to": "old/characters/assets/chars/pixel/guard/high_detail_pilot/manifest.json",
+      "sha256": "208e4cdd1b94925b568431242728ff94fffddd666aadb61a8a928d9b0a05b4f3",
+      "git_blob_oid": "1775110aa3ae01e0bcaa53212e88335ce4e385f4",
+      "size_bytes": 920
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/attack_right_f1.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/attack_right_f1.png",
+      "sha256": "5364e13d25bf7df26bde9b5fdf60b20725ec7de4738af77dbf0100eb5bbe9a29",
+      "git_blob_oid": "f21d1913f7a0ee614d13813d28e817d0de613fde",
+      "size_bytes": 8033
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/attack_right_f1.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/attack_right_f1.png.import",
+      "sha256": "f2fc1e3e8e3e667edcf80abbc74269393a31b39030ab57720de889e5cec6d9d5",
+      "git_blob_oid": "239e1ba5d2d6ae0b8f66d893a3a86c1abd164f23",
+      "size_bytes": 1004
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/attack_right_f2.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/attack_right_f2.png",
+      "sha256": "41a6ad5093546c17e0ecfbcec2b9f03546864a339d2839a50cc4332126d9ac5d",
+      "git_blob_oid": "ce1a8e179b86a46b5c8999a42284ca7d661881f4",
+      "size_bytes": 7837
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/attack_right_f2.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/attack_right_f2.png.import",
+      "sha256": "a5198bb5b1543ee853e142e1fe4a7304def020af41c9e7ee82d276ea06849c97",
+      "git_blob_oid": "c406b259158cf2ca4c1e689f9f4d19a37c6df86b",
+      "size_bytes": 1003
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/attack_right_f3.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/attack_right_f3.png",
+      "sha256": "7a59fa6d5fb2c49e3efbd2835a0bb02b102f0e236b596745a1528fb0a0b287e1",
+      "git_blob_oid": "84c52857c4fa8e6dc8549d2718d4eefd0f361250",
+      "size_bytes": 7825
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/attack_right_f3.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/attack_right_f3.png.import",
+      "sha256": "d21e9887bee8d3c09ba1f7ec329eee89095a252bf43a559f3ccb9dd14c86c54f",
+      "git_blob_oid": "ea406c15433f204fd2a89aa28afa67b145f38bd4",
+      "size_bytes": 1003
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/attack_right_f4.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/attack_right_f4.png",
+      "sha256": "8aea1872e5debd58dfbd1303ac1a6c80c15045c6e3a3f6497ea83d063d237d86",
+      "git_blob_oid": "1b7cdadc405c53c7b31221f14f7de75bbdb9ff2d",
+      "size_bytes": 8301
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/attack_right_f4.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/attack_right_f4.png.import",
+      "sha256": "2776155852f783b8ba4b6c25e6bb39135def0b68322bdaf9905794fdecc5bd16",
+      "git_blob_oid": "6a02b3a365a5e1e1c6ce7646e3257f0e1de5a9ea",
+      "size_bytes": 1004
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/attack_right_f5.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/attack_right_f5.png",
+      "sha256": "8cde8d92a337ed7f506d36e5e24400f0f46a32fc018bc170b64250eee14ec15a",
+      "git_blob_oid": "9e69ced2727c8f372ff11108256f89b412f673dd",
+      "size_bytes": 7247
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/attack_right_f5.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/attack_right_f5.png.import",
+      "sha256": "be95c35b265aee7ce13497312b16859dfddb5016ba5c1faa2f53095441771d9d",
+      "git_blob_oid": "f8f9530ed44e11fcdf6b1974f406c88c54bd108f",
+      "size_bytes": 1004
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/attack_right_f6.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/attack_right_f6.png",
+      "sha256": "483887511b44b3b0cc62b0dbd89f750b5dfbeb11946b08c0acf9f1154f7ddec7",
+      "git_blob_oid": "1a3dc0ddf00b7f1b0db8c52aa586240475c20b77",
+      "size_bytes": 7392
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/attack_right_f6.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/attack_right_f6.png.import",
+      "sha256": "9b7cee00249e528fbec54deae209ca6b197ccafd5e9b96e833825f0f51a59f17",
+      "git_blob_oid": "d98ffe39002cf12897005ae21cdaea2b69176bce",
+      "size_bytes": 1004
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/defend_right_f1.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/defend_right_f1.png",
+      "sha256": "93bb23f5b0f3e71c6ca66a3f3742a42ee975eddc7d52a68ab9ba5d1c4b802c15",
+      "git_blob_oid": "98f4f6eaac48fc8b409e53422100415ffa2ff277",
+      "size_bytes": 7238
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/defend_right_f1.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/defend_right_f1.png.import",
+      "sha256": "182f94f01ffa01e1c3e1d780e0abc92c2f0a65d7f8e4244db07df8632bf3d8e1",
+      "git_blob_oid": "361a38f5322222958e46551486bf8a0d242739ea",
+      "size_bytes": 1004
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/down_right_f1.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/down_right_f1.png",
+      "sha256": "8e3620f9e01992db7e5c7cd72f063cfeb8ac85dad27642e2a6554dd589496ab8",
+      "git_blob_oid": "84f8c82915ea171bbd86bb16b1780c174f27ff32",
+      "size_bytes": 5481
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/down_right_f1.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/down_right_f1.png.import",
+      "sha256": "8c0415da8317e0a5fff63ba7937f284f935397152db62b6df7b82dbf10e169b4",
+      "git_blob_oid": "36bbf8778572f83865571db85629077be0cabf54",
+      "size_bytes": 997
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/hit_right_f1.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/hit_right_f1.png",
+      "sha256": "ffa5f7fe0aaba193f5c9133550ea9a66c40f2690237227b1f46940c39a491443",
+      "git_blob_oid": "a284265121d395808f6f4b6f7d22e529ad9304cb",
+      "size_bytes": 7981
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/hit_right_f1.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/hit_right_f1.png.import",
+      "sha256": "0d902c64e286d8c77c759b97f338ec46a90a08a3b49f25c8030a65a60d9238fd",
+      "git_blob_oid": "8150c18fdf3d8f8f9f240473133db8d84577bac6",
+      "size_bytes": 995
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/idle_right_f1.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/idle_right_f1.png",
+      "sha256": "4053c4632bf651a88b50d9d2e520b1db0fdd47ee0be046c58a34f31e524d7cb8",
+      "git_blob_oid": "f8aee55e18eb6141579d33bee1d8ff47466d4e01",
+      "size_bytes": 5949
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/idle_right_f1.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/idle_right_f1.png.import",
+      "sha256": "48dfa61c50f5e8add59082032d6eb1bb0eff89465ea6f7bd80122a2e92384498",
+      "git_blob_oid": "54c5aa97ef8db030f245530ac63932a98eb6adbd",
+      "size_bytes": 998
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/idle_right_f2.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/idle_right_f2.png",
+      "sha256": "73635463eef9d9ac7294fdc1e74674bad7248367eb033583275c3078b027b24e",
+      "git_blob_oid": "5af95e4f43d4a68df3346d70aff4da97d61151f5",
+      "size_bytes": 6246
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/idle_right_f2.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/idle_right_f2.png.import",
+      "sha256": "fcea9a8c9e060562c84e904df99a286bd257873cf2b63bbc87361ff126ee80c2",
+      "git_blob_oid": "59fc0f2389d538fc89a83246df457d4868eaf922",
+      "size_bytes": 998
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/idle_right_f3.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/idle_right_f3.png",
+      "sha256": "fbf5ba6204d4a6b3bb3a2e17866672966c98545812f59004099d7e53f1e04321",
+      "git_blob_oid": "76c68862928be48c2d04e37991b82ed1fe20d287",
+      "size_bytes": 6234
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/idle_right_f3.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/idle_right_f3.png.import",
+      "sha256": "54abbdda732debad71d1552f2ad3efe26e5b26eee58538a54c88de76d90790a4",
+      "git_blob_oid": "e7090fa0ce9994fbed4559f0f43658199aeacba4",
+      "size_bytes": 998
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/idle_right_f4.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/idle_right_f4.png",
+      "sha256": "4774d595e9df7bf8e64c7d588bc2c60b96f489f035907ad1bfaebdc3776a801b",
+      "git_blob_oid": "6284be99afb634885564167f44d85465ef17dca7",
+      "size_bytes": 6038
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/idle_right_f4.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/idle_right_f4.png.import",
+      "sha256": "759327a910a91aa7cb2734aa951523e99bef3f22714b37614e6610e0fd95345a",
+      "git_blob_oid": "d354ab622cc379cbbfb0fafe51ea3ecfecaa921d",
+      "size_bytes": 997
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/recover_right_f1.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/recover_right_f1.png",
+      "sha256": "5617d4101afba60160dbb6ac494758199836766d62f2ecb06961a47de4e1d592",
+      "git_blob_oid": "bd385c26690ab4d023f537075bd6ef3d934bb1fa",
+      "size_bytes": 6425
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/recover_right_f1.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/recover_right_f1.png.import",
+      "sha256": "ee0a242c4df5d36caba0f214edc529252f592e5f6a298314724349b40c544e36",
+      "git_blob_oid": "c2ff832b0043961a34e4820a92474e020b8f273b",
+      "size_bytes": 1007
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f1.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f1.png",
+      "sha256": "1f83c17bf42ced838a82bcb340399f751988ff22df4e3885e781a3425dd18353",
+      "git_blob_oid": "7c7877ccb46c01ef22ca303bdaf18e9f488c9b98",
+      "size_bytes": 7177
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f1.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f1.png.import",
+      "sha256": "33ebcc70af6968bcaf821e7a40825a23cae253dea835c2447941df092cfa1dce",
+      "git_blob_oid": "1c5742888457b3f95a3dfcf0d581fd856ea6c783",
+      "size_bytes": 998
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f2.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f2.png",
+      "sha256": "c0f8c4b4189b6fdace4320f1bfcb9be68094df66b0f4147c93301f5a569b5a1d",
+      "git_blob_oid": "dd5376feb99351d2872a91e52c0f2b83a78e6d49",
+      "size_bytes": 6988
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f2.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f2.png.import",
+      "sha256": "86fb2aa2936572f5ae2230677eb7f058fd0fe16c609080a70c28857555e2f0e0",
+      "git_blob_oid": "653267c59ad30bf50dcc9c37e3bb28791666e142",
+      "size_bytes": 998
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f3.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f3.png",
+      "sha256": "c8f91bcdd5e691b91811feeffd07feb70748fdec01595f043206af4cb90afe0b",
+      "git_blob_oid": "abe0cc1ef72383d444a3fe24005d44553bd0516c",
+      "size_bytes": 6938
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f3.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f3.png.import",
+      "sha256": "ba5fa2dbfc49e73aab97feca89aaa2bc6412de9269e68fe75be0c09fa677431f",
+      "git_blob_oid": "16d72e539a4f196e1dd4a02b5626acb15882fc2c",
+      "size_bytes": 997
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f4.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f4.png",
+      "sha256": "b54260bb0f9b522e75098f122145ebcd7eff1217d12330cc02832a329a33e484",
+      "git_blob_oid": "f333e05a45c3c5a768cc091394514881ed081e1f",
+      "size_bytes": 7192
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f4.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f4.png.import",
+      "sha256": "6c30f297716ae946f053af83cbce1c51a39c68c9b10545198da343ffeaae4f90",
+      "git_blob_oid": "e628bb13f293b700e6432e6041616d1153d13391",
+      "size_bytes": 998
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f5.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f5.png",
+      "sha256": "48fc44cd44be28d8fc4fea95ea7660fec7597eaec6ba567dca5fa1e34939fb65",
+      "git_blob_oid": "310d909398d376d7294a76e12728fc40dbf9950b",
+      "size_bytes": 6710
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f5.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f5.png.import",
+      "sha256": "a73004fabe234aa72eb8269c674ed8559cef6b2bbcfd3ee3a1d7c0a71292e06a",
+      "git_blob_oid": "3b4157ce1e2ddf2b79a1819665b42048a7ef5755",
+      "size_bytes": 998
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f6.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f6.png",
+      "sha256": "05aa61c3758de5f029cc06d1c33831fff6971c81ffcd5b00d070a9d6c946d1bb",
+      "git_blob_oid": "4eea5e820dd6127bd3cc824e2675228835c21940",
+      "size_bytes": 6793
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f6.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f6.png.import",
+      "sha256": "bcc2da5c341e88d657d256e1deb0866ea9ffc9c62aaed1659bed8debc7a9c9e4",
+      "git_blob_oid": "36ca2034becc75ae84b59d302381b5e8b2357455",
+      "size_bytes": 998
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f7.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f7.png",
+      "sha256": "89411fe82a6a7e0fdcdc87aafb683e347831634b015fafa7a31731a037e0ea91",
+      "git_blob_oid": "19ab0460462bed9ebdb81f3f57e23324998773e2",
+      "size_bytes": 6359
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f7.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f7.png.import",
+      "sha256": "180027866e7776e7508805e309304d9bcd2f1bcf33bcc32222cb994eaaa53381",
+      "git_blob_oid": "19e0a7c22581956bb69ba0d6448ab845a551e64d",
+      "size_bytes": 998
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f8.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f8.png",
+      "sha256": "b56c8c151a841ff23253ccd0de66af276ece6eac7baa28c9aae368d81e3bfae5",
+      "git_blob_oid": "8b20263d8fffc1d35634a6541d1dfb1b12ba8e7f",
+      "size_bytes": 6785
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f8.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/frames/walk_right_f8.png.import",
+      "sha256": "2a4a070f37fff09aa75fd1ce783fbcdb75e0d132706cd477d1d88d0f58695f5a",
+      "git_blob_oid": "4d912f5d019e7dfd91e82be76e1a85bb6f6218ff",
+      "size_bytes": 998
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frame_material_refined/manifest.json",
+      "to": "old/characters/assets/chars/pixel/rinne/frame_material_refined/manifest.json",
+      "sha256": "740fd3426fb7dab0274b9132671f3b70fec209d02c3e0588058a4a43a8c0bc43",
+      "git_blob_oid": "e06430f6e23d0c56062d6b87b757b476f2e2fcf6",
+      "size_bytes": 3483
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/attack_right_f1.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/attack_right_f1.png",
+      "sha256": "2d12a30f90badecc9845281cca6fb02624f6f5038128d96624b650c8949abcce",
+      "git_blob_oid": "659eeb18e3f665335a0ff04aeaaa6b922af08991",
+      "size_bytes": 8198
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/attack_right_f1.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/attack_right_f1.png.import",
+      "sha256": "379bfef7fbf7908d676621611330da71c5b98d3a47a74cc7b641975831a09817",
+      "git_blob_oid": "47a1b74659fcb0d6e14559133fbb7231241a370e",
+      "size_bytes": 981
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/attack_right_f2.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/attack_right_f2.png",
+      "sha256": "51c65cb4cea70a19ca5c1b1c3caf05fdcf71f104a14e22485db370a76f77cc5e",
+      "git_blob_oid": "b8825629bb7cd5afa889f642f3c74d6fb32ebe75",
+      "size_bytes": 7910
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/attack_right_f2.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/attack_right_f2.png.import",
+      "sha256": "9a73ec1deb8a733a0742d4b2bdc2e02b21d847f986c92b33c51da518a3d59a2c",
+      "git_blob_oid": "e1c1bd4b4b2aeb9c22caca9ab7943d96ade08b6a",
+      "size_bytes": 981
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/attack_right_f3.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/attack_right_f3.png",
+      "sha256": "c99b37e5ffe7a19c05b35b82b0a34280664306691f1336c217ebee5ca92767db",
+      "git_blob_oid": "c407f6879492b5a8a51f7ff1cb3af9f6f38f4e66",
+      "size_bytes": 7870
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/attack_right_f3.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/attack_right_f3.png.import",
+      "sha256": "78e7a63cca5340653147372ffb2a1eb6c09e3ec7f31d4968143083a4f7dbf743",
+      "git_blob_oid": "7098eec4b7e0767277f3f7f155dab56f9844f82d",
+      "size_bytes": 981
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/attack_right_f4.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/attack_right_f4.png",
+      "sha256": "2398be380df8f80be12b4cce85d1abec4bc1c6d609256f9021bb75301b38ad9b",
+      "git_blob_oid": "15759f59c2b1085c40e08f89175f8c1cbe6d01e6",
+      "size_bytes": 8334
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/attack_right_f4.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/attack_right_f4.png.import",
+      "sha256": "e12a8fdfe7cf519ed71b76f65cf44c61745bcec1e64db7df86dd30279e9d8f29",
+      "git_blob_oid": "8a5875b08d9abe7101eb697e86c33503eda85c69",
+      "size_bytes": 981
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/attack_right_f5.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/attack_right_f5.png",
+      "sha256": "6156122773b32ad6618dc41ca91ae75c3776c77890d5a4e5f6ab16107ead0216",
+      "git_blob_oid": "8472290816743b10f745825ddf1018d1e69aec60",
+      "size_bytes": 7285
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/attack_right_f5.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/attack_right_f5.png.import",
+      "sha256": "9f97d186cf5e58546400ae5c0b5224b3d3c37fd6c280e00797e9cb8c5e8d0fa1",
+      "git_blob_oid": "59e80656a9a7cbe9a1451923b284ac71724e9fa2",
+      "size_bytes": 980
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/attack_right_f6.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/attack_right_f6.png",
+      "sha256": "5663bd2a8b860685b7f97c3f8565dc3c91fce94679bdd4c3006b08a45274c52c",
+      "git_blob_oid": "19736b0a33027c6ce36cf9ef24acf5614a27d6cd",
+      "size_bytes": 7405
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/attack_right_f6.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/attack_right_f6.png.import",
+      "sha256": "16f73d5e75c7d87d468cf1fcd5e4a2968d0a2c060320d37a65acb7cf222b71c3",
+      "git_blob_oid": "a6c3d4c7d8b4061fe7ed36a57726c778ebb7a7ca",
+      "size_bytes": 979
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/defend_right_f1.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/defend_right_f1.png",
+      "sha256": "8c8188faae0054c9c53340b0cc925ea1fc93b0382047296d802a10ac90a09964",
+      "git_blob_oid": "cde35f40fc18d5339f1c686a1261980168b15e25",
+      "size_bytes": 7343
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/defend_right_f1.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/defend_right_f1.png.import",
+      "sha256": "a98f6bfa6f3caeee29b9ed3efa344da6a512de338af07d57f602aeafd1d0c62f",
+      "git_blob_oid": "6a6f36179367b2702fc0ac619ce71d779dd75578",
+      "size_bytes": 980
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/down_right_f1.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/down_right_f1.png",
+      "sha256": "15120b217a216d870a44a43c8c0793fca360c4ea65f2a7f653521a6ddfa53201",
+      "git_blob_oid": "9b5884ef30f4d33bf9da2593e7a4b84847211ef8",
+      "size_bytes": 5492
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/down_right_f1.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/down_right_f1.png.import",
+      "sha256": "39f1b6a72f6887bb88d03fd4a52a1f1cbc5e67fdfb61037acd80a71497145c8f",
+      "git_blob_oid": "2c00a6c97a7fca2a12eff38d6c8333bb5ad2d1fc",
+      "size_bytes": 975
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/hit_right_f1.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/hit_right_f1.png",
+      "sha256": "420fca21d42d725e634b549e2f899481c495be247d0fc55c9c1bbc03108432f0",
+      "git_blob_oid": "9cc66e7828e1e129fa330d2f7f09ff9520e7b384",
+      "size_bytes": 8008
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/hit_right_f1.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/hit_right_f1.png.import",
+      "sha256": "7dbfab880d6ca20bc2d461594b454208c89fbaabfdb4366edaf35dd7e46abe8b",
+      "git_blob_oid": "73f74dc02d5071e380f5e59e27d817e69292bae4",
+      "size_bytes": 971
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/idle_right_f1.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/idle_right_f1.png",
+      "sha256": "7d68b88c29a4d025c4acd97357ff16aaab6b43a07114f9d7a40550719e454932",
+      "git_blob_oid": "3db7140918679676f0698db2f234aa4bf2af0897",
+      "size_bytes": 6037
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/idle_right_f1.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/idle_right_f1.png.import",
+      "sha256": "5b11a532346e90d3576f4c5c6b06f525a1c98e7df7c65e9e4e7ea0abb9b9bd8c",
+      "git_blob_oid": "b5e22bf2597444cbe9afaad03f8f0ff3132d13a2",
+      "size_bytes": 974
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/idle_right_f2.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/idle_right_f2.png",
+      "sha256": "a58da4847ea9e76ef502692446d9bee5885f05a49ae300342400c27aa1f832c9",
+      "git_blob_oid": "b098560b8149991f195e29a71999e262061840a1",
+      "size_bytes": 6309
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/idle_right_f2.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/idle_right_f2.png.import",
+      "sha256": "8508a21d82b7a58628b9a11566fda7118309f5a3892f2d068234a97756f1686d",
+      "git_blob_oid": "f87d7f8833fd6566e453b483b06e67f4a10d9c5c",
+      "size_bytes": 974
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/idle_right_f3.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/idle_right_f3.png",
+      "sha256": "f1b94a5f25e8688e08b6a7c35b456e6f2e9944feec212cf97d64b480bf52c73a",
+      "git_blob_oid": "3e554bd5fea493c05b4c4c95e41c9e5a78f3881d",
+      "size_bytes": 6318
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/idle_right_f3.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/idle_right_f3.png.import",
+      "sha256": "0680d09d14d46ec914d1f9157b77df53cc4e505a1114a4062499c3a80704a6b0",
+      "git_blob_oid": "476e61d5973accd88678d6de0c6597fa958fa0e1",
+      "size_bytes": 975
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/idle_right_f4.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/idle_right_f4.png",
+      "sha256": "ba549745fb641b64c52389b7f26dcb70fbce8c7d6cf908e27f9e96e2bffe68c0",
+      "git_blob_oid": "f46429cba09eb410bdff958a6b92e50a65dfaf8a",
+      "size_bytes": 6145
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/idle_right_f4.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/idle_right_f4.png.import",
+      "sha256": "9722c8b94db71cd9517cc874aa50cec06d59e7a24d8e8eabe3683cb8d299d61d",
+      "git_blob_oid": "6bb08519e7797b6c31b8fc6442fd42217f83778b",
+      "size_bytes": 974
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/recover_right_f1.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/recover_right_f1.png",
+      "sha256": "f164e1e069d4a6405b15c262cad5b6b506bed1ef9933947cfab9e4a2a161b501",
+      "git_blob_oid": "b39351f831040a1bf8c7b8bb8a70289cfac53255",
+      "size_bytes": 6344
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/recover_right_f1.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/recover_right_f1.png.import",
+      "sha256": "9ec123e7ab93d1b00864c69c4ffb84f11eb795f973ed488f80cc1c06bf0b18b8",
+      "git_blob_oid": "2aca85943ba2def4df8be395a28fe4432a69d629",
+      "size_bytes": 984
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/walk_right_f1.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/walk_right_f1.png",
+      "sha256": "3ee9553b9dd624f9d32902f868f90d2cc9ff4b813fc9a020f1bc00a829ff6345",
+      "git_blob_oid": "6fa13c371255f7972b3d6f77442dac037a6afddd",
+      "size_bytes": 7045
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/walk_right_f1.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/walk_right_f1.png.import",
+      "sha256": "ca3a1e5e81fbff66fd3fea1aef9274bb2b74e09d53989be91111f47ccd84ecdf",
+      "git_blob_oid": "42e725d7a4d020f0daf81bc2cd1c328392cadd64",
+      "size_bytes": 975
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/walk_right_f10.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/walk_right_f10.png",
+      "sha256": "41ec17e4a0f9f93a3dde05ad2709e0cf6a212e2daf5c27cf31f8c4179ddaa599",
+      "git_blob_oid": "03959252553893b2c8e3c6bd602da0d7f8e5b48d",
+      "size_bytes": 7323
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/walk_right_f10.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/walk_right_f10.png.import",
+      "sha256": "26c54801eef12a6434c201a58a62a6f59d23890e872f47760fa6d15cd9650742",
+      "git_blob_oid": "adfa1a7a2a43a6e943e8bbb026abda03625a5a12",
+      "size_bytes": 977
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/walk_right_f2.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/walk_right_f2.png",
+      "sha256": "6f2df64f97c7e5941114e2e0cdb644c7ef7eb2e485c93a20e553b4be55b3f23f",
+      "git_blob_oid": "b29480fcff9709a9914369d83351a738ffc7aa91",
+      "size_bytes": 6831
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/walk_right_f2.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/walk_right_f2.png.import",
+      "sha256": "ec56490c286facbc8cfeb8387298f382be6e69fd9ea3ef3c77b4ad8fca52bda3",
+      "git_blob_oid": "24bd13afdcc08cfb855adca16eb67aa3c30d9255",
+      "size_bytes": 974
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/walk_right_f3.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/walk_right_f3.png",
+      "sha256": "69b49d05e65363546ef36db921d5d2bf8782c00545f902587532ffea9048b4ee",
+      "git_blob_oid": "2854617ff56bcfcf1782863e4e961b0ada381887",
+      "size_bytes": 6691
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/walk_right_f3.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/walk_right_f3.png.import",
+      "sha256": "6c618bf8947ae54f74ba91eae8c61f801e7268439e7c7c3d9b3f084af900e975",
+      "git_blob_oid": "ec4cdbb22294a56911b83265fa30e592acdaab9e",
+      "size_bytes": 975
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/walk_right_f4.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/walk_right_f4.png",
+      "sha256": "3ee05efe318171a55c7db51e130c83bfa8e2d53b20477afe28e4248bd3fafbb6",
+      "git_blob_oid": "fef7c4025ac2e966bb0b0615369bef3580731c23",
+      "size_bytes": 6735
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/walk_right_f4.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/walk_right_f4.png.import",
+      "sha256": "4b4356f48d9fc3df5699db55e24720f03c9e072318b87d362cb3243bdac7a731",
+      "git_blob_oid": "ab4f7a8aed4b6d2247529f3d88d0e20a794c4451",
+      "size_bytes": 975
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/walk_right_f5.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/walk_right_f5.png",
+      "sha256": "2ebaeda986c02ae75e19abfbbeda65e7502bc261848586715833841dd218ced4",
+      "git_blob_oid": "1c6d4c3cf872a95317043bad513db1d4c16be77a",
+      "size_bytes": 7043
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/walk_right_f5.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/walk_right_f5.png.import",
+      "sha256": "cc82c2b5f76940b52d887ba1d62cc0f9998f68765ab1607f897f05cab6eb02b7",
+      "git_blob_oid": "ce9adf0d46caf0e732d8d8d626b0c43d59145f0d",
+      "size_bytes": 975
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/walk_right_f6.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/walk_right_f6.png",
+      "sha256": "f18667010bb82061990df401037762a21806307daf42654794fa379b5298b463",
+      "git_blob_oid": "390a644dd11d85e178d41cf6ff6aa91e79ed8b7c",
+      "size_bytes": 6807
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/walk_right_f6.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/walk_right_f6.png.import",
+      "sha256": "9acb10d4a46335c90ed423a2d8c853c79a4cc280bdca25db11328116cad155fe",
+      "git_blob_oid": "fae632cf4a7bf66ca328ba27be4dd026c5a70e9a",
+      "size_bytes": 975
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/walk_right_f7.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/walk_right_f7.png",
+      "sha256": "d94ce59c1ae14360a4428c287e2ca6b2a77c87e880a65bdf7474c85274291218",
+      "git_blob_oid": "796243e5083184ae3cc8d5c7307b9a71f18d7823",
+      "size_bytes": 6740
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/walk_right_f7.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/walk_right_f7.png.import",
+      "sha256": "65fc8de17706f18f4068d8b93550943669a2b0fe088d7961d8d0900fa916fbaa",
+      "git_blob_oid": "2a55338428dca1580bb751541dccadf966b2dee6",
+      "size_bytes": 974
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/walk_right_f8.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/walk_right_f8.png",
+      "sha256": "4589389d4a1ea99ac7e604ae33cf4c3256ceffeadb95a565ea6e636a66e9781a",
+      "git_blob_oid": "c42cb7ec18f986de0060a82f340a1861b5dc171c",
+      "size_bytes": 6727
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/walk_right_f8.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/walk_right_f8.png.import",
+      "sha256": "5b5e187d433c9242d3bad970526e73475d298713e8754ba3533edb8a594d20b8",
+      "git_blob_oid": "792c4a2d38c5df454653a00a6847d80bd3893f68",
+      "size_bytes": 975
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/walk_right_f9.png",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/walk_right_f9.png",
+      "sha256": "d7ca64d9edeaa7242fba168ab2c0eb1753e483ad862222fa436ab6af7c90d977",
+      "git_blob_oid": "3d6e708f672ed3ff009051fde65190a4efe4bf48",
+      "size_bytes": 7295
+    },
+    {
+      "from": "assets/chars/pixel/rinne/frames/walk_right_f9.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/frames/walk_right_f9.png.import",
+      "sha256": "484f874578ba7ec283f0959377d8f00cfd3c886c8ce33f50022c226a927c5ed1",
+      "git_blob_oid": "170f7c4298408c821c75a412a8a7836f7a6e107d",
+      "size_bytes": 975
+    },
+    {
+      "from": "assets/chars/pixel/rinne/layers/idle_rear_hair_f1.png",
+      "to": "old/characters/assets/chars/pixel/rinne/layers/idle_rear_hair_f1.png",
+      "sha256": "99982523560b8c99aed6f7e66b747fdd2cc7cab87d50de65a466e2711c881893",
+      "git_blob_oid": "402f3642a5f9817147f9b371c59b44266c48ffc0",
+      "size_bytes": 637
+    },
+    {
+      "from": "assets/chars/pixel/rinne/layers/idle_rear_hair_f1.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/layers/idle_rear_hair_f1.png.import",
+      "sha256": "8dcce67c44a6bad9cb1575f5592fed42a7ddacad6da5bacd59182b53934fcfec",
+      "git_blob_oid": "cc82a20679254c51dcedf19337a060e14d6b1ba0",
+      "size_bytes": 987
+    },
+    {
+      "from": "assets/chars/pixel/rinne/layers/idle_rear_hair_f2.png",
+      "to": "old/characters/assets/chars/pixel/rinne/layers/idle_rear_hair_f2.png",
+      "sha256": "93e0bb7d2e46f63465a6d475a4463366b78afe80276dc095d2dfbade56db92dc",
+      "git_blob_oid": "4e262e0402172a9acc6dfde40feed5ea59530e44",
+      "size_bytes": 649
+    },
+    {
+      "from": "assets/chars/pixel/rinne/layers/idle_rear_hair_f2.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/layers/idle_rear_hair_f2.png.import",
+      "sha256": "1a5f4add07132b39c3cd28e55c649954633b2fd3f8d632347829323c4eed40ed",
+      "git_blob_oid": "243da26f7e5e9336b2769624bef6a5795bcbcf92",
+      "size_bytes": 986
+    },
+    {
+      "from": "assets/chars/pixel/rinne/layers/idle_rear_hair_f3.png",
+      "to": "old/characters/assets/chars/pixel/rinne/layers/idle_rear_hair_f3.png",
+      "sha256": "1e39e24e02be997aa3c56b07e6292709a45b6866b1cb5dc8c10961a316ba3af4",
+      "git_blob_oid": "4e8ea9a599fc1909274fb563f32faee01b1699c9",
+      "size_bytes": 643
+    },
+    {
+      "from": "assets/chars/pixel/rinne/layers/idle_rear_hair_f3.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/layers/idle_rear_hair_f3.png.import",
+      "sha256": "b21917dc3867f2ed8db24188fe3e8eba03346b32617d4fbb72d2d7047d9477ba",
+      "git_blob_oid": "c402bcc854e5fd873cd83aba96d1fae3324b28a5",
+      "size_bytes": 986
+    },
+    {
+      "from": "assets/chars/pixel/rinne/layers/idle_rear_hair_f4.png",
+      "to": "old/characters/assets/chars/pixel/rinne/layers/idle_rear_hair_f4.png",
+      "sha256": "349fddd990402840ec4208d4323aad78fb0bd06dfe3462acd785572a549b98e4",
+      "git_blob_oid": "c19d6f7c89dfc60e30019ea158273e6c462813e2",
+      "size_bytes": 676
+    },
+    {
+      "from": "assets/chars/pixel/rinne/layers/idle_rear_hair_f4.png.import",
+      "to": "old/characters/assets/chars/pixel/rinne/layers/idle_rear_hair_f4.png.import",
+      "sha256": "a27c7ab9e53e330f451bc83cea62f89625630853e76298c333fcbdc6935ca695",
+      "git_blob_oid": "2c8a00c03f005ffed845c3123ea11c97b2578fd7",
+      "size_bytes": 987
+    },
+    {
+      "from": "assets/chars/pixel/rinne/manifest.json",
+      "to": "old/characters/assets/chars/pixel/rinne/manifest.json",
+      "sha256": "a6d89277b63d6ba725cf6dfc6edf12ba0b56be29bbaad73c44bc87166baf55a0",
+      "git_blob_oid": "76625a1c046def6e4f0559c4fc907a796cf4c3bb",
+      "size_bytes": 3132
+    },
+    {
+      "from": "assets/chars/rinne_25d/animation_manifest.json",
+      "to": "old/characters/assets/chars/rinne_25d/animation_manifest.json",
+      "sha256": "4258b0658bb82049e4a2c20b9e1e01c55d6e82a4753e7eaa2168b39d9b98193a",
+      "git_blob_oid": "14e7a180cc6b16c1ae3da46a86705d39c699c5f3",
+      "size_bytes": 1124
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/attack_right_f1.png",
+      "to": "old/characters/assets/chars/rinne_25d/frames/attack_right_f1.png",
+      "sha256": "c3570855737d3ccb30a5286866ca79beb7d6d53120c6cb3494675206012adb80",
+      "git_blob_oid": "5853e9cdeba95242946a2fd9d3eaa51a13990079",
+      "size_bytes": 103414
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/attack_right_f1.png.import",
+      "to": "old/characters/assets/chars/rinne_25d/frames/attack_right_f1.png.import",
+      "sha256": "10f9826a380364c35cc6863ba81639eda4f13ef83083117fd7b32fd9d375e6a1",
+      "git_blob_oid": "be486f3df8daf3b85050110b0b804b2222d94253",
+      "size_bytes": 978
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/attack_right_f2.png",
+      "to": "old/characters/assets/chars/rinne_25d/frames/attack_right_f2.png",
+      "sha256": "c9d601121e375008699de625887af9e90b7adc218ca5697e8664edff8b5b17a9",
+      "git_blob_oid": "231c2417b5885ab0c3cdd06393a54de63d62dc1a",
+      "size_bytes": 113827
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/attack_right_f2.png.import",
+      "to": "old/characters/assets/chars/rinne_25d/frames/attack_right_f2.png.import",
+      "sha256": "040eaa6e144055614fbd67aee3384c28b27a867fcb7741b32ee1af4198f17d43",
+      "git_blob_oid": "1b02ce97780ea827adc68f9b562f7bb763d05b8d",
+      "size_bytes": 979
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/attack_right_f3.png",
+      "to": "old/characters/assets/chars/rinne_25d/frames/attack_right_f3.png",
+      "sha256": "1248899775db7702c85a3bf5961f291d51d3f9f6906998899401b63d149c6e87",
+      "git_blob_oid": "908013f35a2267353b75e72bb32afccffdd73bdf",
+      "size_bytes": 114500
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/attack_right_f3.png.import",
+      "to": "old/characters/assets/chars/rinne_25d/frames/attack_right_f3.png.import",
+      "sha256": "ada910817a4c75879f6a228f143e9336b041da91f542c2893396475adaa64872",
+      "git_blob_oid": "b0e7179280ba1a1fd7ad322b4a5357795e93b798",
+      "size_bytes": 979
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/attack_right_f4.png",
+      "to": "old/characters/assets/chars/rinne_25d/frames/attack_right_f4.png",
+      "sha256": "ad03bffceb2e624ef3a9204acdffa2a87f684b3e3087689b5ba74dcf1cf98f84",
+      "git_blob_oid": "d7a7306ee9ed2d5da176f4c2e6d77d70e2808437",
+      "size_bytes": 62186
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/attack_right_f4.png.import",
+      "to": "old/characters/assets/chars/rinne_25d/frames/attack_right_f4.png.import",
+      "sha256": "aeda5dc778e2717035174a548c5d7620e82d78d8d3c76f2420b15deaec7bfbef",
+      "git_blob_oid": "e242ba11d4d9cec39573a8c97b762156a3d52b5f",
+      "size_bytes": 979
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/attack_right_f5.png",
+      "to": "old/characters/assets/chars/rinne_25d/frames/attack_right_f5.png",
+      "sha256": "55b3bdc6e661d5e6bf4c8272cedc6cc05ce87cec05d3058df75aeeefbe713b92",
+      "git_blob_oid": "9ca67079847ec3df6dabf75a04a60206dba878ad",
+      "size_bytes": 65381
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/attack_right_f5.png.import",
+      "to": "old/characters/assets/chars/rinne_25d/frames/attack_right_f5.png.import",
+      "sha256": "affdd4cdf4f9c062eb6da25526885f30c15a1c54b864d77352d427057d2e537c",
+      "git_blob_oid": "cd5b6d613cd0bc3e7d8994f2b91e6ac3f194b622",
+      "size_bytes": 979
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/idle_right_f1.png",
+      "to": "old/characters/assets/chars/rinne_25d/frames/idle_right_f1.png",
+      "sha256": "ad03bffceb2e624ef3a9204acdffa2a87f684b3e3087689b5ba74dcf1cf98f84",
+      "git_blob_oid": "d7a7306ee9ed2d5da176f4c2e6d77d70e2808437",
+      "size_bytes": 62186
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/idle_right_f1.png.import",
+      "to": "old/characters/assets/chars/rinne_25d/frames/idle_right_f1.png.import",
+      "sha256": "b54e605b2b76b2cffed3f8507107b608a37b7f062eb5c90e7a6b9b219f51313e",
+      "git_blob_oid": "4f007e47da3dd639e26fa6e03f844a686c2ab579",
+      "size_bytes": 973
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/idle_right_f2.png",
+      "to": "old/characters/assets/chars/rinne_25d/frames/idle_right_f2.png",
+      "sha256": "55b3bdc6e661d5e6bf4c8272cedc6cc05ce87cec05d3058df75aeeefbe713b92",
+      "git_blob_oid": "9ca67079847ec3df6dabf75a04a60206dba878ad",
+      "size_bytes": 65381
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/idle_right_f2.png.import",
+      "to": "old/characters/assets/chars/rinne_25d/frames/idle_right_f2.png.import",
+      "sha256": "fff321263410ae41b3266cac40c009723d47ed6f25c80a23f376dc64eee75c7e",
+      "git_blob_oid": "62741e68cdc4efdb3a120336d691d47bd3d4207f",
+      "size_bytes": 973
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/idle_right_f3.png",
+      "to": "old/characters/assets/chars/rinne_25d/frames/idle_right_f3.png",
+      "sha256": "40af49ec839a18915ec1c543dedf17a72cc56174ddbb74a1f47d1e346e96ef35",
+      "git_blob_oid": "535a420ac91d22e1852ef1dc0a8084c8efc30228",
+      "size_bytes": 65010
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/idle_right_f3.png.import",
+      "to": "old/characters/assets/chars/rinne_25d/frames/idle_right_f3.png.import",
+      "sha256": "81c53fb026c9b2a4e5e954e798223d26a02448ccf5bb8c14da808c6391ffcae0",
+      "git_blob_oid": "1012914bae2c9ae1c78b4cbd1700d715145d0b85",
+      "size_bytes": 973
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/idle_right_f4.png",
+      "to": "old/characters/assets/chars/rinne_25d/frames/idle_right_f4.png",
+      "sha256": "d88afe36af634892cead725873db08ce2e107dd7019a4136f8f7ebabb865ea4f",
+      "git_blob_oid": "42cce7f970004ae501937a15737a32b2a6e91a75",
+      "size_bytes": 65611
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/idle_right_f4.png.import",
+      "to": "old/characters/assets/chars/rinne_25d/frames/idle_right_f4.png.import",
+      "sha256": "bbbbaa097de417519935b6d43e4bfe8a26e60f415fb39635193766b94c8dd871",
+      "git_blob_oid": "c6c02950eee83010a4d7b43a879df3e8226b5f31",
+      "size_bytes": 973
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/recovery_right_f1.png",
+      "to": "old/characters/assets/chars/rinne_25d/frames/recovery_right_f1.png",
+      "sha256": "7f9c3db202aa5fe0f98d144b406d9a66dac87b0b7d8316732657a346e0f622cd",
+      "git_blob_oid": "891a6c1a54f8c9924f6bbdebdbf2eb20a39c74c4",
+      "size_bytes": 106879
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/recovery_right_f1.png.import",
+      "to": "old/characters/assets/chars/rinne_25d/frames/recovery_right_f1.png.import",
+      "sha256": "40f212251fa0c5b4c8949b2d303f6b495dfba5aab986db55d04519cac252889f",
+      "git_blob_oid": "2b04532243e3f41974446bdccfc5a43777c6dc8f",
+      "size_bytes": 985
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/recovery_right_f2.png",
+      "to": "old/characters/assets/chars/rinne_25d/frames/recovery_right_f2.png",
+      "sha256": "d05a097b755c078529fdc939a5096a99e437327492905d35d28eca2cf8cd6a85",
+      "git_blob_oid": "e9af3e6f1a926177859d0c74098523f29e9f2278",
+      "size_bytes": 90193
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/recovery_right_f2.png.import",
+      "to": "old/characters/assets/chars/rinne_25d/frames/recovery_right_f2.png.import",
+      "sha256": "5b842fca2bf1306e194da721ff08d08087a1a11c70dcda4bf00c71888900606b",
+      "git_blob_oid": "d523850a50022ea427b84cf4e8dcf8c8cf63577d",
+      "size_bytes": 985
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/recovery_right_f3.png",
+      "to": "old/characters/assets/chars/rinne_25d/frames/recovery_right_f3.png",
+      "sha256": "e059221e4ecc821a1432f1901f3ea91f311deaf1ac69fc2609fd8303f905ad61",
+      "git_blob_oid": "d64b40c4ae6dfa54974abc14f8ba3d381f9ca33b",
+      "size_bytes": 64304
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/recovery_right_f3.png.import",
+      "to": "old/characters/assets/chars/rinne_25d/frames/recovery_right_f3.png.import",
+      "sha256": "d66bd6b8cddc11325ae5445fb6c44cd9e9ad536eecbd56c1ed62db42fbcaaa69",
+      "git_blob_oid": "3c001c3a6259404b868549fbca8ab4bb0a960a2b",
+      "size_bytes": 985
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/walk_candidate_12.png",
+      "to": "old/characters/assets/chars/rinne_25d/frames/walk_candidate_12.png",
+      "sha256": "4115c21a241da43abfbdb007c902dc4862c8005425e876b0b1fc4be38394424c",
+      "git_blob_oid": "8721aaf47152ed9b5408e315b4dc9b935a0102af",
+      "size_bytes": 91377
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/walk_candidate_12.png.import",
+      "to": "old/characters/assets/chars/rinne_25d/frames/walk_candidate_12.png.import",
+      "sha256": "084b2bb7d824a936ac1d24775faa915c86f47e24b3e845b48e6ea0d6ea731cd8",
+      "git_blob_oid": "c6b3ec557e9d903a5b70d2b4a684a5c32b2653b8",
+      "size_bytes": 984
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/walk_candidate_23.png",
+      "to": "old/characters/assets/chars/rinne_25d/frames/walk_candidate_23.png",
+      "sha256": "43c33f9c05bd856f9f03f225d3c3667af6d4d667321365912622dbfca1a5c91d",
+      "git_blob_oid": "171f2c4cb2e3f106a3a082d4c112650c92e3e90b",
+      "size_bytes": 82197
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/walk_candidate_23.png.import",
+      "to": "old/characters/assets/chars/rinne_25d/frames/walk_candidate_23.png.import",
+      "sha256": "6747b6b987681ea2fbd9569bd2e93ce73593e24beac923c29dce2ef7f7aeff4b",
+      "git_blob_oid": "5941da6d1434a04c8588db25b2489ebb1ca6d055",
+      "size_bytes": 985
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/walk_candidate_45.png",
+      "to": "old/characters/assets/chars/rinne_25d/frames/walk_candidate_45.png",
+      "sha256": "797ef339c61475328c0674ae67efcdc4532b419176161449069b42304b4034f8",
+      "git_blob_oid": "56b9197e2b9c57f72a02db326f388a562fd2839c",
+      "size_bytes": 88771
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/walk_candidate_45.png.import",
+      "to": "old/characters/assets/chars/rinne_25d/frames/walk_candidate_45.png.import",
+      "sha256": "298a7eacd6ddfc926f23d5be729e6f145256b5b858d72a409763e471f11a1225",
+      "git_blob_oid": "1fdd8498737e75928cb8b6eba5f97d5224551d24",
+      "size_bytes": 985
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/walk_candidate_56.png",
+      "to": "old/characters/assets/chars/rinne_25d/frames/walk_candidate_56.png",
+      "sha256": "63d7427e70485660d67782469347da372410c9c48f7321fc5eb97040b20ee07d",
+      "git_blob_oid": "2a23d4a1537b833a30b7a7fbbc27376f076a1051",
+      "size_bytes": 83215
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/walk_candidate_56.png.import",
+      "to": "old/characters/assets/chars/rinne_25d/frames/walk_candidate_56.png.import",
+      "sha256": "91b46e0d46be72db2fb5253189a09e19092d4be951bfd2de341f13b31dc7376f",
+      "git_blob_oid": "c08c5aeca6f0774625faa07479644a737e052cbb",
+      "size_bytes": 984
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/walk_right_f1.png",
+      "to": "old/characters/assets/chars/rinne_25d/frames/walk_right_f1.png",
+      "sha256": "983ea0c82031818ebae2f95cb16fcff0cabab49de716fa41736fe1900c42f282",
+      "git_blob_oid": "2c1085c59c486a5d370de857beb3c4d39db86b86",
+      "size_bytes": 91001
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/walk_right_f1.png.import",
+      "to": "old/characters/assets/chars/rinne_25d/frames/walk_right_f1.png.import",
+      "sha256": "a7ee080de410cbd172d3ebe3dbd3ff1c668c25bc5bb51c64034b222b5997e948",
+      "git_blob_oid": "3672ff7181a2cd46652af16aaf948d1c11a1504e",
+      "size_bytes": 972
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/walk_right_f2.png",
+      "to": "old/characters/assets/chars/rinne_25d/frames/walk_right_f2.png",
+      "sha256": "6f85055f514a56d2b09f476c2f625e55c8933124b3a9ab3b28df990dfa89477c",
+      "git_blob_oid": "65bd4194cc146ffb5855c1a021941c0f8fc13541",
+      "size_bytes": 82069
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/walk_right_f2.png.import",
+      "to": "old/characters/assets/chars/rinne_25d/frames/walk_right_f2.png.import",
+      "sha256": "cf16df4edd45206b3e1444073243333359527185c30cefaeebca39b1d026d7a6",
+      "git_blob_oid": "3c8efb74f63a5807d87b7051186acd11c3975d53",
+      "size_bytes": 973
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/walk_right_f3.png",
+      "to": "old/characters/assets/chars/rinne_25d/frames/walk_right_f3.png",
+      "sha256": "cf3d656821a8e6740dd6c57a2d132b0261001bb5dc7abdb44f1ca5ff2016c159",
+      "git_blob_oid": "a8695c9031c2f15ab68fdac533c2e0503c3cf0a9",
+      "size_bytes": 90160
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/walk_right_f3.png.import",
+      "to": "old/characters/assets/chars/rinne_25d/frames/walk_right_f3.png.import",
+      "sha256": "4329a9a04b8a241171ad6e1103ccf528c0dbd2e073717734fa60c5fbce53d43b",
+      "git_blob_oid": "7df0948a7bbf361a2a538e20e58fc27d3f6266f3",
+      "size_bytes": 972
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/walk_right_f4.png",
+      "to": "old/characters/assets/chars/rinne_25d/frames/walk_right_f4.png",
+      "sha256": "4817d67c32402e230c605349ca897b9167aaa8253f66aa62b9115fb19693a900",
+      "git_blob_oid": "0f59ef1286b4a21f23624d945a9c98669df8b8ba",
+      "size_bytes": 96859
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/walk_right_f4.png.import",
+      "to": "old/characters/assets/chars/rinne_25d/frames/walk_right_f4.png.import",
+      "sha256": "63518f138af1cbbbb67b8d0a7244a69a8e46118de0a9a14740a2c4d46aff369e",
+      "git_blob_oid": "243f1836a579dfc56e3b57c26756d2d3e8ebfb88",
+      "size_bytes": 973
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/walk_right_f5.png",
+      "to": "old/characters/assets/chars/rinne_25d/frames/walk_right_f5.png",
+      "sha256": "173698ca233704ca4f3451634a0cd059083ce893bcaaa42c061a0440b5c30257",
+      "git_blob_oid": "3200cfa659b2d462c71215fe4dc49ff5c2e8e37c",
+      "size_bytes": 83430
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/walk_right_f5.png.import",
+      "to": "old/characters/assets/chars/rinne_25d/frames/walk_right_f5.png.import",
+      "sha256": "23e47c5e692831704270ed83b4edf47637fbfc0db9f52d6a6c9154165ca97336",
+      "git_blob_oid": "dbd68c713380e17749200e81317ce5e8e3127cf4",
+      "size_bytes": 973
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/walk_right_f6.png",
+      "to": "old/characters/assets/chars/rinne_25d/frames/walk_right_f6.png",
+      "sha256": "b83c4f1143fbc8259580d8972d507185a189fca32a70d3f0523f5e6ca5d51e8c",
+      "git_blob_oid": "3254eb503b3a132547edba7d04cd4fdf9b6ecda2",
+      "size_bytes": 90436
+    },
+    {
+      "from": "assets/chars/rinne_25d/frames/walk_right_f6.png.import",
+      "to": "old/characters/assets/chars/rinne_25d/frames/walk_right_f6.png.import",
+      "sha256": "ba4fd2b96cabd8dd3cb562e7cb1f47fbe156d595622c0d6fbd9e14c7e8ad13c0",
+      "git_blob_oid": "f1901e9f5b68b5383dadf143459c5d81ab0f9560",
+      "size_bytes": 973
+    },
+    {
+      "from": "assets/chars/rinne_idle.png",
+      "to": "old/characters/assets/chars/rinne_idle.png",
+      "sha256": "e3eef706528a7bbdb802f6b9a1d263879d8e936fad570f5f182c67af7031d6eb",
+      "git_blob_oid": "37ffaf7b1ac1e70139adb6961fbccea2fdb2fca4",
+      "size_bytes": 1810234
+    },
+    {
+      "from": "assets/chars/rinne_idle.png.import",
+      "to": "old/characters/assets/chars/rinne_idle.png.import",
+      "sha256": "7e589f69f5f0f53fd2ab39d440569406f427042b05fcb2b775ca2f76fd45bc2f",
+      "git_blob_oid": "e95e2f49137638c704b17152ab7d079fe2b4c50d",
+      "size_bytes": 947
+    }
+  ],
+  "protected_files": [
+    {
+      "path": "assets/chars/anims/rinne_idle_f1.png",
+      "sha256": "f92c8ddca97eb2db578e3ae51ee198ddbe9e2679790d711f71c7d3e4e485412c",
+      "git_blob_oid": "41c95629b470c26bf66c567c3a13fdf0d81a3dc6"
+    },
+    {
+      "path": "assets/chars/anims/rinne_idle_f1.png.import",
+      "sha256": "2fac52f6ca99aa478e0801cd09eb762879fe8bd6cf76cec8603ff6d7f1d6292c",
+      "git_blob_oid": "a2f74e38509c24d412c8c455b43e08e1cf014652"
+    },
+    {
+      "path": "assets/chars/enemies/current/asset_manifest.json",
+      "sha256": "a163b0b03c2e294eebaf80d7372714fe09901a077e94b21fc5a5301ce4fd8520",
+      "git_blob_oid": "809e04ff6de5c80a8f0c5888155540fda16f658e"
+    },
+    {
+      "path": "assets/chars/enemies/current/cultist.png",
+      "sha256": "e385bbac0b89cc43dda769a61744cf81028f9fcc0b9ebb9fe641ff0677eb67c5",
+      "git_blob_oid": "f8927e32865e05aa91c375c235bcd48c11284af6"
+    },
+    {
+      "path": "assets/chars/enemies/current/cultist.png.import",
+      "sha256": "4cdbecb924b803e5b0972f73e21349b1e7f3ef58a13c1e151427e98d30d1d5c8",
+      "git_blob_oid": "a97d7c3cfa3372b90b15fd944fe41eb93c78c748"
+    },
+    {
+      "path": "assets/chars/enemies/current/elite_shield_soldier.png",
+      "sha256": "7ab602d1a2122e661bef2101cba2025c9711017861a53e5fa967f83dd217d1b2",
+      "git_blob_oid": "29b545f751ffbedfc2f8227a718f605c1685096a"
+    },
+    {
+      "path": "assets/chars/enemies/current/elite_shield_soldier.png.import",
+      "sha256": "78184e7202f61602ec06e1d6bc66d3430d2a29d09c3f6d0c90ded97325dea65c",
+      "git_blob_oid": "926b98b1d06d0b3a03b24b8c7dd0a547d418863c"
+    },
+    {
+      "path": "assets/chars/enemies/current/fire_spirit.png",
+      "sha256": "18d735e30df7a86eead3a8f5b2127fac78a505963ec563105d511b12e01ccc7b",
+      "git_blob_oid": "bb212f3b57d59b14fd8f1005611ed50a6e1cc6f6"
+    },
+    {
+      "path": "assets/chars/enemies/current/fire_spirit.png.import",
+      "sha256": "edea5c0e3bcfec9bc2a9c1933284b4aa426bb008f4f21ac5c5ee06db86c96f5e",
+      "git_blob_oid": "615ce4d8f01f70d7ac4ec2cbcddff51d535a9d96"
+    },
+    {
+      "path": "assets/chars/enemies/current/gatekeeper.png",
+      "sha256": "3319142b7b7b827890752261b8b50caa901fa0e9b19b658622dbc3fbdcacae12",
+      "git_blob_oid": "2e49f3e1d9e2c6915adf6d9be02b523fc0532164"
+    },
+    {
+      "path": "assets/chars/enemies/current/gatekeeper.png.import",
+      "sha256": "92ba05b11cfc216f49a133e38d0f0786d78598d375856656a9e5bd07282b22c5",
+      "git_blob_oid": "68019befe3dcf729da812bffeac19204092b0403"
+    },
+    {
+      "path": "assets/chars/enemies/current/hound.png",
+      "sha256": "19e3c8da9e1b9e79b67cd842aa3751a2ccf0e4fb42dd0c71125fc0286e294fd7",
+      "git_blob_oid": "cbedd0ce4ae22672c16684868b516f5d426037b8"
+    },
+    {
+      "path": "assets/chars/enemies/current/hound.png.import",
+      "sha256": "4163b165191166fd7c130ad6691e14258640796a5d66406412bb46991ab3df47",
+      "git_blob_oid": "9cce8b10314b5383fa0fcc6f25d30758a3cdc53c"
+    },
+    {
+      "path": "assets/chars/enemies/current/shield_soldier.png",
+      "sha256": "1339c65fa163550b306b4d70fc77891ed5dbd6cf8fae3904abc1adbd518c5760",
+      "git_blob_oid": "7a293ed8dccfb6c2d6d405e92aa9a489fe6a6050"
+    },
+    {
+      "path": "assets/chars/enemies/current/shield_soldier.png.import",
+      "sha256": "1fe062072a3f4feb6038550e726c0cb3433a1eab7218321ee027ae0625850b9a",
+      "git_blob_oid": "8e3f4f98a71802212ded6224e719429448461022"
+    },
+    {
+      "path": "assets/chars/npcs/act_one/acheng.png",
+      "sha256": "ef9e3282e1cd1feeb80ea6d445b1242838037740efa82cbfef839422c9752c97",
+      "git_blob_oid": "5715333b0aaaa482f2f0ef2deb105f9bddad6df7"
+    },
+    {
+      "path": "assets/chars/npcs/act_one/acheng.png.import",
+      "sha256": "285ce79ff2f32f2297c54163a44d8ad392eef7f0220e2b1025d8d7b90a364fa1",
+      "git_blob_oid": "06427ff9c290f4d720301e6902627dd29be29b4b"
+    },
+    {
+      "path": "assets/chars/npcs/act_one/acheng_half.png",
+      "sha256": "2c7e627c625218e88b95e2fb467e2f06a63f1a876ef2a01372b7ef402ed4be84",
+      "git_blob_oid": "97d47e9e719292d2a716c2d0832a6d908574addb"
+    },
+    {
+      "path": "assets/chars/npcs/act_one/acheng_half.png.import",
+      "sha256": "21d59b496530f5f93ea9878c9d6015c5cfcb9f82ec48dfe86da40f0b8cd4b941",
+      "git_blob_oid": "3ece88a76b3aecd125055480ed35406e9792c935"
+    },
+    {
+      "path": "assets/chars/npcs/act_one/acheng_world.png",
+      "sha256": "0d35589aa901b822f27e07c4374e4b9c117710aa5b7f1b6af407da7547e2a9dd",
+      "git_blob_oid": "60484e92d4c77f39b87a71828a81926fa66fb55c"
+    },
+    {
+      "path": "assets/chars/npcs/act_one/acheng_world.png.import",
+      "sha256": "032b481cfde0f5f3eabffd6baec950bebec1c4cd9b63c5596d51a6891482ebdb",
+      "git_blob_oid": "0bcde44adea79da98243c284679096fa1862ce22"
+    },
+    {
+      "path": "assets/chars/npcs/act_one/asset_manifest.json",
+      "sha256": "8a78499e2e667b11bed04ee0312101efe859c7c5483643a7f349b213748a6bbf",
+      "git_blob_oid": "10163a939482896ebbc7de55722a080ebb7bcc48"
+    },
+    {
+      "path": "assets/chars/npcs/act_one/liang.png",
+      "sha256": "2aea27fb10e8d1ce71f3dc6af9266a67f276a3984d6d2361a90143d30cdebb6b",
+      "git_blob_oid": "d9748b9a4af90324f172b42d3de662938c278e9c"
+    },
+    {
+      "path": "assets/chars/npcs/act_one/liang.png.import",
+      "sha256": "3e5c6619cb5d8079f030cf9ce23bca9a80efa10281fe40491bbf16f68075163a",
+      "git_blob_oid": "7bf4bb8d3a0ccf84d02722b42bec74ef125599cb"
+    },
+    {
+      "path": "assets/chars/npcs/act_one/liang_half.png",
+      "sha256": "ab3cb76fc3d7b3354c6c444b59b2fee97370aed645704c4333c607bd77e00b51",
+      "git_blob_oid": "acb4bb14edbc55396b33dea12c728b1cf97214f5"
+    },
+    {
+      "path": "assets/chars/npcs/act_one/liang_half.png.import",
+      "sha256": "652133f0f0170efcb4e4eb9fe6c1bd03d7d00999fcc9bc1b0f1952f9fed63569",
+      "git_blob_oid": "804c5682dea1fd7795b05d97305275239c6fd01d"
+    },
+    {
+      "path": "assets/chars/npcs/act_one/liang_world.png",
+      "sha256": "c524a1425a94074124d5932701e46cd9fe848fc2555a0c05bff15b8bccb08ae8",
+      "git_blob_oid": "265b552ff943e7e38f3b78847678fe0cfc19ddd9"
+    },
+    {
+      "path": "assets/chars/npcs/act_one/liang_world.png.import",
+      "sha256": "76f31931c891c106b854033949d35ae9d16738f2de173cc2129b58aca4b74ffd",
+      "git_blob_oid": "dca9305cc1da4c028f71c7a456374c8cbce15eb2"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/atlases/attack.json",
+      "sha256": "a83169aa6d6ea355bb3fad5af367f50e2e43a4a87f4b6661eb65f4414799aee6",
+      "git_blob_oid": "ab7509df2952c8e7d1a1afbc95b868e282359c29"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/atlases/attack.png",
+      "sha256": "8dc968803a742cae2872e7d4d4026b70ed3554127e11710174666ad748839d03",
+      "git_blob_oid": "1c55830a0f9f5276d7b32965a4228bc0aff3eb6f"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/atlases/attack.png.import",
+      "sha256": "d8dfd80475c546cf7cbe727deddb0c18d3ca87a3d3468e7336f11b9d1a7916e4",
+      "git_blob_oid": "ee7934a78a6f8d8cbe16a2ed59db9dc34ffe059f"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/atlases/defend.json",
+      "sha256": "42f042770a2a01eefe79e3acf0592fdd44308ee183a4a467090fe0d22b7d7f0d",
+      "git_blob_oid": "2bda914950e317042bc1abb6210ad29dbb3cfd43"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/atlases/defend.png",
+      "sha256": "f43a1c408da2142c2bb41be30cb5e4047675eb6156ef56d3405d245652b665e0",
+      "git_blob_oid": "792d38eda904f895f23efe94550eb167eb37252f"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/atlases/defend.png.import",
+      "sha256": "d093573a2c621712cb5c57fc8921aed5c922585ad7f095b341e24aaa7da9a197",
+      "git_blob_oid": "7ae807b8bc8a375e600c6cffc5e55099198e7d66"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/atlases/down.json",
+      "sha256": "9b60bd2bc8c441ccd8d0dbea07539e9df369894641b62d84c9e06d8c5d766db2",
+      "git_blob_oid": "4b8b965237dfabe53bb4fcdf761b6e4e5617eb2d"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/atlases/down.png",
+      "sha256": "e5f33d615246d2e20ebe898da65570a1907fd7ad2207cae998e038e0bfd2f04d",
+      "git_blob_oid": "90dd956c148fb01f2064db0e46da642c268a2472"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/atlases/down.png.import",
+      "sha256": "b09db22e8a4af67c2b278706b9fc046bdd335e902e3fe8245efa91e53d0e8564",
+      "git_blob_oid": "3641981cf22bf0af9d89b9474a871f64801dcc43"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/atlases/hit.json",
+      "sha256": "23f11c7a774ced4aeb285afe469be3da05e93c69950e7a75ef9755ebacc31788",
+      "git_blob_oid": "dd589490ff3cb4c50ce8f0f42eec6eceb2713b2a"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/atlases/hit.png",
+      "sha256": "29e6ea52115a0f751fb1d641b66165089b49e419d2d3a1d4f9183c082d011907",
+      "git_blob_oid": "5e1b049071da92456ae8b86855ebc3412cd266a7"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/atlases/hit.png.import",
+      "sha256": "5952c5fce03253d84ec509c14320e7d089dc95af280cafbc0e63bd473c2300c1",
+      "git_blob_oid": "4697269d0b353af6e68b351e89664b2127996298"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/atlases/idle.json",
+      "sha256": "f20db5d0fa7362c76daece184b570d17ea54caf4e64869c2012b5d4a04ef67a7",
+      "git_blob_oid": "cad1f1b11a6365bf694da404293d4c22b41960bb"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/atlases/idle.png",
+      "sha256": "3086d2ea98d097dfdc2f6475baff7849fa3fccdbbfb18288e43201d734208376",
+      "git_blob_oid": "398addb39f0d961044fd13fca8c458fce8c4546c"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/atlases/idle.png.import",
+      "sha256": "93600ffdb9a7515f5989db70c2514cd258a0f1a95b34c1a5d7a4b9e5907a8cdd",
+      "git_blob_oid": "6dad23057ef6c2ad6389f63aacf41a101368e04e"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/atlases/recover.json",
+      "sha256": "138b61e9a793404e7821b88ac049c6af44b826ea0265ac837b77fc28d1a65930",
+      "git_blob_oid": "0ca77a82712816f9daf979e553d0a3cb29f0eea7"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/atlases/recover.png",
+      "sha256": "be50be69f527d53f3b92a85714841119e1aa2c505e2c1f65fb6203a669d379fe",
+      "git_blob_oid": "e78a2b3353ec6e325f32c432170a700fe9601219"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/atlases/recover.png.import",
+      "sha256": "ba38c1548824316c544679b837f0710d6a3fb1b34a9fe19d08639b27d8061ffc",
+      "git_blob_oid": "95831e27a743af3a4688d400a16280ad94fa5b19"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/atlases/walk.json",
+      "sha256": "b113d091a293c6f3e49f6a91f7989a0aa3c2b74eeb1d347a2856d6f27fdcf6ac",
+      "git_blob_oid": "2e475d8dead6e94d5f4b100a46dd7fed54b30017"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/atlases/walk.png",
+      "sha256": "b451c7d006abc9a508908c79024be8268eea6a1f790e4f59e8e3cfed3bd53aba",
+      "git_blob_oid": "116e4010f1b629a32957ec29a6cbbf4c26ebe49d"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/atlases/walk.png.import",
+      "sha256": "29d5d193bde20d45c9d3d82420d7de007367a54a88681791441096090488caff",
+      "git_blob_oid": "cc764ddc24b1734f9e0a267d526d607da6cf02c4"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/foot_contacts.json",
+      "sha256": "7f96693e98310d86501bfb857bd5564e09049c304d4c46048fd6ed724042e34a",
+      "git_blob_oid": "3f80c3250f273bf00c786f221722caefcc881e4b"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/attack1.png",
+      "sha256": "1d0d7c2d6d09cdc471c65d46f9f214177e25f27afb282179e402f002337a42c7",
+      "git_blob_oid": "8ad7314d7c10c32c72b2ac4a6405744cfafb1961"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/attack1.png.import",
+      "sha256": "1e981ec7c72e7245f8c4d12b383b3776cf5777ba829d8ac86104a5a1dcd26e1c",
+      "git_blob_oid": "052896484d9c5fe6c78fba58dc5d4d4dda766b07"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/attack2.png",
+      "sha256": "bf37854dd30cb2c7f9390babe349ef1d2716b7132dd29ab072b0e0c43eba92ae",
+      "git_blob_oid": "f9a34cd74d989150a84828f873d54d63dbaf52a5"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/attack2.png.import",
+      "sha256": "90d799894aa53a2ad91568c53a8cc79cf2d296f9f153af1d37ff248aed95402a",
+      "git_blob_oid": "438b16e4547c750e0f706896dd3d2d7e663dfb0a"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/attack3.png",
+      "sha256": "e701381ed953c8b54571a9ffb0db14ab829fd7460256196db95aec905f1ceb9c",
+      "git_blob_oid": "6ce30f598612900dd79435a80ab47aee4db9806a"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/attack3.png.import",
+      "sha256": "f9c6fb856e4047a0506c5a8bd5c8abd4209a26ded8c92def829681d075b9f50f",
+      "git_blob_oid": "f3f3962df8c0249501451d7aef11add0bb72d533"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/attack4.png",
+      "sha256": "9972dc2ade174e14cd40cf3c950ce8ec2cde44d6f6801d669b6ffa0cf1bf367e",
+      "git_blob_oid": "3eceb4d5b4d34cd823bcd144fc6b3de80724a8fa"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/attack4.png.import",
+      "sha256": "c0f19d83101ca90157e8317714e156bca793b5854dfe3dc543ad1a928842da98",
+      "git_blob_oid": "d876ebd862f5d0fe402f6307f5fb4e80edf1a6a8"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/attack5.png",
+      "sha256": "212cc94106a3eb008bd65a974bca65d720e154a0fdbea771754866fa5b11dd02",
+      "git_blob_oid": "0636ac02c25f55b6ce315ab8fb548bb869287b76"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/attack5.png.import",
+      "sha256": "96be9245dc08dc4fd780ced313648be0eb5acfbe9b6b486a53ab77c0d06aba77",
+      "git_blob_oid": "a5cc1d8b13e835b2a4073a47ee26520e475c92d6"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/attack6.png",
+      "sha256": "b0e238ff4cab1e5719ab40d2a7c073b01a773793b918af75329c922f83661be7",
+      "git_blob_oid": "75549430051942a516dc8f6aa85709b829d3172d"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/attack6.png.import",
+      "sha256": "1ed8c0bf7a96fde8bfaf2a5d7b6775620fae41ee46a73f98a31f4fe3416a895a",
+      "git_blob_oid": "41464bb30bbb43d1ece40a8308a5dc46c31a4897"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/defend.png",
+      "sha256": "f43a1c408da2142c2bb41be30cb5e4047675eb6156ef56d3405d245652b665e0",
+      "git_blob_oid": "792d38eda904f895f23efe94550eb167eb37252f"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/defend.png.import",
+      "sha256": "18a64cc49b6e360549298e439f3833444fa0343173f5932aaee6e70db2ad044f",
+      "git_blob_oid": "05f42bd84ae8d7aa4db0ce097b18343b54bdc552"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/down.png",
+      "sha256": "e5f33d615246d2e20ebe898da65570a1907fd7ad2207cae998e038e0bfd2f04d",
+      "git_blob_oid": "90dd956c148fb01f2064db0e46da642c268a2472"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/down.png.import",
+      "sha256": "d76de3f7eb846e14e7e267437784b065c714dc3442a5e292684806ffed440e49",
+      "git_blob_oid": "25f44c3837195b5eda0d6342ff7c773d5ce6e8d6"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/hit.png",
+      "sha256": "29e6ea52115a0f751fb1d641b66165089b49e419d2d3a1d4f9183c082d011907",
+      "git_blob_oid": "5e1b049071da92456ae8b86855ebc3412cd266a7"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/hit.png.import",
+      "sha256": "d2a0a412595ca7a1790c5b4a8f6d6f18ceecc3c5a93da1fdfceea8882e85c01f",
+      "git_blob_oid": "1ffabcd77d656a8951c243391120976440e636ed"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/idle1.png",
+      "sha256": "bf4e31d84f3efe0491f4f79e411b3844835f70ac506d616e7aca07e8f18a4176",
+      "git_blob_oid": "d4a8f1094a027b35bb5a5ded016b590c50339e11"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/idle1.png.import",
+      "sha256": "68c56de9cfbe7bcdd87d82a6dfdad0ca5ac7e50a7282956a56741a79ef6780ba",
+      "git_blob_oid": "4bc33c9ec42992f9e00a1a6af185995fad0a21da"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/idle2.png",
+      "sha256": "f7d3a7d6d93c1cb2618a30def96f03fff4a46f7eebbfa1d26c7228a7a3325794",
+      "git_blob_oid": "b1c4cabd73606ec41b837e16e049d8da3b60321a"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/idle2.png.import",
+      "sha256": "5573638f46fe1df1af1fcc314af17211bf07eb18bfa4a67b23d2dec2f7d2153c",
+      "git_blob_oid": "16d432a8a54a715d9e4b03787fe6d67f97590135"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/idle3.png",
+      "sha256": "0cc206d3757182b496edf98aff060e2bb87f34891f1fa9fb382346a7a481a1e4",
+      "git_blob_oid": "9bdf36c4fcb11cc340839f4a20e288966b30b1a8"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/idle3.png.import",
+      "sha256": "aee39f087e2912ba3371d30bfafc0f6678711a9a6a65c3d09b7961dbea925233",
+      "git_blob_oid": "a26e101d7a061c7c44ab673a5aa8ece45d3d3ae7"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/idle4.png",
+      "sha256": "8a85f787e149f32fd453594c7d4e7c49d8eb0d41e8a3c980e22bd20c1af4a927",
+      "git_blob_oid": "01304adb25585d96c8b14559211c03b782716d4e"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/idle4.png.import",
+      "sha256": "eead55947d4252b68cd4121f61051f30ed413e61366579ee2c4352b4ed2a99a4",
+      "git_blob_oid": "335d1afe9ce67bf4f4396351b853591e19331efc"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/recover.png",
+      "sha256": "be50be69f527d53f3b92a85714841119e1aa2c505e2c1f65fb6203a669d379fe",
+      "git_blob_oid": "e78a2b3353ec6e325f32c432170a700fe9601219"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/recover.png.import",
+      "sha256": "336609be3dbfd4e4a4820b1797b3086e8e2d0e05b93b0023a1af270b30c082e7",
+      "git_blob_oid": "d143dca8d66270381977f889270efe1a889582a6"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/walk1.png",
+      "sha256": "90b01ef24f46ac23295d9f80aa375074caa817742b810b3a69637acb2ddefddd",
+      "git_blob_oid": "57223783cb714f685dd1bf9ef3b9db58c5253c3b"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/walk1.png.import",
+      "sha256": "9d735f085fee569b6a1bf344f1e9181cb956515cee9c40a610b8b9499d84cb37",
+      "git_blob_oid": "f201bb9c80844f1be74db293fec801440e5e22c9"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/walk2.png",
+      "sha256": "f1c0569f86d547464fe457c24941b3765c1d98837e7844acf7c6814612419ce7",
+      "git_blob_oid": "d6517749fe9bb8b8552be49239d9ab1809d26df5"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/walk2.png.import",
+      "sha256": "43186ac709314907b5a9af4fdb48a2b11aaf856580cf5ea416678460923ebe94",
+      "git_blob_oid": "d459338c1b1b9b0fbb6351a678d09501bcb481d9"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/walk3.png",
+      "sha256": "b89563df270106862a3e4072512c5bafe60018ba7e39b56e770853f118ae35d4",
+      "git_blob_oid": "c56124b67a7e199a1b4ad58ec74e2f5bbcfe39be"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/walk3.png.import",
+      "sha256": "3a20d76ee0862918d556d3b384a83b7f55a83088f662ca885ae8019f05d4809e",
+      "git_blob_oid": "bc93e90dcb8fa8f605eb9bb1a8e0b697187243a8"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/walk4.png",
+      "sha256": "d04e39fc37a8b057e9b8443a5a2d7bfd17aa6ce35b4ec619cb31fe4dc386bf19",
+      "git_blob_oid": "f5b5e4f4a5f81665b57bc8160902306629812f70"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/walk4.png.import",
+      "sha256": "6820582d2169051f8749d1518fb4222990fecca2c18f084bda6bda77e713c52b",
+      "git_blob_oid": "b4c8197f28b1a8604ae677f356a53b1366ad19f5"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/walk5.png",
+      "sha256": "14e0320047f422fd390c97d8809e90c09bb9cf1404e44ce2dfed804bbdcf63bd",
+      "git_blob_oid": "533124ea54b623f555ee7733869f67cbb327c8b5"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/walk5.png.import",
+      "sha256": "ac5db966b3e50db27fadb22990d5fec7f60010de2da651c98b3ff327228a3b00",
+      "git_blob_oid": "4864a7e28aa236da12a6e126f3373051ec164029"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/walk6.png",
+      "sha256": "4099bb6f9f76bb2707060f8f591396563c271f7ebb0fd68d3a38709cf2eb75a9",
+      "git_blob_oid": "abf52771c922171e59b885a1fb830650d144ab2b"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/walk6.png.import",
+      "sha256": "c828890a0de01c2b4ac3be6c1a89fed65aca1532e0ab01d96e26ade94d4c1e2f",
+      "git_blob_oid": "5a4fc47ab6323a87926451ff2cf9192cb93134c5"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/walk7.png",
+      "sha256": "f4d93c11241315892bfedf5af57e17d56ee8e428b55c1318f48684ed963cbd2d",
+      "git_blob_oid": "2779754fdf7ef0d6adab72d709a4ca54eb2f1bf3"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/walk7.png.import",
+      "sha256": "b201830c138fef8f2b0d61f81c4fb255a405e573a2df1425b50071bae784d62b",
+      "git_blob_oid": "0b9072e96da74b9b9dd54a8fded9fbd9fef07c11"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/walk8.png",
+      "sha256": "9ea9f3b2e948c7d620fd65ac076c751f758463beafa5e4de3ac754e61ced1514",
+      "git_blob_oid": "d2c3fc0c05caf12f716c06a8acde1871451ea2e0"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/frames/walk8.png.import",
+      "sha256": "3fdd7155ebb44cbafc550aef09614d97f0a0eac42a0c45692e4d58e2183471e0",
+      "git_blob_oid": "549d43b409081eca8724052ed77b79a7d979c286"
+    },
+    {
+      "path": "assets/chars/pixel/controller/high_detail_complete/manifest.json",
+      "sha256": "0336892de67ab5d3526a290248ca87fa68d297cd1341f2aa6a52b0e9b9217795",
+      "git_blob_oid": "6371248eb79e8fe24958f1f8d8cce63ecc7cfbe5"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/atlases/attack.json",
+      "sha256": "6607bb06635c7849644ef730dc7f63023453d07de4d8d5206bcddd9fa5b6c7b8",
+      "git_blob_oid": "15a18cb76f6821074f8233d4b086b0e32d561cbf"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/atlases/attack.png",
+      "sha256": "c388693c0284a1721a97c38a90300d9e2705e6d88a51bb7df02b4c82b7fe20a1",
+      "git_blob_oid": "9c775c9d7e9c1c3f27b5025126665f5441890408"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/atlases/attack.png.import",
+      "sha256": "a65a168891e88f939239e7c6d591d3c3ebcd23d168c5590a1ba9cd73c176ea66",
+      "git_blob_oid": "76bc59e6bb7d8e82e285d84a99d6a3cfc49d1fb9"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/atlases/defend.json",
+      "sha256": "a7d2c9732cc160ff726c6fd04f3c97b6c55b604a913133f29e47d58e482f1e07",
+      "git_blob_oid": "4ba50de06891d3eeb5f7026aa21e2017c07862c5"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/atlases/defend.png",
+      "sha256": "e10ac31ef9d7532204a1be1d8eca044503c58f61c93f9efc1077dc10ffaf735e",
+      "git_blob_oid": "91bb7204615252028ec5a4648a98fe8aca8e7c45"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/atlases/defend.png.import",
+      "sha256": "2520a04d361e964daf033a3fee327338422d32c2639142b3cab76e208598a811",
+      "git_blob_oid": "fde963eb316011dde6e531e833dcbee5ed3661d1"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/atlases/down.json",
+      "sha256": "c31d8a8bc99204a33fe3bc7f1c2a57d96fc667408580482f7bbed550a2d2efbb",
+      "git_blob_oid": "df8b533c5952f42d8d36535162dcedf343bfde65"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/atlases/down.png",
+      "sha256": "67ff255b984eaa909422a4c8ce34340b3be53c580cba93297f1a180a78592bc6",
+      "git_blob_oid": "49ed2007ff20e3d53c03b422963a32deefdd59c6"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/atlases/down.png.import",
+      "sha256": "30d257832bcd482c8b843bf7abb668a7530c14169db87b2804f4cc6509797aeb",
+      "git_blob_oid": "10b2d41d68e0ec1cf0f62ae97dc341da7592508d"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/atlases/hit.json",
+      "sha256": "f0ac15fdbfdd755c92be3618b00f112aee2f2ed70660a894db425609040eb2c2",
+      "git_blob_oid": "6dc8556cc2819546158b6d4dd0086cd1de933f44"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/atlases/hit.png",
+      "sha256": "c59dcce38ce1f4b7f8fd0d680ac9afd44e076d84a98696f70925d7ba8336029e",
+      "git_blob_oid": "60ddde41b7e72cf66ab627f7e068b194b8c0fca9"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/atlases/hit.png.import",
+      "sha256": "9f80c9317f39eb5f5a9030b68b0ca0911a8250ca142ccc063109a4164af4f3b9",
+      "git_blob_oid": "56a0f9565da3be7d4317a829773e813e705e0fb4"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/atlases/idle.json",
+      "sha256": "ae0eefb11fc37687a18543e14ae876c2c600c45819b52ddb766a3f82b06e4223",
+      "git_blob_oid": "de9ca752663c6edb61e70023c02058cbc6c8b770"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/atlases/idle.png",
+      "sha256": "13f0a0aa612638eab1b4f38fd532b92622be010dc451a56754b34a38d3f799b3",
+      "git_blob_oid": "813a64e0d5463ae501f29e9af00e994a603dd20b"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/atlases/idle.png.import",
+      "sha256": "45034eca835781edd9eaed54d851c6aa64fb70ae252963b4e999ab78989c7c30",
+      "git_blob_oid": "e85ed541fd48b41e0e01b24e8b71c2d8f65e9265"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/atlases/recover.json",
+      "sha256": "fb724b2b853b3519068de5e1bd1d673f5499901e654c4992b0b77bc42be7fdb2",
+      "git_blob_oid": "4f346b0eaad80a930f9b53cba348c6677263e6ab"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/atlases/recover.png",
+      "sha256": "b952e57c6fae5c5a3c26155bcdc003fe06723ce66a6006b332beaa3198bf6d5d",
+      "git_blob_oid": "a1e33c604d182560eb806b6c295caa3b79e2d046"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/atlases/recover.png.import",
+      "sha256": "5e8c2a5bf3c9254f24ea3722155a811b5ee0319afe11a03aa2d75b6df5c19528",
+      "git_blob_oid": "b96580dde962928709be401d7edc2ea3d364807b"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/atlases/walk.json",
+      "sha256": "732c12dc60b42fb57d89a9b23329c32c9262004b12ae45be52e48bcd7b00390b",
+      "git_blob_oid": "2896d5b8623db62be35ada268bc21070fb18e2e6"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/atlases/walk.png",
+      "sha256": "2515e69b26dab64745315a9c3d642ac812ab3ff8e21f75b721c800c31811f0e4",
+      "git_blob_oid": "59229f769b134e9bc6acedfea23a19107005fa5b"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/atlases/walk.png.import",
+      "sha256": "73d171746186e9412639aa7eaad617454d2a6be8beeb392a58279026a7f5e87a",
+      "git_blob_oid": "b55dfc5dffbe6c0f433fffc8088a413dfd79aeb5"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/attack1.png",
+      "sha256": "6214e0bd6134c8411ea5da409db5e2dc7e51b8d044691f398ef0626e845797db",
+      "git_blob_oid": "70e68deed90de93c446600d7220ccf32d65f2d8a"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/attack1.png.import",
+      "sha256": "d69f24ef880c215fae4bc9fa5f8b4ec946b959e7b6a4f95725df4491bdbc7fb3",
+      "git_blob_oid": "f958c0bf2e66bd3ab19450595532722002ebc81d"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/attack2.png",
+      "sha256": "f14db0642bd95f26f62282da1514cf24d3bc6657a5bea3f196da4b659fd8e100",
+      "git_blob_oid": "03b2738c543ebe585abdc1bc0f0d648a2c926da1"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/attack2.png.import",
+      "sha256": "85ebdff08f1dc8099d419b116212255942625411d8a526954fb7d2e240177cbb",
+      "git_blob_oid": "204d8872697119250534ad31cf91c209bbd28da8"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/attack3.png",
+      "sha256": "d0b250e3796461b74b62e2546bc14a1170294a74d442a0ee0220499f6d57f278",
+      "git_blob_oid": "dd3aa866812849fc4f9a461de758117168623ffb"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/attack3.png.import",
+      "sha256": "667f1d37118249e578d7efc7b39dc519dfe99d383ef891395dfe313594c242fa",
+      "git_blob_oid": "f233adcbb6e89aec167641441066d357e30d33aa"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/attack4.png",
+      "sha256": "15258cc4f68d20fb4620a51cc8fcf0e0ff30a29f776c9c18011c8f15bcfd8ca9",
+      "git_blob_oid": "80caf24e10ee522719e95ed8807d3c77f7d3907c"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/attack4.png.import",
+      "sha256": "1b6b386fca716fd6026863b55b37238f238d34782691fd144708516749e0d31f",
+      "git_blob_oid": "d8a282c0c4185c10bbc0435931f0cf3ee4adfa6c"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/attack5.png",
+      "sha256": "ba48e38fc19cecec4a3536d8ccd03c997eeb81999e9451cba415529732169698",
+      "git_blob_oid": "c963a470c2feca32cb0672f01a0fe8c777cda56a"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/attack5.png.import",
+      "sha256": "e7abadb4178f4a2c721ad045fc25661d080bbe958dde730feb348bd9454af567",
+      "git_blob_oid": "68fd7bcf347a3dcd3c19ce2ccb79e2134d604abe"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/attack6.png",
+      "sha256": "2a021aed7cbb57581976d8ceb0cbe201feb0dc93f3179c4b65d2a9676ec225db",
+      "git_blob_oid": "dd1fb4dc99770bf6de10be93f1402839418009f8"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/attack6.png.import",
+      "sha256": "f7236f9c6c3f349936d572d0263c1a7fd92245ffc69f19114e76374465140d30",
+      "git_blob_oid": "92b942d11e2b24d97e6510b21597944d534c90c4"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/defend.png",
+      "sha256": "e10ac31ef9d7532204a1be1d8eca044503c58f61c93f9efc1077dc10ffaf735e",
+      "git_blob_oid": "91bb7204615252028ec5a4648a98fe8aca8e7c45"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/defend.png.import",
+      "sha256": "a27d6ddf0cfaf8e042e03f467390d492a575225b1f34dde80bc9aa58031cc0a6",
+      "git_blob_oid": "84a66dc2e77e3d34b403bbb19873632cfa9996d0"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/down.png",
+      "sha256": "67ff255b984eaa909422a4c8ce34340b3be53c580cba93297f1a180a78592bc6",
+      "git_blob_oid": "49ed2007ff20e3d53c03b422963a32deefdd59c6"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/down.png.import",
+      "sha256": "32012ab3ebe1746797b4dac50721f7837ead25c1f75c0fab757a786bf8c101c9",
+      "git_blob_oid": "d4b1f85d8a59e1755931b97a343c42ec67322699"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/hit.png",
+      "sha256": "c59dcce38ce1f4b7f8fd0d680ac9afd44e076d84a98696f70925d7ba8336029e",
+      "git_blob_oid": "60ddde41b7e72cf66ab627f7e068b194b8c0fca9"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/hit.png.import",
+      "sha256": "9695e687cfbd993318939b9490e434860ad4184cba10517ccf67da3654e2e043",
+      "git_blob_oid": "f9c467f6cb0d0cccd7649107ee08c97e0969495a"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/idle1.png",
+      "sha256": "ad80c9fe91f5b3d6d866f45833f47b303e49a991b9bb9719a58a7198891ed43b",
+      "git_blob_oid": "32ee20e26144132af123923124cb819ee6d023ea"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/idle1.png.import",
+      "sha256": "ab780d1053bf598e3301109a0de3ef42cb5fa8a4b060413f73e580433ced3fb5",
+      "git_blob_oid": "fda17e92a765ad4e456e2b2ac5372699d875af3c"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/idle2.png",
+      "sha256": "f31e2b1220cea0762dd04acad1567b11bc109130737e88860a905312deb6fca7",
+      "git_blob_oid": "0e6430b38252eaa28233e112b5bc855b9a6cd954"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/idle2.png.import",
+      "sha256": "99613aa038615157fb711a48adc591de16f435a6ecf210ccdb52b0d56ff19aff",
+      "git_blob_oid": "7132f2503503d0ab67f94fe47f9fa9ca73c93bdd"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/idle3.png",
+      "sha256": "d7da0efa8f11cef2bed8d0c256455f4b830b48198a9c16f0ac74b416cc6d50c9",
+      "git_blob_oid": "9d3d58d5a2355a423488d764c687bc0b29b5d7b6"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/idle3.png.import",
+      "sha256": "fd03d2b7850bd7a7b127fe48511d4d7e47acf9740bf7d597f8925e776389005b",
+      "git_blob_oid": "30879890c0fff124e7f44fd7e90173b317b38618"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/idle4.png",
+      "sha256": "0c3723a165e1d9f65699d57be1257ebdcc3e32f5a95777ca8d5954929a5a28e3",
+      "git_blob_oid": "a2aaee6ac6bdfa8672e46623aa216b3ca95c3791"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/idle4.png.import",
+      "sha256": "03a02c17c491c0596f9227d4dd9539859840fb610aeb841f11c5ca93a2e883a7",
+      "git_blob_oid": "92215204e44d43db30aa871c28864914453008f1"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/recover.png",
+      "sha256": "b952e57c6fae5c5a3c26155bcdc003fe06723ce66a6006b332beaa3198bf6d5d",
+      "git_blob_oid": "a1e33c604d182560eb806b6c295caa3b79e2d046"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/recover.png.import",
+      "sha256": "20cc71e20f3e47d0fd66466a83366b1c7e40f3d65f3215ee5397bb4086a1576c",
+      "git_blob_oid": "2b8a72cbd37805179401e44038948dd351dbfa50"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/walk1.png",
+      "sha256": "0aad768a7e40cc47de60dce654909a3cda82652202c43da10163a7b30d088432",
+      "git_blob_oid": "f5b8d6920df0cc3abc1684e20cd52c87a012f367"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/walk1.png.import",
+      "sha256": "30f6c6993cf7030893bfcbf6580866027e57d4b8a5fdd977d2b84db8266bd4fd",
+      "git_blob_oid": "912c4f9e7bb0bcfeae479766b821aaaea0f8e98c"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/walk2.png",
+      "sha256": "9da6304d564f1af2e3aa6decd2180adae1172a7814defaf8769a8a2c6658ec3d",
+      "git_blob_oid": "068110c65ed4715aec8efbd3837c2d81e0937d2b"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/walk2.png.import",
+      "sha256": "a5516565637288073e2b94687e5f2a958497851073f49dfaf534cba539c80ddf",
+      "git_blob_oid": "e11a57aa11e0dccdba0f1508fc0b99cb7eeb9497"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/walk3.png",
+      "sha256": "bf04ee65acbfaa8c7b3a53c539c3c2ae0cc8c3e6d23e2729c9580495838e40f6",
+      "git_blob_oid": "6db0ac5db7244f4e3845de7904c37698846c0af6"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/walk3.png.import",
+      "sha256": "4dab2455937e4fa39dfbfac456d949c40bfb0218de598fc92cbcc3f9ad0f19c0",
+      "git_blob_oid": "d3bfd9da836a7b1c598a2f37e204f3bb332292af"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/walk4.png",
+      "sha256": "9edc054933661290617b9e9dc112a01d41db81bd99842e7b050daea61b5026f1",
+      "git_blob_oid": "119c343e675b71eccae3bac4c9c10556935f2197"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/walk4.png.import",
+      "sha256": "e7e76806cf49528607d6d710b731f90d28dc8812a01b7eff595f5a4a8274837c",
+      "git_blob_oid": "510174fb7197ebe9caf04cac111863101f3a43ce"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/walk5.png",
+      "sha256": "e829d941854eb408a8bf4821d7227da6a809ca4d53b93e86f5d041d78425281b",
+      "git_blob_oid": "db68a39a9eca8fe3227f9111d7f07702c084519e"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/walk5.png.import",
+      "sha256": "5289c82c59c5950d9658b2d667fb14fdc5dec857306cbeadb62182d009c6a6e3",
+      "git_blob_oid": "5af4b92636034ac7b25b4194899492c8886aabf1"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/walk6.png",
+      "sha256": "f7c9d885ceb1750eb3b70c800d359eaf2a4ff4187f6784ada6862a7325af5150",
+      "git_blob_oid": "be50e74a5c90c11897fb0d1b4b71221429bc2642"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/walk6.png.import",
+      "sha256": "5c15a5a9ad2f3cd2bb42f5d56bc32c9c92ec076cf2db123014a9d32b5cf98f96",
+      "git_blob_oid": "b971677a99b6333b8f57a5b70c93290e70882c31"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/walk7.png",
+      "sha256": "e9d4e7b373035621366e3bb3838ef91ae3195ae7de3bdd8ed75c3e9018273259",
+      "git_blob_oid": "9fb4bb6cc1fa82201588eaf2dea250a8fe7cf94a"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/walk7.png.import",
+      "sha256": "e9fd048952995cfb1c31ded3c0228fa0882abf5e2273d6d5dca0eb0a97aa32b5",
+      "git_blob_oid": "dcaabf515dbfde89385fcf104d6fa12be138a852"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/walk8.png",
+      "sha256": "97610c079977da41039be9b9e015946828563218dd42d1a5eb8eba1c0c6eee83",
+      "git_blob_oid": "7b7a675f9d29e97fda426448226aa6ea3450c257"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/frames/walk8.png.import",
+      "sha256": "d5cff223620beb8f52379e870e6e134e3bf2215d709f577f4cf5f9d2a6db44ca",
+      "git_blob_oid": "b9da0cf46d9d933da0a376bfea00a1ff41745afc"
+    },
+    {
+      "path": "assets/chars/pixel/guard/high_detail_complete/manifest.json",
+      "sha256": "a28b787028adcaff4724ebda6e9e91539e8a9d4554e49dbd619f9bf0b6440416",
+      "git_blob_oid": "92f52377f5d8d6dde548c25de5341cbb02349ff3"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/atlases/attack.json",
+      "sha256": "334c4dba1575603ec362e62ce6f306cb0d08c9a66a25abb78c52d0fcc1dc53ac",
+      "git_blob_oid": "b0a458b1d7cf76a930b3181484ff8eb9b560e02e"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/atlases/attack.png",
+      "sha256": "bb462493779f4baad87cb8eea7d4b23b6f317a558808ac2a16900220021e4361",
+      "git_blob_oid": "37900ff5827b2a873aebfee8d0fc4f003214b699"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/atlases/attack.png.import",
+      "sha256": "a3dc32cc8479d8ae9166b131383b620e04643ab237b92bd7dd188e41ac596546",
+      "git_blob_oid": "e0a1ac1b5173b082f4c471c37d78f09cd534c81b"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/atlases/defend.json",
+      "sha256": "94acbfde29541b518af0abaf6fffa56edcf8e0980ae937d660be0016b546cd66",
+      "git_blob_oid": "5977b67a173c60ee827771756f2fb63604587e0d"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/atlases/defend.png",
+      "sha256": "f5213c27b73b251cf5e2524d1ae4d895eee976bb580db7dd31ce80fb83e12b02",
+      "git_blob_oid": "ef9aee0a7331cd6e719c5058627334e40558db7b"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/atlases/defend.png.import",
+      "sha256": "93b653c092e8171948c833c2cdf47af22f12c5345e55ae0944fa617e7817e2f6",
+      "git_blob_oid": "aacddd5ddae1a0e7c4d036f0602aa0b782c102b7"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/atlases/down.json",
+      "sha256": "937b3749b3ccdd098cbf13cc0c9c738c0d3114a764e18bb6d2ac0b84535c809b",
+      "git_blob_oid": "703d8394c3eacb1a5d70612f03be813decec3548"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/atlases/down.png",
+      "sha256": "96e7ec4394addbf097ced0721b9d269faf3743ce69950aa972d95eee148b4799",
+      "git_blob_oid": "9ac46a58fb03c349801a22473203d66aafdb0076"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/atlases/down.png.import",
+      "sha256": "f92455558cbf6a2d7b9fec3d6aff5a5f5f6f9c1da32b4f23a568bfec81587f9e",
+      "git_blob_oid": "91107c9e7c6fd78582d33dc70ded4a0bf81eaf5e"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/atlases/hit.json",
+      "sha256": "82a792eac1d22b757c84210c4be4122f656c399a8b7174c961ad1cc792b5b604",
+      "git_blob_oid": "7b6631b2b37cb968f8bef08f70ba2aabd2241597"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/atlases/hit.png",
+      "sha256": "6de9b65a3dd98807bbbcccc732abc481234fcc8bfa16ef7b72353b877d8b6759",
+      "git_blob_oid": "5879735a71969b35d1e222c355cf7f57c2ccd55e"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/atlases/hit.png.import",
+      "sha256": "70bddbef5cacb83aff3f9bc6c35ebfe10e84587e8b6d603356ed6a6102e20385",
+      "git_blob_oid": "43deb12360da4b3ce9d207ae9df9053f097fe6b3"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/atlases/idle.json",
+      "sha256": "eb8fb9e762530ace6d1097874afd8faa9fcdeac54fa85ca4aee4f6de6a32b24b",
+      "git_blob_oid": "166e90330d28f827b0070b9b2946f9691d139db0"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/atlases/idle.png",
+      "sha256": "4e0d5f1441d7550af3b583778154e3a9874a8dcfb4b4d7cdab99742fd01125fa",
+      "git_blob_oid": "b1b7f5bc8c16b8ffbf4bd069a263ee417e6a82e4"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/atlases/idle.png.import",
+      "sha256": "cde36d27c21d8e0d8f0d9355d30face9415db3611047431671f1a604885ccd21",
+      "git_blob_oid": "f564e5488a3c87ed71f9b86f38ef8de41a638b68"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/atlases/recover.json",
+      "sha256": "d60f450de0d50cf9c000f3c265fcf6a79002e0f29388c2273d870007145c1b1f",
+      "git_blob_oid": "9699839b5258dba0a4d28c26ecd44214f74dd78d"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/atlases/recover.png",
+      "sha256": "159e040c58d47d221fec99bd61cf8af916f7730604da4f62450aff7dfbb4eb20",
+      "git_blob_oid": "3a976763db14bc17595b02f7f062aaa533571e72"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/atlases/recover.png.import",
+      "sha256": "ea142323f58b3e06b892e77e14c6dc85f8a5dc858546504249d27b21090d4eba",
+      "git_blob_oid": "68862d396425a5870338ed85ab21167e12bc9568"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/atlases/walk.json",
+      "sha256": "db036053f480f4c981fd3178eb6183d97f49defc1a0ed75ae88afab453f47ef1",
+      "git_blob_oid": "984084a1b9fe76e179edcd9493a939947b480425"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/atlases/walk.png",
+      "sha256": "888d2471baf07136da1a0ffddf7c3e7371162247946b558877f5a1db7050a057",
+      "git_blob_oid": "debc8a1215fc772d3d37592999daff9d42d4d758"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/atlases/walk.png.import",
+      "sha256": "8845699fb171bf6ee7d93cac35613e5282dcecda32c7b29892cb335c74ccf3f4",
+      "git_blob_oid": "93e67d8b9054956d5ceb4b36a63fe3b148a35b6c"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/foot_contacts.json",
+      "sha256": "ba4bfdb66f1a83ebb03c3599a43fe1e22aa0de6cb64e7efca4ab498eeab32003",
+      "git_blob_oid": "6daee9365c51156f5bd6b7561c761333a42e0cc0"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/attack1.png",
+      "sha256": "82bbdb2a034ccf6fd8e8a9b2499589866bb4b58b7b0bd50059c3948e371624f3",
+      "git_blob_oid": "ac0337bc25addad5d55597b0b690ff997da8c3ae"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/attack1.png.import",
+      "sha256": "71b34064f82ac8de39e1c75f8dcadd5e7dc48d8e07a11e7a2a995c0b268b11b8",
+      "git_blob_oid": "4b4fa50ec41c71577d2355ebfa1c9b2205905e24"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/attack2.png",
+      "sha256": "009c1736d912fb8a1abd157025f5134de55fd8af954114ce6c91f33026075108",
+      "git_blob_oid": "7949a630eba163564a7e1d927e6546686e24602b"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/attack2.png.import",
+      "sha256": "f87648c017b05a667e2f2c11acbd4f0560653f4f49d2f89df3828fd4b449cce9",
+      "git_blob_oid": "55c58a30b6956ae8d29713e61ab69b6d848e23bd"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/attack3.png",
+      "sha256": "3ab18e0efda881fd9dfd1866d3640ed6bb22172712d4cfeb5f1ee4b3366eb57c",
+      "git_blob_oid": "4dddba630acfff1fab4fe59680f95075a959556d"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/attack3.png.import",
+      "sha256": "644ce1c91d0e53777f7a5ed610cd87c447a5c405b48e02fa1c2b57be3fe52017",
+      "git_blob_oid": "5c982e25552edfa9c070fe6604f5a4d048777e4c"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/attack4.png",
+      "sha256": "18a9c49606588783ba28419b26e9d90fe9b1a422e8f234ce0ef91316d70b15ce",
+      "git_blob_oid": "07c473d4f8bf3ffecca6c64a51ef1123d369c63a"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/attack4.png.import",
+      "sha256": "dd3cb457dce1cf8220e5fd785974b4d6b7270515bbfc55c7c88c45789046c380",
+      "git_blob_oid": "ab64374cca84df06feee2c5ac715ac8bb3d1c573"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/attack5.png",
+      "sha256": "121fbcd8c9a82b0398ec093aaafe6f1e6337ccc570a514bc7f33ae865b9e2c85",
+      "git_blob_oid": "8cd38b8ae3f4870e3c567b40c139a4644437c97a"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/attack5.png.import",
+      "sha256": "c28d2c1a084ff063d5ed8b49d7562582eaac81f92236d9eda3ea158201e98fd3",
+      "git_blob_oid": "be5f4e20b1a730114d00221958080e4a0282d931"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/attack6.png",
+      "sha256": "cf8fd0c107b2e2e3c7d25ff6e5727837d51896ce370433a0cae133efb275576b",
+      "git_blob_oid": "1f9445b56890b9ceb00dac20ce59c11c113c750e"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/attack6.png.import",
+      "sha256": "a34fb88c1d2d160b71f2fae0596927c8eef2008b2723a5827af254ac438e0f76",
+      "git_blob_oid": "321cfe0a5049107635c66a843666b93d638a7ec0"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/defend.png",
+      "sha256": "f5213c27b73b251cf5e2524d1ae4d895eee976bb580db7dd31ce80fb83e12b02",
+      "git_blob_oid": "ef9aee0a7331cd6e719c5058627334e40558db7b"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/defend.png.import",
+      "sha256": "4fc1a4254d7b4336ef2f9de0b35cf1ae3d4b7593501fbd577c29f6d3e4f65c66",
+      "git_blob_oid": "d50f7f0a56378675b3d363a4e6058f4d3ac04840"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/down.png",
+      "sha256": "96e7ec4394addbf097ced0721b9d269faf3743ce69950aa972d95eee148b4799",
+      "git_blob_oid": "9ac46a58fb03c349801a22473203d66aafdb0076"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/down.png.import",
+      "sha256": "6a6d135eccc2f6dcb6dbd0ca5cecce804b1c4afc45a4a92db3a0f9a6ca50042a",
+      "git_blob_oid": "b6bb3d4aa5634294493f194af768368803452273"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/hit.png",
+      "sha256": "6de9b65a3dd98807bbbcccc732abc481234fcc8bfa16ef7b72353b877d8b6759",
+      "git_blob_oid": "5879735a71969b35d1e222c355cf7f57c2ccd55e"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/hit.png.import",
+      "sha256": "71f01823e033847ba577041bef1ce2c858a2aa5c417c7910e3bf2365cf2dd66a",
+      "git_blob_oid": "bfac4fce77bf1876195e175bdf679c0705ed5202"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/idle1.png",
+      "sha256": "e820df0b414266179a48082b3880425a0af113653b401537d6f193505590848f",
+      "git_blob_oid": "7f5bc0257c1514350fdb475dc85a48628e1231a1"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/idle1.png.import",
+      "sha256": "05c74bc125f1424514210a830cea53dcf60fcd21e3c3721862895d50e38c621b",
+      "git_blob_oid": "d67df1e63f45909747af1b4a52bc4b7c4f6aaf4c"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/idle2.png",
+      "sha256": "0cb61c7e6898dc9d43beedb4ce55cb721a80e35ac499ff06e5e2b648a4a74efa",
+      "git_blob_oid": "3b146c9a2d100fc6eeeb5367e8713f7acd5b23f4"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/idle2.png.import",
+      "sha256": "36ada66de6aac564f69cc9fef57d700f8a13ce95920102fba286723a16e10925",
+      "git_blob_oid": "7e31a1f687de037062d6013d2633bead190b2f87"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/idle3.png",
+      "sha256": "fd6ab2e2f5dba257b132f50fa69568b2b6ab814833fde8eda694a3f9fd3a2ce8",
+      "git_blob_oid": "1ed4d5959fa67176eea1612c456dafb0659fe832"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/idle3.png.import",
+      "sha256": "5d211f06e02742b6fada452e0cf071ebdc6b2d4e3b9a53ac5a03bfe71e243309",
+      "git_blob_oid": "b6bfa7c0e97a14df3d6930595e6742f1e0f1e66c"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/idle4.png",
+      "sha256": "47abda1d295d70c173d36c6d3fbf327ba400aa0659d8c93a78958701187b6ff7",
+      "git_blob_oid": "4898c613bb89f6c13efe36cb37077ddcec11dbc3"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/idle4.png.import",
+      "sha256": "4d452f87caed467369b14ff79daaa8191bb8e33506ba088ee1ddea2119e18ef4",
+      "git_blob_oid": "37e0469c17e0abd2b744dbca3a70e51b5e60099d"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/recover.png",
+      "sha256": "159e040c58d47d221fec99bd61cf8af916f7730604da4f62450aff7dfbb4eb20",
+      "git_blob_oid": "3a976763db14bc17595b02f7f062aaa533571e72"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/recover.png.import",
+      "sha256": "6b7043d4c4fb074f7d63a0d384fce0e20525d203ddcf8f8f31f680e41ac9785a",
+      "git_blob_oid": "515614efc91c97cbd15eac8879f2efc7d456afd4"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/walk1.png",
+      "sha256": "26f04c3652c1547e30a3e710c5258e5500fcdb745f75f9ca444c4ce34107567c",
+      "git_blob_oid": "f4953855582a0e1367476f9333a1273c29ddd193"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/walk1.png.import",
+      "sha256": "f0e680a4d1d067cc5bd9ac7cd01f7b5608dcde226f294f6992d8d373954b5b02",
+      "git_blob_oid": "df49fae976ae24fdcb354a68f1510a1980cf9a6a"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/walk2.png",
+      "sha256": "dbc0b423a159f473b98700a5820ab84d10ca95e5b562e6208ae3e78019303bd8",
+      "git_blob_oid": "7541673e138b4f18181f6c1a77e60e43d3e47f8a"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/walk2.png.import",
+      "sha256": "795d9eedc2f3c251368d0d4ca0635a2be82ec14e31955f949df51a85789fa0f0",
+      "git_blob_oid": "10aa67ee7307d37db868e96a8bd44e222965a46e"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/walk3.png",
+      "sha256": "354ca52af8d497bdf37cd696ffc7cfdcef460ee29a0e4ac448806be367bd0ed2",
+      "git_blob_oid": "1c07637853f6d27d8facbf6c220fab28915cd748"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/walk3.png.import",
+      "sha256": "ecc508dc3ecb28cab8004b68bbf56eaa72b2967fe1d1d05c344cced95baf39b0",
+      "git_blob_oid": "8fa6e91aac0d8f193cb04f7c2665630c06e46a1e"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/walk4.png",
+      "sha256": "1640aa44a0c84d3550d3bcaf73877c3950292a0a4723ae488246d2f8bb021fb3",
+      "git_blob_oid": "2a640f8e3bcb299a4017f7a7b5ec0e7753a003cc"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/walk4.png.import",
+      "sha256": "3d5e913d51c6227874453103fb48b10fa0808c66a9c6af2e84f9d7c39e502a86",
+      "git_blob_oid": "80260d078b0a68199ca2ced2a01ace78be28ef9c"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/walk5.png",
+      "sha256": "b6a6395d473fd7a7ac898c62e6fe4410c811f352a52e2c5ce6963051e286983c",
+      "git_blob_oid": "f563804ea1c868b3925927053e4c1fe877c80f45"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/walk5.png.import",
+      "sha256": "689b6f542c8910eca48021ccae0b9672d0f655868d17dbdc326aebb419bb948e",
+      "git_blob_oid": "4ae2bc9e9f3bc2b89363cc56cfa5088fceab3216"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/walk6.png",
+      "sha256": "f07e879137d4bcc861123ab877997ce9b55c1dc102cd854433d8379406d37336",
+      "git_blob_oid": "392b694afbc555953b63f07d052f15e4654ce0f3"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/walk6.png.import",
+      "sha256": "fd8345dae5438ee3f29ed58140a8cfee845fd219b76e29dc0f847fcf57ee0993",
+      "git_blob_oid": "add04e2cc71361278307aa1b7175a424b4b6e5a2"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/walk7.png",
+      "sha256": "4920e8b79f085a69d87e6e999533d8b16b51a6c22115eb4f293c57b4eeb6f942",
+      "git_blob_oid": "92c74fb4676e50bc5e964d44c51e6ecdaccb694d"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/walk7.png.import",
+      "sha256": "c60c0172dafa1e0e3fb3426878367baa85faf43c7d1cd06dc09a8009248a61ed",
+      "git_blob_oid": "98f145c86628c41900b0bd6d05c124e2c2e33b6e"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/walk8.png",
+      "sha256": "5652799064d438f9e9f4aa82ebf9ec923af24c64557e647241d013261e24b829",
+      "git_blob_oid": "6b61573041297368bffd0c3df7792a667c0c7e74"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/frames/walk8.png.import",
+      "sha256": "ec85dce882f9b7996ba4a46042996377f194c32351922d28149477b581d0b444",
+      "git_blob_oid": "2bdb674bd79105a709e65f7fe43b07aec11471f7"
+    },
+    {
+      "path": "assets/chars/pixel/healer/high_detail_complete/manifest.json",
+      "sha256": "0b3471c6f3cfe9afaf8135da782b065dc1fcaebc0a42105a7c00d8642a45cc5e",
+      "git_blob_oid": "7010500fcfc0e3f3644ff32f32ffcfb116c39677"
+    },
+    {
+      "path": "assets/chars/pixel/high_detail_roster.json",
+      "sha256": "5f1687e90fb5eaf2c3a7aa3d6f86cb64eb4bf10799c8b6ed38dd8c68b18263c4",
+      "git_blob_oid": "2f966d044b64246bcfef4421b43c86f4ad728697"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/atlases/attack.png",
+      "sha256": "21ccb47a3140fb34713c9847dacd75db3a3aa79bcbe9b3b78a2841a256d7fb4c",
+      "git_blob_oid": "990a3505fc0c50a73a6a459dbfc8d18ce805393e"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/atlases/attack.png.import",
+      "sha256": "8478fd4c1324366b1ced76990838fb3fc36c3ab0ec9779f9a9af099b008200b0",
+      "git_blob_oid": "1263c056e26f233e098355fa35b8ce08ff5c0548"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/atlases/defend.png",
+      "sha256": "5cb1602377e3d7a57660222972e037b4d7b00523b56126c6965687749e5ea0a8",
+      "git_blob_oid": "8b7da81a938f48b5680931fbba3b32d602756580"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/atlases/defend.png.import",
+      "sha256": "1f29cc79aa9faee573599be91a4a6798868969f8935a891842140184fdbf64bf",
+      "git_blob_oid": "feef9448447e01adea5a03f554d3a385f0c4d0f8"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/atlases/down.png",
+      "sha256": "153c6f659059fe9e5281cd0537a3058c1b65ee1a041011fd1285617461ab57e0",
+      "git_blob_oid": "31c1cb3ae601528f149d7e7ea3fc29ba3488386b"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/atlases/down.png.import",
+      "sha256": "dd36387dba302358092f0ea3003d5f747119dc6ea4c996c85d34a538c7ef74d1",
+      "git_blob_oid": "6f3a4c6308f33b35b3a371a38bc213f9a2334c2d"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/atlases/hit.png",
+      "sha256": "ebd9ae16c8abe7423d94cc16a6d2a89c2c9334c73629840b6716c8541abbaae5",
+      "git_blob_oid": "151f1807d0b97e065c0060a0149bfc0fb7f72d01"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/atlases/hit.png.import",
+      "sha256": "0125cf6c19d1068f25ea54a63112ba701f79576b8ae10ed909c83fc99482b93a",
+      "git_blob_oid": "264d4f583ecb3239115a3b150d97e70b52cecfd6"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/atlases/idle.png",
+      "sha256": "5089bbfb3c1c8cb0cfb73a49b5b0151a784faf1cb51d05494d08bb544c308dc4",
+      "git_blob_oid": "50e42e6b6593c1d040887ade527bc1e5315a5511"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/atlases/idle.png.import",
+      "sha256": "70c324b0dd46831a248b934092a9dc0e1f7689050527862e3c7a5559ab1f7125",
+      "git_blob_oid": "10354232ff79ac1a80b64bce363d215903916ab8"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/atlases/recover.png",
+      "sha256": "89e2e6dd5d2bef1243ab286b7713aa75719c80f58ce7cfac0fb8ede0d7ed973a",
+      "git_blob_oid": "3aa08809a80e96153fcd32259fb09ffea88791fb"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/atlases/recover.png.import",
+      "sha256": "5e74578a6bfa13360da8f177c5e4e89120d4fc73c727e42afc5bdd395b3af9f7",
+      "git_blob_oid": "a27b85be5cf6b9037b55d84ad0a3045a7c0f73e6"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/atlases/walk.png",
+      "sha256": "06b1bcdffbcdbbea047020d6921e7f27287dcbd6d6ce82e1b2e03a67f7be510d",
+      "git_blob_oid": "de99f156d1da8a86f627207eda4f86ee7d159d0f"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/atlases/walk.png.import",
+      "sha256": "232d835392dec3c6b961f7ec3b0d452e0ed815def674f637ec399fea1db96f0e",
+      "git_blob_oid": "ad403876741bfa88aabdc7e8a5b6e29d0284ea2f"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/foot_contacts.json",
+      "sha256": "57b2e138cf4486c53aae8fc998a1b2dd161ad24d856b74efd0b2175198000074",
+      "git_blob_oid": "dd256938e08410aabba213e0bb12ab5a16d05556"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/attack1.png",
+      "sha256": "2656e8e8059a30b61fcd172ab89a167599a6b64d1044b61cf082970d65e4b705",
+      "git_blob_oid": "c77cf732ac02dc4215310e57f1b9301efda8e12e"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/attack1.png.import",
+      "sha256": "a36241c87e7ff709ec2b49d0e9f337183258a3f60d249bb6229294b8865aadae",
+      "git_blob_oid": "b2210019d0d883ed98f7d9d5c61726cedb21af0c"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/attack2.png",
+      "sha256": "35d2d556609362433c97477cb4535d3927966fbfae811f88d418b3fd66ad3a88",
+      "git_blob_oid": "f6fc7b14f2229b1bbddbbf4dd5a1f3b0d25b1260"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/attack2.png.import",
+      "sha256": "72fb36b3fad674273b5645c79766112d130b4d97d850749d2dfd851108544e61",
+      "git_blob_oid": "e2dbb609e01d217a0b8eec4ae69e6cbb7a60ce3c"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/attack3.png",
+      "sha256": "b7f303a06fef974589a031202c8f32b0b5d13c5763a5588ea81640599fe799d1",
+      "git_blob_oid": "1cfde033d3c35c58b5096fb796a3ac5a68308129"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/attack3.png.import",
+      "sha256": "0d5175d6cb291dd490a6bc96d974bc2f6bc3b47221a7ecfd47351ca464040f48",
+      "git_blob_oid": "59c09905bf8e7935f5bc995f74262db3e37a8a4d"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/attack4.png",
+      "sha256": "635f9853fa170d464392602fb2e17e7849a2f526b9a6a22f864e0841a12a5090",
+      "git_blob_oid": "21109aa7651de28cb7125bf8ce1364c016b38b2d"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/attack4.png.import",
+      "sha256": "3cb3e381bdf79645cf70f76a439f40682a29a2f3478afe3321c97bb637beefd6",
+      "git_blob_oid": "cbe581873fa9650beb0a29998f88088324467f3b"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/attack5.png",
+      "sha256": "49a58c0f2d18e26812bf57b61931b2c9b9521ced277339a0c244b981d90fd926",
+      "git_blob_oid": "526018ef97403860bf4aca7cf24c75cbb0ad20e1"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/attack5.png.import",
+      "sha256": "c11cadb28b2b9ee98558b0e6d7e5e94ccb55071036805c276083b0b20dcfd27f",
+      "git_blob_oid": "e64d47b7037788c8f99a49efc7b55799c0cf12a2"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/attack6.png",
+      "sha256": "5f5c9708d5e2f4a963acc5d0a67f025404496a343d9b75dbc03a88a98dd75a7e",
+      "git_blob_oid": "55c4126ecf5c2c0e32a5d237c7daee350b44481f"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/attack6.png.import",
+      "sha256": "bbbc4760bc251baf54782629162e02e144f68353d533ebf6a11b6b90fdc9e408",
+      "git_blob_oid": "b439e618c9ebf9afa89ba4706d3a17b17d5e7603"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/defend.png",
+      "sha256": "5cb1602377e3d7a57660222972e037b4d7b00523b56126c6965687749e5ea0a8",
+      "git_blob_oid": "8b7da81a938f48b5680931fbba3b32d602756580"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/defend.png.import",
+      "sha256": "cfaf4bc59df923912b3f22ab976f00086fc0896bb8efca93b6d4b6c6b65e03f8",
+      "git_blob_oid": "9ac9982ecbfabf46a87a59709d9f0c3a76a46e8c"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/down.png",
+      "sha256": "153c6f659059fe9e5281cd0537a3058c1b65ee1a041011fd1285617461ab57e0",
+      "git_blob_oid": "31c1cb3ae601528f149d7e7ea3fc29ba3488386b"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/down.png.import",
+      "sha256": "3ef9054a77af3a4cb03c93532900dade900290db6a404d7da577988dab6d92de",
+      "git_blob_oid": "b28d08f0753ef2a1cfef1af5b2b7ac6ef9a8709a"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/hit.png",
+      "sha256": "ebd9ae16c8abe7423d94cc16a6d2a89c2c9334c73629840b6716c8541abbaae5",
+      "git_blob_oid": "151f1807d0b97e065c0060a0149bfc0fb7f72d01"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/hit.png.import",
+      "sha256": "6d2431c05e19b367baac6354571141c03e1912bd2aa13a1d3f5becf042682cfb",
+      "git_blob_oid": "0922d33bded44d68063e5c325f0fbdb675c9dfe7"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/idle1.png",
+      "sha256": "baabb95dd6a60763bd98d4365bf18f4f343e0cb5dcdf6e88ebf670c8c5aaa2e4",
+      "git_blob_oid": "2ba56e88a22ba68f7b3d895e7004ce2c79bff1ec"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/idle1.png.import",
+      "sha256": "7f5148ac55c819916db7ed9afe8164de70f381efb2fe434462f6c7eb0045bd16",
+      "git_blob_oid": "672d642c9398c48cee2a72b175428347774db500"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/idle2.png",
+      "sha256": "2aaf255a55737cb516e406d73e32a3f6e6c5fd3e9298195f1c7693b5c533fcc7",
+      "git_blob_oid": "6e42dbfd5625fa1135a7a1b9875360000779e389"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/idle2.png.import",
+      "sha256": "37754df3aa3ff56839e18de3364645300760ef99a3b9eec09e410c029760736c",
+      "git_blob_oid": "db21398932a82027664bf0a0cd9769b3dd6d569a"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/idle3.png",
+      "sha256": "496a9ff3b0ed185bb060a974aee65c2e24aad5d274e44b173e955b852f44f711",
+      "git_blob_oid": "6c1b47068533996046ab9509f4c22e08b06a7463"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/idle3.png.import",
+      "sha256": "4074b4812c88406be8d77c895e4c454d2f1ed09610b79e522ac2eb913ffde083",
+      "git_blob_oid": "8d915146fc43e3a63b64dabdf107f358e53dc49c"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/idle4.png",
+      "sha256": "c701ae5a89f0ed25f1f71395487b6b440320dd922db254cb0596101076fefc78",
+      "git_blob_oid": "13ea2f17b88db1280a626524786a3952785c0112"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/idle4.png.import",
+      "sha256": "7c5253ff2a9012916c2f7e7890db21558ebad355a404dd5b14ec904ff16aa815",
+      "git_blob_oid": "24a2bfe82f03a2262ce68558b9ecbe04c7d35bb5"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/recover.png",
+      "sha256": "89e2e6dd5d2bef1243ab286b7713aa75719c80f58ce7cfac0fb8ede0d7ed973a",
+      "git_blob_oid": "3aa08809a80e96153fcd32259fb09ffea88791fb"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/recover.png.import",
+      "sha256": "e2abe2e7e12b8ed2318dad482da9bbc8b504327fd294c3d76906435f0800f247",
+      "git_blob_oid": "97f6f3150ee9e4909ea99c2128dda4f0b88f3d92"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/walk1.png",
+      "sha256": "0b4708e8560ff8c5bffebf964b745838d65220b82f7f2a329ac74c73b090e43c",
+      "git_blob_oid": "fd9b9888b226865ad0b26e5b4ca225f672d1186a"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/walk1.png.import",
+      "sha256": "7377909aabce70a199d697596399c84fb8acbeba4d6917fee538b2613008de94",
+      "git_blob_oid": "eefc9ff3ee872f84e928a74194cd25d1479a8444"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/walk2.png",
+      "sha256": "663b175f3f045773b27bce2f57d5ece2a964dd0697c2ecff8a64e29bff5b92fc",
+      "git_blob_oid": "ee9cb3385da4c4b39b28cb78d0d720693dd6133f"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/walk2.png.import",
+      "sha256": "b1e09510a826b45c0bbea969c573958647fa24081466eda2412a3e31aeb69dac",
+      "git_blob_oid": "004b71bccbbaeec6aca068ffc13e68ffb8b95fe4"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/walk3.png",
+      "sha256": "77d4f0bd4bd49f2d6040241565d7aa3a57710a25f61a70ed2d5f4353f8584c8e",
+      "git_blob_oid": "e2edc60db098514d505269d66cfe8049fb9a65ca"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/walk3.png.import",
+      "sha256": "a2d2bc16e4bf5a11db1992568a1c484e31a40f06612971398b8db2cad8440169",
+      "git_blob_oid": "025c56054a6b240da3602171ae227e033f5a75f9"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/walk4.png",
+      "sha256": "2bdeee11ff0dd8986120e5fd9b4912396bbef6eb042d8db1df1d847f64cb1618",
+      "git_blob_oid": "c8389f987a6c4e12f73e922005baba845bca6e9f"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/walk4.png.import",
+      "sha256": "03236bbba399017717be3ca016c970fcfb7497cfee01d3dc7c4a729a6d507ef7",
+      "git_blob_oid": "89326029fa224c038c711cf86afd65e48f6149bf"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/walk5.png",
+      "sha256": "e782e6a522066fa3bd9426518c7f94023d4560773e2c506290ba7a03a5980fce",
+      "git_blob_oid": "e708faf22ce72e09d3f2597d384b1520393a0b59"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/walk5.png.import",
+      "sha256": "a6fa8e1efc76df7a342792c0bb16611aa7a979483c576707bbf7cea26aa4178e",
+      "git_blob_oid": "fa33ac9cea436b32fa7307bb112503a8cdaf9ec3"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/walk6.png",
+      "sha256": "f05920fc20c6442bcbe129174c46bb1e55c26cc9585021cd576b7cce9a9d2807",
+      "git_blob_oid": "1a7388381af4da808f5cae2804b412bddcb4d368"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/walk6.png.import",
+      "sha256": "9d8deecefd07ea5a45e9aad2521c7e30db5d7f020f8ffe601a9110fff54e5def",
+      "git_blob_oid": "bbd26fd59d7af05cceb1027fd6e836ad6f86714b"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/walk7.png",
+      "sha256": "0d61dc2ad817c8ebf19d0f05e6cde724f5d3349362ab3e81cc68cdcbf64314f0",
+      "git_blob_oid": "eaa656eeeabbb3d895af2b511ef459ac43106ee8"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/walk7.png.import",
+      "sha256": "5806d368bbfce9a922a260ef87d43b42819276b468d48f4b6b79d0f58c413227",
+      "git_blob_oid": "bc67962bcc9ff73daea6688f3569d535574abf65"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/walk8.png",
+      "sha256": "f313f699225c718ce0c1ef266036af767a0242ce5a7b6ec2dc00683c2dee44fd",
+      "git_blob_oid": "bb0ee1e31aa96df165c4b70d5717c39585238536"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/frames/walk8.png.import",
+      "sha256": "3fa042ff406d88cd640fc64605447570ce6c81c2acb17000baf3101ee7304ea8",
+      "git_blob_oid": "415d1dc839fc01b6b65fb7364b1196420d64c799"
+    },
+    {
+      "path": "assets/chars/pixel/homura_mage/high_detail_complete/manifest.json",
+      "sha256": "70750cc089ae910d63291d70d2beca677c15d405deec641515cd369aad7c0a48",
+      "git_blob_oid": "20e50acdf2eb3de574b11467623f718328a0790c"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/atlases/attack.png",
+      "sha256": "640904beda72628bfd21838fa5d42b3256cffc184fb0efffcf5a81ba3f69f0b9",
+      "git_blob_oid": "986f188c98f004c6c77fdae6520abc9740f866b4"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/atlases/attack.png.import",
+      "sha256": "09daaf5001c7384072e29b1e4b6cb2d8def110438ca20c39b36216288aed7279",
+      "git_blob_oid": "3fd2d9b0c8fb1c5ca8290709e1b8af985f4e5084"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/atlases/defend.png",
+      "sha256": "1b7fb5269cf8ee3ff85cb5f7504994aa2b8e165ecef3c4c08703749a6f03a40e",
+      "git_blob_oid": "f0867b05780298f94b3bf108a2a4dd63d0e01095"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/atlases/defend.png.import",
+      "sha256": "9d1ab121024ccd511a13d2f916bbd405998cd5f4f235431bf7eeba5aeece42fa",
+      "git_blob_oid": "8d62e240e4aa3b8cdb73eb823be4f707ec278d8a"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/atlases/down.png",
+      "sha256": "115282f3ef5215a40be869b01c7783359118ca42f4a13d2f1ac8c01e20b4071c",
+      "git_blob_oid": "8844b2ab84ca649d1c3febc82ef2b5585f553380"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/atlases/down.png.import",
+      "sha256": "d3507dfe9ce60b945b560666f39f36e5db1980cb3b7ec9d494c0c2e69b8a84f6",
+      "git_blob_oid": "efdb762979eee8cec442859c0128ec0f1caca662"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/atlases/hit.png",
+      "sha256": "9d3ae84a4681cd9c58cbedb4e002370e691668924883c0bc56fc732f973477f5",
+      "git_blob_oid": "f0aa791a4bd18ea2eae8e6199f974d3d4ea5a60b"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/atlases/hit.png.import",
+      "sha256": "9f37bbe81515f4189bbbcfe191eefa42738597b68ab2afb3a9736c45656eb44c",
+      "git_blob_oid": "9f911f3d5d7112247e75503de6e43fc51a82326d"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/atlases/idle.png",
+      "sha256": "8cc19f2ecb1a7dd04a2338ee00c074e9ea80551f367638ae50f0a9f21df04f81",
+      "git_blob_oid": "6d20443b24232e6490db9a0d811c4d9f49227b15"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/atlases/idle.png.import",
+      "sha256": "a94cbd6c51104d471b9ea1a687c486bc36e0934ff92fb91eb1cc92b6c7e29754",
+      "git_blob_oid": "3f66fbf37c8b79c9555e61ee4feb761237808fdb"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/atlases/recover.png",
+      "sha256": "133a27e796de71ff8aba20cd83cd168a7d5460c543bbe8ccc9a2f37aa1fa201c",
+      "git_blob_oid": "cd5550029579cf0651b32fc77571949802cb35ef"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/atlases/recover.png.import",
+      "sha256": "cec4c6f7b836ae62e1ebd5783da815f92bc7a152d7186370430af7095990230f",
+      "git_blob_oid": "8c168dfcdd7b4de968576c333880df193e62d30f"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/atlases/walk_0.png",
+      "sha256": "6a4d0a50e04083334d751c28b89f4940f48aba69ab314133cb1cf090dbe0c34b",
+      "git_blob_oid": "48f7dd35c22c6d96f3d4fb5f63c664ab721b825a"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/atlases/walk_0.png.import",
+      "sha256": "bd80caa620d1643a4a73ce9cdd5526afe469898d2f61ec6076f265b63343d403",
+      "git_blob_oid": "3e9014f8ca7f9c16f9da50c92811b50e6cd72c73"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/atlases/walk_1.png",
+      "sha256": "c3b5bdeb6b0eeee96935e625c2269ce7f47ed30fbc2ac98e9e78d6ee6b43dcc0",
+      "git_blob_oid": "ffc8eee45ebe2f0a7ef333a81c45c2bedc3f7616"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/atlases/walk_1.png.import",
+      "sha256": "d4f09105860be0c96629e2dad100248d5b91d969cc9e34b7155c5f92fd0af224",
+      "git_blob_oid": "dff16d057b1aed049dcd1a199fde6a744bad0410"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/foot_contacts.json",
+      "sha256": "5873d40d4d37eafb28fcc5ec39cdfeced7e437c9602165807f8c988c8683c6ac",
+      "git_blob_oid": "d921dc1bd51017b3bd23aa682aaf66f04f9ba1a1"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/attack1.png",
+      "sha256": "5e129314721ceb51aab06af2372afb2942bf72e4fd48c405fc7310cc365228a9",
+      "git_blob_oid": "f2ae92cdb8c07765857cd51d9942b9b55f9a426c"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/attack1.png.import",
+      "sha256": "be2d04560e3ebcbad0867776ed2034d0a1c614eb6421b93bdb8b6e2311ce28e7",
+      "git_blob_oid": "a5706f54197a5b4c00a6a305ae7744af864733ed"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/attack2.png",
+      "sha256": "5b84487dee48490270a099462a403750ebbf1fd5063550c9533ed5f0ce86f60e",
+      "git_blob_oid": "ad7afc4eb87c3e1a61fc4626d3e9aae459e54e4a"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/attack2.png.import",
+      "sha256": "9a9048fbd32c894d77dfa68643a4d6f435933a41cbeb52808ab140e9b3b3fab2",
+      "git_blob_oid": "eb0b169d9e918e8d15623bca7e260aa70ac513a4"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/attack3.png",
+      "sha256": "4bb69d6ba506ff6168bb86b50d625be7c57ec96a803f375f2f35e7b7e64a4581",
+      "git_blob_oid": "cd072731322ec5cb7d123a02efad0b9a91dd0f36"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/attack3.png.import",
+      "sha256": "cbb39001ffe06ec687144d771b6f69d1740933e46c01686c3144756740983e0e",
+      "git_blob_oid": "40a32399460ac04b11be66e3aa4b674c294950a7"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/attack4.png",
+      "sha256": "1f6ebcf9b700222dd68fdae6d10accf5b27511eb8425ddd8d4b2e8d0966a450f",
+      "git_blob_oid": "d1c79991b628d4956d930b4bc111d65176a4fd85"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/attack4.png.import",
+      "sha256": "584d52cb9d650d34468f326813ee22a992299724d56dee426f8f1820e91fbf7d",
+      "git_blob_oid": "dd87958b64db3571d8400327083276ca0b972bbb"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/attack5.png",
+      "sha256": "891659e052d988447e06cd48657a130b266315ee68088a39be00d7cbdfe70bee",
+      "git_blob_oid": "50c45d2bf9546c58c9ef4090b482b4acd4a649e3"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/attack5.png.import",
+      "sha256": "a48410cab9d774602bd2e1006c75c7b03ebd300aa7d5e73d17f1ea289f61e945",
+      "git_blob_oid": "90741388c4fe01f490f3d428a8b35df35b82d596"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/attack6.png",
+      "sha256": "d4088d75599e20a2c782999cfc5c406f737faa580f6bb16d51c81aff7f9416be",
+      "git_blob_oid": "75423150c9e4a377a602939b1b82519cd2b3646e"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/attack6.png.import",
+      "sha256": "ce2d3953c6040c07681097b050c479e65c808a9c8f107097738f28b457efc4e4",
+      "git_blob_oid": "a894920ddf32ae0ff45b188c36c25b5b1eef2c22"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/defend.png",
+      "sha256": "1b7fb5269cf8ee3ff85cb5f7504994aa2b8e165ecef3c4c08703749a6f03a40e",
+      "git_blob_oid": "f0867b05780298f94b3bf108a2a4dd63d0e01095"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/defend.png.import",
+      "sha256": "9d1b9d41e93e008272958ab57e482a357671fabe80e1ca6a60a561f48f69aed9",
+      "git_blob_oid": "097e0066ff1a4f618e5e33b2240680c81c2cd69d"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/down.png",
+      "sha256": "115282f3ef5215a40be869b01c7783359118ca42f4a13d2f1ac8c01e20b4071c",
+      "git_blob_oid": "8844b2ab84ca649d1c3febc82ef2b5585f553380"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/down.png.import",
+      "sha256": "acc742b41c70b4792559fc2d065380015187fd0e6f594c96719f74c5eb98d645",
+      "git_blob_oid": "7a61e2523700b33f9d2761dc68ced50400571fea"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/hit.png",
+      "sha256": "9d3ae84a4681cd9c58cbedb4e002370e691668924883c0bc56fc732f973477f5",
+      "git_blob_oid": "f0aa791a4bd18ea2eae8e6199f974d3d4ea5a60b"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/hit.png.import",
+      "sha256": "76ff8bd20279c8f922b296330cada4823d4213175076293e21aa1eb332bdc02b",
+      "git_blob_oid": "e43d565d703942345e27dde85ac5f6f4dcf49465"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/idle1.png",
+      "sha256": "5d5596d94e64e56e27f4589ae0799c2a7e6cb157c31134ef3d26d8519cf22f63",
+      "git_blob_oid": "81d3167e47bc40c0b0eb74d8b76b633000f7a59b"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/idle1.png.import",
+      "sha256": "50dbb9dc088000222d30465964db49604f699ee037144ce71431cf98e2450ea4",
+      "git_blob_oid": "0bc8e9a4dced8f13e39849619bf71af4a2efee5f"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/idle2.png",
+      "sha256": "f8fde24b8ef0a079cc8ec7c601ce57057665a03b0caf23214916cc17ad9461fd",
+      "git_blob_oid": "b80759a0a989ed82aa4615e649e5c0050d1e9c84"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/idle2.png.import",
+      "sha256": "a2c27d3d72bdd4ef4e578416a2830b721e61783d95cda9aae77dc8855f868263",
+      "git_blob_oid": "7b778d5f093cbe4ec62dcd538dadf0a0aafc5f96"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/idle3.png",
+      "sha256": "6cc4a09939a7606d65cb536212e5cf8d61b289c5a7c5ab86103a5afb8666d075",
+      "git_blob_oid": "c19f76cbaad5864cfec7f85d317825832ed2ecf1"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/idle3.png.import",
+      "sha256": "7c8240c12fe514d9479f3dd187b3fc8ca930e948b17aa308879492c1c9dce3b3",
+      "git_blob_oid": "e70291a1b6044d97cde959eb893926da1e36307b"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/idle4.png",
+      "sha256": "914e783b7712a6532b41a0f267af12053056ba0f5112275a63610a602c0baba9",
+      "git_blob_oid": "94a8a406045cb0843a0325b89e513ea1aba6c540"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/idle4.png.import",
+      "sha256": "e9888105e546a44dde4300a28ee1f8cd1b499a0b7531b28a4842546f41c772e2",
+      "git_blob_oid": "df25a21e3782462d7f87d020325c0fdd9c0ffdbd"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/recover.png",
+      "sha256": "133a27e796de71ff8aba20cd83cd168a7d5460c543bbe8ccc9a2f37aa1fa201c",
+      "git_blob_oid": "cd5550029579cf0651b32fc77571949802cb35ef"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/recover.png.import",
+      "sha256": "4c7b5a06b1f4712805cceadcf6553953c44f41ef95790c3b999cf7cdb071a745",
+      "git_blob_oid": "9ea710f86da745cae967d4c22bbf74fd73ca9586"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/walk1.png",
+      "sha256": "3257fded2e7de0cb5ccf634f6af9d61a70dfa9e77a2f95cf09ca15d4836671cc",
+      "git_blob_oid": "b597df0564440430c497dcbcf88057c09190b049"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/walk1.png.import",
+      "sha256": "f0a1e0d3771d9da4c83c7d3a59ba5e05edf98b6b6bd54e3f4da915f0049c00fc",
+      "git_blob_oid": "8d27214150a2d494c574482a885f4d6d04553ee7"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/walk2.png",
+      "sha256": "522a25adbe78e7c60aeeea66a1e7efa635485a9f73cc00480f9f9aaf13d6c1f6",
+      "git_blob_oid": "52c9b8c0187ec1405113ebd433fb06f2fe69718d"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/walk2.png.import",
+      "sha256": "b6c815cad09088f68b54f7c8ffc1edb6c9adde8677b00f6f7f60305c231e855f",
+      "git_blob_oid": "59c77a1b426911dfc85b3891155f548bc6d5cb37"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/walk3.png",
+      "sha256": "7673d24a37deede35259021282bd150dba33983ea3032e0887296e65ac9e9ffd",
+      "git_blob_oid": "c47dfade4f3982b41ded36c01a6eb5f23edff28a"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/walk3.png.import",
+      "sha256": "4891ce02571c11fc3057a192d7b73d3c015c51d49358dc63cff5cf98b244cc11",
+      "git_blob_oid": "83284bcaf497533e86f436e9bc59125ac423fc37"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/walk4.png",
+      "sha256": "126273b9a949178f31da2d6088bbfdbb6d69b56c1d6dae0b2057f2b1ae9e8d8b",
+      "git_blob_oid": "12a3ca728e11d0a49588094eb960862d9d401949"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/walk4.png.import",
+      "sha256": "099952f041b87f31a95ea3848e4594d4f1a959af649219957ccca15e86d27023",
+      "git_blob_oid": "d95d49c777793e96beef3dfdf4fc3cd0e022ce74"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/walk5.png",
+      "sha256": "522a19917ddaaf730ea898e7eb64383ec38427914f13998683399aaa1ace4ff0",
+      "git_blob_oid": "9ea6a11ead94bf8a7fe87dd41ac900dc825cd841"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/walk5.png.import",
+      "sha256": "9a0d7e5c7a4cb8ba4e60ab514569f27d85c5c2adba4d47abd4e5b21c6b8428f2",
+      "git_blob_oid": "a352dfa44757ace6f00255d63a6ddf7cd33cf5e9"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/walk6.png",
+      "sha256": "88ac9f035d3465347aafe91c74f20ebf5bd59f69fe33f2bb29b967a0f5b15991",
+      "git_blob_oid": "260017457b30d22e0775520c40bae22da5a1cf2f"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/walk6.png.import",
+      "sha256": "3189a117cb5d644e3b01557d4ecb25a758f1f0217a5e9858403ce4c944ba4086",
+      "git_blob_oid": "dd87170af102670bbd02ede099969b368e2ea046"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/walk7.png",
+      "sha256": "0d0c6f14b82b9fe45914208149e1742b4461c3b5e9e7cc70c5a76867095a88d7",
+      "git_blob_oid": "a570220c4c5e290e32e822ad80d5b8dc94559172"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/walk7.png.import",
+      "sha256": "b17c4d1cbba78b6f7050daf0680f1c3fcc78d85e4f17fd53b081f7c9ba18b49b",
+      "git_blob_oid": "c47bd086f69b0a237d69652162c293e501631935"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/walk8.png",
+      "sha256": "73ead272a147ac0e39ad1e52d70d6346b5f2d34da1dd55d16827d1e55984532f",
+      "git_blob_oid": "76e0ba204afe0996320473391a9967f02c3bcc86"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/frames/walk8.png.import",
+      "sha256": "ff40ee2f06104541c907dbd96b34aab7ea18ec6a6b7513e5cc38a4725b2115c2",
+      "git_blob_oid": "9df9a121f8b47b4df816d3ed10dbd26e62acdf0f"
+    },
+    {
+      "path": "assets/chars/pixel/homura_sword/high_detail_complete/manifest.json",
+      "sha256": "9f90adce08f76118eb9dec6d5369efe69555e52306f4a696031584ef29d0c868",
+      "git_blob_oid": "c884363dd9545922f3023f24ea39458b6d77f096"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/atlases/attack.json",
+      "sha256": "4c60428fa8dca2c472a64a2f8b8279a5c830a6a347ec50c489e5f595133e77f7",
+      "git_blob_oid": "324b5b037f924b57b8c396691a18e4eb554af678"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/atlases/attack.png",
+      "sha256": "4b63bcae71f941c442fbcc20e9cfab486b15415789fd1cd5d48eca557b32415f",
+      "git_blob_oid": "de41fe2bb19113afb991fe7533ecb1e1b189741e"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/atlases/attack.png.import",
+      "sha256": "79fc8073c3433e2815424cd1f273ac9a8ab7364f0917e23b4e17ff03dd8c8ed1",
+      "git_blob_oid": "c1c783a055e351f08fd496159d745272e51cce16"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/atlases/defend.json",
+      "sha256": "cf020b02cdb5b5d21524c6039353d843438ca386e6f81eafd3d74343b26f1ef9",
+      "git_blob_oid": "4f5cf3eec9d243b68c4e2874e57d21a8be51aa46"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/atlases/defend.png",
+      "sha256": "badbbdb70311269ae08ecb6299802196529db570cf5822af8e56419b44006d55",
+      "git_blob_oid": "b02e0642dc2fe0b3b78574201ce44899f1784cea"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/atlases/defend.png.import",
+      "sha256": "b4898613898d10758fff7ccbd329a588bcc3a0a2d8c696b7501579c7795533df",
+      "git_blob_oid": "645006086ce26aeaeea7d8ae8d74645b31228677"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/atlases/down.json",
+      "sha256": "1f0586e57ea649ab3e9b3cd2e4af78c909d0a71d7db51daef68742aa5f0b8531",
+      "git_blob_oid": "5cca3ddffcbc3338f51152c142ec634fa48758a6"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/atlases/down.png",
+      "sha256": "ad77f089b3ac943e442dfe913fc32ca24b78a4ed2b860376e9b5c2212e13ef61",
+      "git_blob_oid": "35514720a7625ea078c208cfd6d5b2580c1082ff"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/atlases/down.png.import",
+      "sha256": "e6214364e6919d1bc02dbfcf5199626243d271b2f408ac0d8e365ccb0d003310",
+      "git_blob_oid": "ca1c3299102a269b312d5b5b022ae45f591a5a15"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/atlases/hit.json",
+      "sha256": "e56413964a80c0334819e488cac6d1e1aa1a6924a14cfe90719edc5a3d0705f3",
+      "git_blob_oid": "e74d9b34e828fbe54df84312d5e7a1751a0419d0"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/atlases/hit.png",
+      "sha256": "5851e0cdc07dd4eb9dac3e633672ae3d3ab9d909b2807764300156a166c84840",
+      "git_blob_oid": "8e5c5c6ce9700f5a146b0024648a2e98a223c31c"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/atlases/hit.png.import",
+      "sha256": "2da86350a49455ba9244d5d4eba8c86ce72410640cc39a2f70fead6970a05015",
+      "git_blob_oid": "e75e6f1063eb696235f646a5c35b403a810b5362"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/atlases/idle.json",
+      "sha256": "98418c85dc23ff6c11b1eb4dc4fd43e344761a4cfaf4f81e0a8076577e16eb5e",
+      "git_blob_oid": "354d8d422bf1bcc405f5d44a95431d52350ced94"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/atlases/idle.png",
+      "sha256": "939f36bb1f3106ad92c87fcd042a4592c11af3d506211f96a1e7b6080c20cc2b",
+      "git_blob_oid": "a599ecdf03e784077bd0e0664bbf8e1d5555bfb8"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/atlases/idle.png.import",
+      "sha256": "55bd3d2ea292f08dbe6e4b5a8116050e7eaaec2b7c378d742e0539e88db6d72e",
+      "git_blob_oid": "96d0851378978c70aeb9eb335f492cd49049834d"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/atlases/recover.json",
+      "sha256": "c9fce606f388b81b6130e89050e723ae7eb30f67e715528d2f17d296a0f1b9f0",
+      "git_blob_oid": "513b698c5c197080ffdeaf527a0ee4cc0197a95b"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/atlases/recover.png",
+      "sha256": "ffc620ab447ab698307183acb2a2c8e150ae3be96bf383cb1c7e0af4e86d66f2",
+      "git_blob_oid": "6f92bb496835bebcb765d722284d9b20f64d2097"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/atlases/recover.png.import",
+      "sha256": "703df3442512df159a0ece4a2adf46948a9572a0d720f0fb69833bf614b5eea4",
+      "git_blob_oid": "a844c18039d68ffcb22c59babff5a9cd6843df30"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/atlases/walk.json",
+      "sha256": "c0eef5e783d433a7b65f33e0a83d135511ca668c638abde9bd74e60669c6075b",
+      "git_blob_oid": "01f82629ffe39a6784b7912c732c96f5879f7bd9"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/atlases/walk.png",
+      "sha256": "eceaeecf960f7168adbc7f25217d390c00e6c80b14e56d572360e3eaed21d1be",
+      "git_blob_oid": "1b392ed2fd0ed70cebdf010b94abb50350a72d60"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/atlases/walk.png.import",
+      "sha256": "15f37f3d9ec22ff89cc01730d2cc1d7f028c5886bebf779e788dbbb86566e403",
+      "git_blob_oid": "c475011e9bf195439b40f2f471a8e8f95e23802a"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/attack_right_f1.png",
+      "sha256": "cfaf345557c3c53590e021925fcaea9b5b3b2b6e9b3c6649df0ab383f0a8f04c",
+      "git_blob_oid": "3edd638974dac4aa2b8f61a550ca83c2d04abfb6"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/attack_right_f1.png.import",
+      "sha256": "ad2cbcbcc22332389540524f359b321b59aa3006ba65e14079c17c1902f52422",
+      "git_blob_oid": "660f51b750b4207aeb160d03a5c863c3bbb8422a"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/attack_right_f2.png",
+      "sha256": "c75e4e4a566abfd049a4e0b5d156c986e73826d0379546901e06a3d2ed6092d4",
+      "git_blob_oid": "af9a2339eac1d68bf8912a7511e112fb25b22017"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/attack_right_f2.png.import",
+      "sha256": "7233355649b0c7142d8a047cf88984d9c1726c4ca641ed4f769fa54093c9cb93",
+      "git_blob_oid": "9f6ea102f58b6795d9d5e80be30d72b68074e08a"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/attack_right_f3.png",
+      "sha256": "b68b66d78b704ebee1bffe4bdafa297f286016c6ce2932ab6a98e24876111e3b",
+      "git_blob_oid": "c40b933429423b401955f9dc8b9f43be2416fe0e"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/attack_right_f3.png.import",
+      "sha256": "8e36f76459c61ed99a5d801a25c904a8361fa1c27e85cd73478c58c74138ed87",
+      "git_blob_oid": "f15fd6c1f423b18e2a941323929e7dabacb282cb"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/attack_right_f4.png",
+      "sha256": "b442678679fc11968795d007ff9bf8f29c446c30656d85ecaf4c5adade3f60c5",
+      "git_blob_oid": "7c805241ead9643d004242ba85c043abe55ab431"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/attack_right_f4.png.import",
+      "sha256": "0f13387fd063884f552a2380a1b7a5dd21b6842269967dfccd97a05cc3131f7b",
+      "git_blob_oid": "7b6d88a92c6b808b0f666b79209936e0a72134d0"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/attack_right_f5.png",
+      "sha256": "8c4fac0fe7133ad11d8ff5bf69ed8ab776ea9d3c3e944e2c70a1953754fe3b81",
+      "git_blob_oid": "dfd227c84561285828a646af2f1f67286e950bf3"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/attack_right_f5.png.import",
+      "sha256": "049851d8e27c8e641420cd44a0baf17403ba5a35a0057bc0dacf028fa16ff619",
+      "git_blob_oid": "0dc6088e1dec28d2714fbc6046a0f2d02ea791d4"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/attack_right_f6.png",
+      "sha256": "d46cc3d4b0f18bc2467e75be9c0c947f11e80d80089ddfcf2b77c825c779ede5",
+      "git_blob_oid": "f36d277e3ffe8fa1b978ad5af0e222c55d3ca204"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/attack_right_f6.png.import",
+      "sha256": "04dbc2f64b932781b152f79f0b45de6cc987ba1188e3826fffdce6a4bd92cfd6",
+      "git_blob_oid": "6a4c64ab75e8c1dca70e2dea1d1382251a00bb87"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/defend_right_f1.png",
+      "sha256": "badbbdb70311269ae08ecb6299802196529db570cf5822af8e56419b44006d55",
+      "git_blob_oid": "b02e0642dc2fe0b3b78574201ce44899f1784cea"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/defend_right_f1.png.import",
+      "sha256": "0671fd6bc99cdf09c1981e544d3ecbdb92d1f206487da7ddc11407946f4b8980",
+      "git_blob_oid": "60f90f6b42649cf2fcee828cedddb108e12a12cb"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/down_right_f1.png",
+      "sha256": "ad77f089b3ac943e442dfe913fc32ca24b78a4ed2b860376e9b5c2212e13ef61",
+      "git_blob_oid": "35514720a7625ea078c208cfd6d5b2580c1082ff"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/down_right_f1.png.import",
+      "sha256": "ed6fa406d8f638bbd4f0aef96f0ae59ae474a2a3538da35716209a54bb479e10",
+      "git_blob_oid": "f9a07bf980a48fe586eea0afc9278a3f142ba294"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/hit_right_f1.png",
+      "sha256": "5851e0cdc07dd4eb9dac3e633672ae3d3ab9d909b2807764300156a166c84840",
+      "git_blob_oid": "8e5c5c6ce9700f5a146b0024648a2e98a223c31c"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/hit_right_f1.png.import",
+      "sha256": "fc0e210031e461c56f4cdb073941db944b36ca97e2128a85bec3f089c54e4517",
+      "git_blob_oid": "5ca0bdacac972b3fe3fcb77d6e9f5d323a30ccfa"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/idle_right_f1.png",
+      "sha256": "92cb18f5f218767927479a29a08b08a9c0f4218597b5c8ef9a3dd51cc9dd1b1b",
+      "git_blob_oid": "7370b0dcb7dc7474fe6c243abe6dfceefdbf1e45"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/idle_right_f1.png.import",
+      "sha256": "482cd6de8a070e3c4c1e5c98803a4a9f9682803c2ce01d349f1a106724f69ad2",
+      "git_blob_oid": "526d26a721c4839457c6c3bb3f8f910b8a7ee9f6"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/idle_right_f2.png",
+      "sha256": "e19123098f47884e87a6e2f869f88706b476e69821d51498378eade8637c5c35",
+      "git_blob_oid": "def718e7608dfbc9f665a4507e4e5f2aee7d56b1"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/idle_right_f2.png.import",
+      "sha256": "dd651c736163f842c74f6bdcb93545a9b70f227640f8afdf8863280b04ca3232",
+      "git_blob_oid": "3bac72f9b98a29866fddef2e5388034ec0f8a469"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/idle_right_f3.png",
+      "sha256": "da78c98a601f453c146b727316a243f76134fdcc66d0f97b0e244ecb0566b39d",
+      "git_blob_oid": "cbd039c8bc524e6a1634c67d1b189f39436b3254"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/idle_right_f3.png.import",
+      "sha256": "a3498df7d2caba53c9efa22a42cc8ca15d6ba5df08d12c785db9b8b9e4d1d637",
+      "git_blob_oid": "9efb2c5bf3e730b8a01605fd41b0276e2dbc8d21"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/idle_right_f4.png",
+      "sha256": "9790cb47915b3edce019abd7af8d0051154f4454def6bcd6a444719bfee9db98",
+      "git_blob_oid": "b7c03d6a4f303949c55119bc8a781181f40174a3"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/idle_right_f4.png.import",
+      "sha256": "23d9cbb836053fb6d1e2b4ef5d80b3a7de0d116549aac5b4185aeb2706aa3f63",
+      "git_blob_oid": "839da05b1948bf307aecb0e0c13058a438f92bc3"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/recover_right_f1.png",
+      "sha256": "ffc620ab447ab698307183acb2a2c8e150ae3be96bf383cb1c7e0af4e86d66f2",
+      "git_blob_oid": "6f92bb496835bebcb765d722284d9b20f64d2097"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/recover_right_f1.png.import",
+      "sha256": "21f072257ea2b1cb551b6ee1ac1bee40e310f3e3cba9be017a46da61c67c266b",
+      "git_blob_oid": "1a32d60a7f2895ad9c0ba2a06515358b02a4dcca"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/walk_right_f1.png",
+      "sha256": "1edef69add2f32db8880bba66d54ad3f2886374dda8f96de02a886b25d2bc482",
+      "git_blob_oid": "1a332f32e797045f662783c1dddd65f446a5c647"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/walk_right_f1.png.import",
+      "sha256": "40f42bdd25d372f984b7b848aa564ba9218fc7b4a9e06991e5a652a22282a47d",
+      "git_blob_oid": "9442689a83a0d99848e48e0e646168013c5a3801"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/walk_right_f2.png",
+      "sha256": "ade63a5b86b049736a280218139e5b9fb3b80c747c10a2663082ff7ffffa2749",
+      "git_blob_oid": "4eba5183de2121ed4c8d128c2a1e23126b49ed6b"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/walk_right_f2.png.import",
+      "sha256": "5e36127cfd262da833ddda02073149b98c2ba3a1297f8c62206d45771231b8ea",
+      "git_blob_oid": "4293ff9e024e6b256567644192e3f0135fe7d8ba"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/walk_right_f3.png",
+      "sha256": "f4c80e080f4d9a9b7539a4b757f30ef8df85b0f603079c429d4ab352340605e9",
+      "git_blob_oid": "ea9e7b0031806ae85ea465669f0b8d7a5d0107dd"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/walk_right_f3.png.import",
+      "sha256": "432e0824ce5fafc2d7834361886860a7449c413672d430f7f4266800425986d0",
+      "git_blob_oid": "4d9c3e94194df58be33dc11c2cf419436384a227"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/walk_right_f4.png",
+      "sha256": "799c70be816b2258747a03012f334c886f9077481702b3841ed190c6bc0b5a23",
+      "git_blob_oid": "53e5c1497b932446f9c6087078c55635728aa78f"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/walk_right_f4.png.import",
+      "sha256": "8666af2cf08a8afd803fbbb52f7d86716158322589884c1d0813a825324a6a1e",
+      "git_blob_oid": "818b67046c166beed234867bfe045aae0c9b439e"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/walk_right_f5.png",
+      "sha256": "98fbde3576d4f1c2cb8601cc53b283ce677650a5243b45af72dbfee803c50609",
+      "git_blob_oid": "448f5207ff3f9d1ae442ebc101076ec299d3b2f0"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/walk_right_f5.png.import",
+      "sha256": "5c2a0bd6dd181c6fb69d2629b3f9bee70888f818958f8654f0effd0ad2306de5",
+      "git_blob_oid": "78fe742686fe8f67a6c4640a7ecb7a2aed2e926e"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/walk_right_f6.png",
+      "sha256": "9bdeb53b4e9103938691df9f4460d2b131e795ac6a133b58985543249362b5b8",
+      "git_blob_oid": "e2012e14dd9eb9caabedea88c514b26edeb02fe6"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/walk_right_f6.png.import",
+      "sha256": "20a9f3075297ddec05df3659aff25352cc76409eecc6120efede9a409a4e6118",
+      "git_blob_oid": "db9143de229cacb772554c26bb1e7e6fa76cb4cb"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/walk_right_f7.png",
+      "sha256": "998dfb1b0cc830cb96126b5f2cea3d371af2011e3206f39e38de7f393fbd8627",
+      "git_blob_oid": "0747ae1a2367ce94987adf735ce47de6efe71f81"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/walk_right_f7.png.import",
+      "sha256": "ea69abb2fb57e762adcf75f19eaf755172c3b96c21f0b80b1ea6cb02f54f28de",
+      "git_blob_oid": "6e1cb630413bb303c9f4a9dc1ec314714df4dbfc"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/walk_right_f8.png",
+      "sha256": "0bb15dcbb4ae43d1a114b94293fddd2214b74c3ba58c4ceddcf262fb9a81f920",
+      "git_blob_oid": "0ebd191282d14b31d0d9d02c2972ca0da0b88470"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/frames/walk_right_f8.png.import",
+      "sha256": "dc39146da2bc75746ddec36456058f8c287324729f707e1237975e2df58fced2",
+      "git_blob_oid": "6d6c8c5f6479c00d9e4a107df5ce4e31bef77bee"
+    },
+    {
+      "path": "assets/chars/pixel/mint/high_detail_complete/manifest.json",
+      "sha256": "f0dfc1c5f76677c254aeccd8b44d503605eb64ed38d4ea20578296f6059d38d0",
+      "git_blob_oid": "cecd6acda41d6cc0c2e9e2b7cf3560333f1b8e9d"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/atlases/attack.json",
+      "sha256": "316eb74b7f7c469059d99ca1745b93d088e6cd89dd3256aa0489322594225d33",
+      "git_blob_oid": "c3e2b11a6dfcb52b7e0bb98ca66e16fca1ba5c1a"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/atlases/attack.png",
+      "sha256": "ba0756a0dd459e0b0f802d55d02b50ac932e7862bdbee3908bde8741267460f4",
+      "git_blob_oid": "320944095ae05d24a36eb9b60cdc56efd7a5e5ea"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/atlases/attack.png.import",
+      "sha256": "a54af9798fee4d3fd8a008a2ca0200e9d4bfae735c0275e5ccaa0da7954fdac9",
+      "git_blob_oid": "8dc8a286ec67735b929610a7b8805179bb73cd97"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/atlases/defend.json",
+      "sha256": "ae212e67c12045cb2a054d6b99d2eb763f02cd3cc58d4e29104861445d37fed4",
+      "git_blob_oid": "7e810f726bae5f91821167e03cb2f35417dde65d"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/atlases/defend.png",
+      "sha256": "9316199310258e0b91495be59441405408963e20bb8bf45b8c7c1dd36d1517b8",
+      "git_blob_oid": "cdd7c7aa422d0c82dc5298d35ad8c5501b9277c8"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/atlases/defend.png.import",
+      "sha256": "c35e4dabcf69f79f1e7ee88d8b5f4fd20ccf48e8bf4c64755c14c46de109efa6",
+      "git_blob_oid": "1be614b281fd50c508d9f9e4360dd7e1c03a70f8"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/atlases/down.json",
+      "sha256": "b580fcf2cb5a96f96439a637198166b57510c4c6c0022971ff2736e310938ecb",
+      "git_blob_oid": "9e4b094dc71e4ef18543cb442482df9cf603ee46"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/atlases/down.png",
+      "sha256": "6caf18d128d82e271c8bc2e937c39465475c09f54c3092292c2b4f5ccb7ed388",
+      "git_blob_oid": "354f502be18c4bc90cfda9341f850fc7ecd0bbf2"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/atlases/down.png.import",
+      "sha256": "1ac328fd0b05d6a145fcb27089e93e0236f7cde2f1a3f1dcfd460aca5f458230",
+      "git_blob_oid": "d019d4cf22980055ab6ad9e0d2aed74b33874db9"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/atlases/hit.json",
+      "sha256": "efc636a190abdfd69e8715ffcad45cb29768b88c5a76c6d92d4a3ee8da9d66e4",
+      "git_blob_oid": "e6d7de917657b4bb921a7d0250f3e153ff56ac7d"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/atlases/hit.png",
+      "sha256": "f83d392f4542f33971b2790cedc9d448f1d8b5ff23e0b2db244382abe6f5f4e5",
+      "git_blob_oid": "a98362d29dbe1d7faa4ad50b07ba09ec14ff5f5c"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/atlases/hit.png.import",
+      "sha256": "c02832e1749dda16c2fc0e8b86e84e19278611f9731437f1498b2ac095b8b585",
+      "git_blob_oid": "d66872b5fe3e791ac148a9e9ec50e90ea2af1e82"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/atlases/idle.json",
+      "sha256": "48e052f65e3ae9b581b839e6f0ebfb90136cff908a5965db13bb0e3303159e00",
+      "git_blob_oid": "7a2b5a2a0fd2915f7662f54239ec38c00fa3b10b"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/atlases/idle.png",
+      "sha256": "2df7e9ec7bf91bd6bca25c578420df0e07a0ca3c8b68170827abf11cfe8e11f0",
+      "git_blob_oid": "dc33c9d4d79d325daad69cae145ab667f8aa6653"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/atlases/idle.png.import",
+      "sha256": "b736385c74a6a071e012d1c31b908cf338bceb749b3a12e9cafefec6d8c36aed",
+      "git_blob_oid": "9e2919923d8a6171e29f72d2fb23ba678f70bff7"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/atlases/recover.json",
+      "sha256": "792eca2dacf6e05fe9b9d32317dabd745653d645734d5308adad97c354b0669d",
+      "git_blob_oid": "d1b21fe342a132b51319c052b4e56a1f6dad1da3"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/atlases/recover.png",
+      "sha256": "aa916c69228cfb5b461e3c533037481def3fdb0192e15f9a6700168c8775cac8",
+      "git_blob_oid": "bb2cf0ca67ac73c7677cc476ab5d712b5d3476f8"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/atlases/recover.png.import",
+      "sha256": "4c53382dcc5378eba4118f259b1f700a6b6e424feb8ce485a146539fee538bec",
+      "git_blob_oid": "17a6758a7a5b413840dc3fe2bc7a3433fc033ab2"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/atlases/walk.json",
+      "sha256": "82018ecd090b591f9e905fb5520b5ff0dcc92d728785aff9b278e9f8598697bc",
+      "git_blob_oid": "21dac640b03e81e12f10672c19ee4c6a66011b4f"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/atlases/walk.png",
+      "sha256": "8bab354ad0d673361c6dd88458d29882508a8fb2f71c330ec27f8d0f2b3ae434",
+      "git_blob_oid": "4a9e63aef00385e3e30674fc54b07eba79f1f560"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/atlases/walk.png.import",
+      "sha256": "773b9e95a2b30dcc93b37689a501a0a2bf73ed4fe9e78e437429d15fc3b86780",
+      "git_blob_oid": "0079de8741dea62d8e14b98f34709543c6a011af"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/attack1.png",
+      "sha256": "9c19a9b0beb51c28bf24e7968417da692dab09f66054224fcbf1df4e1635c200",
+      "git_blob_oid": "10946e17f20b990a29222dc77cae91910c891a05"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/attack1.png.import",
+      "sha256": "f5fc9f9bf36ec71174f31388a5e82c13e9f1277bc3abb9b092497d55a1e129dd",
+      "git_blob_oid": "6ba412ab59742a3593238faa89207f0260eb4974"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/attack2.png",
+      "sha256": "ed5f6fd23a2dc758832cfa1a8cee4c811b0eb38599627205360b51c315f7fffa",
+      "git_blob_oid": "ff91f199e5c26251c5704362feda53b0445bf1cd"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/attack2.png.import",
+      "sha256": "10409247344c3a1777c934ce4479e5103d003a9de5ad131217423cd213c60ee8",
+      "git_blob_oid": "78baf78915cf931809949d201c41ad43d53d9b5c"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/attack3.png",
+      "sha256": "f2380b9285f77ee7e2492d49a16edfb235d69cb3d094daf28437bd57dfad3563",
+      "git_blob_oid": "0713c10b7b2605107932c002325424201ce01299"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/attack3.png.import",
+      "sha256": "54a30cb49bbb7e8860e218a7456e0fe2ebff3fa39b3c51962eea32e450ff0a36",
+      "git_blob_oid": "d7dbbe75a50acf9ccaf95ddbb2692526f1ed934e"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/attack4.png",
+      "sha256": "1c308f75e3443c5cf42505e509d578e5737e6f1ef1b1f84839367bb7315eb778",
+      "git_blob_oid": "8257573b14a65e08a6630331f13095cb3e2df974"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/attack4.png.import",
+      "sha256": "82fedf409f77283953e2be6bcf274ade0e8abb056f938d883dc30e095cc7f8aa",
+      "git_blob_oid": "153dfc4907d315bfdc9ee00d861ce93fbdd69bcd"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/attack5.png",
+      "sha256": "99a53d67680a5fb5284b4cb0cfe1c90b3421ffdc99dae4ba919d29b69b96479d",
+      "git_blob_oid": "f694066134a5639e009afb3a3f1008ad31b92e48"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/attack5.png.import",
+      "sha256": "a59feccc7649cd8f190b22bc2bf9519a140b288cb7551744829b43cc670355ce",
+      "git_blob_oid": "14dda36b90d12411441b327db236fcb5237c7105"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/attack6.png",
+      "sha256": "a0620fe5d598893c14707fbc5a8d916dce5191c78eeb4cf1dd34b0fea8a95678",
+      "git_blob_oid": "3bbbb5fca78f1550fd21c9a6257f36412b8c4602"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/attack6.png.import",
+      "sha256": "9515e61a362e456d46b247964916a9af9e65648926ccad835817dea8cd6f2cb9",
+      "git_blob_oid": "419c7dcc034a76354e0acb8add30d713010684ff"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/defend.png",
+      "sha256": "9316199310258e0b91495be59441405408963e20bb8bf45b8c7c1dd36d1517b8",
+      "git_blob_oid": "cdd7c7aa422d0c82dc5298d35ad8c5501b9277c8"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/defend.png.import",
+      "sha256": "0c0af2bfea8bafa837b86f7c213f747896d0793c972f9beb588b7bc17bad0a9a",
+      "git_blob_oid": "d6e840d060b9329016d6c4b766832cbacbca726d"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/down.png",
+      "sha256": "6caf18d128d82e271c8bc2e937c39465475c09f54c3092292c2b4f5ccb7ed388",
+      "git_blob_oid": "354f502be18c4bc90cfda9341f850fc7ecd0bbf2"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/down.png.import",
+      "sha256": "a4df2257331f459f202b9f69fca18522e84bec5a1b8f695093b324febf6f8666",
+      "git_blob_oid": "8608fa229e2fe4576fd3d3e35fec05846d7b9f9b"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/hit.png",
+      "sha256": "f83d392f4542f33971b2790cedc9d448f1d8b5ff23e0b2db244382abe6f5f4e5",
+      "git_blob_oid": "a98362d29dbe1d7faa4ad50b07ba09ec14ff5f5c"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/hit.png.import",
+      "sha256": "1b9fb6ae2ccc152547039e90e131fabc7aeb6dadd4afd3252ec3e0db100b6b02",
+      "git_blob_oid": "8dd69ffc2aaff539cf52390e2c056c3ed98bc878"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/idle1.png",
+      "sha256": "2084561b61e34abffd689bb5d7b52325d2d95bed4011c27073f73f7d8d379af6",
+      "git_blob_oid": "bddaa8c0ff2eb93b999742801e5441805db1c662"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/idle1.png.import",
+      "sha256": "203ae136cec214635a21e6461150b08b0db51b4966610f40fd72892cb13723e9",
+      "git_blob_oid": "6b5a107822173ff2862b6eb8c6042a5f8aef84ae"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/idle2.png",
+      "sha256": "438420b527c89c05f79d1079142943d815eab95409b6e20c7d1838171f87a5f6",
+      "git_blob_oid": "6b8dc7b02a1b88152d7daf5169ba0836e5f29253"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/idle2.png.import",
+      "sha256": "d2181f60bde8e943d0e615933f0876b1e0b42c61682b934415f5595923c9a33c",
+      "git_blob_oid": "1b124b1512d19b4db8115290e35109706330bde3"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/idle3.png",
+      "sha256": "519b8242f6e4fd187c24d47b1bda5a9c1fa494d569cbbbba2b19339713c130eb",
+      "git_blob_oid": "56ddae39894f9492f75460c56ccbcdcd2251cb2d"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/idle3.png.import",
+      "sha256": "2a06c40214b475794faa94bdf5f0b2dcac042ba897aeb56c875cdab592db9dfd",
+      "git_blob_oid": "68c7171da18dfe16e14413fac6b29d46568e1571"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/idle4.png",
+      "sha256": "eefb509220b3896cef448e1125e058d2bc617b18a217424305624d9dec435316",
+      "git_blob_oid": "b112c4edb021f304169a089366ac6d5bd8a69514"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/idle4.png.import",
+      "sha256": "bca2e2e79272cdeb24ae1d30c76293ce92ace49dfc59847f167e298fb7dd10f0",
+      "git_blob_oid": "f32836fdcc5a5b887d84ab8916baf4deee94a4c8"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/recover.png",
+      "sha256": "aa916c69228cfb5b461e3c533037481def3fdb0192e15f9a6700168c8775cac8",
+      "git_blob_oid": "bb2cf0ca67ac73c7677cc476ab5d712b5d3476f8"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/recover.png.import",
+      "sha256": "46d14715750ecb48760cdda830fe0fb26a7cbdce96c7e397b4705fb879b9225c",
+      "git_blob_oid": "35aa9c24bc623b7c571bbf406e1c1e18ad140eac"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/walk1.png",
+      "sha256": "f4adb5aa13acc2c37be45ea9c65af862cfe77fbb2f92bd3625e851f604abf053",
+      "git_blob_oid": "06973993c234d956c58eab4f47dba710cb01fd89"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/walk1.png.import",
+      "sha256": "52153d00a54c228a39640af11cdd00960cf8a5e5730ef6641f767acdc5c12570",
+      "git_blob_oid": "e32c08ff5b9d72df21439165ef11bce0e272bd00"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/walk2.png",
+      "sha256": "3fbee007235a1e368ea77abd8e887cdf3647e5ba9db9352cfec4632522bee20c",
+      "git_blob_oid": "bfb09bf648cf4bb97ab974a6fc3d6b9b5f31a808"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/walk2.png.import",
+      "sha256": "a8bac1584f15fbbcadbfe7a8f2d9134e2f5e16134905f5b822d567be0dc0fe6e",
+      "git_blob_oid": "a61c9e34f3aa5a1da8f22c54227183dba312cb63"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/walk3.png",
+      "sha256": "8eb776a109c623cdfb5bcd329052a3ae1b713201137bddb118093bcf99e1a531",
+      "git_blob_oid": "e01d771edd9d8aadce39acfa944ae784fc045483"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/walk3.png.import",
+      "sha256": "255e4e193a31005a7b7e093232da23e7996666695c3704798d0b2c5b31107731",
+      "git_blob_oid": "de642b1f57f573a47c09083f457ddf8faec213cc"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/walk4.png",
+      "sha256": "cdbdc55d31f23dc3df8ad3164cfe4fc4add7776b9ee33bc98d420af92985e4b7",
+      "git_blob_oid": "dc4c64a99bb5f32796b4a791d9b1f0105e65bbdb"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/walk4.png.import",
+      "sha256": "f815899df05d93e6bca2a28cd3c42c7a2a4dc2ccbf451e8ac1f50db01945e595",
+      "git_blob_oid": "7d2ab86738b67b95d9cc3821bfbb6f0af614ea95"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/walk5.png",
+      "sha256": "c0511a79e389f6492fe62c0f4a08e504a7d8d350b5257276bab6bf5188fc9f27",
+      "git_blob_oid": "d11edf9ef6b7faa6247f303ce468b8faef5334ee"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/walk5.png.import",
+      "sha256": "b051777451f654bd98f44dcd95bfcba3fe140ed8e67c7bc991516244764aecd0",
+      "git_blob_oid": "e851e75ed506ee7a25de861a3ac57c4ee14a68fc"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/walk6.png",
+      "sha256": "fb50f0401b8a657ca2528ee7f11fb5da4b86eeb27c812a1cc62fa7aa388aa3e5",
+      "git_blob_oid": "c163190b6d7a13acff90ef91a992f936de98aaf0"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/walk6.png.import",
+      "sha256": "d1d2486431a4107663c4180cf4982af785abc9df8ec79eb12a850dc62b2c92f0",
+      "git_blob_oid": "8884b44b3893adacf35a0634991b12589fa07f25"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/walk7.png",
+      "sha256": "b9cfa76305fcdf91031faa40e3ab4fef3a6d2df284888d34242c078cfddb5888",
+      "git_blob_oid": "f0f15cd9b2920363115fccdf06e6d71f55dbd57b"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/walk7.png.import",
+      "sha256": "adeb6e39283326a438061a65097aab8bdf93d57eec18df96195da9ffeb59b50d",
+      "git_blob_oid": "630200e5dadac88f03a818e4e98316357702edca"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/walk8.png",
+      "sha256": "c6244a9987b822f94e96a675a0ae56ac054059b2e121f79e8ab70b7f594d3747",
+      "git_blob_oid": "3c25e4d3202ee46fb2db485ec90e1e045ee809cb"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/frames/walk8.png.import",
+      "sha256": "b03803af3eb5391040b6335766325702154e33306d7d2a5b8051b401a7d50ccf",
+      "git_blob_oid": "8b297496100b64d74cc9e79aba36a781108385c4"
+    },
+    {
+      "path": "assets/chars/pixel/rinne/high_detail_complete/manifest.json",
+      "sha256": "c46dd73eda842343bbdb102d361d524577d331545588a714972c9cf6539c7aa2",
+      "git_blob_oid": "23f43c47cf579608e34dc1fe5a1779eea4294646"
+    },
+    {
+      "path": "assets/chars/pixel/roster.json",
+      "sha256": "5f1687e90fb5eaf2c3a7aa3d6f86cb64eb4bf10799c8b6ed38dd8c68b18263c4",
+      "git_blob_oid": "2f966d044b64246bcfef4421b43c86f4ad728697"
+    },
+    {
+      "path": "assets/chars/portraits/hakuyo_half.png",
+      "sha256": "fcf00f72c674a292c29922ce66b00def490bc723b92a43403a398f0acb394614",
+      "git_blob_oid": "fa972696b53b4ef7b0048dd9cbe6d8cdd8fc2284"
+    },
+    {
+      "path": "assets/chars/portraits/hakuyo_half.png.import",
+      "sha256": "06e3b0cc8d28c81dc7e61d5837eb5e2ea8c30f01ba6e030c1bfbb059eafae1ba",
+      "git_blob_oid": "e7050eb81ea0ffecf76f16256178e63aac25cd10"
+    },
+    {
+      "path": "assets/chars/portraits/rinne_half.png",
+      "sha256": "74c22540e649c83514c37e672fae68afa27dc7fd479ee4031e400183a6c337e2",
+      "git_blob_oid": "36a6828992e0c29d318532de47a6a1fbe6159c41"
+    },
+    {
+      "path": "assets/chars/portraits/rinne_half.png.import",
+      "sha256": "b233f125356deffa62f597a6bdfe83742afd96e9fd69205d15d3052f663e289e",
+      "git_blob_oid": "aaf569f913b4523f544759147d46a54ea50eabc9"
+    },
+    {
+      "path": "assets/chars/portraits/sayo_half.png",
+      "sha256": "dd5b35b3a16943e33335d3a2c633b2dca541e084baadd6ca2651c3f4c972fdc6",
+      "git_blob_oid": "7a3bc22728d7d39245bc6b8d95e62a338788e1f4"
+    },
+    {
+      "path": "assets/chars/portraits/sayo_half.png.import",
+      "sha256": "ec93832b4663e6a5dd63183d625a32fbc36df347fb8885ac4d49b4f6d07175bd",
+      "git_blob_oid": "16741e43ba107fe2f88f9be065bb30915630f3db"
+    }
+  ]
+}

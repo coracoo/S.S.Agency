@@ -178,7 +178,7 @@ def filter_pack_caches(pack):
 def audit_paths(paths, required):
     failures = ["缺少发布依赖：" + path for path in sorted(required - paths)]
     for path in sorted(paths):
-        if path.startswith(("tools/", "docs/", "admin/", "archive/", "config/", ".git/", ".agents/", ".codex/", "build/")) or "/source/" in path or "_raw_" in path or path.endswith((".xlsx", ".blend", ".blend1", ".md")):
+        if path.startswith(("tools/", "docs/", "admin/", "archive/", "old/", "config/", ".git/", ".agents/", ".codex/", "build/")) or "/source/" in path or "_raw_" in path or path.endswith((".xlsx", ".blend", ".blend1", ".md")):
             failures.append("开发/源稿内容误入发布包：" + path)
     return failures
 

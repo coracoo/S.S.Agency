@@ -3,6 +3,7 @@ class_name RpgUiKit
 extends RefCounted
 const ThemeData = preload("res://scripts/ui/theme.gd")
 const Png = preload("res://scripts/ui/png_loader.gd")
+const LegacyPaths = preload("res://scripts/characters/legacy_asset_paths.gd")
 static var tokens: RefCounted
 static var font: Font
 
@@ -186,7 +187,7 @@ static func actor_sprite(parent: Node, art: String, height: float, flip: bool, g
 	var root := Node2D.new()
 	parent.add_child(root)
 	if art == "rinne":
-		var manifest: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets/chars/rinne_25d/animation_manifest.json"))
+		var manifest: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(LegacyPaths.resolve("res://assets/chars/rinne_25d/animation_manifest.json")))
 		var frames := SpriteFrames.new()
 		frames.remove_animation("default")
 		for anim in ["idle", "attack"]:

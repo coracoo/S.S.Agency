@@ -1,10 +1,12 @@
 extends RefCounted
+const LegacyPaths = preload("res://scripts/characters/legacy_asset_paths.gd")
 ## 保留第一幕逐帧节奏；整段通过校验后才装配，拒绝缺帧造成时长错配。
 ## 只弱共享相同PNG字节；SpriteFrames与动作状态仍各实例独立，不预载入其它形态。
 static var _texture_cache: Dictionary = {}
 const TEXTURE_CACHE_LIMIT := 512
 
 static func _load_png_texture(path: String, width: int, height: int) -> Texture2D:
+	path = LegacyPaths.resolve(path)
 	for key in _texture_cache.keys():
 		if _texture_cache[key].get_ref() == null: _texture_cache.erase(key)
 	if not FileAccess.file_exists(path): return null
@@ -31,6 +33,7 @@ static func _failed(message: String) -> Dictionary:
 	return {'ok': false, 'errors': [message]}
 
 static func load_definition(path: String) -> Dictionary:
+	path = LegacyPaths.resolve(path)
 	if not FileAccess.file_exists(path): return _failed('清单不存在: ' + path)
 	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
 	if not parsed is Dictionary: return _failed('清单不是 JSON 对象')
@@ -106,7 +109,7 @@ static func load_definition(path: String) -> Dictionary:
 			return _failed('图层根部/幅度/周期越界')
 		var textures: Array[Texture2D] = []
 		for layer_path in spec.frames:
-			if not layer_path is String or not FileAccess.file_exists(layer_path): return _failed('图层路径无效')
+			if not layer_path is String or not FileAccess.file_exists(LegacyPaths.resolve(layer_path)): return _failed('图层路径无效')
 			var texture := _load_png_texture(layer_path, width, height)
 			if texture == null:
 				return _failed('图层图像/尺寸无效')

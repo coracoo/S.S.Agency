@@ -1,4 +1,5 @@
 extends SceneTree
+const LegacyPaths = preload("res://scripts/characters/legacy_asset_paths.gd")
 var failed := 0
 func check(value: bool, message: String) -> void:
 	print(('PASS: ' if value else 'FAIL: ') + message)
@@ -18,7 +19,7 @@ func _initialize() -> void:
 			for i in frames.get_frame_count(row[0]): duration += frames.get_frame_duration(row[0], i) / frames.get_animation_speed(row[0])
 			check(frames.get_frame_count(row[0]) == row[1] and absf(duration - row[2]) < 0.00001, '%s原节奏无损' % row[0])
 		check(not frames.get_animation_loop('attack'), '攻击非循环')
-	var baseline: Dictionary = JSON.parse_string(FileAccess.get_file_as_string('res://assets/chars/rinne_25d/animation_manifest.json'))
+	var baseline: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(LegacyPaths.resolve('res://assets/chars/rinne_25d/animation_manifest.json')))
 	for mutation in ['missing', 'duration', 'count', 'anchor', 'canvas', 'canvas_type', 'anims_type', 'spec_type', 'frames_type', 'duration_type', 'speed_type', 'layers_type', 'layer_type', 'layer_without_idle']:
 		var m := baseline.duplicate(true)
 		match mutation:
@@ -36,7 +37,7 @@ func _initialize() -> void:
 			'layers_type': m.layers = {}
 			'layer_type': m.layers = [42]
 			'layer_without_idle':
-				m = JSON.parse_string(FileAccess.get_file_as_string('res://assets/chars/pixel/rinne/manifest.json'))
+				m = JSON.parse_string(FileAccess.get_file_as_string(LegacyPaths.resolve('res://assets/chars/pixel/rinne/manifest.json')))
 				m.anims.erase('idle')
 		var path: String = 'user://broken_' + mutation + '.json'
 		var file := FileAccess.open(path, FileAccess.WRITE)
