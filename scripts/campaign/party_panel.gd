@@ -123,21 +123,29 @@ func _build() -> void:
 		_resize()
 func _build_party() -> void:
 	var page: Control = _pages.party
+	# 头部身份 + HP/MP 生图条 + 五维一行 + 技能列表 + 分支与形态，与整备其余页同风格。
 	Art.panel(page, Rect2(914, 277, 686, 582), true)
-	_hud.title = Kit.label(page, "", Rect2(940, 294, 638, 39), 26)
+	_hud.title = Kit.label(page, "", Rect2(940, 292, 638, 40), 26)
 	_hud.title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_hud.stats = Kit.label(page, "", Rect2(940, 343, 638, 70), 20)
-	for index in 4: _skills.append(Kit.label(page, "", Rect2(940, 439 + index * 42, 638, 39), 19))
+	Kit.label(page, "HP", Rect2(940, 346, 36, 24), 17)
+	Kit.label(page, "MP", Rect2(940, 384, 36, 24), 17)
+	_hud.hpbar = Art.gauge(page, "hp", Rect2(980, 348, 380, 16))
+	_hud.mpbar = Art.gauge(page, "mp", Rect2(980, 386, 380, 16))
+	_hud.hp_value = Kit.label(page, "", Rect2(1370, 342, 160, 28), 20)
+	_hud.mp_value = Kit.label(page, "", Rect2(1370, 380, 160, 28), 20)
+	_hud.stat_line = Kit.label(page, "", Rect2(940, 424, 638, 30), 20)
+	_hud.stat_line.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	for index in 4: _skills.append(Kit.label(page, "", Rect2(940, 470 + index * 40, 638, 36), 19))
 	for index in 3:
 		var branch: String = ["", "economy", "power"][index]
-		_branches[branch] = Art.button(page, "", Rect2(940 + index * 150, 610, 142, 72), preview_branch.bind(branch))
+		_branches[branch] = Art.button(page, "", Rect2(940 + index * 150, 644, 142, 72), preview_branch.bind(branch))
 		_branches[branch].add_theme_font_size_override("font_size", 20)
-	_hud.branch_apply = Art.button(page, "应用分支", Rect2(1398, 610, 178, 72), apply_branch)
+	_hud.branch_apply = Art.button(page, "应用分支", Rect2(1398, 644, 178, 72), apply_branch)
 	_hud.branch_apply.add_theme_font_size_override("font_size", 20)
-	_hud.branch_preview = Kit.scroll_text(page, Rect2(942, 694, 630, 62), 20)
-	_hud.form = Art.button(page, "", Rect2(940, 768, 290, 72), toggle_form)
+	_hud.branch_preview = Kit.scroll_text(page, Rect2(942, 724, 630, 62), 20)
+	_hud.form = Art.button(page, "", Rect2(940, 784, 290, 72), toggle_form)
 	_hud.form.add_theme_font_size_override("font_size", 20)
-	_hud.apply = Art.button(page, "保存三人编队", Rect2(1250, 768, 326, 72), apply_party, true)
+	_hud.apply = Art.button(page, "保存三人编队", Rect2(1250, 784, 326, 72), apply_party, true)
 func _build_inventory() -> void:
 	var page: Control = _pages.inventory
 	# 顶排分类页签 + 左侧随身道具总览列表 + 右侧效果与目标预览，与武具页同一套交互。
@@ -162,8 +170,8 @@ func _build_inventory() -> void:
 	_hud.item_icon = Art.icon(page, "healing_potion", Rect2(1100, 428, 96, 96))
 	_hud.item_description = Kit.label(page, "", Rect2(1210, 428, 370, 104), 20)
 	_hud.item_description.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_hud.item_target = Kit.label(page, "", Rect2(1100, 556, 480, 118), 24)
-	_hud.item_reason = Kit.label(page, "", Rect2(1100, 682, 480, 66), 19)
+	_hud.item_target = Kit.label(page, "", Rect2(1100, 552, 480, 124), 22)
+	_hud.item_reason = Kit.label(page, "", Rect2(1100, 690, 480, 58), 19)
 	_hud.item_reason.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_hud.item_use = Art.button(page, "使用道具", Rect2(1100, 758, 480, 72), confirm_item, true)
 func _build_equipment() -> void:
@@ -186,7 +194,7 @@ func _build_equipment() -> void:
 	_hud.equipment_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_hud.equipment_description = Kit.label(page, "", Rect2(1100, 420, 480, 34), 19)
 	_hud.equipment_stats = Kit.label(page, "", Rect2(1110, 462, 460, 276), 22)
-	_hud.equipment_note = Kit.label(page, "", Rect2(1100, 744, 480, 48), 18)
+	_hud.equipment_note = Kit.label(page, "", Rect2(1100, 712, 480, 48), 18)
 	_hud.equipment_note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_hud.equipment_apply = Art.button(page, "确认更换", Rect2(1100, 798, 480, 56), confirm_equipment, true)
 func _build_menu() -> void:
@@ -360,7 +368,13 @@ func _render() -> void:
 		Art.selected(row.toggle, draft_party.has(id))
 		row.toggle.disabled = not editable or (not draft_party.has(id) and draft_party.size() >= 3)
 	_hud.title.text = "%s · L%d · %s" % [actor_name(actor), actor.level, _catalog.get_definition("classes", actor.get("active_class_id", actor.class_id)).name]
-	_hud.stats.text = "HP %d/%d　MP %d/%d\n攻击 %d　术攻 %d　防御 %d　术防 %d　速度 %d" % [actor.hp, actor.stats.hp, actor.mp, actor.stats.mp, actor.stats.atk, actor.stats.matk, actor.stats.def, actor.stats.mdef, actor.stats.spd]
+	_hud.hpbar.max_value = maxi(1, actor.stats.hp)
+	_hud.hpbar.value = clampi(actor.hp, 0, actor.stats.hp)
+	_hud.hp_value.text = "%d/%d" % [maxi(0, actor.hp), actor.stats.hp]
+	_hud.mpbar.max_value = maxi(1, actor.stats.mp)
+	_hud.mpbar.value = clampi(actor.mp, 0, actor.stats.mp)
+	_hud.mp_value.text = "%d/%d" % [maxi(0, actor.mp), actor.stats.mp]
+	_hud.stat_line.text = "攻击 %d　术攻 %d　防御 %d　术防 %d　速度 %d" % [actor.stats.atk, actor.stats.matk, actor.stats.def, actor.stats.mdef, actor.stats.spd]
 	_hud.form.visible = actor.identity_id == "homura"
 	var mage_unlocked: bool = actor.get("unlocked_forms", [actor.form_id]).has("mage")
 	_hud.form.disabled = not editable or not mage_unlocked
