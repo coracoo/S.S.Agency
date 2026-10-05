@@ -63,6 +63,15 @@ func _flows(panel, session) -> void:
 	check(panel._hud.item_use.disabled, "复苏药不可用于存活目标")
 	panel.select_item("cleansing_powder")
 	check(panel._hud.item_use.disabled, "没有可净化状态时禁用")
+	panel.select_item("guard_charm")
+	check(panel._hud.item_description.text.contains("护盾"), "详情显示护盾效果说明")
+	panel.select_category("support")
+	check(panel._items.keys() == ["cleansing_powder", "guard_charm"], "辅助分类只列净化与护盾道具")
+	panel.select_category("heal")
+	check(panel._items.size() == 5, "恢复分类列出五件恢复道具")
+	panel.select_category("all")
+	check(panel._items.size() == 7, "全部分类列出全部七件道具")
+	panel.select_item("healing_potion")
 	for page in ["party", "inventory", "equipment", "party"]:
 		panel.show_page(page)
 		check(panel.current_page == page and panel._pages[page].visible, "反复切页：" + page)
@@ -152,9 +161,10 @@ func _text_alignment(panel) -> void:
 		check(panel._rows[id].hp.horizontal_alignment == HORIZONTAL_ALIGNMENT_LEFT, "HP数值保持一致左对齐")
 	for button in panel._items.values() + panel._equipment.values():
 		check(button.alignment == HORIZONTAL_ALIGNMENT_CENTER, "道具与装备文字居中，不贴右侧边框")
+	for button in panel._equipment.values():
 		for state in ["normal", "hover", "pressed", "disabled", "focus"]:
 			var style: StyleBox = button.get_theme_stylebox(state)
-			check(style.get_content_margin(SIDE_LEFT) >= 82, "居中文字避开图标：" + state)
+			check(style.get_content_margin(SIDE_LEFT) >= 82, "装备居中文字避开图标：" + state)
 			check(style.get_content_margin(SIDE_TOP) == style.get_content_margin(SIDE_BOTTOM) and style.get_content_margin(SIDE_TOP) >= 20, "按钮上下内边距均衡：" + state)
 	for button in panel._tabs.values(): check(button.alignment == HORIZONTAL_ALIGNMENT_CENTER, "页签文字保持中心对齐")
 
@@ -179,3 +189,6 @@ func _text_safe_interiors(panel) -> void:
 		for button in panel._equipment.values():
 			if button.get_rect().encloses(child.get_rect()):
 				check(button.get_rect().grow(-20).encloses(child.get_rect()), "装备图标也必须在金属框内留白")
+	check(panel._items_tabs.keys() == ["all", "heal", "support"], "道具页有全部分类页签")
+	for id in panel._items:
+		check(panel._items[id].size.x <= 348, "道具行不超出列表宽度：" + id)

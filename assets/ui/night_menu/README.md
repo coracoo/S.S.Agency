@@ -5,7 +5,7 @@
 - panel / inset：主框与内凹分区
 - button / button_selected / button_primary / button_disabled：普通、选中、主动作、禁用状态
 - focus：中间完全透明的独立焦点描边
-- healing_potion / mana_potion / revival_potion / cleansing_powder：四个现有道具
+- healing_potion / mana_potion / revival_potion / cleansing_powder / energy_tea / guard_charm / moxa_roll：七件现有道具
 - weapon / armor / accessory：现有三槽标准配装
 - gauge_track / gauge_hp / gauge_mp：空槽、红血条、蓝灵力条
 

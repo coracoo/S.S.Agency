@@ -10,6 +10,7 @@ const Kit = preload("res://scripts/rpg/ui/ui_kit.gd")
 const Art = preload("res://scripts/campaign/presentation/night_menu_art.gd")
 const Resolver = preload("res://scripts/rpg/effect_resolver.gd")
 const CLASSES: Array[String] = ["swordsman", "ranger", "guard", "mage", "healer", "controller"]
+const ITEM_CATEGORIES := {"all": "全部", "heal": "恢复", "support": "辅助"}
 var session: RefCounted
 var campaign: RefCounted
 var last_error := ""
@@ -26,8 +27,11 @@ var _skills: Array[Label] = []
 var _branches: Dictionary = {}
 var _equipment: Dictionary = {}
 var _items: Dictionary = {}
+var _items_tabs: Dictionary = {}
+var _item_list: Control
 var current_page := "party"
 var selected_item_id := "healing_potion"
+var selected_category := "all"
 var selected_slot := "weapon"
 var selected_equipment_id := "standard_weapon"
 var _pages: Dictionary = {}
@@ -135,26 +139,32 @@ func _build_party() -> void:
 	_hud.apply = Art.button(page, "保存三人编队", Rect2(1250, 768, 326, 72), apply_party, true)
 func _build_inventory() -> void:
 	var page: Control = _pages.inventory
-	Art.panel(page, Rect2(688, 277, 374, 582), true)
-	Art.panel(page, Rect2(1074, 277, 526, 582), true)
-	Kit.label(page, "随身道具", Rect2(710, 290, 330, 40), 25).horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	var ids: Array = ["healing_potion", "mana_potion", "revival_potion", "cleansing_powder"]
-	for index in ids.size():
-		var id: String = ids[index]
-		var y := 347 + index * 117
-		_items[id] = Art.button(page, "", Rect2(708, y, 334, 102), select_item.bind(id))
-		Art.center_text(_items[id], 104, 24)
-		_items[id].add_theme_font_size_override("font_size", 23)
-		Art.icon(page, id, Rect2(720, y + 12, 76, 76))
-	_hud.item_title = Kit.label(page, "", Rect2(1100, 292, 472, 45), 29)
+	# 顶排分类页签 + 左侧随身道具总览列表 + 右侧效果与目标预览，与武具页同一套交互。
+	for index in 3:
+		var category: String = ["all", "heal", "support"][index]
+		_items_tabs[category] = Art.button(page, ITEM_CATEGORIES[category], Rect2(688 + index * 308, 282, 288, 68), select_category.bind(category))
+		_items_tabs[category].add_theme_font_size_override("font_size", 20)
+	Art.panel(page, Rect2(688, 362, 380, 498), true)
+	Kit.label(page, "随身道具 · 点选预览后使用", Rect2(704, 372, 348, 32), 22).horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	var scroll := ScrollContainer.new()
+	scroll.position = Vector2(704, 412)
+	scroll.size = Vector2(348, 434)
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	page.add_child(scroll)
+	_item_list = VBoxContainer.new()
+	_item_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_item_list.add_theme_constant_override("separation", 0)
+	scroll.add_child(_item_list)
+	Art.panel(page, Rect2(1080, 362, 520, 498), true)
+	_hud.item_title = Kit.label(page, "", Rect2(1100, 376, 480, 40), 26)
 	_hud.item_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_hud.item_icon = Art.icon(page, "healing_potion", Rect2(1110, 354, 114, 114))
-	_hud.item_description = Kit.label(page, "", Rect2(1250, 361, 318, 104), 23)
+	_hud.item_icon = Art.icon(page, "healing_potion", Rect2(1100, 428, 96, 96))
+	_hud.item_description = Kit.label(page, "", Rect2(1210, 428, 370, 104), 20)
 	_hud.item_description.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_hud.item_target = Kit.label(page, "", Rect2(1104, 501, 468, 145), 25)
-	_hud.item_reason = Kit.label(page, "", Rect2(1104, 665, 466, 75), 21)
+	_hud.item_target = Kit.label(page, "", Rect2(1100, 556, 480, 118), 24)
+	_hud.item_reason = Kit.label(page, "", Rect2(1100, 682, 480, 66), 19)
 	_hud.item_reason.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_hud.item_use = Art.button(page, "使用道具", Rect2(1110, 772, 456, 72), confirm_item, true)
+	_hud.item_use = Art.button(page, "使用道具", Rect2(1100, 758, 480, 72), confirm_item, true)
 func _build_equipment() -> void:
 	var page: Control = _pages.equipment
 	# 顶排槽位页签 + 左侧持有装备总览列表 + 右侧属性变化预览与确认。
@@ -197,7 +207,10 @@ func show_page(page: String) -> void:
 	current_page = page
 	last_error = ""
 	_render()
-	if page == "inventory": _items[selected_item_id].grab_focus()
+	if page == "inventory":
+		var focus_item: Button = _items.get(selected_item_id)
+		if focus_item != null: focus_item.grab_focus()
+		else: _hud.close.grab_focus()
 	elif page == "equipment": _equipment[selected_slot].grab_focus()
 	elif page == "party" and _rows.has(detail_actor_id): _rows[detail_actor_id].detail.grab_focus()
 	else: _hud.close.grab_focus()
@@ -368,6 +381,26 @@ func select_item(item_id: String) -> void:
 	selected_item_id = item_id
 	last_error = ""
 	_render()
+func select_category(category: String) -> void:
+	if busy or not ITEM_CATEGORIES.has(category): return
+	selected_category = category
+	last_error = ""
+	_render()
+static func _item_category(item: Dictionary) -> String:
+	for effect in item.get("effects", []):
+		if str(effect.get("type", "")) in ["shield", "cleanse"]: return "support"
+	return "heal"
+static func _item_effect_summary(item: Dictionary) -> String:
+	var parts: Array[String] = []
+	for effect in item.get("effects", []):
+		match str(effect.get("type", "")):
+			"restore_hp": parts.append("HP+%d" % int(effect.get("fixed", 0)))
+			"restore_mp": parts.append("MP+%d" % int(effect.get("fixed", 0)))
+			"heal": parts.append("治疗%d" % int(effect.get("fixed", 0)))
+			"revive": parts.append("复苏%d%%" % roundi(float(effect.get("fraction", 0)) * 100))
+			"cleanse": parts.append("净化")
+			"shield": parts.append("护盾%d·%d回合" % [int(effect.get("fixed", 0)), int(effect.get("duration", 0))])
+	return " ".join(parts)
 func item_reason(item_id: String, target_id: String) -> String:
 	if busy: return "请等待人物资源加载"
 	if campaign == null or not campaign.can_use_outside_items(): return "当前无法使用战外道具"
@@ -381,7 +414,7 @@ func item_reason(item_id: String, target_id: String) -> String:
 	var after := _item_result(item_id, target_id)
 	if after == actor:
 		if item_id == "healing_potion": return "HP已满，无需使用"
-		if item_id == "mana_potion": return "MP已满，无需使用"
+		if item_id in ["mana_potion", "energy_tea"]: return "MP已满，无需使用"
 		if item_id == "cleansing_powder": return "没有可净化的负面状态"
 		return "该道具没有有效作用"
 	return ""
@@ -396,14 +429,29 @@ func _item_description(item: Dictionary) -> String:
 		match effect.type:
 			"restore_hp": lines.append("恢复 HP %d" % effect.fixed)
 			"restore_mp": lines.append("恢复 MP %d" % effect.fixed)
+			"heal": lines.append("治疗 HP %d" % int(effect.get("fixed", 0)))
 			"revive": lines.append("复苏倒地队员\n恢复 %d%% HP" % roundi(effect.fraction * 100))
 			"cleanse": lines.append("清除可净化的\n负面状态")
+			"shield": lines.append("获得护盾 %d\n持续 %d 回合" % [int(effect.get("fixed", 0)), int(effect.get("duration", 0))])
 	return "\n".join(lines)
 func _render_inventory(state: Dictionary) -> void:
-	for id in _items:
-		_items[id].text = "%s  ×%d" % [_catalog.get_definition("items", id).name, state.inventory.get(id, 0)]
-		_items[id].disabled = busy
-		Art.selected(_items[id], id == selected_item_id)
+	for category in _items_tabs:
+		_items_tabs[category].disabled = busy
+		Art.selected(_items_tabs[category], category == selected_category)
+	# 分类总览：catalog 全部道具一行一件（名称 ×数量 效果摘要），点选即预览，×0 置灰。
+	for child in _item_list.get_children(): child.queue_free()
+	_items = {}
+	var index := 0
+	for item in _catalog.get_all("items"):
+		if selected_category != "all" and _item_category(item) != selected_category: continue
+		var count: int = state.inventory.get(item.id, 0)
+		var label := "%s　×%d　%s" % [item.name, count, _item_effect_summary(item)]
+		var button := Art.button(_item_list, label, Rect2(0, 0, 348, 64), select_item.bind(item.id))
+		button.add_theme_font_size_override("font_size", 17)
+		button.disabled = busy or count <= 0
+		Art.selected(button, item.id == selected_item_id)
+		_items[item.id] = button
+		index += 1
 	var item: Dictionary = _catalog.get_definition("items", selected_item_id)
 	var actor: Dictionary = state.roster[detail_actor_id]
 	var reason := item_reason(selected_item_id, detail_actor_id)
@@ -411,12 +459,14 @@ func _render_inventory(state: Dictionary) -> void:
 	_hud.item_icon.texture = Art.texture(selected_item_id)
 	_hud.item_description.text = _item_description(item)
 	var result: Dictionary = _item_result(selected_item_id, detail_actor_id) if reason.is_empty() else actor
-	var change := ""
-	if selected_item_id == "mana_potion": change = "MP　%d → %d" % [actor.mp, result.mp]
-	elif selected_item_id == "cleansing_powder": change = "可移除负面状态　%d 项" % (actor.statuses.size() - result.statuses.size())
-	else: change = "HP　%d → %d" % [actor.hp, result.hp]
+	var changes: Array[String] = []
+	if result.hp != actor.hp: changes.append("HP　%d → %d" % [actor.hp, result.hp])
+	if result.mp != actor.mp: changes.append("MP　%d → %d" % [actor.mp, result.mp])
+	var status_delta: int = result.statuses.size() - actor.statuses.size()
+	if status_delta > 0: changes.append("获得增益状态　%d 项" % status_delta)
+	elif status_delta < 0: changes.append("移除负面状态　%d 项" % -status_delta)
 	var count: int = state.inventory.get(selected_item_id, 0)
-	_hud.item_target.text = "使用目标：%s\n\n%s\n数量　%d → %d" % [actor_name(actor), change, count, count - 1 if reason.is_empty() else count]
+	_hud.item_target.text = "使用目标：%s\n\n%s\n数量　%d → %d" % [actor_name(actor), ("\n".join(changes) if not changes.is_empty() else "无变化"), count, count - 1 if reason.is_empty() else count]
 	_hud.item_reason.text = "确认后对所选队员使用 1 份，并自动保存。" if reason.is_empty() else reason
 	_hud.item_use.disabled = not reason.is_empty()
 	_hud.item_use.text = "使用于「%s」" % actor_name(actor)
