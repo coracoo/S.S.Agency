@@ -1,0 +1,1111 @@
+{
+  "schema_version": 1,
+  "rules_version": "rpg-0.1",
+  "definitions": [
+    {
+      "id": "saga_paper_soldier",
+      "name": "循令纸兵",
+      "base_stats": {
+        "hp": 145,
+        "mp": 30,
+        "atk": 31,
+        "matk": 18,
+        "def": 24,
+        "mdef": 24,
+        "spd": 24
+      },
+      "weaknesses": [
+        "spirit"
+      ],
+      "resistances": [],
+      "default_attack": "physical",
+      "target_policy": "lowest_hp_ratio",
+      "abilities": [
+        {
+          "id": "saga_paper_bind",
+          "name": "拖缆纸束",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "single_enemy",
+          "damage_type": "physical",
+          "element": "neutral",
+          "single_direct": true,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "physical",
+              "element": "neutral",
+              "coefficient": 0.85,
+              "single_direct": true,
+              "can_crit": false
+            },
+            {
+              "type": "apply_status",
+              "status_id": "slow",
+              "magnitude": 0.2,
+              "duration": 1,
+              "clock": "round_snapshot"
+            }
+          ]
+        }
+      ],
+      "boss": {},
+      "sprite_id": "shield_soldier"
+    },
+    {
+      "id": "saga_lamp_shadow",
+      "name": "纸灯残影",
+      "base_stats": {
+        "hp": 165,
+        "mp": 30,
+        "atk": 20,
+        "matk": 36,
+        "def": 24,
+        "mdef": 24,
+        "spd": 27
+      },
+      "weaknesses": [
+        "ice"
+      ],
+      "resistances": [],
+      "default_attack": "physical",
+      "target_policy": "lowest_hp_ratio",
+      "abilities": [
+        {
+          "id": "saga_shadow_glow",
+          "name": "残灯燎影",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "single_enemy",
+          "damage_type": "magic",
+          "element": "fire",
+          "single_direct": true,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "magic",
+              "element": "fire",
+              "coefficient": 0.85,
+              "single_direct": true,
+              "can_crit": false
+            },
+            {
+              "type": "apply_status",
+              "status_id": "weaken",
+              "magnitude": 0.15,
+              "duration": 1,
+              "clock": "target_slot"
+            }
+          ]
+        }
+      ],
+      "boss": {},
+      "sprite_id": "fire_spirit"
+    },
+    {
+      "id": "saga_mirror_shard",
+      "name": "镜屑侍",
+      "base_stats": {
+        "hp": 185,
+        "mp": 30,
+        "atk": 35,
+        "matk": 28,
+        "def": 24,
+        "mdef": 24,
+        "spd": 25
+      },
+      "weaknesses": [
+        "lightning"
+      ],
+      "resistances": [],
+      "default_attack": "physical",
+      "target_policy": "lowest_hp_ratio",
+      "abilities": [
+        {
+          "id": "saga_shard_plate",
+          "name": "举盘侧击",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "single_enemy",
+          "damage_type": "physical",
+          "element": "neutral",
+          "single_direct": true,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "physical",
+              "element": "neutral",
+              "coefficient": 1.1,
+              "single_direct": true,
+              "can_crit": false
+            },
+            {
+              "type": "apply_status",
+              "status_id": "armor_break",
+              "magnitude": 0.15,
+              "duration": 1,
+              "clock": "target_slot"
+            }
+          ]
+        }
+      ],
+      "boss": {},
+      "sprite_id": "elite_shield_soldier"
+    },
+    {
+      "id": "saga_borrowed_voice",
+      "name": "借声客",
+      "base_stats": {
+        "hp": 550,
+        "mp": 30,
+        "atk": 42,
+        "matk": 44,
+        "def": 24,
+        "mdef": 24,
+        "spd": 28
+      },
+      "weaknesses": [
+        "spirit"
+      ],
+      "resistances": [],
+      "default_attack": "physical",
+      "target_policy": "lowest_hp_ratio",
+      "abilities": [
+        {
+          "id": "saga_voice_physical",
+          "name": "回放·上一轮刀光",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "single_enemy",
+          "damage_type": "physical",
+          "element": "neutral",
+          "single_direct": true,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "physical",
+              "element": "neutral",
+              "coefficient": 1.2,
+              "single_direct": true,
+              "can_crit": false
+            }
+          ]
+        },
+        {
+          "id": "saga_voice_magic",
+          "name": "回放·上一轮术声",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "single_enemy",
+          "damage_type": "magic",
+          "element": "spirit",
+          "single_direct": true,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "magic",
+              "element": "spirit",
+              "coefficient": 1.2,
+              "single_direct": true,
+              "can_crit": false
+            }
+          ]
+        },
+        {
+          "id": "saga_voice_guard",
+          "name": "回放·上一轮防守",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "self",
+          "damage_type": "none",
+          "element": "neutral",
+          "single_direct": false,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "apply_status",
+              "status_id": "defend",
+              "magnitude": 0.4,
+              "duration": 1,
+              "clock": "next_owner_slot"
+            }
+          ]
+        },
+        {
+          "id": "saga_voice_heal",
+          "name": "回放·上一轮补给",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "self",
+          "damage_type": "none",
+          "element": "neutral",
+          "single_direct": false,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "heal",
+              "fixed": 12,
+              "coefficient": 0.5,
+              "stat": "matk"
+            }
+          ]
+        },
+        {
+          "id": "saga_voice_control",
+          "name": "回放·上一轮牵制",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "single_enemy",
+          "damage_type": "magic",
+          "element": "spirit",
+          "single_direct": true,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "magic",
+              "element": "spirit",
+              "coefficient": 0.7,
+              "single_direct": true,
+              "can_crit": false
+            },
+            {
+              "type": "apply_status",
+              "status_id": "weaken",
+              "magnitude": 0.2,
+              "duration": 1,
+              "clock": "target_slot"
+            }
+          ]
+        },
+        {
+          "id": "saga_voice_rush",
+          "name": "扑灯·先护撤离口",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "single_enemy",
+          "damage_type": "physical",
+          "element": "neutral",
+          "single_direct": true,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "physical",
+              "element": "neutral",
+              "coefficient": 1.65,
+              "single_direct": true,
+              "can_crit": false
+            }
+          ]
+        }
+      ],
+      "boss": {},
+      "sprite_id": "cultist",
+      "saga_kind": "voice"
+    },
+    {
+      "id": "saga_backshore_general",
+      "name": "背岸将",
+      "base_stats": {
+        "hp": 660,
+        "mp": 30,
+        "atk": 42,
+        "matk": 32,
+        "def": 24,
+        "mdef": 24,
+        "spd": 22
+      },
+      "weaknesses": [
+        "lightning"
+      ],
+      "resistances": [],
+      "default_attack": "physical",
+      "target_policy": "lowest_hp_ratio",
+      "abilities": [
+        {
+          "id": "saga_banner_raise",
+          "name": "举旗·下次补位可打断",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "self",
+          "damage_type": "none",
+          "element": "neutral",
+          "single_direct": false,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "apply_status",
+              "status_id": "defend",
+              "magnitude": 0.2,
+              "duration": 1,
+              "clock": "next_owner_slot"
+            }
+          ],
+          "saga_action": "banner_prepare"
+        },
+        {
+          "id": "saga_banner_release",
+          "name": "封渡号令·召纸兵",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "all_enemies",
+          "damage_type": "physical",
+          "element": "neutral",
+          "single_direct": false,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "physical",
+              "element": "neutral",
+              "coefficient": 0.65,
+              "single_direct": false,
+              "can_crit": false
+            }
+          ],
+          "saga_action": "banner_release"
+        },
+        {
+          "id": "saga_banner_sweep",
+          "name": "压船横扫",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "all_enemies",
+          "damage_type": "physical",
+          "element": "neutral",
+          "single_direct": false,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "physical",
+              "element": "neutral",
+              "coefficient": 0.75,
+              "single_direct": false,
+              "can_crit": false
+            }
+          ]
+        }
+      ],
+      "boss": {},
+      "sprite_id": "gatekeeper",
+      "saga_kind": "banner"
+    },
+    {
+      "id": "saga_joined_mirror",
+      "name": "合面镜",
+      "base_stats": {
+        "hp": 650,
+        "mp": 30,
+        "atk": 42,
+        "matk": 42,
+        "def": 24,
+        "mdef": 24,
+        "spd": 25
+      },
+      "weaknesses": [],
+      "resistances": [],
+      "default_attack": "physical",
+      "target_policy": "lowest_hp_ratio",
+      "abilities": [
+        {
+          "id": "saga_mirror_edge",
+          "name": "刀光面·物理反射",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "single_enemy",
+          "damage_type": "physical",
+          "element": "neutral",
+          "single_direct": true,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "physical",
+              "element": "neutral",
+              "coefficient": 1.0,
+              "single_direct": true,
+              "can_crit": false
+            }
+          ]
+        },
+        {
+          "id": "saga_mirror_water",
+          "name": "水纹面·术法反射",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "single_enemy",
+          "damage_type": "magic",
+          "element": "ice",
+          "single_direct": true,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "magic",
+              "element": "ice",
+              "coefficient": 1.0,
+              "single_direct": true,
+              "can_crit": false
+            }
+          ]
+        },
+        {
+          "id": "saga_mirror_open",
+          "name": "脱面·背扣暴露",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "all_enemies",
+          "damage_type": "physical",
+          "element": "neutral",
+          "single_direct": false,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "physical",
+              "element": "neutral",
+              "coefficient": 0.65,
+              "single_direct": false,
+              "can_crit": false
+            }
+          ]
+        }
+      ],
+      "boss": {},
+      "sprite_id": "elite_shield_soldier",
+      "saga_kind": "mirror"
+    },
+    {
+      "id": "saga_hundredhand_lamp",
+      "name": "百手灯母",
+      "base_stats": {
+        "hp": 750,
+        "mp": 30,
+        "atk": 28,
+        "matk": 43,
+        "def": 24,
+        "mdef": 24,
+        "spd": 24
+      },
+      "weaknesses": [
+        "ice"
+      ],
+      "resistances": [],
+      "default_attack": "physical",
+      "target_policy": "lowest_hp_ratio",
+      "abilities": [
+        {
+          "id": "saga_lamp_mark",
+          "name": "灯印束缚·下次吸取可打断",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "all_enemies",
+          "damage_type": "none",
+          "element": "neutral",
+          "single_direct": false,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "apply_status",
+              "status_id": "mark",
+              "magnitude": 0.15,
+              "duration": 2,
+              "clock": "target_slot"
+            }
+          ]
+        },
+        {
+          "id": "saga_lamp_drain",
+          "name": "借命吸取·补罩",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "all_enemies",
+          "damage_type": "magic",
+          "element": "spirit",
+          "single_direct": false,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "magic",
+              "element": "spirit",
+              "coefficient": 0.8,
+              "single_direct": false,
+              "can_crit": false
+            }
+          ],
+          "saga_action": "lamp_drain"
+        },
+        {
+          "id": "saga_lamp_open",
+          "name": "灯罩散开·趁隙破罩",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "single_enemy",
+          "damage_type": "magic",
+          "element": "spirit",
+          "single_direct": true,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "magic",
+              "element": "spirit",
+              "coefficient": 0.6,
+              "single_direct": true,
+              "can_crit": false
+            }
+          ]
+        }
+      ],
+      "boss": {},
+      "sprite_id": "fire_spirit",
+      "saga_kind": "lamp"
+    },
+    {
+      "id": "saga_anchor_left",
+      "name": "左联动锁片",
+      "base_stats": {
+        "hp": 165,
+        "mp": 30,
+        "atk": 27,
+        "matk": 20,
+        "def": 24,
+        "mdef": 24,
+        "spd": 17
+      },
+      "weaknesses": [
+        "lightning"
+      ],
+      "resistances": [],
+      "default_attack": "physical",
+      "target_policy": "lowest_hp_ratio",
+      "abilities": [
+        {
+          "id": "saga_anchor_left_strike",
+          "name": "旧线回卷",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "single_enemy",
+          "damage_type": "physical",
+          "element": "neutral",
+          "single_direct": true,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "physical",
+              "element": "neutral",
+              "coefficient": 0.75,
+              "single_direct": true,
+              "can_crit": false
+            }
+          ]
+        }
+      ],
+      "boss": {},
+      "sprite_id": "shield_soldier"
+    },
+    {
+      "id": "saga_anchor_right",
+      "name": "右联动锁片",
+      "base_stats": {
+        "hp": 165,
+        "mp": 30,
+        "atk": 27,
+        "matk": 20,
+        "def": 24,
+        "mdef": 24,
+        "spd": 17
+      },
+      "weaknesses": [
+        "lightning"
+      ],
+      "resistances": [],
+      "default_attack": "physical",
+      "target_policy": "lowest_hp_ratio",
+      "abilities": [
+        {
+          "id": "saga_anchor_right_strike",
+          "name": "旧线回卷",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "single_enemy",
+          "damage_type": "physical",
+          "element": "neutral",
+          "single_direct": true,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "physical",
+              "element": "neutral",
+              "coefficient": 0.75,
+              "single_direct": true,
+              "can_crit": false
+            }
+          ]
+        }
+      ],
+      "boss": {},
+      "sprite_id": "shield_soldier"
+    },
+    {
+      "id": "saga_nochange_warden",
+      "name": "无更巡守",
+      "base_stats": {
+        "hp": 660,
+        "mp": 30,
+        "atk": 42,
+        "matk": 36,
+        "def": 24,
+        "mdef": 24,
+        "spd": 23
+      },
+      "weaknesses": [
+        "lightning"
+      ],
+      "resistances": [],
+      "default_attack": "physical",
+      "target_policy": "lowest_hp_ratio",
+      "abilities": [
+        {
+          "id": "saga_repair_left_prepare",
+          "name": "胸牌向左·下次回补可打断",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "self",
+          "damage_type": "none",
+          "element": "neutral",
+          "single_direct": false,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "apply_status",
+              "status_id": "defend",
+              "magnitude": 0.15,
+              "duration": 1,
+              "clock": "next_owner_slot"
+            }
+          ]
+        },
+        {
+          "id": "saga_repair_left",
+          "name": "回补左锁片",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "single_enemy",
+          "damage_type": "physical",
+          "element": "neutral",
+          "single_direct": true,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "physical",
+              "element": "neutral",
+              "coefficient": 0.65,
+              "single_direct": true,
+              "can_crit": false
+            }
+          ],
+          "saga_action": "repair_left"
+        },
+        {
+          "id": "saga_warden_sweep",
+          "name": "扫击灯架·先守退路",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "all_enemies",
+          "damage_type": "physical",
+          "element": "neutral",
+          "single_direct": false,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "physical",
+              "element": "neutral",
+              "coefficient": 0.8,
+              "single_direct": false,
+              "can_crit": false
+            }
+          ]
+        },
+        {
+          "id": "saga_repair_right_prepare",
+          "name": "胸牌向右·下次回补可打断",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "self",
+          "damage_type": "none",
+          "element": "neutral",
+          "single_direct": false,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "apply_status",
+              "status_id": "defend",
+              "magnitude": 0.15,
+              "duration": 1,
+              "clock": "next_owner_slot"
+            }
+          ]
+        },
+        {
+          "id": "saga_repair_right",
+          "name": "回补右锁片",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "single_enemy",
+          "damage_type": "physical",
+          "element": "neutral",
+          "single_direct": true,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "physical",
+              "element": "neutral",
+              "coefficient": 0.65,
+              "single_direct": true,
+              "can_crit": false
+            }
+          ],
+          "saga_action": "repair_right"
+        }
+      ],
+      "boss": {},
+      "sprite_id": "gatekeeper",
+      "saga_kind": "warden"
+    },
+    {
+      "id": "saga_master_mirror",
+      "name": "主镜·护面",
+      "base_stats": {
+        "hp": 780,
+        "mp": 30,
+        "atk": 43,
+        "matk": 45,
+        "def": 24,
+        "mdef": 24,
+        "spd": 27
+      },
+      "weaknesses": [],
+      "resistances": [],
+      "default_attack": "physical",
+      "target_policy": "lowest_hp_ratio",
+      "abilities": [
+        {
+          "id": "saga_master_shallow",
+          "name": "浅面·反物理",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "single_enemy",
+          "damage_type": "physical",
+          "element": "neutral",
+          "single_direct": true,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "physical",
+              "element": "neutral",
+              "coefficient": 1.1,
+              "single_direct": true,
+              "can_crit": false
+            }
+          ]
+        },
+        {
+          "id": "saga_master_deep",
+          "name": "深面·反术法",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "single_enemy",
+          "damage_type": "magic",
+          "element": "spirit",
+          "single_direct": true,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "magic",
+              "element": "spirit",
+              "coefficient": 1.1,
+              "single_direct": true,
+              "can_crit": false
+            }
+          ]
+        },
+        {
+          "id": "saga_master_open",
+          "name": "护边开启·通用攻击窗口",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "all_enemies",
+          "damage_type": "magic",
+          "element": "spirit",
+          "single_direct": false,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "magic",
+              "element": "spirit",
+              "coefficient": 0.7,
+              "single_direct": false,
+              "can_crit": false
+            }
+          ]
+        }
+      ],
+      "boss": {},
+      "sprite_id": "elite_shield_soldier",
+      "saga_kind": "master_mirror"
+    },
+    {
+      "id": "saga_lamp_bearer",
+      "name": "沈烛舟·执灯纸躯",
+      "base_stats": {
+        "hp": 790,
+        "mp": 30,
+        "atk": 40,
+        "matk": 43,
+        "def": 24,
+        "mdef": 24,
+        "spd": 23
+      },
+      "weaknesses": [
+        "spirit"
+      ],
+      "resistances": [],
+      "default_attack": "physical",
+      "target_policy": "lowest_hp_ratio",
+      "abilities": [
+        {
+          "id": "saga_master_raise",
+          "name": "举灯补位·下次号令可打断",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "self",
+          "damage_type": "none",
+          "element": "neutral",
+          "single_direct": false,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "apply_status",
+              "status_id": "defend",
+              "magnitude": 0.25,
+              "duration": 1,
+              "clock": "next_owner_slot"
+            }
+          ]
+        },
+        {
+          "id": "saga_master_command",
+          "name": "号令束缚·纸兵补位",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "all_enemies",
+          "damage_type": "magic",
+          "element": "spirit",
+          "single_direct": false,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "magic",
+              "element": "spirit",
+              "coefficient": 0.7,
+              "single_direct": false,
+              "can_crit": false
+            },
+            {
+              "type": "apply_status",
+              "status_id": "weaken",
+              "magnitude": 0.2,
+              "duration": 1,
+              "clock": "target_slot"
+            }
+          ],
+          "saga_action": "banner_release"
+        },
+        {
+          "id": "saga_master_erosion",
+          "name": "旧梦侵蚀",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "all_enemies",
+          "damage_type": "magic",
+          "element": "fire",
+          "single_direct": false,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "magic",
+              "element": "fire",
+              "coefficient": 0.75,
+              "single_direct": false,
+              "can_crit": false
+            },
+            {
+              "type": "apply_status",
+              "status_id": "burn",
+              "magnitude": 0.1,
+              "duration": 2,
+              "clock": "target_slot"
+            }
+          ]
+        }
+      ],
+      "boss": {},
+      "sprite_id": "cultist",
+      "saga_kind": "bearer"
+    },
+    {
+      "id": "saga_exit_recoil",
+      "name": "出口·堵门反冲",
+      "base_stats": {
+        "hp": 200,
+        "mp": 30,
+        "atk": 33,
+        "matk": 31,
+        "def": 24,
+        "mdef": 24,
+        "spd": 23
+      },
+      "weaknesses": [
+        "fire"
+      ],
+      "resistances": [],
+      "default_attack": "physical",
+      "target_policy": "lowest_hp_ratio",
+      "abilities": [
+        {
+          "id": "saga_exit_crash",
+          "name": "反冲出口·先打通此处",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "single_enemy",
+          "damage_type": "physical",
+          "element": "neutral",
+          "single_direct": true,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "physical",
+              "element": "neutral",
+              "coefficient": 0.8,
+              "single_direct": true,
+              "can_crit": false
+            }
+          ]
+        }
+      ],
+      "boss": {},
+      "sprite_id": "hound",
+      "saga_kind": "exit"
+    },
+    {
+      "id": "saga_relay_recoil",
+      "name": "中段·分流残响",
+      "base_stats": {
+        "hp": 230,
+        "mp": 30,
+        "atk": 29,
+        "matk": 35,
+        "def": 24,
+        "mdef": 24,
+        "spd": 21
+      },
+      "weaknesses": [
+        "lightning"
+      ],
+      "resistances": [],
+      "default_attack": "physical",
+      "target_policy": "lowest_hp_ratio",
+      "abilities": [
+        {
+          "id": "saga_relay_wave",
+          "name": "分流回震·出口稳后可阻断",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "all_enemies",
+          "damage_type": "magic",
+          "element": "ice",
+          "single_direct": false,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "magic",
+              "element": "ice",
+              "coefficient": 0.65,
+              "single_direct": false,
+              "can_crit": false
+            }
+          ]
+        }
+      ],
+      "boss": {},
+      "sprite_id": "fire_spirit",
+      "saga_kind": "relay"
+    },
+    {
+      "id": "saga_final_recoil",
+      "name": "主镜·最后余压",
+      "base_stats": {
+        "hp": 540,
+        "mp": 30,
+        "atk": 35,
+        "matk": 39,
+        "def": 24,
+        "mdef": 24,
+        "spd": 20
+      },
+      "weaknesses": [
+        "spirit"
+      ],
+      "resistances": [],
+      "default_attack": "physical",
+      "target_policy": "lowest_hp_ratio",
+      "abilities": [
+        {
+          "id": "saga_final_pressure",
+          "name": "主镜反冲·分流后关闭内圈",
+          "mp_cost": 0,
+          "cooldown": 0,
+          "target_rule": "all_enemies",
+          "damage_type": "magic",
+          "element": "spirit",
+          "single_direct": false,
+          "unlock_level": 1,
+          "effects": [
+            {
+              "type": "damage",
+              "damage_type": "magic",
+              "element": "spirit",
+              "coefficient": 0.65,
+              "single_direct": false,
+              "can_crit": false
+            }
+          ]
+        }
+      ],
+      "boss": {},
+      "sprite_id": "gatekeeper",
+      "saga_kind": "recoil"
+    }
+  ]
+}

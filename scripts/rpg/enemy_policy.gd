@@ -3,11 +3,13 @@ class_name RpgEnemyPolicy
 extends RefCounted
 
 const Boss = preload("res://scripts/rpg/boss_policy.gd")
+const Saga = preload("res://scripts/rpg/saga_boss_rules.gd")
 const Resolver = preload("res://scripts/rpg/effect_resolver.gd")
 
 func plan(state: Dictionary, enemy_id: String, catalog: RefCounted) -> Dictionary:
 	var actor: Dictionary = state.actors[enemy_id]
 	if actor.hp <= 0: return {}
+	if Saga.is_actor(actor): return Saga.plan(state, enemy_id, catalog)
 	if actor.class_id == "gatekeeper": return Boss.plan(state, enemy_id, catalog)
 	var definition: Dictionary = catalog.get_definition("enemies", actor.class_id)
 	if definition.is_empty(): return {}
@@ -37,7 +39,7 @@ func refresh_target(state: Dictionary, intent: Dictionary) -> Dictionary:
 				owner_id = id
 				break
 	if owner_id.is_empty() or intent.target_ids == [owner_id]: return refreshed
-	if intent.ability_id in ["boss_quake", "boss_pulse_charge"]:
+	if intent.get("preview", {}).get("all_targets", false) or intent.ability_id in ["boss_quake", "boss_pulse_charge"]:
 		refreshed.target_ids = Boss.opponents(state, owner_id)
 		return refreshed
 	if intent.target_ids.size() != 1: return refreshed
@@ -61,6 +63,7 @@ func on_battle_start(state: Dictionary, catalog: RefCounted) -> Array[Dictionary
 func before_round(state: Dictionary, catalog: RefCounted) -> Array[Dictionary]:
 	var events: Array[Dictionary] = []
 	for id in _enemy_ids(state):
+		if Saga.is_actor(state.actors[id]): events.append_array(Saga.on_round_start(state, id))
 		if state.actors[id].class_id == "gatekeeper":
 			Boss.initialize(state.actors[id])
 			events.append_array(Boss.on_round_start(state, id))
@@ -73,6 +76,7 @@ func before_slot(state: Dictionary, _actor_id: String, catalog: RefCounted) -> A
 func after_command(state: Dictionary, command: Dictionary, catalog: RefCounted) -> Array[Dictionary]:
 	var events: Array[Dictionary] = []
 	var actor: Dictionary = state.actors[command.actor_id]
+	events.append_array(Saga.after_command(state, command, catalog))
 	if actor.side == "enemy" and actor.class_id == "gatekeeper": events.append_array(Boss.on_slot_end(state, actor.actor_id, false))
 	events.append_array(_refresh(state, catalog, actor.actor_id if actor.side == "enemy" else ""))
 	return events
@@ -80,6 +84,7 @@ func after_command(state: Dictionary, command: Dictionary, catalog: RefCounted) 
 func after_skipped_slot(state: Dictionary, actor_id: String, catalog: RefCounted) -> Array[Dictionary]:
 	var events: Array[Dictionary] = []
 	var actor: Dictionary = state.actors[actor_id]
+	if Saga.is_actor(actor): events.append_array(Saga.on_slot_end(state, actor_id, true))
 	if actor.side == "enemy" and actor.class_id == "gatekeeper": events.append_array(Boss.on_slot_end(state, actor_id, true))
 	events.append_array(_refresh(state, catalog, actor_id if actor.side == "enemy" else ""))
 	return events
@@ -108,6 +113,7 @@ func _refresh(state: Dictionary, catalog: RefCounted, replan_id: String) -> Arra
 		if actor.hp <= 0:
 			actor.intent = {}
 			continue
+		if Saga.is_actor(actor): Saga.initialize(actor)
 		if actor.class_id == "gatekeeper":
 			Boss.initialize(actor)
 			Boss.refresh_opportunities(state, id)
@@ -121,7 +127,7 @@ func _refresh(state: Dictionary, catalog: RefCounted, replan_id: String) -> Arra
 		if actor.class_id == "gatekeeper": actor.intent.interruptible = Boss.plan(state, id, catalog).interruptible
 		# 预览使用解析器副本，不伪造选择阶段或绕过权威token验证。
 		var command := command_for(state, id, actor.intent)
-		var simulation := state.duplicate(true)
+		var simulation := Resolver.simulation_state(state)
 		var resolved := Resolver.resolve(simulation, command, catalog, null)
 		var ranges: Array = []
 		var reasons: Array = []
@@ -129,6 +135,10 @@ func _refresh(state: Dictionary, catalog: RefCounted, replan_id: String) -> Arra
 			if item.type == "damage": ranges.append({"target_id": item.target_id, "original_target_id": item.payload.original_target_id, "normal": item.payload.normal, "critical": item.payload.critical_damage, "critical_chance": 0.05 if item.payload.can_crit else 0.0})
 			if item.type == "effect_ignored": reasons.append(item.payload.reason)
 		actor.intent.preview = {"actor_id": id, "effects": resolved, "damage_ranges": ranges, "reasons": reasons}
+		if Saga.is_actor(actor):
+			actor.intent.interruptible = Saga.can_interrupt(actor)
+			actor.intent.preview["hint"] = Saga.hint(state, id)
+			actor.intent.preview["all_targets"] = catalog.get_definition("abilities", actor.intent.ability_id).get("target_rule") == "all_enemies"
 		# 每个规则接点发布刷新，事件数量不依赖JSON浮点往返后的缓存相等性。
 		events.append(Resolver.event("intent_updated", id, id, {"intent": actor.intent.duplicate(true)}))
 	return events

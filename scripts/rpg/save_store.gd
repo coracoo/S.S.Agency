@@ -2,6 +2,8 @@
 class_name RpgSaveStore
 extends RefCounted
 
+const Saga = preload("res://scripts/campaign/saga_catalog.gd")
+const SagaSave = preload("res://scripts/campaign/saga_save_rules.gd")
 const Forms = preload("res://scripts/rpg/dual_form.gd")
 const Chapters = preload("res://scripts/campaign/chapter_catalog.gd")
 const TrialProfile = preload("res://scripts/exploration_3d/trial_profile.gd")
@@ -84,6 +86,7 @@ func _decode(contents: String) -> Dictionary:
 
 func normalize(value: Dictionary) -> Dictionary:
 	var saved := value.duplicate(true)
+	if saved.get("saga") is Dictionary: saved.saga = Saga.normalize(saved.saga)
 	State._int_fields(saved, ["schema_version", "level", "xp", "battle_counter", "night"])
 	var normalized := State.normalize_snapshot({"actors": saved.get("roster", {}), "inventory": saved.get("inventory", {})})
 	if saved.has("roster"): saved.roster = normalized.actors
@@ -337,6 +340,7 @@ func _write_error(message: String, code: Error) -> Error:
 # A formal run has a separate schema, story phase and per-scene checkpoints.
 # Legacy TrialProfile validation above is intentionally unchanged.
 func _validate_campaign(saved: Dictionary) -> Array[String]:
+	if saved.has("saga"): return SagaSave.validate(saved, _catalog)
 	var errors: Array[String] = []
 	for field in ["campaign_id", "scene_id", "story_phase", "resolution", "case_status"]:
 		if not saved.get(field) is String: errors.append("正式档字符串字段非法：" + field)

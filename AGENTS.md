@@ -1,5 +1,13 @@
 # AGENTS.md — 《逢魔退治帖》当前项目说明
 
+## 2026-10-05 七章连续主线
+
+当前正式标题进入完整七章旅程。第一章五夜与原送行/镇守保持兼容，结案页可下山进入后六章；当前内容与运行见 [七章说明](docs/campaign/seven-chapters.md)。后六章137场批准对白由 `tools/campaign/build_saga_story.py` 导出，不手改生成JSON后遗漏源映射；新增敌人/遭遇在 `data/rpg/saga_*.json`，不属于旧XLSX覆盖范围。
+
+后六章生产入口为 `scenes/campaign/saga.tscn` / `saga_ending.tscn`。正式schema2添加严格版本化saga扩展，保存完成事件、导航/绕路、条件战斗来源、交易与四结局；不把未来胜利回填旧暂缓场次。写档仍从隔离Python入口开始。新增统一门禁 `python3 tools/campaign/run_saga_checks.py --mode all --output-dir <仓库外目录>`，分别报告夹具事务、真实指令与跨进程续档；不称人工GUI全通。
+
+新NPC/敌方静态图使用独立manifest及Atlas局部脚锚，原主角、动画与原敌图不可被新资源覆盖。完整发布使用4.7.2/PCK v4，并核齐新原PNG与旧素材逐hash保护。
+
 ## 2026-10-05 引擎升级
 
 当前使用 Godot **4.7.2 stable**，4.6.3 保留用于回退。升级对照与原有失败见 [升级评估](docs/godot-4.7-upgrade-report.md)；不能把“未发现新增回归”写成全项目测试通过。
@@ -18,7 +26,7 @@
 
 ## 当前主线与事实优先级
 
-当前唯一玩家入口是 `res://scenes/campaign/title.tscn`：开始新游戏、继续游戏、退出。
+当前唯一玩家入口是 `res://scenes/campaign/title.tscn`：开始新游戏、继续游戏、退出；第一章结案后继续后六章。
 第一章五夜共用连续3D寺域，原上山路→山门前庭→回廊/镜殿/纸棺庭/本殿可自由双向行走。调查/对白→RPG战斗→战前原位置返场；本夜完成后原地推进夜次，首次开场按实地抵达触发。第二夜守灯仍为三步场景互动，第五夜后有送行与镇守两结局。
 六身份选三人与焰华双形态沿用现有RPG核心。当前实现、已验项目和未验项目分别说明，不把模型E2E当成人工GUI全通。
 

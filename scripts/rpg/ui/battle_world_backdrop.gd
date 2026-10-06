@@ -1,5 +1,6 @@
 # 独立战斗镜头复用正式寺域几何。只桥接现有动作帧与脚点，不保存或结算战斗状态。
 extends Control
+const SagaWorld = preload("res://scripts/campaign/saga_world.gd")
 const Geometry = preload("res://scripts/campaign/act_one_geometry.gd")
 const Layout = preload("res://scripts/campaign/act_one_layout.gd")
 const Stature = preload("res://scripts/characters/character_stature.gd")
@@ -35,6 +36,11 @@ func configure(world: Dictionary, depth_enabled: bool = true) -> void:
 	scene_region = Layout.region_at(source)
 	if not STAGES.has(scene_region): scene_region = "approach"
 	stage_origin = STAGES[scene_region]
+	var saga_chapter: int = int(world.get("night", 1)) - 4 if world.get("map_layout") == "saga_regions_v1" else 0
+	if saga_chapter >= 2:
+		scene_region = "chapter_%d" % saga_chapter
+		var anchor: Array = SagaWorld.anchors(saga_chapter).get("battle", SagaWorld.anchors(saga_chapter).spawn)
+		stage_origin = Vector3(anchor[0], anchor[1], anchor[2])
 	set_meta("source_position",source)
 	set_meta("source_region",scene_region)
 	viewport = SubViewport.new()
@@ -51,7 +57,7 @@ func configure(world: Dictionary, depth_enabled: bool = true) -> void:
 	add_child(display)
 	_world = Node3D.new()
 	viewport.add_child(_world)
-	geometry = Geometry.build({})
+	geometry = SagaWorld.build(saga_chapter) if saga_chapter >= 2 else Geometry.build({})
 	_world.add_child(geometry)
 	# 当前地图的碰撞由探索舞台持有；战斗舞台没有角色控制器或额外剧情实例。
 	var collision := geometry.get_node_or_null("PermanentCollision")
@@ -67,7 +73,7 @@ func configure(world: Dictionary, depth_enabled: bool = true) -> void:
 	camera.look_at(focus)
 	# 固定Y薄片保留原物理身高；正交镜头按既有190px/m校准投影高度。
 	camera.size = 1080.0 / Stature.battle_pixels_per_metre() * cos(atan2(offset.y,offset.z))
-	geometry.update_visibility(stage_origin,1.0,camera)
+	if geometry.has_method("update_visibility"): geometry.update_visibility(stage_origin,1.0,camera)
 	var depth := Depth.new()
 	depth.name = "BattleDepth"
 	add_child(depth)
@@ -146,7 +152,7 @@ func sync_visuals(delta: float = 1.0/60.0) -> void:
 		body.visible = source.visible
 		record.shadow.visible = source.visible
 		if source.visible: positions.append(body.position)
-	if not positions.is_empty(): geometry.update_tree_occlusion_many(positions,delta,camera)
+	if not positions.is_empty() and geometry.has_method("update_tree_occlusion_many"): geometry.update_tree_occlusion_many(positions,delta,camera)
 
 func _ground_point(screen: Vector2) -> Vector3:
 	var origin := camera.project_ray_origin(screen)

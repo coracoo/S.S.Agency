@@ -1,6 +1,7 @@
 # 结案/续监只显示已经成功提交的正式状态，无旧卡牌奖励。
 extends Node3D
 const Session = preload("res://scripts/campaign/chapter_session.gd")
+const Saga = preload("res://scripts/campaign/saga_catalog.gd")
 const Catalog = preload("res://scripts/campaign/chapter_catalog.gd")
 const Geometry = preload("res://scripts/campaign/chapter_geometry.gd")
 const Kit = preload("res://scripts/rpg/ui/ui_kit.gd")
@@ -50,7 +51,10 @@ func _ready() -> void:
 	status.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	status.add_theme_color_override("font_color", Color("e3d8bf"))
-	var back := Art.button(_card, "返回标题", Rect2(270, 572, 580, 84), _return_title, true)
+	var back := Art.button(_card, "返回标题", Rect2(578, 572, 440, 84), _return_title, true)
+	if complete:
+		var onward := Art.button(_card, "下山 · 前往第二章", Rect2(102, 572, 452, 84), _continue_saga, true)
+		onward.name = "ContinueSaga"
 	back.focus_mode = Control.FOCUS_ALL
 	get_viewport().size_changed.connect(_layout)
 	_layout()
@@ -66,3 +70,13 @@ func _return_title() -> void:
 	if Session.current != null: Session.current.close()
 	var error: Error = get_tree().change_scene_to_file("res://scenes/campaign/title.tscn")
 	if error != OK: _leaving = false
+
+func _continue_saga() -> void:
+	if _leaving or Session.current == null: return
+	_leaving = true
+	var result: Dictionary = Session.current.campaign.continue_saga()
+	if not result.get("ok", false):
+		_leaving = false
+		Kit.label(_card, str(result.get("error", "下山记录未能保存")), Rect2(100, 518, 920, 44), 23)
+		return
+	if get_tree().change_scene_to_file(Saga.SCENE_PATH) != OK: _leaving = false

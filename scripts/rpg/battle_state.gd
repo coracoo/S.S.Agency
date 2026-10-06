@@ -2,6 +2,7 @@
 class_name RpgBattleState
 extends RefCounted
 
+const Saga = preload("res://scripts/rpg/saga_boss_rules.gd")
 const Forms = preload("res://scripts/rpg/dual_form.gd")
 const Catalog = preload("res://scripts/rpg/catalog.gd")
 static var _catalog_cache: RefCounted
@@ -74,6 +75,7 @@ static func validate(state: Dictionary) -> Array[String]:
 	return errors
 
 static func _validate_actor(id: String, actor: Dictionary, errors: Array[String]) -> void:
+	errors.append_array(Saga.validate(actor))
 	if actor.get("actor_id") != id or not actor.get("side") in ["player", "enemy"]:
 		errors.append(id + " 永久 ID／阵营非法")
 	if not actor.get("class_id") is String or actor.get("class_id", "").is_empty() or (actor.get("side") == "player" and not CLASS_IDS.has(actor.get("class_id"))):
@@ -200,6 +202,7 @@ static func normalize_snapshot(saved: Dictionary) -> Dictionary:
 	if state.get("actors") is Dictionary:
 		for actor in state.actors.values():
 			if not actor is Dictionary: continue
+			Saga.normalize(actor)
 			_int_fields(actor, ["level", "hp", "mp", "slot_count", "opportunity_count", "revived_round", "status_generation", "last_slot_round", "dual_form_version"])
 			for field in ["stats", "cooldown_until"]:
 				if actor.get(field) is Dictionary: _int_fields(actor[field], actor[field].keys())

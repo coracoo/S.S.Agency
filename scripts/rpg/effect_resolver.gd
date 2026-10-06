@@ -4,7 +4,15 @@ extends RefCounted
 
 const Damage = preload("res://scripts/rpg/damage_rules.gd")
 const Status = preload("res://scripts/rpg/status_rules.gd")
+const Saga = preload("res://scripts/rpg/saga_boss_rules.gd")
 const Boss = preload("res://scripts/rpg/boss_policy.gd")
+
+# 解析器不读写重放历史。先去除只读长日志，再深复制其余所有字段，库存等扩展仍完全隔离。
+static func simulation_state(state: Dictionary) -> Dictionary:
+	var current := state.duplicate()
+	current.erase("event_log")
+	current.erase("command_log")
+	return current.duplicate(true)
 
 static func ability_for(source: Dictionary, command: Dictionary, catalog: RefCounted) -> Dictionary:
 	match command.get("kind", ""):
@@ -28,6 +36,7 @@ static func resolve(state: Dictionary, command: Dictionary, catalog: RefCounted,
 	var events: Array[Dictionary] = []
 	var source: Dictionary = state.actors[command.actor_id]
 	var ability := ability_for(source, command, catalog)
+	if Saga.cancelled(source): return [event("saga_cancelled", source.actor_id, source.actor_id, {"text": "回放／号令已打断，本次行动失效。"})]
 	var committed := Boss.is_committed_release(source, command.get("ability_id", ""))
 	if committed:
 		var mode := Boss.release_mode(state, source.actor_id)
@@ -61,6 +70,7 @@ static func resolve(state: Dictionary, command: Dictionary, catalog: RefCounted,
 					# 阶段加成只传一次；蓄力用承诺阶段，战意与虚弱仍由伤害模型读取。
 					var phase_multiplier := float(source.boss.committed_phase_multiplier) if committed else Boss.phase_multiplier(source)
 					var modifiers := {"cover_reduction": cover_reduction, "output_bonuses": [phase_multiplier - 1.0]}
+					modifiers.merge(Saga.modifiers(state, source, target, effect), true)
 					var damage_effect: Dictionary = effect.duplicate(true)
 					if effect.get("condition") == "target_has_status" and target.statuses.any(func(status): return status.id == effect.status_id):
 						damage_effect.coefficient = effect.conditional_coefficient
@@ -79,6 +89,8 @@ static func resolve(state: Dictionary, command: Dictionary, catalog: RefCounted,
 					if absorption.defeated:
 						events.append(event("actor_defeated", source.actor_id, target_id, {"removed_statuses": absorption.removed_statuses, "shield_before": absorption.shield_before}))
 						events.append_array(cleanup_defeated(state, target_id))
+					events.append_array(Saga.after_damage(state, source.actor_id, target_id, damage_effect, int(calculation.damage), int(normal.damage), int(critical_result.damage)))
+					if source.hp <= 0: events.append_array(cleanup_defeated(state, source.actor_id))
 					cover_reduction = 0.0
 				"consume_status":
 					_remove_status(target, effect.status_id, events, "skill_consumed", source.actor_id)
@@ -118,11 +130,15 @@ static func resolve(state: Dictionary, command: Dictionary, catalog: RefCounted,
 						events.append(event("revived", source.actor_id, target_id, {"hp": target.hp, "mp": target.mp, "round": state.round}))
 				"cleanse": events.append_array(Status.cleanse(target))
 				"interrupt":
+					if Saga.can_interrupt(target):
+						events.append_array(Saga.interrupt(state, target_id, source.actor_id))
+						continue
 					var reason := Status.immunity(target, effect)
 					if reason.is_empty():
 						events.append_array(Boss.interrupt(state, target_id))
 					else:
 						events.append(event("effect_ignored", source.actor_id, target_id, {"effect": effect.duplicate(true), "reason": reason}))
+	events.append_array(Saga.after_ability(state, source.actor_id, ability, events))
 	return events
 
 static func cover_for(state: Dictionary, target_id: String) -> Dictionary:

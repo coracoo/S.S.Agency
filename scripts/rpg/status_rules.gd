@@ -50,7 +50,7 @@ static func apply_shield(actor: Dictionary, shield: Dictionary) -> Dictionary:
 
 # 掩护存于守卫拥有者；snapshot.target_id 指向被保护队友。
 # begin_slot 负责槽计数、先移除防御／掩护、再灼烧，绝不增加可选命令机会。
-static func begin_slot(actor: Dictionary) -> Dictionary:
+static func begin_slot(actor: Dictionary, periodic_damage_allowed: bool = true) -> Dictionary:
 	var events: Array[Dictionary] = []
 	var token := {"actor_id": actor.get("actor_id", ""), "slot_count": int(actor.get("slot_count", 0)), "begun": false, "ended": false, "status_generations": {}, "shield_generation": -1, "stun_generation": -1, "stunned": false, "defeated": int(actor.get("hp", 0)) <= 0, "events": events}
 	if token.defeated:
@@ -74,6 +74,11 @@ static func begin_slot(actor: Dictionary) -> Dictionary:
 	var burn := _status(actor, "burn")
 	if not burn.is_empty() and int(burn.remaining) > 0:
 		var calculation := Damage.periodic(burn, actor)
+		# 门禁在每个实际槽首由当前战场重新判断；回补锁片也能挡住已有灼烧，时钟仍照常推进。
+		if not periodic_damage_allowed:
+			calculation.damage = 0
+			calculation.factors["objective_guarded"] = true
+			events.append(_event("saga_objective_blocked", actor, {"status_id": "burn", "text": "联动保护仍在，灼烧本槽不造成伤害；持续时间照常消耗。"}, burn.source_id))
 		var absorption := Damage.absorb(actor, calculation.damage)
 		events.append(_event("periodic_damage", actor, {"status": burn.duplicate(true), "damage": calculation.damage, "factors": calculation.factors, "absorption": absorption}, burn.source_id))
 	token.defeated = int(actor.get("hp", 0)) <= 0

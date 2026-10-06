@@ -50,7 +50,7 @@ func _test_registry() -> void:
 	var endings := {}
 	_walk("t1", case_nodes, endings)
 	expect(endings.size() == 14, "all 14 ending nodes reachable")
-	expect(Chapters.night(0).is_empty() and Chapters.night(6).is_empty(), "unregistered chapters rejected")
+	expect(Chapters.night(0).is_empty() and Chapters.night(12).is_empty(), "unregistered chapters rejected")
 	var invalid := Chapters.initial_world(1)
 	invalid.position[0] = 100000
 	expect(not Chapters.validate_world(invalid).is_empty(), "out-of-bounds position rejected")

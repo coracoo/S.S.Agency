@@ -8,6 +8,7 @@ const State = preload("res://scripts/rpg/battle_state.gd")
 const Commands = preload("res://scripts/rpg/command_rules.gd")
 const Resolver = preload("res://scripts/rpg/effect_resolver.gd")
 const Status = preload("res://scripts/rpg/status_rules.gd")
+const Saga = preload("res://scripts/rpg/saga_boss_rules.gd")
 
 var _catalog: RefCounted
 var _state: Dictionary = {}
@@ -121,7 +122,7 @@ func advance(allow_automatic: bool = true) -> Array[Dictionary]:
 			_state.queue_index += 1
 			continue
 		_state.active_actor_id = id
-		_state.slot_token = Status.begin_slot(actor)
+		_state.slot_token = Status.begin_slot(actor, not Saga.blocked(_state, actor))
 		actor["last_slot_round"] = int(_state.round)
 		events.append(Resolver.event("slot_started", id, id, {"slot_count": actor.slot_count, "round": _state.round}))
 		events.append_array(_state.slot_token.events)

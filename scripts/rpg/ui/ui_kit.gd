@@ -223,6 +223,13 @@ static func actor_sprite(parent: Node, art: String, height: float, flip: bool, g
 				atlas.atlas = texture
 				atlas.region = Rect2(210, 0, 620, 1536)
 				texture = atlas
+			if geometry.has("region"):
+				var rect: Array = geometry.region
+				var atlas := AtlasTexture.new()
+				atlas.atlas = texture
+				atlas.region = Rect2(rect[0], rect[1], rect[2], rect[3])
+				atlas.filter_clip = true
+				texture = atlas
 			sprite.texture = texture
 			sprite.set_meta("source_path", "res://assets/chars/hakuyo_idle.png" if art == "mint" else art)
 			if geometry.is_empty():

@@ -46,6 +46,20 @@ func load_all(root_path: String = "res://data/rpg") -> Array[String]:
 				errors.append("重复 ID：%s/%s" % [kind, raw.id])
 				continue
 			candidate[kind][raw.id] = _integerize(raw)
+	# 后六章新增敌人与遭遇独立导出，避免旧XLSX重导覆盖主线扩展。
+	if root_path == "res://data/rpg":
+		for kind in ["enemies", "encounters"]:
+			var extra_path := root_path.path_join("saga_" + kind + ".json")
+			if not FileAccess.file_exists(extra_path): continue
+			var extra = JSON.parse_string(FileAccess.get_file_as_string(extra_path))
+			if not extra is Dictionary or extra.get("schema_version") != 1 or extra.get("rules_version") != version or not extra.get("definitions") is Array:
+				errors.append("后续数据结构/版本非法：" + kind)
+				continue
+			for raw in extra.definitions:
+				if not raw is Dictionary or not raw.get("id") is String or raw.id.is_empty() or candidate[kind].has(raw.id):
+					errors.append("后续定义缺少ID或与原定义冲突：" + kind)
+					continue
+				candidate[kind][raw.id] = _integerize(raw)
 	_validate_catalog(candidate, errors)
 	if errors.is_empty():
 		_definitions = candidate

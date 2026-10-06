@@ -17,9 +17,9 @@ class PackTests(unittest.TestCase):
         self.module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(self.module)
 
-    def fixture(self, root, payload=b"official-imported-bytes"):
+    def fixture(self, root, payload=b"official-imported-bytes", version=3):
         pack = root / "game.pck"
-        header = struct.pack("<6IQQ", 0x43504447, 3, 4, 6, 3, 2, 112, 112 + len(payload)) + bytes(72)
+        header = struct.pack("<6IQQ", 0x43504447, version, 4, 7 if version == 4 else 6, 2 if version == 4 else 3, 2, 112, 112 + len(payload)) + bytes(72)
         name = b".godot/imported/frame.ctex\0"
         directory = struct.pack("<II", 1, len(name)) + name + struct.pack("<QQ", 0, len(payload)) + hashlib.md5(payload).digest() + struct.pack("<I", 0)
         pack.write_bytes(header + payload + directory)
@@ -46,6 +46,44 @@ class PackTests(unittest.TestCase):
             self.assertEqual(b"official-imported-bytes", self.module.read_entry(pack, entries[".godot/imported/frame.ctex"]))
             self.assertEqual([], self.module.verify_entries(pack, entries))
 
+    def test_official_v4_append_preserves_engine_header_and_raw_bytes(self):
+        # 4.7.2官方core/io/file_access_pack.cpp沿用v3未加密独立目录布局。
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            pack = self.fixture(root, version=4)
+            header = pack.read_bytes()[:32]
+            image = root / "frame.png"
+            image.write_bytes(b"original-v4-png")
+            try:
+                self.module.append_originals(pack, {"assets/frame.png": image})
+            except ValueError as error:
+                self.fail("官方4.7.2的v4非加密独立包必须可追加原图：" + str(error))
+            entries = self.module.read_pack(pack)
+            self.assertEqual(header, pack.read_bytes()[:32])
+            self.assertEqual(image.read_bytes(), self.module.read_entry(pack, entries["assets/frame.png"]))
+            self.assertEqual(b"official-imported-bytes", self.module.read_entry(pack, entries[".godot/imported/frame.ctex"]))
+            self.assertEqual([], self.module.verify_entries(pack, entries))
+            size = pack.stat().st_size
+            self.module.append_originals(pack, {"assets/frame.png": image})
+            self.assertEqual(size, pack.stat().st_size)
+
+    def test_v4_encrypted_sparse_and_delta_entries_remain_rejected(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for flags in (1, 4, 5):
+                pack = self.fixture(root, version=4)
+                with pack.open("r+b") as stream:
+                    stream.seek(20)
+                    stream.write(struct.pack("<I", flags))
+                with self.assertRaises(ValueError):
+                    self.module.read_pack(pack)
+            pack = self.fixture(root, version=4)
+            with pack.open("r+b") as stream:
+                stream.seek(-4, 2)
+                stream.write(struct.pack("<I", 4))
+            with self.assertRaises(ValueError):
+                self.module.read_pack(pack)
+
     def test_append_is_idempotent_but_rejects_changed_existing_original(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -70,6 +108,11 @@ class PackTests(unittest.TestCase):
 
     def test_development_and_raw_sheets_are_rejected_by_release_audit(self):
         failures = self.module.audit_paths({"tools/test.gd", "config/dialogue.xlsx", "assets/fx/_raw_fire_burst_sheet.png", "assets/chars/pixel/rinne/high_detail_complete/frames/idle1.png"}, set())
+        self.assertEqual(3, len(failures))
+
+    def test_screenshot_and_evidence_directories_are_never_release_content(self):
+        paths = {"screenshots/chapter2.png", "evidence/playthrough.json", "captures/dialogue.png"}
+        failures = self.module.audit_paths(paths, set())
         self.assertEqual(3, len(failures))
 
     def test_formal_roots_expand_exact_frames_without_atlas_or_old_scenes(self):
@@ -153,6 +196,13 @@ class PackTests(unittest.TestCase):
         cache = struct.pack("<I", 2) + b"".join(struct.pack("<QI", uid, len(path)) + path for uid, path in paths)
         filtered = self.module.filter_uid_cache(cache, {"scripts/current.gd.remap"})
         self.assertEqual([(137, "res://scripts/current.gd")], self.module.uid_entries(filtered))
+
+    def test_uid_cache_keeps_import_backed_texture_targets(self):
+        # PNG通常只有.import与ctex；它仍是ResourceLoader可解析的逻辑路径。
+        paths = [(137, b"res://assets/world.png"), (251, b"res://assets/retired.png")]
+        cache = struct.pack("<I", 2) + b"".join(struct.pack("<QI", uid, len(path)) + path for uid, path in paths)
+        filtered = self.module.filter_uid_cache(cache, {"assets/world.png.import", ".godot/imported/world.ctex"})
+        self.assertEqual([(137, "res://assets/world.png")], self.module.uid_entries(filtered))
 
     def test_packed_cache_filter_changes_only_generated_metadata(self):
         self.assertTrue(hasattr(self.module, "filter_pack_caches"), "仅允许过滤PCK内的生成缓存")

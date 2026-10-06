@@ -1,0 +1,443 @@
+{
+  "schema_version": 1,
+  "project": "逢魔退治帖",
+  "scope": "七章新增敌方静态立绘；原六敌图与玩家、NPC素材保持不变",
+  "generation": "builtin_image_gen",
+  "enemies": {
+    "saga_paper_soldier": {
+      "speaker": "循令纸兵",
+      "sheet": "res://assets/chars/enemies/saga/soldier_shadow.png",
+      "region": [
+        0,
+        0,
+        887,
+        887
+      ],
+      "anchor": [
+        390,
+        857
+      ],
+      "content_height_px": 835,
+      "content_bounds_px": [
+        110,
+        22,
+        835,
+        857
+      ],
+      "facing": "right",
+      "source": {
+        "generation": "builtin_image_gen",
+        "prompt_file": "res://assets/chars/enemies/saga/soldier_shadow_prompt.txt",
+        "original_sheet": "soldier_shadow.png",
+        "sha256": "b6587c17d2d8aa115c23c18dd6b058f2db6e2cad6275262f4057edce603fe8af"
+      },
+      "presentation": "static_illustration"
+    },
+    "saga_lamp_shadow": {
+      "speaker": "纸灯残影",
+      "sheet": "res://assets/chars/enemies/saga/soldier_shadow.png",
+      "region": [
+        887,
+        0,
+        887,
+        887
+      ],
+      "anchor": [
+        510,
+        843
+      ],
+      "content_height_px": 831,
+      "content_bounds_px": [
+        45,
+        12,
+        866,
+        843
+      ],
+      "facing": "right",
+      "source": {
+        "generation": "builtin_image_gen",
+        "prompt_file": "res://assets/chars/enemies/saga/soldier_shadow_prompt.txt",
+        "original_sheet": "soldier_shadow.png",
+        "sha256": "b6587c17d2d8aa115c23c18dd6b058f2db6e2cad6275262f4057edce603fe8af"
+      },
+      "presentation": "static_illustration"
+    },
+    "saga_mirror_shard": {
+      "speaker": "镜屑侍",
+      "sheet": "res://assets/chars/enemies/saga/shard_bearer.png",
+      "region": [
+        0,
+        0,
+        887,
+        887
+      ],
+      "anchor": [
+        350,
+        846
+      ],
+      "content_height_px": 778,
+      "content_bounds_px": [
+        61,
+        68,
+        881,
+        846
+      ],
+      "facing": "right",
+      "source": {
+        "generation": "builtin_image_gen",
+        "prompt_file": "res://assets/chars/enemies/saga/shard_bearer_prompt.txt",
+        "original_sheet": "shard_bearer.png",
+        "sha256": "1194ce7daadda636a8b59670ee801b70e0334aab54e727f3f22f79da2bd7ffe2"
+      },
+      "presentation": "static_illustration"
+    },
+    "saga_borrowed_voice": {
+      "speaker": "借声客",
+      "sheet": "res://assets/chars/enemies/saga/voice_general.png",
+      "region": [
+        0,
+        0,
+        887,
+        887
+      ],
+      "anchor": [
+        380,
+        862
+      ],
+      "content_height_px": 788,
+      "content_bounds_px": [
+        34,
+        72,
+        750,
+        860
+      ],
+      "facing": "right",
+      "source": {
+        "generation": "builtin_image_gen",
+        "prompt_file": "res://assets/chars/enemies/saga/voice_general_clean_prompt.txt",
+        "original_sheet": "voice_general.png",
+        "sha256": "3bf1d14cadf5faea3cd283e8761b71d9c304239fa3235686612d30238ccb03ac"
+      },
+      "presentation": "static_illustration"
+    },
+    "saga_backshore_general": {
+      "speaker": "背岸将",
+      "sheet": "res://assets/chars/enemies/saga/voice_general.png",
+      "region": [
+        887,
+        0,
+        887,
+        887
+      ],
+      "anchor": [
+        360,
+        862
+      ],
+      "content_height_px": 851,
+      "content_bounds_px": [
+        91,
+        11,
+        854,
+        862
+      ],
+      "facing": "right",
+      "source": {
+        "generation": "builtin_image_gen",
+        "prompt_file": "res://assets/chars/enemies/saga/voice_general_clean_prompt.txt",
+        "original_sheet": "voice_general.png",
+        "sha256": "3bf1d14cadf5faea3cd283e8761b71d9c304239fa3235686612d30238ccb03ac"
+      },
+      "presentation": "static_illustration"
+    },
+    "saga_joined_mirror": {
+      "speaker": "合面镜",
+      "sheet": "res://assets/chars/enemies/saga/mirror_lamp.png",
+      "region": [
+        0,
+        0,
+        887,
+        887
+      ],
+      "anchor": [
+        400,
+        868
+      ],
+      "content_height_px": 847,
+      "content_bounds_px": [
+        139,
+        21,
+        663,
+        868
+      ],
+      "facing": "right",
+      "source": {
+        "generation": "builtin_image_gen",
+        "prompt_file": "res://assets/chars/enemies/saga/mirror_lamp_prompt.txt",
+        "original_sheet": "mirror_lamp.png",
+        "sha256": "3186c3d8f25191c570e6133083bbcc45a6ff85576e120ed60592dc1f7c712d79"
+      },
+      "presentation": "static_illustration"
+    },
+    "saga_hundredhand_lamp": {
+      "speaker": "百手灯母",
+      "sheet": "res://assets/chars/enemies/saga/mirror_lamp.png",
+      "region": [
+        887,
+        0,
+        887,
+        887
+      ],
+      "anchor": [
+        410,
+        867
+      ],
+      "content_height_px": 857,
+      "content_bounds_px": [
+        6,
+        10,
+        869,
+        867
+      ],
+      "facing": "right",
+      "source": {
+        "generation": "builtin_image_gen",
+        "prompt_file": "res://assets/chars/enemies/saga/mirror_lamp_prompt.txt",
+        "original_sheet": "mirror_lamp.png",
+        "sha256": "3186c3d8f25191c570e6133083bbcc45a6ff85576e120ed60592dc1f7c712d79"
+      },
+      "presentation": "static_illustration"
+    },
+    "saga_anchor_left": {
+      "speaker": "左联动锁片",
+      "sheet": "res://assets/chars/enemies/saga/linked_anchors.png",
+      "region": [
+        0,
+        0,
+        940,
+        836
+      ],
+      "anchor": [
+        490,
+        769
+      ],
+      "content_height_px": 734,
+      "content_bounds_px": [
+        63,
+        35,
+        929,
+        769
+      ],
+      "facing": "right",
+      "source": {
+        "generation": "builtin_image_gen",
+        "prompt_file": "res://assets/chars/enemies/saga/linked_anchors_prompt.txt",
+        "original_sheet": "linked_anchors.png",
+        "sha256": "2b443dd945537208a93a20c3494223d0f77abab03e6240b22b9e0d510e11c4f0"
+      },
+      "presentation": "static_illustration"
+    },
+    "saga_anchor_right": {
+      "speaker": "右联动锁片",
+      "sheet": "res://assets/chars/enemies/saga/linked_anchors.png",
+      "region": [
+        940,
+        0,
+        941,
+        836
+      ],
+      "anchor": [
+        510,
+        770
+      ],
+      "content_height_px": 722,
+      "content_bounds_px": [
+        63,
+        48,
+        898,
+        770
+      ],
+      "facing": "right",
+      "source": {
+        "generation": "builtin_image_gen",
+        "prompt_file": "res://assets/chars/enemies/saga/linked_anchors_prompt.txt",
+        "original_sheet": "linked_anchors.png",
+        "sha256": "2b443dd945537208a93a20c3494223d0f77abab03e6240b22b9e0d510e11c4f0"
+      },
+      "presentation": "static_illustration"
+    },
+    "saga_nochange_warden": {
+      "speaker": "无更巡守",
+      "sheet": "res://assets/chars/enemies/saga/warden_master.png",
+      "region": [
+        0,
+        0,
+        1006,
+        887
+      ],
+      "anchor": [
+        430,
+        846
+      ],
+      "content_height_px": 816,
+      "content_bounds_px": [
+        80,
+        30,
+        1005,
+        846
+      ],
+      "facing": "right",
+      "source": {
+        "generation": "builtin_image_gen",
+        "prompt_file": "res://assets/chars/enemies/saga/warden_master_prompt.txt",
+        "original_sheet": "warden_master.png",
+        "sha256": "71714c43c281772b6d4803d7601539d29ff39fbb50987a77e62f871d38d1a893"
+      },
+      "presentation": "static_illustration"
+    },
+    "saga_master_mirror": {
+      "speaker": "主镜·护面",
+      "sheet": "res://assets/chars/enemies/saga/warden_master.png",
+      "region": [
+        1006,
+        0,
+        768,
+        887
+      ],
+      "anchor": [
+        365,
+        853
+      ],
+      "content_height_px": 837,
+      "content_bounds_px": [
+        6,
+        16,
+        739,
+        853
+      ],
+      "facing": "right",
+      "source": {
+        "generation": "builtin_image_gen",
+        "prompt_file": "res://assets/chars/enemies/saga/warden_master_prompt.txt",
+        "original_sheet": "warden_master.png",
+        "sha256": "71714c43c281772b6d4803d7601539d29ff39fbb50987a77e62f871d38d1a893"
+      },
+      "presentation": "static_illustration"
+    },
+    "saga_lamp_bearer": {
+      "speaker": "沈烛舟·执灯纸躯",
+      "sheet": "res://assets/chars/enemies/saga/shard_bearer.png",
+      "region": [
+        887,
+        0,
+        887,
+        887
+      ],
+      "anchor": [
+        435,
+        855
+      ],
+      "content_height_px": 845,
+      "content_bounds_px": [
+        16,
+        10,
+        838,
+        855
+      ],
+      "facing": "right",
+      "source": {
+        "generation": "builtin_image_gen",
+        "prompt_file": "res://assets/chars/enemies/saga/shard_bearer_prompt.txt",
+        "original_sheet": "shard_bearer.png",
+        "sha256": "1194ce7daadda636a8b59670ee801b70e0334aab54e727f3f22f79da2bd7ffe2"
+      },
+      "presentation": "static_illustration"
+    },
+    "saga_exit_recoil": {
+      "speaker": "出口·堵门反冲",
+      "sheet": "res://assets/chars/enemies/saga/exit_relay.png",
+      "region": [
+        0,
+        0,
+        887,
+        887
+      ],
+      "anchor": [
+        465,
+        834
+      ],
+      "content_height_px": 829,
+      "content_bounds_px": [
+        133,
+        5,
+        811,
+        834
+      ],
+      "facing": "right",
+      "source": {
+        "generation": "builtin_image_gen",
+        "prompt_file": "res://assets/chars/enemies/saga/exit_relay_prompt.txt",
+        "original_sheet": "exit_relay.png",
+        "sha256": "b67d7d8ff3895ddf5675d3ba99b4a2b483bbf8de516206242972cf40fecbbb3a"
+      },
+      "presentation": "static_illustration"
+    },
+    "saga_relay_recoil": {
+      "speaker": "中段·分流残响",
+      "sheet": "res://assets/chars/enemies/saga/exit_relay.png",
+      "region": [
+        887,
+        0,
+        887,
+        887
+      ],
+      "anchor": [
+        455,
+        830
+      ],
+      "content_height_px": 760,
+      "content_bounds_px": [
+        30,
+        70,
+        856,
+        830
+      ],
+      "facing": "right",
+      "source": {
+        "generation": "builtin_image_gen",
+        "prompt_file": "res://assets/chars/enemies/saga/exit_relay_prompt.txt",
+        "original_sheet": "exit_relay.png",
+        "sha256": "b67d7d8ff3895ddf5675d3ba99b4a2b483bbf8de516206242972cf40fecbbb3a"
+      },
+      "presentation": "static_illustration"
+    },
+    "saga_final_recoil": {
+      "speaker": "主镜·最后余压",
+      "sheet": "res://assets/chars/enemies/saga/final_recoil.png",
+      "region": [
+        0,
+        0,
+        1312,
+        1199
+      ],
+      "anchor": [
+        816,
+        1177
+      ],
+      "content_height_px": 1166,
+      "content_bounds_px": [
+        74,
+        11,
+        1261,
+        1177
+      ],
+      "facing": "right",
+      "source": {
+        "generation": "builtin_image_gen",
+        "prompt_file": "res://assets/chars/enemies/saga/final_recoil_prompt.txt",
+        "original_sheet": "final_recoil.png",
+        "sha256": "e28502d91e004f5b1379e70f76a95d781426c5a4ab9be97d8d698a4c5148fa90"
+      },
+      "presentation": "static_illustration"
+    }
+  }
+}

@@ -2,6 +2,7 @@
 class_name RpgEncounterRouter
 extends RefCounted
 
+const Saga = preload("res://scripts/campaign/saga_catalog.gd")
 const Chapters = preload("res://scripts/campaign/chapter_catalog.gd")
 const Catalog = preload("res://scripts/rpg/catalog.gd")
 const Campaign = preload("res://scripts/rpg/campaign.gd")
@@ -205,6 +206,13 @@ func load_safe_run() -> Dictionary:
 func _route(source: String, battle: String, clue: String, route_field: String = "scene_routes") -> Dictionary:
 	if campaign.safe_snapshot().get("schema_version") == 2:
 		if route_field != "scene_routes" or battle != "res://scenes/rpg/battle.tscn": return {}
+		var safe: Dictionary = campaign.safe_snapshot()
+		if safe.has("saga"):
+			var active: String = str(safe.saga.get("active_scene", ""))
+			var encounter_id: String = str(safe.world.get("story_encounter", ""))
+			if source == Saga.SCENE_PATH and clue == active and not encounter_id.is_empty():
+				return {"source_scene": source, "battle_scene": battle, "clue_id": clue, "encounter_id": encounter_id}
+			return {}
 		for id in range(1, 6):
 			var night := Chapters.night(id)
 			if source == night.scene_path and clue == night.clue_id:

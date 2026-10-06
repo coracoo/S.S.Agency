@@ -2,6 +2,8 @@
 class_name RpgCampaign
 extends RefCounted
 
+const Saga = preload("res://scripts/campaign/saga_catalog.gd")
+const SagaProgress = preload("res://scripts/campaign/saga_progress.gd")
 const Forms = preload("res://scripts/rpg/dual_form.gd")
 const Chapters = preload("res://scripts/campaign/chapter_catalog.gd")
 const TrialProfile = preload("res://scripts/exploration_3d/trial_profile.gd")
@@ -80,7 +82,9 @@ func begin_battle(encounter_id: String, world: Dictionary, story_patch: Dictiona
 	if _safe.has("run_profile"):
 		if encounter_id != "approach_basin" or not WorldSnapshot.same_story(_safe.world, world) or not world.get("event_flags", {}).has("basin_inspected") or world.get("event_flags", {}).has("basin_cleared"): return _fail("参道遭遇前置不符或已完成")
 	if _formal():
-		if not _chapter_world_ok(world) or encounter_id != Chapters.night(world.night).encounter_id or not Chapters.validate_patch(story_patch, world).is_empty(): return _fail("正式遭遇未登记、前置不足或世界剧情不符")
+		if not _chapter_world_ok(world) or not Chapters.validate_patch(story_patch, world).is_empty(): return _fail("正式遭遇未登记、前置不足或世界剧情不符")
+		var expected_encounter: String = str(world.story_encounter) if _safe.has("saga") else Chapters.night(world.night).encounter_id
+		if encounter_id != expected_encounter: return _fail("遭遇与当前场次或选择不符")
 	var definition: Dictionary = _catalog.get_definition("encounters", encounter_id)
 	if definition.is_empty(): return _fail("未知遭遇：" + encounter_id)
 	var world_errors := Store.validate_world(world)
@@ -155,7 +159,8 @@ func apply_result(result: Dictionary) -> Dictionary:
 			unlocked_mage = true
 		# 同一大地图战斗只离开表现层；持久战前位置、朝向和扩展均原样返场。
 		candidate.world.player_x = candidate.world.position[0]
-		candidate.next_encounter_id = "" if candidate.world.night == 5 else Chapters.night(candidate.world.night).encounter_id
+		if candidate.has("saga"): SagaProgress.apply_battle(candidate, encounter)
+		else: candidate.next_encounter_id = "" if candidate.world.night == 5 else Chapters.night(candidate.world.night).encounter_id
 		candidate.world_history[candidate.world.scene_id] = candidate.world.duplicate(true)
 	candidate.phase = "rest" if encounter.rest_after else "exploration"
 	candidate.applied_battle_ids.append(result.battle_id)
@@ -393,6 +398,7 @@ func _chapter_world_ok(world: Dictionary) -> bool:
 	return _formal() and Chapters.validate_world(world).is_empty() and Chapters.same_story(_safe.world, world)
 
 func commit_chapter_event(world: Dictionary, event_id: String) -> Dictionary:
+	if _safe.has("saga"): return _fail("后续场次必须经正式互动完成事务")
 	if not _outside() or not _chapter_world_ok(world) or not _safe.story_phase in ["exploration", "ritual"]: return _fail("当前正式事件世界与安全档不符")
 	var allowed := Chapters.events(world.night)
 	if not allowed.has(event_id): return _fail("未登记的正式事件")
@@ -412,6 +418,7 @@ func commit_chapter_event(world: Dictionary, event_id: String) -> Dictionary:
 	return _commit(candidate)
 
 func advance_chapter(world: Dictionary) -> Dictionary:
+	if _safe.has("saga"): return _fail("后续章节须从实地出口启程")
 	if not _outside() or not _chapter_world_ok(world) or not _safe.story_phase in ["exploration", "ritual"] or not Chapters.complete(world): return _fail("尚未完成本夜必需事件，或出口世界不符")
 	var candidate := safe_snapshot()
 	candidate.world_history[world.scene_id] = world.duplicate(true)
@@ -479,3 +486,20 @@ func _unchanged() -> Dictionary:
 	if not verified.ok: return verified
 	last_error = ""
 	return _ok(true)
+
+# 保留旧五夜API；后续事务在独立模块内维护，所有提交仍使用相同安全写档边界。
+func continue_saga() -> Dictionary:
+	return SagaProgress.continue_run(self)
+func begin_saga_scene(world: Dictionary, scene_id: String) -> Dictionary:
+	return SagaProgress.begin_scene(self, world, scene_id)
+func choose_saga_option(world: Dictionary, scene_id: String, option_id: String) -> Dictionary:
+	return SagaProgress.select_choice(self, world, scene_id, option_id)
+func complete_saga_scene(world: Dictionary, scene_id: String) -> Dictionary:
+	return SagaProgress.complete_scene(self, world, scene_id)
+func travel_saga(world: Dictionary, chapter_id: int) -> Dictionary:
+	return SagaProgress.travel(self, world, chapter_id)
+func buy_saga_item(world: Dictionary, item_id: String, count: int = 1) -> Dictionary:
+	return SagaProgress.buy(self, world, item_id, count)
+
+func leave_saga_battle() -> Dictionary:
+	return SagaProgress.leave_battle(self)

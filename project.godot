@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="逢魔退治帖"
-config/description="五夜三维探索与回合制 RPG 主线"
+config/description="七章三维探索与回合制 RPG 主线"
 run/main_scene="res://scenes/campaign/title.tscn"
 config/features=PackedStringArray("4.7")
 

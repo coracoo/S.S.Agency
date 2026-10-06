@@ -5,6 +5,9 @@ const Resolver = preload("res://scripts/rpg/effect_resolver.gd")
 static var presentation: Dictionary = {}
 static var identity_names: Dictionary = {}
 
+static func sprite_id(enemy_id: String, catalog: RefCounted) -> String:
+	return str(catalog.get_definition("enemies", enemy_id).get("sprite_id", enemy_id))
+
 static func presentation_name(actor: Dictionary, definition: Dictionary) -> String:
 	if actor.get("side") == "player" and not str(actor.get("identity_id", "")).is_empty():
 		if identity_names.is_empty():
@@ -49,6 +52,8 @@ static func intent_text(intent: Dictionary, actor: Dictionary, state: Dictionary
 	var targets: Array[String] = []
 	for id in intent.get("target_ids", []): targets.append(actor_name(state.actors.get(id, {}), catalog))
 	var lines: Array[String] = ["%s → %s" % [ability_name(intent.ability_id, catalog), "/".join(targets)]]
+	var saga_hint: String = str(intent.get("preview", {}).get("hint", intent.get("preview", {}).get("saga_actor", {}).get("hint", intent.get("saga_hint", ""))))
+	if not saga_hint.is_empty(): lines.append(saga_hint)
 	var effects: Array = intent.get("preview", {}).get("effects", [])
 	var release: Dictionary = {}
 	var waiting := false
@@ -113,6 +118,13 @@ static func preview(engine: RefCounted, command: Dictionary) -> Dictionary:
 static func ability_name(id: String, catalog: RefCounted) -> String:
 	return BASIC_NAMES.get(id, catalog.get_definition("items" if catalog.get_definition("abilities", id).is_empty() else "abilities", id).get("name", id))
 
+# 行动顺序使用真实名称，不能把新首领名称后追加的实例号当作简称。
+static func queue_name(actor: Dictionary, catalog: RefCounted) -> String:
+	if actor.is_empty(): return "无目标"
+	var definition: Dictionary = catalog.get_definition("classes" if actor.side == "player" else "enemies", actor.class_id)
+	var label := presentation_name(actor, definition)
+	return label.get_slice("·", label.get_slice_count("·") - 1) if actor.side == "enemy" else label
+
 static func actor_name(actor: Dictionary, catalog: RefCounted) -> String:
 	if actor.is_empty(): return "无目标"
 	var definition: Dictionary = catalog.get_definition("classes" if actor.side == "player" else "enemies", actor.class_id)
@@ -130,6 +142,11 @@ static func preview_lines(value: Dictionary, state: Dictionary, catalog: RefCoun
 		var payload: Dictionary = effect.payload
 		match effect.type:
 			"damage": lines.append("%s：伤害 %d · 暴击 %d" % [who, payload.normal, payload.critical_damage])
+			"saga_reflected":
+				var normal: int = int(payload.get("normal_hp_loss", payload.get("normal", payload.get("damage", 0))))
+				var critical: int = int(payload.get("critical_hp_loss", payload.get("critical_damage", normal)))
+				var warning := " · 将倒地" if payload.get("defeat_normal", false) else (" · 暴击反射可能倒地" if payload.get("defeat_critical", false) else "")
+				lines.append("%s：反射损失 HP %d%s%s" % [who, normal, " / 暴击时 %d" % critical if critical != normal else "", warning])
 			"healed": lines.append("%s：回复 HP %d（实际 %d）" % [who, payload.amount, payload.actual])
 			"mp_restored": lines.append("%s：回复 MP %d（实际 %d）" % [who, payload.amount, payload.actual])
 			"shield_applied", "shield_refreshed": lines.append("%s：护盾 %s" % [who, payload.get("shield", payload.get("after", {})).get("amount", payload.get("amount", ""))])
@@ -148,6 +165,7 @@ static func event_line(event: Dictionary, state: Dictionary, catalog: RefCounted
 	var source := actor_name(state.actors.get(event.actor_id, {}), catalog)
 	var target := actor_name(state.actors.get(event.target_id, {}), catalog)
 	var p: Dictionary = event.payload
+	if str(event.type).begins_with("saga_"): return str(p.get("text", ""))
 	match event.type:
 		"form_changed": return "%s 切换为%s · 保留当前行动" % [source, "法师" if p.get("form_id") == "mage" else "剑士"]
 		"damage": return "%s → %s  %s%d" % [source, target, "暴击 " if p.critical else "伤害 ", p.damage]

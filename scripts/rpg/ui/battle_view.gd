@@ -9,6 +9,9 @@ const TrialSession = preload("res://scripts/exploration_3d/approach_session.gd")
 const Portraits = preload("res://scripts/characters/identity_portraits.gd")
 const LegacyActor = preload("res://scripts/rpg/ui/legacy_actor_view.gd")
 const HdActor = preload("res://scripts/rpg/ui/hd_actor_view.gd")
+const SagaEnemyArt = preload("res://scripts/rpg/ui/saga_enemy_art.gd")
+const Saga = preload("res://scripts/campaign/saga_catalog.gd")
+const SagaNarrator = preload("res://scripts/campaign/saga_battle_narrator.gd")
 const HdEvents = preload("res://scripts/rpg/ui/hd_event_player.gd")
 const Catalog = preload("res://scripts/rpg/catalog.gd")
 const Router = preload("res://scripts/rpg/encounter_router.gd")
@@ -39,6 +42,7 @@ var _danger_layer: Node2D
 var _skill_buttons: Array[Button] = []
 var _basic_buttons: Dictionary = {}
 var _log_lines: Array[String] = []
+var _saga_narration_seen: Dictionary = {}
 var _result: Control
 var _items: Control
 var _preview_panel: Control
@@ -242,7 +246,7 @@ func _build() -> void:
 		var visual_session := _asset_session()
 		var depth_enabled: bool = visual_session.get_meta("hd2d_depth_enabled", true) if visual_session != null else true
 		_world_backdrop.configure(campaign.safe_snapshot().get("world", {}), depth_enabled)
-		_canvas.set_meta("background_path", "res://scripts/campaign/act_one_geometry.gd")
+		_canvas.set_meta("background_path", "res://scripts/campaign/saga_world.gd" if campaign.safe_snapshot().has("saga") else "res://scripts/campaign/act_one_geometry.gd")
 	else:
 		_canvas.set_meta("background_path", background_config.fallback_background)
 		Kit.backdrop(_canvas, background_config)
@@ -252,6 +256,10 @@ func _build() -> void:
 	Art.panel(_canvas, Rect2(32, 24, 550, 130))
 	Art.panel(_canvas, Rect2(602, 24, 922, 130))
 	_hud.title = Kit.label(_canvas, "遭遇  ·  夜巡异象", Rect2(72, 48, 470, 36), 27)
+	if campaign != null and campaign.safe_snapshot().has("saga"):
+		var encounter: Dictionary = _catalog.get_definition("encounters", str(campaign.safe_snapshot().pending_battle.get("encounter_id", "")))
+		_hud.title.text = str(encounter.get("name", "夜巡异象"))
+		_hud.title.tooltip_text = str(encounter.get("objective", ""))
 	_hud.turn = Kit.label(_canvas, "", Rect2(72, 96, 470, 32), 23)
 	Kit.muted(Kit.label(_canvas, "本轮顺序", Rect2(642, 48, 842, 28), 20))
 	_hud.queue = Kit.label(_canvas, "", Rect2(642, 90, 842, 36), 22)
@@ -314,7 +322,7 @@ func _build() -> void:
 	_hud.result_title = Kit.label(_result, "", Rect2(52, 42, 946, 66), 44)
 	_hud.result_body = Kit.scroll_text(_result, Rect2(52, 138, 946, 340), 28)
 	_hud.result_action = _art_button(_result, "", Rect2(52, 552, 455, 92), _result_action, true)
-	_hud.result_exit = _art_button(_result, "返回标题 · 保留安全档", Rect2(535, 552, 463, 92), _return_title)
+	_hud.result_exit = _art_button(_result, "返回标题 · 保留安全档", Rect2(535, 552, 463, 92), _result_secondary)
 	_result.visible = false
 	_built = true
 
@@ -387,8 +395,17 @@ func _build_actors() -> void:
 		shadow.color = Color(0.02, 0.015, 0.03, 0.5)
 		shadow.position = foot
 		_canvas.add_child(shadow)
-		var art: String = _config.class_art[actor.class_id].actor if ally else _config.enemy_art.get(actor.class_id, _config.enemy_art.default)
-		var native_facing: String = _config.asset_facings.get(art, "right")
+		var enemy_sprite_id: String = Presenter.sprite_id(actor.class_id, _catalog) if not ally else ""
+		var art: String = _config.class_art[actor.class_id].actor if ally else _config.enemy_art.get(enemy_sprite_id, _config.enemy_art.default)
+		var enemy_geometry: Dictionary = _config.get("enemy_geometry", {}).get(enemy_sprite_id, {}) if not ally else {}
+		var enemy_art: Dictionary = SagaEnemyArt.definition(actor.class_id) if not ally else {}
+		if enemy_art.get("ok", false):
+			art = enemy_art.sheet
+			enemy_geometry = enemy_art.geometry
+		elif not enemy_art.is_empty():
+			_hd_failed = true
+			last_error = str(enemy_art.get("error", "敌方原图损坏"))
+		var native_facing: String = str(enemy_art.get("facing", _config.asset_facings.get(art, "right")))
 		var toward_right: bool = not ally if _config.near_side == "right" else ally
 		var sprite: Node2D
 		if ally and _hd_enabled():
@@ -401,7 +418,7 @@ func _build_actors() -> void:
 			_canvas.add_child(sprite)
 			_hd_views[id] = hd
 		else:
-			sprite = Kit.actor_sprite(_canvas, art, float(layout[2]), Kit.flip_for(native_facing, toward_right), _config.get("enemy_geometry", {}).get(actor.class_id, {}) if not ally else {})
+			sprite = Kit.actor_sprite(_canvas, art, float(layout[2]), Kit.flip_for(native_facing, toward_right), enemy_geometry)
 			if _hd_enabled():
 				_canvas.remove_child(sprite)
 				var adapter := LegacyActor.new()
@@ -511,7 +528,7 @@ func _render() -> void:
 	for index in range(model.queue.size()):
 		var queued: Dictionary = state.actors[model.queue[index]]
 		var name := Presenter.actor_name(queued, _catalog)
-		var short_name: String = name.get_slice("·", 1) if queued.side == "enemy" and name.contains("·") else name
+		var short_name: String = Presenter.queue_name(queued, _catalog)
 		queue.append(("▸" if index == model.queue_index else ("✓" if index < model.queue_index else "")) + short_name)
 		queue_details.append(("当前 · " if index == model.queue_index else ("已行动 · " if index < model.queue_index else "")) + name)
 	_hud.queue.text = "  →  ".join(queue)
@@ -811,6 +828,10 @@ func _consume_events(events: Array) -> void:
 	for event in events:
 		var line := Presenter.event_line(event, state, _catalog)
 		if not line.is_empty(): _log_lines.append(line)
+		if campaign != null and campaign.safe_snapshot().has("saga"):
+			var safe: Dictionary = campaign.safe_snapshot()
+			var narrative: Dictionary = Saga.scene(str(safe.saga.active_scene))
+			_log_lines.append_array(SagaNarrator.select(narrative.get("battle_lines", []), event, safe, _saga_narration_seen, state.actors))
 		if _built and not _hd_enabled():
 			_event_fx(event)
 			if event.type == "damage" and not played.has(event.actor_id):
@@ -867,6 +888,7 @@ func _show_result() -> void:
 		lines.append("没有额外补给或经验")
 	if result_saved and not last_error.is_empty(): lines.append(last_error)
 	_hud.result_body.text = "\n".join(lines)
+	_hud.result_exit.text = "返回整备 · 保留战前资源" if not victory and campaign != null and campaign.safe_snapshot().has("saga") else "返回标题 · 保留安全档"
 	_hud.result_action.text = "重试保存战果" if not result_saved else ("继续" if victory else "同条件重试")
 
 func _inventory_text(inventory: Dictionary) -> String:
@@ -889,6 +911,7 @@ func _result_action() -> void:
 		_result.visible = false
 		_sync_modal_focus()
 		_log_lines.clear()
+		_saga_narration_seen.clear()
 		bind(router.create_engine(), campaign)
 	else:
 		_navigating = true
@@ -897,6 +920,23 @@ func _result_action() -> void:
 			_navigating = false
 			last_error = "返场失败（%d），安全战果已保存，可重试返回" % error
 			_show_result()
+
+func _result_secondary() -> void:
+	if _navigating: return
+	if campaign != null and campaign.safe_snapshot().has("saga") and engine != null and engine.snapshot().outcome == "defeat":
+		var result: Dictionary = campaign.leave_saga_battle()
+		if not result.ok:
+			last_error = result.error
+			_show_result()
+			return
+		router.resume_exploration()
+		_navigating = true
+		if _change_scene(Saga.SCENE_PATH) != OK:
+			_navigating = false
+			last_error = "返回整备失败，战前进度已保存，可从标题继续"
+			_show_result()
+		return
+	_return_title()
 
 func _return_title() -> void:
 	if _hd_enabled():

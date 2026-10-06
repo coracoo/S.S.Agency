@@ -2,8 +2,8 @@
 """核对官方Godot PCK，并追加FileAccess必需的原始素材字节。
 
 Godot include_filter不会保留已导入资源的源PNG。此工具仅支持未加密的
-独立PCK v2/v3；保留官方导出内容，追加源文件与完整目录，再核验每条MD5。
-布局依据Godot 4.6 core/io/file_access_pack.cpp；不重新编译脚本或改import。
+独立PCK v2/v3/v4；保留官方导出内容，追加源文件与完整目录，再核验每条MD5。
+布局依据官方Godot 4.7.2 core/io/file_access_pack.cpp；不重新编译脚本或改import。
 """
 import argparse
 from datetime import datetime, timezone
@@ -29,9 +29,9 @@ def read_pack(pack):
     size = pack.stat().st_size
     with pack.open("rb") as stream:
         magic, version, major, minor, patch, flags, base = struct.unpack("<6IQ", _read(stream, 32))
-        if magic != 0x43504447 or version not in (2, 3) or flags & 5:
-            raise ValueError("仅支持未加密、非sparse的独立Godot PCK v2/v3")
-        if version == 3:
+        if magic != 0x43504447 or version not in (2, 3, 4) or flags & 5:
+            raise ValueError("仅支持未加密、非sparse的独立Godot PCK v2/v3/v4")
+        if version in (3, 4):
             directory, = struct.unpack("<Q", _read(stream, 8))
             stream.seek(directory)
         else:
@@ -83,12 +83,12 @@ def append_originals(pack, sources):
 
 
 def _write_directory(pack, entries, pending):
-    # 官方导出当前为v3；v2读/校验受支持，追加必须有v3目录偏移字段。
+    # 官方4.7.2导出v4；非加密独立v3/v4共用目录偏移，v2只读/校验。
     with pack.open("r+b") as stream:
         stream.seek(4)
         version, = struct.unpack("<I", _read(stream, 4))
-        if version != 3:
-            raise ValueError("追加原始文件只支持官方v3包")
+        if version not in (3, 4):
+            raise ValueError("追加原始文件只支持官方非加密独立v3/v4包")
         stream.seek(24)
         base, = struct.unpack("<Q", _read(stream, 8))
         stream.seek(0, 2)
@@ -113,7 +113,7 @@ def _write_directory(pack, entries, pending):
 
 def packed_target(path, paths):
     logical = path.removeprefix("res://")
-    return logical in paths or logical + ".remap" in paths
+    return logical in paths or logical + ".remap" in paths or logical + ".import" in paths
 
 
 def filter_class_cache(text, paths):
@@ -178,7 +178,7 @@ def filter_pack_caches(pack):
 def audit_paths(paths, required):
     failures = ["缺少发布依赖：" + path for path in sorted(required - paths)]
     for path in sorted(paths):
-        if path.startswith(("tools/", "docs/", "admin/", "archive/", "old/", "config/", ".git/", ".agents/", ".codex/", "build/")) or "/source/" in path or "_raw_" in path or path.endswith((".xlsx", ".blend", ".blend1", ".md")):
+        if path.startswith(("tools/", "docs/", "admin/", "archive/", "old/", "config/", ".git/", ".agents/", ".codex/", "build/", "screenshots/", "evidence/", "captures/")) or "/source/" in path or "_raw_" in path or path.endswith((".xlsx", ".blend", ".blend1", ".md")):
             failures.append("开发/源稿内容误入发布包：" + path)
     return failures
 
@@ -187,12 +187,26 @@ def formal_dependencies(project=PROJECT):
     """正式可调用路径与解析依赖分开；旧profile URI不等同资源硬依赖。"""
     sources = set()
     resources = {"scenes/campaign/title.tscn", "scenes/campaign/ending.tscn", "scenes/rpg/battle.tscn",
+                 "scenes/campaign/saga.tscn", "scenes/campaign/saga_ending.tscn",
                  *(f"scenes/campaign/night_{night}.tscn" for night in range(1, 6)),
                  "scenes/preview/act01_approach_3d.tscn", "assets/3d/act01_approach/act01_approach.glb",
                  "assets/fonts/Alibaba-PuHuiTi-Regular.ttf", "assets/chars/portraits/sayo_half.png"}
     npc_manifest = project / "assets/chars/npcs/act_one/asset_manifest.json"
     if npc_manifest.is_file():
         sources.add(npc_manifest.relative_to(project).as_posix())
+    saga_npcs = project / "assets/chars/npcs/saga/asset_manifest.json"
+    if saga_npcs.is_file():
+        sources.add(saga_npcs.relative_to(project).as_posix())
+        npc_data = json.loads(saga_npcs.read_text())
+        # NPC图集由PNG原字节解码；只纳入manifest明确登记的成品，不递归预览/原稿。
+        for character in npc_data["characters"].values():
+            sources.add(character["sheet"].removeprefix("res://"))
+    saga_enemies = project / "assets/chars/enemies/saga/asset_manifest.json"
+    if saga_enemies.is_file():
+        sources.add(saga_enemies.relative_to(project).as_posix())
+        enemy_data = json.loads(saga_enemies.read_text())
+        for enemy in enemy_data["enemies"].values():
+            sources.add(enemy["sheet"].removeprefix("res://"))
     # NightMenuArt按ROOT + id动态读原PNG；只收批准目录的直接成品，不递归原稿或整个UI树。
     menu_pngs = {path.relative_to(project).as_posix()
                  for path in (project / "assets/ui/night_menu").glob("*.png") if path.is_file()}

@@ -1,11 +1,12 @@
 # 当前项目与文档入口
 
-更新：2026-10-04。当前玩家默认内容为第一章五夜3D探索＋统一回合制RPG，唯一入口 `scenes/campaign/title.tscn`。
+更新：2026-10-05。当前玩家默认内容为七章3D探索＋统一回合制RPG，第一章仍保留五夜寺域，唯一入口 `scenes/campaign/title.tscn`。
 
 ## 当前优先阅读
 
 | 文档 | 用途 |
 |---|---|
+| [七章内容与保存](campaign/seven-chapters.md) | 七章入口、条件支线、四结局与严格检查点 |
 | [五夜主线规范](superpowers/specs/2026-10-04-five-night-3d-design.md) | 用户已批准范围、五夜内容、存档与验收边界 |
 | [实施计划](superpowers/plans/2026-10-04-five-night-3d-implementation.md) | 实现任务与实际验收进展 |
 | [主线运行与发布](campaign/README.md) | 当前入口、隔离门禁、PCK构建与回退 |

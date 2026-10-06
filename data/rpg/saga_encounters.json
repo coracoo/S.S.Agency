@@ -1,0 +1,414 @@
+{
+  "schema_version": 1,
+  "rules_version": "rpg-0.1",
+  "definitions": [
+    {
+      "id": "saga_c2_03",
+      "name": "清开护送巷口",
+      "level": 5,
+      "xp": 170,
+      "enemy_ids": [
+        "saga_paper_soldier",
+        "saga_lamp_shadow"
+      ],
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [],
+      "ritual_routes": [],
+      "story_scene": "C2-03"
+    },
+    {
+      "id": "saga_c2_07",
+      "name": "茶棚取芯",
+      "level": 5,
+      "xp": 170,
+      "enemy_ids": [
+        "saga_lamp_shadow",
+        "saga_paper_soldier"
+      ],
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [],
+      "ritual_routes": [],
+      "story_scene": "C2-07"
+    },
+    {
+      "id": "saga_c2_09",
+      "name": "守住引路灯",
+      "level": 5,
+      "xp": 170,
+      "enemy_ids": [
+        "saga_lamp_shadow",
+        "saga_lamp_shadow"
+      ],
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [],
+      "ritual_routes": [],
+      "story_scene": "C2-09"
+    },
+    {
+      "id": "saga_c2_s02",
+      "name": "染坊救援",
+      "level": 5,
+      "xp": 170,
+      "enemy_ids": [
+        "saga_paper_soldier",
+        "saga_paper_soldier"
+      ],
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [],
+      "ritual_routes": [],
+      "story_scene": "C2-S02"
+    },
+    {
+      "id": "saga_c3_03",
+      "name": "拿回缆桩",
+      "level": 6,
+      "xp": 170,
+      "enemy_ids": [
+        "saga_paper_soldier",
+        "saga_mirror_shard"
+      ],
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [],
+      "ritual_routes": [],
+      "story_scene": "C3-03"
+    },
+    {
+      "id": "saga_c3_07",
+      "name": "撤向第二岸",
+      "level": 6,
+      "xp": 170,
+      "enemy_ids": [
+        "saga_paper_soldier",
+        "saga_paper_soldier",
+        "saga_lamp_shadow"
+      ],
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [],
+      "ritual_routes": [],
+      "story_scene": "C3-07"
+    },
+    {
+      "id": "saga_c3_s01",
+      "name": "护住货仓",
+      "level": 6,
+      "xp": 170,
+      "enemy_ids": [
+        "saga_paper_soldier",
+        "saga_mirror_shard"
+      ],
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [],
+      "ritual_routes": [],
+      "story_scene": "C3-S01"
+    },
+    {
+      "id": "saga_c3_s02",
+      "name": "退水后清障",
+      "level": 6,
+      "xp": 170,
+      "enemy_ids": [
+        "saga_lamp_shadow",
+        "saga_paper_soldier"
+      ],
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [],
+      "ritual_routes": [],
+      "story_scene": "C3-S02"
+    },
+    {
+      "id": "saga_c4_04",
+      "name": "拆开镜廊活扣",
+      "level": 7,
+      "xp": 170,
+      "enemy_ids": [
+        "saga_mirror_shard",
+        "saga_lamp_shadow"
+      ],
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [],
+      "ritual_routes": [],
+      "story_scene": "C4-04"
+    },
+    {
+      "id": "saga_c4_s02",
+      "name": "邱安救援",
+      "level": 7,
+      "xp": 170,
+      "enemy_ids": [
+        "saga_mirror_shard",
+        "saga_paper_soldier"
+      ],
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [],
+      "ritual_routes": [],
+      "story_scene": "C4-S02"
+    },
+    {
+      "id": "saga_c5_09",
+      "name": "药库护械",
+      "level": 8,
+      "xp": 170,
+      "enemy_ids": [
+        "saga_mirror_shard",
+        "saga_paper_soldier",
+        "saga_lamp_shadow"
+      ],
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [],
+      "ritual_routes": [],
+      "story_scene": "C5-09"
+    },
+    {
+      "id": "saga_c5_s02",
+      "name": "药棚家属救援",
+      "level": 8,
+      "xp": 170,
+      "enemy_ids": [
+        "saga_lamp_shadow",
+        "saga_paper_soldier"
+      ],
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [],
+      "ritual_routes": [],
+      "story_scene": "C5-S02"
+    },
+    {
+      "id": "saga_c6_04",
+      "name": "分层揭印守灯",
+      "level": 8,
+      "xp": 170,
+      "enemy_ids": [
+        "saga_lamp_shadow",
+        "saga_mirror_shard",
+        "saga_paper_soldier"
+      ],
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [],
+      "ritual_routes": [],
+      "story_scene": "C6-04"
+    },
+    {
+      "id": "saga_c6_s02",
+      "name": "守护两条返身路",
+      "level": 9,
+      "xp": 170,
+      "enemy_ids": [
+        "saga_lamp_shadow",
+        "saga_mirror_shard",
+        "saga_lamp_shadow"
+      ],
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [],
+      "ritual_routes": [],
+      "story_scene": "C6-S02"
+    },
+    {
+      "id": "saga_c6_s04",
+      "name": "后巷最后两人",
+      "level": 9,
+      "xp": 170,
+      "enemy_ids": [
+        "saga_mirror_shard",
+        "saga_paper_soldier"
+      ],
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [],
+      "ritual_routes": [],
+      "story_scene": "C6-S04"
+    },
+    {
+      "id": "saga_c2_12",
+      "name": "借声客",
+      "level": 5,
+      "xp": 400,
+      "enemy_ids": [
+        "saga_borrowed_voice"
+      ],
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [],
+      "ritual_routes": [],
+      "story_scene": "C2-12",
+      "objective": "上一轮最后行动会被回放；攻后转守，盾击打断；末段守住扑灯目标。"
+    },
+    {
+      "id": "saga_c3_10",
+      "name": "背岸将",
+      "level": 6,
+      "xp": 400,
+      "enemy_ids": [
+        "saga_backshore_general",
+        "saga_paper_soldier",
+        "saga_paper_soldier"
+      ],
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [],
+      "ritual_routes": [],
+      "story_scene": "C3-10",
+      "objective": "举旗后盾击或眩晕阻止补位；击倒号令者即可护船通过，不必杀光纸兵。"
+    },
+    {
+      "id": "saga_c4_09",
+      "name": "合面镜",
+      "level": 7,
+      "xp": 400,
+      "enemy_ids": [
+        "saga_joined_mirror"
+      ],
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [],
+      "ritual_routes": [],
+      "story_scene": "C4-09",
+      "objective": "刀光反物理，水纹反术法，第三轮脱面；纯物理队可守到背扣窗口。"
+    },
+    {
+      "id": "saga_c5_12",
+      "name": "百手灯母",
+      "level": 8,
+      "xp": 400,
+      "enemy_ids": [
+        "saga_hundredhand_lamp"
+      ],
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [],
+      "ritual_routes": [],
+      "story_scene": "C5-12",
+      "objective": "灯印后打断吸取，未打断将补血补罩；第三步灯罩散开。"
+    },
+    {
+      "id": "saga_c6_11",
+      "name": "无更巡守",
+      "level": 9,
+      "xp": 400,
+      "enemy_ids": [
+        "saga_nochange_warden",
+        "saga_anchor_left",
+        "saga_anchor_right"
+      ],
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [],
+      "ritual_routes": [],
+      "story_scene": "C6-11",
+      "objective": "隔离左右锁片才暴露胸牌；胸牌指向下一回补侧，控制可阻断。"
+    },
+    {
+      "id": "saga_c7_05",
+      "name": "终战第一阶段·护面",
+      "level": 10,
+      "xp": 400,
+      "enemy_ids": [
+        "saga_master_mirror"
+      ],
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [],
+      "ritual_routes": [],
+      "story_scene": "C7-05",
+      "objective": "识别反射，等通用护边窗口；本阶段实际胜利后才能进入执灯人。"
+    },
+    {
+      "id": "saga_c7_06",
+      "name": "终战第二阶段·执灯人",
+      "level": 10,
+      "xp": 400,
+      "enemy_ids": [
+        "saga_lamp_bearer",
+        "saga_paper_soldier",
+        "saga_paper_soldier"
+      ],
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [],
+      "ritual_routes": [],
+      "story_scene": "C7-06",
+      "objective": "打断举灯补位，解除束缚；阶段间资源保留。"
+    },
+    {
+      "id": "saga_c7_10",
+      "name": "分段撤阵",
+      "level": 10,
+      "xp": 450,
+      "enemy_ids": [
+        "saga_final_recoil",
+        "saga_relay_recoil",
+        "saga_exit_recoil"
+      ],
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [],
+      "ritual_routes": [],
+      "story_scene": "C7-10",
+      "objective": "先稳出口并等外侧接应，再分流残响、关闭内圈；目标不能跳过。"
+    },
+    {
+      "id": "saga_c7_11",
+      "name": "限期防护",
+      "level": 10,
+      "xp": 450,
+      "enemy_ids": [
+        "saga_final_recoil",
+        "saga_relay_recoil",
+        "saga_exit_recoil"
+      ],
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [],
+      "ritual_routes": [],
+      "story_scene": "C7-11",
+      "objective": "先保退出通道，再安置中段承压器，最后卸去主镜余压；不以人命补位。"
+    },
+    {
+      "id": "saga_c7_12",
+      "name": "强拆撤离",
+      "level": 10,
+      "xp": 450,
+      "enemy_ids": [
+        "saga_final_recoil",
+        "saga_relay_recoil",
+        "saga_exit_recoil"
+      ],
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [],
+      "ritual_routes": [],
+      "story_scene": "C7-12",
+      "objective": "先清开出口，再断分流实体锚，最后拆主锚；先后次序不可跳过。"
+    },
+    {
+      "id": "saga_c7_13",
+      "name": "稳住出口",
+      "level": 10,
+      "xp": 450,
+      "enemy_ids": [
+        "saga_final_recoil",
+        "saga_relay_recoil",
+        "saga_exit_recoil"
+      ],
+      "next_id": "",
+      "rest_after": false,
+      "scene_routes": [],
+      "ritual_routes": [],
+      "story_scene": "C7-13",
+      "objective": "压住堵门反冲、断回补号令、稳主镜；胜利不会自行恢复吸梦。"
+    }
+  ]
+}

@@ -58,7 +58,7 @@ static func preview(state: Dictionary, command: Dictionary, catalog: RefCounted)
 		return result
 	var resolved := command.duplicate(true)
 	resolved.target_ids = targets
-	var simulation := state.duplicate(true)
+	var simulation := Resolver.simulation_state(state)
 	var events := Resolver.resolve(simulation, resolved, catalog, null)
 	result.effects = events.duplicate(true)
 	var any_effect := false

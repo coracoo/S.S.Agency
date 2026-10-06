@@ -1,0 +1,1060 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-10-05",
+  "method": "OpenAI built-in image_gen",
+  "coordinate_contract": "world_region/portrait_region 为 sheet 原像素 [x,y,w,h]；body_anchor 为 world_region 内局部像素脚底锚点 [x,y]；crown_y 为局部头顶 y；height_cm 为美术显示标尺，不属于对白确定事实。",
+  "characters": {
+    "阿杏": {
+      "id": "axing",
+      "speaker": "阿杏",
+      "world_region": [
+        190,
+        40,
+        290,
+        580
+      ],
+      "portrait_region": [
+        65,
+        645,
+        480,
+        600
+      ],
+      "body_anchor": [
+        140,
+        562
+      ],
+      "crown_y": 15,
+      "height_cm": 163,
+      "story": "C2-01/C2-02：南街客栈帮工；大纲用她。年龄、发式、衣色未明确，采用成年女性日常工作装的本轮美术设定。",
+      "sheet": "res://assets/chars/npcs/saga/axing_taoshen.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "source": {
+        "story_document": "docs/story/review/v1/逢魔退治帖_七章完整对白_v1.txt",
+        "outline_document": "docs/story/review/v1/逢魔退治帖_第二至七章分场大纲_v1.txt",
+        "existing_assets_modified": false
+      },
+      "generation": {
+        "method": "OpenAI built-in image_gen",
+        "created_utc": "2026-10-05",
+        "sha256": "30761252b038a591e5e549b28c4e47792bd48abba31346cdc3d0fd156ed31585",
+        "prompt_file": "axing_taoshen_prompt.txt",
+        "static_art": true,
+        "animation": false,
+        "qa": "已目检：同人双视图、完整头脚、无文字、无额外肢体、独立不交叠区域、RGBA透明背景。"
+      }
+    },
+    "陶婶": {
+      "id": "taoshen",
+      "speaker": "陶婶",
+      "world_region": [
+        775,
+        40,
+        330,
+        580
+      ],
+      "portrait_region": [
+        650,
+        645,
+        590,
+        600
+      ],
+      "body_anchor": [
+        178,
+        566
+      ],
+      "crown_y": 21,
+      "height_cm": 158,
+      "story": "C2-04/C2-09：成年女性灯铺经营者，会修铜片、引路灯；具体年龄与衣色为本轮美术设定。",
+      "sheet": "res://assets/chars/npcs/saga/axing_taoshen.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "source": {
+        "story_document": "docs/story/review/v1/逢魔退治帖_七章完整对白_v1.txt",
+        "outline_document": "docs/story/review/v1/逢魔退治帖_第二至七章分场大纲_v1.txt",
+        "existing_assets_modified": false
+      },
+      "generation": {
+        "method": "OpenAI built-in image_gen",
+        "created_utc": "2026-10-05",
+        "sha256": "30761252b038a591e5e549b28c4e47792bd48abba31346cdc3d0fd156ed31585",
+        "prompt_file": "axing_taoshen_prompt.txt",
+        "static_art": true,
+        "animation": false,
+        "qa": "已目检：同人双视图、完整头脚、无文字、无额外肢体、独立不交叠区域、RGBA透明背景。"
+      }
+    },
+    "乔伯": {
+      "id": "qiaobo",
+      "speaker": "乔伯",
+      "world_region": [
+        150,
+        0,
+        325,
+        660
+      ],
+      "portrait_region": [
+        15,
+        660,
+        580,
+        594
+      ],
+      "body_anchor": [
+        157,
+        657
+      ],
+      "crown_y": 11,
+      "height_cm": 170,
+      "story": "C3-01：当代普通男性渡工，接手旧船，非七十年前亲历者；熟悉水势及船索。老年外观与服装为美术设定。",
+      "sheet": "res://assets/chars/npcs/saga/qiaobo_xuzhaoyi.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "source": {
+        "story_document": "docs/story/review/v1/逢魔退治帖_七章完整对白_v1.txt",
+        "outline_document": "docs/story/review/v1/逢魔退治帖_第二至七章分场大纲_v1.txt",
+        "existing_assets_modified": false
+      },
+      "generation": {
+        "method": "OpenAI built-in image_gen",
+        "created_utc": "2026-10-05",
+        "sha256": "0ea76850446f43eb34ac4d1a5a602165e95e056d973cfa900c4e04a9fc30d49f",
+        "prompt_file": "qiaobo_xuzhaoyi_prompt.txt",
+        "static_art": true,
+        "animation": false,
+        "qa": "已目检：同人双视图、完整头脚、无文字、无额外肢体、独立不交叠区域、RGBA透明背景。"
+      }
+    },
+    "许照漪": {
+      "id": "xuzhaoyi",
+      "speaker": "许照漪",
+      "world_region": [
+        825,
+        0,
+        265,
+        660
+      ],
+      "portrait_region": [
+        740,
+        675,
+        505,
+        579
+      ],
+      "body_anchor": [
+        122,
+        657
+      ],
+      "crown_y": 22,
+      "height_cm": 166,
+      "story": "C4-01/C4-02及大纲：女性镜匠，修日用镜，认识家传背纹；铜镜、工作围裙为职业美术设定。",
+      "sheet": "res://assets/chars/npcs/saga/qiaobo_xuzhaoyi.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "source": {
+        "story_document": "docs/story/review/v1/逢魔退治帖_七章完整对白_v1.txt",
+        "outline_document": "docs/story/review/v1/逢魔退治帖_第二至七章分场大纲_v1.txt",
+        "existing_assets_modified": false
+      },
+      "generation": {
+        "method": "OpenAI built-in image_gen",
+        "created_utc": "2026-10-05",
+        "sha256": "0ea76850446f43eb34ac4d1a5a602165e95e056d973cfa900c4e04a9fc30d49f",
+        "prompt_file": "qiaobo_xuzhaoyi_prompt.txt",
+        "static_art": true,
+        "animation": false,
+        "qa": "已目检：同人双视图、完整头脚、无文字、无额外肢体、独立不交叠区域、RGBA透明背景。"
+      }
+    },
+    "孟衡": {
+      "id": "mengheng",
+      "speaker": "孟衡",
+      "world_region": [
+        140,
+        0,
+        320,
+        661
+      ],
+      "portrait_region": [
+        20,
+        666,
+        560,
+        588
+      ],
+      "body_anchor": [
+        157,
+        658
+      ],
+      "crown_y": 8,
+      "height_cm": 175,
+      "story": "C5-01/C5-03/C5-06：男性医者，与苏合相识，曾隐瞒灯阵。中年外观、药罐和配色为本轮美术设定。",
+      "sheet": "res://assets/chars/npcs/saga/mengheng_shenzhuzhou.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "source": {
+        "story_document": "docs/story/review/v1/逢魔退治帖_七章完整对白_v1.txt",
+        "outline_document": "docs/story/review/v1/逢魔退治帖_第二至七章分场大纲_v1.txt",
+        "existing_assets_modified": false
+      },
+      "generation": {
+        "method": "OpenAI built-in image_gen",
+        "created_utc": "2026-10-05",
+        "sha256": "eead35d71674e8085629a5f0efaf6568114a7091763e165b0dc2fcb009ad09dd",
+        "prompt_file": "mengheng_shenzhuzhou_prompt.txt",
+        "static_art": true,
+        "animation": false,
+        "qa": "已目检：同人双视图、完整头脚、无文字、无额外肢体、独立不交叠区域、RGBA透明背景。"
+      }
+    },
+    "沈烛舟": {
+      "id": "shenzhuzhou",
+      "speaker": "沈烛舟",
+      "world_region": [
+        755,
+        0,
+        380,
+        663
+      ],
+      "portrait_region": [
+        680,
+        667,
+        540,
+        587
+      ],
+      "body_anchor": [
+        190,
+        659
+      ],
+      "crown_y": 9,
+      "height_cm": 178,
+      "story": "C5-06：补主镜时身亡，执念附主镜；C7-02旧影为挽袖救人的年轻人，现状为可回应的男性守阵之魂。成年青年外观与铜灯、图卷为美术设定，非新增年龄事实。",
+      "sheet": "res://assets/chars/npcs/saga/mengheng_shenzhuzhou.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "source": {
+        "story_document": "docs/story/review/v1/逢魔退治帖_七章完整对白_v1.txt",
+        "outline_document": "docs/story/review/v1/逢魔退治帖_第二至七章分场大纲_v1.txt",
+        "existing_assets_modified": false
+      },
+      "generation": {
+        "method": "OpenAI built-in image_gen",
+        "created_utc": "2026-10-05",
+        "sha256": "eead35d71674e8085629a5f0efaf6568114a7091763e165b0dc2fcb009ad09dd",
+        "prompt_file": "mengheng_shenzhuzhou_prompt.txt",
+        "static_art": true,
+        "animation": false,
+        "qa": "已目检：同人双视图、完整头脚、无文字、无额外肢体、独立不交叠区域、RGBA透明背景。"
+      }
+    },
+    "方澄": {
+      "id": "fangcheng",
+      "speaker": "方澄",
+      "height_cm": 175,
+      "story": "C5-S01明确为方素成年兄长，携干衣裳；C6-S01带少一扣的蓝外衣。年龄及衣色为美术设定。",
+      "world_region": [
+        198,
+        2,
+        266,
+        682
+      ],
+      "portrait_region": [
+        108,
+        703,
+        474,
+        543
+      ],
+      "body_anchor": [
+        126,
+        675
+      ],
+      "crown_y": 8,
+      "sheet": "res://assets/chars/npcs/saga/fangcheng_chenkui.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "source": {
+        "story_document": "docs/story/review/v1/逢魔退治帖_七章完整对白_v1.txt",
+        "outline_document": "docs/story/review/v1/逢魔退治帖_第二至七章分场大纲_v1.txt",
+        "existing_assets_modified": false
+      },
+      "generation": {
+        "method": "OpenAI built-in image_gen",
+        "created_utc": "2026-10-05",
+        "sha256": "fa74ed207368f6918441060fb762059e06626eb8c6ce7dd9f37c98a00e2f17b3",
+        "prompt_file": "fangcheng_chenkui_prompt.txt",
+        "static_art": true,
+        "animation": false,
+        "qa": "逐图目检：完整头脚、专用同人半身、无文字或额外肢体、原始RGBA透明；只生成运行时裁取元数据，没有修改原图像素。",
+        "transparent_pixel_ratio": 0.68319
+      }
+    },
+    "陈葵": {
+      "id": "chenkui",
+      "speaker": "陈葵",
+      "height_cm": 163,
+      "story": "C5-S01明确为陈樵妻子，携陈樵补过的旧鞋；成年女性。发式、服装、年龄为美术设定。",
+      "world_region": [
+        821,
+        40,
+        261,
+        638
+      ],
+      "portrait_region": [
+        769,
+        732,
+        401,
+        509
+      ],
+      "body_anchor": [
+        137,
+        631
+      ],
+      "crown_y": 8,
+      "sheet": "res://assets/chars/npcs/saga/fangcheng_chenkui.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "source": {
+        "story_document": "docs/story/review/v1/逢魔退治帖_七章完整对白_v1.txt",
+        "outline_document": "docs/story/review/v1/逢魔退治帖_第二至七章分场大纲_v1.txt",
+        "existing_assets_modified": false
+      },
+      "generation": {
+        "method": "OpenAI built-in image_gen",
+        "created_utc": "2026-10-05",
+        "sha256": "fa74ed207368f6918441060fb762059e06626eb8c6ce7dd9f37c98a00e2f17b3",
+        "prompt_file": "fangcheng_chenkui_prompt.txt",
+        "static_art": true,
+        "animation": false,
+        "qa": "逐图目检：完整头脚、专用同人半身、无文字或额外肢体、原始RGBA透明；只生成运行时裁取元数据，没有修改原图像素。",
+        "transparent_pixel_ratio": 0.68319
+      }
+    },
+    "吴济": {
+      "id": "wuji",
+      "speaker": "吴济",
+      "height_cm": 174,
+      "story": "C3-12：北埠染坊的男性守魂，左袖卷至肘、半边袖曾泡坏；会回应当下问题，非旧话回放。",
+      "world_region": [
+        195,
+        0,
+        298,
+        676
+      ],
+      "portrait_region": [
+        72,
+        676,
+        525,
+        578
+      ],
+      "body_anchor": [
+        138,
+        669
+      ],
+      "crown_y": 4,
+      "sheet": "res://assets/chars/npcs/saga/wuji_luyun.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "source": {
+        "story_document": "docs/story/review/v1/逢魔退治帖_七章完整对白_v1.txt",
+        "outline_document": "docs/story/review/v1/逢魔退治帖_第二至七章分场大纲_v1.txt",
+        "existing_assets_modified": false
+      },
+      "generation": {
+        "method": "OpenAI built-in image_gen",
+        "created_utc": "2026-10-05",
+        "sha256": "573a3550fba4191b6ca36ae992241cc664b9096fec3764baac5cd69aad80f6ff",
+        "prompt_file": "wuji_luyun_prompt.txt",
+        "static_art": true,
+        "animation": false,
+        "qa": "逐图目检：完整头脚、专用同人半身、无文字或额外肢体、原始RGBA透明；只生成运行时裁取元数据，没有修改原图像素。",
+        "transparent_pixel_ratio": 0.652498
+      }
+    },
+    "陆芸": {
+      "id": "luyun",
+      "speaker": "陆芸",
+      "height_cm": 164,
+      "story": "C5-05：成年女性医工，十六年前病故，后堂收药值夜；医工造型及年龄为美术设定，不应当成怪物。",
+      "world_region": [
+        829,
+        21,
+        281,
+        654
+      ],
+      "portrait_region": [
+        756,
+        697,
+        484,
+        557
+      ],
+      "body_anchor": [
+        125,
+        647
+      ],
+      "crown_y": 8,
+      "sheet": "res://assets/chars/npcs/saga/wuji_luyun.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "source": {
+        "story_document": "docs/story/review/v1/逢魔退治帖_七章完整对白_v1.txt",
+        "outline_document": "docs/story/review/v1/逢魔退治帖_第二至七章分场大纲_v1.txt",
+        "existing_assets_modified": false
+      },
+      "generation": {
+        "method": "OpenAI built-in image_gen",
+        "created_utc": "2026-10-05",
+        "sha256": "573a3550fba4191b6ca36ae992241cc664b9096fec3764baac5cd69aad80f6ff",
+        "prompt_file": "wuji_luyun_prompt.txt",
+        "static_art": true,
+        "animation": false,
+        "qa": "逐图目检：完整头脚、专用同人半身、无文字或额外肢体、原始RGBA透明；只生成运行时裁取元数据，没有修改原图像素。",
+        "transparent_pixel_ratio": 0.652498
+      }
+    },
+    "罗婶": {
+      "id": "luoshen",
+      "speaker": "罗婶",
+      "height_cm": 158,
+      "story": "C2-S01/S02：成年女性缝补摊主，针线篮挂染坊门外；熟悉阿杏小时候的衣裳。老年外观为美术设定。",
+      "world_region": [
+        191,
+        10,
+        292,
+        699
+      ],
+      "portrait_region": [
+        77,
+        709,
+        501,
+        543
+      ],
+      "body_anchor": [
+        143,
+        693
+      ],
+      "crown_y": 8,
+      "sheet": "res://assets/chars/npcs/saga/luoshen_aliu.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "source": {
+        "story_document": "docs/story/review/v1/逢魔退治帖_七章完整对白_v1.txt",
+        "outline_document": "docs/story/review/v1/逢魔退治帖_第二至七章分场大纲_v1.txt",
+        "existing_assets_modified": false
+      },
+      "generation": {
+        "method": "OpenAI built-in image_gen",
+        "created_utc": "2026-10-05",
+        "sha256": "40b9c1e74211ca463499ab514e7b5efe331d79ce906f13cdf0bb3b9ffb9d3702",
+        "prompt_file": "luoshen_aliu_prompt.txt",
+        "static_art": true,
+        "animation": false,
+        "qa": "逐图目检：完整头脚、专用同人半身、无文字或额外肢体、原始RGBA透明；只生成运行时裁取元数据，没有修改原图像素。",
+        "transparent_pixel_ratio": 0.61749
+      }
+    },
+    "阿柳": {
+      "id": "aliu",
+      "speaker": "阿柳",
+      "height_cm": 167,
+      "story": "C2-S01明确她俩都是大人：阿柳为成年女性送货工，不是男孩。服装、体型、年龄为本轮美术设定。",
+      "world_region": [
+        809,
+        1,
+        281,
+        708
+      ],
+      "portrait_region": [
+        739,
+        709,
+        487,
+        543
+      ],
+      "body_anchor": [
+        154,
+        707
+      ],
+      "crown_y": 8,
+      "sheet": "res://assets/chars/npcs/saga/luoshen_aliu.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "source": {
+        "story_document": "docs/story/review/v1/逢魔退治帖_七章完整对白_v1.txt",
+        "outline_document": "docs/story/review/v1/逢魔退治帖_第二至七章分场大纲_v1.txt",
+        "existing_assets_modified": false
+      },
+      "generation": {
+        "method": "OpenAI built-in image_gen",
+        "created_utc": "2026-10-05",
+        "sha256": "40b9c1e74211ca463499ab514e7b5efe331d79ce906f13cdf0bb3b9ffb9d3702",
+        "prompt_file": "luoshen_aliu_prompt.txt",
+        "static_art": true,
+        "animation": false,
+        "qa": "逐图目检：完整头脚、专用同人半身、无文字或额外肢体、原始RGBA透明；只生成运行时裁取元数据，没有修改原图像素。",
+        "transparent_pixel_ratio": 0.61749
+      }
+    },
+    "邱安": {
+      "id": "qiuan",
+      "speaker": "邱安",
+      "height_cm": 173,
+      "story": "C4-S01：男性成年磨镜工，在街上干活二十余年；救援后伤脚需固定。本图为通用身份静态站姿，不能用作负重活动/康复动画。",
+      "world_region": [
+        188,
+        35,
+        249,
+        584
+      ],
+      "portrait_region": [
+        35,
+        653,
+        548,
+        593
+      ],
+      "body_anchor": [
+        124,
+        577
+      ],
+      "crown_y": 8,
+      "sheet": "res://assets/chars/npcs/saga/qiuan_zhaoyigong.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "source": {
+        "story_document": "docs/story/review/v1/逢魔退治帖_七章完整对白_v1.txt",
+        "outline_document": "docs/story/review/v1/逢魔退治帖_第二至七章分场大纲_v1.txt",
+        "existing_assets_modified": false
+      },
+      "generation": {
+        "method": "OpenAI built-in image_gen",
+        "created_utc": "2026-10-05",
+        "sha256": "67c7045b1c1b535ac2210a2235e1588cd452acac46bb45b9e761645c0e5684d6",
+        "prompt_file": "qiuan_zhaoyigong_prompt.txt",
+        "static_art": true,
+        "animation": false,
+        "qa": "逐图目检：完整头脚、专用同人半身、无文字或额外肢体、原始RGBA透明；只生成运行时裁取元数据，没有修改原图像素。",
+        "transparent_pixel_ratio": 0.633802
+      }
+    },
+    "赵医工": {
+      "id": "zhaoyigong",
+      "speaker": "赵医工",
+      "height_cm": 170,
+      "story": "C6-01：负责六床病人名册、药与交接的成年医工。原文未明确性别与具体年龄，采用中性成人造型；不可把造型衍生为新增剧情性别设定。",
+      "world_region": [
+        849,
+        44,
+        252,
+        576
+      ],
+      "portrait_region": [
+        708,
+        661,
+        544,
+        585
+      ],
+      "body_anchor": [
+        123,
+        569
+      ],
+      "crown_y": 8,
+      "sheet": "res://assets/chars/npcs/saga/qiuan_zhaoyigong.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "source": {
+        "story_document": "docs/story/review/v1/逢魔退治帖_七章完整对白_v1.txt",
+        "outline_document": "docs/story/review/v1/逢魔退治帖_第二至七章分场大纲_v1.txt",
+        "existing_assets_modified": false
+      },
+      "generation": {
+        "method": "OpenAI built-in image_gen",
+        "created_utc": "2026-10-05",
+        "sha256": "67c7045b1c1b535ac2210a2235e1588cd452acac46bb45b9e761645c0e5684d6",
+        "prompt_file": "qiuan_zhaoyigong_prompt.txt",
+        "static_art": true,
+        "animation": false,
+        "qa": "逐图目检：完整头脚、专用同人半身、无文字或额外肢体、原始RGBA透明；只生成运行时裁取元数据，没有修改原图像素。",
+        "transparent_pixel_ratio": 0.633802
+      }
+    },
+    "方素": {
+      "id": "fangsu",
+      "speaker": "方素",
+      "height_cm": 162,
+      "story": "C5/C6：成年女性患者、方澄之妹；有蓝外衣及自持店钥匙。静态身份立绘不证明已经唤醒，实际救援状态由剧情决定。",
+      "world_region": [
+        220,
+        7,
+        237,
+        658
+      ],
+      "portrait_region": [
+        107,
+        665,
+        453,
+        589
+      ],
+      "body_anchor": [
+        116,
+        652
+      ],
+      "crown_y": 8,
+      "sheet": "res://assets/chars/npcs/saga/fangsu_chenqiao.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "source": {
+        "story_document": "docs/story/review/v1/逢魔退治帖_七章完整对白_v1.txt",
+        "outline_document": "docs/story/review/v1/逢魔退治帖_第二至七章分场大纲_v1.txt",
+        "existing_assets_modified": false
+      },
+      "generation": {
+        "method": "OpenAI built-in image_gen",
+        "created_utc": "2026-10-05",
+        "sha256": "14becbb57e0727ad06808ccc64be42e8dd13f1f9f2a4bca7ca9f2db326f23d45",
+        "prompt_file": "fangsu_chenqiao_prompt.txt",
+        "static_art": true,
+        "animation": false,
+        "qa": "逐图目检：完整头脚、专用同人半身、无文字或额外肢体、原始RGBA透明；只生成运行时裁取元数据，没有修改原图像素。",
+        "transparent_pixel_ratio": 0.627564
+      }
+    },
+    "陈樵": {
+      "id": "chenqiao",
+      "speaker": "陈樵",
+      "height_cm": 174,
+      "story": "C5/C6：成年男性患者、陈葵丈夫；旧鞋右边补过两层。静态身份立绘不证明已经唤醒，实际救援状态由剧情决定。",
+      "world_region": [
+        805,
+        3,
+        265,
+        661
+      ],
+      "portrait_region": [
+        693,
+        664,
+        524,
+        590
+      ],
+      "body_anchor": [
+        147,
+        660
+      ],
+      "crown_y": 8,
+      "sheet": "res://assets/chars/npcs/saga/fangsu_chenqiao.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "source": {
+        "story_document": "docs/story/review/v1/逢魔退治帖_七章完整对白_v1.txt",
+        "outline_document": "docs/story/review/v1/逢魔退治帖_第二至七章分场大纲_v1.txt",
+        "existing_assets_modified": false
+      },
+      "generation": {
+        "method": "OpenAI built-in image_gen",
+        "created_utc": "2026-10-05",
+        "sha256": "14becbb57e0727ad06808ccc64be42e8dd13f1f9f2a4bca7ca9f2db326f23d45",
+        "prompt_file": "fangsu_chenqiao_prompt.txt",
+        "static_art": true,
+        "animation": false,
+        "qa": "逐图目检：完整头脚、专用同人半身、无文字或额外肢体、原始RGBA透明；只生成运行时裁取元数据，没有修改原图像素。",
+        "transparent_pixel_ratio": 0.627564
+      }
+    },
+    "李茂": {
+      "id": "limao",
+      "speaker": "李茂",
+      "height_cm": 171,
+      "story": "C5-02/C5-05：成年男性患者，要求普通水，自愿接受断线尝试；恢复后仍疼痛需照料。手持普通水杯。",
+      "world_region": [
+        187,
+        9,
+        249,
+        642
+      ],
+      "portrait_region": [
+        64,
+        651,
+        482,
+        596
+      ],
+      "body_anchor": [
+        144,
+        636
+      ],
+      "crown_y": 8,
+      "sheet": "res://assets/chars/npcs/saga/limao_xucheng.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "source": {
+        "story_document": "docs/story/review/v1/逢魔退治帖_七章完整对白_v1.txt",
+        "outline_document": "docs/story/review/v1/逢魔退治帖_第二至七章分场大纲_v1.txt",
+        "existing_assets_modified": false
+      },
+      "generation": {
+        "method": "OpenAI built-in image_gen",
+        "created_utc": "2026-10-05",
+        "sha256": "092e9611c9e03ca9623a880a4177eb2ad5ba734f47157e2e7d7e8ed768cb047e",
+        "prompt_file": "limao_xucheng_prompt.txt",
+        "static_art": true,
+        "animation": false,
+        "qa": "逐图目检：完整头脚、专用同人半身、无文字或额外肢体、原始RGBA透明；只生成运行时裁取元数据，没有修改原图像素。",
+        "transparent_pixel_ratio": 0.628299
+      }
+    },
+    "许成": {
+      "id": "xucheng",
+      "speaker": "许成",
+      "height_cm": 170,
+      "story": "C3-04：成年男性候船者，原文明确灰褂子、去拿药；与候船妇人汇合。具体关系不额外推定。",
+      "world_region": [
+        827,
+        8,
+        280,
+        644
+      ],
+      "portrait_region": [
+        719,
+        655,
+        530,
+        592
+      ],
+      "body_anchor": [
+        159,
+        637
+      ],
+      "crown_y": 8,
+      "sheet": "res://assets/chars/npcs/saga/limao_xucheng.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "source": {
+        "story_document": "docs/story/review/v1/逢魔退治帖_七章完整对白_v1.txt",
+        "outline_document": "docs/story/review/v1/逢魔退治帖_第二至七章分场大纲_v1.txt",
+        "existing_assets_modified": false
+      },
+      "generation": {
+        "method": "OpenAI built-in image_gen",
+        "created_utc": "2026-10-05",
+        "sha256": "092e9611c9e03ca9623a880a4177eb2ad5ba734f47157e2e7d7e8ed768cb047e",
+        "prompt_file": "limao_xucheng_prompt.txt",
+        "static_art": true,
+        "animation": false,
+        "qa": "逐图目检：完整头脚、专用同人半身、无文字或额外肢体、原始RGBA透明；只生成运行时裁取元数据，没有修改原图像素。",
+        "transparent_pixel_ratio": 0.628299
+      }
+    },
+    "宋婆": {
+      "id": "songpo",
+      "speaker": "宋婆",
+      "height_cm": 155,
+      "story": "C6-S04：能走路的成年女性居民，家中灶上有粥；老人外观是本轮美术设定。不可把立绘在场推断成已撤出，需依实际支线状态。",
+      "world_region": [
+        178,
+        26,
+        239,
+        622
+      ],
+      "portrait_region": [
+        57,
+        676,
+        506,
+        572
+      ],
+      "body_anchor": [
+        130,
+        615
+      ],
+      "crown_y": 8,
+      "sheet": "res://assets/chars/npcs/saga/songpo_duping.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "source": {
+        "story_document": "docs/story/review/v1/逢魔退治帖_七章完整对白_v1.txt",
+        "outline_document": "docs/story/review/v1/逢魔退治帖_第二至七章分场大纲_v1.txt",
+        "existing_assets_modified": false
+      },
+      "generation": {
+        "method": "OpenAI built-in image_gen",
+        "created_utc": "2026-10-05",
+        "sha256": "a56fdb3b70cf8046e88c7ac131b838c2a903ea53975518d4842862cc42e1757b",
+        "prompt_file": "songpo_duping_prompt.txt",
+        "static_art": true,
+        "animation": false,
+        "qa": "逐图目检：完整头脚、专用同人半身、无文字或额外肢体、原始RGBA透明；只生成运行时裁取元数据，没有修改原图像素。",
+        "transparent_pixel_ratio": 0.646485
+      }
+    },
+    "杜平": {
+      "id": "duping",
+      "speaker": "杜平",
+      "height_cm": 172,
+      "story": "C6-S04：能走路的成年居民，与宋婆被困后巷；原文未明确性别/年龄，中性成年造型仅为本轮美术设定。",
+      "world_region": [
+        840,
+        12,
+        230,
+        644
+      ],
+      "portrait_region": [
+        708,
+        666,
+        499,
+        582
+      ],
+      "body_anchor": [
+        125,
+        637
+      ],
+      "crown_y": 8,
+      "sheet": "res://assets/chars/npcs/saga/songpo_duping.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "source": {
+        "story_document": "docs/story/review/v1/逢魔退治帖_七章完整对白_v1.txt",
+        "outline_document": "docs/story/review/v1/逢魔退治帖_第二至七章分场大纲_v1.txt",
+        "existing_assets_modified": false
+      },
+      "generation": {
+        "method": "OpenAI built-in image_gen",
+        "created_utc": "2026-10-05",
+        "sha256": "a56fdb3b70cf8046e88c7ac131b838c2a903ea53975518d4842862cc42e1757b",
+        "prompt_file": "songpo_duping_prompt.txt",
+        "static_art": true,
+        "animation": false,
+        "qa": "逐图目检：完整头脚、专用同人半身、无文字或额外肢体、原始RGBA透明；只生成运行时裁取元数据，没有修改原图像素。",
+        "transparent_pixel_ratio": 0.646485
+      }
+    },
+    "姚芹": {
+      "id": "yaoqin",
+      "speaker": "姚芹",
+      "height_cm": 165,
+      "story": "C5-01/C5-09：六床成年患者之一，浅接、醒后问自己的鞋；原文未明确性别/年龄，中性成人造型为本轮美术设定。",
+      "world_region": [
+        214,
+        20,
+        210,
+        668
+      ],
+      "portrait_region": [
+        88,
+        697,
+        457,
+        557
+      ],
+      "body_anchor": [
+        102,
+        661
+      ],
+      "crown_y": 8,
+      "sheet": "res://assets/chars/npcs/saga/yaoqin_duying.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "source": {
+        "story_document": "docs/story/review/v1/逢魔退治帖_七章完整对白_v1.txt",
+        "outline_document": "docs/story/review/v1/逢魔退治帖_第二至七章分场大纲_v1.txt",
+        "existing_assets_modified": false
+      },
+      "generation": {
+        "method": "OpenAI built-in image_gen",
+        "created_utc": "2026-10-05",
+        "sha256": "cafb438f5551b21be308c08b9b5e854d7d88af08303f1b70cd035dad4d8c63f7",
+        "prompt_file": "yaoqin_duying_prompt.txt",
+        "static_art": true,
+        "animation": false,
+        "qa": "逐图目检：完整头脚、专用同人半身、无文字或额外肢体、原始RGBA透明；只生成运行时裁取元数据，没有修改原图像素。",
+        "transparent_pixel_ratio": 0.650466
+      }
+    },
+    "杜应": {
+      "id": "duying",
+      "speaker": "杜应",
+      "height_cm": 173,
+      "story": "C5-01/C5-09：六床成年患者之一，浅接、旧梦不停递面；原文未明确性别/年龄，中性成人设计，生成结果的胡须等只属造型，不新增剧情身份。",
+      "world_region": [
+        815,
+        17,
+        266,
+        675
+      ],
+      "portrait_region": [
+        678,
+        692,
+        534,
+        562
+      ],
+      "body_anchor": [
+        137,
+        669
+      ],
+      "crown_y": 8,
+      "sheet": "res://assets/chars/npcs/saga/yaoqin_duying.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "source": {
+        "story_document": "docs/story/review/v1/逢魔退治帖_七章完整对白_v1.txt",
+        "outline_document": "docs/story/review/v1/逢魔退治帖_第二至七章分场大纲_v1.txt",
+        "existing_assets_modified": false
+      },
+      "generation": {
+        "method": "OpenAI built-in image_gen",
+        "created_utc": "2026-10-05",
+        "sha256": "cafb438f5551b21be308c08b9b5e854d7d88af08303f1b70cd035dad4d8c63f7",
+        "prompt_file": "yaoqin_duying_prompt.txt",
+        "static_art": true,
+        "animation": false,
+        "qa": "逐图目检：完整头脚、专用同人半身、无文字或额外肢体、原始RGBA透明；只生成运行时裁取元数据，没有修改原图像素。",
+        "transparent_pixel_ratio": 0.650466
+      }
+    },
+    "罗苇": {
+      "id": "luowei",
+      "speaker": "罗苇",
+      "height_cm": 171,
+      "story": "C5-01/C5-09：六床成年患者之一，浅接，记得家人门前呼喊；原文未明确性别/年龄，中性成人造型仅为本轮美术设定。",
+      "world_region": [
+        188,
+        1,
+        288,
+        704
+      ],
+      "portrait_region": [
+        87,
+        705,
+        467,
+        549
+      ],
+      "body_anchor": [
+        146,
+        703
+      ],
+      "crown_y": 8,
+      "sheet": "res://assets/chars/npcs/saga/luowei_bingvendor.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "source": {
+        "story_document": "docs/story/review/v1/逢魔退治帖_七章完整对白_v1.txt",
+        "outline_document": "docs/story/review/v1/逢魔退治帖_第二至七章分场大纲_v1.txt",
+        "existing_assets_modified": false
+      },
+      "generation": {
+        "method": "OpenAI built-in image_gen",
+        "created_utc": "2026-10-05",
+        "sha256": "d236d6866b493e8f8a32e493e6ad95a45c112f5a6939f7e6499f2dc5c2e01f68",
+        "prompt_file": "luowei_bingvendor_prompt.txt",
+        "static_art": true,
+        "animation": false,
+        "qa": "逐图目检：完整头脚、专用同人半身、无文字或额外肢体、原始RGBA透明；只生成运行时裁取元数据，没有修改原图像素。",
+        "transparent_pixel_ratio": 0.60891
+      }
+    },
+    "卖饼人": {
+      "id": "bingvendor",
+      "speaker": "卖饼人",
+      "height_cm": 166,
+      "story": "C6-01/C7-04：街口男性卖饼者，被陶婶称为老陆，手中空夹子且反复找零钱；本图为此角色专用的新职业立绘，不冒用既有老梁或阿诚。镜中卖饼人是此人的重复旧影。",
+      "world_region": [
+        781,
+        25,
+        386,
+        682
+      ],
+      "portrait_region": [
+        672,
+        715,
+        564,
+        539
+      ],
+      "body_anchor": [
+        160,
+        675
+      ],
+      "crown_y": 8,
+      "sheet": "res://assets/chars/npcs/saga/luowei_bingvendor.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "source": {
+        "story_document": "docs/story/review/v1/逢魔退治帖_七章完整对白_v1.txt",
+        "outline_document": "docs/story/review/v1/逢魔退治帖_第二至七章分场大纲_v1.txt",
+        "existing_assets_modified": false
+      },
+      "generation": {
+        "method": "OpenAI built-in image_gen",
+        "created_utc": "2026-10-05",
+        "sha256": "d236d6866b493e8f8a32e493e6ad95a45c112f5a6939f7e6499f2dc5c2e01f68",
+        "prompt_file": "luowei_bingvendor_prompt.txt",
+        "static_art": true,
+        "animation": false,
+        "qa": "逐图目检：完整头脚、专用同人半身、无文字或额外肢体、原始RGBA透明；只生成运行时裁取元数据，没有修改原图像素。",
+        "transparent_pixel_ratio": 0.60891
+      }
+    }
+  },
+  "style_references_inspected": [
+    "res://assets/chars/npcs/act_one/liang_world.png",
+    "res://assets/chars/npcs/act_one/liang_half.png",
+    "res://assets/chars/npcs/act_one/acheng_half.png",
+    "res://assets/chars/pixel/healer/high_detail_complete/frames/idle1.png"
+  ],
+  "rendering_notes": [
+    "全部为新NPC静态原画；不代表动画、状态已救援或已唤醒。",
+    "未替换或重用主角六身份/七形态、历史动画、小夜、老梁、阿诚。",
+    "原图完整保留；world_region与portrait_region仅供AtlasTexture运行时取景，不进行裁剪、抠图或色彩重绘。",
+    "对白未定的精确年龄、身高、衣色属于本轮美术设计，不应倒推为剧情事实。",
+    "两张首版保留用于生成来源追溯，不登记游戏使用。",
+    "PNG边缘少量低alpha像素保留原始生成值；地图应沿现有alpha_cut阈值处理。"
+  ],
+  "rejected_sources": [
+    {
+      "file": "axing_taoshen_source_v1.png",
+      "reason": "全身与半身四格间距不足，采用image_gen布局修正版",
+      "replacement": "axing_taoshen.png"
+    },
+    {
+      "file": "qiuan_zhaoyigong_source_v1.png",
+      "reason": "全身头巾顶部太贴画布边缘，采用image_gen完整头部与留白修正版",
+      "replacement": "qiuan_zhaoyigong.png"
+    }
+  ]
+}

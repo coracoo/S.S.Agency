@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "checked_utc_date": "2026-10-05",
+  "expected_enemy_count": 15,
+  "actual_enemy_count": 15,
+  "runtime_sheet_count": 8,
+  "all_definition_ids_covered": true,
+  "all_runtime_png_original_bytes_preserved": true,
+  "all_sheets_rgba_true_alpha": true,
+  "all_regions_in_bounds": true,
+  "all_visible_content_inside_regions": true,
+  "visible_content_alpha_threshold": 5,
+  "all_anchors_in_local_regions": true,
+  "all_content_heights_match_alpha_bounds": true,
+  "all_sha256_match": true,
+  "all_prompts_present": true,
+  "original_six_enemy_sha256_match_original_manifest": true,
+  "party_and_npc_files_modified": false,
+  "godot_import_performed_by_art_worker": false,
+  "runtime_animation": "无；每个敌人仅一幅静态原图区域",
+  "visual_review_notes": [
+    "全部15敌已逐张目检，身体、衣摆、足部与道具完整。",
+    "借声客的初稿已由 image_gen 修正背景，最终采用真透明修订稿。",
+    "无更巡守持锁的手跨过图幅几何中线，但没有与主镜相叠；manifest 分割线置于 x=1006 的透明列，避免裁手。",
+    "镜、锁片、灯、反冲等器物保持独立非人形造型。",
+    "没有运行游戏 GUI；实际战场构图由集成验收负责。"
+  ]
+}

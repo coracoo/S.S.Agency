@@ -1,6 +1,7 @@
 # The formal chapter registry is the only authority for 3D story and battle routes.
 class_name CampaignChapterCatalog
 extends RefCounted
+const Saga = preload("res://scripts/campaign/saga_catalog.gd")
 const State = preload("res://scripts/rpg/battle_state.gd")
 const Layout = preload("res://scripts/campaign/act_one_layout.gd")
 const SAVE_PATH := "user://campaign_v1/slot_01.json"
@@ -12,6 +13,7 @@ const CASE_PATH := "res://data/cases/night_patrol.json"
 const CASE_ROOT := "t1"
 
 static func scene_path(id: int) -> String:
+	if id >= 6 and id <= 11: return Saga.SCENE_PATH
 	return "res://scenes/campaign/night_%d.tscn" % id if id >= 1 and id <= 5 else ""
 
 static func _interaction(id: String, label: String, x: float, kind: String, dialogue: String = "", clue: String = "", requires: Array = []) -> Dictionary:
@@ -57,6 +59,7 @@ static func legacy_night(id: int) -> Dictionary:
 	return definition
 
 static func night(id: int) -> Dictionary:
+	if id >= 6: return Saga.definition(id)
 	var definition := legacy_night(id)
 	if definition.is_empty(): return {}
 	definition["map_layout"] = Layout.ID
@@ -68,6 +71,7 @@ static func night(id: int) -> Dictionary:
 	return definition
 
 static func initial_world(id: int) -> Dictionary:
+	if id >= 6: return Saga.initial_world(id - 4) if id <= 11 else {}
 	var definition := night(id)
 	if definition.is_empty(): return {}
 	return {"world_version": 3, "map_layout": Layout.ID, "space": "3d", "night": id, "scene_id": definition.id, "scene_path": definition.scene_path, "position": definition.anchors.spawn.duplicate(), "facing": 1, "return_anchor": "spawn", "event_flags": {}, "resolved": {}, "dlg_fired": {}, "player_x": definition.anchors.spawn[0], "spirit": 2, "party_index": 0, "exit_prompted": false}
@@ -92,11 +96,12 @@ static func complete(world: Dictionary) -> bool:
 	return not night(int(world.get("night", 0))).is_empty()
 
 static func same_story(left: Dictionary, right: Dictionary) -> bool:
-	for field in ["world_version", "map_layout", "space", "night", "scene_id", "scene_path", "event_flags", "resolved", "dlg_fired"]:
+	for field in ["world_version", "map_layout", "space", "night", "scene_id", "scene_path", "event_flags", "resolved", "dlg_fired", "story_scene", "story_choice", "story_encounter"]:
 		if left.get(field) != right.get(field): return false
 	return true
 
 static func validate_world(world: Dictionary) -> Array[String]:
+	if world.get("map_layout") is String and world.map_layout == Saga.LAYOUT_ID: return Saga.validate_world(world)
 	return _validate_world(world, false)
 
 static func _validate_world(world: Dictionary, legacy: bool) -> Array[String]:
@@ -158,10 +163,12 @@ static func normalize(world: Dictionary) -> Dictionary:
 	return result
 
 static func battle_patch(world: Dictionary) -> Dictionary:
+	if world.get("map_layout") is String and world.map_layout == Saga.LAYOUT_ID: return Saga.battle_patch(world)
 	var definition := night(int(world.get("night", 0)))
 	return {"patch_version": 3, "encounter_id": definition.get("encounter_id", ""), "event_flags": {"battle:cleared": true}, "resolved": {definition.get("clue_id", ""): true}}
 
 static func validate_patch(patch: Dictionary, world: Dictionary) -> Array[String]:
+	if world.get("map_layout") is String and world.map_layout == Saga.LAYOUT_ID: return Saga.validate_patch(patch, world)
 	if not validate_world(world).is_empty(): return ["战果补丁缺少合法正式世界"]
 	if patch != battle_patch(world): return ["正式战果补丁必须匹配登记的本夜遭遇"]
 	if world.event_flags.has("battle:cleared"): return ["本夜战斗已完成"]

@@ -1,0 +1,193 @@
+{
+  "schema_version": 1,
+  "tool": "image_gen.imagegen",
+  "generated_utc_date": "2026-10-05",
+  "story_source": "docs/story/review/v1/逢魔退治帖_七章完整对白_v1.txt",
+  "style_reference": "assets/chars/enemies/current/ 中原六张敌方原稿，仅参考风格，不修改",
+  "character_reference": "沈烛舟纸躯参考 assets/chars/npcs/saga/mengheng_shenzhuzhou.png 右侧人物的发型与深蓝金纹衣装；纸躯并非活人 NPC 替换",
+  "outputs": [
+    {
+      "sheet": "voice_general.png",
+      "generated_filename": "exec-9373fd40-2e90-47e5-ba69-98398bc4ba01.png",
+      "method": "builtin_image_gen",
+      "generated_utc_date": "2026-10-05",
+      "original_bytes_preserved": true,
+      "post_processing": "无；运行时仅按 manifest 区域使用 AtlasTexture",
+      "prompt_file": "voice_general_clean_prompt.txt",
+      "reference_sheet": "provenance/voice_general_source_v1.png",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "color_mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_pixel_count": 955052,
+      "sha256": "3bf1d14cadf5faea3cd283e8761b71d9c304239fa3235686612d30238ccb03ac",
+      "visual_review": "已目检：独立完整主体、无运行时裁切越界、无可读文字、透明背景；静态非动画"
+    },
+    {
+      "sheet": "mirror_lamp.png",
+      "generated_filename": "exec-f394d77c-a6a3-46fe-8ed4-c1b2e468f3ce.png",
+      "method": "builtin_image_gen",
+      "generated_utc_date": "2026-10-05",
+      "original_bytes_preserved": true,
+      "post_processing": "无；运行时仅按 manifest 区域使用 AtlasTexture",
+      "prompt_file": "mirror_lamp_prompt.txt",
+      "reference_sheet": null,
+      "dimensions": [
+        1774,
+        887
+      ],
+      "color_mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_pixel_count": 886107,
+      "sha256": "3186c3d8f25191c570e6133083bbcc45a6ff85576e120ed60592dc1f7c712d79",
+      "visual_review": "已目检：独立完整主体、无运行时裁切越界、无可读文字、透明背景；静态非动画"
+    },
+    {
+      "sheet": "warden_master.png",
+      "generated_filename": "exec-95d85161-cdad-4db1-845f-5ec5bb94824e.png",
+      "method": "builtin_image_gen",
+      "generated_utc_date": "2026-10-05",
+      "original_bytes_preserved": true,
+      "post_processing": "无；运行时仅按 manifest 区域使用 AtlasTexture",
+      "prompt_file": "warden_master_prompt.txt",
+      "reference_sheet": null,
+      "dimensions": [
+        1774,
+        887
+      ],
+      "color_mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_pixel_count": 783032,
+      "sha256": "71714c43c281772b6d4803d7601539d29ff39fbb50987a77e62f871d38d1a893",
+      "visual_review": "已目检：独立完整主体、无运行时裁切越界、无可读文字、透明背景；静态非动画"
+    },
+    {
+      "sheet": "soldier_shadow.png",
+      "generated_filename": "exec-df54989d-c5e8-42ed-80de-e97724b43dd3.png",
+      "method": "builtin_image_gen",
+      "generated_utc_date": "2026-10-05",
+      "original_bytes_preserved": true,
+      "post_processing": "无；运行时仅按 manifest 区域使用 AtlasTexture",
+      "prompt_file": "soldier_shadow_prompt.txt",
+      "reference_sheet": null,
+      "dimensions": [
+        1774,
+        887
+      ],
+      "color_mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_pixel_count": 1046758,
+      "sha256": "b6587c17d2d8aa115c23c18dd6b058f2db6e2cad6275262f4057edce603fe8af",
+      "visual_review": "已目检：独立完整主体、无运行时裁切越界、无可读文字、透明背景；静态非动画"
+    },
+    {
+      "sheet": "shard_bearer.png",
+      "generated_filename": "exec-95bbc3b2-31cc-43e6-8d0c-d1c84f8dec85.png",
+      "method": "builtin_image_gen",
+      "generated_utc_date": "2026-10-05",
+      "original_bytes_preserved": true,
+      "post_processing": "无；运行时仅按 manifest 区域使用 AtlasTexture",
+      "prompt_file": "shard_bearer_prompt.txt",
+      "reference_sheet": null,
+      "dimensions": [
+        1774,
+        887
+      ],
+      "color_mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_pixel_count": 907607,
+      "sha256": "1194ce7daadda636a8b59670ee801b70e0334aab54e727f3f22f79da2bd7ffe2",
+      "visual_review": "已目检：独立完整主体、无运行时裁切越界、无可读文字、透明背景；静态非动画"
+    },
+    {
+      "sheet": "linked_anchors.png",
+      "generated_filename": "exec-9f9cb6f3-6215-464c-8ee8-4125f0beb416.png",
+      "method": "builtin_image_gen",
+      "generated_utc_date": "2026-10-05",
+      "original_bytes_preserved": true,
+      "post_processing": "无；运行时仅按 manifest 区域使用 AtlasTexture",
+      "prompt_file": "linked_anchors_prompt.txt",
+      "reference_sheet": null,
+      "dimensions": [
+        1881,
+        836
+      ],
+      "color_mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_pixel_count": 791742,
+      "sha256": "2b443dd945537208a93a20c3494223d0f77abab03e6240b22b9e0d510e11c4f0",
+      "visual_review": "已目检：独立完整主体、无运行时裁切越界、无可读文字、透明背景；静态非动画"
+    },
+    {
+      "sheet": "exit_relay.png",
+      "generated_filename": "exec-66273657-2ab2-4998-bec5-ab7dcd340eb0.png",
+      "method": "builtin_image_gen",
+      "generated_utc_date": "2026-10-05",
+      "original_bytes_preserved": true,
+      "post_processing": "无；运行时仅按 manifest 区域使用 AtlasTexture",
+      "prompt_file": "exit_relay_prompt.txt",
+      "reference_sheet": null,
+      "dimensions": [
+        1774,
+        887
+      ],
+      "color_mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_pixel_count": 963529,
+      "sha256": "b67d7d8ff3895ddf5675d3ba99b4a2b483bbf8de516206242972cf40fecbbb3a",
+      "visual_review": "已目检：独立完整主体、无运行时裁切越界、无可读文字、透明背景；静态非动画"
+    },
+    {
+      "sheet": "final_recoil.png",
+      "generated_filename": "exec-fa8149bd-8532-4d34-802a-7084b04d457a.png",
+      "method": "builtin_image_gen",
+      "generated_utc_date": "2026-10-05",
+      "original_bytes_preserved": true,
+      "post_processing": "无；运行时仅按 manifest 区域使用 AtlasTexture",
+      "prompt_file": "final_recoil_prompt.txt",
+      "reference_sheet": null,
+      "dimensions": [
+        1312,
+        1199
+      ],
+      "color_mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "transparent_pixel_count": 842038,
+      "sha256": "e28502d91e004f5b1379e70f76a95d781426c5a4ab9be97d8d698a4c5148fa90",
+      "visual_review": "已目检：独立完整主体、无运行时裁切越界、无可读文字、透明背景；静态非动画"
+    }
+  ],
+  "rejected_initial_generation": {
+    "file": "provenance/voice_general_source_v1.png",
+    "generated_filename": "exec-5ebddba6-5830-4bd7-a5ac-97b0d1df7a19.png",
+    "prompt_file": "voice_general_prompt.txt",
+    "reason": "首稿存在柔色背景与跨中线身体；通过内置 image_gen 编辑去背景并重新排版，未接入运行时"
+  },
+  "intentional_anatomy": "百手灯母为器物，完成图有八条清晰托碗手臂，属于剧情定义的多臂灯具；其他人形为两臂两腿。"
+}

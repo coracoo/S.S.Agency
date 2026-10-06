@@ -1,0 +1,636 @@
+{
+  "date_utc": "2026-10-05",
+  "specified_named_npcs": 23,
+  "additional_role_npcs": [
+    "卖饼人"
+  ],
+  "accepted_sheets": 12,
+  "total_characters": 24,
+  "checks": [
+    {
+      "speaker": "阿杏",
+      "sheet": "axing_taoshen.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "30761252b038a591e5e549b28c4e47792bd48abba31346cdc3d0fd156ed31585",
+      "world_region": [
+        190,
+        40,
+        290,
+        580
+      ],
+      "portrait_region": [
+        65,
+        645,
+        480,
+        600
+      ],
+      "transparent_pixel_ratio": 0.638102,
+      "rgba": true,
+      "regions_in_bounds": true,
+      "anchor_valid": true,
+      "visual_inspected": true
+    },
+    {
+      "speaker": "陶婶",
+      "sheet": "axing_taoshen.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "30761252b038a591e5e549b28c4e47792bd48abba31346cdc3d0fd156ed31585",
+      "world_region": [
+        775,
+        40,
+        330,
+        580
+      ],
+      "portrait_region": [
+        650,
+        645,
+        590,
+        600
+      ],
+      "transparent_pixel_ratio": 0.638102,
+      "rgba": true,
+      "regions_in_bounds": true,
+      "anchor_valid": true,
+      "visual_inspected": true
+    },
+    {
+      "speaker": "乔伯",
+      "sheet": "qiaobo_xuzhaoyi.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "0ea76850446f43eb34ac4d1a5a602165e95e056d973cfa900c4e04a9fc30d49f",
+      "world_region": [
+        150,
+        0,
+        325,
+        660
+      ],
+      "portrait_region": [
+        15,
+        660,
+        580,
+        594
+      ],
+      "transparent_pixel_ratio": 0.62499,
+      "rgba": true,
+      "regions_in_bounds": true,
+      "anchor_valid": true,
+      "visual_inspected": true
+    },
+    {
+      "speaker": "许照漪",
+      "sheet": "qiaobo_xuzhaoyi.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "0ea76850446f43eb34ac4d1a5a602165e95e056d973cfa900c4e04a9fc30d49f",
+      "world_region": [
+        825,
+        0,
+        265,
+        660
+      ],
+      "portrait_region": [
+        740,
+        675,
+        505,
+        579
+      ],
+      "transparent_pixel_ratio": 0.62499,
+      "rgba": true,
+      "regions_in_bounds": true,
+      "anchor_valid": true,
+      "visual_inspected": true
+    },
+    {
+      "speaker": "孟衡",
+      "sheet": "mengheng_shenzhuzhou.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "eead35d71674e8085629a5f0efaf6568114a7091763e165b0dc2fcb009ad09dd",
+      "world_region": [
+        140,
+        0,
+        320,
+        661
+      ],
+      "portrait_region": [
+        20,
+        666,
+        560,
+        588
+      ],
+      "transparent_pixel_ratio": 0.581311,
+      "rgba": true,
+      "regions_in_bounds": true,
+      "anchor_valid": true,
+      "visual_inspected": true
+    },
+    {
+      "speaker": "沈烛舟",
+      "sheet": "mengheng_shenzhuzhou.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "eead35d71674e8085629a5f0efaf6568114a7091763e165b0dc2fcb009ad09dd",
+      "world_region": [
+        755,
+        0,
+        380,
+        663
+      ],
+      "portrait_region": [
+        680,
+        667,
+        540,
+        587
+      ],
+      "transparent_pixel_ratio": 0.581311,
+      "rgba": true,
+      "regions_in_bounds": true,
+      "anchor_valid": true,
+      "visual_inspected": true
+    },
+    {
+      "speaker": "方澄",
+      "sheet": "fangcheng_chenkui.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "fa74ed207368f6918441060fb762059e06626eb8c6ce7dd9f37c98a00e2f17b3",
+      "world_region": [
+        198,
+        2,
+        266,
+        682
+      ],
+      "portrait_region": [
+        108,
+        703,
+        474,
+        543
+      ],
+      "transparent_pixel_ratio": 0.68319,
+      "rgba": true,
+      "regions_in_bounds": true,
+      "anchor_valid": true,
+      "visual_inspected": true
+    },
+    {
+      "speaker": "陈葵",
+      "sheet": "fangcheng_chenkui.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "fa74ed207368f6918441060fb762059e06626eb8c6ce7dd9f37c98a00e2f17b3",
+      "world_region": [
+        821,
+        40,
+        261,
+        638
+      ],
+      "portrait_region": [
+        769,
+        732,
+        401,
+        509
+      ],
+      "transparent_pixel_ratio": 0.68319,
+      "rgba": true,
+      "regions_in_bounds": true,
+      "anchor_valid": true,
+      "visual_inspected": true
+    },
+    {
+      "speaker": "吴济",
+      "sheet": "wuji_luyun.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "573a3550fba4191b6ca36ae992241cc664b9096fec3764baac5cd69aad80f6ff",
+      "world_region": [
+        195,
+        0,
+        298,
+        676
+      ],
+      "portrait_region": [
+        72,
+        676,
+        525,
+        578
+      ],
+      "transparent_pixel_ratio": 0.652498,
+      "rgba": true,
+      "regions_in_bounds": true,
+      "anchor_valid": true,
+      "visual_inspected": true
+    },
+    {
+      "speaker": "陆芸",
+      "sheet": "wuji_luyun.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "573a3550fba4191b6ca36ae992241cc664b9096fec3764baac5cd69aad80f6ff",
+      "world_region": [
+        829,
+        21,
+        281,
+        654
+      ],
+      "portrait_region": [
+        756,
+        697,
+        484,
+        557
+      ],
+      "transparent_pixel_ratio": 0.652498,
+      "rgba": true,
+      "regions_in_bounds": true,
+      "anchor_valid": true,
+      "visual_inspected": true
+    },
+    {
+      "speaker": "罗婶",
+      "sheet": "luoshen_aliu.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "40b9c1e74211ca463499ab514e7b5efe331d79ce906f13cdf0bb3b9ffb9d3702",
+      "world_region": [
+        191,
+        10,
+        292,
+        699
+      ],
+      "portrait_region": [
+        77,
+        709,
+        501,
+        543
+      ],
+      "transparent_pixel_ratio": 0.61749,
+      "rgba": true,
+      "regions_in_bounds": true,
+      "anchor_valid": true,
+      "visual_inspected": true
+    },
+    {
+      "speaker": "阿柳",
+      "sheet": "luoshen_aliu.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "40b9c1e74211ca463499ab514e7b5efe331d79ce906f13cdf0bb3b9ffb9d3702",
+      "world_region": [
+        809,
+        1,
+        281,
+        708
+      ],
+      "portrait_region": [
+        739,
+        709,
+        487,
+        543
+      ],
+      "transparent_pixel_ratio": 0.61749,
+      "rgba": true,
+      "regions_in_bounds": true,
+      "anchor_valid": true,
+      "visual_inspected": true
+    },
+    {
+      "speaker": "邱安",
+      "sheet": "qiuan_zhaoyigong.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "67c7045b1c1b535ac2210a2235e1588cd452acac46bb45b9e761645c0e5684d6",
+      "world_region": [
+        188,
+        35,
+        249,
+        584
+      ],
+      "portrait_region": [
+        35,
+        653,
+        548,
+        593
+      ],
+      "transparent_pixel_ratio": 0.633802,
+      "rgba": true,
+      "regions_in_bounds": true,
+      "anchor_valid": true,
+      "visual_inspected": true
+    },
+    {
+      "speaker": "赵医工",
+      "sheet": "qiuan_zhaoyigong.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "67c7045b1c1b535ac2210a2235e1588cd452acac46bb45b9e761645c0e5684d6",
+      "world_region": [
+        849,
+        44,
+        252,
+        576
+      ],
+      "portrait_region": [
+        708,
+        661,
+        544,
+        585
+      ],
+      "transparent_pixel_ratio": 0.633802,
+      "rgba": true,
+      "regions_in_bounds": true,
+      "anchor_valid": true,
+      "visual_inspected": true
+    },
+    {
+      "speaker": "方素",
+      "sheet": "fangsu_chenqiao.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "14becbb57e0727ad06808ccc64be42e8dd13f1f9f2a4bca7ca9f2db326f23d45",
+      "world_region": [
+        220,
+        7,
+        237,
+        658
+      ],
+      "portrait_region": [
+        107,
+        665,
+        453,
+        589
+      ],
+      "transparent_pixel_ratio": 0.627564,
+      "rgba": true,
+      "regions_in_bounds": true,
+      "anchor_valid": true,
+      "visual_inspected": true
+    },
+    {
+      "speaker": "陈樵",
+      "sheet": "fangsu_chenqiao.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "14becbb57e0727ad06808ccc64be42e8dd13f1f9f2a4bca7ca9f2db326f23d45",
+      "world_region": [
+        805,
+        3,
+        265,
+        661
+      ],
+      "portrait_region": [
+        693,
+        664,
+        524,
+        590
+      ],
+      "transparent_pixel_ratio": 0.627564,
+      "rgba": true,
+      "regions_in_bounds": true,
+      "anchor_valid": true,
+      "visual_inspected": true
+    },
+    {
+      "speaker": "李茂",
+      "sheet": "limao_xucheng.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "092e9611c9e03ca9623a880a4177eb2ad5ba734f47157e2e7d7e8ed768cb047e",
+      "world_region": [
+        187,
+        9,
+        249,
+        642
+      ],
+      "portrait_region": [
+        64,
+        651,
+        482,
+        596
+      ],
+      "transparent_pixel_ratio": 0.628299,
+      "rgba": true,
+      "regions_in_bounds": true,
+      "anchor_valid": true,
+      "visual_inspected": true
+    },
+    {
+      "speaker": "许成",
+      "sheet": "limao_xucheng.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "092e9611c9e03ca9623a880a4177eb2ad5ba734f47157e2e7d7e8ed768cb047e",
+      "world_region": [
+        827,
+        8,
+        280,
+        644
+      ],
+      "portrait_region": [
+        719,
+        655,
+        530,
+        592
+      ],
+      "transparent_pixel_ratio": 0.628299,
+      "rgba": true,
+      "regions_in_bounds": true,
+      "anchor_valid": true,
+      "visual_inspected": true
+    },
+    {
+      "speaker": "宋婆",
+      "sheet": "songpo_duping.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "a56fdb3b70cf8046e88c7ac131b838c2a903ea53975518d4842862cc42e1757b",
+      "world_region": [
+        178,
+        26,
+        239,
+        622
+      ],
+      "portrait_region": [
+        57,
+        676,
+        506,
+        572
+      ],
+      "transparent_pixel_ratio": 0.646485,
+      "rgba": true,
+      "regions_in_bounds": true,
+      "anchor_valid": true,
+      "visual_inspected": true
+    },
+    {
+      "speaker": "杜平",
+      "sheet": "songpo_duping.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "a56fdb3b70cf8046e88c7ac131b838c2a903ea53975518d4842862cc42e1757b",
+      "world_region": [
+        840,
+        12,
+        230,
+        644
+      ],
+      "portrait_region": [
+        708,
+        666,
+        499,
+        582
+      ],
+      "transparent_pixel_ratio": 0.646485,
+      "rgba": true,
+      "regions_in_bounds": true,
+      "anchor_valid": true,
+      "visual_inspected": true
+    },
+    {
+      "speaker": "姚芹",
+      "sheet": "yaoqin_duying.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "cafb438f5551b21be308c08b9b5e854d7d88af08303f1b70cd035dad4d8c63f7",
+      "world_region": [
+        214,
+        20,
+        210,
+        668
+      ],
+      "portrait_region": [
+        88,
+        697,
+        457,
+        557
+      ],
+      "transparent_pixel_ratio": 0.650466,
+      "rgba": true,
+      "regions_in_bounds": true,
+      "anchor_valid": true,
+      "visual_inspected": true
+    },
+    {
+      "speaker": "杜应",
+      "sheet": "yaoqin_duying.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "cafb438f5551b21be308c08b9b5e854d7d88af08303f1b70cd035dad4d8c63f7",
+      "world_region": [
+        815,
+        17,
+        266,
+        675
+      ],
+      "portrait_region": [
+        678,
+        692,
+        534,
+        562
+      ],
+      "transparent_pixel_ratio": 0.650466,
+      "rgba": true,
+      "regions_in_bounds": true,
+      "anchor_valid": true,
+      "visual_inspected": true
+    },
+    {
+      "speaker": "罗苇",
+      "sheet": "luowei_bingvendor.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "d236d6866b493e8f8a32e493e6ad95a45c112f5a6939f7e6499f2dc5c2e01f68",
+      "world_region": [
+        188,
+        1,
+        288,
+        704
+      ],
+      "portrait_region": [
+        87,
+        705,
+        467,
+        549
+      ],
+      "transparent_pixel_ratio": 0.60891,
+      "rgba": true,
+      "regions_in_bounds": true,
+      "anchor_valid": true,
+      "visual_inspected": true
+    },
+    {
+      "speaker": "卖饼人",
+      "sheet": "luowei_bingvendor.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "d236d6866b493e8f8a32e493e6ad95a45c112f5a6939f7e6499f2dc5c2e01f68",
+      "world_region": [
+        781,
+        25,
+        386,
+        682
+      ],
+      "portrait_region": [
+        672,
+        715,
+        564,
+        539
+      ],
+      "transparent_pixel_ratio": 0.60891,
+      "rgba": true,
+      "regions_in_bounds": true,
+      "anchor_valid": true,
+      "visual_inspected": true
+    }
+  ],
+  "scope": "只验证图片原字节、透明通道、登记、取景与锚点；Godot运行与场景GUI由接入任务验证。"
+}
