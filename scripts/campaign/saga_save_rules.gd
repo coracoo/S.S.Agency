@@ -7,6 +7,7 @@ const Chapters = preload("res://scripts/campaign/chapter_catalog.gd")
 const Forms = preload("res://scripts/rpg/dual_form.gd")
 const State = preload("res://scripts/rpg/battle_state.gd")
 const Threats = preload("res://scripts/rpg/strategy_encounters.gd")
+const Merchant = preload("res://scripts/campaign/merchant_catalog.gd")
 
 static func validate(saved: Dictionary, catalog: RefCounted) -> Array[String]:
 	var errors: Array[String] = []
@@ -129,6 +130,10 @@ static func validate(saved: Dictionary, catalog: RefCounted) -> Array[String]:
 		if not transaction is Dictionary or not transaction.get("item") is String or not transaction.get("count") is int or not transaction.get("cost") is int: return ["后续交易记录非法"]
 		if not Saga.SHOP.has(transaction.item) or transaction.count < 1 or transaction.count > 9 or transaction.cost != Saga.SHOP.get(transaction.item, 0) * transaction.count: return ["后续交易数量/价格非法"]
 		expected_coins -= transaction.cost
+	if saved.get("schema_version")==3 and saved.get("progression_version")==2:
+		var merchant_spent:int=Merchant.spent(saved)
+		if merchant_spent<0:errors.append("商人扣款记录非法")
+		else:expected_coins-=merchant_spent
 	if saga.coins < 0 or saga.coins != expected_coins: errors.append("后续钱数与战斗/交易记录不符")
 	var level := 5
 	while level < 10 and total_xp >= 100 * level:

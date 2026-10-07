@@ -85,6 +85,11 @@ func _test_migration()->void:
 	var legacy:=FileAccess.get_file_as_bytes("res://tools/campaign/fixtures/loadout-schema2-chapter7.json")
 	check(not legacy.is_empty(),"迁移使用既有真实隔离七章检查点")
 	if legacy.is_empty():return
+	# 同一隔离runner可先运行其他迁移测试；给本次故障注入唯一合法JSON空白，
+	# 避免前一组的完整同哈希备份让写备份步骤被幂等跳过。剧情数据保持原样。
+	var whitespace:="\n"
+	for marker in Crypto.new().generate_random_bytes(16):whitespace+="\t".repeat(int(marker)+1)+"\n"
+	legacy.append_array(whitespace.to_utf8_buffer())
 	var file:=FileAccess.open(path,FileAccess.WRITE);file.store_buffer(legacy);file.close()
 	var final_backup:=path+".schema2-"+FileAccess.get_sha256(path).substr(0,12)+".bak"
 	var backup_fault:=BackupFaultStore.new()

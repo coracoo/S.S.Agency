@@ -14,6 +14,7 @@ const State = preload("res://scripts/rpg/battle_state.gd")
 const Factory = preload("res://scripts/rpg/actor_factory.gd")
 const Loadouts = preload("res://scripts/rpg/loadout_rules.gd")
 const Threats = preload("res://scripts/rpg/strategy_encounters.gd")
+const Merchant = preload("res://scripts/campaign/merchant_catalog.gd")
 const DEFAULT_PATH := "user://rpg_v1/slot_01.json"
 const SAFE_PHASES := ["preparation", "exploration", "rest"]
 var last_error := ""
@@ -95,6 +96,8 @@ func normalize(value: Dictionary) -> Dictionary:
 	if saved.get("saga") is Dictionary: saved.saga = Saga.normalize(saved.saga)
 	if saved.get("cards") is Dictionary:saved.cards=Catalog._integerize(saved.cards)
 	if saved.get("migration") is Dictionary:State._int_fields(saved.migration,["from_schema"])
+	if saved.get("merchant") is Dictionary:saved.merchant=Catalog._integerize(saved.merchant)
+	if saved.get("merchant_migration") is Dictionary:State._int_fields(saved.merchant_migration,["from_progression_version"])
 	var normalized := State.normalize_snapshot({"actors": saved.get("roster", {}), "inventory": saved.get("inventory", {})})
 	if saved.has("roster"): saved.roster = normalized.actors
 	if saved.has("inventory"):
@@ -159,6 +162,8 @@ func validate(saved: Dictionary) -> Array[String]:
 	if not State._plain(saved): return ["存档只允许有限JSON值"]
 	if not saved.get("schema_version") is int or saved.schema_version not in [1,2,3]:return ["未知存档schema_version，保留文件原样"]
 	var strategy:bool=saved.get("schema_version")==3
+	if not strategy and (saved.has("merchant") or saved.has("merchant_migration")):
+		return ["旧存档不可携带新版商人账本；保留原档，不清空未知数据"]
 	if saved.has("world_objects"):
 		if not saved.get("schema_version") in [2,3]: errors.append("地图物件状态仅用于正式存档")
 		errors.append_array(WorldObjects.validate_saved(saved.world_objects))
@@ -167,8 +172,14 @@ func validate(saved: Dictionary) -> Array[String]:
 	if not saved.get("run_id") is String or saved.get("run_id", "").is_empty(): errors.append("缺少运行ID")
 	if strategy:
 		if saved.has("level") or saved.has("xp"):errors.append("正式无等级档不得保留等级/经验")
-		if not saved.get("progression_version") is int or saved.progression_version!=1:errors.append("未知装配成长版本")
+		if not saved.get("progression_version") is int or saved.progression_version not in [1,2]:errors.append("未知装配成长版本")
+		elif saved.progression_version==1:
+			if saved.has("merchant") or saved.has("merchant_migration"):errors.append("旧装配版本不可携带新商人账本")
+		elif not saved.get("merchant") is Dictionary:errors.append("商人版本缺少全局库存账本")
 		if not saved.get("cards") is Dictionary:errors.append("缺少技能卡收藏")
+		if saved.has("merchant_migration"):
+			var source=saved.merchant_migration
+			if not source is Dictionary or source.size()!=2 or not source.get("from_progression_version") is int or source.from_progression_version!=1 or not source.get("source_sha256") is String or RegEx.create_from_string("^[0-9a-f]{64}$").search(source.source_sha256)==null:errors.append("商人版本迁移来源非法")
 		if saved.has("migration"):
 			if not saved.migration is Dictionary or saved.migration.size()!=2 or not saved.migration.get("from_schema") is int or saved.migration.from_schema!=2 or not saved.migration.get("source_sha256") is String or RegEx.create_from_string("^[0-9a-f]{64}$").search(saved.migration.source_sha256)==null:errors.append("旧档迁移来源非法")
 	else:
@@ -257,6 +268,7 @@ func validate(saved: Dictionary) -> Array[String]:
 			if Forms.has_data(actor): errors.append("双职业元数据仅允许正式schema2存档")
 	if saved.get("schema_version") == 1 and saved.get("world") is Dictionary and saved.world.get("world_version") == 3: errors.append("正式3D世界必须使用独立schema2")
 	if saved.get("schema_version") in [2,3]: errors.append_array(_validate_campaign(saved))
+	if errors.is_empty() and strategy and saved.progression_version==2:errors.append_array(Merchant.validate(saved,_catalog))
 	var applied = saved.get("applied_battle_ids")
 	if not applied is Array:
 		errors.append("缺少已提交战斗ID")
@@ -455,14 +467,20 @@ func _schema_path(saved: Dictionary, path: String) -> bool:
 func migrate_loadout(path:String)->Dictionary:
 	var loaded:=load_safe(path)
 	if not loaded.ok:return loaded
-	if loaded.snapshot.schema_version==3:return loaded
-	if loaded.snapshot.schema_version!=2:return _failure("只迁移正式schema2，旧试玩档保持不变")
+	if loaded.snapshot.schema_version==3 and loaded.snapshot.progression_version==2:return loaded
+	if loaded.snapshot.schema_version not in [2,3]:return _failure("只迁移正式档，旧试玩档保持不变")
 	var original:=FileAccess.get_file_as_bytes(path)
 	var digest:=FileAccess.get_sha256(path)
-	var candidate:=_upgrade_loadout(loaded.snapshot,digest)
+	var candidate:Dictionary
+	if loaded.snapshot.schema_version==3:
+		# 无等级v1已完成过装备迁移；此步只增加交易扩展，不重算角色或补发收藏。
+		candidate=loaded.snapshot.duplicate(true)
+		candidate.progression_version=2;candidate["merchant"]=Merchant.initial()
+		candidate["merchant_migration"]={"from_progression_version":1,"source_sha256":digest}
+	else:candidate=_upgrade_loadout(loaded.snapshot,digest)
 	var errors:=validate(candidate)
 	if not errors.is_empty():return _failure("装配迁移校验失败："+"；".join(errors))
-	var backup:=path+".schema2-"+digest.substr(0,12)+".bak"
+	var backup:=path+(".schema2-" if loaded.snapshot.schema_version==2 else ".schema3-loadouts-v1-")+digest.substr(0,12)+".bak"
 	var directory:=DirAccess.open(path.get_base_dir())
 	if directory==null or directory.is_link(backup.get_file()):return _failure("迁移备份路径非法")
 	if FileAccess.file_exists(backup):
@@ -495,7 +513,7 @@ func _write_backup_file(path:String,contents:PackedByteArray)->Error:
 func _upgrade_loadout(old:Dictionary,digest:String)->Dictionary:
 	var saved:=old.duplicate(true)
 	saved.schema_version=3;saved.erase("level");saved.erase("xp")
-	saved["progression_version"]=1;saved["cards"]=Loadouts.initial_cards()
+	saved["progression_version"]=2;saved["cards"]=Loadouts.initial_cards();saved["merchant"]=Merchant.initial()
 	saved["migration"]={"from_schema":2,"source_sha256":digest}
 	var factory:=Factory.new(_catalog)
 	for id in saved.roster:

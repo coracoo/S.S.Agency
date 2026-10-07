@@ -3,6 +3,9 @@ extends "res://scripts/campaign/chapter_stage.gd"
 const Saga = preload("res://scripts/campaign/saga_catalog.gd")
 const Region = preload("res://scripts/campaign/saga_world.gd")
 const ResidentArt = preload("res://scripts/campaign/saga_npc_art.gd")
+const Merchant = preload("res://scripts/campaign/merchant_catalog.gd")
+const MerchantPanel = preload("res://scripts/campaign/merchant_panel.gd")
+const MerchantActor = preload("res://scripts/campaign/merchant_actor.gd")
 const SPEAKER_IDS := {"凛音":"rinne","薄荷":"mint","岑照":"guard","焰华":"homura","苏合":"healer","清明":"controller","小夜":"sayo","镜中薄荷":"mint","镜中焰华":"homura","焰华的镜影":"homura","凛音的镜影":"rinne"}
 const CHAPTER_NUMBERS := ["二","三","四","五","六","七"]
 var chapter_id := 2
@@ -12,6 +15,8 @@ var _selected_option: Dictionary = {}
 var _targets: Array[Dictionary] = []
 var _notice_remaining := 0.0
 var _service_bought := false
+var _merchant_actor: Node3D
+var _merchant_panel: Control
 
 func _ready() -> void:
 	_register_input()
@@ -65,7 +70,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if _closed: return
 	if not Input.is_action_pressed("approach_lead"): _lead_armed = true
-	if not Input.is_action_pressed("approach_interact") and not Input.is_action_pressed("ui_accept") and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT): _confirm_armed = true
+	if not Input.is_action_pressed("approach_interact") and not Input.is_action_pressed("ui_accept") and not Input.is_action_pressed("approach_pause") and not Input.is_action_pressed("ui_cancel") and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT): _confirm_armed = true
 	for button in _modal_buttons:
 		if is_instance_valid(button): button.disabled = not _confirm_armed or _transition_busy
 	if not _modal_buttons.is_empty() and _confirm_armed and not _transition_busy and get_viewport().gui_get_focus_owner() == null:
@@ -89,6 +94,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("approach_pause"):
 		get_viewport().set_input_as_handled()
 		if _mode == "explore": _open_pause()
+		elif _mode == "merchant": _merchant_closed()
 		elif _mode in ["pause","map","journal","travel","interaction_select"]: _resume_explore()
 		return
 	if event.is_action_pressed("approach_map"):
@@ -104,6 +110,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _saga() -> Dictionary:
 	return session.campaign.safe_snapshot().get("saga",{}) if session != null else {}
+
+func apply_committed_world(world: Dictionary, animate_objects: bool = false) -> void:
+	super.apply_committed_world(world,animate_objects)
+	_refresh_merchant()
 
 func _refresh_targets() -> void:
 	_targets.clear()
@@ -121,10 +131,14 @@ func _refresh_targets() -> void:
 		_targets.append({"id":"@supply","label":"补给 · 日用药物","kind":"field_shop","location":"shop","position":config.anchors.shop,"radius":2.1})
 	if active.is_empty():
 		_targets.append({"id":"@travel","label":"沿路前行 / 返回旧地","kind":"travel","location":"exit","position":config.anchors.exit,"radius":2.3})
+	if Merchant.presence(session.campaign.safe_snapshot()):
+		var anchor: Vector3 = Merchant.anchor(session.campaign.safe_snapshot())
+		_targets.append({"id":"@merchant","label":"神秘商人 · 查看行囊","kind":"merchant","location":"mysterious_merchant","position":[anchor.x,anchor.y,anchor.z],"radius":2.15})
 	_targets.append_array(_available_world_objects())
 	config["interactions"] = _targets.duplicate(true)
 	_refresh_story_markers()
 	_refresh_npcs()
+	_refresh_merchant()
 
 func nearby_interactions() -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
@@ -153,6 +167,7 @@ func request_interaction(id: String) -> bool:
 		"rest": _rest_at_anchor()
 		"travel": _show_travel()
 		"field_shop": _show_field_shop()
+		"merchant": _show_merchant()
 		_: _begin_story(id)
 	return true
 
@@ -167,6 +182,57 @@ func _selected_target(id: String) -> void:
 	_resume_explore()
 	_confirm_armed = true
 	request_interaction(id)
+
+func _refresh_merchant() -> void:
+	var visible_now := session != null and Merchant.presence(session.campaign.safe_snapshot())
+	if not visible_now:
+		if is_instance_valid(_merchant_actor):
+			remove_child(_merchant_actor)
+			_merchant_actor.queue_free()
+		_merchant_actor = null
+		var kept: Array[Dictionary] = []
+		for target in _targets:
+			if target.kind != "merchant": kept.append(target)
+		_targets = kept
+		if not config.is_empty(): config["interactions"] = _targets.duplicate(true)
+		return
+	if not is_instance_valid(_merchant_actor):
+		_merchant_actor = MerchantActor.new()
+		add_child(_merchant_actor)
+	_merchant_actor.position = Merchant.anchor(session.campaign.safe_snapshot())
+
+func _show_merchant() -> void:
+	if not Merchant.presence(session.campaign.safe_snapshot()):
+		_refresh_targets()
+		_resume_explore()
+		return
+	_close_modal()
+	_mode = "merchant"
+	_merchant_panel = MerchantPanel.new()
+	_modal = _merchant_panel
+	_modal_layer.add_child(_merchant_panel)
+	_merchant_panel.closed.connect(_merchant_closed)
+	_merchant_panel.purchased.connect(_merchant_purchased)
+	_merchant_panel.open(session.campaign,export_world())
+
+func _merchant_purchased() -> void:
+	if _closed: return
+	apply_committed_world(session.campaign.safe_snapshot().world)
+	_refresh_merchant()
+
+func _merchant_closed() -> void:
+	if _closed or _mode != "merchant": return
+	_merchant_panel = null
+	_refresh_targets()
+	_resume_explore()
+
+func _fit_modal() -> void:
+	if is_instance_valid(_merchant_panel) and _modal == _merchant_panel:
+		# 商店使用锚点和容器重排；不能再套旧固定尺寸模态的整体缩放。
+		_merchant_panel.scale = Vector2.ONE
+		_merchant_panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		return
+	super._fit_modal()
 
 func _begin_story(id: String) -> void:
 	var result: Dictionary = session.campaign.begin_saga_scene(export_world(),id)
@@ -515,7 +581,7 @@ func _refresh_story_markers() -> void:
 	_story_markers = Node3D.new(); _story_markers.name = "SagaInvestigationMarkers"; add_child(_story_markers)
 	var placed: Dictionary = {}
 	for target in _targets:
-		if target.kind in ["door","pickup"]: continue
+		if target.kind in ["door","pickup","merchant"]: continue
 		if placed.has(Geometry.vector(target.position)): continue
 		placed[Geometry.vector(target.position)] = true
 		var marker := Node3D.new(); marker.name = "Anchor_" + str(target.location); marker.position = Geometry.vector(target.position)

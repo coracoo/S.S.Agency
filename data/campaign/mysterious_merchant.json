@@ -1,0 +1,164 @@
+{
+  "version": 1,
+  "merchant_id": "mysterious_merchant",
+  "display_name": "神秘商人",
+  "interaction_distance": 2.6,
+  "chapters": {
+    "2": {
+      "event": "C2-13",
+      "anchor": "gate",
+      "offset": [
+        2,
+        0,
+        0
+      ]
+    },
+    "3": {
+      "event": "C3-08",
+      "anchor": "bay",
+      "offset": [
+        2,
+        0,
+        0
+      ]
+    },
+    "4": {
+      "event": "C4-10",
+      "anchor": "gate",
+      "offset": [
+        2,
+        0,
+        0
+      ]
+    },
+    "5": {
+      "event": "C5-13",
+      "anchor": "yard",
+      "offset": [
+        2,
+        0,
+        0
+      ]
+    },
+    "6": {
+      "event": "C6-12",
+      "anchor": "courtyard",
+      "offset": [
+        2,
+        0,
+        0
+      ]
+    },
+    "7": {
+      "event": "",
+      "anchor": "stairs",
+      "offset": [
+        2,
+        0,
+        0
+      ]
+    }
+  },
+  "products": [
+    {
+      "id": "gear_iron_amulet_v1",
+      "kind": "gear",
+      "item_id": "iron_amulet",
+      "price_version": 1,
+      "price": 80,
+      "stock": 1,
+      "unlock_chapter": 2,
+      "unlock_event": "C2-13"
+    },
+    {
+      "id": "gear_swift_tachi_v1",
+      "kind": "gear",
+      "item_id": "swift_tachi",
+      "price_version": 1,
+      "price": 180,
+      "stock": 1,
+      "unlock_chapter": 2,
+      "unlock_event": "C2-13"
+    },
+    {
+      "id": "gear_ranger_garb_v1",
+      "kind": "gear",
+      "item_id": "ranger_garb",
+      "price_version": 1,
+      "price": 120,
+      "stock": 1,
+      "unlock_chapter": 3,
+      "unlock_event": "C3-08"
+    },
+    {
+      "id": "gear_bead_bracelet_v1",
+      "kind": "gear",
+      "item_id": "bead_bracelet",
+      "price_version": 1,
+      "price": 80,
+      "stock": 1,
+      "unlock_chapter": 4,
+      "unlock_event": "C4-10"
+    },
+    {
+      "id": "gear_monk_kesa_v1",
+      "kind": "gear",
+      "item_id": "monk_kesa",
+      "price_version": 1,
+      "price": 140,
+      "stock": 1,
+      "unlock_chapter": 5,
+      "unlock_event": "C5-13"
+    },
+    {
+      "id": "gear_spirit_bell_v1",
+      "kind": "gear",
+      "item_id": "spirit_bell",
+      "price_version": 1,
+      "price": 180,
+      "stock": 1,
+      "unlock_chapter": 6,
+      "unlock_event": "C6-12"
+    },
+    {
+      "id": "card_force_channel_v1",
+      "kind": "card",
+      "item_id": "force_channel",
+      "price_version": 1,
+      "price": 140,
+      "stock": 1,
+      "unlock_chapter": 4,
+      "unlock_event": "C4-10"
+    },
+    {
+      "id": "card_iron_oath_v1",
+      "kind": "card",
+      "item_id": "iron_oath",
+      "price_version": 1,
+      "price": 120,
+      "stock": 1,
+      "unlock_chapter": 5,
+      "unlock_event": "C5-13"
+    },
+    {
+      "id": "card_sustained_rite_v1",
+      "kind": "card",
+      "item_id": "sustained_rite",
+      "price_version": 1,
+      "price": 140,
+      "stock": 1,
+      "unlock_chapter": 6,
+      "unlock_event": "C6-12"
+    },
+    {
+      "id": "card_swift_cast_v1",
+      "kind": "card",
+      "item_id": "swift_cast",
+      "price_version": 1,
+      "price": 160,
+      "stock": 1,
+      "unlock_chapter": 7,
+      "unlock_event": ""
+    }
+  ]
+}

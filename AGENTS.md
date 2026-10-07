@@ -8,6 +8,8 @@
 
 批准对白源、大纲及技能manifest按.gitattributes保持LF；不得为CRLF问题更新批准哈希。Windows主发布/动作门禁使用 `tools/verification_support.py` 的跨平台锁与进程清理。所有写档测试仍先核验隔离user目录。
 
+神秘商人已接入：`merchant_catalog.gd`、`mysterious_merchant.json`、独立地区实体与交易面板；新档schema3/progression_version=2。无等级v1检查点先严格校验、原字节备份再加空账本，不重新迁移角色或奖励。商人账本由正式Campaign原子提交，普通补给与商人扣款共同核对；NPC只在安全窗口出现，C7-05首胜后全局离场。当前人物是程序化静态斗笠披风，无专用逐帧美术。终战普通休息/采购限制及自然七章资源仍待整体平衡，不把新商人离場误写成全部补给已锁。
+
 ## 2026-10-05 七章连续主线
 
 当前正式标题进入完整七章旅程。第一章五夜与原送行/镇守保持兼容，结案页可下山进入后六章；当前内容与运行见 [七章说明](docs/campaign/seven-chapters.md)。后六章137场批准对白由 `tools/campaign/build_saga_story.py` 导出，不手改生成JSON后遗漏源映射；新增敌人/遭遇在 `data/rpg/saga_*.json`，不属于旧XLSX覆盖范围。
