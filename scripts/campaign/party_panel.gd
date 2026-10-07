@@ -11,6 +11,7 @@ const Art = preload("res://scripts/campaign/presentation/night_menu_art.gd")
 const Resolver = preload("res://scripts/rpg/effect_resolver.gd")
 const LoadoutPanel = preload("res://scripts/campaign/loadout_panel.gd")
 const Loadouts = preload("res://scripts/rpg/loadout_rules.gd")
+const RecoveryPanel = preload("res://scripts/campaign/recovery_panel.gd")
 const CLASSES: Array[String] = ["swordsman", "ranger", "guard", "mage", "healer", "controller"]
 const ITEM_CATEGORIES := {"all": "全部", "heal": "恢复", "support": "辅助"}
 var session: RefCounted
@@ -45,12 +46,13 @@ var _menu_cards: Array = []
 var _generation := 0
 var _closing := false
 var _loadout: Control
+var _recovery: Control
 
 func _init() -> void:
 	layer = 20
 	_catalog.load_all()
 func open(value: RefCounted, page: String = "party") -> void:
-	current_page = page if page in ["menu", "party", "inventory", "equipment", "loadout"] else "party"
+	current_page = page if page in ["menu", "party", "inventory", "equipment", "loadout", "recoveries"] else "party"
 	session = value
 	campaign = session.campaign if session != null else null
 	if campaign == null: last_error = "没有正式主线会话"
@@ -87,7 +89,7 @@ func _build() -> void:
 		_tabs[page] = Art.button(_canvas, ["队伍", "行囊", "武具", "装配"][index], Rect2(700 + index * 170, 167, 160, 72), show_page.bind(page))
 	_hud.close = Art.button(_canvas, "返回探索", Rect2(1392, 167, 204, 72), close_panel)
 	_hud.count = Kit.muted(Kit.label(_canvas, "", Rect2(322, 243, 1280, 35), 21))
-	for page in ["menu", "party", "inventory", "equipment", "loadout"]:
+	for page in ["menu", "party", "inventory", "equipment", "loadout", "recoveries"]:
 		var node := Control.new()
 		node.name = "Page_" + page
 		node.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -121,6 +123,10 @@ func _build() -> void:
 	_loadout.size = Vector2(912, 582)
 	_pages.loadout.add_child(_loadout)
 	_loadout.applied.connect(_render)
+	_recovery = RecoveryPanel.new()
+	_recovery.position = Vector2(324,277)
+	_recovery.size = Vector2(1276,582)
+	_pages.recoveries.add_child(_recovery)
 	_build_menu()
 	_hud.back = Art.button(_canvas, "返回菜单 [Esc]", Rect2(1392, 862, 204, 68), back)
 	_hud.back.add_theme_font_size_override("font_size", 19)
@@ -234,6 +240,10 @@ func _build_menu() -> void:
 	Kit.muted(Kit.label(page, "WASD 行走  ·  E 调查  ·  M 地图", Rect2(358, 792, 554, 40), 20))
 	var actions := [["行囊 · 使用道具", "inventory"], ["武具 · 查看与更换", "equipment"], ["队伍 · 编队与形态", "party"], ["技能装配 · 主动与被动", "loadout"]]
 	for index in actions.size():
+		if index == 0:
+			_hud.menu_inventory = Art.button(page,"行囊 · 使用道具",Rect2(982,282,280,72),show_page.bind("inventory"))
+			_hud.menu_recoveries = Art.button(page,"战场回收册",Rect2(1278,282,280,72),show_page.bind("recoveries"))
+			continue
 		var button := Art.button(page, actions[index][0], Rect2(982, 282 + index * 72, 576, 72), show_page.bind(actions[index][1]))
 		if actions[index][1] == "loadout": _hud.menu_loadout = button
 	_hud.rest = Art.button(page, "休息 · 全员恢复", Rect2(982, 570, 576, 72), rest_party)
@@ -249,6 +259,7 @@ func show_page(page: String) -> void:
 	current_page = page
 	last_error = ""
 	if entering_loadout: _loadout.open(campaign, detail_actor_id)
+	if page == "recoveries": _recovery.open(campaign.safe_snapshot(),_catalog)
 	_render()
 	if page == "inventory":
 		var focus_item: Button = _items.get(selected_item_id)
@@ -257,6 +268,8 @@ func show_page(page: String) -> void:
 	elif page == "equipment": _equipment[selected_slot].grab_focus()
 	elif page == "party" and _rows.has(detail_actor_id): _rows[detail_actor_id].detail.grab_focus()
 	elif page == "loadout": _loadout.focus_first()
+	elif page == "recoveries":
+		if not _recovery.focus_first(): _hud.back.grab_focus()
 	else: _hud.close.grab_focus()
 func back() -> void:
 	if current_page == "menu": close_panel()
@@ -354,14 +367,14 @@ func close_panel() -> void:
 func _render() -> void:
 	if _root == null: return
 	for page in _pages: _pages[page].visible = page == current_page
-	_roster_panel.visible = current_page != "menu"
+	_roster_panel.visible = current_page not in ["menu","recoveries"]
 	for page in _tabs:
 		Art.selected(_tabs[page], page == current_page)
 		_tabs[page].disabled = busy
 	_hud.back.visible = current_page != "menu"
 	_hud.close.disabled = busy
 	_hud.back.disabled = busy
-	_hud.heading.text = "夜巡菜单" if current_page == "menu" else "夜巡整备"
+	_hud.heading.text = "战场回收册" if current_page == "recoveries" else ("夜巡菜单" if current_page == "menu" else "夜巡整备")
 	var actor := _detail()
 	if actor.is_empty():
 		_hud.error.text = last_error
@@ -374,6 +387,8 @@ func _render() -> void:
 	_hud.loadout.visible = uses_loadout
 	_hud.loadout.disabled = busy
 	_hud.count.text = "出战 %d / 3　·　队伍 / 道具 / 装备 / 装配确认后自动保存" % draft_party.size() if uses_loadout else "出战 %d / 3　·　队伍 / 道具 / 装备变更成功后自动保存" % draft_party.size()
+	if current_page == "recoveries":
+		_hud.count.text = "战场与调查的永久记录 · 每类敌种首次胜利后收录 · 选择条目阅读详情"
 	if current_page == "loadout":
 		_hud.count.text = "装配草稿：应用后保存；取消、切换队员或离开此页会放弃未应用的改动。"
 		_loadout.set_locked(busy)

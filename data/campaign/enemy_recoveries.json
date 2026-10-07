@@ -1,0 +1,622 @@
+{
+  "schema_version": 1,
+  "catalog_version": "enemy-recoveries-1",
+  "notes": "只读永久回收册：从正式已提交胜利与applied_battle_ids顺序推导首个敌种来源，不新增领取存档、不消费、不出售、不构成主线门槛。未完成批准场次不开放链接文本。C2-13同源镜屑、C6-08总控实销保持原事件来源；这里不发物品或剧情flag。",
+  "design_source": "docs/superpowers/specs/2026-10-08-stage-pacing-loot-design.md#6",
+  "definitions": [
+    {
+      "id": "recovery_hound",
+      "enemy_id": "hound",
+      "name": "爪痕纸片",
+      "summary": "纸面上几道爪痕交叠，一端深、一端浅，边缘拖出细长缺口。",
+      "source": "data/rpg/enemies.json",
+      "origin": "new_design_2026_10_08",
+      "provenance": "具体回收名、敌种关系与可选对照均为2026-10-08本轮新设计；最早GDD只提供环境观察与回收理念，不包含这些具体物品。",
+      "verified_scope": "仅确认来源遭遇的持久胜利与登记敌种；机制说明来自公开定义，不证明特定操作成绩或人物身份。",
+      "quantity": 1,
+      "tradable": false,
+      "consumable": false,
+      "mainline_key": false,
+      "links": [
+        {
+          "scene_id": "night_1",
+          "label": "水钵旁的痕迹",
+          "text": "回看水钵旁的观察，留意纸面抓痕的深浅与走向。",
+          "gate": {
+            "night": 1,
+            "event": "dialogue:h1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "recovery_shield_soldier",
+      "enemy_id": "shield_soldier",
+      "name": "折盾扣片",
+      "summary": "扣片向一侧折起，内缘磨得发亮，外缘还留着磕碰的凹口。",
+      "source": "data/rpg/enemies.json",
+      "origin": "new_design_2026_10_08",
+      "provenance": "具体回收名、敌种关系与可选对照均为2026-10-08本轮新设计；最早GDD只提供环境观察与回收理念，不包含这些具体物品。",
+      "verified_scope": "仅确认来源遭遇的持久胜利与登记敌种；机制说明来自公开定义，不证明特定操作成绩或人物身份。",
+      "quantity": 1,
+      "tradable": false,
+      "consumable": false,
+      "mainline_key": false,
+      "links": [
+        {
+          "scene_id": "night_1",
+          "label": "扣片的受力方向",
+          "text": "折口与亮边分在两侧，可以对照盾兵护持时朝向哪一边。",
+          "gate": {
+            "night": 1,
+            "event": "battle:cleared"
+          }
+        }
+      ]
+    },
+    {
+      "id": "recovery_fire_spirit",
+      "enemy_id": "fire_spirit",
+      "name": "焦灯纸",
+      "summary": "灯纸烧去半角，焦黑的边缘卷向里侧，轻触便落下一点纸灰。",
+      "source": "data/rpg/enemies.json",
+      "origin": "new_design_2026_10_08",
+      "provenance": "具体回收名、敌种关系与可选对照均为2026-10-08本轮新设计；最早GDD只提供环境观察与回收理念，不包含这些具体物品。",
+      "verified_scope": "仅确认来源遭遇的持久胜利与登记敌种；机制说明来自公开定义，不证明特定操作成绩或人物身份。",
+      "quantity": 1,
+      "tradable": false,
+      "consumable": false,
+      "mainline_key": false,
+      "links": [
+        {
+          "scene_id": "night_4",
+          "label": "灯火与铜镜",
+          "text": "把焦边、纸灰与棺中铜镜的观察并排看，分别记下各自的痕迹。",
+          "gate": {
+            "night": 4,
+            "event": "dialogue:m1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "recovery_cultist",
+      "enemy_id": "cultist",
+      "name": "断纹符屑",
+      "summary": "符纹断在纸屑边缘，几道墨线只剩半截，折口夹着细灰。",
+      "source": "data/rpg/enemies.json",
+      "origin": "new_design_2026_10_08",
+      "provenance": "具体回收名、敌种关系与可选对照均为2026-10-08本轮新设计；最早GDD只提供环境观察与回收理念，不包含这些具体物品。",
+      "verified_scope": "仅确认来源遭遇的持久胜利与登记敌种；机制说明来自公开定义，不证明特定操作成绩或人物身份。",
+      "quantity": 1,
+      "tradable": false,
+      "consumable": false,
+      "mainline_key": false,
+      "links": [
+        {
+          "scene_id": "night_2",
+          "label": "守灯的旧物",
+          "text": "回看辨认、安放旧物与执灯引路的次序，再看这些未能连成一线的符纹。",
+          "gate": {
+            "night": 2,
+            "event": "ritual:guide"
+          }
+        }
+      ]
+    },
+    {
+      "id": "recovery_elite_shield_soldier",
+      "enemy_id": "elite_shield_soldier",
+      "name": "加固扣片",
+      "summary": "两层扣片压在一起，铆接处留下深凹，比普通扣片厚了一圈。",
+      "source": "data/rpg/enemies.json",
+      "origin": "new_design_2026_10_08",
+      "provenance": "具体回收名、敌种关系与可选对照均为2026-10-08本轮新设计；最早GDD只提供环境观察与回收理念，不包含这些具体物品。",
+      "verified_scope": "仅确认来源遭遇的持久胜利与登记敌种；机制说明来自公开定义，不证明特定操作成绩或人物身份。",
+      "quantity": 1,
+      "tradable": false,
+      "consumable": false,
+      "mainline_key": false,
+      "links": [
+        {
+          "scene_id": "night_3",
+          "label": "队列里的护持",
+          "text": "把加固处与普通扣片并排，留意抬棺队列中前后相接的护持方向。",
+          "gate": {
+            "night": 3,
+            "event": "dialogue:p3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "recovery_gatekeeper",
+      "enemy_id": "gatekeeper",
+      "name": "空匣铜屑",
+      "summary": "薄薄的铜屑蜷成弧形，一面黯淡，一面留着匣壁摩擦的细纹。",
+      "source": "data/rpg/enemies.json",
+      "origin": "new_design_2026_10_08",
+      "provenance": "具体回收名、敌种关系与可选对照均为2026-10-08本轮新设计；最早GDD只提供环境观察与回收理念，不包含这些具体物品。",
+      "verified_scope": "仅确认来源遭遇的持久胜利与登记敌种；机制说明来自公开定义，不证明特定操作成绩或人物身份。",
+      "quantity": 1,
+      "tradable": false,
+      "consumable": false,
+      "mainline_key": false,
+      "links": [
+        {
+          "scene_id": "night_5",
+          "label": "本殿的托付",
+          "text": "棺守让开后的空处、匣壁上的擦痕，可以同那句托付一并回看。",
+          "gate": {
+            "night": 5,
+            "event": "dialogue:hd5"
+          }
+        }
+      ]
+    },
+    {
+      "id": "recovery_saga_paper_soldier",
+      "enemy_id": "saga_paper_soldier",
+      "name": "拖缆纸束残件",
+      "summary": "纸束扭成紧结，折痕斜向一侧，可与缆绳压住甲片时的受力方向对照。",
+      "source": "data/rpg/saga_enemies.json",
+      "origin": "new_design_2026_10_08",
+      "provenance": "具体回收名、敌种关系与可选对照均为2026-10-08本轮新设计；最早GDD只提供环境观察与回收理念，不包含这些具体物品。",
+      "verified_scope": "仅确认来源遭遇的持久胜利与登记敌种；机制说明来自公开定义，不证明特定操作成绩或人物身份。",
+      "quantity": 1,
+      "tradable": false,
+      "consumable": false,
+      "mainline_key": false,
+      "links": [
+        {
+          "scene_id": "C3-03",
+          "label": "缆桩与甲片",
+          "text": "缆绳曾压在甲片里。对照纸束的斜折痕，再看当时从侧面挑开甲片的方向。",
+          "gate": {
+            "completed": "C3-03"
+          }
+        }
+      ]
+    },
+    {
+      "id": "recovery_saga_lamp_shadow",
+      "enemy_id": "saga_lamp_shadow",
+      "name": "熄光灯纸",
+      "summary": "灯纸的折口熏得发黑，细灰藏在层间，展开后仍能看见灯罩原来的轮廓。",
+      "source": "data/rpg/saga_enemies.json",
+      "origin": "new_design_2026_10_08",
+      "provenance": "具体回收名、敌种关系与可选对照均为2026-10-08本轮新设计；最早GDD只提供环境观察与回收理念，不包含这些具体物品。",
+      "verified_scope": "仅确认来源遭遇的持久胜利与登记敌种；机制说明来自公开定义，不证明特定操作成绩或人物身份。",
+      "quantity": 1,
+      "tradable": false,
+      "consumable": false,
+      "mainline_key": false,
+      "links": [
+        {
+          "scene_id": "C2-07",
+          "label": "取出旧芯以后",
+          "text": "旧芯取出后，檐下灯影暗了，沟底水声仍在。两处变化要分开记。",
+          "gate": {
+            "completed": "C2-07"
+          }
+        },
+        {
+          "scene_id": "C2-09",
+          "label": "修好的引路灯",
+          "text": "补灯时，薄荷把铜片对准旧孔。灯对敲击与经过的脚步声，有着不同的回应。",
+          "gate": {
+            "completed": "C2-09"
+          }
+        }
+      ]
+    },
+    {
+      "id": "recovery_saga_mirror_shard",
+      "enemy_id": "saga_mirror_shard",
+      "name": "背槽碎片",
+      "summary": "碎片背面留着细槽，槽口有压线的窄痕，转折处比别处磨得更亮。",
+      "source": "data/rpg/saga_enemies.json",
+      "origin": "new_design_2026_10_08",
+      "provenance": "具体回收名、敌种关系与可选对照均为2026-10-08本轮新设计；最早GDD只提供环境观察与回收理念，不包含这些具体物品。",
+      "verified_scope": "仅确认来源遭遇的持久胜利与登记敌种；机制说明来自公开定义，不证明特定操作成绩或人物身份。",
+      "quantity": 1,
+      "tradable": false,
+      "consumable": false,
+      "mainline_key": false,
+      "links": [
+        {
+          "scene_id": "C4-02",
+          "label": "镜背的细槽",
+          "text": "镜背细槽里嵌着铜线。可把槽宽、转折和接线的位置一项项对照。",
+          "gate": {
+            "completed": "C4-02"
+          }
+        }
+      ]
+    },
+    {
+      "id": "recovery_saga_borrowed_voice",
+      "enemy_id": "saga_borrowed_voice",
+      "name": "回声纹拓片",
+      "summary": "拓纸上的细纹反复交叠，同一处弯折留下了浓重的墨影。",
+      "source": "data/rpg/saga_enemies.json",
+      "origin": "new_design_2026_10_08",
+      "provenance": "具体回收名、敌种关系与可选对照均为2026-10-08本轮新设计；最早GDD只提供环境观察与回收理念，不包含这些具体物品。",
+      "verified_scope": "仅确认来源遭遇的持久胜利与登记敌种；机制说明来自公开定义，不证明特定操作成绩或人物身份。",
+      "quantity": 1,
+      "tradable": false,
+      "consumable": false,
+      "mainline_key": false,
+      "links": [
+        {
+          "scene_id": "C2-13",
+          "label": "并排摆开的镜屑",
+          "text": "镜屑与两份旧芯里的薄屑已经摆在一起。可对照它们的压纹和断口，再回看拓纸上的重叠细纹。",
+          "gate": {
+            "completed": "C2-13"
+          }
+        }
+      ]
+    },
+    {
+      "id": "recovery_saga_backshore_general",
+      "enemy_id": "saga_backshore_general",
+      "name": "封渡令残角",
+      "summary": "残角上只剩半截笔画，纸边被水浸得发软，折起的地方仍有旧墨。",
+      "source": "data/rpg/saga_enemies.json",
+      "origin": "new_design_2026_10_08",
+      "provenance": "具体回收名、敌种关系与可选对照均为2026-10-08本轮新设计；最早GDD只提供环境观察与回收理念，不包含这些具体物品。",
+      "verified_scope": "仅确认来源遭遇的持久胜利与登记敌种；机制说明来自公开定义，不证明特定操作成绩或人物身份。",
+      "quantity": 1,
+      "tradable": false,
+      "consumable": false,
+      "mainline_key": false,
+      "links": [
+        {
+          "scene_id": "C3-08",
+          "label": "先把盾放下",
+          "text": "苏合递来水，岑照的手指仍颤了一下。把旧令残字与撤回岸内的记录分开看。",
+          "gate": {
+            "completed": "C3-08"
+          }
+        },
+        {
+          "scene_id": "C3-14",
+          "label": "水位回来以后",
+          "text": "撤去护符后，水涨过石面又退下，裂口没有重新张开。可把这次复测与残角上的旧令分栏记下。",
+          "gate": {
+            "completed": "C3-14"
+          }
+        }
+      ]
+    },
+    {
+      "id": "recovery_saga_joined_mirror",
+      "enemy_id": "saga_joined_mirror",
+      "name": "双面背扣",
+      "summary": "铜扣两面都有磨痕，细连杆拐过背面的窄槽，接头处留下反复拧动的印子。",
+      "source": "data/rpg/saga_enemies.json",
+      "origin": "new_design_2026_10_08",
+      "provenance": "具体回收名、敌种关系与可选对照均为2026-10-08本轮新设计；最早GDD只提供环境观察与回收理念，不包含这些具体物品。",
+      "verified_scope": "仅确认来源遭遇的持久胜利与登记敌种；机制说明来自公开定义，不证明特定操作成绩或人物身份。",
+      "quantity": 1,
+      "tradable": false,
+      "consumable": false,
+      "mainline_key": false,
+      "links": [
+        {
+          "scene_id": "C4-11",
+          "label": "被划掉的卸扣日期",
+          "text": "修阵册最早写着“次日卸扣”，后来却年年添扣。可逐页对照背扣上反复拧动的痕迹。",
+          "gate": {
+            "completed": "C4-11"
+          }
+        }
+      ]
+    },
+    {
+      "id": "recovery_saga_hundredhand_lamp",
+      "enemy_id": "saga_hundredhand_lamp",
+      "name": "断流灯罩片",
+      "summary": "灯罩碎边留下深浅不同的熏痕，扣口处有一圈擦亮的窄印。",
+      "source": "data/rpg/saga_enemies.json",
+      "origin": "new_design_2026_10_08",
+      "provenance": "具体回收名、敌种关系与可选对照均为2026-10-08本轮新设计；最早GDD只提供环境观察与回收理念，不包含这些具体物品。",
+      "verified_scope": "仅确认来源遭遇的持久胜利与登记敌种；机制说明来自公开定义，不证明特定操作成绩或人物身份。",
+      "quantity": 1,
+      "tradable": false,
+      "consumable": false,
+      "mainline_key": false,
+      "links": [
+        {
+          "scene_id": "C5-06",
+          "label": "灯焰与呼吸",
+          "text": "铜扣脱开时，灯焰矮了一截，李茂能说出疼痛。把灯的变化与人的反应分开记。",
+          "gate": {
+            "completed": "C5-06"
+          }
+        }
+      ]
+    },
+    {
+      "id": "recovery_saga_anchor_left",
+      "enemy_id": "saga_anchor_left",
+      "name": "左锁片压痕拓记",
+      "summary": "拓纸上压痕深浅交错，旁边标着左侧锁片的位置和接头朝向。",
+      "source": "data/rpg/saga_enemies.json",
+      "origin": "new_design_2026_10_08",
+      "provenance": "具体回收名、敌种关系与可选对照均为2026-10-08本轮新设计；最早GDD只提供环境观察与回收理念，不包含这些具体物品。",
+      "verified_scope": "仅确认来源遭遇的持久胜利与登记敌种；机制说明来自公开定义，不证明特定操作成绩或人物身份。",
+      "quantity": 1,
+      "tradable": false,
+      "consumable": false,
+      "mainline_key": false,
+      "links": [
+        {
+          "scene_id": "C6-12",
+          "label": "左侧接头的去向",
+          "text": "锁片拆下，朝内的接头被卸开。对照维护图，记清左侧通路通向哪里。",
+          "gate": {
+            "completed": "C6-12"
+          }
+        }
+      ]
+    },
+    {
+      "id": "recovery_saga_anchor_right",
+      "enemy_id": "saga_anchor_right",
+      "name": "右锁片压痕拓记",
+      "summary": "右侧锁片的压痕沿纸边展开，几处转折可与左侧的拓记并排比较。",
+      "source": "data/rpg/saga_enemies.json",
+      "origin": "new_design_2026_10_08",
+      "provenance": "具体回收名、敌种关系与可选对照均为2026-10-08本轮新设计；最早GDD只提供环境观察与回收理念，不包含这些具体物品。",
+      "verified_scope": "仅确认来源遭遇的持久胜利与登记敌种；机制说明来自公开定义，不证明特定操作成绩或人物身份。",
+      "quantity": 1,
+      "tradable": false,
+      "consumable": false,
+      "mainline_key": false,
+      "links": [
+        {
+          "scene_id": "C6-12",
+          "label": "分开的两条通路",
+          "text": "河外的声音能够传入，里面的回应也能传出。两条通路分开留着，可并排查看两侧拓记。",
+          "gate": {
+            "completed": "C6-12"
+          }
+        }
+      ]
+    },
+    {
+      "id": "recovery_saga_nochange_warden",
+      "enemy_id": "saga_nochange_warden",
+      "name": "失令胸牌",
+      "summary": "胸牌边缘磨钝了，背面扣口留着几道旧痕，残存的笔画藏在凹槽里。",
+      "source": "data/rpg/saga_enemies.json",
+      "origin": "new_design_2026_10_08",
+      "provenance": "具体回收名、敌种关系与可选对照均为2026-10-08本轮新设计；最早GDD只提供环境观察与回收理念，不包含这些具体物品。",
+      "verified_scope": "仅确认来源遭遇的持久胜利与登记敌种；机制说明来自公开定义，不证明特定操作成绩或人物身份。",
+      "quantity": 1,
+      "tradable": false,
+      "consumable": false,
+      "mainline_key": false,
+      "links": [
+        {
+          "scene_id": "C6-08",
+          "label": "灯座的两条线",
+          "text": "灯座上分出照路与吸梦的两条线。把胸牌扣口与活扣结构并排看，记清各自的位置。",
+          "gate": {
+            "completed": "C6-08"
+          }
+        },
+        {
+          "scene_id": "C6-12",
+          "label": "接下一程的人",
+          "text": "巡守的回补已经停下，锁片与朝内接头被逐一拆开。维护图旁还要记下居民与码头的交接。",
+          "gate": {
+            "completed": "C6-12"
+          }
+        }
+      ]
+    },
+    {
+      "id": "recovery_saga_master_mirror",
+      "enemy_id": "saga_master_mirror",
+      "name": "护面裂纹拓片",
+      "summary": "细裂纹爬过镜面边缘，浅处密集，深处断开成几截。",
+      "source": "data/rpg/saga_enemies.json",
+      "origin": "new_design_2026_10_08",
+      "provenance": "具体回收名、敌种关系与可选对照均为2026-10-08本轮新设计；最早GDD只提供环境观察与回收理念，不包含这些具体物品。",
+      "verified_scope": "仅确认来源遭遇的持久胜利与登记敌种；机制说明来自公开定义，不证明特定操作成绩或人物身份。",
+      "quantity": 1,
+      "tradable": false,
+      "consumable": false,
+      "mainline_key": false,
+      "links": [
+        {
+          "scene_id": "C7-05",
+          "label": "护面张开的时候",
+          "text": "浅面反刀，深面反术；护面张开时，再对照裂纹的位置。",
+          "gate": {
+            "completed": "C7-05"
+          }
+        }
+      ]
+    },
+    {
+      "id": "recovery_saga_lamp_bearer",
+      "enemy_id": "saga_lamp_bearer",
+      "name": "断令纸芯",
+      "summary": "纸芯被拧得很紧，断口露出一层层压实的纹路，外沿还沾着灯灰。",
+      "source": "data/rpg/saga_enemies.json",
+      "origin": "new_design_2026_10_08",
+      "provenance": "具体回收名、敌种关系与可选对照均为2026-10-08本轮新设计；最早GDD只提供环境观察与回收理念，不包含这些具体物品。",
+      "verified_scope": "仅确认来源遭遇的持久胜利与登记敌种；机制说明来自公开定义，不证明特定操作成绩或人物身份。",
+      "quantity": 1,
+      "tradable": false,
+      "consumable": false,
+      "mainline_key": false,
+      "links": [
+        {
+          "scene_id": "C7-07",
+          "label": "号令停下以后",
+          "text": "发令已经停止，城里的牵连却仍在。回看纸芯断口，再核对那些尚未解开的线。",
+          "gate": {
+            "completed": "C7-07"
+          }
+        },
+        {
+          "scene_id": "C7-08",
+          "label": "把每一项分开核对",
+          "text": "灯路、码头、居民、医馆与山上旧案分列在清单上，各有需要核对的去处。",
+          "gate": {
+            "completed": "C7-08"
+          }
+        }
+      ]
+    },
+    {
+      "id": "recovery_saga_exit_recoil",
+      "enemy_id": "saga_exit_recoil",
+      "name": "出口受压记录",
+      "summary": "几道重压印挤在出口一侧，旁边的箭头指向外面的接应处。",
+      "source": "data/rpg/saga_enemies.json",
+      "origin": "new_design_2026_10_08",
+      "provenance": "具体回收名、敌种关系与可选对照均为2026-10-08本轮新设计；最早GDD只提供环境观察与回收理念，不包含这些具体物品。",
+      "verified_scope": "仅确认来源遭遇的持久胜利与登记敌种；机制说明来自公开定义，不证明特定操作成绩或人物身份。",
+      "quantity": 1,
+      "tradable": false,
+      "consumable": false,
+      "mainline_key": false,
+      "links": [
+        {
+          "scene_id": "C7-15",
+          "label": "天明以后",
+          "text": "祖母旧灯重新挂在事务所门边，新的委托被摊到六人之间。",
+          "gate": {
+            "completed": "C7-15"
+          }
+        },
+        {
+          "scene_id": "C7-17",
+          "label": "下一更",
+          "text": "守灯的物件已经带回，值班板上写明了听辨的起止时刻。",
+          "gate": {
+            "completed": "C7-17"
+          }
+        },
+        {
+          "scene_id": "C7-19",
+          "label": "城外的名册",
+          "text": "迁居名册逐页留着决定与损失，旧录音里听不清的名字仍然留白。",
+          "gate": {
+            "completed": "C7-19"
+          }
+        },
+        {
+          "scene_id": "C7-22",
+          "label": "黄昏两边",
+          "text": "委托已经写好，椅子上的旧影却没有读它。凛音又把那张纸收了回来。",
+          "gate": {
+            "completed": "C7-22"
+          }
+        }
+      ]
+    },
+    {
+      "id": "recovery_saga_relay_recoil",
+      "enemy_id": "saga_relay_recoil",
+      "name": "中段分流记录",
+      "summary": "压力线在中段分开，汇拢处被圈了出来，线边记着各段的位置。",
+      "source": "data/rpg/saga_enemies.json",
+      "origin": "new_design_2026_10_08",
+      "provenance": "具体回收名、敌种关系与可选对照均为2026-10-08本轮新设计；最早GDD只提供环境观察与回收理念，不包含这些具体物品。",
+      "verified_scope": "仅确认来源遭遇的持久胜利与登记敌种；机制说明来自公开定义，不证明特定操作成绩或人物身份。",
+      "quantity": 1,
+      "tradable": false,
+      "consumable": false,
+      "mainline_key": false,
+      "links": [
+        {
+          "scene_id": "C7-15",
+          "label": "天明以后",
+          "text": "祖母旧灯重新挂在事务所门边，新的委托被摊到六人之间。",
+          "gate": {
+            "completed": "C7-15"
+          }
+        },
+        {
+          "scene_id": "C7-17",
+          "label": "下一更",
+          "text": "守灯的物件已经带回，值班板上写明了听辨的起止时刻。",
+          "gate": {
+            "completed": "C7-17"
+          }
+        },
+        {
+          "scene_id": "C7-19",
+          "label": "城外的名册",
+          "text": "迁居名册逐页留着决定与损失，旧录音里听不清的名字仍然留白。",
+          "gate": {
+            "completed": "C7-19"
+          }
+        },
+        {
+          "scene_id": "C7-22",
+          "label": "黄昏两边",
+          "text": "委托已经写好，椅子上的旧影却没有读它。凛音又把那张纸收了回来。",
+          "gate": {
+            "completed": "C7-22"
+          }
+        }
+      ]
+    },
+    {
+      "id": "recovery_saga_final_recoil",
+      "enemy_id": "saga_final_recoil",
+      "name": "主镜卸压记录",
+      "summary": "内圈的压痕被一一描下，最深处另划了一道记号，纸边留着卸压时的次序。",
+      "source": "data/rpg/saga_enemies.json",
+      "origin": "new_design_2026_10_08",
+      "provenance": "具体回收名、敌种关系与可选对照均为2026-10-08本轮新设计；最早GDD只提供环境观察与回收理念，不包含这些具体物品。",
+      "verified_scope": "仅确认来源遭遇的持久胜利与登记敌种；机制说明来自公开定义，不证明特定操作成绩或人物身份。",
+      "quantity": 1,
+      "tradable": false,
+      "consumable": false,
+      "mainline_key": false,
+      "links": [
+        {
+          "scene_id": "C7-15",
+          "label": "天明以后",
+          "text": "祖母旧灯重新挂在事务所门边，新的委托被摊到六人之间。",
+          "gate": {
+            "completed": "C7-15"
+          }
+        },
+        {
+          "scene_id": "C7-17",
+          "label": "下一更",
+          "text": "守灯的物件已经带回，值班板上写明了听辨的起止时刻。",
+          "gate": {
+            "completed": "C7-17"
+          }
+        },
+        {
+          "scene_id": "C7-19",
+          "label": "城外的名册",
+          "text": "迁居名册逐页留着决定与损失，旧录音里听不清的名字仍然留白。",
+          "gate": {
+            "completed": "C7-19"
+          }
+        },
+        {
+          "scene_id": "C7-22",
+          "label": "黄昏两边",
+          "text": "委托已经写好，椅子上的旧影却没有读它。凛音又把那张纸收了回来。",
+          "gate": {
+            "completed": "C7-22"
+          }
+        }
+      ]
+    }
+  ]
+}

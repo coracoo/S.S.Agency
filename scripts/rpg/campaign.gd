@@ -17,6 +17,7 @@ const Resolver = preload("res://scripts/rpg/effect_resolver.gd")
 const Loadouts = preload("res://scripts/rpg/loadout_rules.gd")
 const Threats = preload("res://scripts/rpg/strategy_encounters.gd")
 const Merchant = preload("res://scripts/campaign/merchant_catalog.gd")
+const Recoveries = preload("res://scripts/campaign/recovery_catalog.gd")
 var _catalog: RefCounted
 var _store: RefCounted
 var _path: String
@@ -241,6 +242,8 @@ func apply_result(result: Dictionary) -> Dictionary:
 	var committed := _commit(candidate)
 	if committed.ok:
 		if unlocked_mage: committed["unlocked_forms"] = ["mage"]
+		# 永久回收册从已提交胜利派生；不相信战斗侧自报，也不另存可重复领取的状态。
+		if _formal():committed["new_recoveries"]=Recoveries.earned(_safe,_catalog).filter(func(row):return row.battle_id==result.battle_id)
 		committed.story_patch = patch.duplicate(true)
 		committed.world = _safe.world.duplicate(true)
 	return committed

@@ -1023,6 +1023,7 @@ func _show_result() -> void:
 				for id in reward.gear:lines.append("获得 %s ×%d"%[_catalog.get_definition("equipment",str(id)).get("name",id),reward.gear[id]])
 				for id in reward.cards:lines.append("收录技能卡 %s"%Loadouts.card(str(id)).get("name",id))
 		else:lines.append("共享等级 L%d　经验 %d" % [saved.level, saved.xp])
+		for recovery in result_response.get("new_recoveries",[]):lines.append("首次回收 %s · 已记入战场回收册"%str(recovery.name))
 		for id in saved.party:
 			var actor: Dictionary = saved.roster[id]
 			lines.append("%s　HP %d/%d　MP %d/%d" % [Presenter.actor_name(actor, _catalog), actor.hp, actor.stats.hp, actor.mp, actor.stats.mp])
