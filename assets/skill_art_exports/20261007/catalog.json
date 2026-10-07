@@ -4,9 +4,9 @@
   "binding_status": "unbound",
   "art_style_approval": "not claimed",
   "playback_note": "Frames are grouped by phase and layer. Conditional and persistent-status layers are separate event-gated artwork, not part of one continuous base animation.",
-  "variant_count": 20,
-  "skill_count": 16,
-  "runtime_frame_count": 308,
+  "variant_count": 28,
+  "skill_count": 24,
+  "runtime_frame_count": 436,
   "variants": [
     {
       "form_id": "homura_mage",
@@ -9406,6 +9406,3967 @@
           "meaning": "Light membrane only, not a new physical shield. Separate from battle_spirit. Form change retains without rewarding/replaying. Do not replace stronger shields."
         }
       ]
+    },
+    {
+      "form_id": "guard",
+      "skill_id": "cover",
+      "skill_name": "掩护",
+      "native_atlas": null,
+      "native_atlas_size": null,
+      "runtime_atlas": "guard/cover/runtime-atlas.png",
+      "runtime_atlas_size": [
+        1024,
+        1024
+      ],
+      "frame_count": 16,
+      "frames": [
+        {
+          "frame": 1,
+          "path": "guard/cover/frames/01.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 2,
+          "path": "guard/cover/frames/02.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 3,
+          "path": "guard/cover/frames/03.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 4,
+          "path": "guard/cover/frames/04.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 5,
+          "path": "guard/cover/frames/05.png",
+          "phase": "cover_link",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "cover_link"
+        },
+        {
+          "frame": 6,
+          "path": "guard/cover/frames/06.png",
+          "phase": "cover_link",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "cover_link"
+        },
+        {
+          "frame": 7,
+          "path": "guard/cover/frames/07.png",
+          "phase": "cover_link",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "cover_link"
+        },
+        {
+          "frame": 8,
+          "path": "guard/cover/frames/08.png",
+          "phase": "cover_link",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "cover_link"
+        },
+        {
+          "frame": 9,
+          "path": "guard/cover/frames/09.png",
+          "phase": "cover_status",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "cover_status"
+        },
+        {
+          "frame": 10,
+          "path": "guard/cover/frames/10.png",
+          "phase": "cover_status",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "cover_status"
+        },
+        {
+          "frame": 11,
+          "path": "guard/cover/frames/11.png",
+          "phase": "cover_status",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "cover_status"
+        },
+        {
+          "frame": 12,
+          "path": "guard/cover/frames/12.png",
+          "phase": "cover_status",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "cover_status"
+        },
+        {
+          "frame": 13,
+          "path": "guard/cover/frames/13.png",
+          "phase": "cover_redirected",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "cover_redirected"
+        },
+        {
+          "frame": 14,
+          "path": "guard/cover/frames/14.png",
+          "phase": "cover_redirected",
+          "duration_ms": 65,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "cover_redirected"
+        },
+        {
+          "frame": 15,
+          "path": "guard/cover/frames/15.png",
+          "phase": "cover_redirected",
+          "duration_ms": 80,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "cover_redirected"
+        },
+        {
+          "frame": 16,
+          "path": "guard/cover/frames/16.png",
+          "phase": "cover_redirected",
+          "duration_ms": 100,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "cover_redirected"
+        }
+      ],
+      "layer_rules": [
+        {
+          "layer_id": "cover_link",
+          "frames": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "trigger": "successful status_applied(id=cover)",
+          "loop": true,
+          "end": "cover_redirected consumes once, matching status_removed, next guard action per next_owner_slot, either bound actor KO, or scene exit"
+        },
+        {
+          "layer_id": "cover_status",
+          "frames": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "trigger": "the same successful status_applied(id=cover)",
+          "loop": true,
+          "end": "same binding end as cover_link",
+          "meaning": "floating open protection motif, never held prop or new shield object"
+        },
+        {
+          "layer_id": "cover_redirected",
+          "frames": [
+            13,
+            14,
+            15,
+            16
+          ],
+          "trigger": "cover_redirected only",
+          "loop": false,
+          "end": "clear after this one reception/recovery, no later than receiving attack completion",
+          "meaning": "one actual eligible single direct attack interception; never damages enemy or creates repeated damage; normal cast does not trigger this layer"
+        }
+      ],
+      "availability": "partial",
+      "pending_assets": [
+        {
+          "kind": "native_atlas",
+          "expected_path": "guard/cover/native-atlas.png",
+          "status": "upload_pending"
+        }
+      ]
+    },
+    {
+      "form_id": "guard",
+      "skill_id": "shield_bash",
+      "skill_name": "盾击",
+      "native_atlas": null,
+      "native_atlas_size": null,
+      "runtime_atlas": "guard/shield_bash/runtime-atlas.png",
+      "runtime_atlas_size": [
+        1024,
+        1024
+      ],
+      "frame_count": 16,
+      "frames": [
+        {
+          "frame": 1,
+          "path": "guard/shield_bash/frames/01.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            352,
+            256
+          ],
+          "anchor_runtime_px": [
+            176.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 2,
+          "path": "guard/shield_bash/frames/02.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            352,
+            256
+          ],
+          "anchor_runtime_px": [
+            176.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 3,
+          "path": "guard/shield_bash/frames/03.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            352,
+            256
+          ],
+          "anchor_runtime_px": [
+            176.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 4,
+          "path": "guard/shield_bash/frames/04.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            352,
+            256
+          ],
+          "anchor_runtime_px": [
+            176.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 5,
+          "path": "guard/shield_bash/frames/05.png",
+          "phase": "damage_recovery",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "damage_recovery"
+        },
+        {
+          "frame": 6,
+          "path": "guard/shield_bash/frames/06.png",
+          "phase": "damage_recovery",
+          "duration_ms": 65,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "damage_recovery"
+        },
+        {
+          "frame": 7,
+          "path": "guard/shield_bash/frames/07.png",
+          "phase": "damage_recovery",
+          "duration_ms": 80,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "damage_recovery"
+        },
+        {
+          "frame": 8,
+          "path": "guard/shield_bash/frames/08.png",
+          "phase": "damage_recovery",
+          "duration_ms": 100,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "damage_recovery"
+        },
+        {
+          "frame": 9,
+          "path": "guard/shield_bash/frames/09.png",
+          "phase": "charge_interrupt",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "charge_interrupt"
+        },
+        {
+          "frame": 10,
+          "path": "guard/shield_bash/frames/10.png",
+          "phase": "charge_interrupt",
+          "duration_ms": 65,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "charge_interrupt"
+        },
+        {
+          "frame": 11,
+          "path": "guard/shield_bash/frames/11.png",
+          "phase": "charge_interrupt",
+          "duration_ms": 80,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "charge_interrupt"
+        },
+        {
+          "frame": 12,
+          "path": "guard/shield_bash/frames/12.png",
+          "phase": "charge_interrupt",
+          "duration_ms": 100,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "charge_interrupt"
+        },
+        {
+          "frame": 13,
+          "path": "guard/shield_bash/frames/13.png",
+          "phase": "weaken_status",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "weaken_status"
+        },
+        {
+          "frame": 14,
+          "path": "guard/shield_bash/frames/14.png",
+          "phase": "weaken_status",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "weaken_status"
+        },
+        {
+          "frame": 15,
+          "path": "guard/shield_bash/frames/15.png",
+          "phase": "weaken_status",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "weaken_status"
+        },
+        {
+          "frame": 16,
+          "path": "guard/shield_bash/frames/16.png",
+          "phase": "weaken_status",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "weaken_status"
+        }
+      ],
+      "layer_rules": [
+        {
+          "layer_id": "damage_recovery",
+          "frames": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "trigger": "actual damage event at M",
+          "loop": false,
+          "end": "attack E",
+          "meaning": "one 70% physical coefficient hit, no extra hit from frame playback"
+        },
+        {
+          "layer_id": "charge_interrupt",
+          "frames": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "trigger": "charge_interrupted only",
+          "loop": false,
+          "end": "attack E",
+          "meaning": "only existing interruptible charge; no stun, no second hit; independent of weaken"
+        },
+        {
+          "layer_id": "weaken_status",
+          "frames": [
+            13,
+            14,
+            15,
+            16
+          ],
+          "trigger": "successful status_applied(id=weaken)",
+          "loop": true,
+          "end": "matching status_removed, actor_defeated/KO, or scene exit; never expire from animation seconds",
+          "meaning": "20% weaken from L3; may succeed even if interrupt absent; never stack/downgrade stronger weaken"
+        }
+      ],
+      "availability": "partial",
+      "pending_assets": [
+        {
+          "kind": "native_atlas",
+          "expected_path": "guard/shield_bash/native-atlas.png",
+          "status": "upload_pending"
+        }
+      ]
+    },
+    {
+      "form_id": "guard",
+      "skill_id": "iron_wall",
+      "skill_name": "铁壁",
+      "native_atlas": null,
+      "native_atlas_size": null,
+      "runtime_atlas": null,
+      "runtime_atlas_size": null,
+      "frame_count": 16,
+      "frames": [
+        {
+          "frame": 1,
+          "path": "guard/iron_wall/frames/01.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            384
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            192.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 2,
+          "path": "guard/iron_wall/frames/02.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            384
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            192.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 3,
+          "path": "guard/iron_wall/frames/03.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            384
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            192.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 4,
+          "path": "guard/iron_wall/frames/04.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            384
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            192.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 5,
+          "path": "guard/iron_wall/frames/05.png",
+          "phase": "shield_apply",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            384
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            192.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "shield_apply"
+        },
+        {
+          "frame": 6,
+          "path": "guard/iron_wall/frames/06.png",
+          "phase": "shield_apply",
+          "duration_ms": 65,
+          "anchor_native_px": [
+            256,
+            384
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            192.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "shield_apply"
+        },
+        {
+          "frame": 7,
+          "path": "guard/iron_wall/frames/07.png",
+          "phase": "shield_apply",
+          "duration_ms": 80,
+          "anchor_native_px": [
+            256,
+            384
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            192.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "shield_apply"
+        },
+        {
+          "frame": 8,
+          "path": "guard/iron_wall/frames/08.png",
+          "phase": "shield_apply",
+          "duration_ms": 100,
+          "anchor_native_px": [
+            256,
+            384
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            192.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "shield_apply"
+        },
+        {
+          "frame": 9,
+          "path": "guard/iron_wall/frames/09.png",
+          "phase": "shield_sustain",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            384
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            192.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "shield_sustain"
+        },
+        {
+          "frame": 10,
+          "path": "guard/iron_wall/frames/10.png",
+          "phase": "shield_sustain",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            384
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            192.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "shield_sustain"
+        },
+        {
+          "frame": 11,
+          "path": "guard/iron_wall/frames/11.png",
+          "phase": "shield_sustain",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            384
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            192.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "shield_sustain"
+        },
+        {
+          "frame": 12,
+          "path": "guard/iron_wall/frames/12.png",
+          "phase": "shield_sustain",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            384
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            192.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "shield_sustain"
+        },
+        {
+          "frame": 13,
+          "path": "guard/iron_wall/frames/13.png",
+          "phase": "cleanse",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "cleanse"
+        },
+        {
+          "frame": 14,
+          "path": "guard/iron_wall/frames/14.png",
+          "phase": "cleanse",
+          "duration_ms": 65,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "cleanse"
+        },
+        {
+          "frame": 15,
+          "path": "guard/iron_wall/frames/15.png",
+          "phase": "cleanse",
+          "duration_ms": 80,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "cleanse"
+        },
+        {
+          "frame": 16,
+          "path": "guard/iron_wall/frames/16.png",
+          "phase": "cleanse",
+          "duration_ms": 100,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "cleanse"
+        }
+      ],
+      "layer_rules": [
+        {
+          "layer_id": "shield_apply",
+          "frames": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "trigger": "shield_applied",
+          "loop": false,
+          "end": "transition to sustain by E",
+          "meaning": "actual absorbable shield 30+80% DEF; no HP healing or damage"
+        },
+        {
+          "layer_id": "shield_sustain",
+          "frames": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "trigger": "same actual shield_applied after apply",
+          "loop": true,
+          "end": "shield_removed, actor_defeated/KO, scene exit, or any damage/periodic_damage/saga_reflected event with absorption and empty shield_after; update remaining amount when shield_after survives"
+        },
+        {
+          "layer_id": "cleanse",
+          "frames": [
+            13,
+            14,
+            15,
+            16
+          ],
+          "trigger": "status_removed(reason=cleanse) per actual removable negative",
+          "loop": false,
+          "end": "attack E",
+          "meaning": "one feedback per real removed status; no heal or regained action opportunity; independent of shield success"
+        }
+      ],
+      "availability": "partial",
+      "pending_assets": [
+        {
+          "kind": "native_atlas",
+          "expected_path": "guard/iron_wall/native-atlas.png",
+          "status": "upload_pending"
+        },
+        {
+          "kind": "runtime_atlas",
+          "expected_path": "guard/iron_wall/runtime-atlas.png",
+          "status": "upload_pending"
+        }
+      ]
+    },
+    {
+      "form_id": "guard",
+      "skill_id": "taunt",
+      "skill_name": "挑衅",
+      "native_atlas": null,
+      "native_atlas_size": null,
+      "runtime_atlas": "guard/taunt/runtime-atlas.png",
+      "runtime_atlas_size": [
+        1024,
+        1024
+      ],
+      "frame_count": 16,
+      "frames": [
+        {
+          "frame": 1,
+          "path": "guard/taunt/frames/01.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 2,
+          "path": "guard/taunt/frames/02.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 3,
+          "path": "guard/taunt/frames/03.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 4,
+          "path": "guard/taunt/frames/04.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 5,
+          "path": "guard/taunt/frames/05.png",
+          "phase": "sound_travel",
+          "duration_ms": 45,
+          "anchor_native_px": [
+            352,
+            256
+          ],
+          "anchor_runtime_px": [
+            176.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "sound_travel"
+        },
+        {
+          "frame": 6,
+          "path": "guard/taunt/frames/06.png",
+          "phase": "sound_travel",
+          "duration_ms": 45,
+          "anchor_native_px": [
+            352,
+            256
+          ],
+          "anchor_runtime_px": [
+            176.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "sound_travel"
+        },
+        {
+          "frame": 7,
+          "path": "guard/taunt/frames/07.png",
+          "phase": "sound_travel",
+          "duration_ms": 45,
+          "anchor_native_px": [
+            352,
+            256
+          ],
+          "anchor_runtime_px": [
+            176.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "sound_travel"
+        },
+        {
+          "frame": 8,
+          "path": "guard/taunt/frames/08.png",
+          "phase": "sound_travel",
+          "duration_ms": 45,
+          "anchor_native_px": [
+            352,
+            256
+          ],
+          "anchor_runtime_px": [
+            176.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "sound_travel"
+        },
+        {
+          "frame": 9,
+          "path": "guard/taunt/frames/09.png",
+          "phase": "taunt_status",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "taunt_status"
+        },
+        {
+          "frame": 10,
+          "path": "guard/taunt/frames/10.png",
+          "phase": "taunt_status",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "taunt_status"
+        },
+        {
+          "frame": 11,
+          "path": "guard/taunt/frames/11.png",
+          "phase": "taunt_status",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "taunt_status"
+        },
+        {
+          "frame": 12,
+          "path": "guard/taunt/frames/12.png",
+          "phase": "taunt_status",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "taunt_status"
+        },
+        {
+          "frame": 13,
+          "path": "guard/taunt/frames/13.png",
+          "phase": "conditional_weaken",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "conditional_weaken"
+        },
+        {
+          "frame": 14,
+          "path": "guard/taunt/frames/14.png",
+          "phase": "conditional_weaken",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "conditional_weaken"
+        },
+        {
+          "frame": 15,
+          "path": "guard/taunt/frames/15.png",
+          "phase": "conditional_weaken",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "conditional_weaken"
+        },
+        {
+          "frame": 16,
+          "path": "guard/taunt/frames/16.png",
+          "phase": "conditional_weaken",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "conditional_weaken"
+        }
+      ],
+      "layer_rules": [
+        {
+          "layer_id": "sound_travel",
+          "frames": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "trigger": "accepted taunt presentation",
+          "loop": false,
+          "end": "arrival<=M",
+          "meaning": "non-damaging sound; no projectile or explosion"
+        },
+        {
+          "layer_id": "taunt_status",
+          "frames": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "trigger": "successful status_applied(id=taunt)",
+          "loop": true,
+          "end": "matching status_removed, actor_defeated/KO, or scene exit; never expire from animation seconds",
+          "meaning": "only eligible single-target choices; oriented toward source guard; no all-enemy mind control"
+        },
+        {
+          "layer_id": "conditional_weaken",
+          "frames": [
+            13,
+            14,
+            15,
+            16
+          ],
+          "trigger": "independent successful status_applied(id=weaken) from L5 source_has_shield condition",
+          "loop": true,
+          "end": "matching status_removed, actor_defeated/KO, or scene exit; never expire from animation seconds",
+          "meaning": "20% weaken only if authoritative condition succeeds; independent from taunt and no damage"
+        }
+      ],
+      "availability": "partial",
+      "pending_assets": [
+        {
+          "kind": "native_atlas",
+          "expected_path": "guard/taunt/native-atlas.png",
+          "status": "upload_pending"
+        }
+      ]
+    },
+    {
+      "form_id": "mint",
+      "skill_id": "mark",
+      "skill_name": "标记",
+      "native_atlas": null,
+      "native_atlas_size": null,
+      "runtime_atlas": "mint/mark/runtime-atlas.png",
+      "runtime_atlas_size": [
+        1024,
+        1024
+      ],
+      "frame_count": 16,
+      "frames": [
+        {
+          "frame": 1,
+          "path": "mint/mark/frames/01.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 2,
+          "path": "mint/mark/frames/02.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 3,
+          "path": "mint/mark/frames/03.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 4,
+          "path": "mint/mark/frames/04.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 5,
+          "path": "mint/mark/frames/05.png",
+          "phase": "travel",
+          "duration_ms": 45,
+          "anchor_native_px": [
+            352,
+            256
+          ],
+          "anchor_runtime_px": [
+            176.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "travel"
+        },
+        {
+          "frame": 6,
+          "path": "mint/mark/frames/06.png",
+          "phase": "travel",
+          "duration_ms": 45,
+          "anchor_native_px": [
+            352,
+            256
+          ],
+          "anchor_runtime_px": [
+            176.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "travel"
+        },
+        {
+          "frame": 7,
+          "path": "mint/mark/frames/07.png",
+          "phase": "travel",
+          "duration_ms": 45,
+          "anchor_native_px": [
+            352,
+            256
+          ],
+          "anchor_runtime_px": [
+            176.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "travel"
+        },
+        {
+          "frame": 8,
+          "path": "mint/mark/frames/08.png",
+          "phase": "travel",
+          "duration_ms": 45,
+          "anchor_native_px": [
+            352,
+            256
+          ],
+          "anchor_runtime_px": [
+            176.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "travel"
+        },
+        {
+          "frame": 9,
+          "path": "mint/mark/frames/09.png",
+          "phase": "mark_apply",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "mark_apply"
+        },
+        {
+          "frame": 10,
+          "path": "mint/mark/frames/10.png",
+          "phase": "mark_apply",
+          "duration_ms": 65,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "mark_apply"
+        },
+        {
+          "frame": 11,
+          "path": "mint/mark/frames/11.png",
+          "phase": "mark_apply",
+          "duration_ms": 80,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "mark_apply"
+        },
+        {
+          "frame": 12,
+          "path": "mint/mark/frames/12.png",
+          "phase": "mark_apply",
+          "duration_ms": 100,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "mark_apply"
+        },
+        {
+          "frame": 13,
+          "path": "mint/mark/frames/13.png",
+          "phase": "mark_sustain",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "mark_sustain"
+        },
+        {
+          "frame": 14,
+          "path": "mint/mark/frames/14.png",
+          "phase": "mark_sustain",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "mark_sustain"
+        },
+        {
+          "frame": 15,
+          "path": "mint/mark/frames/15.png",
+          "phase": "mark_sustain",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "mark_sustain"
+        },
+        {
+          "frame": 16,
+          "path": "mint/mark/frames/16.png",
+          "phase": "mark_sustain",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "mark_sustain"
+        }
+      ],
+      "layer_rules": [
+        {
+          "layer_id": "mark_apply",
+          "frames": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "trigger": "successful status_applied(id=mark)",
+          "loop": false,
+          "end": "transition to sustain by E",
+          "meaning": "no damage event, impact burst or injury"
+        },
+        {
+          "layer_id": "mark_sustain",
+          "frames": [
+            13,
+            14,
+            15,
+            16
+          ],
+          "trigger": "the same successful mark status",
+          "loop": true,
+          "end": "matching status_removed, actor_defeated/KO, or scene exit; never expire from animation seconds",
+          "meaning": "remove on skill_consumed or actor_defeated; no damage-over-time"
+        }
+      ],
+      "availability": "partial",
+      "pending_assets": [
+        {
+          "kind": "native_atlas",
+          "expected_path": "mint/mark/native-atlas.png",
+          "status": "upload_pending"
+        }
+      ]
+    },
+    {
+      "form_id": "mint",
+      "skill_id": "hunt",
+      "skill_name": "猎杀",
+      "native_atlas": null,
+      "native_atlas_size": null,
+      "runtime_atlas": "mint/hunt/runtime-atlas.png",
+      "runtime_atlas_size": [
+        1024,
+        1024
+      ],
+      "frame_count": 16,
+      "frames": [
+        {
+          "frame": 1,
+          "path": "mint/hunt/frames/01.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 2,
+          "path": "mint/hunt/frames/02.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 3,
+          "path": "mint/hunt/frames/03.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 4,
+          "path": "mint/hunt/frames/04.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 5,
+          "path": "mint/hunt/frames/05.png",
+          "phase": "travel",
+          "duration_ms": 45,
+          "anchor_native_px": [
+            352,
+            256
+          ],
+          "anchor_runtime_px": [
+            176.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "travel"
+        },
+        {
+          "frame": 6,
+          "path": "mint/hunt/frames/06.png",
+          "phase": "travel",
+          "duration_ms": 45,
+          "anchor_native_px": [
+            352,
+            256
+          ],
+          "anchor_runtime_px": [
+            176.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "travel"
+        },
+        {
+          "frame": 7,
+          "path": "mint/hunt/frames/07.png",
+          "phase": "travel",
+          "duration_ms": 45,
+          "anchor_native_px": [
+            352,
+            256
+          ],
+          "anchor_runtime_px": [
+            176.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "travel"
+        },
+        {
+          "frame": 8,
+          "path": "mint/hunt/frames/08.png",
+          "phase": "travel",
+          "duration_ms": 45,
+          "anchor_native_px": [
+            352,
+            256
+          ],
+          "anchor_runtime_px": [
+            176.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "travel"
+        },
+        {
+          "frame": 9,
+          "path": "mint/hunt/frames/09.png",
+          "phase": "damage_recovery",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "damage_recovery"
+        },
+        {
+          "frame": 10,
+          "path": "mint/hunt/frames/10.png",
+          "phase": "damage_recovery",
+          "duration_ms": 65,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "damage_recovery"
+        },
+        {
+          "frame": 11,
+          "path": "mint/hunt/frames/11.png",
+          "phase": "damage_recovery",
+          "duration_ms": 80,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "damage_recovery"
+        },
+        {
+          "frame": 12,
+          "path": "mint/hunt/frames/12.png",
+          "phase": "damage_recovery",
+          "duration_ms": 100,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "damage_recovery"
+        },
+        {
+          "frame": 13,
+          "path": "mint/hunt/frames/13.png",
+          "phase": "mark_consumed",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "mark_consumed"
+        },
+        {
+          "frame": 14,
+          "path": "mint/hunt/frames/14.png",
+          "phase": "mark_consumed",
+          "duration_ms": 65,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "mark_consumed"
+        },
+        {
+          "frame": 15,
+          "path": "mint/hunt/frames/15.png",
+          "phase": "mp_refund",
+          "duration_ms": 80,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "mp_refund"
+        },
+        {
+          "frame": 16,
+          "path": "mint/hunt/frames/16.png",
+          "phase": "mp_refund",
+          "duration_ms": 100,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "mp_refund"
+        }
+      ],
+      "layer_rules": [
+        {
+          "layer_id": "damage_recovery",
+          "frames": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "trigger": "actual damage event at M",
+          "loop": false,
+          "end": "attack E",
+          "meaning": "one 130% hit; preexisting mark upgrades this same hit to280% (L6 300%, L9 320%)"
+        },
+        {
+          "layer_id": "mark_consumed",
+          "frames": [
+            13,
+            14
+          ],
+          "trigger": "status_removed(id=mark,reason=skill_consumed)",
+          "loop": false,
+          "end": "attack E",
+          "meaning": "quiet marker consumption, no extra damage; KO also clears mark without manufacturing a consumed event"
+        },
+        {
+          "layer_id": "mp_refund",
+          "frames": [
+            15,
+            16
+          ],
+          "trigger": "mp_restored(actual>0) from this action",
+          "loop": false,
+          "end": "attack E",
+          "meaning": "L4 restores actual amount up to3 after preexisting mark; upfront9MP required, persists on target KO; never infer refund from consumption alone",
+          "max_instances_per_cast": 1
+        }
+      ],
+      "availability": "partial",
+      "pending_assets": [
+        {
+          "kind": "native_atlas",
+          "expected_path": "mint/hunt/native-atlas.png",
+          "status": "upload_pending"
+        }
+      ]
+    },
+    {
+      "form_id": "mint",
+      "skill_id": "ambush",
+      "skill_name": "奇袭",
+      "native_atlas": null,
+      "native_atlas_size": null,
+      "runtime_atlas": "mint/ambush/runtime-atlas.png",
+      "runtime_atlas_size": [
+        1024,
+        1024
+      ],
+      "frame_count": 16,
+      "frames": [
+        {
+          "frame": 1,
+          "path": "mint/ambush/frames/01.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 2,
+          "path": "mint/ambush/frames/02.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 3,
+          "path": "mint/ambush/frames/03.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 4,
+          "path": "mint/ambush/frames/04.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 5,
+          "path": "mint/ambush/frames/05.png",
+          "phase": "travel",
+          "duration_ms": 45,
+          "anchor_native_px": [
+            352,
+            256
+          ],
+          "anchor_runtime_px": [
+            176.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "travel"
+        },
+        {
+          "frame": 6,
+          "path": "mint/ambush/frames/06.png",
+          "phase": "travel",
+          "duration_ms": 45,
+          "anchor_native_px": [
+            352,
+            256
+          ],
+          "anchor_runtime_px": [
+            176.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "travel"
+        },
+        {
+          "frame": 7,
+          "path": "mint/ambush/frames/07.png",
+          "phase": "travel",
+          "duration_ms": 45,
+          "anchor_native_px": [
+            352,
+            256
+          ],
+          "anchor_runtime_px": [
+            176.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "travel"
+        },
+        {
+          "frame": 8,
+          "path": "mint/ambush/frames/08.png",
+          "phase": "travel",
+          "duration_ms": 45,
+          "anchor_native_px": [
+            352,
+            256
+          ],
+          "anchor_runtime_px": [
+            176.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "travel"
+        },
+        {
+          "frame": 9,
+          "path": "mint/ambush/frames/09.png",
+          "phase": "damage_recovery",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "damage_recovery"
+        },
+        {
+          "frame": 10,
+          "path": "mint/ambush/frames/10.png",
+          "phase": "damage_recovery",
+          "duration_ms": 65,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "damage_recovery"
+        },
+        {
+          "frame": 11,
+          "path": "mint/ambush/frames/11.png",
+          "phase": "damage_recovery",
+          "duration_ms": 80,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "damage_recovery"
+        },
+        {
+          "frame": 12,
+          "path": "mint/ambush/frames/12.png",
+          "phase": "damage_recovery",
+          "duration_ms": 100,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "damage_recovery"
+        },
+        {
+          "frame": 13,
+          "path": "mint/ambush/frames/13.png",
+          "phase": "mark_apply_sustain",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "mark_apply_sustain"
+        },
+        {
+          "frame": 14,
+          "path": "mint/ambush/frames/14.png",
+          "phase": "mark_apply_sustain",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "mark_apply_sustain"
+        },
+        {
+          "frame": 15,
+          "path": "mint/ambush/frames/15.png",
+          "phase": "mark_apply_sustain",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "mark_apply_sustain"
+        },
+        {
+          "frame": 16,
+          "path": "mint/ambush/frames/16.png",
+          "phase": "mark_apply_sustain",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "mark_apply_sustain"
+        }
+      ],
+      "layer_rules": [
+        {
+          "layer_id": "damage_recovery",
+          "frames": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "trigger": "actual damage event at M",
+          "loop": false,
+          "end": "attack E",
+          "meaning": "one 100% physical hit, or150% if target had no action slot yet this round; never extra action"
+        },
+        {
+          "layer_id": "mark_apply_sustain",
+          "frames": [
+            13,
+            14,
+            15,
+            16
+          ],
+          "trigger": "independent successful status_applied(id=mark) after damage",
+          "loop": true,
+          "end": "matching status_removed, actor_defeated/KO, or scene exit; never expire from animation seconds",
+          "activation_frames": [
+            13,
+            14
+          ],
+          "loop_frames": [
+            15,
+            16
+          ],
+          "meaning": "L3 tracking refinement; no marker on effect_ignored; no repeated damage"
+        }
+      ],
+      "availability": "partial",
+      "pending_assets": [
+        {
+          "kind": "native_atlas",
+          "expected_path": "mint/ambush/native-atlas.png",
+          "status": "upload_pending"
+        }
+      ]
+    },
+    {
+      "form_id": "mint",
+      "skill_id": "smoke_screen",
+      "skill_name": "烟幕",
+      "native_atlas": null,
+      "native_atlas_size": null,
+      "runtime_atlas": "mint/smoke_screen/runtime-atlas.png",
+      "runtime_atlas_size": [
+        1024,
+        1024
+      ],
+      "frame_count": 16,
+      "frames": [
+        {
+          "frame": 1,
+          "path": "mint/smoke_screen/frames/01.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            384
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            192.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 2,
+          "path": "mint/smoke_screen/frames/02.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            384
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            192.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 3,
+          "path": "mint/smoke_screen/frames/03.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            384
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            192.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 4,
+          "path": "mint/smoke_screen/frames/04.png",
+          "phase": "cast",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            384
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            192.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            0,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "layer_id": "cast"
+        },
+        {
+          "frame": 5,
+          "path": "mint/smoke_screen/frames/05.png",
+          "phase": "shield_apply",
+          "duration_ms": 55,
+          "anchor_native_px": [
+            256,
+            384
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            192.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "shield_apply"
+        },
+        {
+          "frame": 6,
+          "path": "mint/smoke_screen/frames/06.png",
+          "phase": "shield_apply",
+          "duration_ms": 65,
+          "anchor_native_px": [
+            256,
+            384
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            192.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "shield_apply"
+        },
+        {
+          "frame": 7,
+          "path": "mint/smoke_screen/frames/07.png",
+          "phase": "shield_apply",
+          "duration_ms": 80,
+          "anchor_native_px": [
+            256,
+            384
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            192.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "shield_apply"
+        },
+        {
+          "frame": 8,
+          "path": "mint/smoke_screen/frames/08.png",
+          "phase": "shield_apply",
+          "duration_ms": 100,
+          "anchor_native_px": [
+            256,
+            384
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            192.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            512,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            256,
+            256,
+            256
+          ],
+          "layer_id": "shield_apply"
+        },
+        {
+          "frame": 9,
+          "path": "mint/smoke_screen/frames/09.png",
+          "phase": "shield_sustain",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            384
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            192.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "shield_sustain"
+        },
+        {
+          "frame": 10,
+          "path": "mint/smoke_screen/frames/10.png",
+          "phase": "shield_sustain",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            384
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            192.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "shield_sustain"
+        },
+        {
+          "frame": 11,
+          "path": "mint/smoke_screen/frames/11.png",
+          "phase": "shield_sustain",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            384
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            192.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "shield_sustain"
+        },
+        {
+          "frame": 12,
+          "path": "mint/smoke_screen/frames/12.png",
+          "phase": "shield_sustain",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            384
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            192.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            1024,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            512,
+            256,
+            256
+          ],
+          "layer_id": "shield_sustain"
+        },
+        {
+          "frame": 13,
+          "path": "mint/smoke_screen/frames/13.png",
+          "phase": "battle_spirit",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            0,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            0,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "battle_spirit"
+        },
+        {
+          "frame": 14,
+          "path": "mint/smoke_screen/frames/14.png",
+          "phase": "battle_spirit",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            512,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            256,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "battle_spirit"
+        },
+        {
+          "frame": 15,
+          "path": "mint/smoke_screen/frames/15.png",
+          "phase": "battle_spirit",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1024,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            512,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "battle_spirit"
+        },
+        {
+          "frame": 16,
+          "path": "mint/smoke_screen/frames/16.png",
+          "phase": "battle_spirit",
+          "duration_ms": 150,
+          "anchor_native_px": [
+            256,
+            256
+          ],
+          "anchor_runtime_px": [
+            128.0,
+            128.0
+          ],
+          "atlas_native_xywh": [
+            1536,
+            1536,
+            512,
+            512
+          ],
+          "atlas_runtime_xywh": [
+            768,
+            768,
+            256,
+            256
+          ],
+          "layer_id": "battle_spirit"
+        }
+      ],
+      "layer_rules": [
+        {
+          "layer_id": "shield_apply",
+          "frames": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "trigger": "shield_applied",
+          "loop": false,
+          "end": "transition to sustain by E",
+          "meaning": "actual shield20+60% ATK, not evade, invisibility or poison"
+        },
+        {
+          "layer_id": "shield_sustain",
+          "frames": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "trigger": "same actual shield_applied",
+          "loop": true,
+          "end": "shield_removed, actor_defeated/KO, scene exit, or any damage/periodic_damage/saga_reflected event with absorption and empty shield_after; update remaining amount when shield_after survives"
+        },
+        {
+          "layer_id": "battle_spirit",
+          "frames": [
+            13,
+            14,
+            15,
+            16
+          ],
+          "trigger": "independent successful status_applied(id=battle_spirit)",
+          "loop": true,
+          "end": "matching status_removed, actor_defeated/KO, or scene exit; never expire from animation seconds",
+          "activation_frames": [
+            13,
+            14
+          ],
+          "loop_frames": [
+            15,
+            16
+          ],
+          "meaning": "L5 +25% attack for next owner action, ending by actual status removal; independent of shield lifetime"
+        }
+      ],
+      "availability": "partial",
+      "pending_assets": [
+        {
+          "kind": "native_atlas",
+          "expected_path": "mint/smoke_screen/native-atlas.png",
+          "status": "upload_pending"
+        }
+      ]
     }
-  ]
+  ],
+  "export_status": "partial",
+  "complete_variant_count": 20,
+  "partial_variant_count": 8,
+  "native_atlas_count": 20,
+  "runtime_atlas_count": 27,
+  "available_png_count": 483,
+  "pending_asset_count": 9
 }
