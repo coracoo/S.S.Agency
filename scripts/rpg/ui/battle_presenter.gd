@@ -43,7 +43,7 @@ static func present(state: Dictionary, catalog: RefCounted, display_actor_id: St
 	if not active.is_empty() and active.side == "player":
 		for skill_id in active.get("skill_ids", catalog.get_definition("classes", active.get("active_class_id", active.class_id)).skill_ids):
 			var definition: Dictionary = Resolver.ability_for(active, {"kind": "skill", "ability_id": skill_id}, catalog)
-			skills.append({"id": skill_id, "name": definition.name, "mp_cost": definition.mp_cost, "cooldown": definition.cooldown, "target_label": TARGET_NAMES.get(definition.target_rule, definition.target_rule), "target_short": TARGET_SHORT.get(definition.target_rule, ""), "effects": definition.effects.duplicate(true)})
+			skills.append({"id": skill_id, "name": definition.name, "mp_cost": definition.mp_cost, "cooldown": definition.cooldown, "target_label": TARGET_NAMES.get(definition.target_rule, definition.target_rule), "target_short": TARGET_SHORT.get(definition.target_rule, ""), "effects": definition.effects.duplicate(true), "refinement": definition.get("refinement", {}).duplicate(true), "technique": definition.get("technique", {}).duplicate(true)})
 		if active.get("active_class_id", active.class_id) in ["mage", "healer", "controller"]: basic.push_front("attack_magic")
 	return {"round": state.get("round", 0), "active_actor_id": state.get("active_actor_id", ""), "queue": state.get("queue", []).duplicate(), "queue_index": state.get("queue_index", 0), "actors": actors, "commands": {"skills": skills, "basic": basic}, "inventory": state.get("inventory", {}).duplicate(), "outcome": state.get("outcome", ""), "danger": danger_markers(state, catalog)}
 
@@ -135,6 +135,8 @@ static func actor_name(actor: Dictionary, catalog: RefCounted) -> String:
 static func preview_lines(value: Dictionary, state: Dictionary, catalog: RefCounted) -> Array[String]:
 	var lines: Array[String] = []
 	var targets: Array[String] = []
+	if not value.get("refinement", {}).is_empty(): lines.append("个人专精·" + value.refinement.name + "：" + value.refinement.summary)
+	if not value.get("technique", {}).is_empty(): lines.append("技法·" + value.technique.name + "：" + value.technique.summary)
 	for id in value.get("effective_target_ids", []): targets.append(actor_name(state.actors[id], catalog))
 	if not targets.is_empty(): lines.append("目标：" + " / ".join(targets))
 	for effect in value.get("effects", []):
@@ -213,8 +215,8 @@ static func ability_summary(slot: Dictionary, preview_value: Dictionary, catalog
 			"damage":
 				text = "%d%%%s" % [roundi(float(effect.coefficient) * 100), "魔攻" if effect.damage_type == "magic" else "物攻"]
 				if effect.has("condition"):
-					text += "；%s%d%%" % ["标记时" if effect.condition == "target_has_status" else "本轮目标未获行动槽时", roundi(float(effect.conditional_coefficient) * 100)]
-			"consume_status": text = "消耗标记"
+					text += "；%s%d%%" % [condition_label(effect, catalog, true), roundi(float(effect.conditional_coefficient) * 100)]
+			"consume_status": text = "消耗" + str(catalog.get_definition("statuses", effect.status_id).name)
 			"apply_status": text = status_summary(effect.status_id, effect.magnitude, effect.clock, effect.duration, catalog)
 			"interrupt": text = "打断蓄力"
 			"shield", "heal":
@@ -223,8 +225,13 @@ static func ability_summary(slot: Dictionary, preview_value: Dictionary, catalog
 						text = "盾%d·%s" % [event.payload.shield.amount, clock_text(event.payload.shield.clock, event.payload.shield.remaining)]
 					if effect.type == "heal" and event.type == "healed": text = "HP +%d" % event.payload.amount
 				if text.is_empty(): text = "%s + %s×%s" % [effect.fixed, effect.stat.to_upper(), effect.coefficient]
-			"cleanse": text = "移除负面状态"
+			"cleanse": text = "移除可净化负面状态"
+			"restore_mp": text = "自身回复%dMP（每次施放最多一次）" % effect.fixed
+		if effect.has("requires") and not text.is_empty(): text = requirement_label(effect.requires, catalog) + "：" + text
 		if not text.is_empty() and not parts.has(text): parts.append(text)
+	var refinement: Dictionary = slot.get("refinement", {})
+	if not refinement.is_empty(): parts.append("专精·" + refinement.name + "：" + refinement.summary)
+	if not slot.get("technique", {}).is_empty(): parts.append("技法·" + slot.technique.name + "：" + slot.technique.summary)
 	return " · ".join(parts)
 
 # 标记／眩晕／挑衅是布尔状态，幅度1不是概率；灼烧目录幅度是MATK快照系数。
@@ -248,7 +255,7 @@ static func danger_markers(state: Dictionary, catalog: RefCounted) -> Array[Dict
 
 # 成长界面明确标为未来等级预览，只改临时副本，不升级或写角色。
 static func branch_preview(actor: Dictionary, branch_id: String, catalog: RefCounted) -> String:
-	if branch_id.is_empty(): return "无分支 · 保持基础四技能\nL6可选择一条分支；L9强化同一分支"
+	if branch_id.is_empty(): return "无分支 · 保留四个固定卡位\nL6可选择一条分支；L9强化同一分支\n" + character_guide(actor, catalog)
 	var lines: Array[String] = ["%s分支预览（不改变当前等级/资源）" % {"economy": "节约", "duration": "持续", "power": "强度"}.get(branch_id, branch_id)]
 	for level in [6, 9]:
 		var projected := actor.duplicate(true)
@@ -259,10 +266,20 @@ static func branch_preview(actor: Dictionary, branch_id: String, catalog: RefCou
 			if not base.get("branches", {}).has(branch_id): continue
 			var effective: Dictionary = catalog.skill_for(projected, id)
 			lines.append("L%d · %s　MP%d · CD%d　%s" % [level, effective.name, effective.mp_cost, effective.cooldown, ability_summary(effective, {}, catalog)])
+	lines.append(character_guide(actor, catalog))
 	return "\n".join(lines)
 
 # 四卡第二行保留关键效果；长条件和状态幅度的完整说明留在同源tooltip与预览。
 static func card_summary(slot: Dictionary, preview_value: Dictionary, catalog: RefCounted) -> String:
+	if not slot.get("technique", {}).is_empty():
+		var first: Dictionary = slot.effects[0]
+		var primary := ""
+		match first.type:
+			"damage": primary = "%d%%%s" % [roundi(first.coefficient * 100), "术" if first.damage_type == "magic" else "攻"]
+			"shield": primary = "护盾"
+			"apply_status": primary = str(catalog.get_definition("statuses", first.status_id).name)
+			"cleanse": primary = "净化"
+		return primary + "·技法" + str(slot.technique.name)
 	var effects: Array = slot.get("effects", [])
 	var has_damage: bool = effects.any(func(effect): return effect.type == "damage")
 	if not has_damage and effects.size() == 1: return ability_summary(slot, preview_value, catalog)
@@ -270,10 +287,39 @@ static func card_summary(slot: Dictionary, preview_value: Dictionary, catalog: R
 	for effect in effects:
 		match effect.type:
 			"damage":
-				parts.append("%d%%%s" % [roundi(effect.coefficient * 100), "魔攻" if effect.damage_type == "magic" else "物攻"])
+				parts.append("%d%%%s" % [roundi(effect.coefficient * 100), "术" if effect.damage_type == "magic" else "攻"])
 				if effect.has("condition"):
-					parts.append("%s%d%%" % ["标记" if effect.condition == "target_has_status" else "先手", roundi(effect.conditional_coefficient * 100)])
+					parts.append("%s%d%%" % [condition_label(effect, catalog), roundi(effect.conditional_coefficient * 100)])
 			"apply_status":
-				parts.append("%s%d%s" % [catalog.get_definition("statuses", effect.status_id).name, effect.duration, "轮序" if effect.clock == "round_snapshot" else "槽"])
+				parts.append("%s%d%s" % ["标记" if effect.status_id == "mark" else catalog.get_definition("statuses", effect.status_id).name, effect.duration, "轮序" if effect.clock == "round_snapshot" else "槽"])
 			"interrupt": parts.append("打断")
-	return " · ".join(parts)
+			"heal": parts.append("疗%d+%d%%术" % [effect.fixed, roundi(effect.coefficient * 100)])
+			"shield": parts.append("盾%d+%d%%%s" % [effect.fixed, roundi(effect.coefficient * 100), {"atk": "攻", "matk": "术", "def": "防"}.get(effect.stat, effect.stat)])
+	return "·".join(parts)
+
+# 条件名称必须来自真实状态ID；个人专精不能沿用“所有条件都是标记”的旧显示假设。
+static func condition_label(effect: Dictionary, catalog: RefCounted, detailed: bool = false) -> String:
+	if effect.get("condition") == "target_has_status":
+		return ("标记" if not detailed and effect.get("status_id") == "mark" else str(catalog.get_definition("statuses", effect.get("status_id", "")).get("name", "状态"))) + ("时" if detailed else "")
+	return "本轮目标未获行动槽时" if detailed else "先手"
+
+static func character_guide(actor: Dictionary, catalog: RefCounted) -> String:
+	var refinement: Dictionary = catalog.refinement_for(actor)
+	if refinement.is_empty(): return ""
+	var skill: Dictionary = catalog.skill_for(actor, refinement.skill_id)
+	var unlocked: bool = int(actor.get("level", 1)) >= int(refinement.unlock_level)
+	var label: String = "个人专精·" + refinement.name + ("（已开放）" if unlocked else "（L3开放）")
+	var lines: Array[String] = ["%s\n%s\n%s\n当前%s：MP%d · CD%d" % [label, refinement.summary, refinement.tactic, skill.name, skill.mp_cost, skill.cooldown]]
+	for technique in refinement.get("techniques", []):
+		var projected := actor.duplicate(true)
+		projected.level = maxi(int(actor.level), int(technique.unlock_level))
+		var future: Dictionary = catalog.skill_for(projected, technique.skill_id)
+		lines.append("L%d技法·%s%s · %s · MP%d/CD%d\n%s" % [technique.unlock_level, technique.name, "（已开放）" if int(actor.level) >= int(technique.unlock_level) else "（待开放）", future.name, future.mp_cost, future.cooldown, technique.summary])
+	return "\n".join(lines)
+
+static func requirement_label(requirement: Dictionary, catalog: RefCounted) -> String:
+	if requirement.has("source_status"): return "施法前自身有" + str(catalog.get_definition("statuses", requirement.source_status).name)
+	if requirement.has("target_status"): return "施法前目标有" + str(catalog.get_definition("statuses", requirement.target_status).name)
+	if requirement.has("source_has_shield"): return "施法前自身有护盾"
+	if requirement.has("target_cleansed"): return "本次实际移除目标负面后"
+	return "未满足条件"

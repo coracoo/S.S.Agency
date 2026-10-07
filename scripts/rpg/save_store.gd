@@ -2,6 +2,7 @@
 class_name RpgSaveStore
 extends RefCounted
 
+const WorldObjects = preload("res://scripts/campaign/world_object_catalog.gd")
 const Saga = preload("res://scripts/campaign/saga_catalog.gd")
 const SagaSave = preload("res://scripts/campaign/saga_save_rules.gd")
 const Forms = preload("res://scripts/rpg/dual_form.gd")
@@ -148,6 +149,9 @@ func _cleared_encounter_ids(saved: Dictionary) -> Array[String]:
 func validate(saved: Dictionary) -> Array[String]:
 	var errors: Array[String] = []
 	if not State._plain(saved): return ["存档只允许有限JSON值"]
+	if saved.has("world_objects"):
+		if saved.get("schema_version") != 2: errors.append("地图物件状态仅用于正式存档")
+		errors.append_array(WorldObjects.validate_saved(saved.world_objects))
 	if not saved.get("schema_version") is int or not saved.get("schema_version") in [1, 2]: errors.append("未知存档schema_version，保留文件原样")
 	if not saved.get("rules_version") is String or saved.get("rules_version") != _catalog.rules_version: errors.append("存档规则版本不兼容")
 	if not SAFE_PHASES.has(saved.get("phase")): errors.append("只允许战外安全状态保存，战斗或过场不可存档")

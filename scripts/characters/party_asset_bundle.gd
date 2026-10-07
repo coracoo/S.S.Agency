@@ -4,19 +4,27 @@ extends RefCounted
 signal progress(completed: int, total: int)
 const Definition = preload("res://scripts/characters/pixel_character_definition.gd")
 const MANIFESTS := {
-	"rinne": "res://assets/chars/pixel/rinne/high_detail_complete/manifest.json",
-	"mint": "res://assets/chars/pixel/mint/high_detail_complete/manifest.json",
-	"guard": "res://assets/chars/pixel/guard/high_detail_complete/manifest.json",
-	"homura_mage": "res://assets/chars/pixel/homura_mage/high_detail_complete/manifest.json",
-	"homura_sword": "res://assets/chars/pixel/homura_sword/high_detail_complete/manifest.json",
-	"healer": "res://assets/chars/pixel/healer/high_detail_complete/manifest.json",
-	"controller": "res://assets/chars/pixel/controller/high_detail_complete/manifest.json"
+	"rinne": "res://assets/chars/pixel/rinne/video_actions/manifest.json",
+	"mint": "res://assets/chars/pixel/mint/video_actions/manifest.json",
+	"guard": "res://assets/chars/pixel/guard/video_actions/manifest.json",
+	"homura_mage": "res://assets/chars/pixel/homura_mage/video_actions/manifest.json",
+	"homura_sword": "res://assets/chars/pixel/homura_sword/video_actions/manifest.json",
+	"healer": "res://assets/chars/pixel/healer/video_actions/manifest.json",
+	"controller": "res://assets/chars/pixel/controller/video_actions/manifest.json"
 }
 const FORMS := {"rinne": ["rinne"], "mint": ["mint"], "guard": ["guard"], "homura": ["mage", "sword"], "healer": ["healer"], "controller": ["controller"]}
 var _definitions: Dictionary = {}
 var _bindings: Dictionary = {}
 var _generation := 0
 var _preparing := false
+var _manifest_paths: Dictionary
+
+func _init(manifest_paths: Dictionary = MANIFESTS) -> void:
+	_manifest_paths = manifest_paths.duplicate()
+
+func is_preparing() -> bool:
+	return _preparing
+
 
 static func canonical_form(identity_id: String, form_id: String) -> String:
 	if identity_id == "homura": return form_id.trim_prefix("homura_")
@@ -27,7 +35,8 @@ static func asset_key(identity_id: String, form_id: String = "") -> String:
 	if not FORMS.has(identity_id) or not FORMS[identity_id].has(form): return ""
 	return "homura_" + form if identity_id == "homura" else identity_id
 
-func prepare(bindings: Dictionary) -> Dictionary:
+func prepare(bindings: Dictionary, context: String = "full") -> Dictionary:
+	if not Definition.valid_context(context): return _failure("人物资源上下文无效：" + context)
 	if _preparing: return _failure("人物资源正在加载")
 	if bindings.is_empty() or bindings.size() > 3: return _failure("当前队伍须有一至三名人物绑定")
 	var identities: Array[String] = []
@@ -50,7 +59,10 @@ func prepare(bindings: Dictionary) -> Dictionary:
 				var other_key := asset_key(identity, other_form)
 				if not keys.has(other_key): keys.append(other_key)
 		normalized[actor_id] = {"identity_id": identity, "form_id": form}
-	if _bindings == normalized and not _definitions.is_empty(): return {"ok": true, "error": ""}
+	var ready := _bindings == normalized and _definitions.size() == keys.size()
+	for key in keys:
+		if not Definition.supports_context(_definitions.get(key, {}), context): ready = false
+	if ready: return {"ok": true, "error": ""}
 	var tree := Engine.get_main_loop() as SceneTree
 	if tree == null: return _failure("人物加载需要场景树")
 	_generation += 1
@@ -59,7 +71,8 @@ func prepare(bindings: Dictionary) -> Dictionary:
 	var prepared: Dictionary = {}
 	for key in keys:
 		var definition: Dictionary = _definitions.get(key, {})
-		if definition.is_empty(): definition = Definition.load_definition(MANIFESTS[key])
+		if not Definition.supports_context(definition, context):
+			definition = Definition.load_definition(str(_manifest_paths.get(key, "")), context)
 		if not definition.get("ok", false):
 			_preparing = false
 			return _failure("%s高清资源加载失败：%s" % [key, "；".join(definition.get("errors", []))])
@@ -84,9 +97,20 @@ func get_definition(identity_id: String, form_id: String = "") -> Dictionary:
 				form_id = binding.form_id
 				break
 	return _definitions.get(asset_key(identity_id, form_id), {}).duplicate(true)
-func clear() -> void:
+# 仅新场景入口在旧演员离树后调用；同阶段换队/重试继续原子替换。
+func release_other_context(context: String) -> void:
+	if _preparing or not Definition.valid_context(context): return
+	for definition in _definitions.values():
+		# 外部注入的完整定义没有阶段标签，不能因此误读正式大图。
+		if definition.has("context") and str(definition.context) != context:
+			clear()
+			return
+
+func cancel_prepare() -> void:
 	_generation += 1
 	_preparing = false
+func clear() -> void:
+	cancel_prepare()
 	_definitions.clear()
 	_bindings.clear()
 func _failure(message: String) -> Dictionary:

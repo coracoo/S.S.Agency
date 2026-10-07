@@ -2,6 +2,8 @@
 class_name RpgBattleView
 extends Control
 signal presentation_tick
+const PartyFraming = preload("res://scripts/rpg/ui/battle_party_framing.gd")
+const BattleEffects = preload("res://scripts/rpg/ui/imagegen_battle_effects.gd")
 const WorldBackdrop = preload("res://scripts/rpg/ui/battle_world_backdrop.gd")
 const Stature = preload("res://scripts/characters/character_stature.gd")
 const ChapterSession = preload("res://scripts/campaign/chapter_session.gd")
@@ -39,9 +41,16 @@ var _canvas: Control
 var _hud: Dictionary = {}
 var _actors: Dictionary = {}
 var _danger_layer: Node2D
+var _fx_layer: Node2D
+# 生图像素批准与游戏呈现批准分开；正式开关由独立registry控制。
+var _skill_effects_ready := false
+var _effect_actions: Dictionary = {}
+var _visual_sequences: Dictionary = {}
 var _skill_buttons: Array[Button] = []
 var _basic_buttons: Dictionary = {}
 var _log_lines: Array[String] = []
+var _pending_logs: Dictionary = {}
+var _log_event_seen: Dictionary = {}
 var _saga_narration_seen: Dictionary = {}
 var _result: Control
 var _items: Control
@@ -58,10 +67,20 @@ var _exit_confirmation: Control
 var _exit_previous_focus: Control
 var _asset_error_panel: Control
 var _asset_loading := false
+var _asset_request := -1
+var _needs_initial_advance := false
 var _popup_shade: ColorRect
 var _modal_focus_root: Control
 var _modal_previous_focus: Control
 var _modal_focus_modes: Array[Dictionary] = []
+
+# 只暂存已提交事件的HP显示快照；模型的HP与伤害始终由BattleEngine独占。
+var _display_hp: Dictionary = {}
+var _display_mp: Dictionary = {}
+var _display_shields: Dictionary = {}
+var _display_statuses: Dictionary = {}
+var _pending_hp_events: Dictionary = {}
+var _hp_event_nonce := 0
 
 func _init() -> void:
 	_catalog.load_all()
@@ -75,6 +94,7 @@ func _ready() -> void:
 	_build()
 	get_viewport().size_changed.connect(_resize_canvas)
 	_resize_canvas()
+	if not await _prewarm_battle_assets(true): return
 	if engine == null and Router.session != null:
 		router = Router.session
 		bind(router.create_engine(), router.campaign)
@@ -94,13 +114,16 @@ func bind(battle_engine: RefCounted, campaign_model: RefCounted) -> void:
 	if engine == null:
 		last_error = "战斗创建失败" if router == null else router.last_error
 		return
+	_needs_initial_advance = true
 	if _built: _build_actors()
 	if _hd_failed:
 		processing = true
 		_show_hd_error()
 		return
 	processing = _hd_enabled()
-	_consume_events(engine.advance())
+	var before: Dictionary = engine.snapshot()
+	_consume_events(engine.advance(), before)
+	_needs_initial_advance = false
 	if _built:
 		_render()
 		if processing: _finish_initial_presentation(_presentation_generation)
@@ -155,6 +178,7 @@ func confirm_command() -> void:
 	processing = true
 	var committed := pending_command.duplicate(true)
 	_display_actor_id = committed.actor_id
+	var before: Dictionary = engine.snapshot()
 	var result: Dictionary = engine.submit(committed)
 	if not result.accepted:
 		processing = false
@@ -162,7 +186,7 @@ func confirm_command() -> void:
 		if _built: _render()
 		return
 	pending_command = {}
-	_consume_events(result.events)
+	_consume_events(result.events, before)
 	if _built:
 		_render()
 	if is_inside_tree(): _continue_after_action()
@@ -174,7 +198,8 @@ func _continue_after_action() -> void:
 	else:
 		await get_tree().create_timer(0.48).timeout
 	if generation != _presentation_generation or not is_inside_tree(): return
-	_consume_events(engine.advance())
+	var before: Dictionary = engine.snapshot()
+	_consume_events(engine.advance(), before)
 	if _hd_enabled() and not await _await_presentation(generation): return
 	processing = false
 	_render()
@@ -190,11 +215,18 @@ func _await_presentation(generation: int) -> bool:
 	return generation == _presentation_generation and is_inside_tree()
 func _process(delta: float) -> void:
 	if is_instance_valid(_world_backdrop): _world_backdrop.sync_visuals(delta)
+	_sync_effect_positions()
 	presentation_tick.emit()
 func _cancel_presentation() -> void:
+	_flush_pending_logs()
+	if is_instance_valid(_fx_layer): _fx_layer.clear()
+	_effect_actions.clear()
+	_visual_sequences.clear()
 	_presentation_generation += 1
 	presentation_tick.emit()
 	if is_instance_valid(_hd_player): _hd_player.cancel()
+	if is_instance_valid(_world_backdrop): _world_backdrop.cancel_trails()
+	_reconcile_display_hp()
 	processing = false
 func _asset_session() -> RefCounted:
 	if ChapterSession.current != null and ChapterSession.current.router == router: return ChapterSession.current
@@ -253,6 +285,9 @@ func _build() -> void:
 	_danger_layer = Node2D.new()
 	_danger_layer.z_index = 1
 	_canvas.add_child(_danger_layer)
+	_fx_layer = BattleEffects.new()
+	_skill_effects_ready = _fx_layer.production_enabled()
+	_canvas.add_child(_fx_layer)
 	Art.panel(_canvas, Rect2(32, 24, 550, 130))
 	Art.panel(_canvas, Rect2(602, 24, 922, 130))
 	_hud.title = Kit.label(_canvas, "遭遇  ·  夜巡异象", Rect2(72, 48, 470, 36), 27)
@@ -354,6 +389,8 @@ func _resize_canvas() -> void:
 	_canvas.position = (available - Vector2(1920, 1080) * factor) / 2.0
 
 func _build_actors() -> void:
+	if is_instance_valid(_fx_layer): _fx_layer.clear()
+	_effect_actions.clear()
 	if is_instance_valid(_world_backdrop): _world_backdrop.clear_visuals()
 	if is_instance_valid(_hd_player): _hd_player.cancel()
 	_hd_views.clear()
@@ -373,7 +410,9 @@ func _build_actors() -> void:
 	allies.sort()
 	if campaign != null: allies = campaign.snapshot().party.duplicate()
 	enemies.sort()
+	var party_shift := _party_framing_shift(allies,state)
 	var crowded := enemies.size() > 2
+	var final_lineup := enemies.any(func(id): return state.actors[id].class_id == "saga_final_recoil")
 	for index in range(allies.size() + enemies.size()):
 		var ally := index < allies.size()
 		var slot := index if ally else index - allies.size()
@@ -385,9 +424,10 @@ func _build_actors() -> void:
 			layout = [layout[0], Stature.battle_ground_y(), Stature.battle_body_height(actor.get("identity_id", ""))]
 		# 三/四敌共享独立窄列；不把双敌面板放到交错脚点上互相覆盖。
 		var compact := crowded and not ally
-		if compact: layout = [150 + slot * 224, 566, 220]
+		if compact: layout = [(182 if final_lineup else 150) + slot * 224, 566, 220]
 		var foot := Vector2(layout[0], layout[1])
 		if _config.near_side == "left": foot.x = 1920 - foot.x
+		if ally: foot.x += party_shift
 		var shadow := Polygon2D.new()
 		var points: PackedVector2Array = []
 		for part in range(32): points.append(Vector2(cos(TAU * part / 32.0) * 72, sin(TAU * part / 32.0) * 15))
@@ -502,19 +542,32 @@ func _build_actors() -> void:
 			intent.add_theme_color_override("font_outline_color", Kit.color("ink_900"))
 			intent.add_theme_constant_override("outline_size", 6)
 		_actors[id] = {"sprite": sprite, "shadow": shadow, "ring": ring, "target": target, "card": card, "avatar": avatar, "title": title, "hp": hp, "mp": mp, "hpbar": hpbar, "mpbar": mpbar, "status": status, "intent": intent}
+		if sprite.has_signal("presentation_position_changed"): sprite.connect("presentation_position_changed",_sync_actor_presentation.bind(id))
+		if sprite is HdActor: sprite.animator.action_finished.connect(_on_effect_actor_finished.bind(str(id)))
 	if _hd_enabled():
 		if not is_instance_valid(_hd_player):
 			_hd_player = HdEvents.new()
 			add_child(_hd_player)
+			_hd_player.event_presented.connect(_on_event_presented)
+			_hd_player.action_started.connect(_on_action_started)
+			_hd_player.drained.connect(_reconcile_display_hp)
+			_hd_player.cancelled.connect(_on_presentation_cancelled)
 		_hd_player.bind_actors(_presentation_views)
-	if is_instance_valid(_world_backdrop): _world_backdrop.bind_visuals(_actors)
+	if is_instance_valid(_world_backdrop):
+		if not _world_backdrop.visuals_synchronized.is_connected(_sync_effect_positions): _world_backdrop.visuals_synchronized.connect(_sync_effect_positions)
+		_world_backdrop.bind_visuals(_actors)
 	# 模态保持在人物及点选热区前。
 	for node in [_preview_panel, _popup_shade, _items, _log_panel, _result]: _canvas.move_child(node, -1)
 
 func _render() -> void:
 	if not _built or engine == null: return
 	var state: Dictionary = engine.snapshot()
-	var model := Presenter.present(state, _catalog, _display_actor_id if processing else "")
+	# 只覆盖显示副本，实时预览/合法性始终读取engine权威状态。
+	var shown := state.duplicate(true)
+	for field in [["hp",_display_hp],["mp",_display_mp],["shield",_display_shields],["statuses",_display_statuses]]:
+		for actor_id in field[1]:
+			if shown.actors.has(actor_id): shown.actors[actor_id][field[0]] = field[1][actor_id]
+	var model := Presenter.present(shown, _catalog, _display_actor_id if processing else "")
 	if _actors.is_empty(): _build_actors()
 	if _hd_failed:
 		processing = true
@@ -560,7 +613,7 @@ func _render() -> void:
 		w.status.text = "\n".join(status_lines)
 		if row.side == "enemy":
 			# 窄卡首行只放可完整读完的状态名；时钟与全部状态仍可滚动或悬停查看。
-			w.status.text = _enemy_status_summary(state.actors[row.actor_id], row.shield, w.status.size.x, w.status.get_theme_font_size("normal_font_size")) + "\n" + "\n".join(status_lines) if not row.statuses.is_empty() else (shield_text if row.shield > 0 else "")
+			w.status.text = _enemy_status_summary(shown.actors[row.actor_id], row.shield, w.status.size.x, w.status.get_theme_font_size("normal_font_size")) + "\n" + "\n".join(status_lines) if not row.statuses.is_empty() else (shield_text if row.shield > 0 else "")
 		w.status.visible = row.shield > 0 or not row.statuses.is_empty()
 		if row.side == "enemy": w.mp.visible = row.max_mp > 0
 		# 空状态收拢卡片，但生图内框继续保留原有20～28像素底部阅读区。
@@ -821,26 +874,63 @@ func _event_fx(event: Dictionary) -> void:
 	tween.tween_property(label, "modulate:a", 0.0, 0.72)
 	tween.chain().tween_callback(label.queue_free)
 
-func _consume_events(events: Array) -> void:
+func _event_log_key(event: Dictionary) -> String:
+	var sequence := int(event.get("sequence",0))
+	if sequence>0: return str(sequence)
+	# 老夹具可能没有sequence；只取原始字段，不把视觉标注混进键。
+	return JSON.stringify([event.get("type"),event.get("actor_id"),event.get("target_id"),event.get("payload",{})]).sha256_text()
+func _append_log_lines(lines: Array) -> void:
+	for line in lines: _log_lines.append(str(line))
+	while _log_lines.size()>80: _log_lines.pop_front()
+	if _built and is_instance_valid(_hud.get("log")):
+		_hud.log.text="\n".join(_log_lines)
+		_hud.latest.text=_log_lines.back() if not _log_lines.is_empty() else "HP/MP与库存跨战保留 · 道具占用一次行动"
+func _present_event_log(event: Dictionary) -> void:
+	var key := _event_log_key(event)
+	if not _pending_logs.has(key): return
+	_append_log_lines(_pending_logs[key])
+	_pending_logs.erase(key)
+func _flush_pending_logs() -> void:
+	# 表现取消不会回滚已提交模型；结束时保留完整已结算账目，但不重播效果。
+	for lines in _pending_logs.values(): _append_log_lines(lines)
+	_pending_logs.clear()
+
+func _consume_events(events: Array, before: Dictionary = {}) -> void:
 	if engine == null: return
 	var state: Dictionary = engine.snapshot()
 	var played: Dictionary = {}
+	var defer_logs := _hd_enabled() and is_instance_valid(_hd_player)
 	for event in events:
+		var sequence := int(event.get("sequence",0))
+		if sequence>0 and _log_event_seen.has(sequence): continue
+		if sequence>0: _log_event_seen[sequence]=true
+		var lines: Array[String] = []
 		var line := Presenter.event_line(event, state, _catalog)
-		if not line.is_empty(): _log_lines.append(line)
+		if not line.is_empty(): lines.append(line)
 		if campaign != null and campaign.safe_snapshot().has("saga"):
 			var safe: Dictionary = campaign.safe_snapshot()
 			var narrative: Dictionary = Saga.scene(str(safe.saga.active_scene))
-			_log_lines.append_array(SagaNarrator.select(narrative.get("battle_lines", []), event, safe, _saga_narration_seen, state.actors))
+			lines.append_array(SagaNarrator.select(narrative.get("battle_lines", []), event, safe, _saga_narration_seen, state.actors))
+		# 结算已提交但表现尚未到M；日志与可见HP一样等待该事件，不能提前透露结果。
+		if defer_logs and event.get("type") not in ["command_accepted","form_changed"]:
+			if not lines.is_empty(): _pending_logs[_event_log_key(event)]=lines
+		else: _append_log_lines(lines)
 		if _built and not _hd_enabled():
+			_play_visual_effect(event)
 			_event_fx(event)
 			if event.type == "damage" and not played.has(event.actor_id):
 				played[event.actor_id] = true
 				_play_action(event.actor_id, [event.target_id])
 	if _hd_enabled() and is_instance_valid(_hd_player):
 		# free switch_form没有攻击动作；command_accepted仍进入日志，模型事件不丢失。
-		var visual_events: Array = events.filter(func(event): return not (event.get("type") == "command_accepted" and event.get("payload", {}).get("command", {}).get("kind") == "switch_form"))
+		var visual_events: Array = events.filter(func(event): return not (event.get("type") == "command_accepted" and event.get("payload", {}).get("command", {}).get("kind") == "switch_form")).duplicate(true)
+		# 在HP暂存前拒绝重复事件，不能等队列去重后才把已显示HP恢复一次。
+		visual_events = visual_events.filter(func(event): return int(event.get("sequence",0)) <= 0 or not _visual_sequences.has(int(event.sequence)))
+		for event in visual_events:
+			if int(event.get("sequence",0)) > 0: _visual_sequences[int(event.sequence)] = true
 		if visual_events.any(func(event): return event.get("type") != "form_changed"):
+			_annotate_effect_context(visual_events,state)
+			_defer_impact_hp(visual_events, before, state)
 			_hd_player.enqueue(visual_events, state)
 	while _log_lines.size() > 80: _log_lines.pop_front()
 
@@ -910,7 +1000,7 @@ func _result_action() -> void:
 			return
 		_result.visible = false
 		_sync_modal_focus()
-		_log_lines.clear()
+		_log_lines.clear(); _pending_logs.clear(); _log_event_seen.clear()
 		_saga_narration_seen.clear()
 		bind(router.create_engine(), campaign)
 	else:
@@ -997,25 +1087,36 @@ func _show_hd_error() -> void:
 	_sync_modal_focus()
 func _retry_hd_assets() -> void:
 	if not _hd_enabled() or _asset_loading: return
-	var session := _asset_session()
-	if session == null:
+	if _asset_session() == null:
 		last_error = "正式人物会话已失效，请返回标题继续安全档"
 		_show_hd_error()
 		return
-	_asset_loading = true
-	var generation := _presentation_generation
-	var result: Dictionary = await session.prepare_assets()
-	_asset_loading = false
-	if generation != _presentation_generation or not is_inside_tree(): return
-	if not result.ok:
-		last_error = result.error
-		_show_hd_error()
-		return
+	if not await _prewarm_battle_assets(): return
 	if is_instance_valid(_asset_error_panel): _asset_error_panel.queue_free()
 	_asset_error_panel = null
 	_sync_modal_focus()
-	bind(router.create_engine(), campaign)
+	if engine == null: bind(router.create_engine(), campaign)
+	elif _needs_initial_advance: bind(engine, campaign)
+	else:
+		# 已提交命令不能重放；取消旧表现后，只为尚未开启的下一槽推进一次。
+		_cancel_presentation()
+		_build_actors()
+		if _hd_failed:
+			_render()
+			return
+		var state: Dictionary = engine.snapshot()
+		if state.outcome.is_empty() and state.phase != "action_selection":
+			processing = true
+			_consume_events(engine.advance(), state)
+			_render()
+			_finish_initial_presentation(_presentation_generation)
+		else:
+			_render()
+			_check_result()
 func _exit_tree() -> void:
+	if _asset_loading:
+		var session := _asset_session()
+		if session != null and session == ChapterSession.current: session.cancel_asset_preparation(_asset_request)
 	_cancel_presentation()
 
 
@@ -1055,3 +1156,292 @@ func _render_danger(markers: Array) -> void:
 			else:
 				line.points = PackedVector2Array([source - Vector2(0, 85), foot - Vector2(0, 35)])
 			_danger_layer.add_child(line)
+
+func _prewarm_battle_assets(entering_scene: bool = false) -> bool:
+	var session := _asset_session()
+	# 孤立模型与完整注入夹具没有正式会话，继续由原定义提供器负责。
+	if session == null or (entering_scene and session != ChapterSession.current): return true
+	_asset_loading = true
+	processing = true
+	var generation := _presentation_generation
+	if session == ChapterSession.current: _asset_request = session.asset_generation + 1
+	var result: Dictionary = await session.prepare_assets("battle", entering_scene) if session == ChapterSession.current else await session.prepare_assets()
+	_asset_loading = false
+	if generation != _presentation_generation or not is_inside_tree(): return false
+	if not result.get("ok", false):
+		_hd_failed = true
+		last_error = str(result.get("error", "人物素材加载失败"))
+		_show_hd_error()
+		return false
+	processing = false
+	return true
+
+func _defer_impact_hp(events: Array, before: Dictionary, state: Dictionary) -> void:
+	var timed_action := false
+	for event in events:
+		var payload: Dictionary = event.get("payload", {})
+		if event.get("type") == "command_accepted":
+			var source = _presentation_views.get(str(event.get("actor_id", "")))
+			timed_action = false
+			var kind: String = str(payload.get("command", {}).get("kind", ""))
+			if is_instance_valid(source) and kind != "defend":
+				# 旧敌人没有视频命中标记，队列本来就等待其动作结束；HUD服从同一个事件边界。
+				if source is LegacyActor:
+					timed_action = true
+				elif source is HdActor:
+					var action := "item" if kind == "item" else "attack"
+					var impact: Variant = source._definition.get("manifest", {}).get("anims", {}).get(action, {}).get("impact_ms")
+					timed_action = (impact is int or impact is float) and is_finite(float(impact)) and float(impact) > 0
+			continue
+		if not timed_action: continue
+		var target := str(event.get("target_id", ""))
+		if not state.actors.has(target): continue
+		var previous: Dictionary = before.get("actors", {}).get(target, state.actors[target])
+		var display := {"target":target}
+		var absorption: Dictionary = payload.get("absorption", {})
+		match str(event.get("type", "")):
+			"resources_changed":
+				display.mp = int(payload.get("mp_after",previous.mp))
+				if not _display_mp.has(target): _display_mp[target] = int(payload.get("mp_before",previous.mp))
+			"damage", "periodic_damage", "saga_reflected":
+				if not absorption.has("hp_after"): continue
+				display.hp = int(absorption.hp_after)
+				display.shield = absorption.get("shield_after", {}).duplicate(true)
+				if not _display_hp.has(target): _display_hp[target] = int(absorption.get("hp_before", previous.hp))
+				if not _display_shields.has(target): _display_shields[target] = absorption.get("shield_before", previous.get("shield", {})).duplicate(true)
+				# 致死由absorb直接清空状态，不另发status_removed；与HP同一命中令牌显示。
+				if bool(absorption.get("defeated",false)):
+					display.statuses = []
+					if not _display_statuses.has(target): _display_statuses[target] = previous.get("statuses",[]).duplicate(true)
+			"healed":
+				display.hp = int(payload.get("after", state.actors[target].hp))
+				if not _display_hp.has(target): _display_hp[target] = int(payload.get("before", previous.hp))
+			"revived":
+				display.hp = int(payload.get("hp", state.actors[target].hp))
+				if not _display_hp.has(target): _display_hp[target] = int(previous.hp)
+			"mp_restored":
+				display.mp = int(payload.get("after", state.actors[target].mp))
+				if not _display_mp.has(target): _display_mp[target] = int(payload.get("before", previous.mp))
+			"shield_applied", "shield_refreshed", "shield_tick":
+				display.shield = payload.get("shield", payload.get("after", {})).duplicate(true)
+				if not _display_shields.has(target): _display_shields[target] = previous.get("shield", {}).duplicate(true)
+			"shield_removed":
+				display.shield = {}
+				if not _display_shields.has(target): _display_shields[target] = previous.get("shield", {}).duplicate(true)
+			"status_applied", "status_refreshed", "status_removed", "status_tick":
+				display.status_event = event.duplicate(true)
+				if not _display_statuses.has(target): _display_statuses[target] = previous.get("statuses", []).duplicate(true)
+			_: continue
+		_hp_event_nonce += 1
+		event["_hp_presentation_id"] = _hp_event_nonce
+		_pending_hp_events[_hp_event_nonce] = display
+
+func _play_visual_effect(event: Dictionary) -> void:
+	if not _skill_effects_ready: return
+	if not is_instance_valid(_fx_layer) or engine == null: return
+	var context: Dictionary = event.get("_effect_context",{})
+	if not context.is_empty() and int(context.get("generation",-1)) != _presentation_generation: return
+	var target_id := str(event.get("target_id", ""))
+	var source_id := str(event.get("actor_id", ""))
+	if not _actors.has(target_id): return
+	var state: Dictionary = engine.snapshot()
+	var source: Dictionary = state.actors.get(source_id,{})
+	var identity := str(source.get("identity_id",source.get("class_id","")))
+	var form := "homura_" + str(source.get("form_id","sword")) if identity == "homura" else identity
+	var target := _effect_center(target_id)
+	var origin := target
+	if _actors.has(source_id): origin = _effect_center(source_id)
+	var effect_event := event
+	if event.get("type") == "saga_reflected":
+		# 原事件/HP令牌不变，只把已发生的反射伤害交给伤害视觉入口。
+		effect_event = event.duplicate(true)
+		effect_event.type = "damage"
+		form = str(context.get("form",form))
+	var spawned: bool = _fx_layer.present_event(effect_event,form,origin,target,_effect_battle_id(),context)
+	if spawned and event.get("type") == "damage" and _hd_views.has(source_id):
+		_hd_views[source_id].animator.hit_stop(0.045)
+
+func _on_event_presented(event: Dictionary) -> void:
+	if event.has("_presentation_generation") and int(event._presentation_generation) != _presentation_generation: return
+	var context: Dictionary = event.get("_effect_context",{})
+	if not context.is_empty() and int(context.get("generation",-1)) != _presentation_generation: return
+	_present_event_log(event)
+	_play_visual_effect(event)
+	var token := int(event.get("_hp_presentation_id", -1))
+	if not _pending_hp_events.has(token):
+		# 倒地事件已先启动down；无资源令牌时也必须把首帧同步到真正绘制的3D身体。
+		if event.get("type") == "actor_defeated" and is_inside_tree() and is_instance_valid(_world_backdrop): _world_backdrop.sync_visuals(0.0)
+		return
+	var displayed: Dictionary = _pending_hp_events[token]
+	_pending_hp_events.erase(token)
+	var target: String = displayed.target
+	if displayed.has("hp"): _display_hp[target] = displayed.hp
+	if displayed.has("mp"): _display_mp[target] = displayed.mp
+	if displayed.has("shield"): _display_shields[target] = displayed.shield
+	if displayed.has("statuses"): _display_statuses[target] = displayed.statuses
+	if displayed.has("status_event"):
+		var status_event: Dictionary = displayed.status_event
+		var status: Dictionary = status_event.payload.get("status", status_event.payload.get("after", {}))
+		var values: Array = _display_statuses.get(target, [])
+		values = values.filter(func(value): return value.id != status.get("id", ""))
+		if status_event.type != "status_removed": values.append(status.duplicate(true))
+		_display_statuses[target] = values
+	if _built and is_inside_tree():
+		_render()
+		# 子队列在本帧_process之后发事件；同帧同步实际3D颜色，不额外推进遮挡时钟。
+		if is_instance_valid(_world_backdrop): _world_backdrop.sync_visuals(0.0)
+
+func _reconcile_display_hp() -> void:
+	if _display_hp.is_empty() and _display_mp.is_empty() and _display_shields.is_empty() and _display_statuses.is_empty() and _pending_hp_events.is_empty(): return
+	_display_hp.clear()
+	_display_mp.clear()
+	_display_shields.clear()
+	_display_statuses.clear()
+	_pending_hp_events.clear()
+	# 取消/解绑可能发生在搭建或退出中，只更新现有控件，不能重入_build_actors。
+	if not _built or engine == null: return
+	var model := Presenter.present(engine.snapshot(), _catalog)
+	for row in model.actors:
+		if not _actors.has(row.actor_id): continue
+		var widgets: Dictionary = _actors[row.actor_id]
+		if not is_instance_valid(widgets.hp): continue
+		widgets.hp.text = "HP %d / %d" % [row.hp, row.max_hp]
+		widgets.hpbar.value = row.hp
+		widgets.mp.text = "MP %d / %d" % [row.mp, row.max_mp]
+		if widgets.mpbar != null: widgets.mpbar.value = row.mp
+		var status_lines: Array[String] = []
+		if row.shield > 0: status_lines.append("盾 %d · %d次行动" % [row.shield,row.shield_remaining])
+		if not row.statuses.is_empty(): status_lines.append(" / ".join(row.statuses))
+		widgets.status.text = "\n".join(status_lines)
+		widgets.status.visible = not status_lines.is_empty()
+		widgets.title.text = (row.label if row.side == "enemy" and model.actors.size() > 5 else row.name) + (" · 倒地" if row.hp == 0 else "")
+		widgets.sprite.modulate = Color(0.4, 0.4, 0.4, 0.55) if row.hp == 0 else Color.WHITE
+		if widgets.sprite.has_method("set_downed"): widgets.sprite.set_downed(row.hp == 0)
+	if is_inside_tree() and is_instance_valid(_world_backdrop): _world_backdrop.sync_visuals(0.0)
+
+# 恢复重置前完整函数：双形态共同预留，切形态不改变编队位置。
+func _party_framing_shift(allies: Array, state: Dictionary) -> float:
+	if not _hd_enabled() or not is_instance_valid(_world_backdrop): return 0.0
+	var bounds: Array[Rect2] = []
+	var mirrored: bool = _config.near_side == "right"
+	for slot in allies.size():
+		var actor: Dictionary = state.actors[allies[slot]]
+		var foot := Vector2(float(_config.ally_slots[slot][0]),Stature.battle_ground_y())
+		if not mirrored: foot.x = 1920.0-foot.x
+		var forms: Array = [actor.get("form_id", "")]
+		if actor.get("identity_id", "") == "homura": forms = ["mage","sword"]
+		for form in forms:
+			var candidate := actor.duplicate(true)
+			candidate.form_id = form
+			var definition := _actor_definition(candidate)
+			if not definition.get("ok",false): continue
+			var flip: bool = mirrored and definition.manifest.get("mirror_allowed",true)
+			bounds.append(PartyFraming.projected_bounds(_world_backdrop.camera,_world_backdrop._ground_point(foot),definition,flip))
+	return PartyFraming.inward_translation(bounds)
+
+func _sync_actor_presentation(actor_id: String) -> void:
+	if not _actors.has(actor_id): return
+	var widgets: Dictionary = _actors[actor_id]
+	if not is_instance_valid(widgets.sprite): return
+	var foot: Vector2 = widgets.sprite.position
+	widgets.sprite.set_meta("foot_point",foot)
+	if is_instance_valid(widgets.ring): widgets.ring.position = foot
+	if is_instance_valid(widgets.shadow): widgets.shadow.position = foot
+	if is_instance_valid(widgets.target): widgets.target.position = foot-Vector2(110,float(widgets.sprite.get_meta("content_height",300)))
+
+func _on_presentation_cancelled() -> void:
+	_flush_pending_logs()
+	# 队列也可单独取消/重新绑定；其旧信号上下文不能重新生成特效或覆盖HP。
+	_presentation_generation += 1
+	presentation_tick.emit()
+	processing = false
+	if is_instance_valid(_fx_layer): _fx_layer.clear()
+	_effect_actions.clear()
+	if is_instance_valid(_world_backdrop): _world_backdrop.cancel_trails()
+	_reconcile_display_hp()
+
+func _effect_battle_id() -> String:
+	return "%s:%s" % [engine.get_instance_id(),_presentation_generation]
+
+func _sync_effect_positions() -> void:
+	if not _skill_effects_ready or not is_instance_valid(_fx_layer) or not _fx_layer.has_method("update_positions"): return
+	var positions := {}
+	var hands := {}
+	for actor_id in _actors:
+		if not is_instance_valid(_actors[actor_id].sprite): continue
+		positions[str(actor_id)]=_effect_center(str(actor_id))
+		if is_instance_valid(_world_backdrop):
+			var point: Dictionary = _world_backdrop.actor_action_attachment(str(actor_id))
+			if point.ok: hands[str(actor_id)]=point.position
+	_fx_layer.update_positions(positions,hands)
+
+func _effect_center(actor_id: String) -> Vector2:
+	if is_instance_valid(_world_backdrop) and _world_backdrop.actor_entries.has(actor_id):
+		return _world_backdrop.actor_effect_center(actor_id)
+	var source: Node2D = _actors[actor_id].sprite
+	return source.position-Vector2(0,float(source.get_meta("content_height",300))*.48)
+
+# 仅标注已经复制的视觉事件；实际承伤/受益者决定FX目标，反射和回合燃烧单独处理。
+func _annotate_effect_context(events: Array, state: Dictionary) -> void:
+	var context: Dictionary = {}
+	for event in events:
+		# 周期事件没有技能上下文，仍必须独立携带换场/取消代次。
+		event["_presentation_generation"] = _presentation_generation
+		if event.get("type") == "command_accepted":
+			context = event.get("payload",{}).get("command",{}).duplicate(true)
+			context["source_id"] = str(event.get("actor_id",""))
+			context["effect_target_ids"] = []
+			context["generation"] = _presentation_generation
+			var actor: Dictionary = state.actors.get(context.source_id,{})
+			var identity := str(actor.get("identity_id",actor.get("class_id","")))
+			context["form"] = "homura_"+str(actor.get("form_id","sword")) if identity=="homura" else identity
+		if event.get("type") == "periodic_damage":
+			event["_effect_context"] = {}
+			continue
+		event["_effect_context"] = context
+		if context.is_empty() or event.get("type") not in ["damage","healed","revived","mp_restored","shield_applied","shield_refreshed","status_applied","status_refreshed","status_removed","cleansed","charge_interrupted","effect_ignored"]: continue
+		if event.get("type") == "status_removed" and event.get("payload",{}).get("reason") != "cleanse": continue
+		var target_id := str(event.get("target_id",""))
+		if _actors.has(target_id) and not context.effect_target_ids.has(target_id): context.effect_target_ids.append(target_id)
+
+func _on_action_started(event: Dictionary, timing: Dictionary) -> void:
+	if not _skill_effects_ready or not is_instance_valid(_fx_layer) or engine == null: return
+	var context: Dictionary = event.get("_effect_context",{}).duplicate(true)
+	if context.is_empty() or int(context.get("generation",-1)) != _presentation_generation: return
+	var source_id := str(context.get("source_id",""))
+	if not _actors.has(source_id): return
+	# 接近已经完成；这里以原生命中剩余时长启动一次起手/飞行。
+	context["impact_delay"] = float(timing.get("native_impact_seconds",0))
+	context["action_duration"] = float(timing.get("action_duration",0))
+	_effect_actions[source_id]={"context":context,"battle_id":_effect_battle_id()}
+	var targets := {}
+	for target_id in context.get("effect_target_ids",[]):
+		if _actors.has(target_id): targets[str(target_id)] = _effect_center(str(target_id))
+	var origin := _effect_center(source_id)
+	if _fx_layer.has_method("requires_source_attachment") and _fx_layer.requires_source_attachment():
+		var point: Dictionary = _world_backdrop.actor_action_attachment(source_id) if is_instance_valid(_world_backdrop) else {"ok":false,"reason":"missing_backdrop"}
+		if not point.ok:
+			_fx_layer.record_missing("source_attachment:"+str(context.get("form","")),str(point.reason))
+			return
+		origin=point.position
+	_sync_effect_positions()
+	_fx_layer.present_action(context,str(context.get("form","")),origin,targets,_effect_battle_id())
+
+func _on_effect_actor_finished(actor_id: String) -> void:
+	if not _effect_actions.has(actor_id): return
+	var action: Dictionary = _effect_actions[actor_id]
+	_effect_actions.erase(actor_id)
+	if is_instance_valid(_fx_layer) and _fx_layer.has_method("finish_action"): _fx_layer.finish_action(action.context,action.battle_id)
+
+# 实拍门禁读取真实billboard投影和可见卡片交集；不隐藏HP/反馈来消除报告。
+func presentation_obstructions() -> Array[Dictionary]:
+	var overlaps: Array[Dictionary] = []
+	if not is_instance_valid(_world_backdrop): return overlaps
+	for actor_id in _world_backdrop.actor_entries:
+		var body_bounds: Rect2 = _world_backdrop.actor_screen_bounds(str(actor_id))
+		for card_id in _actors:
+			var card: Control = _actors[card_id].card
+			if not is_instance_valid(card) or not card.visible: continue
+			var card_bounds := Rect2(card.position,card.size)
+			if body_bounds.intersects(card_bounds): overlaps.append({"actor_id":actor_id,"card_actor_id":card_id,"body":body_bounds,"card":card_bounds})
+	return overlaps

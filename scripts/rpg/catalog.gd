@@ -2,6 +2,7 @@
 class_name RpgCatalog
 extends RefCounted
 
+const Refinements = preload("res://scripts/rpg/character_refinements.gd")
 const Forms = preload("res://scripts/rpg/dual_form.gd")
 const KINDS := ["classes", "skills", "statuses", "enemies", "items", "equipment", "encounters"]
 const CLASS_IDS := ["guard", "swordsman", "ranger", "mage", "healer", "controller"]
@@ -61,6 +62,7 @@ func load_all(root_path: String = "res://data/rpg") -> Array[String]:
 					continue
 				candidate[kind][raw.id] = _integerize(raw)
 	_validate_catalog(candidate, errors)
+	if errors.is_empty(): _load_refinements(root_path, version, candidate, errors)
 	if errors.is_empty():
 		_definitions = candidate
 		rules_version = version
@@ -82,21 +84,109 @@ func get_all(kind: String) -> Array[Dictionary]:
 		result.append(get_definition(kind, id))
 	return result
 
-# 四个固定卡位保留解锁元数据；仅单一职业分支达到6/9级时覆盖定义中的对应项。
+# 新重放绑定实际数据内容；战役存档不携带此指纹，也不因此失去读档兼容。
+func mechanics_fingerprint() -> String:
+	return JSON.stringify(_definitions, "", true, true).sha256_text()
+
+# 四卡和基础表不变；分支先派生，身份专精后派生，调用者总是拿到深复制。
 func skill_for(actor: Dictionary, skill_id: String) -> Dictionary:
 	var skill := get_definition("skills", skill_id)
 	var own: Array = get_definition("classes", Forms.active_class(actor)).get("skill_ids", [])
 	if skill.is_empty() or not own.has(skill_id): return {}
 	var branch: Dictionary = actor.get("branch", {})
-	if int(actor.get("level", 1)) < 6 or branch.size() != 1 or not branch.get("id") is String: return skill
-	var tier := "9" if int(actor.level) >= 9 else "6"
-	var overrides: Dictionary = skill.get("branches", {}).get(branch.id, {}).get(tier, {})
-	for field in overrides:
-		if field == "mp_cost": skill.mp_cost = overrides[field]
-		else:
-			for effect in skill.effects:
-				if effect.has(field): effect[field] = overrides[field]
+	if int(actor.get("level", 1)) >= 6 and branch.size() == 1 and branch.get("id") is String:
+		var tier := "9" if int(actor.level) >= 9 else "6"
+		var overrides: Dictionary = skill.get("branches", {}).get(branch.id, {}).get(tier, {})
+		for field in overrides:
+			if field == "mp_cost": skill.mp_cost = overrides[field]
+			else:
+				for effect in skill.effects:
+					if effect.has(field): effect[field] = overrides[field]
+	var refinement := refinement_for(actor)
+	if refinement.get("skill_id") == skill_id and int(actor.get("level", 1)) >= int(refinement.unlock_level):
+		skill = Refinements.apply(skill, refinement)
+	for technique in refinement.get("techniques", []):
+		if technique.skill_id == skill_id and int(actor.get("level", 1)) >= int(technique.unlock_level):
+			skill = Refinements.apply_technique(skill, technique)
 	return skill
+
+func refinement_for(actor: Dictionary) -> Dictionary:
+	return Refinements.for_actor(actor, _definitions.get("refinements", {}))
+
+# 单独JSON不会被旧XLSX重导覆盖；坏扩展与坏基础表同样整批失败关闭。
+func _load_refinements(root_path: String, version: String, candidate: Dictionary, errors: Array[String]) -> void:
+	candidate["refinements"] = {}
+	var path := root_path.path_join("character_refinements.json")
+	if not FileAccess.file_exists(path):
+		if root_path == "res://data/rpg": errors.append("缺少七形态个人专精数据")
+		return
+	var document = _integerize(JSON.parse_string(FileAccess.get_file_as_string(path)))
+	if not document is Dictionary or document.get("schema_version") != 1 or document.get("rules_version") != version or not document.get("definitions") is Array:
+		errors.append("个人专精数据结构/版本非法")
+		return
+	for row in document.definitions:
+		if not row is Dictionary or not row.get("id") is String or candidate.refinements.has(row.id):
+			errors.append("个人专精ID非法/重复")
+			continue
+		candidate.refinements[row.id] = row
+	if candidate.refinements.size() != 7: errors.append("个人专精必须覆盖七形态")
+	for id in candidate.refinements:
+		var row: Dictionary = candidate.refinements[id]
+		var count := errors.size()
+		var fields := ["id", "identity_id", "active_class_id", "skill_id", "name", "summary", "tactic", "unlock_level", "mp_cost_add", "cooldown_add", "damage_condition", "extra_effects", "techniques"]
+		if row.size() != fields.size(): errors.append(id + " 个人专精字段不完整/未知")
+		for field in row:
+			if not fields.has(field): errors.append(id + " 未知个人专精字段：" + field)
+		for field in ["name", "summary", "tactic"]:
+			if not row.get(field) is String or row.get(field, "").is_empty(): errors.append(id + " 缺个人专精说明：" + field)
+		if not Refinements.BINDINGS.has(id) or [row.get("identity_id"), row.get("active_class_id"), row.get("skill_id")] != Refinements.BINDINGS.get(id, []): errors.append(id + " 身份/形态/技能归属不符")
+		if row.get("unlock_level") != 3: errors.append(id + " 个人专精仅L3开放")
+		for field in ["mp_cost_add", "cooldown_add"]:
+			if not _nonnegative_int(row.get(field)): errors.append(id + " 专精费用/CD增量非法")
+		var condition = row.get("damage_condition")
+		if not condition is Dictionary:
+			errors.append(id + " 专精条件必须为字典")
+		elif not condition.is_empty():
+			if condition.size() != 2 or not candidate.statuses.has(condition.get("status_id")) or not _number(condition.get("coefficient_add")): errors.append(id + " 专精条件状态/增量非法")
+		if not row.get("extra_effects") is Array:
+			errors.append(id + " 专精附加效果必须为数组")
+		elif not row.extra_effects.is_empty():
+			_validate_effects(row.extra_effects, id, candidate, errors)
+			for effect in row.extra_effects:
+				if not effect is Dictionary or not effect.get("type") in ["apply_status", "shield"]: errors.append(id + " 专精只复用状态/护盾附加效果")
+		if errors.size() != count or not candidate.skills.has(row.get("skill_id")): continue
+		var base: Dictionary = candidate.skills[row.skill_id]
+		if not condition.is_empty() and not base.effects.any(func(effect): return effect.type == "damage" and not effect.has("condition")): errors.append(id + " 专精条件需无原条件的伤害效果")
+		_validate_ability(Refinements.apply(base, row), candidate, errors)
+		_validate_techniques(row, candidate, errors)
+
+static func _validate_techniques(row: Dictionary, data: Dictionary, errors: Array[String]) -> void:
+	var label: String = row.id
+	if not row.get("techniques") is Array or row.techniques.size() != 2:
+		errors.append(label + " 必须定义L4/L5两项技法")
+		return
+	var owned: Array = data.classes[row.active_class_id].skill_ids
+	var seen := [row.skill_id]
+	for index in row.techniques.size():
+		var technique = row.techniques[index]
+		var fields := ["skill_id", "unlock_level", "name", "summary", "mp_cost_add", "cooldown_add", "extra_effects"]
+		if not technique is Dictionary:
+			errors.append(label + " 技法必须为字典")
+			continue
+		var count := errors.size()
+		if technique.size() != fields.size(): errors.append(label + " 技法字段不完整/未知")
+		for field in technique:
+			if not fields.has(field): errors.append(label + " 未知技法字段：" + field)
+		if not technique.get("skill_id") in owned or technique.get("skill_id") in seen: errors.append(label + " 技法技能不属本形态或重复")
+		seen.append(technique.get("skill_id"))
+		if technique.get("unlock_level") != index + 4: errors.append(label + " 技法须按L4/L5开放")
+		for field in ["name", "summary"]:
+			if not technique.get(field) is String or technique.get(field, "").is_empty(): errors.append(label + " 技法缺少说明")
+		for field in ["mp_cost_add", "cooldown_add"]:
+			if not _nonnegative_int(technique.get(field)): errors.append(label + " 技法费用/CD非法")
+		_validate_effects(technique.get("extra_effects"), label, data, errors)
+		if errors.size() == count:
+			_validate_ability(Refinements.apply_technique(data.skills[technique.skill_id], technique), data, errors)
 
 static func _integerize(value):
 	# Godot JSON 数字均为浮点；仅整值转换，绝不把 1.5 费用静默截断。
@@ -305,11 +395,29 @@ static func _validate_effects(effects, label: String, data: Dictionary, errors: 
 	if not effects is Array or effects.is_empty():
 		errors.append(label + " 效果必须为非空有序数组")
 		return
+	var source_feedback_count := 0
 	for effect in effects:
 		if not effect is Dictionary or not EFFECTS.has(effect.get("type")):
 			errors.append(label + " 未知效果")
 			continue
 		var type: String = effect.type
+		if effect.has("recipient"):
+			if effect.recipient != "source" or type != "restore_mp": errors.append(label + " 施法者回馈仅允许一次MP回复")
+			source_feedback_count += 1
+			if source_feedback_count > 1: errors.append(label + " 同一技能最多一项施法者回馈")
+		if effect.has("requires"):
+			var requirement = effect.requires
+			if not requirement is Dictionary or requirement.size() != 1:
+				errors.append(label + " 技法条件必须是单项字典")
+			else:
+				var key: String = str(requirement.keys()[0])
+				if key in ["target_status", "source_status"]:
+					if not requirement[key] is String or not data.statuses.has(requirement[key]): errors.append(label + " 技法条件状态非法")
+				elif key in ["source_has_shield", "target_cleansed"]:
+					if requirement[key] != true or not requirement[key] is bool: errors.append(label + " 技法条件布尔值非法")
+				else: errors.append(label + " 未登记技法条件")
+			if type not in ["apply_status", "consume_status", "heal", "restore_mp"]: errors.append(label + " 条件不能修饰此效果")
+		if type == "restore_mp" and effect.has("recipient") and (not effect.has("requires") or int(effect.get("fixed", 0)) not in [1, 2, 3]): errors.append(label + " 回馈须有条件且限1至3MP")
 		if type == "damage":
 			if not _number(effect.get("coefficient")) or not effect.get("damage_type") in ["physical", "magic"] or not ELEMENTS.has(effect.get("element")) or not effect.get("single_direct") is bool or not effect.get("can_crit") is bool:
 				errors.append(label + " 伤害效果非法")

@@ -178,9 +178,81 @@ def filter_pack_caches(pack):
 def audit_paths(paths, required):
     failures = ["缺少发布依赖：" + path for path in sorted(required - paths)]
     for path in sorted(paths):
-        if path.startswith(("tools/", "docs/", "admin/", "archive/", "old/", "config/", ".git/", ".agents/", ".codex/", "build/", "screenshots/", "evidence/", "captures/")) or "/source/" in path or "_raw_" in path or path.endswith((".xlsx", ".blend", ".blend1", ".md")):
+        private_record = (any(token in Path(path).name for token in ("provenance", "qa_acceptance", "recovery_validation"))
+                          or "art_revisions" in Path(path).parts
+                          or any(part.startswith(("frozen_", "original_runtime_")) for part in Path(path).parts))
+        if private_record or path.startswith(("tools/", "docs/", "admin/", "archive/", "old/", "config/", ".git/", ".agents/", ".codex/", "build/", "screenshots/", "evidence/", "captures/")) or "/source/" in path or "_raw_" in path or path.endswith((".xlsx", ".blend", ".blend1", ".md")):
             failures.append("开发/源稿内容误入发布包：" + path)
     return failures
+
+
+def video_action_sources(project):
+    """保留活动视频图集及运行元数据，不递归打包原片/逐帧缓存。"""
+    def source_path(uri):
+        if not isinstance(uri, str) or not uri.startswith("res://"):
+            raise ValueError("视频资源必须使用res://路径")
+        name = uri.removeprefix("res://")
+        if not name or "\\" in name or Path(name).is_absolute() or ".." in Path(name).parts:
+            raise ValueError("视频资源路径不能越出项目：" + uri)
+        return name
+
+    sources = set()
+    for path in sorted((project / "assets/chars/pixel").glob("*/video_actions/manifest.json")):
+        manifest = json.loads(path.read_text())
+        sources.add(path.relative_to(project).as_posix())
+        packed = manifest.get("packed_frames", {})
+        for animation in manifest["anims"].values():
+            for frame in animation["frames"]:
+                if frame not in packed or not packed[frame].get("atlas"):
+                    raise ValueError("活动视频帧缺少图集登记：" + frame)
+                sources.add(source_path(packed[frame]["atlas"]))
+        uri = manifest.get("scene_integration", {}).get("contact_metadata")
+        if uri:
+            sources.add(source_path(uri))
+    return sources
+
+
+def imagegen_effect_sources(project):
+    """生图清单的运行闭包：registry、最小帧描述与原PNG，不携带制作收据。"""
+    folder = project / "assets/effects/imagegen_spells"
+    registry_path = folder / "registry.json"
+    if not registry_path.is_file():
+        return set()
+    registry = json.loads(registry_path.read_text())
+    if registry.get("schema_version") != 2 or registry.get("asset_root") != "res://assets/effects/imagegen_spells":
+        raise ValueError("生图运行registry版本或根目录无效")
+    sources = {registry_path.relative_to(project).as_posix()}
+    for skill, entry in registry["effects"].items():
+        expected = "res://assets/effects/imagegen_spells/" + skill + "/manifest.json"
+        if not re.fullmatch(r"[a-z][a-z0-9_]*", skill) or entry.get("manifest") != expected:
+            raise ValueError("生图清单路径非法")
+        path = project / expected.removeprefix("res://")
+        if hashlib.sha256(path.read_bytes()).hexdigest() != entry.get("manifest_sha256"):
+            raise ValueError("生图运行清单哈希不符：" + skill)
+        manifest = json.loads(path.read_text())
+        atlas = manifest.get("runtime_atlas", "")
+        if manifest.get("schema_version") != 1 or manifest.get("skill_id") != skill or not isinstance(atlas, str) or len(Path(atlas).parts) != 2 or Path(atlas).parts[0] != skill or Path(atlas).suffix != ".png" or "\\" in atlas or ".." in Path(atlas).parts:
+            raise ValueError("生图运行图集路径或版本非法")
+        atlas_path = folder / atlas
+        if hashlib.sha256(atlas_path.read_bytes()).hexdigest() != manifest.get("runtime_atlas_sha256"):
+            raise ValueError("生图运行图集哈希不符：" + skill)
+        sources.update({path.relative_to(project).as_posix(), atlas_path.relative_to(project).as_posix()})
+    return sources
+
+
+def spell_effect_sources(project):
+    """只保留登记的透明技能成品；loader读取原PNG，不依赖导入缓存。"""
+    folder = project / "assets/effects/illustrated_spells"
+    manifest = folder / "manifest.json"
+    if not manifest.is_file():
+        return set()
+    sources = {manifest.relative_to(project).as_posix()}
+    for action in json.loads(manifest.read_text())["actions"].values():
+        name = action["file"]
+        if Path(name).name != name or not name.endswith(".png"):
+            raise ValueError("法术图集必须是登记目录下的PNG：" + name)
+        sources.add((folder / name).relative_to(project).as_posix())
+    return sources
 
 
 def formal_dependencies(project=PROJECT):
@@ -219,6 +291,9 @@ def formal_dependencies(project=PROJECT):
                     "assets/chars/pixel/high_detail_roster.json", "assets/chars/enemies/current/asset_manifest.json",
                     "assets/3d/act01_approach/act01_approach.glb", "assets/fonts/Alibaba-PuHuiTi-Regular.ttf"})
     sources.update(path.relative_to(project).as_posix() for path in (project / "data/rpg").glob("*.json"))
+    sources.update(spell_effect_sources(project))
+    sources.update(imagegen_effect_sources(project))
+    sources.update(video_action_sources(project))
     for stage in ("test_approach", "corridor_act", "night3_procession", "night4_mirror", "honden_act"):
         sources.add("data/clues/" + stage + ".json")
     presentation = json.loads((project / "data/rpg/presentation.json").read_text())
@@ -240,9 +315,6 @@ def formal_dependencies(project=PROJECT):
         contact = manifest.get("scene_integration", {}).get("contact_metadata")
         if contact:
             sources.add(contact.removeprefix("res://"))
-        provenance = manifest.get("art_revision", {}).get("provenance")
-        if provenance:
-            sources.add(provenance.removeprefix("res://"))
     # 静态preload/extends与主线可用脚本的load依赖闭包。场景URI兼容fallback不扩展。
     scripts = {path.relative_to(project).as_posix(): path.read_text() for path in (project / "scripts").rglob("*.gd")}
     classes = {match.group(1): name for name, text in scripts.items() if (match := re.search(r"^class_name\s+(\w+)", text, re.M))}

@@ -1,0 +1,4519 @@
+{
+  "character_id": "homura_sword",
+  "identity_id": "homura",
+  "form_id": "sword",
+  "dir": "res://assets/chars/pixel/homura_sword/video_actions/frames/",
+  "canvas": {
+    "w": 2048,
+    "h": 1024,
+    "anchor": [
+      1024,
+      930
+    ],
+    "content_height_px": 448,
+    "height_m": 1.7
+  },
+  "move_speed_mps": 2.6,
+  "run_speed_mps": 4.2,
+  "mirror_allowed": true,
+  "layers": [],
+  "portrait_source_manifest": "res://assets/chars/pixel/homura_sword/high_detail_complete/manifest.json",
+  "status": "video_actions_exact_runtime_pixels_restored",
+  "anims": {
+    "idle": {
+      "frames": [
+        "idle_024",
+        "idle_026",
+        "idle_028",
+        "idle_030",
+        "idle_032",
+        "idle_034",
+        "idle_036",
+        "idle_038",
+        "idle_040",
+        "idle_042",
+        "idle_044",
+        "idle_046",
+        "idle_048",
+        "idle_050",
+        "idle_052",
+        "idle_054",
+        "idle_056",
+        "idle_058",
+        "idle_060",
+        "idle_062",
+        "idle_064",
+        "idle_066",
+        "idle_068",
+        "idle_070",
+        "idle_072",
+        "idle_074",
+        "idle_076",
+        "idle_078",
+        "idle_080",
+        "idle_082",
+        "idle_084",
+        "idle_086",
+        "idle_088"
+      ],
+      "durations_ms": [
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333
+      ],
+      "loop": true
+    },
+    "attack": {
+      "frames": [
+        "attack_021",
+        "attack_025",
+        "attack_029",
+        "attack_033",
+        "attack_037",
+        "attack_041",
+        "attack_045",
+        "attack_047",
+        "attack_048",
+        "attack_049",
+        "attack_050",
+        "attack_051",
+        "attack_055",
+        "attack_059",
+        "attack_063",
+        "attack_067",
+        "attack_071",
+        "attack_075",
+        "attack_079",
+        "attack_083",
+        "attack_087",
+        "attack_091",
+        "attack_095"
+      ],
+      "durations_ms": [
+        30,
+        30,
+        30,
+        30,
+        30,
+        30,
+        30,
+        25,
+        25,
+        25,
+        25,
+        25,
+        20,
+        20,
+        20,
+        20,
+        20,
+        40,
+        40,
+        40,
+        40,
+        40,
+        40
+      ],
+      "loop": false,
+      "impact_ms": 235
+    },
+    "walk": {
+      "frames": [
+        "walk_038",
+        "walk_040",
+        "walk_042",
+        "walk_044",
+        "walk_046",
+        "walk_048",
+        "walk_050",
+        "walk_052",
+        "walk_054",
+        "walk_056",
+        "walk_058",
+        "walk_060",
+        "walk_062"
+      ],
+      "durations_ms": [
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        41.666666666666664
+      ],
+      "loop": true
+    },
+    "hit": {
+      "frames": [
+        "retained_hit"
+      ],
+      "durations_ms": [
+        180
+      ],
+      "loop": false,
+      "single_pose": true
+    },
+    "defend": {
+      "frames": [
+        "retained_defend"
+      ],
+      "durations_ms": [
+        300
+      ],
+      "loop": false,
+      "single_pose": true
+    },
+    "recover": {
+      "frames": [
+        "retained_recover"
+      ],
+      "durations_ms": [
+        300
+      ],
+      "loop": false,
+      "single_pose": true
+    },
+    "down": {
+      "frames": [
+        "down_009",
+        "down_012",
+        "down_015",
+        "down_018",
+        "down_021",
+        "down_024",
+        "down_027",
+        "down_030",
+        "down_033",
+        "down_036",
+        "down_039",
+        "down_042",
+        "down_045",
+        "down_048",
+        "down_051",
+        "down_054",
+        "down_057",
+        "down_060",
+        "down_063",
+        "down_066",
+        "down_069",
+        "down_072",
+        "down_075",
+        "down_078",
+        "down_079",
+        "down_121"
+      ],
+      "durations_ms": [
+        47.142857142857146,
+        47.142857142857146,
+        47.142857142857125,
+        47.14285714285717,
+        47.14285714285714,
+        47.14285714285711,
+        47.14285714285717,
+        47.14285714285717,
+        47.14285714285711,
+        47.14285714285717,
+        47.14285714285711,
+        47.14285714285711,
+        47.142857142857224,
+        47.14285714285711,
+        47.14285714285711,
+        47.142857142857224,
+        47.14285714285711,
+        47.14285714285711,
+        47.14285714285711,
+        47.142857142857224,
+        47.14285714285711,
+        47.14285714285711,
+        47.14285714285711,
+        15.71428571428578,
+        97.67441860465124,
+        2.325581395348763
+      ],
+      "loop": false,
+      "events": {},
+      "hold_last_frame": true
+    },
+    "run": {
+      "frames": [
+        "run_019",
+        "run_020",
+        "run_021",
+        "run_022",
+        "run_023",
+        "run_024",
+        "run_025",
+        "run_027",
+        "run_028",
+        "run_029",
+        "run_030",
+        "run_031",
+        "run_032"
+      ],
+      "durations_ms": [
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        100.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0
+      ],
+      "loop": true,
+      "events": {}
+    },
+    "pickup": {
+      "frames": [
+        "pickup_001",
+        "pickup_005",
+        "pickup_009",
+        "pickup_013",
+        "pickup_017",
+        "pickup_021",
+        "pickup_025",
+        "pickup_029",
+        "pickup_033",
+        "pickup_037",
+        "pickup_041",
+        "pickup_045",
+        "pickup_049",
+        "pickup_051",
+        "pickup_053",
+        "pickup_057",
+        "pickup_061",
+        "pickup_065",
+        "pickup_067",
+        "pickup_069",
+        "pickup_073",
+        "pickup_074",
+        "pickup_077",
+        "pickup_079",
+        "pickup_081",
+        "pickup_085",
+        "pickup_089",
+        "pickup_093",
+        "pickup_094",
+        "pickup_097",
+        "pickup_101",
+        "pickup_102",
+        "pickup_105",
+        "pickup_108",
+        "pickup_110",
+        "pickup_113",
+        "pickup_117",
+        "pickup_118",
+        "pickup_121"
+      ],
+      "durations_ms": [
+        21.25,
+        21.25,
+        21.25,
+        21.25,
+        21.25,
+        21.25,
+        21.25,
+        21.25,
+        15.555555555555543,
+        15.555555555555571,
+        15.555555555555543,
+        15.555555555555571,
+        7.7777777777777715,
+        23.75,
+        47.5,
+        47.5,
+        47.5,
+        23.75,
+        28.571428571428555,
+        57.14285714285711,
+        14.285714285714334,
+        24.0,
+        16.0,
+        16.0,
+        32.0,
+        32.0,
+        48.0,
+        12.0,
+        36.428571428571445,
+        48.571428571428555,
+        12.14285714285711,
+        36.428571428571445,
+        36.428571428571445,
+        24.28571428571422,
+        36.42857142857156,
+        48.57142857142844,
+        12.142857142857224,
+        36.428571428571445,
+        12.14285714285711
+      ],
+      "loop": false,
+      "events": {
+        "pickup": 430.0
+      }
+    },
+    "interact": {
+      "frames": [
+        "pickup_001",
+        "pickup_005",
+        "pickup_009",
+        "pickup_013",
+        "pickup_017",
+        "pickup_021",
+        "pickup_025",
+        "pickup_029",
+        "pickup_033",
+        "interact_025",
+        "interact_027",
+        "interact_029",
+        "interact_031",
+        "interact_033",
+        "interact_035",
+        "interact_037",
+        "interact_039",
+        "interact_041",
+        "interact_039",
+        "interact_037",
+        "interact_035",
+        "interact_033",
+        "interact_031",
+        "interact_029",
+        "interact_027",
+        "interact_025",
+        "pickup_094",
+        "pickup_102",
+        "pickup_108",
+        "pickup_110",
+        "pickup_118",
+        "pickup_121"
+      ],
+      "durations_ms": [
+        22.22222222222222,
+        22.22222222222222,
+        22.22222222222222,
+        22.22222222222222,
+        22.22222222222222,
+        22.22222222222222,
+        22.22222222222222,
+        22.22222222222222,
+        22.22222222222222,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336
+      ],
+      "loop": false,
+      "events": {
+        "interact": 600
+      }
+    },
+    "item": {
+      "frames": [
+        "item_001",
+        "item_005",
+        "item_009",
+        "item_012",
+        "item_013",
+        "item_017",
+        "item_021",
+        "item_025",
+        "item_026",
+        "item_029",
+        "item_033",
+        "item_037",
+        "item_041",
+        "item_045",
+        "item_049",
+        "item_053",
+        "item_057",
+        "item_061",
+        "item_065",
+        "item_069",
+        "item_073",
+        "item_075",
+        "item_076",
+        "item_077",
+        "item_081",
+        "item_085",
+        "item_089",
+        "item_091",
+        "item_093",
+        "item_097",
+        "item_101",
+        "item_102",
+        "item_105",
+        "item_107",
+        "item_109",
+        "item_111",
+        "item_113",
+        "item_117",
+        "item_121"
+      ],
+      "durations_ms": [
+        36.0,
+        36.0,
+        27.0,
+        9.0,
+        36.0,
+        36.0,
+        26.666666666666657,
+        6.666666666666686,
+        20.0,
+        26.666666666666657,
+        26.666666666666686,
+        26.666666666666686,
+        26.66666666666663,
+        55.0,
+        55.0,
+        27.272727272727252,
+        27.27272727272731,
+        27.272727272727195,
+        27.272727272727366,
+        27.272727272727252,
+        13.636363636363626,
+        10.0,
+        10.0,
+        40.0,
+        40.0,
+        40.0,
+        20.0,
+        15.48387096774195,
+        30.9677419354839,
+        30.967741935483787,
+        7.741935483870975,
+        23.225806451612925,
+        15.48387096774195,
+        15.48387096774195,
+        15.48387096774195,
+        15.483870967741836,
+        30.9677419354839,
+        30.9677419354839,
+        7.741935483870975
+      ],
+      "loop": false,
+      "impact_ms": 450.0,
+      "events": {}
+    },
+    "jump": {
+      "frames": [
+        "jump_017",
+        "jump_020",
+        "jump_023",
+        "jump_026",
+        "jump_029",
+        "jump_032",
+        "jump_035",
+        "jump_036",
+        "jump_037",
+        "jump_038",
+        "jump_040",
+        "jump_041",
+        "jump_044",
+        "jump_046",
+        "jump_047",
+        "jump_048",
+        "jump_050",
+        "jump_053",
+        "jump_056",
+        "jump_059",
+        "jump_061"
+      ],
+      "durations_ms": [
+        26.4,
+        26.4,
+        26.400000000000006,
+        26.39999999999999,
+        26.400000000000006,
+        26.400000000000006,
+        8.799999999999983,
+        8.800000000000011,
+        56.0,
+        112.0,
+        33.14285714285717,
+        99.42857142857139,
+        66.28571428571433,
+        33.14285714285711,
+        14.93333333333328,
+        29.866666666666674,
+        44.80000000000007,
+        44.799999999999955,
+        44.80000000000007,
+        29.86666666666656,
+        14.933333333333394
+      ],
+      "loop": false,
+      "events": {
+        "takeoff": 176.0,
+        "apex": 344.0,
+        "landing": 576.0
+      },
+      "vertical_motion_baked": true
+    },
+    "battle_dash": {
+      "frames": [
+        "battle_dash_001",
+        "battle_dash_002",
+        "battle_dash_003",
+        "battle_dash_004",
+        "battle_dash_005",
+        "battle_dash_006",
+        "battle_dash_007"
+      ],
+      "durations_ms": [
+        28.571428571428573,
+        28.571428571428573,
+        28.571428571428573,
+        28.571428571428573,
+        28.571428571428573,
+        28.571428571428573,
+        28.571428571428573
+      ],
+      "loop": false,
+      "qa_approved": true,
+      "clean_body": true,
+      "independent_ghost_ready": false
+    }
+  },
+  "packed_frames": {
+    "idle_024": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1943,
+        1913
+      ],
+      "region": [
+        2,
+        2,
+        319,
+        475
+      ],
+      "offset": [
+        835,
+        458
+      ]
+    },
+    "idle_026": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1943,
+        1913
+      ],
+      "region": [
+        326,
+        481,
+        319,
+        474
+      ],
+      "offset": [
+        835,
+        459
+      ]
+    },
+    "idle_028": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1943,
+        1913
+      ],
+      "region": [
+        649,
+        481,
+        319,
+        474
+      ],
+      "offset": [
+        835,
+        459
+      ]
+    },
+    "idle_030": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1943,
+        1913
+      ],
+      "region": [
+        972,
+        481,
+        319,
+        474
+      ],
+      "offset": [
+        835,
+        459
+      ]
+    },
+    "idle_032": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1943,
+        1913
+      ],
+      "region": [
+        325,
+        2,
+        320,
+        474
+      ],
+      "offset": [
+        834,
+        459
+      ]
+    },
+    "idle_034": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        1926,
+        954
+      ],
+      "region": [
+        962,
+        2,
+        319,
+        472
+      ],
+      "offset": [
+        835,
+        461
+      ]
+    },
+    "idle_036": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        1926,
+        954
+      ],
+      "region": [
+        1285,
+        2,
+        318,
+        472
+      ],
+      "offset": [
+        836,
+        461
+      ]
+    },
+    "idle_038": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        1926,
+        954
+      ],
+      "region": [
+        322,
+        2,
+        316,
+        473
+      ],
+      "offset": [
+        838,
+        460
+      ]
+    },
+    "idle_040": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        1926,
+        954
+      ],
+      "region": [
+        642,
+        2,
+        316,
+        473
+      ],
+      "offset": [
+        838,
+        460
+      ]
+    },
+    "idle_042": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1943,
+        1913
+      ],
+      "region": [
+        1613,
+        959,
+        316,
+        474
+      ],
+      "offset": [
+        838,
+        459
+      ]
+    },
+    "idle_044": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1943,
+        1913
+      ],
+      "region": [
+        2,
+        1437,
+        316,
+        474
+      ],
+      "offset": [
+        838,
+        459
+      ]
+    },
+    "idle_046": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1943,
+        1913
+      ],
+      "region": [
+        322,
+        1437,
+        316,
+        474
+      ],
+      "offset": [
+        838,
+        459
+      ]
+    },
+    "idle_048": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1943,
+        1913
+      ],
+      "region": [
+        642,
+        1437,
+        316,
+        474
+      ],
+      "offset": [
+        838,
+        459
+      ]
+    },
+    "idle_050": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1943,
+        1913
+      ],
+      "region": [
+        971,
+        959,
+        317,
+        474
+      ],
+      "offset": [
+        837,
+        459
+      ]
+    },
+    "idle_052": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1943,
+        1913
+      ],
+      "region": [
+        1295,
+        481,
+        319,
+        474
+      ],
+      "offset": [
+        835,
+        459
+      ]
+    },
+    "idle_054": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1943,
+        1913
+      ],
+      "region": [
+        649,
+        2,
+        320,
+        474
+      ],
+      "offset": [
+        834,
+        459
+      ]
+    },
+    "idle_056": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1943,
+        1913
+      ],
+      "region": [
+        973,
+        2,
+        320,
+        474
+      ],
+      "offset": [
+        834,
+        459
+      ]
+    },
+    "idle_058": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1943,
+        1913
+      ],
+      "region": [
+        1297,
+        2,
+        320,
+        474
+      ],
+      "offset": [
+        834,
+        459
+      ]
+    },
+    "idle_060": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1943,
+        1913
+      ],
+      "region": [
+        1621,
+        2,
+        320,
+        474
+      ],
+      "offset": [
+        834,
+        459
+      ]
+    },
+    "idle_062": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1943,
+        1913
+      ],
+      "region": [
+        1618,
+        481,
+        319,
+        474
+      ],
+      "offset": [
+        835,
+        459
+      ]
+    },
+    "idle_064": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1943,
+        1913
+      ],
+      "region": [
+        2,
+        481,
+        320,
+        474
+      ],
+      "offset": [
+        834,
+        459
+      ]
+    },
+    "idle_066": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1943,
+        1913
+      ],
+      "region": [
+        2,
+        959,
+        319,
+        474
+      ],
+      "offset": [
+        835,
+        459
+      ]
+    },
+    "idle_068": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        1926,
+        954
+      ],
+      "region": [
+        1607,
+        2,
+        317,
+        472
+      ],
+      "offset": [
+        837,
+        461
+      ]
+    },
+    "idle_070": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        1926,
+        954
+      ],
+      "region": [
+        2,
+        480,
+        316,
+        472
+      ],
+      "offset": [
+        838,
+        461
+      ]
+    },
+    "idle_072": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        1926,
+        954
+      ],
+      "region": [
+        322,
+        480,
+        316,
+        472
+      ],
+      "offset": [
+        838,
+        461
+      ]
+    },
+    "idle_074": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        1926,
+        954
+      ],
+      "region": [
+        642,
+        480,
+        316,
+        472
+      ],
+      "offset": [
+        838,
+        461
+      ]
+    },
+    "idle_076": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1943,
+        1913
+      ],
+      "region": [
+        962,
+        1437,
+        316,
+        474
+      ],
+      "offset": [
+        838,
+        459
+      ]
+    },
+    "idle_078": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1943,
+        1913
+      ],
+      "region": [
+        1282,
+        1437,
+        316,
+        474
+      ],
+      "offset": [
+        838,
+        459
+      ]
+    },
+    "idle_080": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1943,
+        1913
+      ],
+      "region": [
+        1602,
+        1437,
+        316,
+        474
+      ],
+      "offset": [
+        838,
+        459
+      ]
+    },
+    "idle_082": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        1926,
+        954
+      ],
+      "region": [
+        2,
+        2,
+        316,
+        474
+      ],
+      "offset": [
+        838,
+        459
+      ]
+    },
+    "idle_084": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1943,
+        1913
+      ],
+      "region": [
+        1292,
+        959,
+        317,
+        474
+      ],
+      "offset": [
+        837,
+        459
+      ]
+    },
+    "idle_086": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1943,
+        1913
+      ],
+      "region": [
+        325,
+        959,
+        319,
+        474
+      ],
+      "offset": [
+        835,
+        459
+      ]
+    },
+    "idle_088": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1943,
+        1913
+      ],
+      "region": [
+        648,
+        959,
+        319,
+        474
+      ],
+      "offset": [
+        835,
+        459
+      ]
+    },
+    "attack_021": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        2000,
+        1984
+      ],
+      "region": [
+        971,
+        567,
+        323,
+        476
+      ],
+      "offset": [
+        832,
+        460
+      ]
+    },
+    "attack_025": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        2000,
+        1984
+      ],
+      "region": [
+        643,
+        567,
+        324,
+        476
+      ],
+      "offset": [
+        833,
+        460
+      ]
+    },
+    "attack_029": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        2000,
+        1984
+      ],
+      "region": [
+        1624,
+        567,
+        320,
+        476
+      ],
+      "offset": [
+        837,
+        460
+      ]
+    },
+    "attack_033": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        2000,
+        1984
+      ],
+      "region": [
+        323,
+        567,
+        316,
+        477
+      ],
+      "offset": [
+        840,
+        459
+      ]
+    },
+    "attack_037": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        2000,
+        1984
+      ],
+      "region": [
+        2,
+        567,
+        317,
+        477
+      ],
+      "offset": [
+        840,
+        459
+      ]
+    },
+    "attack_041": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        2000,
+        1984
+      ],
+      "region": [
+        1441,
+        2,
+        318,
+        477
+      ],
+      "offset": [
+        837,
+        459
+      ]
+    },
+    "attack_045": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        2000,
+        1984
+      ],
+      "region": [
+        2,
+        1048,
+        244,
+        475
+      ],
+      "offset": [
+        913,
+        462
+      ]
+    },
+    "attack_047": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        250,
+        920,
+        502,
+        453
+      ],
+      "offset": [
+        916,
+        483
+      ]
+    },
+    "attack_048": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1896,
+        1804
+      ],
+      "region": [
+        1054,
+        454,
+        520,
+        448
+      ],
+      "offset": [
+        914,
+        488
+      ]
+    },
+    "attack_049": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1896,
+        1804
+      ],
+      "region": [
+        530,
+        2,
+        522,
+        448
+      ],
+      "offset": [
+        914,
+        488
+      ]
+    },
+    "attack_050": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1896,
+        1804
+      ],
+      "region": [
+        2,
+        1356,
+        522,
+        446
+      ],
+      "offset": [
+        914,
+        490
+      ]
+    },
+    "attack_051": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1896,
+        1804
+      ],
+      "region": [
+        528,
+        1356,
+        522,
+        446
+      ],
+      "offset": [
+        914,
+        490
+      ]
+    },
+    "attack_055": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1896,
+        1804
+      ],
+      "region": [
+        1056,
+        2,
+        522,
+        448
+      ],
+      "offset": [
+        914,
+        488
+      ]
+    },
+    "attack_059": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1896,
+        1804
+      ],
+      "region": [
+        2,
+        454,
+        522,
+        448
+      ],
+      "offset": [
+        914,
+        488
+      ]
+    },
+    "attack_063": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1896,
+        1804
+      ],
+      "region": [
+        2,
+        2,
+        524,
+        448
+      ],
+      "offset": [
+        914,
+        488
+      ]
+    },
+    "attack_067": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1896,
+        1804
+      ],
+      "region": [
+        528,
+        454,
+        522,
+        448
+      ],
+      "offset": [
+        914,
+        488
+      ]
+    },
+    "attack_071": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1896,
+        1804
+      ],
+      "region": [
+        1054,
+        1356,
+        522,
+        446
+      ],
+      "offset": [
+        914,
+        490
+      ]
+    },
+    "attack_075": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1896,
+        1804
+      ],
+      "region": [
+        531,
+        906,
+        523,
+        446
+      ],
+      "offset": [
+        913,
+        490
+      ]
+    },
+    "attack_079": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1896,
+        1804
+      ],
+      "region": [
+        2,
+        906,
+        525,
+        446
+      ],
+      "offset": [
+        913,
+        490
+      ]
+    },
+    "attack_083": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1896,
+        1804
+      ],
+      "region": [
+        1058,
+        906,
+        523,
+        446
+      ],
+      "offset": [
+        913,
+        490
+      ]
+    },
+    "attack_087": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        2000,
+        1984
+      ],
+      "region": [
+        250,
+        1048,
+        410,
+        463
+      ],
+      "offset": [
+        932,
+        475
+      ]
+    },
+    "attack_091": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        2000,
+        1984
+      ],
+      "region": [
+        880,
+        2,
+        229,
+        479
+      ],
+      "offset": [
+        929,
+        459
+      ]
+    },
+    "attack_095": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        2000,
+        1984
+      ],
+      "region": [
+        554,
+        2,
+        322,
+        480
+      ],
+      "offset": [
+        840,
+        459
+      ]
+    },
+    "walk_038": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2042,
+        2012
+      ],
+      "region": [
+        1294,
+        1539,
+        326,
+        468
+      ],
+      "offset": [
+        833,
+        460
+      ]
+    },
+    "walk_040": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2042,
+        2012
+      ],
+      "region": [
+        2,
+        1539,
+        341,
+        471
+      ],
+      "offset": [
+        827,
+        463
+      ]
+    },
+    "walk_042": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2042,
+        2012
+      ],
+      "region": [
+        2,
+        1057,
+        338,
+        478
+      ],
+      "offset": [
+        829,
+        461
+      ]
+    },
+    "walk_044": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2042,
+        2012
+      ],
+      "region": [
+        1710,
+        553,
+        330,
+        481
+      ],
+      "offset": [
+        834,
+        458
+      ]
+    },
+    "walk_046": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2042,
+        2012
+      ],
+      "region": [
+        344,
+        1057,
+        305,
+        478
+      ],
+      "offset": [
+        846,
+        458
+      ]
+    },
+    "walk_048": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2042,
+        2012
+      ],
+      "region": [
+        653,
+        1057,
+        287,
+        478
+      ],
+      "offset": [
+        861,
+        458
+      ]
+    },
+    "walk_050": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2042,
+        2012
+      ],
+      "region": [
+        1604,
+        1057,
+        295,
+        473
+      ],
+      "offset": [
+        880,
+        463
+      ]
+    },
+    "walk_052": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1885,
+        1858
+      ],
+      "region": [
+        2,
+        2,
+        284,
+        468
+      ],
+      "offset": [
+        880,
+        463
+      ]
+    },
+    "walk_054": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1885,
+        1858
+      ],
+      "region": [
+        290,
+        2,
+        276,
+        468
+      ],
+      "offset": [
+        880,
+        463
+      ]
+    },
+    "walk_056": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2042,
+        2012
+      ],
+      "region": [
+        1315,
+        1057,
+        285,
+        476
+      ],
+      "offset": [
+        869,
+        458
+      ]
+    },
+    "walk_058": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2042,
+        2012
+      ],
+      "region": [
+        347,
+        1539,
+        289,
+        471
+      ],
+      "offset": [
+        859,
+        458
+      ]
+    },
+    "walk_060": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2042,
+        2012
+      ],
+      "region": [
+        640,
+        1539,
+        308,
+        470
+      ],
+      "offset": [
+        841,
+        458
+      ]
+    },
+    "walk_062": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2042,
+        2012
+      ],
+      "region": [
+        1624,
+        1539,
+        326,
+        468
+      ],
+      "offset": [
+        833,
+        460
+      ]
+    },
+    "run_019": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1962,
+        1828
+      ],
+      "region": [
+        1615,
+        922,
+        320,
+        449
+      ],
+      "offset": [
+        855,
+        482
+      ]
+    },
+    "run_020": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1962,
+        1828
+      ],
+      "region": [
+        2,
+        1377,
+        320,
+        449
+      ],
+      "offset": [
+        859,
+        478
+      ]
+    },
+    "run_021": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2034,
+        1551
+      ],
+      "region": [
+        643,
+        2,
+        332,
+        424
+      ],
+      "offset": [
+        833,
+        470
+      ]
+    },
+    "run_022": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1962,
+        1828
+      ],
+      "region": [
+        1595,
+        1377,
+        365,
+        431
+      ],
+      "offset": [
+        816,
+        468
+      ]
+    },
+    "run_023": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1962,
+        1828
+      ],
+      "region": [
+        1213,
+        1377,
+        378,
+        441
+      ],
+      "offset": [
+        816,
+        468
+      ]
+    },
+    "run_024": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1962,
+        1828
+      ],
+      "region": [
+        944,
+        922,
+        334,
+        449
+      ],
+      "offset": [
+        833,
+        470
+      ]
+    },
+    "run_025": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1962,
+        1828
+      ],
+      "region": [
+        2,
+        922,
+        310,
+        451
+      ],
+      "offset": [
+        857,
+        482
+      ]
+    },
+    "run_027": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1962,
+        1828
+      ],
+      "region": [
+        1603,
+        462,
+        321,
+        451
+      ],
+      "offset": [
+        865,
+        478
+      ]
+    },
+    "run_028": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1885,
+        1858
+      ],
+      "region": [
+        1499,
+        2,
+        318,
+        464
+      ],
+      "offset": [
+        843,
+        447
+      ]
+    },
+    "run_029": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2042,
+        2012
+      ],
+      "region": [
+        944,
+        1057,
+        367,
+        476
+      ],
+      "offset": [
+        814,
+        423
+      ]
+    },
+    "run_030": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2042,
+        2012
+      ],
+      "region": [
+        1079,
+        553,
+        382,
+        484
+      ],
+      "offset": [
+        814,
+        423
+      ]
+    },
+    "run_031": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2042,
+        2012
+      ],
+      "region": [
+        952,
+        1539,
+        338,
+        468
+      ],
+      "offset": [
+        831,
+        453
+      ]
+    },
+    "run_032": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1962,
+        1828
+      ],
+      "region": [
+        581,
+        922,
+        359,
+        449
+      ],
+      "offset": [
+        853,
+        478
+      ]
+    },
+    "pickup_001": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1885,
+        1858
+      ],
+      "region": [
+        570,
+        2,
+        239,
+        466
+      ],
+      "offset": [
+        916,
+        468
+      ]
+    },
+    "pickup_005": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1962,
+        1828
+      ],
+      "region": [
+        512,
+        462,
+        236,
+        456
+      ],
+      "offset": [
+        919,
+        478
+      ]
+    },
+    "pickup_009": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1885,
+        1858
+      ],
+      "region": [
+        1054,
+        474,
+        246,
+        458
+      ],
+      "offset": [
+        921,
+        476
+      ]
+    },
+    "pickup_013": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1962,
+        1828
+      ],
+      "region": [
+        260,
+        462,
+        248,
+        456
+      ],
+      "offset": [
+        921,
+        478
+      ]
+    },
+    "pickup_017": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1962,
+        1828
+      ],
+      "region": [
+        521,
+        2,
+        254,
+        456
+      ],
+      "offset": [
+        921,
+        478
+      ]
+    },
+    "pickup_021": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1962,
+        1828
+      ],
+      "region": [
+        779,
+        2,
+        254,
+        456
+      ],
+      "offset": [
+        921,
+        478
+      ]
+    },
+    "pickup_025": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1885,
+        1858
+      ],
+      "region": [
+        2,
+        1400,
+        258,
+        456
+      ],
+      "offset": [
+        919,
+        478
+      ]
+    },
+    "pickup_029": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1885,
+        1858
+      ],
+      "region": [
+        1049,
+        1400,
+        256,
+        456
+      ],
+      "offset": [
+        921,
+        478
+      ]
+    },
+    "pickup_033": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1885,
+        1858
+      ],
+      "region": [
+        264,
+        1400,
+        258,
+        456
+      ],
+      "offset": [
+        919,
+        478
+      ]
+    },
+    "pickup_037": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1885,
+        1858
+      ],
+      "region": [
+        526,
+        1400,
+        258,
+        456
+      ],
+      "offset": [
+        919,
+        478
+      ]
+    },
+    "pickup_041": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1885,
+        1858
+      ],
+      "region": [
+        1309,
+        1400,
+        256,
+        456
+      ],
+      "offset": [
+        919,
+        478
+      ]
+    },
+    "pickup_045": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1962,
+        1828
+      ],
+      "region": [
+        1037,
+        2,
+        254,
+        456
+      ],
+      "offset": [
+        921,
+        478
+      ]
+    },
+    "pickup_049": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1962,
+        1828
+      ],
+      "region": [
+        1295,
+        2,
+        254,
+        456
+      ],
+      "offset": [
+        921,
+        478
+      ]
+    },
+    "pickup_051": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1885,
+        1858
+      ],
+      "region": [
+        1569,
+        1400,
+        256,
+        456
+      ],
+      "offset": [
+        921,
+        478
+      ]
+    },
+    "pickup_053": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1885,
+        1858
+      ],
+      "region": [
+        1581,
+        940,
+        261,
+        456
+      ],
+      "offset": [
+        919,
+        478
+      ]
+    },
+    "pickup_057": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2034,
+        1551
+      ],
+      "region": [
+        979,
+        2,
+        280,
+        423
+      ],
+      "offset": [
+        910,
+        511
+      ]
+    },
+    "pickup_061": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2034,
+        1551
+      ],
+      "region": [
+        683,
+        437,
+        298,
+        400
+      ],
+      "offset": [
+        902,
+        544
+      ]
+    },
+    "pickup_065": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2034,
+        1551
+      ],
+      "region": [
+        1108,
+        848,
+        304,
+        351
+      ],
+      "offset": [
+        898,
+        589
+      ]
+    },
+    "pickup_067": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2034,
+        1551
+      ],
+      "region": [
+        1416,
+        848,
+        304,
+        331
+      ],
+      "offset": [
+        898,
+        609
+      ]
+    },
+    "pickup_069": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2034,
+        1551
+      ],
+      "region": [
+        1724,
+        848,
+        304,
+        304
+      ],
+      "offset": [
+        898,
+        636
+      ]
+    },
+    "pickup_073": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2034,
+        1551
+      ],
+      "region": [
+        308,
+        1245,
+        302,
+        278
+      ],
+      "offset": [
+        898,
+        656
+      ]
+    },
+    "pickup_074": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2034,
+        1551
+      ],
+      "region": [
+        2,
+        1245,
+        302,
+        304
+      ],
+      "offset": [
+        898,
+        630
+      ]
+    },
+    "pickup_077": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2034,
+        1551
+      ],
+      "region": [
+        812,
+        848,
+        292,
+        370
+      ],
+      "offset": [
+        898,
+        564
+      ]
+    },
+    "pickup_079": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2034,
+        1551
+      ],
+      "region": [
+        2,
+        437,
+        285,
+        407
+      ],
+      "offset": [
+        900,
+        527
+      ]
+    },
+    "pickup_081": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2034,
+        1551
+      ],
+      "region": [
+        2,
+        2,
+        277,
+        431
+      ],
+      "offset": [
+        906,
+        503
+      ]
+    },
+    "pickup_085": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1962,
+        1828
+      ],
+      "region": [
+        316,
+        922,
+        261,
+        450
+      ],
+      "offset": [
+        916,
+        484
+      ]
+    },
+    "pickup_089": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1885,
+        1858
+      ],
+      "region": [
+        796,
+        474,
+        254,
+        458
+      ],
+      "offset": [
+        921,
+        476
+      ]
+    },
+    "pickup_093": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1962,
+        1828
+      ],
+      "region": [
+        262,
+        2,
+        255,
+        456
+      ],
+      "offset": [
+        918,
+        478
+      ]
+    },
+    "pickup_094": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1962,
+        1828
+      ],
+      "region": [
+        2,
+        2,
+        256,
+        456
+      ],
+      "offset": [
+        917,
+        478
+      ]
+    },
+    "pickup_097": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1885,
+        1858
+      ],
+      "region": [
+        788,
+        1400,
+        257,
+        456
+      ],
+      "offset": [
+        918,
+        478
+      ]
+    },
+    "pickup_101": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1962,
+        1828
+      ],
+      "region": [
+        1553,
+        2,
+        254,
+        456
+      ],
+      "offset": [
+        921,
+        478
+      ]
+    },
+    "pickup_102": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1962,
+        1828
+      ],
+      "region": [
+        2,
+        462,
+        254,
+        456
+      ],
+      "offset": [
+        921,
+        478
+      ]
+    },
+    "pickup_105": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1885,
+        1858
+      ],
+      "region": [
+        536,
+        474,
+        256,
+        458
+      ],
+      "offset": [
+        921,
+        476
+      ]
+    },
+    "pickup_108": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2042,
+        2012
+      ],
+      "region": [
+        843,
+        553,
+        232,
+        495
+      ],
+      "offset": [
+        925,
+        439
+      ]
+    },
+    "pickup_110": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2042,
+        2012
+      ],
+      "region": [
+        1465,
+        553,
+        241,
+        484
+      ],
+      "offset": [
+        926,
+        450
+      ]
+    },
+    "pickup_113": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1885,
+        1858
+      ],
+      "region": [
+        2,
+        940,
+        373,
+        456
+      ],
+      "offset": [
+        784,
+        478
+      ]
+    },
+    "pickup_117": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1885,
+        1858
+      ],
+      "region": [
+        379,
+        940,
+        308,
+        456
+      ],
+      "offset": [
+        849,
+        478
+      ]
+    },
+    "pickup_118": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1885,
+        1858
+      ],
+      "region": [
+        691,
+        940,
+        306,
+        456
+      ],
+      "offset": [
+        851,
+        478
+      ]
+    },
+    "pickup_121": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1885,
+        1858
+      ],
+      "region": [
+        1001,
+        940,
+        306,
+        456
+      ],
+      "offset": [
+        851,
+        478
+      ]
+    },
+    "interact_025": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1962,
+        1828
+      ],
+      "region": [
+        597,
+        1377,
+        263,
+        446
+      ],
+      "offset": [
+        908,
+        482
+      ]
+    },
+    "interact_027": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1962,
+        1828
+      ],
+      "region": [
+        326,
+        1377,
+        267,
+        449
+      ],
+      "offset": [
+        907,
+        480
+      ]
+    },
+    "interact_029": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1962,
+        1828
+      ],
+      "region": [
+        1064,
+        462,
+        266,
+        453
+      ],
+      "offset": [
+        908,
+        480
+      ]
+    },
+    "interact_031": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1962,
+        1828
+      ],
+      "region": [
+        1334,
+        462,
+        265,
+        452
+      ],
+      "offset": [
+        909,
+        479
+      ]
+    },
+    "interact_033": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1885,
+        1858
+      ],
+      "region": [
+        1311,
+        940,
+        266,
+        456
+      ],
+      "offset": [
+        910,
+        477
+      ]
+    },
+    "interact_035": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1885,
+        1858
+      ],
+      "region": [
+        1614,
+        474,
+        269,
+        457
+      ],
+      "offset": [
+        910,
+        476
+      ]
+    },
+    "interact_037": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1885,
+        1858
+      ],
+      "region": [
+        270,
+        474,
+        262,
+        459
+      ],
+      "offset": [
+        914,
+        475
+      ]
+    },
+    "interact_039": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1885,
+        1858
+      ],
+      "region": [
+        2,
+        474,
+        264,
+        462
+      ],
+      "offset": [
+        915,
+        474
+      ]
+    },
+    "interact_041": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1885,
+        1858
+      ],
+      "region": [
+        1231,
+        2,
+        264,
+        465
+      ],
+      "offset": [
+        915,
+        472
+      ]
+    },
+    "item_001": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        2000,
+        1984
+      ],
+      "region": [
+        1354,
+        1048,
+        333,
+        455
+      ],
+      "offset": [
+        861,
+        477
+      ]
+    },
+    "item_005": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        2000,
+        1984
+      ],
+      "region": [
+        1691,
+        1048,
+        307,
+        455
+      ],
+      "offset": [
+        875,
+        477
+      ]
+    },
+    "item_009": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        1010,
+        1379,
+        237,
+        453
+      ],
+      "offset": [
+        912,
+        479
+      ]
+    },
+    "item_012": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        1022,
+        920,
+        252,
+        453
+      ],
+      "offset": [
+        916,
+        479
+      ]
+    },
+    "item_013": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        756,
+        920,
+        262,
+        453
+      ],
+      "offset": [
+        918,
+        479
+      ]
+    },
+    "item_017": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        1790,
+        920,
+        250,
+        453
+      ],
+      "offset": [
+        918,
+        479
+      ]
+    },
+    "item_021": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        1002,
+        461,
+        244,
+        455
+      ],
+      "offset": [
+        920,
+        477
+      ]
+    },
+    "item_025": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        1250,
+        461,
+        244,
+        455
+      ],
+      "offset": [
+        918,
+        477
+      ]
+    },
+    "item_026": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        1498,
+        461,
+        244,
+        455
+      ],
+      "offset": [
+        918,
+        477
+      ]
+    },
+    "item_029": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        1261,
+        2,
+        246,
+        455
+      ],
+      "offset": [
+        916,
+        477
+      ]
+    },
+    "item_033": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        2,
+        2,
+        248,
+        455
+      ],
+      "offset": [
+        914,
+        477
+      ]
+    },
+    "item_037": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        254,
+        2,
+        248,
+        455
+      ],
+      "offset": [
+        912,
+        477
+      ]
+    },
+    "item_041": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        506,
+        2,
+        248,
+        455
+      ],
+      "offset": [
+        914,
+        477
+      ]
+    },
+    "item_045": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        1511,
+        2,
+        246,
+        455
+      ],
+      "offset": [
+        916,
+        477
+      ]
+    },
+    "item_049": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        1746,
+        461,
+        244,
+        455
+      ],
+      "offset": [
+        916,
+        477
+      ]
+    },
+    "item_053": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        510,
+        1379,
+        246,
+        453
+      ],
+      "offset": [
+        916,
+        479
+      ]
+    },
+    "item_057": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        760,
+        1379,
+        246,
+        453
+      ],
+      "offset": [
+        914,
+        479
+      ]
+    },
+    "item_061": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        2000,
+        1984
+      ],
+      "region": [
+        1216,
+        1527,
+        250,
+        455
+      ],
+      "offset": [
+        912,
+        477
+      ]
+    },
+    "item_065": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        2000,
+        1984
+      ],
+      "region": [
+        1470,
+        1527,
+        250,
+        455
+      ],
+      "offset": [
+        910,
+        477
+      ]
+    },
+    "item_069": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        1278,
+        920,
+        252,
+        453
+      ],
+      "offset": [
+        908,
+        479
+      ]
+    },
+    "item_073": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        2,
+        1379,
+        250,
+        453
+      ],
+      "offset": [
+        910,
+        479
+      ]
+    },
+    "item_075": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        256,
+        1379,
+        250,
+        453
+      ],
+      "offset": [
+        910,
+        479
+      ]
+    },
+    "item_076": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        1534,
+        920,
+        252,
+        453
+      ],
+      "offset": [
+        910,
+        479
+      ]
+    },
+    "item_077": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        758,
+        2,
+        248,
+        455
+      ],
+      "offset": [
+        912,
+        477
+      ]
+    },
+    "item_081": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        1761,
+        2,
+        246,
+        455
+      ],
+      "offset": [
+        914,
+        477
+      ]
+    },
+    "item_085": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        2,
+        461,
+        246,
+        455
+      ],
+      "offset": [
+        916,
+        477
+      ]
+    },
+    "item_089": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        2,
+        920,
+        244,
+        455
+      ],
+      "offset": [
+        918,
+        477
+      ]
+    },
+    "item_091": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        252,
+        461,
+        246,
+        455
+      ],
+      "offset": [
+        918,
+        477
+      ]
+    },
+    "item_093": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        502,
+        461,
+        246,
+        455
+      ],
+      "offset": [
+        918,
+        477
+      ]
+    },
+    "item_097": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        2000,
+        1984
+      ],
+      "region": [
+        1724,
+        1527,
+        250,
+        455
+      ],
+      "offset": [
+        918,
+        477
+      ]
+    },
+    "item_101": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        752,
+        461,
+        246,
+        455
+      ],
+      "offset": [
+        920,
+        477
+      ]
+    },
+    "item_102": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        1010,
+        2,
+        247,
+        455
+      ],
+      "offset": [
+        925,
+        477
+      ]
+    },
+    "item_105": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        2000,
+        1984
+      ],
+      "region": [
+        294,
+        2,
+        256,
+        494
+      ],
+      "offset": [
+        920,
+        438
+      ]
+    },
+    "item_107": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        2000,
+        1984
+      ],
+      "region": [
+        2,
+        2,
+        288,
+        561
+      ],
+      "offset": [
+        861,
+        371
+      ]
+    },
+    "item_109": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        2000,
+        1984
+      ],
+      "region": [
+        952,
+        1048,
+        398,
+        455
+      ],
+      "offset": [
+        751,
+        477
+      ]
+    },
+    "item_111": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        2000,
+        1984
+      ],
+      "region": [
+        918,
+        1527,
+        294,
+        455
+      ],
+      "offset": [
+        855,
+        477
+      ]
+    },
+    "item_113": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        2000,
+        1984
+      ],
+      "region": [
+        618,
+        1527,
+        296,
+        455
+      ],
+      "offset": [
+        853,
+        477
+      ]
+    },
+    "item_117": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        2000,
+        1984
+      ],
+      "region": [
+        2,
+        1527,
+        304,
+        455
+      ],
+      "offset": [
+        845,
+        477
+      ]
+    },
+    "item_121": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        2000,
+        1984
+      ],
+      "region": [
+        310,
+        1527,
+        304,
+        455
+      ],
+      "offset": [
+        845,
+        477
+      ]
+    },
+    "down_009": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        1251,
+        1379,
+        306,
+        451
+      ],
+      "offset": [
+        849,
+        482
+      ]
+    },
+    "down_012": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2042,
+        1834
+      ],
+      "region": [
+        1561,
+        1379,
+        310,
+        449
+      ],
+      "offset": [
+        851,
+        484
+      ]
+    },
+    "down_015": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1896,
+        1804
+      ],
+      "region": [
+        1580,
+        1356,
+        314,
+        441
+      ],
+      "offset": [
+        855,
+        492
+      ]
+    },
+    "down_018": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1992,
+        1790
+      ],
+      "region": [
+        2,
+        2,
+        322,
+        428
+      ],
+      "offset": [
+        859,
+        505
+      ]
+    },
+    "down_021": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1992,
+        1790
+      ],
+      "region": [
+        328,
+        2,
+        339,
+        404
+      ],
+      "offset": [
+        859,
+        529
+      ]
+    },
+    "down_024": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1992,
+        1790
+      ],
+      "region": [
+        671,
+        2,
+        376,
+        355
+      ],
+      "offset": [
+        851,
+        578
+      ]
+    },
+    "down_027": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1992,
+        1790
+      ],
+      "region": [
+        2,
+        434,
+        416,
+        335
+      ],
+      "offset": [
+        835,
+        625
+      ]
+    },
+    "down_030": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1992,
+        1790
+      ],
+      "region": [
+        850,
+        434,
+        412,
+        333
+      ],
+      "offset": [
+        833,
+        627
+      ]
+    },
+    "down_033": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1992,
+        1790
+      ],
+      "region": [
+        422,
+        434,
+        424,
+        333
+      ],
+      "offset": [
+        831,
+        625
+      ]
+    },
+    "down_036": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1992,
+        1790
+      ],
+      "region": [
+        1266,
+        434,
+        428,
+        329
+      ],
+      "offset": [
+        829,
+        625
+      ]
+    },
+    "down_039": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1992,
+        1790
+      ],
+      "region": [
+        452,
+        773,
+        430,
+        319
+      ],
+      "offset": [
+        827,
+        627
+      ]
+    },
+    "down_042": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1992,
+        1790
+      ],
+      "region": [
+        433,
+        1098,
+        428,
+        315
+      ],
+      "offset": [
+        825,
+        627
+      ]
+    },
+    "down_045": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1992,
+        1790
+      ],
+      "region": [
+        1327,
+        773,
+        428,
+        317
+      ],
+      "offset": [
+        825,
+        625
+      ]
+    },
+    "down_048": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1992,
+        1790
+      ],
+      "region": [
+        2,
+        1098,
+        427,
+        317
+      ],
+      "offset": [
+        824,
+        625
+      ]
+    },
+    "down_051": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1992,
+        1790
+      ],
+      "region": [
+        886,
+        773,
+        437,
+        317
+      ],
+      "offset": [
+        812,
+        623
+      ]
+    },
+    "down_054": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1992,
+        1790
+      ],
+      "region": [
+        2,
+        773,
+        446,
+        321
+      ],
+      "offset": [
+        795,
+        619
+      ]
+    },
+    "down_057": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1992,
+        1790
+      ],
+      "region": [
+        1527,
+        2,
+        463,
+        345
+      ],
+      "offset": [
+        761,
+        611
+      ]
+    },
+    "down_060": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1992,
+        1790
+      ],
+      "region": [
+        1051,
+        2,
+        472,
+        353
+      ],
+      "offset": [
+        714,
+        619
+      ]
+    },
+    "down_063": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1992,
+        1790
+      ],
+      "region": [
+        865,
+        1098,
+        490,
+        312
+      ],
+      "offset": [
+        677,
+        666
+      ]
+    },
+    "down_066": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1992,
+        1790
+      ],
+      "region": [
+        1359,
+        1098,
+        529,
+        273
+      ],
+      "offset": [
+        665,
+        705
+      ]
+    },
+    "down_069": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1992,
+        1790
+      ],
+      "region": [
+        2,
+        1419,
+        543,
+        207
+      ],
+      "offset": [
+        657,
+        773
+      ]
+    },
+    "down_072": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1992,
+        1790
+      ],
+      "region": [
+        549,
+        1419,
+        551,
+        168
+      ],
+      "offset": [
+        655,
+        812
+      ]
+    },
+    "down_075": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1992,
+        1790
+      ],
+      "region": [
+        1104,
+        1419,
+        557,
+        160
+      ],
+      "offset": [
+        655,
+        820
+      ]
+    },
+    "down_078": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1992,
+        1790
+      ],
+      "region": [
+        2,
+        1630,
+        557,
+        158
+      ],
+      "offset": [
+        655,
+        822
+      ]
+    },
+    "down_079": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1992,
+        1790
+      ],
+      "region": [
+        563,
+        1630,
+        557,
+        156
+      ],
+      "offset": [
+        655,
+        824
+      ]
+    },
+    "down_121": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1992,
+        1790
+      ],
+      "region": [
+        1124,
+        1630,
+        557,
+        154
+      ],
+      "offset": [
+        655,
+        826
+      ]
+    },
+    "jump_017": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1962,
+        1828
+      ],
+      "region": [
+        1282,
+        922,
+        329,
+        449
+      ],
+      "offset": [
+        835,
+        487
+      ]
+    },
+    "jump_020": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2034,
+        1551
+      ],
+      "region": [
+        283,
+        2,
+        356,
+        430
+      ],
+      "offset": [
+        819,
+        508
+      ]
+    },
+    "jump_023": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2034,
+        1551
+      ],
+      "region": [
+        1263,
+        2,
+        375,
+        414
+      ],
+      "offset": [
+        808,
+        524
+      ]
+    },
+    "jump_026": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2034,
+        1551
+      ],
+      "region": [
+        291,
+        437,
+        388,
+        401
+      ],
+      "offset": [
+        800,
+        537
+      ]
+    },
+    "jump_029": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2034,
+        1551
+      ],
+      "region": [
+        1393,
+        437,
+        394,
+        394
+      ],
+      "offset": [
+        797,
+        544
+      ]
+    },
+    "jump_032": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2034,
+        1551
+      ],
+      "region": [
+        2,
+        848,
+        399,
+        393
+      ],
+      "offset": [
+        792,
+        545
+      ]
+    },
+    "jump_035": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2034,
+        1551
+      ],
+      "region": [
+        405,
+        848,
+        403,
+        385
+      ],
+      "offset": [
+        790,
+        548
+      ]
+    },
+    "jump_036": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2034,
+        1551
+      ],
+      "region": [
+        985,
+        437,
+        404,
+        394
+      ],
+      "offset": [
+        790,
+        544
+      ]
+    },
+    "jump_037": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2042,
+        2012
+      ],
+      "region": [
+        544,
+        553,
+        295,
+        498
+      ],
+      "offset": [
+        861,
+        415
+      ]
+    },
+    "jump_038": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2042,
+        2012
+      ],
+      "region": [
+        1633,
+        2,
+        245,
+        502
+      ],
+      "offset": [
+        893,
+        272
+      ]
+    },
+    "jump_040": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2042,
+        2012
+      ],
+      "region": [
+        278,
+        553,
+        262,
+        499
+      ],
+      "offset": [
+        884,
+        254
+      ]
+    },
+    "jump_041": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2042,
+        2012
+      ],
+      "region": [
+        2,
+        553,
+        272,
+        500
+      ],
+      "offset": [
+        882,
+        256
+      ]
+    },
+    "jump_044": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2042,
+        2012
+      ],
+      "region": [
+        1286,
+        2,
+        343,
+        502
+      ],
+      "offset": [
+        850,
+        317
+      ]
+    },
+    "jump_046": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2042,
+        2012
+      ],
+      "region": [
+        2,
+        2,
+        417,
+        547
+      ],
+      "offset": [
+        800,
+        370
+      ]
+    },
+    "jump_047": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2042,
+        2012
+      ],
+      "region": [
+        423,
+        2,
+        425,
+        543
+      ],
+      "offset": [
+        795,
+        390
+      ]
+    },
+    "jump_048": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2042,
+        2012
+      ],
+      "region": [
+        852,
+        2,
+        430,
+        520
+      ],
+      "offset": [
+        790,
+        413
+      ]
+    },
+    "jump_050": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1885,
+        1858
+      ],
+      "region": [
+        813,
+        2,
+        414,
+        465
+      ],
+      "offset": [
+        803,
+        468
+      ]
+    },
+    "jump_053": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2034,
+        1551
+      ],
+      "region": [
+        1642,
+        2,
+        390,
+        409
+      ],
+      "offset": [
+        811,
+        524
+      ]
+    },
+    "jump_056": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1962,
+        1828
+      ],
+      "region": [
+        864,
+        1377,
+        345,
+        442
+      ],
+      "offset": [
+        832,
+        491
+      ]
+    },
+    "jump_059": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1962,
+        1828
+      ],
+      "region": [
+        752,
+        462,
+        308,
+        454
+      ],
+      "offset": [
+        848,
+        479
+      ]
+    },
+    "jump_061": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1885,
+        1858
+      ],
+      "region": [
+        1304,
+        474,
+        306,
+        457
+      ],
+      "offset": [
+        848,
+        476
+      ]
+    },
+    "retained_hit": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        2000,
+        1984
+      ],
+      "region": [
+        1298,
+        567,
+        322,
+        476
+      ],
+      "offset": [
+        835,
+        457
+      ]
+    },
+    "retained_defend": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        2000,
+        1984
+      ],
+      "region": [
+        664,
+        1048,
+        284,
+        456
+      ],
+      "offset": [
+        874,
+        477
+      ]
+    },
+    "retained_recover": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        2000,
+        1984
+      ],
+      "region": [
+        1113,
+        2,
+        324,
+        477
+      ],
+      "offset": [
+        833,
+        456
+      ]
+    },
+    "battle_dash_001": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/battle_dash_v001_00.png",
+      "atlas_size": [
+        1735,
+        908
+      ],
+      "region": [
+        2,
+        2,
+        320,
+        449
+      ],
+      "offset": [
+        855,
+        482
+      ]
+    },
+    "battle_dash_002": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/battle_dash_v001_00.png",
+      "atlas_size": [
+        1735,
+        908
+      ],
+      "region": [
+        326,
+        2,
+        320,
+        449
+      ],
+      "offset": [
+        859,
+        478
+      ]
+    },
+    "battle_dash_003": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/battle_dash_v001_00.png",
+      "atlas_size": [
+        1735,
+        908
+      ],
+      "region": [
+        650,
+        2,
+        332,
+        424
+      ],
+      "offset": [
+        833,
+        470
+      ]
+    },
+    "battle_dash_004": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/battle_dash_v001_00.png",
+      "atlas_size": [
+        1735,
+        908
+      ],
+      "region": [
+        986,
+        2,
+        365,
+        431
+      ],
+      "offset": [
+        816,
+        468
+      ]
+    },
+    "battle_dash_005": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/battle_dash_v001_00.png",
+      "atlas_size": [
+        1735,
+        908
+      ],
+      "region": [
+        1355,
+        2,
+        378,
+        441
+      ],
+      "offset": [
+        816,
+        468
+      ]
+    },
+    "battle_dash_006": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/battle_dash_v001_00.png",
+      "atlas_size": [
+        1735,
+        908
+      ],
+      "region": [
+        2,
+        455,
+        334,
+        449
+      ],
+      "offset": [
+        833,
+        470
+      ]
+    },
+    "battle_dash_007": {
+      "atlas": "res://assets/chars/pixel/homura_sword/video_actions/sheets/battle_dash_v001_00.png",
+      "atlas_size": [
+        1735,
+        908
+      ],
+      "region": [
+        340,
+        455,
+        310,
+        451
+      ],
+      "offset": [
+        857,
+        482
+      ]
+    }
+  },
+  "scene_integration": {
+    "contact_metadata": "res://assets/chars/pixel/homura_sword/video_actions/contacts.json"
+  },
+  "runtime_registration": {
+    "target_body_height_px": 448,
+    "fixed_scale": 1.0,
+    "fixed_offset": [
+      0.0,
+      0.0
+    ],
+    "logical_canvas": [
+      2048,
+      1024
+    ],
+    "anchor": [
+      1024,
+      930
+    ]
+  },
+  "texture_groups": {
+    "shared": [
+      "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_00.png",
+      "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_shared_01.png"
+    ],
+    "world": [
+      "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_00.png",
+      "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_01.png",
+      "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_02.png",
+      "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_world_03.png"
+    ],
+    "battle": [
+      "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_00.png",
+      "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_01.png",
+      "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_02.png",
+      "res://assets/chars/pixel/homura_sword/video_actions/sheets/runtime448_battle_03.png",
+      "res://assets/chars/pixel/homura_sword/video_actions/sheets/battle_dash_v001_00.png"
+    ]
+  }
+}

@@ -1,0 +1,6922 @@
+{
+  "character_id": "rinne",
+  "identity_id": "rinne",
+  "form_id": "rinne",
+  "dir": "res://assets/chars/pixel/rinne/video_actions/frames/",
+  "canvas": {
+    "w": 2048,
+    "h": 1536,
+    "anchor": [
+      1024,
+      1442
+    ],
+    "content_height_px": 448,
+    "height_m": 1.68
+  },
+  "move_speed_mps": 2.6,
+  "run_speed_mps": 4.2,
+  "mirror_allowed": true,
+  "layers": [],
+  "portrait_source_manifest": "res://assets/chars/pixel/rinne/high_detail_complete/manifest.json",
+  "status": "video_actions_exact_runtime_pixels_restored",
+  "anims": {
+    "idle": {
+      "frames": [
+        "idle_015",
+        "idle_017",
+        "idle_019",
+        "idle_021",
+        "idle_023",
+        "idle_025",
+        "idle_027",
+        "idle_029",
+        "idle_031",
+        "idle_033",
+        "idle_035",
+        "idle_037",
+        "idle_039",
+        "idle_041",
+        "idle_043",
+        "idle_045",
+        "idle_047",
+        "idle_049",
+        "idle_051",
+        "idle_053",
+        "idle_055",
+        "idle_057",
+        "idle_059",
+        "idle_061",
+        "idle_063",
+        "idle_065",
+        "idle_067",
+        "idle_069",
+        "idle_071",
+        "idle_073",
+        "idle_075",
+        "idle_077",
+        "idle_079",
+        "idle_081",
+        "idle_083",
+        "idle_085",
+        "idle_087",
+        "idle_089",
+        "idle_091",
+        "idle_093",
+        "idle_095",
+        "idle_097",
+        "idle_099",
+        "idle_101",
+        "idle_103",
+        "idle_105",
+        "idle_107",
+        "idle_109",
+        "idle_111",
+        "idle_113",
+        "idle_115",
+        "idle_117",
+        "idle_119",
+        "idle_121",
+        "idle_123",
+        "idle_125",
+        "idle_127",
+        "idle_129",
+        "idle_131",
+        "idle_133",
+        "idle_135",
+        "idle_137",
+        "idle_139",
+        "idle_141",
+        "idle_143",
+        "idle_145",
+        "idle_147"
+      ],
+      "durations_ms": [
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667,
+        66.66666666666667
+      ],
+      "loop": true
+    },
+    "walk": {
+      "frames": [
+        "walk_082",
+        "walk_083",
+        "walk_084",
+        "walk_085",
+        "walk_086",
+        "walk_087",
+        "walk_088",
+        "walk_089",
+        "walk_090",
+        "walk_091",
+        "walk_092",
+        "walk_093",
+        "walk_094",
+        "walk_095",
+        "walk_096",
+        "walk_097",
+        "walk_098",
+        "walk_099",
+        "walk_100",
+        "walk_101",
+        "walk_102",
+        "walk_103",
+        "walk_104",
+        "walk_105",
+        "walk_106",
+        "walk_107",
+        "walk_108",
+        "walk_109",
+        "walk_110",
+        "walk_111",
+        "walk_112",
+        "walk_113",
+        "walk_114",
+        "walk_115",
+        "walk_116",
+        "walk_117",
+        "walk_118",
+        "walk_119",
+        "walk_120",
+        "walk_121",
+        "walk_122",
+        "walk_123",
+        "walk_124",
+        "walk_125",
+        "walk_126",
+        "walk_127",
+        "walk_128"
+      ],
+      "durations_ms": [
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336,
+        33.333333333333336
+      ],
+      "loop": true
+    },
+    "attack": {
+      "frames": [
+        "attack_001",
+        "attack_002",
+        "attack_003",
+        "attack_004",
+        "attack_005",
+        "attack_006",
+        "attack_007",
+        "attack_008",
+        "attack_009",
+        "attack_010",
+        "attack_011",
+        "attack_012",
+        "attack_013",
+        "attack_014",
+        "attack_015",
+        "attack_016",
+        "attack_017",
+        "attack_018",
+        "attack_019",
+        "attack_020",
+        "attack_021",
+        "attack_022",
+        "attack_023",
+        "attack_024",
+        "attack_025",
+        "attack_026",
+        "attack_027",
+        "attack_028",
+        "attack_029",
+        "attack_030",
+        "attack_031",
+        "attack_032",
+        "attack_033",
+        "attack_034",
+        "attack_035",
+        "attack_036",
+        "attack_037",
+        "attack_038",
+        "attack_039",
+        "attack_040",
+        "attack_041",
+        "attack_042",
+        "attack_043",
+        "attack_044",
+        "attack_045",
+        "attack_046",
+        "attack_047",
+        "attack_048",
+        "attack_049",
+        "attack_050",
+        "attack_051",
+        "attack_052",
+        "attack_053",
+        "attack_054",
+        "attack_055",
+        "attack_056",
+        "attack_057",
+        "attack_058",
+        "attack_059",
+        "attack_060",
+        "attack_061",
+        "attack_062",
+        "attack_063",
+        "attack_064",
+        "attack_065",
+        "attack_066",
+        "attack_067",
+        "attack_068",
+        "attack_069",
+        "attack_070",
+        "attack_071",
+        "attack_072",
+        "attack_073",
+        "attack_074",
+        "attack_075",
+        "attack_076",
+        "attack_077",
+        "attack_078",
+        "attack_079",
+        "attack_080",
+        "attack_081",
+        "attack_082",
+        "attack_083",
+        "attack_084",
+        "attack_085",
+        "attack_086",
+        "attack_087",
+        "attack_088",
+        "attack_089",
+        "attack_090",
+        "attack_091",
+        "attack_092",
+        "attack_093",
+        "attack_094",
+        "attack_095",
+        "attack_096",
+        "attack_097"
+      ],
+      "durations_ms": [
+        20.833333333333332,
+        20.833333333333332,
+        20.833333333333332,
+        20.833333333333332,
+        20.833333333333332,
+        20.833333333333332,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        20.833333333333332,
+        20.833333333333332,
+        20.833333333333332,
+        20.833333333333332,
+        20.833333333333332,
+        20.833333333333332,
+        20.833333333333332,
+        20.833333333333332,
+        20.833333333333332,
+        20.833333333333332,
+        20.833333333333332,
+        20.833333333333332,
+        20.833333333333332,
+        20.833333333333332,
+        20.833333333333332,
+        20.833333333333332,
+        20.833333333333332,
+        20.833333333333332,
+        20.833333333333332,
+        20.833333333333332,
+        20.833333333333332,
+        20.833333333333332,
+        20.833333333333332,
+        27.77777777777778,
+        27.77777777777778,
+        27.77777777777778,
+        27.77777777777778,
+        27.77777777777778,
+        27.77777777777778,
+        27.77777777777778,
+        27.77777777777778,
+        27.77777777777778,
+        27.77777777777778,
+        27.77777777777778,
+        27.77777777777778,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889,
+        13.88888888888889
+      ],
+      "loop": false,
+      "impact_ms": 847.2222222222222
+    },
+    "hit": {
+      "frames": [
+        "retained_hit"
+      ],
+      "durations_ms": [
+        180
+      ],
+      "loop": false,
+      "single_pose": true
+    },
+    "defend": {
+      "frames": [
+        "retained_defend"
+      ],
+      "durations_ms": [
+        300
+      ],
+      "loop": false,
+      "single_pose": true
+    },
+    "down": {
+      "frames": [
+        "down_022",
+        "down_024",
+        "down_026",
+        "down_028",
+        "down_030",
+        "down_032",
+        "down_034",
+        "down_036",
+        "down_037",
+        "down_038",
+        "down_040",
+        "down_042",
+        "down_044",
+        "down_046",
+        "down_048",
+        "down_050",
+        "down_051",
+        "down_052",
+        "down_054",
+        "down_056",
+        "down_058",
+        "down_060",
+        "down_062",
+        "down_064",
+        "down_065",
+        "down_073",
+        "down_085",
+        "down_097",
+        "down_109",
+        "down_121"
+      ],
+      "durations_ms": [
+        45.45454545454545,
+        45.45454545454545,
+        45.45454545454545,
+        45.45454545454545,
+        45.45454545454545,
+        45.45454545454545,
+        45.45454545454545,
+        22.727272727272727,
+        22.727272727272727,
+        45.45454545454545,
+        45.45454545454545,
+        45.45454545454545,
+        45.45454545454545,
+        45.45454545454545,
+        45.45454545454545,
+        22.727272727272727,
+        22.727272727272727,
+        45.45454545454545,
+        45.45454545454545,
+        45.45454545454545,
+        45.45454545454545,
+        45.45454545454545,
+        45.45454545454545,
+        22.727272727272727,
+        22.727272727272727,
+        40,
+        40,
+        40,
+        40,
+        40
+      ],
+      "loop": false,
+      "hold_last_frame": true
+    },
+    "recover": {
+      "frames": [
+        "retained_recover"
+      ],
+      "durations_ms": [
+        300
+      ],
+      "loop": false,
+      "single_pose": true
+    },
+    "run": {
+      "frames": [
+        "run_033",
+        "run_034",
+        "run_035",
+        "run_036",
+        "run_037",
+        "run_038",
+        "run_039",
+        "run_040",
+        "run_041",
+        "run_042",
+        "run_043",
+        "run_044",
+        "run_045",
+        "run_046",
+        "run_047",
+        "run_048"
+      ],
+      "durations_ms": [
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664
+      ],
+      "loop": true,
+      "events": {
+        "footstep_left": 0,
+        "footstep_right": 333.3333333333333
+      }
+    },
+    "interact": {
+      "frames": [
+        "interact_001",
+        "interact_003",
+        "interact_005",
+        "interact_007",
+        "interact_009",
+        "interact_011",
+        "interact_013",
+        "interact_015",
+        "interact_017",
+        "interact_019",
+        "interact_021",
+        "interact_023",
+        "interact_025",
+        "interact_027",
+        "interact_029",
+        "interact_031",
+        "interact_033",
+        "interact_034"
+      ],
+      "durations_ms": [
+        47.05882352941177,
+        47.05882352941177,
+        47.05882352941177,
+        47.05882352941177,
+        47.05882352941177,
+        47.05882352941177,
+        47.05882352941177,
+        47.05882352941177,
+        47.05882352941177,
+        47.05882352941177,
+        47.05882352941177,
+        47.05882352941177,
+        47.05882352941177,
+        47.05882352941177,
+        47.05882352941177,
+        47.05882352941177,
+        23.529411764705884,
+        23.529411764705884
+      ],
+      "loop": false,
+      "events": {
+        "interact": 188.23529411764707
+      }
+    },
+    "jump": {
+      "frames": [
+        "jump_024",
+        "jump_028",
+        "jump_032",
+        "jump_036",
+        "jump_039",
+        "jump_040",
+        "jump_042",
+        "jump_044",
+        "jump_047",
+        "jump_050",
+        "jump_053",
+        "jump_056",
+        "jump_059",
+        "jump_062",
+        "jump_065",
+        "jump_068",
+        "jump_070",
+        "jump_072",
+        "jump_074",
+        "jump_077",
+        "jump_080",
+        "jump_084"
+      ],
+      "durations_ms": [
+        45.0,
+        45.0,
+        45.0,
+        33.75,
+        11.25,
+        27.69230769230768,
+        27.692307692307708,
+        41.53846153846152,
+        41.53846153846155,
+        41.53846153846155,
+        45.882352941176464,
+        45.882352941176464,
+        45.882352941176464,
+        45.882352941176464,
+        45.882352941176464,
+        30.58823529411768,
+        30.66666666666663,
+        30.666666666666742,
+        46.0,
+        46.0,
+        61.33333333333326,
+        15.333333333333371
+      ],
+      "loop": false,
+      "events": {
+        "takeoff": 180,
+        "apex": 360,
+        "landing": 620
+      },
+      "vertical_motion_baked": true
+    },
+    "item": {
+      "frames": [
+        "item_009",
+        "item_013",
+        "item_017",
+        "item_021",
+        "item_025",
+        "item_029",
+        "item_033",
+        "item_037",
+        "item_041",
+        "item_045",
+        "item_049",
+        "item_053",
+        "item_057",
+        "item_061",
+        "item_063",
+        "item_065",
+        "item_067",
+        "item_071",
+        "item_075",
+        "item_079",
+        "item_083",
+        "item_087",
+        "item_091",
+        "item_095",
+        "item_097",
+        "item_099",
+        "item_101"
+      ],
+      "durations_ms": [
+        35.0,
+        35.0,
+        35.0,
+        35.0,
+        35.0,
+        35.0,
+        35.0,
+        35.0,
+        28.333333333333314,
+        28.33333333333337,
+        28.333333333333314,
+        28.333333333333314,
+        28.333333333333314,
+        14.166666666666742,
+        14.166666666666629,
+        15.0,
+        30.0,
+        30.0,
+        30.0,
+        51.19047619047615,
+        72.38095238095241,
+        72.38095238095241,
+        72.38095238095241,
+        36.19047619047615,
+        36.19047619047626,
+        36.19047619047615,
+        18.095238095238074
+      ],
+      "loop": false,
+      "impact_ms": 450
+    },
+    "pickup": {
+      "frames": [
+        "interact_049",
+        "interact_051",
+        "interact_053",
+        "interact_055",
+        "interact_057",
+        "interact_059",
+        "interact_060",
+        "interact_061",
+        "interact_062",
+        "interact_063",
+        "interact_065",
+        "interact_067",
+        "interact_069",
+        "interact_071",
+        "interact_073",
+        "interact_075",
+        "interact_077",
+        "interact_079",
+        "interact_081",
+        "interact_082",
+        "interact_084",
+        "interact_085",
+        "interact_086",
+        "interact_087",
+        "interact_088",
+        "interact_089",
+        "interact_090",
+        "interact_091"
+      ],
+      "durations_ms": [
+        44.18604651162791,
+        44.18604651162791,
+        44.18604651162791,
+        44.18604651162791,
+        44.18604651162791,
+        22.093023255813954,
+        22.093023255813954,
+        22.093023255813954,
+        22.093023255813954,
+        44.18604651162791,
+        44.18604651162791,
+        44.18604651162791,
+        44.18604651162791,
+        44.18604651162791,
+        44.18604651162791,
+        44.18604651162791,
+        44.18604651162791,
+        44.18604651162791,
+        22.093023255813954,
+        44.18604651162791,
+        22.093023255813954,
+        22.093023255813954,
+        22.093023255813954,
+        22.093023255813954,
+        22.093023255813954,
+        22.093023255813954,
+        22.093023255813954,
+        22.093023255813954
+      ],
+      "loop": false,
+      "events": {
+        "pickup": 309.30232558139534
+      }
+    }
+  },
+  "packed_frames": {
+    "idle_015": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        2034,
+        1838
+      ],
+      "region": [
+        286,
+        462,
+        287,
+        455
+      ],
+      "offset": [
+        875,
+        991
+      ]
+    },
+    "idle_017": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        2034,
+        1838
+      ],
+      "region": [
+        1166,
+        922,
+        286,
+        455
+      ],
+      "offset": [
+        876,
+        991
+      ]
+    },
+    "idle_019": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        2034,
+        1838
+      ],
+      "region": [
+        1456,
+        922,
+        286,
+        455
+      ],
+      "offset": [
+        876,
+        991
+      ]
+    },
+    "idle_021": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        2034,
+        1838
+      ],
+      "region": [
+        292,
+        1381,
+        284,
+        455
+      ],
+      "offset": [
+        878,
+        991
+      ]
+    },
+    "idle_023": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        2034,
+        1838
+      ],
+      "region": [
+        580,
+        1381,
+        284,
+        455
+      ],
+      "offset": [
+        878,
+        991
+      ]
+    },
+    "idle_025": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        2034,
+        1838
+      ],
+      "region": [
+        1732,
+        1381,
+        283,
+        455
+      ],
+      "offset": [
+        879,
+        991
+      ]
+    },
+    "idle_027": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_02.png",
+      "atlas_size": [
+        2006,
+        918
+      ],
+      "region": [
+        1150,
+        2,
+        282,
+        455
+      ],
+      "offset": [
+        880,
+        991
+      ]
+    },
+    "idle_029": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_02.png",
+      "atlas_size": [
+        2006,
+        918
+      ],
+      "region": [
+        2,
+        2,
+        283,
+        455
+      ],
+      "offset": [
+        880,
+        991
+      ]
+    },
+    "idle_031": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        2040,
+        1840
+      ],
+      "region": [
+        1735,
+        1382,
+        282,
+        456
+      ],
+      "offset": [
+        881,
+        990
+      ]
+    },
+    "idle_033": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        2034,
+        1838
+      ],
+      "region": [
+        2,
+        2,
+        282,
+        456
+      ],
+      "offset": [
+        881,
+        990
+      ]
+    },
+    "idle_035": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        2034,
+        1838
+      ],
+      "region": [
+        860,
+        2,
+        281,
+        456
+      ],
+      "offset": [
+        882,
+        990
+      ]
+    },
+    "idle_037": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        2034,
+        1838
+      ],
+      "region": [
+        1145,
+        2,
+        281,
+        456
+      ],
+      "offset": [
+        882,
+        990
+      ]
+    },
+    "idle_039": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        2034,
+        1838
+      ],
+      "region": [
+        1715,
+        2,
+        280,
+        456
+      ],
+      "offset": [
+        883,
+        990
+      ]
+    },
+    "idle_041": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        2034,
+        1838
+      ],
+      "region": [
+        2,
+        462,
+        280,
+        456
+      ],
+      "offset": [
+        883,
+        990
+      ]
+    },
+    "idle_043": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        2034,
+        1838
+      ],
+      "region": [
+        1430,
+        2,
+        281,
+        456
+      ],
+      "offset": [
+        883,
+        990
+      ]
+    },
+    "idle_045": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        2034,
+        1838
+      ],
+      "region": [
+        288,
+        2,
+        282,
+        456
+      ],
+      "offset": [
+        882,
+        990
+      ]
+    },
+    "idle_047": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        2034,
+        1838
+      ],
+      "region": [
+        574,
+        2,
+        282,
+        456
+      ],
+      "offset": [
+        882,
+        990
+      ]
+    },
+    "idle_049": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        2040,
+        1840
+      ],
+      "region": [
+        871,
+        1382,
+        284,
+        456
+      ],
+      "offset": [
+        880,
+        990
+      ]
+    },
+    "idle_051": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        2040,
+        1840
+      ],
+      "region": [
+        1159,
+        1382,
+        284,
+        456
+      ],
+      "offset": [
+        880,
+        990
+      ]
+    },
+    "idle_053": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        2040,
+        1840
+      ],
+      "region": [
+        2,
+        1382,
+        286,
+        456
+      ],
+      "offset": [
+        879,
+        990
+      ]
+    },
+    "idle_055": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        2040,
+        1840
+      ],
+      "region": [
+        292,
+        1382,
+        286,
+        456
+      ],
+      "offset": [
+        879,
+        990
+      ]
+    },
+    "idle_057": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        2040,
+        1840
+      ],
+      "region": [
+        878,
+        922,
+        287,
+        456
+      ],
+      "offset": [
+        878,
+        990
+      ]
+    },
+    "idle_059": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        2040,
+        1840
+      ],
+      "region": [
+        2,
+        922,
+        288,
+        456
+      ],
+      "offset": [
+        876,
+        990
+      ]
+    },
+    "idle_061": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        2040,
+        1840
+      ],
+      "region": [
+        294,
+        922,
+        288,
+        456
+      ],
+      "offset": [
+        876,
+        990
+      ]
+    },
+    "idle_063": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        2040,
+        1840
+      ],
+      "region": [
+        586,
+        922,
+        288,
+        456
+      ],
+      "offset": [
+        876,
+        990
+      ]
+    },
+    "idle_065": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        2040,
+        1840
+      ],
+      "region": [
+        2,
+        462,
+        290,
+        456
+      ],
+      "offset": [
+        875,
+        990
+      ]
+    },
+    "idle_067": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        2040,
+        1840
+      ],
+      "region": [
+        296,
+        462,
+        290,
+        456
+      ],
+      "offset": [
+        874,
+        990
+      ]
+    },
+    "idle_069": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        2040,
+        1840
+      ],
+      "region": [
+        2,
+        2,
+        291,
+        456
+      ],
+      "offset": [
+        873,
+        990
+      ]
+    },
+    "idle_071": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        2040,
+        1840
+      ],
+      "region": [
+        297,
+        2,
+        291,
+        456
+      ],
+      "offset": [
+        873,
+        990
+      ]
+    },
+    "idle_073": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        2040,
+        1840
+      ],
+      "region": [
+        592,
+        2,
+        291,
+        456
+      ],
+      "offset": [
+        873,
+        990
+      ]
+    },
+    "idle_075": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        2040,
+        1840
+      ],
+      "region": [
+        887,
+        2,
+        291,
+        456
+      ],
+      "offset": [
+        873,
+        990
+      ]
+    },
+    "idle_077": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        2040,
+        1840
+      ],
+      "region": [
+        1182,
+        2,
+        291,
+        456
+      ],
+      "offset": [
+        873,
+        990
+      ]
+    },
+    "idle_079": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        2040,
+        1840
+      ],
+      "region": [
+        1477,
+        2,
+        291,
+        456
+      ],
+      "offset": [
+        873,
+        990
+      ]
+    },
+    "idle_081": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        2040,
+        1840
+      ],
+      "region": [
+        590,
+        462,
+        290,
+        456
+      ],
+      "offset": [
+        874,
+        990
+      ]
+    },
+    "idle_083": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        2040,
+        1840
+      ],
+      "region": [
+        884,
+        462,
+        290,
+        456
+      ],
+      "offset": [
+        874,
+        990
+      ]
+    },
+    "idle_085": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        2040,
+        1840
+      ],
+      "region": [
+        1178,
+        462,
+        289,
+        456
+      ],
+      "offset": [
+        875,
+        990
+      ]
+    },
+    "idle_087": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        2040,
+        1840
+      ],
+      "region": [
+        1471,
+        462,
+        289,
+        456
+      ],
+      "offset": [
+        875,
+        990
+      ]
+    },
+    "idle_089": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        2040,
+        1840
+      ],
+      "region": [
+        1169,
+        922,
+        287,
+        456
+      ],
+      "offset": [
+        876,
+        990
+      ]
+    },
+    "idle_091": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        2040,
+        1840
+      ],
+      "region": [
+        1460,
+        922,
+        287,
+        456
+      ],
+      "offset": [
+        876,
+        990
+      ]
+    },
+    "idle_093": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        2040,
+        1840
+      ],
+      "region": [
+        1751,
+        922,
+        287,
+        456
+      ],
+      "offset": [
+        876,
+        990
+      ]
+    },
+    "idle_095": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        2040,
+        1840
+      ],
+      "region": [
+        582,
+        1382,
+        285,
+        456
+      ],
+      "offset": [
+        878,
+        990
+      ]
+    },
+    "idle_097": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        2040,
+        1840
+      ],
+      "region": [
+        1447,
+        1382,
+        284,
+        456
+      ],
+      "offset": [
+        879,
+        990
+      ]
+    },
+    "idle_099": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        2034,
+        1838
+      ],
+      "region": [
+        868,
+        1381,
+        284,
+        455
+      ],
+      "offset": [
+        879,
+        991
+      ]
+    },
+    "idle_101": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_02.png",
+      "atlas_size": [
+        2006,
+        918
+      ],
+      "region": [
+        289,
+        2,
+        283,
+        455
+      ],
+      "offset": [
+        880,
+        991
+      ]
+    },
+    "idle_103": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_02.png",
+      "atlas_size": [
+        2006,
+        918
+      ],
+      "region": [
+        1436,
+        2,
+        282,
+        455
+      ],
+      "offset": [
+        881,
+        991
+      ]
+    },
+    "idle_105": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_02.png",
+      "atlas_size": [
+        2006,
+        918
+      ],
+      "region": [
+        288,
+        461,
+        280,
+        455
+      ],
+      "offset": [
+        882,
+        991
+      ]
+    },
+    "idle_107": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_02.png",
+      "atlas_size": [
+        2006,
+        918
+      ],
+      "region": [
+        572,
+        461,
+        280,
+        455
+      ],
+      "offset": [
+        882,
+        991
+      ]
+    },
+    "idle_109": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_02.png",
+      "atlas_size": [
+        2006,
+        918
+      ],
+      "region": [
+        856,
+        461,
+        280,
+        455
+      ],
+      "offset": [
+        882,
+        991
+      ]
+    },
+    "idle_111": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_02.png",
+      "atlas_size": [
+        2006,
+        918
+      ],
+      "region": [
+        1140,
+        461,
+        280,
+        455
+      ],
+      "offset": [
+        882,
+        991
+      ]
+    },
+    "idle_113": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_02.png",
+      "atlas_size": [
+        2006,
+        918
+      ],
+      "region": [
+        1424,
+        461,
+        280,
+        455
+      ],
+      "offset": [
+        882,
+        991
+      ]
+    },
+    "idle_115": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_02.png",
+      "atlas_size": [
+        2006,
+        918
+      ],
+      "region": [
+        1722,
+        2,
+        282,
+        455
+      ],
+      "offset": [
+        880,
+        991
+      ]
+    },
+    "idle_117": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_02.png",
+      "atlas_size": [
+        2006,
+        918
+      ],
+      "region": [
+        2,
+        461,
+        282,
+        455
+      ],
+      "offset": [
+        880,
+        991
+      ]
+    },
+    "idle_119": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_02.png",
+      "atlas_size": [
+        2006,
+        918
+      ],
+      "region": [
+        576,
+        2,
+        283,
+        455
+      ],
+      "offset": [
+        879,
+        991
+      ]
+    },
+    "idle_121": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_02.png",
+      "atlas_size": [
+        2006,
+        918
+      ],
+      "region": [
+        863,
+        2,
+        283,
+        455
+      ],
+      "offset": [
+        879,
+        991
+      ]
+    },
+    "idle_123": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        2034,
+        1838
+      ],
+      "region": [
+        1156,
+        1381,
+        284,
+        455
+      ],
+      "offset": [
+        878,
+        991
+      ]
+    },
+    "idle_125": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        2034,
+        1838
+      ],
+      "region": [
+        1444,
+        1381,
+        284,
+        455
+      ],
+      "offset": [
+        878,
+        991
+      ]
+    },
+    "idle_127": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        2034,
+        1838
+      ],
+      "region": [
+        1746,
+        922,
+        286,
+        455
+      ],
+      "offset": [
+        876,
+        991
+      ]
+    },
+    "idle_129": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        2034,
+        1838
+      ],
+      "region": [
+        2,
+        1381,
+        286,
+        455
+      ],
+      "offset": [
+        876,
+        991
+      ]
+    },
+    "idle_131": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        2034,
+        1838
+      ],
+      "region": [
+        577,
+        462,
+        287,
+        455
+      ],
+      "offset": [
+        875,
+        991
+      ]
+    },
+    "idle_133": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        2034,
+        1838
+      ],
+      "region": [
+        868,
+        462,
+        287,
+        455
+      ],
+      "offset": [
+        875,
+        991
+      ]
+    },
+    "idle_135": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        2034,
+        1838
+      ],
+      "region": [
+        1159,
+        462,
+        287,
+        455
+      ],
+      "offset": [
+        875,
+        991
+      ]
+    },
+    "idle_137": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        2034,
+        1838
+      ],
+      "region": [
+        1450,
+        462,
+        287,
+        455
+      ],
+      "offset": [
+        875,
+        991
+      ]
+    },
+    "idle_139": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        2034,
+        1838
+      ],
+      "region": [
+        1741,
+        462,
+        287,
+        455
+      ],
+      "offset": [
+        875,
+        991
+      ]
+    },
+    "idle_141": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        2034,
+        1838
+      ],
+      "region": [
+        2,
+        922,
+        287,
+        455
+      ],
+      "offset": [
+        875,
+        991
+      ]
+    },
+    "idle_143": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        2034,
+        1838
+      ],
+      "region": [
+        293,
+        922,
+        287,
+        455
+      ],
+      "offset": [
+        875,
+        991
+      ]
+    },
+    "idle_145": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        2034,
+        1838
+      ],
+      "region": [
+        584,
+        922,
+        287,
+        455
+      ],
+      "offset": [
+        875,
+        991
+      ]
+    },
+    "idle_147": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        2034,
+        1838
+      ],
+      "region": [
+        875,
+        922,
+        287,
+        455
+      ],
+      "offset": [
+        875,
+        991
+      ]
+    },
+    "walk_082": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        1971,
+        1794
+      ],
+      "region": [
+        1367,
+        1351,
+        300,
+        439
+      ],
+      "offset": [
+        871,
+        999
+      ]
+    },
+    "walk_083": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        1971,
+        1794
+      ],
+      "region": [
+        626,
+        903,
+        305,
+        443
+      ],
+      "offset": [
+        867,
+        1000
+      ]
+    },
+    "walk_084": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        1971,
+        1794
+      ],
+      "region": [
+        2,
+        903,
+        307,
+        444
+      ],
+      "offset": [
+        865,
+        1001
+      ]
+    },
+    "walk_085": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        1971,
+        1794
+      ],
+      "region": [
+        313,
+        903,
+        309,
+        443
+      ],
+      "offset": [
+        863,
+        1002
+      ]
+    },
+    "walk_086": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        1971,
+        1794
+      ],
+      "region": [
+        1221,
+        2,
+        316,
+        446
+      ],
+      "offset": [
+        856,
+        1002
+      ]
+    },
+    "walk_087": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        1971,
+        1794
+      ],
+      "region": [
+        303,
+        2,
+        317,
+        447
+      ],
+      "offset": [
+        854,
+        1001
+      ]
+    },
+    "walk_088": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1882,
+        1822
+      ],
+      "region": [
+        1230,
+        1370,
+        318,
+        448
+      ],
+      "offset": [
+        853,
+        1000
+      ]
+    },
+    "walk_089": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1882,
+        1822
+      ],
+      "region": [
+        325,
+        916,
+        318,
+        450
+      ],
+      "offset": [
+        852,
+        998
+      ]
+    },
+    "walk_090": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1882,
+        1822
+      ],
+      "region": [
+        302,
+        1370,
+        318,
+        449
+      ],
+      "offset": [
+        852,
+        997
+      ]
+    },
+    "walk_091": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1882,
+        1822
+      ],
+      "region": [
+        647,
+        916,
+        318,
+        450
+      ],
+      "offset": [
+        852,
+        995
+      ]
+    },
+    "walk_092": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1882,
+        1822
+      ],
+      "region": [
+        614,
+        459,
+        313,
+        451
+      ],
+      "offset": [
+        854,
+        994
+      ]
+    },
+    "walk_093": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1882,
+        1822
+      ],
+      "region": [
+        301,
+        459,
+        309,
+        452
+      ],
+      "offset": [
+        858,
+        991
+      ]
+    },
+    "walk_094": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1882,
+        1822
+      ],
+      "region": [
+        931,
+        459,
+        307,
+        451
+      ],
+      "offset": [
+        859,
+        990
+      ]
+    },
+    "walk_095": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1882,
+        1822
+      ],
+      "region": [
+        1242,
+        459,
+        303,
+        451
+      ],
+      "offset": [
+        863,
+        989
+      ]
+    },
+    "walk_096": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1882,
+        1822
+      ],
+      "region": [
+        1275,
+        916,
+        300,
+        450
+      ],
+      "offset": [
+        866,
+        989
+      ]
+    },
+    "walk_097": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1882,
+        1822
+      ],
+      "region": [
+        1552,
+        1370,
+        299,
+        448
+      ],
+      "offset": [
+        867,
+        989
+      ]
+    },
+    "walk_098": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        1971,
+        1794
+      ],
+      "region": [
+        624,
+        2,
+        296,
+        447
+      ],
+      "offset": [
+        870,
+        989
+      ]
+    },
+    "walk_099": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        1971,
+        1794
+      ],
+      "region": [
+        2,
+        2,
+        297,
+        448
+      ],
+      "offset": [
+        869,
+        989
+      ]
+    },
+    "walk_100": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1882,
+        1822
+      ],
+      "region": [
+        2,
+        1370,
+        296,
+        450
+      ],
+      "offset": [
+        870,
+        989
+      ]
+    },
+    "walk_101": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1882,
+        1822
+      ],
+      "region": [
+        1285,
+        2,
+        296,
+        453
+      ],
+      "offset": [
+        871,
+        992
+      ]
+    },
+    "walk_102": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1882,
+        1822
+      ],
+      "region": [
+        1579,
+        916,
+        297,
+        450
+      ],
+      "offset": [
+        870,
+        993
+      ]
+    },
+    "walk_103": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1882,
+        1822
+      ],
+      "region": [
+        624,
+        1370,
+        303,
+        449
+      ],
+      "offset": [
+        867,
+        994
+      ]
+    },
+    "walk_104": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        1971,
+        1794
+      ],
+      "region": [
+        633,
+        454,
+        305,
+        445
+      ],
+      "offset": [
+        865,
+        997
+      ]
+    },
+    "walk_105": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        1971,
+        1794
+      ],
+      "region": [
+        322,
+        454,
+        307,
+        445
+      ],
+      "offset": [
+        864,
+        997
+      ]
+    },
+    "walk_106": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        1971,
+        1794
+      ],
+      "region": [
+        935,
+        903,
+        315,
+        442
+      ],
+      "offset": [
+        858,
+        1001
+      ]
+    },
+    "walk_107": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        1971,
+        1794
+      ],
+      "region": [
+        1577,
+        454,
+        318,
+        444
+      ],
+      "offset": [
+        855,
+        1002
+      ]
+    },
+    "walk_108": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1882,
+        1822
+      ],
+      "region": [
+        2,
+        916,
+        319,
+        450
+      ],
+      "offset": [
+        854,
+        1002
+      ]
+    },
+    "walk_109": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1882,
+        1822
+      ],
+      "region": [
+        329,
+        2,
+        322,
+        453
+      ],
+      "offset": [
+        850,
+        1002
+      ]
+    },
+    "walk_110": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1882,
+        1822
+      ],
+      "region": [
+        655,
+        2,
+        322,
+        453
+      ],
+      "offset": [
+        850,
+        1001
+      ]
+    },
+    "walk_111": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1882,
+        1822
+      ],
+      "region": [
+        2,
+        2,
+        323,
+        453
+      ],
+      "offset": [
+        848,
+        1000
+      ]
+    },
+    "walk_112": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1974,
+        1838
+      ],
+      "region": [
+        1192,
+        463,
+        325,
+        455
+      ],
+      "offset": [
+        846,
+        998
+      ]
+    },
+    "walk_113": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1974,
+        1838
+      ],
+      "region": [
+        1521,
+        463,
+        321,
+        455
+      ],
+      "offset": [
+        850,
+        997
+      ]
+    },
+    "walk_114": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1974,
+        1838
+      ],
+      "region": [
+        1518,
+        923,
+        317,
+        454
+      ],
+      "offset": [
+        852,
+        997
+      ]
+    },
+    "walk_115": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1974,
+        1838
+      ],
+      "region": [
+        2,
+        923,
+        317,
+        455
+      ],
+      "offset": [
+        852,
+        995
+      ]
+    },
+    "walk_116": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1974,
+        1838
+      ],
+      "region": [
+        2,
+        1382,
+        310,
+        454
+      ],
+      "offset": [
+        857,
+        994
+      ]
+    },
+    "walk_117": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1974,
+        1838
+      ],
+      "region": [
+        323,
+        923,
+        304,
+        455
+      ],
+      "offset": [
+        863,
+        992
+      ]
+    },
+    "walk_118": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1974,
+        1838
+      ],
+      "region": [
+        316,
+        1382,
+        302,
+        454
+      ],
+      "offset": [
+        865,
+        990
+      ]
+    },
+    "walk_119": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1882,
+        1822
+      ],
+      "region": [
+        981,
+        2,
+        300,
+        453
+      ],
+      "offset": [
+        867,
+        990
+      ]
+    },
+    "walk_120": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1882,
+        1822
+      ],
+      "region": [
+        2,
+        459,
+        295,
+        453
+      ],
+      "offset": [
+        871,
+        989
+      ]
+    },
+    "walk_121": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1882,
+        1822
+      ],
+      "region": [
+        1549,
+        459,
+        295,
+        451
+      ],
+      "offset": [
+        871,
+        989
+      ]
+    },
+    "walk_122": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1882,
+        1822
+      ],
+      "region": [
+        931,
+        1370,
+        295,
+        449
+      ],
+      "offset": [
+        871,
+        989
+      ]
+    },
+    "walk_123": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        1971,
+        1794
+      ],
+      "region": [
+        924,
+        2,
+        293,
+        447
+      ],
+      "offset": [
+        874,
+        989
+      ]
+    },
+    "walk_124": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        1971,
+        1794
+      ],
+      "region": [
+        942,
+        454,
+        293,
+        445
+      ],
+      "offset": [
+        874,
+        990
+      ]
+    },
+    "walk_125": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        1971,
+        1794
+      ],
+      "region": [
+        1254,
+        903,
+        294,
+        442
+      ],
+      "offset": [
+        874,
+        992
+      ]
+    },
+    "walk_126": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_04.png",
+      "atlas_size": [
+        1997,
+        1750
+      ],
+      "region": [
+        1032,
+        2,
+        296,
+        437
+      ],
+      "offset": [
+        874,
+        996
+      ]
+    },
+    "walk_127": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_04.png",
+      "atlas_size": [
+        1997,
+        1750
+      ],
+      "region": [
+        1332,
+        2,
+        295,
+        437
+      ],
+      "offset": [
+        875,
+        997
+      ]
+    },
+    "walk_128": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        1971,
+        1794
+      ],
+      "region": [
+        1671,
+        1351,
+        298,
+        439
+      ],
+      "offset": [
+        873,
+        998
+      ]
+    },
+    "attack_001": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1991,
+        1853
+      ],
+      "region": [
+        1484,
+        1392,
+        293,
+        458
+      ],
+      "offset": [
+        871,
+        988
+      ]
+    },
+    "attack_002": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2016,
+        2002
+      ],
+      "region": [
+        675,
+        1533,
+        295,
+        461
+      ],
+      "offset": [
+        871,
+        988
+      ]
+    },
+    "attack_003": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
+      "atlas_size": [
+        2001,
+        1812
+      ],
+      "region": [
+        1644,
+        2,
+        309,
+        455
+      ],
+      "offset": [
+        874,
+        990
+      ]
+    },
+    "attack_004": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
+      "atlas_size": [
+        2001,
+        1812
+      ],
+      "region": [
+        1316,
+        2,
+        324,
+        455
+      ],
+      "offset": [
+        876,
+        990
+      ]
+    },
+    "attack_005": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
+      "atlas_size": [
+        2001,
+        1812
+      ],
+      "region": [
+        2,
+        922,
+        340,
+        447
+      ],
+      "offset": [
+        878,
+        995
+      ]
+    },
+    "attack_006": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
+      "atlas_size": [
+        2001,
+        1812
+      ],
+      "region": [
+        978,
+        922,
+        345,
+        442
+      ],
+      "offset": [
+        878,
+        995
+      ]
+    },
+    "attack_007": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
+      "atlas_size": [
+        2001,
+        1812
+      ],
+      "region": [
+        304,
+        1373,
+        286,
+        437
+      ],
+      "offset": [
+        886,
+        1012
+      ]
+    },
+    "attack_008": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
+      "atlas_size": [
+        1897,
+        2027
+      ],
+      "region": [
+        683,
+        2,
+        347,
+        424
+      ],
+      "offset": [
+        843,
+        1030
+      ]
+    },
+    "attack_009": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
+      "atlas_size": [
+        1897,
+        2027
+      ],
+      "region": [
+        683,
+        430,
+        410,
+        414
+      ],
+      "offset": [
+        790,
+        1043
+      ]
+    },
+    "attack_010": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
+      "atlas_size": [
+        1897,
+        2027
+      ],
+      "region": [
+        2,
+        1260,
+        510,
+        395
+      ],
+      "offset": [
+        697,
+        1062
+      ]
+    },
+    "attack_011": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
+      "atlas_size": [
+        1897,
+        2027
+      ],
+      "region": [
+        2,
+        1659,
+        514,
+        366
+      ],
+      "offset": [
+        697,
+        1091
+      ]
+    },
+    "attack_012": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
+      "atlas_size": [
+        1897,
+        2027
+      ],
+      "region": [
+        520,
+        1659,
+        512,
+        364
+      ],
+      "offset": [
+        697,
+        1093
+      ]
+    },
+    "attack_013": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
+      "atlas_size": [
+        2035,
+        1797
+      ],
+      "region": [
+        2,
+        364,
+        506,
+        356
+      ],
+      "offset": [
+        699,
+        1101
+      ]
+    },
+    "attack_014": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
+      "atlas_size": [
+        2035,
+        1797
+      ],
+      "region": [
+        1420,
+        2,
+        508,
+        356
+      ],
+      "offset": [
+        697,
+        1101
+      ]
+    },
+    "attack_015": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
+      "atlas_size": [
+        2035,
+        1797
+      ],
+      "region": [
+        512,
+        364,
+        503,
+        355
+      ],
+      "offset": [
+        697,
+        1102
+      ]
+    },
+    "attack_016": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
+      "atlas_size": [
+        2035,
+        1797
+      ],
+      "region": [
+        1019,
+        364,
+        503,
+        355
+      ],
+      "offset": [
+        697,
+        1102
+      ]
+    },
+    "attack_017": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
+      "atlas_size": [
+        2035,
+        1797
+      ],
+      "region": [
+        1526,
+        364,
+        500,
+        355
+      ],
+      "offset": [
+        697,
+        1102
+      ]
+    },
+    "attack_018": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
+      "atlas_size": [
+        2035,
+        1797
+      ],
+      "region": [
+        2,
+        724,
+        500,
+        355
+      ],
+      "offset": [
+        697,
+        1102
+      ]
+    },
+    "attack_019": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
+      "atlas_size": [
+        2035,
+        1797
+      ],
+      "region": [
+        506,
+        724,
+        491,
+        355
+      ],
+      "offset": [
+        697,
+        1102
+      ]
+    },
+    "attack_020": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
+      "atlas_size": [
+        2035,
+        1797
+      ],
+      "region": [
+        1001,
+        724,
+        491,
+        355
+      ],
+      "offset": [
+        697,
+        1102
+      ]
+    },
+    "attack_021": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
+      "atlas_size": [
+        2035,
+        1797
+      ],
+      "region": [
+        486,
+        1083,
+        486,
+        353
+      ],
+      "offset": [
+        697,
+        1104
+      ]
+    },
+    "attack_022": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
+      "atlas_size": [
+        2035,
+        1797
+      ],
+      "region": [
+        1496,
+        724,
+        486,
+        355
+      ],
+      "offset": [
+        697,
+        1102
+      ]
+    },
+    "attack_023": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
+      "atlas_size": [
+        2035,
+        1797
+      ],
+      "region": [
+        2,
+        2,
+        580,
+        358
+      ],
+      "offset": [
+        597,
+        1104
+      ]
+    },
+    "attack_024": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
+      "atlas_size": [
+        2035,
+        1797
+      ],
+      "region": [
+        2,
+        1442,
+        477,
+        353
+      ],
+      "offset": [
+        697,
+        1104
+      ]
+    },
+    "attack_025": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
+      "atlas_size": [
+        2035,
+        1797
+      ],
+      "region": [
+        483,
+        1442,
+        477,
+        353
+      ],
+      "offset": [
+        697,
+        1104
+      ]
+    },
+    "attack_026": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
+      "atlas_size": [
+        2035,
+        1797
+      ],
+      "region": [
+        2,
+        1083,
+        480,
+        355
+      ],
+      "offset": [
+        697,
+        1102
+      ]
+    },
+    "attack_027": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
+      "atlas_size": [
+        2035,
+        1797
+      ],
+      "region": [
+        976,
+        1083,
+        480,
+        353
+      ],
+      "offset": [
+        697,
+        1104
+      ]
+    },
+    "attack_028": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
+      "atlas_size": [
+        2035,
+        1797
+      ],
+      "region": [
+        1460,
+        1083,
+        480,
+        353
+      ],
+      "offset": [
+        697,
+        1104
+      ]
+    },
+    "attack_029": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
+      "atlas_size": [
+        2035,
+        1797
+      ],
+      "region": [
+        990,
+        2,
+        426,
+        357
+      ],
+      "offset": [
+        751,
+        1101
+      ]
+    },
+    "attack_030": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
+      "atlas_size": [
+        1897,
+        2027
+      ],
+      "region": [
+        1382,
+        1659,
+        391,
+        360
+      ],
+      "offset": [
+        788,
+        1097
+      ]
+    },
+    "attack_031": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
+      "atlas_size": [
+        2001,
+        1812
+      ],
+      "region": [
+        346,
+        922,
+        628,
+        443
+      ],
+      "offset": [
+        621,
+        995
+      ]
+    },
+    "attack_032": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1901,
+        1711
+      ],
+      "region": [
+        763,
+        1182,
+        755,
+        526
+      ],
+      "offset": [
+        622,
+        912
+      ]
+    },
+    "attack_033": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1901,
+        1711
+      ],
+      "region": [
+        2,
+        1182,
+        757,
+        527
+      ],
+      "offset": [
+        647,
+        911
+      ]
+    },
+    "attack_034": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2016,
+        2002
+      ],
+      "region": [
+        2,
+        2,
+        718,
+        518
+      ],
+      "offset": [
+        679,
+        918
+      ]
+    },
+    "attack_035": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2016,
+        2002
+      ],
+      "region": [
+        2,
+        524,
+        597,
+        516
+      ],
+      "offset": [
+        802,
+        922
+      ]
+    },
+    "attack_036": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2016,
+        2002
+      ],
+      "region": [
+        603,
+        524,
+        597,
+        514
+      ],
+      "offset": [
+        802,
+        922
+      ]
+    },
+    "attack_037": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2016,
+        2002
+      ],
+      "region": [
+        1285,
+        2,
+        546,
+        518
+      ],
+      "offset": [
+        823,
+        944
+      ]
+    },
+    "attack_038": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2016,
+        2002
+      ],
+      "region": [
+        724,
+        2,
+        557,
+        518
+      ],
+      "offset": [
+        818,
+        944
+      ]
+    },
+    "attack_039": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1901,
+        1711
+      ],
+      "region": [
+        630,
+        2,
+        595,
+        587
+      ],
+      "offset": [
+        756,
+        899
+      ]
+    },
+    "attack_040": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1901,
+        1711
+      ],
+      "region": [
+        1229,
+        2,
+        595,
+        587
+      ],
+      "offset": [
+        756,
+        899
+      ]
+    },
+    "attack_041": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1901,
+        1711
+      ],
+      "region": [
+        2,
+        2,
+        624,
+        587
+      ],
+      "offset": [
+        751,
+        899
+      ]
+    },
+    "attack_042": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1901,
+        1711
+      ],
+      "region": [
+        2,
+        593,
+        629,
+        585
+      ],
+      "offset": [
+        751,
+        901
+      ]
+    },
+    "attack_043": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1901,
+        1711
+      ],
+      "region": [
+        635,
+        593,
+        630,
+        531
+      ],
+      "offset": [
+        756,
+        955
+      ]
+    },
+    "attack_044": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1901,
+        1711
+      ],
+      "region": [
+        1269,
+        593,
+        630,
+        531
+      ],
+      "offset": [
+        756,
+        955
+      ]
+    },
+    "attack_045": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1991,
+        1853
+      ],
+      "region": [
+        972,
+        2,
+        663,
+        459
+      ],
+      "offset": [
+        756,
+        1027
+      ]
+    },
+    "attack_046": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2016,
+        2002
+      ],
+      "region": [
+        2,
+        1533,
+        669,
+        467
+      ],
+      "offset": [
+        756,
+        1019
+      ]
+    },
+    "attack_047": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
+      "atlas_size": [
+        1897,
+        2027
+      ],
+      "region": [
+        1097,
+        430,
+        677,
+        407
+      ],
+      "offset": [
+        760,
+        1079
+      ]
+    },
+    "attack_048": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
+      "atlas_size": [
+        1897,
+        2027
+      ],
+      "region": [
+        2,
+        849,
+        674,
+        407
+      ],
+      "offset": [
+        760,
+        1079
+      ]
+    },
+    "attack_049": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
+      "atlas_size": [
+        1897,
+        2027
+      ],
+      "region": [
+        2,
+        430,
+        677,
+        415
+      ],
+      "offset": [
+        764,
+        1071
+      ]
+    },
+    "attack_050": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
+      "atlas_size": [
+        1897,
+        2027
+      ],
+      "region": [
+        2,
+        2,
+        677,
+        424
+      ],
+      "offset": [
+        764,
+        1062
+      ]
+    },
+    "attack_051": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
+      "atlas_size": [
+        2001,
+        1812
+      ],
+      "region": [
+        1327,
+        922,
+        672,
+        441
+      ],
+      "offset": [
+        771,
+        1045
+      ]
+    },
+    "attack_052": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
+      "atlas_size": [
+        2001,
+        1812
+      ],
+      "region": [
+        405,
+        464,
+        672,
+        450
+      ],
+      "offset": [
+        771,
+        1036
+      ]
+    },
+    "attack_053": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1991,
+        1853
+      ],
+      "region": [
+        295,
+        2,
+        673,
+        459
+      ],
+      "offset": [
+        776,
+        1027
+      ]
+    },
+    "attack_054": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2016,
+        2002
+      ],
+      "region": [
+        1340,
+        1044,
+        674,
+        470
+      ],
+      "offset": [
+        775,
+        1016
+      ]
+    },
+    "attack_055": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2016,
+        2002
+      ],
+      "region": [
+        2,
+        1044,
+        665,
+        485
+      ],
+      "offset": [
+        782,
+        1001
+      ]
+    },
+    "attack_056": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2016,
+        2002
+      ],
+      "region": [
+        1204,
+        524,
+        665,
+        494
+      ],
+      "offset": [
+        782,
+        992
+      ]
+    },
+    "attack_057": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2016,
+        2002
+      ],
+      "region": [
+        671,
+        1044,
+        665,
+        481
+      ],
+      "offset": [
+        786,
+        1005
+      ]
+    },
+    "attack_058": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
+      "atlas_size": [
+        2035,
+        1797
+      ],
+      "region": [
+        1368,
+        1442,
+        665,
+        350
+      ],
+      "offset": [
+        786,
+        1136
+      ]
+    },
+    "attack_059": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
+      "atlas_size": [
+        2045,
+        1958
+      ],
+      "region": [
+        2,
+        2,
+        661,
+        350
+      ],
+      "offset": [
+        788,
+        1136
+      ]
+    },
+    "attack_060": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
+      "atlas_size": [
+        2045,
+        1958
+      ],
+      "region": [
+        667,
+        2,
+        659,
+        350
+      ],
+      "offset": [
+        788,
+        1136
+      ]
+    },
+    "attack_061": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
+      "atlas_size": [
+        2045,
+        1958
+      ],
+      "region": [
+        2,
+        356,
+        575,
+        348
+      ],
+      "offset": [
+        791,
+        1136
+      ]
+    },
+    "attack_062": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
+      "atlas_size": [
+        2045,
+        1958
+      ],
+      "region": [
+        581,
+        356,
+        575,
+        348
+      ],
+      "offset": [
+        791,
+        1136
+      ]
+    },
+    "attack_063": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
+      "atlas_size": [
+        2045,
+        1958
+      ],
+      "region": [
+        1160,
+        356,
+        484,
+        347
+      ],
+      "offset": [
+        791,
+        1136
+      ]
+    },
+    "attack_064": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
+      "atlas_size": [
+        2045,
+        1958
+      ],
+      "region": [
+        2,
+        708,
+        484,
+        347
+      ],
+      "offset": [
+        791,
+        1136
+      ]
+    },
+    "attack_065": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
+      "atlas_size": [
+        2045,
+        1958
+      ],
+      "region": [
+        490,
+        708,
+        484,
+        347
+      ],
+      "offset": [
+        791,
+        1136
+      ]
+    },
+    "attack_066": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
+      "atlas_size": [
+        2045,
+        1958
+      ],
+      "region": [
+        978,
+        708,
+        469,
+        346
+      ],
+      "offset": [
+        791,
+        1134
+      ]
+    },
+    "attack_067": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
+      "atlas_size": [
+        2045,
+        1958
+      ],
+      "region": [
+        1330,
+        2,
+        397,
+        349
+      ],
+      "offset": [
+        791,
+        1126
+      ]
+    },
+    "attack_068": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
+      "atlas_size": [
+        2035,
+        1797
+      ],
+      "region": [
+        964,
+        1442,
+        400,
+        352
+      ],
+      "offset": [
+        788,
+        1119
+      ]
+    },
+    "attack_069": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
+      "atlas_size": [
+        2035,
+        1797
+      ],
+      "region": [
+        586,
+        2,
+        400,
+        358
+      ],
+      "offset": [
+        790,
+        1113
+      ]
+    },
+    "attack_070": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
+      "atlas_size": [
+        1897,
+        2027
+      ],
+      "region": [
+        847,
+        1260,
+        850,
+        378
+      ],
+      "offset": [
+        802,
+        1095
+      ]
+    },
+    "attack_071": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
+      "atlas_size": [
+        1897,
+        2027
+      ],
+      "region": [
+        1160,
+        849,
+        414,
+        402
+      ],
+      "offset": [
+        813,
+        1064
+      ]
+    },
+    "attack_072": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
+      "atlas_size": [
+        1897,
+        2027
+      ],
+      "region": [
+        1034,
+        2,
+        435,
+        419
+      ],
+      "offset": [
+        823,
+        1047
+      ]
+    },
+    "attack_073": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
+      "atlas_size": [
+        2001,
+        1812
+      ],
+      "region": [
+        1045,
+        1373,
+        454,
+        428
+      ],
+      "offset": [
+        832,
+        1032
+      ]
+    },
+    "attack_074": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
+      "atlas_size": [
+        2001,
+        1812
+      ],
+      "region": [
+        594,
+        1373,
+        447,
+        436
+      ],
+      "offset": [
+        845,
+        1019
+      ]
+    },
+    "attack_075": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
+      "atlas_size": [
+        2001,
+        1812
+      ],
+      "region": [
+        1081,
+        464,
+        414,
+        450
+      ],
+      "offset": [
+        863,
+        1001
+      ]
+    },
+    "attack_076": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
+      "atlas_size": [
+        2001,
+        1812
+      ],
+      "region": [
+        2,
+        464,
+        399,
+        454
+      ],
+      "offset": [
+        869,
+        995
+      ]
+    },
+    "attack_077": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
+      "atlas_size": [
+        2001,
+        1812
+      ],
+      "region": [
+        295,
+        2,
+        382,
+        457
+      ],
+      "offset": [
+        867,
+        992
+      ]
+    },
+    "attack_078": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1991,
+        1853
+      ],
+      "region": [
+        1639,
+        2,
+        350,
+        459
+      ],
+      "offset": [
+        874,
+        990
+      ]
+    },
+    "attack_079": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
+      "atlas_size": [
+        2001,
+        1812
+      ],
+      "region": [
+        681,
+        2,
+        323,
+        456
+      ],
+      "offset": [
+        876,
+        990
+      ]
+    },
+    "attack_080": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
+      "atlas_size": [
+        2001,
+        1812
+      ],
+      "region": [
+        1008,
+        2,
+        304,
+        456
+      ],
+      "offset": [
+        876,
+        990
+      ]
+    },
+    "attack_081": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1991,
+        1853
+      ],
+      "region": [
+        2,
+        1392,
+        294,
+        459
+      ],
+      "offset": [
+        876,
+        990
+      ]
+    },
+    "attack_082": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1991,
+        1853
+      ],
+      "region": [
+        300,
+        1392,
+        292,
+        459
+      ],
+      "offset": [
+        874,
+        990
+      ]
+    },
+    "attack_083": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1991,
+        1853
+      ],
+      "region": [
+        596,
+        1392,
+        292,
+        459
+      ],
+      "offset": [
+        874,
+        990
+      ]
+    },
+    "attack_084": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1991,
+        1853
+      ],
+      "region": [
+        892,
+        1392,
+        292,
+        459
+      ],
+      "offset": [
+        874,
+        990
+      ]
+    },
+    "attack_085": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1991,
+        1853
+      ],
+      "region": [
+        1507,
+        466,
+        295,
+        459
+      ],
+      "offset": [
+        871,
+        990
+      ]
+    },
+    "attack_086": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1991,
+        1853
+      ],
+      "region": [
+        2,
+        929,
+        295,
+        459
+      ],
+      "offset": [
+        871,
+        990
+      ]
+    },
+    "attack_087": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1991,
+        1853
+      ],
+      "region": [
+        301,
+        929,
+        295,
+        459
+      ],
+      "offset": [
+        871,
+        990
+      ]
+    },
+    "attack_088": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1991,
+        1853
+      ],
+      "region": [
+        2,
+        466,
+        297,
+        459
+      ],
+      "offset": [
+        869,
+        990
+      ]
+    },
+    "attack_089": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1991,
+        1853
+      ],
+      "region": [
+        303,
+        466,
+        297,
+        459
+      ],
+      "offset": [
+        869,
+        990
+      ]
+    },
+    "attack_090": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1991,
+        1853
+      ],
+      "region": [
+        604,
+        466,
+        297,
+        459
+      ],
+      "offset": [
+        869,
+        990
+      ]
+    },
+    "attack_091": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1991,
+        1853
+      ],
+      "region": [
+        905,
+        466,
+        297,
+        459
+      ],
+      "offset": [
+        869,
+        990
+      ]
+    },
+    "attack_092": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1991,
+        1853
+      ],
+      "region": [
+        600,
+        929,
+        295,
+        459
+      ],
+      "offset": [
+        871,
+        990
+      ]
+    },
+    "attack_093": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1991,
+        1853
+      ],
+      "region": [
+        899,
+        929,
+        295,
+        459
+      ],
+      "offset": [
+        871,
+        990
+      ]
+    },
+    "attack_094": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1991,
+        1853
+      ],
+      "region": [
+        1206,
+        466,
+        297,
+        459
+      ],
+      "offset": [
+        871,
+        990
+      ]
+    },
+    "attack_095": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1991,
+        1853
+      ],
+      "region": [
+        1198,
+        929,
+        295,
+        459
+      ],
+      "offset": [
+        871,
+        990
+      ]
+    },
+    "attack_096": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1991,
+        1853
+      ],
+      "region": [
+        1497,
+        929,
+        295,
+        459
+      ],
+      "offset": [
+        871,
+        990
+      ]
+    },
+    "attack_097": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1991,
+        1853
+      ],
+      "region": [
+        1188,
+        1392,
+        292,
+        459
+      ],
+      "offset": [
+        874,
+        990
+      ]
+    },
+    "run_033": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        1971,
+        1794
+      ],
+      "region": [
+        2,
+        454,
+        316,
+        445
+      ],
+      "offset": [
+        815,
+        1000
+      ]
+    },
+    "run_034": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_04.png",
+      "atlas_size": [
+        1997,
+        1750
+      ],
+      "region": [
+        811,
+        1322,
+        340,
+        426
+      ],
+      "offset": [
+        811,
+        998
+      ]
+    },
+    "run_035": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_05.png",
+      "atlas_size": [
+        1911,
+        1338
+      ],
+      "region": [
+        2,
+        2,
+        361,
+        424
+      ],
+      "offset": [
+        807,
+        998
+      ]
+    },
+    "run_036": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_04.png",
+      "atlas_size": [
+        1997,
+        1750
+      ],
+      "region": [
+        373,
+        885,
+        344,
+        433
+      ],
+      "offset": [
+        807,
+        1002
+      ]
+    },
+    "run_037": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_04.png",
+      "atlas_size": [
+        1997,
+        1750
+      ],
+      "region": [
+        293,
+        2,
+        344,
+        438
+      ],
+      "offset": [
+        805,
+        1006
+      ]
+    },
+    "run_038": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_04.png",
+      "atlas_size": [
+        1997,
+        1750
+      ],
+      "region": [
+        1377,
+        885,
+        321,
+        429
+      ],
+      "offset": [
+        803,
+        1014
+      ]
+    },
+    "run_039": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_04.png",
+      "atlas_size": [
+        1997,
+        1750
+      ],
+      "region": [
+        1018,
+        885,
+        355,
+        429
+      ],
+      "offset": [
+        805,
+        1012
+      ]
+    },
+    "run_040": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_04.png",
+      "atlas_size": [
+        1997,
+        1750
+      ],
+      "region": [
+        864,
+        445,
+        375,
+        435
+      ],
+      "offset": [
+        811,
+        1004
+      ]
+    },
+    "run_041": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_04.png",
+      "atlas_size": [
+        1997,
+        1750
+      ],
+      "region": [
+        641,
+        2,
+        387,
+        437
+      ],
+      "offset": [
+        814,
+        1000
+      ]
+    },
+    "run_042": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_04.png",
+      "atlas_size": [
+        1997,
+        1750
+      ],
+      "region": [
+        1155,
+        1322,
+        396,
+        424
+      ],
+      "offset": [
+        813,
+        998
+      ]
+    },
+    "run_043": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_04.png",
+      "atlas_size": [
+        1997,
+        1750
+      ],
+      "region": [
+        2,
+        1322,
+        406,
+        426
+      ],
+      "offset": [
+        807,
+        998
+      ]
+    },
+    "run_044": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_04.png",
+      "atlas_size": [
+        1997,
+        1750
+      ],
+      "region": [
+        456,
+        445,
+        404,
+        435
+      ],
+      "offset": [
+        803,
+        1004
+      ]
+    },
+    "run_045": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        1971,
+        1794
+      ],
+      "region": [
+        639,
+        1351,
+        398,
+        439
+      ],
+      "offset": [
+        803,
+        1008
+      ]
+    },
+    "run_046": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_04.png",
+      "atlas_size": [
+        1997,
+        1750
+      ],
+      "region": [
+        2,
+        885,
+        367,
+        433
+      ],
+      "offset": [
+        801,
+        1012
+      ]
+    },
+    "run_047": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_04.png",
+      "atlas_size": [
+        1997,
+        1750
+      ],
+      "region": [
+        1243,
+        445,
+        328,
+        435
+      ],
+      "offset": [
+        805,
+        1010
+      ]
+    },
+    "run_048": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        1971,
+        1794
+      ],
+      "region": [
+        1041,
+        1351,
+        322,
+        439
+      ],
+      "offset": [
+        811,
+        1004
+      ]
+    },
+    "interact_001": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1974,
+        1838
+      ],
+      "region": [
+        606,
+        463,
+        289,
+        456
+      ],
+      "offset": [
+        875,
+        991
+      ]
+    },
+    "interact_003": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1974,
+        1838
+      ],
+      "region": [
+        2,
+        463,
+        303,
+        456
+      ],
+      "offset": [
+        875,
+        991
+      ]
+    },
+    "interact_005": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1974,
+        1838
+      ],
+      "region": [
+        309,
+        463,
+        293,
+        456
+      ],
+      "offset": [
+        875,
+        991
+      ]
+    },
+    "interact_007": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        1931,
+        1961
+      ],
+      "region": [
+        478,
+        1028,
+        307,
+        460
+      ],
+      "offset": [
+        875,
+        991
+      ]
+    },
+    "interact_009": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        1931,
+        1961
+      ],
+      "region": [
+        789,
+        1028,
+        330,
+        459
+      ],
+      "offset": [
+        875,
+        990
+      ]
+    },
+    "interact_011": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        1931,
+        1961
+      ],
+      "region": [
+        1123,
+        1028,
+        349,
+        457
+      ],
+      "offset": [
+        875,
+        990
+      ]
+    },
+    "interact_013": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        1931,
+        1961
+      ],
+      "region": [
+        1476,
+        1028,
+        349,
+        457
+      ],
+      "offset": [
+        875,
+        990
+      ]
+    },
+    "interact_015": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        1931,
+        1961
+      ],
+      "region": [
+        2,
+        1502,
+        349,
+        457
+      ],
+      "offset": [
+        875,
+        990
+      ]
+    },
+    "interact_017": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        1931,
+        1961
+      ],
+      "region": [
+        355,
+        1502,
+        349,
+        457
+      ],
+      "offset": [
+        875,
+        990
+      ]
+    },
+    "interact_019": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        1931,
+        1961
+      ],
+      "region": [
+        708,
+        1502,
+        349,
+        457
+      ],
+      "offset": [
+        875,
+        990
+      ]
+    },
+    "interact_021": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        1931,
+        1961
+      ],
+      "region": [
+        1061,
+        1502,
+        349,
+        457
+      ],
+      "offset": [
+        875,
+        990
+      ]
+    },
+    "interact_023": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        1931,
+        1961
+      ],
+      "region": [
+        1414,
+        1502,
+        349,
+        457
+      ],
+      "offset": [
+        875,
+        990
+      ]
+    },
+    "interact_025": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1974,
+        1838
+      ],
+      "region": [
+        2,
+        2,
+        338,
+        457
+      ],
+      "offset": [
+        875,
+        990
+      ]
+    },
+    "interact_027": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1974,
+        1838
+      ],
+      "region": [
+        344,
+        2,
+        301,
+        457
+      ],
+      "offset": [
+        875,
+        990
+      ]
+    },
+    "interact_029": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1974,
+        1838
+      ],
+      "region": [
+        649,
+        2,
+        295,
+        457
+      ],
+      "offset": [
+        875,
+        990
+      ]
+    },
+    "interact_031": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1974,
+        1838
+      ],
+      "region": [
+        1245,
+        2,
+        289,
+        457
+      ],
+      "offset": [
+        875,
+        990
+      ]
+    },
+    "interact_033": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1974,
+        1838
+      ],
+      "region": [
+        899,
+        463,
+        289,
+        456
+      ],
+      "offset": [
+        875,
+        991
+      ]
+    },
+    "interact_034": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1974,
+        1838
+      ],
+      "region": [
+        1538,
+        2,
+        289,
+        457
+      ],
+      "offset": [
+        875,
+        990
+      ]
+    },
+    "interact_049": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1974,
+        1838
+      ],
+      "region": [
+        622,
+        1382,
+        289,
+        454
+      ],
+      "offset": [
+        875,
+        991
+      ]
+    },
+    "interact_051": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1974,
+        1838
+      ],
+      "region": [
+        932,
+        923,
+        289,
+        455
+      ],
+      "offset": [
+        875,
+        990
+      ]
+    },
+    "interact_053": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1974,
+        1838
+      ],
+      "region": [
+        915,
+        1382,
+        289,
+        454
+      ],
+      "offset": [
+        875,
+        991
+      ]
+    },
+    "interact_055": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1974,
+        1838
+      ],
+      "region": [
+        1208,
+        1382,
+        289,
+        454
+      ],
+      "offset": [
+        875,
+        991
+      ]
+    },
+    "interact_057": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1974,
+        1838
+      ],
+      "region": [
+        1225,
+        923,
+        289,
+        455
+      ],
+      "offset": [
+        875,
+        990
+      ]
+    },
+    "interact_059": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1974,
+        1838
+      ],
+      "region": [
+        948,
+        2,
+        293,
+        457
+      ],
+      "offset": [
+        871,
+        988
+      ]
+    },
+    "interact_060": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1882,
+        1822
+      ],
+      "region": [
+        1585,
+        2,
+        295,
+        453
+      ],
+      "offset": [
+        869,
+        992
+      ]
+    },
+    "interact_061": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        1971,
+        1794
+      ],
+      "region": [
+        293,
+        1351,
+        342,
+        440
+      ],
+      "offset": [
+        822,
+        1005
+      ]
+    },
+    "interact_062": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_05.png",
+      "atlas_size": [
+        1911,
+        1338
+      ],
+      "region": [
+        306,
+        430,
+        342,
+        396
+      ],
+      "offset": [
+        822,
+        1049
+      ]
+    },
+    "interact_063": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_05.png",
+      "atlas_size": [
+        1911,
+        1338
+      ],
+      "region": [
+        652,
+        430,
+        396,
+        278
+      ],
+      "offset": [
+        788,
+        1173
+      ]
+    },
+    "interact_065": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_05.png",
+      "atlas_size": [
+        1911,
+        1338
+      ],
+      "region": [
+        1052,
+        430,
+        394,
+        278
+      ],
+      "offset": [
+        790,
+        1173
+      ]
+    },
+    "interact_067": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_05.png",
+      "atlas_size": [
+        1911,
+        1338
+      ],
+      "region": [
+        1450,
+        430,
+        391,
+        267
+      ],
+      "offset": [
+        795,
+        1184
+      ]
+    },
+    "interact_069": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_05.png",
+      "atlas_size": [
+        1911,
+        1338
+      ],
+      "region": [
+        738,
+        832,
+        383,
+        247
+      ],
+      "offset": [
+        803,
+        1204
+      ]
+    },
+    "interact_071": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_05.png",
+      "atlas_size": [
+        1911,
+        1338
+      ],
+      "region": [
+        1125,
+        832,
+        383,
+        247
+      ],
+      "offset": [
+        803,
+        1204
+      ]
+    },
+    "interact_073": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_05.png",
+      "atlas_size": [
+        1911,
+        1338
+      ],
+      "region": [
+        2,
+        1097,
+        383,
+        239
+      ],
+      "offset": [
+        803,
+        1214
+      ]
+    },
+    "interact_075": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_05.png",
+      "atlas_size": [
+        1911,
+        1338
+      ],
+      "region": [
+        389,
+        1097,
+        383,
+        239
+      ],
+      "offset": [
+        803,
+        1214
+      ]
+    },
+    "interact_077": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_05.png",
+      "atlas_size": [
+        1911,
+        1338
+      ],
+      "region": [
+        776,
+        1097,
+        381,
+        239
+      ],
+      "offset": [
+        803,
+        1214
+      ]
+    },
+    "interact_079": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_05.png",
+      "atlas_size": [
+        1911,
+        1338
+      ],
+      "region": [
+        1512,
+        832,
+        371,
+        245
+      ],
+      "offset": [
+        803,
+        1208
+      ]
+    },
+    "interact_081": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_05.png",
+      "atlas_size": [
+        1911,
+        1338
+      ],
+      "region": [
+        2,
+        832,
+        367,
+        261
+      ],
+      "offset": [
+        805,
+        1192
+      ]
+    },
+    "interact_082": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_05.png",
+      "atlas_size": [
+        1911,
+        1338
+      ],
+      "region": [
+        373,
+        832,
+        361,
+        261
+      ],
+      "offset": [
+        805,
+        1192
+      ]
+    },
+    "interact_084": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_05.png",
+      "atlas_size": [
+        1911,
+        1338
+      ],
+      "region": [
+        1608,
+        2,
+        301,
+        398
+      ],
+      "offset": [
+        857,
+        1053
+      ]
+    },
+    "interact_085": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_05.png",
+      "atlas_size": [
+        1911,
+        1338
+      ],
+      "region": [
+        2,
+        430,
+        300,
+        398
+      ],
+      "offset": [
+        857,
+        1053
+      ]
+    },
+    "interact_086": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_04.png",
+      "atlas_size": [
+        1997,
+        1750
+      ],
+      "region": [
+        1702,
+        885,
+        293,
+        429
+      ],
+      "offset": [
+        871,
+        1018
+      ]
+    },
+    "interact_087": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_04.png",
+      "atlas_size": [
+        1997,
+        1750
+      ],
+      "region": [
+        721,
+        885,
+        293,
+        433
+      ],
+      "offset": [
+        869,
+        1016
+      ]
+    },
+    "interact_088": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_04.png",
+      "atlas_size": [
+        1997,
+        1750
+      ],
+      "region": [
+        1575,
+        445,
+        291,
+        435
+      ],
+      "offset": [
+        871,
+        1014
+      ]
+    },
+    "interact_089": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        1971,
+        1794
+      ],
+      "region": [
+        1552,
+        903,
+        287,
+        441
+      ],
+      "offset": [
+        877,
+        1008
+      ]
+    },
+    "interact_090": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_04.png",
+      "atlas_size": [
+        1997,
+        1750
+      ],
+      "region": [
+        2,
+        2,
+        287,
+        439
+      ],
+      "offset": [
+        875,
+        1008
+      ]
+    },
+    "interact_091": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        1971,
+        1794
+      ],
+      "region": [
+        2,
+        1351,
+        287,
+        441
+      ],
+      "offset": [
+        875,
+        1006
+      ]
+    },
+    "jump_024": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        1882,
+        1822
+      ],
+      "region": [
+        969,
+        916,
+        302,
+        450
+      ],
+      "offset": [
+        866,
+        995
+      ]
+    },
+    "jump_028": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_04.png",
+      "atlas_size": [
+        1997,
+        1750
+      ],
+      "region": [
+        1555,
+        1322,
+        372,
+        424
+      ],
+      "offset": [
+        824,
+        1021
+      ]
+    },
+    "jump_032": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_05.png",
+      "atlas_size": [
+        1911,
+        1338
+      ],
+      "region": [
+        1201,
+        2,
+        403,
+        408
+      ],
+      "offset": [
+        807,
+        1037
+      ]
+    },
+    "jump_036": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_05.png",
+      "atlas_size": [
+        1911,
+        1338
+      ],
+      "region": [
+        788,
+        2,
+        409,
+        408
+      ],
+      "offset": [
+        804,
+        1037
+      ]
+    },
+    "jump_039": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_05.png",
+      "atlas_size": [
+        1911,
+        1338
+      ],
+      "region": [
+        367,
+        2,
+        417,
+        417
+      ],
+      "offset": [
+        799,
+        1028
+      ]
+    },
+    "jump_040": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        1971,
+        1794
+      ],
+      "region": [
+        1541,
+        2,
+        355,
+        445
+      ],
+      "offset": [
+        819,
+        945
+      ]
+    },
+    "jump_042": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        1931,
+        1961
+      ],
+      "region": [
+        1677,
+        2,
+        252,
+        487
+      ],
+      "offset": [
+        908,
+        741
+      ]
+    },
+    "jump_044": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        1931,
+        1961
+      ],
+      "region": [
+        1418,
+        2,
+        255,
+        496
+      ],
+      "offset": [
+        905,
+        699
+      ]
+    },
+    "jump_047": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        1931,
+        1961
+      ],
+      "region": [
+        680,
+        540,
+        272,
+        484
+      ],
+      "offset": [
+        888,
+        666
+      ]
+    },
+    "jump_050": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        1931,
+        1961
+      ],
+      "region": [
+        379,
+        540,
+        297,
+        484
+      ],
+      "offset": [
+        866,
+        646
+      ]
+    },
+    "jump_053": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        1931,
+        1961
+      ],
+      "region": [
+        956,
+        540,
+        337,
+        482
+      ],
+      "offset": [
+        843,
+        643
+      ]
+    },
+    "jump_056": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        1931,
+        1961
+      ],
+      "region": [
+        2,
+        540,
+        373,
+        484
+      ],
+      "offset": [
+        826,
+        646
+      ]
+    },
+    "jump_059": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        1931,
+        1961
+      ],
+      "region": [
+        1297,
+        540,
+        419,
+        481
+      ],
+      "offset": [
+        799,
+        663
+      ]
+    },
+    "jump_062": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        1931,
+        1961
+      ],
+      "region": [
+        966,
+        2,
+        448,
+        500
+      ],
+      "offset": [
+        787,
+        680
+      ]
+    },
+    "jump_065": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        1931,
+        1961
+      ],
+      "region": [
+        486,
+        2,
+        476,
+        528
+      ],
+      "offset": [
+        779,
+        719
+      ]
+    },
+    "jump_068": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        1931,
+        1961
+      ],
+      "region": [
+        2,
+        2,
+        480,
+        534
+      ],
+      "offset": [
+        783,
+        797
+      ]
+    },
+    "jump_070": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        1931,
+        1961
+      ],
+      "region": [
+        2,
+        1028,
+        472,
+        470
+      ],
+      "offset": [
+        785,
+        976
+      ]
+    },
+    "jump_072": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1974,
+        1838
+      ],
+      "region": [
+        1501,
+        1382,
+        471,
+        453
+      ],
+      "offset": [
+        779,
+        993
+      ]
+    },
+    "jump_074": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_04.png",
+      "atlas_size": [
+        1997,
+        1750
+      ],
+      "region": [
+        2,
+        445,
+        450,
+        436
+      ],
+      "offset": [
+        785,
+        1010
+      ]
+    },
+    "jump_077": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_04.png",
+      "atlas_size": [
+        1997,
+        1750
+      ],
+      "region": [
+        412,
+        1322,
+        395,
+        426
+      ],
+      "offset": [
+        807,
+        1020
+      ]
+    },
+    "jump_080": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        1971,
+        1794
+      ],
+      "region": [
+        1239,
+        454,
+        334,
+        444
+      ],
+      "offset": [
+        843,
+        1001
+      ]
+    },
+    "jump_084": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        1974,
+        1838
+      ],
+      "region": [
+        631,
+        923,
+        297,
+        455
+      ],
+      "offset": [
+        869,
+        990
+      ]
+    },
+    "item_009": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1770,
+        1848
+      ],
+      "region": [
+        2,
+        2,
+        291,
+        458
+      ],
+      "offset": [
+        872,
+        989
+      ]
+    },
+    "item_013": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1770,
+        1848
+      ],
+      "region": [
+        297,
+        2,
+        291,
+        458
+      ],
+      "offset": [
+        872,
+        989
+      ]
+    },
+    "item_017": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1770,
+        1848
+      ],
+      "region": [
+        592,
+        2,
+        291,
+        458
+      ],
+      "offset": [
+        872,
+        989
+      ]
+    },
+    "item_021": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1770,
+        1848
+      ],
+      "region": [
+        887,
+        2,
+        291,
+        458
+      ],
+      "offset": [
+        872,
+        989
+      ]
+    },
+    "item_025": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1770,
+        1848
+      ],
+      "region": [
+        592,
+        926,
+        289,
+        458
+      ],
+      "offset": [
+        874,
+        989
+      ]
+    },
+    "item_029": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1770,
+        1848
+      ],
+      "region": [
+        885,
+        926,
+        289,
+        458
+      ],
+      "offset": [
+        874,
+        989
+      ]
+    },
+    "item_033": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1770,
+        1848
+      ],
+      "region": [
+        1178,
+        926,
+        289,
+        458
+      ],
+      "offset": [
+        874,
+        989
+      ]
+    },
+    "item_037": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1770,
+        1848
+      ],
+      "region": [
+        1471,
+        926,
+        289,
+        458
+      ],
+      "offset": [
+        874,
+        989
+      ]
+    },
+    "item_041": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1770,
+        1848
+      ],
+      "region": [
+        2,
+        1388,
+        289,
+        458
+      ],
+      "offset": [
+        874,
+        989
+      ]
+    },
+    "item_045": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1770,
+        1848
+      ],
+      "region": [
+        295,
+        1388,
+        289,
+        458
+      ],
+      "offset": [
+        874,
+        989
+      ]
+    },
+    "item_049": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1770,
+        1848
+      ],
+      "region": [
+        1182,
+        2,
+        291,
+        458
+      ],
+      "offset": [
+        872,
+        989
+      ]
+    },
+    "item_053": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1770,
+        1848
+      ],
+      "region": [
+        1477,
+        2,
+        291,
+        458
+      ],
+      "offset": [
+        872,
+        989
+      ]
+    },
+    "item_057": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1770,
+        1848
+      ],
+      "region": [
+        2,
+        464,
+        291,
+        458
+      ],
+      "offset": [
+        872,
+        989
+      ]
+    },
+    "item_061": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1770,
+        1848
+      ],
+      "region": [
+        297,
+        464,
+        291,
+        458
+      ],
+      "offset": [
+        872,
+        989
+      ]
+    },
+    "item_063": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1770,
+        1848
+      ],
+      "region": [
+        592,
+        464,
+        291,
+        458
+      ],
+      "offset": [
+        872,
+        989
+      ]
+    },
+    "item_065": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1770,
+        1848
+      ],
+      "region": [
+        588,
+        1388,
+        289,
+        458
+      ],
+      "offset": [
+        874,
+        989
+      ]
+    },
+    "item_067": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1770,
+        1848
+      ],
+      "region": [
+        881,
+        1388,
+        289,
+        458
+      ],
+      "offset": [
+        874,
+        989
+      ]
+    },
+    "item_071": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1770,
+        1848
+      ],
+      "region": [
+        1174,
+        1388,
+        289,
+        458
+      ],
+      "offset": [
+        874,
+        989
+      ]
+    },
+    "item_075": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1770,
+        1848
+      ],
+      "region": [
+        1467,
+        1388,
+        289,
+        458
+      ],
+      "offset": [
+        874,
+        989
+      ]
+    },
+    "item_079": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2016,
+        2002
+      ],
+      "region": [
+        1465,
+        1533,
+        289,
+        460
+      ],
+      "offset": [
+        874,
+        987
+      ]
+    },
+    "item_083": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1991,
+        1853
+      ],
+      "region": [
+        2,
+        2,
+        289,
+        460
+      ],
+      "offset": [
+        874,
+        987
+      ]
+    },
+    "item_087": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1770,
+        1848
+      ],
+      "region": [
+        887,
+        464,
+        291,
+        458
+      ],
+      "offset": [
+        872,
+        989
+      ]
+    },
+    "item_091": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1770,
+        1848
+      ],
+      "region": [
+        1182,
+        464,
+        291,
+        458
+      ],
+      "offset": [
+        872,
+        989
+      ]
+    },
+    "item_095": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1770,
+        1848
+      ],
+      "region": [
+        1477,
+        464,
+        291,
+        458
+      ],
+      "offset": [
+        872,
+        989
+      ]
+    },
+    "item_097": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1770,
+        1848
+      ],
+      "region": [
+        2,
+        926,
+        291,
+        458
+      ],
+      "offset": [
+        872,
+        989
+      ]
+    },
+    "item_099": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1770,
+        1848
+      ],
+      "region": [
+        297,
+        926,
+        291,
+        458
+      ],
+      "offset": [
+        872,
+        989
+      ]
+    },
+    "item_101": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
+      "atlas_size": [
+        2001,
+        1812
+      ],
+      "region": [
+        2,
+        2,
+        289,
+        458
+      ],
+      "offset": [
+        872,
+        989
+      ]
+    },
+    "down_022": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
+      "atlas_size": [
+        2001,
+        1812
+      ],
+      "region": [
+        2,
+        1373,
+        298,
+        437
+      ],
+      "offset": [
+        887,
+        1010
+      ]
+    },
+    "down_024": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
+      "atlas_size": [
+        2001,
+        1812
+      ],
+      "region": [
+        1503,
+        1373,
+        302,
+        427
+      ],
+      "offset": [
+        890,
+        1020
+      ]
+    },
+    "down_026": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
+      "atlas_size": [
+        1897,
+        2027
+      ],
+      "region": [
+        1473,
+        2,
+        308,
+        416
+      ],
+      "offset": [
+        890,
+        1031
+      ]
+    },
+    "down_028": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
+      "atlas_size": [
+        1897,
+        2027
+      ],
+      "region": [
+        1578,
+        849,
+        317,
+        398
+      ],
+      "offset": [
+        889,
+        1049
+      ]
+    },
+    "down_030": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
+      "atlas_size": [
+        1897,
+        2027
+      ],
+      "region": [
+        516,
+        1260,
+        327,
+        379
+      ],
+      "offset": [
+        887,
+        1068
+      ]
+    },
+    "down_032": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
+      "atlas_size": [
+        1897,
+        2027
+      ],
+      "region": [
+        1036,
+        1659,
+        342,
+        362
+      ],
+      "offset": [
+        885,
+        1085
+      ]
+    },
+    "down_034": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
+      "atlas_size": [
+        2045,
+        1958
+      ],
+      "region": [
+        1451,
+        708,
+        362,
+        344
+      ],
+      "offset": [
+        879,
+        1103
+      ]
+    },
+    "down_036": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
+      "atlas_size": [
+        2045,
+        1958
+      ],
+      "region": [
+        2,
+        1059,
+        381,
+        327
+      ],
+      "offset": [
+        877,
+        1122
+      ]
+    },
+    "down_037": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
+      "atlas_size": [
+        2045,
+        1958
+      ],
+      "region": [
+        387,
+        1059,
+        386,
+        316
+      ],
+      "offset": [
+        879,
+        1135
+      ]
+    },
+    "down_038": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
+      "atlas_size": [
+        2045,
+        1958
+      ],
+      "region": [
+        777,
+        1059,
+        391,
+        312
+      ],
+      "offset": [
+        879,
+        1141
+      ]
+    },
+    "down_040": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
+      "atlas_size": [
+        2045,
+        1958
+      ],
+      "region": [
+        1172,
+        1059,
+        394,
+        308
+      ],
+      "offset": [
+        883,
+        1145
+      ]
+    },
+    "down_042": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
+      "atlas_size": [
+        2045,
+        1958
+      ],
+      "region": [
+        1570,
+        1059,
+        392,
+        302
+      ],
+      "offset": [
+        887,
+        1153
+      ]
+    },
+    "down_044": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
+      "atlas_size": [
+        2045,
+        1958
+      ],
+      "region": [
+        2,
+        1390,
+        393,
+        296
+      ],
+      "offset": [
+        888,
+        1159
+      ]
+    },
+    "down_046": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
+      "atlas_size": [
+        2045,
+        1958
+      ],
+      "region": [
+        399,
+        1390,
+        394,
+        287
+      ],
+      "offset": [
+        887,
+        1170
+      ]
+    },
+    "down_048": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
+      "atlas_size": [
+        2045,
+        1958
+      ],
+      "region": [
+        797,
+        1390,
+        402,
+        277
+      ],
+      "offset": [
+        883,
+        1180
+      ]
+    },
+    "down_050": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_08.png",
+      "atlas_size": [
+        1672,
+        801
+      ],
+      "region": [
+        1258,
+        2,
+        408,
+        264
+      ],
+      "offset": [
+        879,
+        1193
+      ]
+    },
+    "down_051": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_08.png",
+      "atlas_size": [
+        1672,
+        801
+      ],
+      "region": [
+        422,
+        272,
+        410,
+        262
+      ],
+      "offset": [
+        877,
+        1197
+      ]
+    },
+    "down_052": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_08.png",
+      "atlas_size": [
+        1672,
+        801
+      ],
+      "region": [
+        842,
+        2,
+        412,
+        264
+      ],
+      "offset": [
+        875,
+        1199
+      ]
+    },
+    "down_054": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_08.png",
+      "atlas_size": [
+        1672,
+        801
+      ],
+      "region": [
+        1256,
+        272,
+        414,
+        260
+      ],
+      "offset": [
+        873,
+        1203
+      ]
+    },
+    "down_056": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_08.png",
+      "atlas_size": [
+        1672,
+        801
+      ],
+      "region": [
+        2,
+        539,
+        414,
+        260
+      ],
+      "offset": [
+        873,
+        1203
+      ]
+    },
+    "down_058": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_08.png",
+      "atlas_size": [
+        1672,
+        801
+      ],
+      "region": [
+        836,
+        272,
+        416,
+        260
+      ],
+      "offset": [
+        871,
+        1203
+      ]
+    },
+    "down_060": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_08.png",
+      "atlas_size": [
+        1672,
+        801
+      ],
+      "region": [
+        2,
+        272,
+        416,
+        263
+      ],
+      "offset": [
+        871,
+        1201
+      ]
+    },
+    "down_062": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_08.png",
+      "atlas_size": [
+        1672,
+        801
+      ],
+      "region": [
+        422,
+        2,
+        416,
+        264
+      ],
+      "offset": [
+        871,
+        1199
+      ]
+    },
+    "down_064": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
+      "atlas_size": [
+        2045,
+        1958
+      ],
+      "region": [
+        2,
+        1690,
+        416,
+        266
+      ],
+      "offset": [
+        871,
+        1197
+      ]
+    },
+    "down_065": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
+      "atlas_size": [
+        2045,
+        1958
+      ],
+      "region": [
+        422,
+        1690,
+        416,
+        266
+      ],
+      "offset": [
+        871,
+        1197
+      ]
+    },
+    "down_073": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
+      "atlas_size": [
+        2045,
+        1958
+      ],
+      "region": [
+        1203,
+        1390,
+        418,
+        266
+      ],
+      "offset": [
+        869,
+        1197
+      ]
+    },
+    "down_085": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
+      "atlas_size": [
+        2045,
+        1958
+      ],
+      "region": [
+        842,
+        1690,
+        416,
+        266
+      ],
+      "offset": [
+        871,
+        1197
+      ]
+    },
+    "down_097": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
+      "atlas_size": [
+        2045,
+        1958
+      ],
+      "region": [
+        1625,
+        1390,
+        418,
+        266
+      ],
+      "offset": [
+        869,
+        1197
+      ]
+    },
+    "down_109": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
+      "atlas_size": [
+        2045,
+        1958
+      ],
+      "region": [
+        1262,
+        1690,
+        416,
+        266
+      ],
+      "offset": [
+        871,
+        1197
+      ]
+    },
+    "down_121": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_08.png",
+      "atlas_size": [
+        1672,
+        801
+      ],
+      "region": [
+        2,
+        2,
+        416,
+        266
+      ],
+      "offset": [
+        871,
+        1197
+      ]
+    },
+    "retained_hit": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
+      "atlas_size": [
+        2001,
+        1812
+      ],
+      "region": [
+        1499,
+        464,
+        376,
+        447
+      ],
+      "offset": [
+        858,
+        996
+      ]
+    },
+    "retained_defend": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        2016,
+        2002
+      ],
+      "region": [
+        974,
+        1533,
+        487,
+        460
+      ],
+      "offset": [
+        753,
+        986
+      ]
+    },
+    "retained_recover": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
+      "atlas_size": [
+        1897,
+        2027
+      ],
+      "region": [
+        680,
+        849,
+        476,
+        402
+      ],
+      "offset": [
+        770,
+        1041
+      ]
+    }
+  },
+  "scene_integration": {
+    "contact_metadata": "res://assets/chars/pixel/rinne/video_actions/contacts.json"
+  },
+  "runtime_registration": {
+    "target_body_height_px": 448,
+    "fixed_scale": 0.7,
+    "fixed_offset": [
+      307.20000000000005,
+      432.6000000000001
+    ],
+    "logical_canvas": [
+      2048,
+      1536
+    ],
+    "anchor": [
+      1024,
+      1442
+    ]
+  },
+  "texture_groups": {
+    "shared": [
+      "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_00.png",
+      "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_01.png",
+      "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_shared_02.png"
+    ],
+    "world": [
+      "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_00.png",
+      "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_01.png",
+      "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_02.png",
+      "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_03.png",
+      "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_04.png",
+      "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_05.png"
+    ],
+    "battle": [
+      "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_00.png",
+      "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_01.png",
+      "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
+      "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_03.png",
+      "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
+      "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
+      "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
+      "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
+      "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_08.png"
+    ]
+  }
+}

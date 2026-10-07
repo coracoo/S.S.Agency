@@ -1,5 +1,9 @@
 # 五夜共用的呈现层。登记/奖励/进度只经ChapterSession提交，不在场景内改模型。
 extends Node3D
+const WorldObjects = preload("res://scripts/campaign/world_object_catalog.gd")
+const WorldObjectLayer = preload("res://scripts/campaign/world_object_layer.gd")
+const Presenter = preload("res://scripts/rpg/ui/battle_presenter.gd")
+const AssetBundle = preload("res://scripts/characters/party_asset_bundle.gd")
 const Catalog = preload("res://scripts/campaign/chapter_catalog.gd")
 const Session = preload("res://scripts/campaign/chapter_session.gd")
 const Geometry = preload("res://scripts/campaign/chapter_geometry.gd")
@@ -48,6 +52,12 @@ var _title_party_draft: Variant = null
 var _theme: RefCounted
 var _tutorial_remaining := 0.0
 var _story_definitions: Dictionary = {}
+var _world_object_layer: Node3D
+var _world_object_map := -1
+var _world_action: Dictionary = {}
+var _lead_armed := false
+var _world_assets_loading := false
+var _world_asset_request := -1
 func _ready() -> void:
 	_register_input()
 	config = Catalog.night(night_id)
@@ -56,6 +66,7 @@ func _ready() -> void:
 	if session == null:
 		_show_error("正式主线会话尚未建立，请从标题开始或继续。", _return_title)
 		return
+	if not await _prepare_world_assets(): return
 	_geometry = WorldGeometry.build(config)
 	add_child(_geometry)
 	_refresh_npcs()
@@ -63,10 +74,10 @@ func _ready() -> void:
 	player = Player.new()
 	player.name = "Player"
 	player.input_enabled = false
-	if session.bundle != null: player.shared_definition = session.bundle.get_definition("rinne")
+	if not _seed_player_definition(): return
 	add_child(player)
 	if player.animator.definition.is_empty():
-		_show_error("凛音高清素材装配失败，请返回标题重新加载。", _return_title)
+		_show_error("所选人物高清素材装配失败，请返回标题重新加载。", _return_title)
 		return
 	camera_rig = WorldCamera.new()
 	camera_rig.name = "CameraRig"
@@ -76,6 +87,7 @@ func _ready() -> void:
 	player.set_camera_basis(camera_rig.camera.global_basis)
 	# 沿用入口参道已验的绘制人物受光与逐脚接地；不套用旧参道的环境光配置。
 	player.enable_scene_integration()
+	_refresh_world_objects()
 	await get_tree().physics_frame
 	if _closed or not is_inside_tree(): return
 	var world: Dictionary = Router.take_world(Catalog.scene_path(night_id))
@@ -84,6 +96,8 @@ func _ready() -> void:
 	if not restored.ok:
 		_show_error(restored.error, _return_title)
 		return
+	_refresh_world_objects()
+	_restore_exploration_lead()
 	ready_for_play = true
 	set_hd2d_experiment(bool(session.get_meta("hd2d_depth_enabled", hd2d_experiment)))
 	_mode = "explore"
@@ -119,6 +133,7 @@ func _toggle_hd2d_from_hud() -> void:
 	_refresh_hud()
 func _process(delta: float) -> void:
 	if _closed: return
+	if not Input.is_action_pressed("approach_lead"): _lead_armed = true
 	if _mode == "explore" and controls_enabled: _tutorial_remaining = maxf(0.0, _tutorial_remaining - delta)
 	if not Input.is_action_pressed("approach_interact") and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT): _confirm_armed = true
 	for button in _modal_buttons:
@@ -134,6 +149,10 @@ func _process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if _closed or not ready_for_play: return
 	if event is InputEventKey and event.echo: return
+	if event.is_action_pressed("approach_lead"):
+		get_viewport().set_input_as_handled()
+		_cycle_exploration_lead()
+		return
 	if event.is_action_pressed("approach_pause"):
 		get_viewport().set_input_as_handled()
 		if _mode == "explore": _open_pause()
@@ -150,6 +169,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if not target.is_empty(): request_interaction(str(target.id))
 func set_controls_enabled(enabled: bool) -> void:
 	controls_enabled = enabled and not _closed
+	_lead_armed = false
 	if player != null: player.set_control_enabled(controls_enabled)
 func begin_operation(mode: String) -> bool:
 	if _closed or not ready_for_play or _mode not in ["explore", "loading"]: return false
@@ -165,6 +185,8 @@ func callback_valid(token: int) -> bool:
 func shutdown() -> void:
 	if _closed: return
 	_closed = true
+	if _world_assets_loading and session != null: session.cancel_asset_preparation(_world_asset_request)
+	_world_action.clear()
 	_title_party_draft = null
 	_generation += 1
 	set_controls_enabled(false)
@@ -209,14 +231,16 @@ func _position_reachable(position: Vector3) -> bool:
 	query.transform = Transform3D(Basis.IDENTITY, position + Vector3.UP * 0.72)
 	query.exclude = [player.get_rid()]
 	return space.intersect_shape(query, 1).is_empty()
-func apply_committed_world(world: Dictionary) -> void:
+func apply_committed_world(world: Dictionary, animate_objects: bool = false) -> void:
 	_world = world.duplicate(true)
+	_refresh_world_objects(animate_objects)
 	_refresh_hud()
 func nearest_interaction() -> Dictionary:
 	if player == null: return {}
 	var best: Dictionary = {}
 	var distance := INF
 	for target in config.get("interactions", []):
+		if target.kind in ["door","pickup"] and not _object_in_reach(target): continue
 		if target.kind == "dialogue" and _world.get("event_flags", {}).get("dialogue:" + str(target.get("dialogue", "")), false): continue
 		if target.kind == "ritual" and _world.get("event_flags", {}).get(str(target.id), false): continue
 		var separation := player.position.distance_to(Geometry.vector(target.position))
@@ -241,6 +265,8 @@ func request_interaction(id: String) -> bool:
 			_notice("请先完成：" + _event_label(str(requirement)))
 			return false
 	match str(target.kind):
+		"door", "pickup":
+			return _start_world_object(target)
 		"npc":
 			return _open_npc(target)
 		"dialogue":
@@ -436,7 +462,7 @@ func _refresh_story_markers() -> void:
 	_story_markers.name = "InteractionMarkers"
 	add_child(_story_markers)
 	for target in config.get("interactions", []):
-		if target.kind == "npc": continue
+		if target.kind in ["npc","door","pickup"]: continue
 		var marker := Node3D.new()
 		marker.name = "Anchor_" + str(target.id).replace(":", "_")
 		marker.position = Geometry.vector(target.position)
@@ -590,6 +616,7 @@ func _party_closed() -> void:
 	_release_party_panel()
 	apply_committed_world(session.campaign.safe_snapshot().world)
 	_refresh_npcs()
+	_restore_exploration_lead()
 	_resume_explore()
 func _save_position() -> void:
 	if _closed or _mode != "party" or _transition_busy or not is_instance_valid(_party_panel) or _party_panel.busy: return
@@ -737,7 +764,7 @@ func _refresh_hud() -> void:
 			_hud.prompt.add_theme_color_override("font_color", Kit.color("ui_focus"))
 			_hud.prompt.text = "E  ·  与" + str(target.label) + "交谈" if target.kind == "npc" else "E  ·  " + str(target.label)
 		elif _tutorial_remaining > 0.0:
-			_hud.prompt.text = "WASD 行走　·　E 调查　·　M 地图"
+			_hud.prompt.text = "WASD 行走 · Shift 跑步 · Space 短跳\nE 互动 · Tab 换领队 · M 地图"
 			_hud.prompt.add_theme_color_override("font_color", Kit.color("ui_muted"))
 			_hud.prompt.modulate.a = minf(1.0, _tutorial_remaining / 1.5)
 			_hud.prompt_panel.modulate.a = _hud.prompt.modulate.a
@@ -750,7 +777,7 @@ func _navigation_target() -> Dictionary:
 		label = "本夜记述"
 	else:
 		for target in config.get("interactions", []):
-			if target.kind == "npc": continue
+			if target.kind in ["npc","door","pickup"]: continue
 			if target.kind == "dialogue" and _world.get("event_flags", {}).has("dialogue:" + str(target.dialogue)): continue
 			if target.kind == "battle" and _world.get("event_flags", {}).has("battle:cleared"): continue
 			if target.kind == "ritual" and _world.get("event_flags", {}).has(str(target.id)): continue
@@ -844,10 +871,157 @@ static func _event_label(id: String) -> String:
 	var names := {"dialogue:a1": "参道记述", "dialogue:r1": "祖母与顾家旧事", "dialogue:h1": "水钵倒影", "dialogue:c1": "送行钟记述", "dialogue:p1": "抬棺队列", "dialogue:p3": "棺中轻叩", "dialogue:m1": "铜镜与小夜", "dialogue:hd1": "叩门应答", "dialogue:hd5": "棺守让路", "battle:cleared": "应对异象", "ritual:identify": "辨认来者", "ritual:place": "安放旧物", "ritual:guide": "引路"}
 	return str(names.get(id, id))
 static func _register_input() -> void:
-	var bindings := {"approach_left": KEY_A, "approach_right": KEY_D, "approach_forward": KEY_W, "approach_back": KEY_S, "approach_interact": KEY_E, "approach_pause": KEY_ESCAPE, "approach_map": KEY_M}
+	var bindings := {"approach_left": KEY_A, "approach_right": KEY_D, "approach_forward": KEY_W, "approach_back": KEY_S, "approach_interact": KEY_E, "approach_pause": KEY_ESCAPE, "approach_map": KEY_M, "approach_run": KEY_SHIFT, "approach_jump": KEY_SPACE, "approach_lead": KEY_TAB}
 	for action in bindings:
 		if InputMap.has_action(action): continue
 		InputMap.add_action(action)
 		var key := InputEventKey.new()
 		key.physical_keycode = bindings[action]
 		InputMap.action_add_event(action, key)
+
+
+# 环境互动共享统一视图层，首章五夜共用ID，后六地区各有独立ID。
+func _refresh_world_objects(animate: bool = false) -> void:
+	if session == null or _closed: return
+	var completed: Dictionary = session.campaign.safe_snapshot().get("world_objects",{})
+	var map_id := 1 if night_id <= 5 else night_id - 4
+	if not is_instance_valid(_world_object_layer):
+		_world_object_layer = WorldObjectLayer.new()
+		_world_object_layer.name = "WorldObjects"
+		add_child(_world_object_layer)
+	if _world_object_map != map_id:
+		_world_object_map = map_id
+		_world_object_layer.configure(night_id,completed)
+	else: _world_object_layer.apply_state(completed,animate)
+	_sync_world_object_targets()
+	if player != null:
+		if not player.animator.action_marker.is_connected(_world_object_marker): player.animator.action_marker.connect(_world_object_marker)
+		if not player.animator.action_finished.is_connected(_world_object_finished): player.animator.action_finished.connect(_world_object_finished)
+
+func _sync_world_object_targets() -> void:
+	config.interactions = config.get("interactions",[]).filter(func(target): return target.kind not in ["door","pickup"])
+	config.interactions.append_array(_available_world_objects())
+
+func _available_world_objects() -> Array[Dictionary]:
+	return WorldObjects.available(night_id,session.campaign.safe_snapshot().get("world_objects",{})) if session != null else []
+
+func _object_in_reach(target: Dictionary) -> bool:
+	if player == null or player.position.distance_to(Geometry.vector(target.position)) > float(target.radius): return false
+	if not is_inside_tree(): return true
+	# 距离以外再看真实遮挡，隔墙不能取物。目标自己的门板允许命中。
+	var from := player.global_position + Vector3.UP*.7
+	var to := Geometry.vector(target.position) + Vector3.UP*.7
+	var query := PhysicsRayQueryParameters3D.create(from,to,player.collision_mask,[player.get_rid()])
+	var hit := get_world_3d().direct_space_state.intersect_ray(query)
+	if hit.is_empty(): return true
+	var node: Node3D = _world_object_layer.object_node(str(target.id)) if is_instance_valid(_world_object_layer) else null
+	return node != null and node.is_ancestor_of(hit.collider)
+
+func _start_world_object(target: Dictionary) -> bool:
+	if not _object_in_reach(target) or player.animator.is_action_locked() or not begin_operation("world_object"): return false
+	# 只沿相机左右选择已支持的朝向，不将平面人物伪转为八方向。
+	var camera_right := Vector3(player.camera_basis.x.x,0,player.camera_basis.x.z).normalized()
+	var toward := (Geometry.vector(target.position)-player.position).dot(camera_right)
+	if absf(toward) > .05: player.facing = 1 if toward > 0 else -1
+	player.animator.set_motion(0,player.facing)
+	_world_action = {"id":str(target.id),"marker":&"pickup" if target.kind == "pickup" else &"interact","token":operation_token(),"committed":false}
+	if not player.animator.request_action(_world_action.marker):
+		_world_action.clear()
+		_resume_explore()
+		return false
+	return true
+
+func _world_object_marker(marker: StringName) -> void:
+	if _world_action.is_empty() or marker != _world_action.marker: return
+	_commit_pending_world_object()
+
+func _commit_pending_world_object() -> void:
+	if _world_action.is_empty() or _world_action.committed or not callback_valid(int(_world_action.token)): return
+	var id := str(_world_action.id)
+	var result: Dictionary = session.campaign.commit_world_object(export_world(),id)
+	if not result.get("ok",false):
+		_world_action.clear()
+		player.animator.reset()
+		_show_error(str(result.get("error","地图互动保存失败")),_retry_world_object.bind(id))
+		return
+	_world_action.committed = true
+	apply_committed_world(session.campaign.safe_snapshot().world,true)
+	_notice(str(result.get("notice","这处互动已经保存。")))
+
+func _world_object_finished() -> void:
+	if _world_action.is_empty() or not callback_valid(int(_world_action.token)): return
+	# 兼容旧清单无动作标记时在收招提交；最终视频清单按接触帧标记即时提交。
+	if not _world_action.committed: _commit_pending_world_object()
+	if _world_action.is_empty(): return
+	_world_action.clear()
+	_resume_explore()
+
+func _retry_world_object(id: String) -> void:
+	_close_modal()
+	_mode = "explore"
+	_confirm_armed = true
+	_start_world_object(WorldObjects.get_object(id))
+
+func exploration_leads() -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	if session == null or session.bundle == null: return result
+	var state: Dictionary = session.campaign.safe_snapshot()
+	for actor_id in state.get("party",[]):
+		var actor: Dictionary = state.roster[actor_id]
+		var identity := str(actor.identity_id)
+		var forms: Array = actor.get("unlocked_forms",[actor.form_id]) if identity == "homura" else [actor.form_id]
+		for form in forms:
+			var definition: Dictionary = session.bundle.get_definition(identity,str(form))
+			if definition.is_empty(): continue
+			result.append({"key":AssetBundle.asset_key(identity,str(form)),"identity":identity,"form":str(form),"name":Presenter.presentation_name(actor,{}),"definition":definition})
+	return result
+
+func _restore_exploration_lead() -> void:
+	var choices := exploration_leads()
+	if choices.is_empty() or player == null: return
+	var selected: Dictionary = choices[0]
+	var previous := str(session.get_meta("exploration_lead","rinne"))
+	for choice in choices:
+		if choice.key == previous: selected = choice; break
+	if player.form_id != selected.key: player.apply_definition(str(selected.key),selected.definition)
+	session.set_meta("exploration_lead",selected.key)
+
+func _cycle_exploration_lead() -> bool:
+	if _closed or not ready_for_play or _mode != "explore" or not controls_enabled or not _lead_armed or player.animator.is_action_locked(): return false
+	var choices := exploration_leads()
+	if choices.size()<2: return false
+	var current := -1
+	for index in choices.size():
+		if choices[index].key == player.form_id: current = index; break
+	var selected: Dictionary = choices[(current+1)%choices.size()]
+	if not player.apply_definition(str(selected.key),selected.definition): return false
+	session.set_meta("exploration_lead",selected.key)
+	_lead_armed = false
+	_notice("探索领队：" + str(selected.name) + (" · 法师" if selected.key == "homura_mage" else " · 剑士" if selected.key == "homura_sword" else ""))
+	return true
+
+func _prepare_world_assets() -> bool:
+	_world_assets_loading = true
+	_world_asset_request = session.asset_generation + 1
+	var token := _generation
+	var result: Dictionary = await session.prepare_assets("world", true)
+	_world_assets_loading = false
+	if not callback_valid(token) or not is_inside_tree(): return false
+	if not result.get("ok", false):
+		_show_error(str(result.get("error", "人物素材加载失败")), _go_scene.bind(str(session.campaign.safe_snapshot().world.scene_path)))
+		return false
+	return true
+
+func _seed_player_definition() -> bool:
+	var choices := exploration_leads()
+	if choices.is_empty():
+		_show_error("所选队伍的地图素材未就绪，请返回标题重试。", _return_title)
+		player.free()
+		player = null
+		return false
+	var selected: Dictionary = choices[0]
+	var previous := str(session.get_meta("exploration_lead", ""))
+	for choice in choices:
+		if choice.key == previous: selected = choice; break
+	player.shared_definition = selected.definition
+	return true

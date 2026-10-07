@@ -1,0 +1,440 @@
+{
+  "schema_version": 1,
+  "rules_version": "rpg-0.1",
+  "definitions": [
+    {
+      "id": "rinne_swordsman",
+      "identity_id": "rinne",
+      "active_class_id": "swordsman",
+      "skill_id": "heavy_slash",
+      "name": "破隙",
+      "summary": "目标已有破甲时，重斩伤害系数额外+30个百分点；保留破甲。",
+      "tactic": "先用破甲斩削弱防御，再以重斩追击；战意适合有余裕时铺垫。薄荷标记留给猎杀，勿把两种条件混用。",
+      "mp_cost_add": 1,
+      "cooldown_add": 0,
+      "damage_condition": {
+        "status_id": "armor_break",
+        "coefficient_add": 0.3
+      },
+      "extra_effects": [],
+      "unlock_level": 3,
+      "techniques": [
+        {
+          "skill_id": "armor_break",
+          "unlock_level": 4,
+          "name": "崩刃",
+          "summary": "施法前自身有战意时，伤害与破甲后追加15%虚弱，持续2次目标行动；不消耗战意。",
+          "mp_cost_add": 1,
+          "cooldown_add": 0,
+          "extra_effects": [
+            {
+              "type": "apply_status",
+              "status_id": "weaken",
+              "magnitude": 0.15,
+              "duration": 2,
+              "clock": "target_slot",
+              "requires": {
+                "source_status": "battle_spirit"
+              }
+            }
+          ]
+        },
+        {
+          "skill_id": "sweep",
+          "unlock_level": 5,
+          "name": "断阵",
+          "summary": "仅对施法前已有破甲的目标，在横扫伤害后附加30%缓速（下一次轮序），并消耗该目标破甲；其他目标只受伤害。",
+          "mp_cost_add": 2,
+          "cooldown_add": 1,
+          "extra_effects": [
+            {
+              "type": "apply_status",
+              "status_id": "slow",
+              "magnitude": 0.3,
+              "duration": 1,
+              "clock": "round_snapshot",
+              "requires": {
+                "target_status": "armor_break"
+              }
+            },
+            {
+              "type": "consume_status",
+              "status_id": "armor_break",
+              "requires": {
+                "target_status": "armor_break"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mint_ranger",
+      "identity_id": "mint",
+      "active_class_id": "ranger",
+      "skill_id": "ambush",
+      "name": "追踪",
+      "summary": "奇袭伤害后附加2次目标行动的标记；原有先手伤害条件保留。",
+      "tactic": "抢在敌人行动前奇袭挂标记，再用猎杀消耗标记爆发。面对已行动敌人仍能挂标，但不享受先手伤害；烟幕用于承受反击。",
+      "mp_cost_add": 1,
+      "cooldown_add": 1,
+      "damage_condition": {},
+      "extra_effects": [
+        {
+          "type": "apply_status",
+          "status_id": "mark",
+          "magnitude": 1,
+          "duration": 2,
+          "clock": "target_slot"
+        }
+      ],
+      "unlock_level": 3,
+      "techniques": [
+        {
+          "skill_id": "hunt",
+          "unlock_level": 4,
+          "name": "回收",
+          "summary": "施法前目标已有标记时，猎杀结算后自身回复3MP，每次施放至多一次；击倒目标仍返还，标记照常消耗，须先付足9MP。",
+          "mp_cost_add": 1,
+          "cooldown_add": 0,
+          "extra_effects": [
+            {
+              "type": "restore_mp",
+              "fixed": 3,
+              "recipient": "source",
+              "requires": {
+                "target_status": "mark"
+              }
+            }
+          ]
+        },
+        {
+          "skill_id": "smoke_screen",
+          "unlock_level": 5,
+          "name": "伏弓",
+          "summary": "烟幕护盾后获得25%战意，持续自身接下来的1次行动；用于铺垫下一击，不提供闪避。",
+          "mp_cost_add": 1,
+          "cooldown_add": 0,
+          "extra_effects": [
+            {
+              "type": "apply_status",
+              "status_id": "battle_spirit",
+              "magnitude": 0.25,
+              "duration": 1,
+              "clock": "target_slot"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "guard_guard",
+      "identity_id": "guard",
+      "active_class_id": "guard",
+      "skill_id": "shield_bash",
+      "name": "震慑",
+      "summary": "盾击伤害及打断后附加20%虚弱，持续1次目标行动；不叠加更强虚弱。",
+      "tactic": "敌人蓄力时用盾击打断；不可打断时仍可尝试降低其下一次输出。掩护保护单个队友，铁壁和挑衅用于承压；可为清明解咒创造条件。",
+      "mp_cost_add": 2,
+      "cooldown_add": 0,
+      "damage_condition": {},
+      "extra_effects": [
+        {
+          "type": "apply_status",
+          "status_id": "weaken",
+          "magnitude": 0.2,
+          "duration": 1,
+          "clock": "target_slot"
+        }
+      ],
+      "unlock_level": 3,
+      "techniques": [
+        {
+          "skill_id": "iron_wall",
+          "unlock_level": 4,
+          "name": "整阵",
+          "summary": "铁壁护盾后净化自身可移除负面；不解除已经失去的行动机会，也不恢复生命。",
+          "mp_cost_add": 2,
+          "cooldown_add": 0,
+          "extra_effects": [
+            {
+              "type": "cleanse"
+            }
+          ]
+        },
+        {
+          "skill_id": "taunt",
+          "unlock_level": 5,
+          "name": "镇锋",
+          "summary": "施法前自身仍有护盾时，挑衅额外施加20%虚弱，持续1次目标行动；无盾时仅挑衅。",
+          "mp_cost_add": 1,
+          "cooldown_add": 0,
+          "extra_effects": [
+            {
+              "type": "apply_status",
+              "status_id": "weaken",
+              "magnitude": 0.2,
+              "duration": 1,
+              "clock": "target_slot",
+              "requires": {
+                "source_has_shield": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "homura_swordsman",
+      "identity_id": "homura",
+      "active_class_id": "swordsman",
+      "skill_id": "armor_break",
+      "name": "引火",
+      "summary": "破甲斩后追加10%术攻快照的灼烧，持续2次目标行动；破甲仍为25%/2行动。",
+      "tactic": "剑形破甲斩同时留下物理破绽与火种，下一次行动可切法形用续焰火弹追击。已有更强灼烧不被弱火种替换；切形不恢复MP或冷却。",
+      "mp_cost_add": 2,
+      "cooldown_add": 1,
+      "damage_condition": {},
+      "extra_effects": [
+        {
+          "type": "apply_status",
+          "status_id": "burn",
+          "magnitude": 0.1,
+          "duration": 2,
+          "clock": "target_slot",
+          "snapshot_stat": "matk",
+          "snapshot_output": true,
+          "snapshot_weaken": true
+        }
+      ],
+      "unlock_level": 3,
+      "techniques": [
+        {
+          "skill_id": "sweep",
+          "unlock_level": 4,
+          "name": "燎阵",
+          "summary": "横扫后仅给施法前已灼烧的目标附加25%破甲，持续2次目标行动；不会点燃未灼烧者，也不消耗灼烧。",
+          "mp_cost_add": 2,
+          "cooldown_add": 0,
+          "extra_effects": [
+            {
+              "type": "apply_status",
+              "status_id": "armor_break",
+              "magnitude": 0.25,
+              "duration": 2,
+              "clock": "target_slot",
+              "requires": {
+                "target_status": "burn"
+              }
+            }
+          ]
+        },
+        {
+          "skill_id": "battle_spirit",
+          "unlock_level": 5,
+          "name": "焰衣",
+          "summary": "战意后附加10+30%防御护盾，持续自身接下来的1次行动；切形保留战意与护盾，较弱盾不覆盖强盾。",
+          "mp_cost_add": 2,
+          "cooldown_add": 0,
+          "extra_effects": [
+            {
+              "type": "shield",
+              "fixed": 10,
+              "coefficient": 0.3,
+              "stat": "def",
+              "duration": 1,
+              "clock": "target_slot"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "homura_mage",
+      "identity_id": "homura",
+      "active_class_id": "mage",
+      "skill_id": "firebolt",
+      "name": "续焰",
+      "summary": "目标已有灼烧时，火弹伤害系数额外+30个百分点；不消耗灼烧。",
+      "tactic": "以灼印长效点燃后连用火弹，或接续剑形引火。冰矢改变未来轮序，炎浪处理多个敌人；同一焰华共享两形态资源与行动。",
+      "mp_cost_add": 1,
+      "cooldown_add": 0,
+      "damage_condition": {
+        "status_id": "burn",
+        "coefficient_add": 0.3
+      },
+      "extra_effects": [],
+      "unlock_level": 3,
+      "techniques": [
+        {
+          "skill_id": "flame_wave",
+          "unlock_level": 4,
+          "name": "续燎",
+          "summary": "炎浪后仅对施法前已灼烧的目标重施20%术攻快照灼烧，持续3次目标行动；弱火种可被强化，更强灼烧不降级或续时。",
+          "mp_cost_add": 2,
+          "cooldown_add": 0,
+          "extra_effects": [
+            {
+              "type": "apply_status",
+              "status_id": "burn",
+              "magnitude": 0.2,
+              "duration": 3,
+              "clock": "target_slot",
+              "snapshot_stat": "matk",
+              "snapshot_output": true,
+              "snapshot_weaken": true,
+              "requires": {
+                "target_status": "burn"
+              }
+            }
+          ]
+        },
+        {
+          "skill_id": "ice_arrow",
+          "unlock_level": 5,
+          "name": "熄焰",
+          "summary": "冰矢保留原缓速；施法前目标已灼烧时，追加20%虚弱（2次目标行动）并消耗灼烧。用后续灼烧伤害换取输出压制。",
+          "mp_cost_add": 2,
+          "cooldown_add": 0,
+          "extra_effects": [
+            {
+              "type": "apply_status",
+              "status_id": "weaken",
+              "magnitude": 0.2,
+              "duration": 2,
+              "clock": "target_slot",
+              "requires": {
+                "target_status": "burn"
+              }
+            },
+            {
+              "type": "consume_status",
+              "status_id": "burn",
+              "requires": {
+                "target_status": "burn"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "healer_healer",
+      "identity_id": "healer",
+      "active_class_id": "healer",
+      "skill_id": "heal",
+      "name": "护生",
+      "summary": "愈合后附加8+20%术攻护盾，持续1次目标行动；较弱护盾不会覆盖现有强盾。",
+      "tactic": "敌人即将打到低血队友时，单疗同时补血与留盾。群疗照顾全队，净化移除负面，圣盾提供更厚且更持久的保护。满血时仍可施加小盾。",
+      "mp_cost_add": 2,
+      "cooldown_add": 0,
+      "damage_condition": {},
+      "extra_effects": [
+        {
+          "type": "shield",
+          "fixed": 8,
+          "coefficient": 0.2,
+          "stat": "matk",
+          "duration": 1,
+          "clock": "target_slot"
+        }
+      ],
+      "unlock_level": 3,
+      "techniques": [
+        {
+          "skill_id": "cleanse",
+          "unlock_level": 4,
+          "name": "回春",
+          "summary": "净化后，仅当本次实际移除了目标负面时回复8+25%术攻生命；没有负面时不回血，不复活。",
+          "mp_cost_add": 2,
+          "cooldown_add": 0,
+          "extra_effects": [
+            {
+              "type": "heal",
+              "fixed": 8,
+              "coefficient": 0.25,
+              "stat": "matk",
+              "requires": {
+                "target_cleansed": true
+              }
+            }
+          ]
+        },
+        {
+          "skill_id": "holy_shield",
+          "unlock_level": 5,
+          "name": "定神",
+          "summary": "圣盾后附加清醒，持续1次目标行动，期间免疫新眩晕；不移除已有眩晕，不免疫伤害或软负面。",
+          "mp_cost_add": 2,
+          "cooldown_add": 0,
+          "extra_effects": [
+            {
+              "type": "apply_status",
+              "status_id": "awake",
+              "magnitude": 1,
+              "duration": 1,
+              "clock": "target_slot"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "controller_controller",
+      "identity_id": "controller",
+      "active_class_id": "controller",
+      "skill_id": "magic_break",
+      "name": "解咒",
+      "summary": "目标已有虚弱时，破魔印伤害系数额外+40个百分点；随后保留原25%破魔/2行动。",
+      "tactic": "先用虚弱术压制输出，再用破魔印追击并为焰华创造法术窗口；也可接岑照盾击的短虚弱。迟滞争取未来先手，封缄留给可打断蓄力。",
+      "mp_cost_add": 1,
+      "cooldown_add": 0,
+      "damage_condition": {
+        "status_id": "weaken",
+        "coefficient_add": 0.4
+      },
+      "extra_effects": [],
+      "unlock_level": 3,
+      "techniques": [
+        {
+          "skill_id": "slow",
+          "unlock_level": 4,
+          "name": "蚀阵",
+          "summary": "迟滞后仅对施法前已虚弱的敌人追加15%破魔，持续2次目标行动；不消耗虚弱，更强破魔不被降级。",
+          "mp_cost_add": 2,
+          "cooldown_add": 0,
+          "extra_effects": [
+            {
+              "type": "apply_status",
+              "status_id": "magic_break",
+              "magnitude": 0.15,
+              "duration": 2,
+              "clock": "target_slot",
+              "requires": {
+                "target_status": "weaken"
+              }
+            }
+          ]
+        },
+        {
+          "skill_id": "seal",
+          "unlock_level": 5,
+          "name": "解印",
+          "summary": "施法前目标已有破魔时，封缄结算后自身回复3MP，每次施放至多一次；须先付足12MP。眩晕和打断仍各自遵守免疫规则。",
+          "mp_cost_add": 0,
+          "cooldown_add": 0,
+          "extra_effects": [
+            {
+              "type": "restore_mp",
+              "fixed": 3,
+              "recipient": "source",
+              "requires": {
+                "target_status": "magic_break"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

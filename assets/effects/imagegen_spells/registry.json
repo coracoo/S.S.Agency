@@ -1,0 +1,43 @@
+{
+  "asset_root": "res://assets/effects/imagegen_spells",
+  "production_renderer_enabled": false,
+  "schema_version": 2,
+  "effects": {
+    "firebolt": {
+      "manifest": "res://assets/effects/imagegen_spells/firebolt/manifest.json",
+      "approved_for_runtime": true,
+      "runtime_scale": 0.5,
+      "display_size_px": 256,
+      "gameplay_qa_pending": true,
+      "particles": [],
+      "manifest_sha256": "6a5cecd39b858bb3595649e05b88f1c185d6e398f017a4990d7d03ac5a28defd"
+    },
+    "flame_wave": {
+      "manifest": "res://assets/effects/imagegen_spells/flame_wave/manifest.json",
+      "approved_for_runtime": true,
+      "runtime_scale": 0.5,
+      "display_size_px": 256,
+      "gameplay_qa_pending": true,
+      "particles": [],
+      "manifest_sha256": "538909cc19d0bd5634e0168e5f54149831cba609ac84996a32b47fd39e2ddb84"
+    },
+    "ice_arrow": {
+      "manifest": "res://assets/effects/imagegen_spells/ice_arrow/manifest.json",
+      "approved_for_runtime": true,
+      "runtime_scale": 0.5,
+      "display_size_px": 256,
+      "gameplay_qa_pending": true,
+      "particles": [],
+      "manifest_sha256": "5216ca26b3f6f9e46e861ac6f871f07994931725c58870e335244612490f932b"
+    },
+    "burn_brand": {
+      "manifest": "res://assets/effects/imagegen_spells/burn_brand/manifest.json",
+      "approved_for_runtime": true,
+      "runtime_scale": 0.5,
+      "display_size_px": 256,
+      "gameplay_qa_pending": true,
+      "particles": [],
+      "manifest_sha256": "c6ead7fa245cd92f87d7d56c15f5fc97a6e0cb08dea8b36c18d46e358d34b294"
+    }
+  }
+}

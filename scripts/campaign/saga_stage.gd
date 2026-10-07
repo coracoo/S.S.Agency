@@ -20,6 +20,7 @@ func _ready() -> void:
 	if session == null or not session.campaign.safe_snapshot().has("saga"):
 		_show_error("后续旅程尚未建立，请从第一章结案后下山。", _return_title)
 		return
+	if not await _prepare_world_assets(): return
 	chapter_id = int(session.campaign.safe_snapshot().saga.chapter)
 	night_id = chapter_id + 4
 	_chapter = Saga.chapter(chapter_id)
@@ -29,10 +30,10 @@ func _ready() -> void:
 	player = Player.new()
 	player.name = "Player"
 	player.input_enabled = false
-	if session.bundle != null: player.shared_definition = session.bundle.get_definition("rinne")
+	if not _seed_player_definition(): return
 	add_child(player)
 	if player.animator.definition.is_empty():
-		_show_error("凛音高清素材装配失败，请从标题重新加载。", _return_title)
+		_show_error("所选人物高清素材装配失败，请从标题重新加载。", _return_title)
 		return
 	camera_rig = WorldCamera.new()
 	camera_rig.name = "SagaCameraRig"
@@ -40,6 +41,7 @@ func _ready() -> void:
 	camera_rig.configure_world(config.bounds)
 	player.set_camera_basis(camera_rig.camera.global_basis)
 	player.enable_scene_integration()
+	_refresh_world_objects()
 	await get_tree().physics_frame
 	if _closed or not is_inside_tree(): return
 	# 六地区共用同一路径；旧战果缓存不能覆盖随后已经提交的跨章或对白进度。
@@ -49,6 +51,8 @@ func _ready() -> void:
 	if not restored.ok:
 		_show_error(restored.error, _return_title)
 		return
+	_refresh_world_objects()
+	_restore_exploration_lead()
 	ready_for_play = true
 	set_hd2d_experiment(bool(session.get_meta("hd2d_depth_enabled", hd2d_experiment)))
 	_refresh_targets()
@@ -60,6 +64,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if _closed: return
+	if not Input.is_action_pressed("approach_lead"): _lead_armed = true
 	if not Input.is_action_pressed("approach_interact") and not Input.is_action_pressed("ui_accept") and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT): _confirm_armed = true
 	for button in _modal_buttons:
 		if is_instance_valid(button): button.disabled = not _confirm_armed or _transition_busy
@@ -77,6 +82,10 @@ func _process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if _closed or not ready_for_play or (event is InputEventKey and event.echo): return
+	if event.is_action_pressed("approach_lead"):
+		get_viewport().set_input_as_handled()
+		_cycle_exploration_lead()
+		return
 	if event.is_action_pressed("approach_pause"):
 		get_viewport().set_input_as_handled()
 		if _mode == "explore": _open_pause()
@@ -112,6 +121,7 @@ func _refresh_targets() -> void:
 		_targets.append({"id":"@supply","label":"补给 · 日用药物","kind":"field_shop","location":"shop","position":config.anchors.shop,"radius":2.1})
 	if active.is_empty():
 		_targets.append({"id":"@travel","label":"沿路前行 / 返回旧地","kind":"travel","location":"exit","position":config.anchors.exit,"radius":2.3})
+	_targets.append_array(_available_world_objects())
 	config["interactions"] = _targets.duplicate(true)
 	_refresh_story_markers()
 	_refresh_npcs()
@@ -120,6 +130,7 @@ func nearby_interactions() -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
 	if player == null: return result
 	for target in _targets:
+		if target.kind in ["door","pickup"] and not _object_in_reach(target): continue
 		if player.position.distance_to(Geometry.vector(target.position)) <= float(target.radius): result.append(target)
 	result.sort_custom(func(a: Dictionary,b: Dictionary) -> bool:
 		if bool(a.get("main",false)) != bool(b.get("main",false)): return bool(a.get("main",false))
@@ -136,6 +147,7 @@ func request_interaction(id: String) -> bool:
 	for candidate in nearby_interactions():
 		if str(candidate.id) == id: target = candidate; break
 	if target.is_empty(): return false
+	if target.kind in ["door","pickup"]: return _start_world_object(target)
 	if not begin_operation("interaction"): return false
 	match str(target.kind):
 		"rest": _rest_at_anchor()
@@ -461,6 +473,7 @@ func _party_closed() -> void:
 	if not _active_entry.is_empty() and not _saga().battles.has(str(_active_entry.id)):
 		_show_battle_cue(); return
 	_refresh_targets()
+	_restore_exploration_lead()
 	_resume_explore()
 
 func _refresh_npcs() -> void:
@@ -502,6 +515,7 @@ func _refresh_story_markers() -> void:
 	_story_markers = Node3D.new(); _story_markers.name = "SagaInvestigationMarkers"; add_child(_story_markers)
 	var placed: Dictionary = {}
 	for target in _targets:
+		if target.kind in ["door","pickup"]: continue
 		if placed.has(Geometry.vector(target.position)): continue
 		placed[Geometry.vector(target.position)] = true
 		var marker := Node3D.new(); marker.name = "Anchor_" + str(target.location); marker.position = Geometry.vector(target.position)
@@ -553,7 +567,7 @@ func _refresh_hud() -> void:
 	_hud.map.disabled = not ready_for_play or not controls_enabled
 	_hud.pause.disabled = not ready_for_play or not controls_enabled
 	var target := nearest_interaction()
-	_hud.prompt.text = "E · " + str(target.label) if not target.is_empty() else ("WASD 行走 · E 调查 · M 地图 · Esc 手帖" if _tutorial_remaining > 0 else "")
+	_hud.prompt.text = "E · " + str(target.label) if not target.is_empty() else ("WASD 行走 · Shift 跑步 · Space 短跳\nE 互动 · Tab 换领队 · M 地图" if _tutorial_remaining > 0 else "")
 	if nearby_interactions().size()>1: _hud.prompt.text = "E · 调查此处（多项）"
 	_hud.prompt_panel.visible = not _hud.prompt.text.is_empty()
 
@@ -652,3 +666,11 @@ func _open_party(page: String = "party") -> void:
 	if is_instance_valid(_party_panel):
 		# 实地休整点才可休息；原面板仅复用队伍、道具、装备，不开放远程免费恢复。
 		_party_panel._hud.rest.hide()
+
+func _sync_world_object_targets() -> void:
+	var kept: Array[Dictionary] = []
+	for target in _targets:
+		if target.kind not in ["door","pickup"]: kept.append(target)
+	_targets = kept
+	_targets.append_array(_available_world_objects())
+	config["interactions"] = _targets.duplicate(true)

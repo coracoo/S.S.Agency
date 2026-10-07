@@ -102,7 +102,7 @@ static func run() -> Array[String]:
 	bad.player_x = 100
 	var fallback: Dictionary = stage.restore_world(bad)
 	F.expect(fallback.ok and fallback.used_fallback and stage.export_world().event_flags == world.event_flags, "合法但不可达位置回锚点保留剧情", failures)
-	F.expect(str(actor.animator.definition.manifest.dir).contains("high_detail_complete"), "实际读取高清帧清单", failures)
+	F.expect(str(actor.animator.definition.manifest.dir) == "res://assets/chars/pixel/rinne/video_actions/frames/" and actor.animator.definition.manifest.has("packed_frames"), "实际世界演员读取已验视频图集清单", failures)
 	stage.queue_free()
 	await tree.process_frame
 	return failures

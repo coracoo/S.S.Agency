@@ -1,0 +1,2204 @@
+{
+  "schema_version": 1,
+  "source_sha256": "91919048a1b660e22bfcbe9a179410b963a31bd7bbed9bb944fd160d9d70cc53",
+  "generation_policy": "仅使用内置ChatGPT imagegen生成独立法术素材；本委托未生成图片；几何替代FX仍禁用；火/冰试片风格未获批准。",
+  "presentation_contract": {
+    "version": 1,
+    "status": "供下一阶段美术与接入使用；本轮仅冻结委托，不重新启用FX",
+    "clock": "以该角色本次实际attack动作起点S、已批准资源的impact marker M及动作完成E为准；不固定旧法形毫秒值",
+    "acceptance": "只在command_accepted后启动本次attack；以resources_changed确认真实MP扣费。失败/过期/重复指令不播释放、不播扣费",
+    "impact_binding": "实际damage/healed/shield_applied/status_applied等生效反馈绑定同一次attack的impact marker M；M是表现落点，不重新计算或再次提交战斗效果",
+    "travel_binding": "有飞行段时满足S<=launch<arrival<=M；弹丸/火弹/冰矢必须在M前到达实际target_id的命中位置，M处切换命中层。动作变快时重采样/压缩飞行，不推迟M",
+    "ordered_feedback": "同一M下按权威事件顺序表现先damage，再附状态/消耗/回馈；全体技能逐个读取实际目标事件，每目标只播一次已有伤害，不因波浪经过再造成第二击",
+    "cast_layer": {
+      "suggested_frames": [
+        4,
+        6
+      ],
+      "interval": "S到launch；无飞行时S到M",
+      "end": "到launch或M淡出，不在命中后继续蓄力，不等待旧慢动作的固定时长"
+    },
+    "travel_layer": {
+      "suggested_frames": [
+        3,
+        4
+      ],
+      "interval": "launch到arrival<=M",
+      "end": "抵达目标即交给命中层；同一单发弹道只有一枚投射物，全体波独立命中层不增加伤害次数"
+    },
+    "hit_layer": {
+      "suggested_frames": [
+        4,
+        6
+      ],
+      "interval": "从M起播一次，建议占M到E恢复区间的35%至65%",
+      "end": "不晚于本次动作完成/下一命令开放；快速动作压缩帧时长，不延长结算，不循环伤害"
+    },
+    "recovery_layer": {
+      "suggested_frames": [
+        2,
+        3
+      ],
+      "interval": "命中层末段到E",
+      "end": "在实际attack完成时清除一次性残影；角色回到已有待机，不新增第二次释放"
+    },
+    "status_layer": {
+      "suggested_frames": [
+        2,
+        4
+      ],
+      "interval": "实际status_applied或shield_applied后可低频循环；actual>0的治疗/MP回复只播一次短反馈",
+      "end": "相应status_removed、shield_removed、倒地或场景退出时立即清除；所有携带absorption的承伤事件（含damage、periodic_damage、saga_reflected）的shield_after为空也须清除耗尽护盾，有余量则更新显示；不能按特效秒数提前移除规则状态"
+    },
+    "immunity": "effect_ignored不播放成功附加层；只读实际事件，不能按静态技能说明伪造灼烧、护盾、治疗或MP回收",
+    "scope": "建议帧数是下一阶段图稿拆层约定，不改角色attack已批准时序、规则时钟、伤害次数或资源"
+  },
+  "records": [
+    {
+      "form_id": "rinne",
+      "identity_id": "rinne",
+      "class_id": "swordsman",
+      "skill_id": "heavy_slash",
+      "name": "重斩",
+      "unlock_level": 1,
+      "target_rule": "single_enemy",
+      "base_cost": 8,
+      "base_cooldown": 0,
+      "level5_cost": 9,
+      "level5_cooldown": 0,
+      "level5_effects": [
+        {
+          "type": "damage",
+          "damage_type": "physical",
+          "element": "neutral",
+          "coefficient": 1.5,
+          "single_direct": true,
+          "can_crit": true,
+          "condition": "target_has_status",
+          "status_id": "armor_break",
+          "conditional_coefficient": 1.8
+        }
+      ],
+      "refinement": {
+        "name": "破隙",
+        "summary": "目标已有破甲时，重斩伤害系数额外+30个百分点；保留破甲。",
+        "unlock_level": 3
+      },
+      "technique": {},
+      "palette": "木剑挥痕与冷青灵光，强调精确破绽",
+      "presentation_category": "melee_contact",
+      "presentation_contract_version": 1,
+      "event_cues": [
+        {
+          "event": "resources_changed",
+          "when": "成功确认后mp_before>mp_after",
+          "target": "施法者",
+          "feedback": "按mp_before与mp_after的真实差显示扣费；失败指令不播放扣费或释放"
+        },
+        {
+          "event": "damage",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "damage",
+          "status_id": "armor_break"
+        }
+      ],
+      "cast": "沉肩蓄木剑，刃侧收紧",
+      "release": "向单敌落下厚重斜斩",
+      "hit": "命中时一道主木剑挥痕与目标受击反馈",
+      "recovery": "木剑抽回并复位",
+      "travel": "近战木剑挥弧，无飞行法术",
+      "target_shape": "单敌斜向狭长切痕",
+      "status_feedback": "已有armor_break才表现破隙强化；保留破甲，不增加第二次伤害数字",
+      "prop_constraints": "仅使用既有木剑，保留木质外观；不新增金属剑或第二把武器。"
+    },
+    {
+      "form_id": "rinne",
+      "identity_id": "rinne",
+      "class_id": "swordsman",
+      "skill_id": "armor_break",
+      "name": "破甲斩",
+      "unlock_level": 1,
+      "target_rule": "single_enemy",
+      "base_cost": 7,
+      "base_cooldown": 1,
+      "level5_cost": 8,
+      "level5_cooldown": 1,
+      "level5_effects": [
+        {
+          "type": "damage",
+          "damage_type": "physical",
+          "element": "neutral",
+          "coefficient": 1.0,
+          "single_direct": true,
+          "can_crit": true
+        },
+        {
+          "type": "apply_status",
+          "status_id": "armor_break",
+          "magnitude": 0.25,
+          "duration": 2,
+          "clock": "target_slot"
+        },
+        {
+          "type": "apply_status",
+          "status_id": "weaken",
+          "magnitude": 0.15,
+          "duration": 2,
+          "clock": "target_slot",
+          "requires": {
+            "source_status": "battle_spirit"
+          }
+        }
+      ],
+      "refinement": {},
+      "technique": {
+        "skill_id": "armor_break",
+        "unlock_level": 4,
+        "name": "崩刃",
+        "summary": "施法前自身有战意时，伤害与破甲后追加15%虚弱，持续2次目标行动；不消耗战意。",
+        "mp_cost_add": 1,
+        "cooldown_add": 0,
+        "extra_effects": [
+          {
+            "type": "apply_status",
+            "status_id": "weaken",
+            "magnitude": 0.15,
+            "duration": 2,
+            "clock": "target_slot",
+            "requires": {
+              "source_status": "battle_spirit"
+            }
+          }
+        ]
+      },
+      "palette": "木剑挥痕与冷青灵光，强调精确破绽",
+      "presentation_category": "melee_contact",
+      "presentation_contract_version": 1,
+      "event_cues": [
+        {
+          "event": "resources_changed",
+          "when": "成功确认后mp_before>mp_after",
+          "target": "施法者",
+          "feedback": "按mp_before与mp_after的真实差显示扣费；失败指令不播放扣费或释放"
+        },
+        {
+          "event": "damage",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "damage"
+        },
+        {
+          "event": "status_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "apply_status",
+          "status_id": "armor_break"
+        },
+        {
+          "event": "status_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "apply_status",
+          "status_id": "weaken",
+          "requires": {
+            "source_status": "battle_spirit"
+          }
+        }
+      ],
+      "cast": "压低木剑尖瞄准防护缝隙",
+      "release": "短而锐的突斩",
+      "hit": "伤害后碎甲纹裂开",
+      "recovery": "木剑短促抽回并复位",
+      "travel": "短刺击/切线",
+      "target_shape": "单敌护甲位置小范围碎裂",
+      "status_feedback": "armor_break成功后保留减防提示；崩刃只在施法前自身有battle_spirit且weaken实际施加成功时显示压制纹",
+      "prop_constraints": "仅使用既有木剑，保留木质外观；不新增金属剑或第二把武器。"
+    },
+    {
+      "form_id": "rinne",
+      "identity_id": "rinne",
+      "class_id": "swordsman",
+      "skill_id": "sweep",
+      "name": "横扫",
+      "unlock_level": 2,
+      "target_rule": "all_enemies",
+      "base_cost": 12,
+      "base_cooldown": 1,
+      "level5_cost": 14,
+      "level5_cooldown": 2,
+      "level5_effects": [
+        {
+          "type": "damage",
+          "damage_type": "physical",
+          "element": "neutral",
+          "coefficient": 0.85,
+          "single_direct": false,
+          "can_crit": true
+        },
+        {
+          "type": "apply_status",
+          "status_id": "slow",
+          "magnitude": 0.3,
+          "duration": 1,
+          "clock": "round_snapshot",
+          "requires": {
+            "target_status": "armor_break"
+          }
+        },
+        {
+          "type": "consume_status",
+          "status_id": "armor_break",
+          "requires": {
+            "target_status": "armor_break"
+          }
+        }
+      ],
+      "refinement": {},
+      "technique": {
+        "skill_id": "sweep",
+        "unlock_level": 5,
+        "name": "断阵",
+        "summary": "仅对施法前已有破甲的目标，在横扫伤害后附加30%缓速（下一次轮序），并消耗该目标破甲；其他目标只受伤害。",
+        "mp_cost_add": 2,
+        "cooldown_add": 1,
+        "extra_effects": [
+          {
+            "type": "apply_status",
+            "status_id": "slow",
+            "magnitude": 0.3,
+            "duration": 1,
+            "clock": "round_snapshot",
+            "requires": {
+              "target_status": "armor_break"
+            }
+          },
+          {
+            "type": "consume_status",
+            "status_id": "armor_break",
+            "requires": {
+              "target_status": "armor_break"
+            }
+          }
+        ]
+      },
+      "palette": "木剑挥痕与冷青灵光，强调精确破绽",
+      "presentation_category": "melee_area",
+      "presentation_contract_version": 1,
+      "event_cues": [
+        {
+          "event": "resources_changed",
+          "when": "成功确认后mp_before>mp_after",
+          "target": "施法者",
+          "feedback": "按mp_before与mp_after的真实差显示扣费；失败指令不播放扣费或释放"
+        },
+        {
+          "event": "damage",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "damage"
+        },
+        {
+          "event": "status_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "apply_status",
+          "status_id": "slow",
+          "requires": {
+            "target_status": "armor_break"
+          }
+        },
+        {
+          "event": "status_removed",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "consume_status",
+          "status_id": "armor_break",
+          "requires": {
+            "target_status": "armor_break"
+          },
+          "reason": "skill_consumed"
+        }
+      ],
+      "cast": "肩腰转动，木剑横向拉开",
+      "release": "横扫弧依次覆盖全部存活敌人",
+      "hit": "每个目标独立受击；条件附效各自显示",
+      "recovery": "转身止势回到原位",
+      "travel": "可用连续横弧；不能表现站位闪避/近远范围",
+      "target_shape": "规则是全体敌人，不是几何锥体筛选",
+      "status_feedback": "断阵仅施法前已有armor_break者施加slow并消耗破甲；逐目标按status_applied/status_removed反馈",
+      "prop_constraints": "仅使用既有木剑，保留木质外观；不新增金属剑或第二把武器。"
+    },
+    {
+      "form_id": "rinne",
+      "identity_id": "rinne",
+      "class_id": "swordsman",
+      "skill_id": "battle_spirit",
+      "name": "战意",
+      "unlock_level": 3,
+      "target_rule": "self",
+      "base_cost": 6,
+      "base_cooldown": 2,
+      "level5_cost": 6,
+      "level5_cooldown": 2,
+      "level5_effects": [
+        {
+          "type": "apply_status",
+          "status_id": "battle_spirit",
+          "magnitude": 0.4,
+          "duration": 2,
+          "clock": "target_slot"
+        }
+      ],
+      "refinement": {},
+      "technique": {},
+      "palette": "木剑挥痕与冷青灵光，强调精确破绽",
+      "presentation_category": "self_support",
+      "presentation_contract_version": 1,
+      "event_cues": [
+        {
+          "event": "resources_changed",
+          "when": "成功确认后mp_before>mp_after",
+          "target": "施法者",
+          "feedback": "按mp_before与mp_after的真实差显示扣费；失败指令不播放扣费或释放"
+        },
+        {
+          "event": "status_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "apply_status",
+          "status_id": "battle_spirit"
+        }
+      ],
+      "cast": "收木剑凝神，胸口短促吸气",
+      "release": "向自身聚拢战意光",
+      "hit": "无攻击命中；力量纹附着自身",
+      "recovery": "转为进攻待机",
+      "travel": "无弹道",
+      "target_shape": "自身上半身与武器附着",
+      "status_feedback": "battle_spirit只增强直接伤害；按实际status_applied出现，在对应status_removed时消退",
+      "prop_constraints": "仅使用既有木剑，保留木质外观；不新增金属剑或第二把武器。"
+    },
+    {
+      "form_id": "mint",
+      "identity_id": "mint",
+      "class_id": "ranger",
+      "skill_id": "mark",
+      "name": "标记",
+      "unlock_level": 1,
+      "target_rule": "single_enemy",
+      "base_cost": 4,
+      "base_cooldown": 0,
+      "level5_cost": 4,
+      "level5_cooldown": 0,
+      "level5_effects": [
+        {
+          "type": "apply_status",
+          "status_id": "mark",
+          "magnitude": 1,
+          "duration": 3,
+          "clock": "target_slot"
+        }
+      ],
+      "refinement": {},
+      "technique": {},
+      "palette": "翠绿追踪记号、单枚弹丸的短轨迹、灰绿烟雾",
+      "presentation_category": "single_projectile",
+      "presentation_contract_version": 1,
+      "event_cues": [
+        {
+          "event": "resources_changed",
+          "when": "成功确认后mp_before>mp_after",
+          "target": "施法者",
+          "feedback": "按mp_before与mp_after的真实差显示扣费；失败指令不播放扣费或释放"
+        },
+        {
+          "event": "status_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "apply_status",
+          "status_id": "mark"
+        }
+      ],
+      "cast": "抬起同一把Y形弹弓稳定瞄准，轻拉皮筋",
+      "release": "松开皮筋送出一枚带追踪光记的弹丸",
+      "hit": "无伤害爆炸；追踪记号落定",
+      "recovery": "皮筋回弹后放松握持，仍持同一把弹弓",
+      "travel": "一枚弹丸的短弹道与细小追踪光记",
+      "target_shape": "单敌单点记号",
+      "status_feedback": "mark成功才常驻记号；猎杀消耗时收拢，不能误画为持续伤害",
+      "prop_constraints": "仅使用既有同一把Y形弹弓；持用与腰挂对应同一把，不复制第二把；攻击释放单枚弹丸。"
+    },
+    {
+      "form_id": "mint",
+      "identity_id": "mint",
+      "class_id": "ranger",
+      "skill_id": "hunt",
+      "name": "猎杀",
+      "unlock_level": 1,
+      "target_rule": "single_enemy",
+      "base_cost": 8,
+      "base_cooldown": 0,
+      "level5_cost": 9,
+      "level5_cooldown": 0,
+      "level5_effects": [
+        {
+          "type": "damage",
+          "damage_type": "physical",
+          "element": "neutral",
+          "coefficient": 1.3,
+          "single_direct": true,
+          "can_crit": true,
+          "condition": "target_has_status",
+          "status_id": "mark",
+          "conditional_coefficient": 2.8
+        },
+        {
+          "type": "consume_status",
+          "status_id": "mark"
+        },
+        {
+          "type": "restore_mp",
+          "fixed": 3,
+          "recipient": "source",
+          "requires": {
+            "target_status": "mark"
+          }
+        }
+      ],
+      "refinement": {},
+      "technique": {
+        "skill_id": "hunt",
+        "unlock_level": 4,
+        "name": "回收",
+        "summary": "施法前目标已有标记时，猎杀结算后自身回复3MP，每次施放至多一次；击倒目标仍返还，标记照常消耗，须先付足9MP。",
+        "mp_cost_add": 1,
+        "cooldown_add": 0,
+        "extra_effects": [
+          {
+            "type": "restore_mp",
+            "fixed": 3,
+            "recipient": "source",
+            "requires": {
+              "target_status": "mark"
+            }
+          }
+        ]
+      },
+      "palette": "翠绿追踪记号、单枚弹丸的短轨迹、灰绿烟雾",
+      "presentation_category": "single_projectile",
+      "presentation_contract_version": 1,
+      "event_cues": [
+        {
+          "event": "resources_changed",
+          "when": "成功确认后mp_before>mp_after",
+          "target": "施法者",
+          "feedback": "按mp_before与mp_after的真实差显示扣费；失败指令不播放扣费或释放"
+        },
+        {
+          "event": "damage",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "damage",
+          "status_id": "mark"
+        },
+        {
+          "event": "status_removed",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "consume_status",
+          "status_id": "mark",
+          "reason": "skill_consumed"
+        },
+        {
+          "event": "mp_restored",
+          "target": "施法者",
+          "when": "事件payload.actual>0时才显示真实回复；回复为0时不画领取收益",
+          "effect_type": "restore_mp",
+          "requires": {
+            "target_status": "mark"
+          }
+        }
+      ],
+      "cast": "锁定标记处，拉满同一把Y形弹弓的皮筋",
+      "release": "释放一枚集中劲力的弹丸",
+      "hit": "单次集中撞击；已有标记时印记随命中破碎",
+      "recovery": "皮筋回弹后短停，再放低同一把弹弓",
+      "travel": "单枚弹丸明确从弹弓弹道飞向目标",
+      "target_shape": "单敌集中撞击",
+      "status_feedback": "status_removed(reason=skill_consumed)或actor_defeated时清理记号；回收mp_restored只在自身显示一次小回流",
+      "prop_constraints": "仅使用既有同一把Y形弹弓；持用与腰挂对应同一把，不复制第二把；攻击释放单枚弹丸。"
+    },
+    {
+      "form_id": "mint",
+      "identity_id": "mint",
+      "class_id": "ranger",
+      "skill_id": "ambush",
+      "name": "奇袭",
+      "unlock_level": 2,
+      "target_rule": "single_enemy",
+      "base_cost": 7,
+      "base_cooldown": 1,
+      "level5_cost": 8,
+      "level5_cooldown": 2,
+      "level5_effects": [
+        {
+          "type": "damage",
+          "damage_type": "physical",
+          "element": "neutral",
+          "coefficient": 1.0,
+          "single_direct": true,
+          "can_crit": true,
+          "condition": "target_no_slot_this_round",
+          "conditional_coefficient": 1.5
+        },
+        {
+          "type": "apply_status",
+          "status_id": "mark",
+          "magnitude": 1,
+          "duration": 2,
+          "clock": "target_slot"
+        }
+      ],
+      "refinement": {
+        "name": "追踪",
+        "summary": "奇袭伤害后附加2次目标行动的标记；原有先手伤害条件保留。",
+        "unlock_level": 3
+      },
+      "technique": {},
+      "palette": "翠绿追踪记号、单枚弹丸的短轨迹、灰绿烟雾",
+      "presentation_category": "single_projectile",
+      "presentation_contract_version": 1,
+      "event_cues": [
+        {
+          "event": "resources_changed",
+          "when": "成功确认后mp_before>mp_after",
+          "target": "施法者",
+          "feedback": "按mp_before与mp_after的真实差显示扣费；失败指令不播放扣费或释放"
+        },
+        {
+          "event": "damage",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "damage"
+        },
+        {
+          "event": "status_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "apply_status",
+          "status_id": "mark"
+        }
+      ],
+      "cast": "压低身形，快速拉开同一把弹弓的皮筋",
+      "release": "迅速松开皮筋，抢射一枚弹丸",
+      "hit": "快速点状命中后附追踪标记",
+      "recovery": "迅速退回警戒姿态",
+      "travel": "比猎杀更短促的单枚弹丸轨迹",
+      "target_shape": "单敌精准一点",
+      "status_feedback": "先手条件影响同一击强度；L3追踪标记在伤害后显示，不能伪装额外行动",
+      "prop_constraints": "仅使用既有同一把Y形弹弓；持用与腰挂对应同一把，不复制第二把；攻击释放单枚弹丸。"
+    },
+    {
+      "form_id": "mint",
+      "identity_id": "mint",
+      "class_id": "ranger",
+      "skill_id": "smoke_screen",
+      "name": "烟幕",
+      "unlock_level": 3,
+      "target_rule": "self",
+      "base_cost": 8,
+      "base_cooldown": 2,
+      "level5_cost": 9,
+      "level5_cooldown": 2,
+      "level5_effects": [
+        {
+          "type": "shield",
+          "fixed": 20,
+          "coefficient": 0.6,
+          "stat": "atk",
+          "duration": 2,
+          "clock": "target_slot"
+        },
+        {
+          "type": "apply_status",
+          "status_id": "battle_spirit",
+          "magnitude": 0.25,
+          "duration": 1,
+          "clock": "target_slot"
+        }
+      ],
+      "refinement": {},
+      "technique": {
+        "skill_id": "smoke_screen",
+        "unlock_level": 5,
+        "name": "伏弓",
+        "summary": "烟幕护盾后获得25%战意，持续自身接下来的1次行动；用于铺垫下一击，不提供闪避。",
+        "mp_cost_add": 1,
+        "cooldown_add": 0,
+        "extra_effects": [
+          {
+            "type": "apply_status",
+            "status_id": "battle_spirit",
+            "magnitude": 0.25,
+            "duration": 1,
+            "clock": "target_slot"
+          }
+        ]
+      },
+      "palette": "翠绿追踪记号、单枚弹丸的短轨迹、灰绿烟雾",
+      "presentation_category": "self_support",
+      "presentation_contract_version": 1,
+      "event_cues": [
+        {
+          "event": "resources_changed",
+          "when": "成功确认后mp_before>mp_after",
+          "target": "施法者",
+          "feedback": "按mp_before与mp_after的真实差显示扣费；失败指令不播放扣费或释放"
+        },
+        {
+          "event": "shield_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "shield"
+        },
+        {
+          "event": "status_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "apply_status",
+          "status_id": "battle_spirit"
+        }
+      ],
+      "cast": "身形压低，以空闲手短促掩护示意；同一把弹弓保持原有握持",
+      "release": "灰绿烟幕包住自身",
+      "hit": "无敌方命中；自身护盾成形",
+      "recovery": "从烟中恢复待机轮廓",
+      "travel": "自身近地扩散，不遮住全屏",
+      "target_shape": "自身局部烟团和盾边缘",
+      "status_feedback": "规则是护盾而非闪避/隐身；伏弓战意图标保留至下一次出手结束",
+      "prop_constraints": "仅使用既有同一把Y形弹弓；持用与腰挂对应同一把，不复制第二把；攻击释放单枚弹丸。"
+    },
+    {
+      "form_id": "guard",
+      "identity_id": "guard",
+      "class_id": "guard",
+      "skill_id": "cover",
+      "name": "掩护",
+      "unlock_level": 1,
+      "target_rule": "other_ally",
+      "base_cost": 6,
+      "base_cooldown": 0,
+      "level5_cost": 6,
+      "level5_cooldown": 0,
+      "level5_effects": [
+        {
+          "type": "apply_status",
+          "status_id": "cover",
+          "magnitude": 0.3,
+          "duration": 1,
+          "clock": "next_owner_slot"
+        }
+      ],
+      "refinement": {},
+      "technique": {},
+      "palette": "铜金盾面冲击、厚重护阵、短促压制波",
+      "presentation_category": "single_support",
+      "presentation_contract_version": 1,
+      "event_cues": [
+        {
+          "event": "resources_changed",
+          "when": "成功确认后mp_before>mp_after",
+          "target": "施法者",
+          "feedback": "按mp_before与mp_after的真实差显示扣费；失败指令不播放扣费或释放"
+        },
+        {
+          "event": "status_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "apply_status",
+          "status_id": "cover"
+        }
+      ],
+      "cast": "侧身举盾朝被护队友",
+      "release": "从盾缘伸出一道保护联系",
+      "hit": "敌方单体直击到来时在守卫盾前接击",
+      "recovery": "守卫短退后站稳",
+      "travel": "无攻击弹道；联系守卫与一名其他队友",
+      "target_shape": "单友绑定，命中转移落点在守卫",
+      "status_feedback": "status_applied(id=cover)后显示绑定；cover_redirected时收束一次；下次守卫行动或绑定倒地即移除",
+      "prop_constraints": "保留既有盾与长戟；盾动作期间长戟保持既有持用/支撑关系，不新增武器。"
+    },
+    {
+      "form_id": "guard",
+      "identity_id": "guard",
+      "class_id": "guard",
+      "skill_id": "shield_bash",
+      "name": "盾击",
+      "unlock_level": 1,
+      "target_rule": "single_enemy",
+      "base_cost": 6,
+      "base_cooldown": 2,
+      "level5_cost": 8,
+      "level5_cooldown": 2,
+      "level5_effects": [
+        {
+          "type": "damage",
+          "damage_type": "physical",
+          "element": "neutral",
+          "coefficient": 0.7,
+          "single_direct": true,
+          "can_crit": true
+        },
+        {
+          "type": "interrupt"
+        },
+        {
+          "type": "apply_status",
+          "status_id": "weaken",
+          "magnitude": 0.2,
+          "duration": 1,
+          "clock": "target_slot"
+        }
+      ],
+      "refinement": {
+        "name": "震慑",
+        "summary": "盾击伤害及打断后附加20%虚弱，持续1次目标行动；不叠加更强虚弱。",
+        "unlock_level": 3
+      },
+      "technique": {},
+      "palette": "铜金盾面冲击、厚重护阵、短促压制波",
+      "presentation_category": "melee_contact",
+      "presentation_contract_version": 1,
+      "event_cues": [
+        {
+          "event": "resources_changed",
+          "when": "成功确认后mp_before>mp_after",
+          "target": "施法者",
+          "feedback": "按mp_before与mp_after的真实差显示扣费；失败指令不播放扣费或释放"
+        },
+        {
+          "event": "damage",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "damage"
+        },
+        {
+          "event": "charge_interrupted",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "interrupt"
+        },
+        {
+          "event": "status_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "apply_status",
+          "status_id": "weaken"
+        }
+      ],
+      "cast": "重心降低，盾收于胸侧",
+      "release": "向单敌作短距离盾冲",
+      "hit": "盾面接触处厚重撞击，伤害之后显示打断/虚弱",
+      "recovery": "收盾回到保护姿态",
+      "travel": "极短盾冲轨迹，不横穿其他敌人",
+      "target_shape": "单敌胸前扁平冲击",
+      "status_feedback": "charge_interrupted才画蓄力破碎；weaken成功才画压制纹，免疫不画眩晕星",
+      "prop_constraints": "保留既有盾与长戟；盾动作期间长戟保持既有持用/支撑关系，不新增武器。"
+    },
+    {
+      "form_id": "guard",
+      "identity_id": "guard",
+      "class_id": "guard",
+      "skill_id": "iron_wall",
+      "name": "铁壁",
+      "unlock_level": 2,
+      "target_rule": "self",
+      "base_cost": 10,
+      "base_cooldown": 2,
+      "level5_cost": 12,
+      "level5_cooldown": 2,
+      "level5_effects": [
+        {
+          "type": "shield",
+          "fixed": 30,
+          "coefficient": 0.8,
+          "stat": "def",
+          "duration": 2,
+          "clock": "target_slot"
+        },
+        {
+          "type": "cleanse"
+        }
+      ],
+      "refinement": {},
+      "technique": {
+        "skill_id": "iron_wall",
+        "unlock_level": 4,
+        "name": "整阵",
+        "summary": "铁壁护盾后净化自身可移除负面；不解除已经失去的行动机会，也不恢复生命。",
+        "mp_cost_add": 2,
+        "cooldown_add": 0,
+        "extra_effects": [
+          {
+            "type": "cleanse"
+          }
+        ]
+      },
+      "palette": "铜金盾面冲击、厚重护阵、短促压制波",
+      "presentation_category": "self_support",
+      "presentation_contract_version": 1,
+      "event_cues": [
+        {
+          "event": "resources_changed",
+          "when": "成功确认后mp_before>mp_after",
+          "target": "施法者",
+          "feedback": "按mp_before与mp_after的真实差显示扣费；失败指令不播放扣费或释放"
+        },
+        {
+          "event": "shield_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "shield"
+        },
+        {
+          "event": "status_removed",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "cleanse",
+          "reason": "cleanse"
+        }
+      ],
+      "cast": "双足稳住，盾正面立起",
+      "release": "盾前展开厚护壁",
+      "hit": "无攻击命中；护盾落在自身",
+      "recovery": "收势时护壁缩为状态边缘",
+      "travel": "无远程弹道",
+      "target_shape": "自身轮廓护壁",
+      "status_feedback": "shield_applied显示新剩余量；整阵净化按实际status_removed逐项消散",
+      "prop_constraints": "保留既有盾与长戟；盾动作期间长戟保持既有持用/支撑关系，不新增武器。"
+    },
+    {
+      "form_id": "guard",
+      "identity_id": "guard",
+      "class_id": "guard",
+      "skill_id": "taunt",
+      "name": "挑衅",
+      "unlock_level": 3,
+      "target_rule": "single_enemy",
+      "base_cost": 4,
+      "base_cooldown": 1,
+      "level5_cost": 5,
+      "level5_cooldown": 1,
+      "level5_effects": [
+        {
+          "type": "apply_status",
+          "status_id": "taunt",
+          "magnitude": 1,
+          "duration": 2,
+          "clock": "target_slot"
+        },
+        {
+          "type": "apply_status",
+          "status_id": "weaken",
+          "magnitude": 0.2,
+          "duration": 1,
+          "clock": "target_slot",
+          "requires": {
+            "source_has_shield": true
+          }
+        }
+      ],
+      "refinement": {},
+      "technique": {
+        "skill_id": "taunt",
+        "unlock_level": 5,
+        "name": "镇锋",
+        "summary": "施法前自身仍有护盾时，挑衅额外施加20%虚弱，持续1次目标行动；无盾时仅挑衅。",
+        "mp_cost_add": 1,
+        "cooldown_add": 0,
+        "extra_effects": [
+          {
+            "type": "apply_status",
+            "status_id": "weaken",
+            "magnitude": 0.2,
+            "duration": 1,
+            "clock": "target_slot",
+            "requires": {
+              "source_has_shield": true
+            }
+          }
+        ]
+      },
+      "palette": "铜金盾面冲击、厚重护阵、短促压制波",
+      "presentation_category": "single_status",
+      "presentation_contract_version": 1,
+      "event_cues": [
+        {
+          "event": "resources_changed",
+          "when": "成功确认后mp_before>mp_after",
+          "target": "施法者",
+          "feedback": "按mp_before与mp_after的真实差显示扣费；失败指令不播放扣费或释放"
+        },
+        {
+          "event": "status_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "apply_status",
+          "status_id": "taunt"
+        },
+        {
+          "event": "status_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "apply_status",
+          "status_id": "weaken",
+          "requires": {
+            "source_has_shield": true
+          }
+        }
+      ],
+      "cast": "举盾敲击并朝敌人挑衅",
+      "release": "短促声纹指向目标",
+      "hit": "目标出现朝守卫的敌意连线",
+      "recovery": "守卫保持戒备",
+      "travel": "不造成伤害的短声纹传递",
+      "target_shape": "单敌头顶/脚下小型指向标记",
+      "status_feedback": "taunt只改变适用单体选择；镇锋仅有盾时追加虚弱，不画全敌被强迫转向",
+      "prop_constraints": "保留既有盾与长戟；盾动作期间长戟保持既有持用/支撑关系，不新增武器。"
+    },
+    {
+      "form_id": "homura_sword",
+      "identity_id": "homura",
+      "class_id": "swordsman",
+      "skill_id": "heavy_slash",
+      "name": "重斩",
+      "unlock_level": 1,
+      "target_rule": "single_enemy",
+      "base_cost": 8,
+      "base_cooldown": 0,
+      "level5_cost": 8,
+      "level5_cooldown": 0,
+      "level5_effects": [
+        {
+          "type": "damage",
+          "damage_type": "physical",
+          "element": "neutral",
+          "coefficient": 1.5,
+          "single_direct": true,
+          "can_crit": true
+        }
+      ],
+      "refinement": {},
+      "technique": {},
+      "palette": "橙红刃缘火星；只有触发灼烧才出现持续火种",
+      "presentation_category": "melee_contact",
+      "presentation_contract_version": 1,
+      "event_cues": [
+        {
+          "event": "resources_changed",
+          "when": "成功确认后mp_before>mp_after",
+          "target": "施法者",
+          "feedback": "按mp_before与mp_after的真实差显示扣费；失败指令不播放扣费或释放"
+        },
+        {
+          "event": "damage",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "damage"
+        }
+      ],
+      "cast": "沉肩蓄剑，刃侧收紧",
+      "release": "向单敌落下厚重斜斩",
+      "hit": "命中时一道主剑痕与目标受击反馈",
+      "recovery": "剑锋抽回并复位",
+      "travel": "近战剑弧，无飞行法术",
+      "target_shape": "单敌斜向狭长切痕",
+      "status_feedback": "按实际damage播放单次物理剑击；已有状态按其自身时钟继续",
+      "prop_constraints": "保留既有剑刃与剑鞘，出手使用同一把剑；剑鞘保持既有位置，不复制剑。"
+    },
+    {
+      "form_id": "homura_sword",
+      "identity_id": "homura",
+      "class_id": "swordsman",
+      "skill_id": "armor_break",
+      "name": "破甲斩",
+      "unlock_level": 1,
+      "target_rule": "single_enemy",
+      "base_cost": 7,
+      "base_cooldown": 1,
+      "level5_cost": 9,
+      "level5_cooldown": 2,
+      "level5_effects": [
+        {
+          "type": "damage",
+          "damage_type": "physical",
+          "element": "neutral",
+          "coefficient": 1.0,
+          "single_direct": true,
+          "can_crit": true
+        },
+        {
+          "type": "apply_status",
+          "status_id": "armor_break",
+          "magnitude": 0.25,
+          "duration": 2,
+          "clock": "target_slot"
+        },
+        {
+          "type": "apply_status",
+          "status_id": "burn",
+          "magnitude": 0.1,
+          "duration": 2,
+          "clock": "target_slot",
+          "snapshot_stat": "matk",
+          "snapshot_output": true,
+          "snapshot_weaken": true
+        }
+      ],
+      "refinement": {
+        "name": "引火",
+        "summary": "破甲斩后追加10%术攻快照的灼烧，持续2次目标行动；破甲仍为25%/2行动。",
+        "unlock_level": 3
+      },
+      "technique": {},
+      "palette": "橙红刃缘火星；只有触发灼烧才出现持续火种",
+      "presentation_category": "melee_contact",
+      "presentation_contract_version": 1,
+      "event_cues": [
+        {
+          "event": "resources_changed",
+          "when": "成功确认后mp_before>mp_after",
+          "target": "施法者",
+          "feedback": "按mp_before与mp_after的真实差显示扣费；失败指令不播放扣费或释放"
+        },
+        {
+          "event": "damage",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "damage"
+        },
+        {
+          "event": "status_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "apply_status",
+          "status_id": "armor_break"
+        },
+        {
+          "event": "status_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "apply_status",
+          "status_id": "burn"
+        }
+      ],
+      "cast": "压低剑尖瞄准防护缝隙",
+      "release": "短而锐的突斩",
+      "hit": "伤害后碎甲纹裂开",
+      "recovery": "拔剑收回",
+      "travel": "短刺击/切线",
+      "target_shape": "单敌护甲位置小范围碎裂",
+      "status_feedback": "armor_break成功后保留减防提示；引火仅在burn实际施加成功时留下火种，更强旧灼烧不被替换",
+      "prop_constraints": "保留既有剑刃与剑鞘，出手使用同一把剑；剑鞘保持既有位置，不复制剑。"
+    },
+    {
+      "form_id": "homura_sword",
+      "identity_id": "homura",
+      "class_id": "swordsman",
+      "skill_id": "sweep",
+      "name": "横扫",
+      "unlock_level": 2,
+      "target_rule": "all_enemies",
+      "base_cost": 12,
+      "base_cooldown": 1,
+      "level5_cost": 14,
+      "level5_cooldown": 1,
+      "level5_effects": [
+        {
+          "type": "damage",
+          "damage_type": "physical",
+          "element": "neutral",
+          "coefficient": 0.85,
+          "single_direct": false,
+          "can_crit": true
+        },
+        {
+          "type": "apply_status",
+          "status_id": "armor_break",
+          "magnitude": 0.25,
+          "duration": 2,
+          "clock": "target_slot",
+          "requires": {
+            "target_status": "burn"
+          }
+        }
+      ],
+      "refinement": {},
+      "technique": {
+        "skill_id": "sweep",
+        "unlock_level": 4,
+        "name": "燎阵",
+        "summary": "横扫后仅给施法前已灼烧的目标附加25%破甲，持续2次目标行动；不会点燃未灼烧者，也不消耗灼烧。",
+        "mp_cost_add": 2,
+        "cooldown_add": 0,
+        "extra_effects": [
+          {
+            "type": "apply_status",
+            "status_id": "armor_break",
+            "magnitude": 0.25,
+            "duration": 2,
+            "clock": "target_slot",
+            "requires": {
+              "target_status": "burn"
+            }
+          }
+        ]
+      },
+      "palette": "橙红刃缘火星；只有触发灼烧才出现持续火种",
+      "presentation_category": "melee_area",
+      "presentation_contract_version": 1,
+      "event_cues": [
+        {
+          "event": "resources_changed",
+          "when": "成功确认后mp_before>mp_after",
+          "target": "施法者",
+          "feedback": "按mp_before与mp_after的真实差显示扣费；失败指令不播放扣费或释放"
+        },
+        {
+          "event": "damage",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "damage"
+        },
+        {
+          "event": "status_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "apply_status",
+          "status_id": "armor_break",
+          "requires": {
+            "target_status": "burn"
+          }
+        }
+      ],
+      "cast": "肩腰转动，剑横向拉开",
+      "release": "横扫弧依次覆盖全部存活敌人",
+      "hit": "每个目标独立受击；条件附效各自显示",
+      "recovery": "转身止势回到原位",
+      "travel": "可用连续横弧；不能表现站位闪避/近远范围",
+      "target_shape": "规则是全体敌人，不是几何锥体筛选",
+      "status_feedback": "燎阵只在施法前已有burn的目标成功施加armor_break时显示碎甲；此招不消耗破甲或附加缓速",
+      "prop_constraints": "保留既有剑刃与剑鞘，出手使用同一把剑；剑鞘保持既有位置，不复制剑。"
+    },
+    {
+      "form_id": "homura_sword",
+      "identity_id": "homura",
+      "class_id": "swordsman",
+      "skill_id": "battle_spirit",
+      "name": "战意",
+      "unlock_level": 3,
+      "target_rule": "self",
+      "base_cost": 6,
+      "base_cooldown": 2,
+      "level5_cost": 8,
+      "level5_cooldown": 2,
+      "level5_effects": [
+        {
+          "type": "apply_status",
+          "status_id": "battle_spirit",
+          "magnitude": 0.4,
+          "duration": 2,
+          "clock": "target_slot"
+        },
+        {
+          "type": "shield",
+          "fixed": 10,
+          "coefficient": 0.3,
+          "stat": "def",
+          "duration": 1,
+          "clock": "target_slot"
+        }
+      ],
+      "refinement": {},
+      "technique": {
+        "skill_id": "battle_spirit",
+        "unlock_level": 5,
+        "name": "焰衣",
+        "summary": "战意后附加10+30%防御护盾，持续自身接下来的1次行动；切形保留战意与护盾，较弱盾不覆盖强盾。",
+        "mp_cost_add": 2,
+        "cooldown_add": 0,
+        "extra_effects": [
+          {
+            "type": "shield",
+            "fixed": 10,
+            "coefficient": 0.3,
+            "stat": "def",
+            "duration": 1,
+            "clock": "target_slot"
+          }
+        ]
+      },
+      "palette": "橙红刃缘火星；只有触发灼烧才出现持续火种",
+      "presentation_category": "self_support",
+      "presentation_contract_version": 1,
+      "event_cues": [
+        {
+          "event": "resources_changed",
+          "when": "成功确认后mp_before>mp_after",
+          "target": "施法者",
+          "feedback": "按mp_before与mp_after的真实差显示扣费；失败指令不播放扣费或释放"
+        },
+        {
+          "event": "status_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "apply_status",
+          "status_id": "battle_spirit"
+        },
+        {
+          "event": "shield_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "shield"
+        }
+      ],
+      "cast": "收剑凝神，胸口短促吸气",
+      "release": "向自身聚拢战意光",
+      "hit": "无攻击命中；力量纹附着自身",
+      "recovery": "转为进攻待机",
+      "travel": "无弹道",
+      "target_shape": "自身上半身与武器附着",
+      "status_feedback": "battle_spirit增强直接伤害；焰衣只在shield_applied时新增短盾，切形不重新领取或重播",
+      "prop_constraints": "保留既有剑刃与剑鞘，出手使用同一把剑；剑鞘保持既有位置，不复制剑。"
+    },
+    {
+      "form_id": "homura_mage",
+      "identity_id": "homura",
+      "class_id": "mage",
+      "skill_id": "firebolt",
+      "name": "火弹",
+      "unlock_level": 1,
+      "target_rule": "single_enemy",
+      "base_cost": 10,
+      "base_cooldown": 0,
+      "level5_cost": 11,
+      "level5_cooldown": 0,
+      "level5_effects": [
+        {
+          "type": "damage",
+          "damage_type": "magic",
+          "element": "fire",
+          "coefficient": 1.4,
+          "single_direct": true,
+          "can_crit": true,
+          "condition": "target_has_status",
+          "status_id": "burn",
+          "conditional_coefficient": 1.7
+        }
+      ],
+      "refinement": {
+        "name": "续焰",
+        "summary": "目标已有灼烧时，火弹伤害系数额外+30个百分点；不消耗灼烧。",
+        "unlock_level": 3
+      },
+      "technique": {},
+      "palette": "赤金火焰与蓝白冰晶有明确轮廓，冰火转换可读",
+      "presentation_category": "single_projectile",
+      "presentation_contract_version": 1,
+      "event_cues": [
+        {
+          "event": "resources_changed",
+          "when": "成功确认后mp_before>mp_after",
+          "target": "施法者",
+          "feedback": "按mp_before与mp_after的真实差显示扣费；失败指令不播放扣费或释放"
+        },
+        {
+          "event": "damage",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "damage",
+          "status_id": "burn"
+        }
+      ],
+      "cast": "空手在掌前凝起紧凑火核",
+      "release": "向单敌推出一枚火弹",
+      "hit": "单次紧凑火爆，不附送灼烧",
+      "recovery": "手臂收回，火星迅速熄灭",
+      "travel": "单弹道，从施法点到目标",
+      "target_shape": "单敌小圆火爆",
+      "status_feedback": "续焰只读取已有burn加强伤害，不重新施加或消耗burn",
+      "prop_constraints": "双手空手施法，火核/冰晶是法术而非道具；不新增法杖、法器或武器。"
+    },
+    {
+      "form_id": "homura_mage",
+      "identity_id": "homura",
+      "class_id": "mage",
+      "skill_id": "flame_wave",
+      "name": "炎浪",
+      "unlock_level": 1,
+      "target_rule": "all_enemies",
+      "base_cost": 18,
+      "base_cooldown": 1,
+      "level5_cost": 20,
+      "level5_cooldown": 1,
+      "level5_effects": [
+        {
+          "type": "damage",
+          "damage_type": "magic",
+          "element": "fire",
+          "coefficient": 0.8,
+          "single_direct": false,
+          "can_crit": true
+        },
+        {
+          "type": "apply_status",
+          "status_id": "burn",
+          "magnitude": 0.2,
+          "duration": 3,
+          "clock": "target_slot",
+          "snapshot_stat": "matk",
+          "snapshot_output": true,
+          "snapshot_weaken": true,
+          "requires": {
+            "target_status": "burn"
+          }
+        }
+      ],
+      "refinement": {},
+      "technique": {
+        "skill_id": "flame_wave",
+        "unlock_level": 4,
+        "name": "续燎",
+        "summary": "炎浪后仅对施法前已灼烧的目标重施20%术攻快照灼烧，持续3次目标行动；弱火种可被强化，更强灼烧不降级或续时。",
+        "mp_cost_add": 2,
+        "cooldown_add": 0,
+        "extra_effects": [
+          {
+            "type": "apply_status",
+            "status_id": "burn",
+            "magnitude": 0.2,
+            "duration": 3,
+            "clock": "target_slot",
+            "snapshot_stat": "matk",
+            "snapshot_output": true,
+            "snapshot_weaken": true,
+            "requires": {
+              "target_status": "burn"
+            }
+          }
+        ]
+      },
+      "palette": "赤金火焰与蓝白冰晶有明确轮廓，冰火转换可读",
+      "presentation_category": "area_wave",
+      "presentation_contract_version": 1,
+      "event_cues": [
+        {
+          "event": "resources_changed",
+          "when": "成功确认后mp_before>mp_after",
+          "target": "施法者",
+          "feedback": "按mp_before与mp_after的真实差显示扣费；失败指令不播放扣费或释放"
+        },
+        {
+          "event": "damage",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "damage"
+        },
+        {
+          "event": "status_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "apply_status",
+          "status_id": "burn",
+          "requires": {
+            "target_status": "burn"
+          }
+        }
+      ],
+      "cast": "双手引火，火沿前方铺开",
+      "release": "一股低平火浪扫过全敌",
+      "hit": "各目标独立火焰冲击",
+      "recovery": "火浪退去，施法者回稳",
+      "travel": "横向波前，可共享浪头与各目标命中特效",
+      "target_shape": "全体敌人，各自独立命中位置",
+      "status_feedback": "续燎仅已有burn者发生status_applied；未点燃者不得留下火种；更强灼烧保持原样",
+      "prop_constraints": "双手空手施法，火核/冰晶是法术而非道具；不新增法杖、法器或武器。"
+    },
+    {
+      "form_id": "homura_mage",
+      "identity_id": "homura",
+      "class_id": "mage",
+      "skill_id": "ice_arrow",
+      "name": "冰矢",
+      "unlock_level": 2,
+      "target_rule": "single_enemy",
+      "base_cost": 10,
+      "base_cooldown": 1,
+      "level5_cost": 12,
+      "level5_cooldown": 1,
+      "level5_effects": [
+        {
+          "type": "damage",
+          "damage_type": "magic",
+          "element": "ice",
+          "coefficient": 1.1,
+          "single_direct": true,
+          "can_crit": true
+        },
+        {
+          "type": "apply_status",
+          "status_id": "slow",
+          "magnitude": 0.3,
+          "duration": 1,
+          "clock": "round_snapshot"
+        },
+        {
+          "type": "apply_status",
+          "status_id": "weaken",
+          "magnitude": 0.2,
+          "duration": 2,
+          "clock": "target_slot",
+          "requires": {
+            "target_status": "burn"
+          }
+        },
+        {
+          "type": "consume_status",
+          "status_id": "burn",
+          "requires": {
+            "target_status": "burn"
+          }
+        }
+      ],
+      "refinement": {},
+      "technique": {
+        "skill_id": "ice_arrow",
+        "unlock_level": 5,
+        "name": "熄焰",
+        "summary": "冰矢保留原缓速；施法前目标已灼烧时，追加20%虚弱（2次目标行动）并消耗灼烧。用后续灼烧伤害换取输出压制。",
+        "mp_cost_add": 2,
+        "cooldown_add": 0,
+        "extra_effects": [
+          {
+            "type": "apply_status",
+            "status_id": "weaken",
+            "magnitude": 0.2,
+            "duration": 2,
+            "clock": "target_slot",
+            "requires": {
+              "target_status": "burn"
+            }
+          },
+          {
+            "type": "consume_status",
+            "status_id": "burn",
+            "requires": {
+              "target_status": "burn"
+            }
+          }
+        ]
+      },
+      "palette": "赤金火焰与蓝白冰晶有明确轮廓，冰火转换可读",
+      "presentation_category": "single_projectile",
+      "presentation_contract_version": 1,
+      "event_cues": [
+        {
+          "event": "resources_changed",
+          "when": "成功确认后mp_before>mp_after",
+          "target": "施法者",
+          "feedback": "按mp_before与mp_after的真实差显示扣费；失败指令不播放扣费或释放"
+        },
+        {
+          "event": "damage",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "damage"
+        },
+        {
+          "event": "status_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "apply_status",
+          "status_id": "slow"
+        },
+        {
+          "event": "status_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "apply_status",
+          "status_id": "weaken",
+          "requires": {
+            "target_status": "burn"
+          }
+        },
+        {
+          "event": "status_removed",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "consume_status",
+          "status_id": "burn",
+          "requires": {
+            "target_status": "burn"
+          },
+          "reason": "skill_consumed"
+        }
+      ],
+      "cast": "以空手凝聚细长冰晶矢形",
+      "release": "射出蓝白冰矢",
+      "hit": "冰晶单点破碎，霜纹随后落下",
+      "recovery": "散去手中余霜",
+      "travel": "单枚细长冰矢",
+      "target_shape": "单敌尖锐冰裂",
+      "status_feedback": "slow表示未来轮序，不是当场冻结跳过行动；熄焰先伤害，再出现虚弱及火种熄灭",
+      "prop_constraints": "双手空手施法，火核/冰晶是法术而非道具；不新增法杖、法器或武器。"
+    },
+    {
+      "form_id": "homura_mage",
+      "identity_id": "homura",
+      "class_id": "mage",
+      "skill_id": "burn_brand",
+      "name": "灼印",
+      "unlock_level": 3,
+      "target_rule": "single_enemy",
+      "base_cost": 8,
+      "base_cooldown": 1,
+      "level5_cost": 8,
+      "level5_cooldown": 1,
+      "level5_effects": [
+        {
+          "type": "damage",
+          "damage_type": "magic",
+          "element": "fire",
+          "coefficient": 0.3,
+          "single_direct": true,
+          "can_crit": true
+        },
+        {
+          "type": "apply_status",
+          "status_id": "burn",
+          "magnitude": 0.2,
+          "duration": 3,
+          "clock": "target_slot",
+          "snapshot_stat": "matk",
+          "snapshot_output": true,
+          "snapshot_weaken": true
+        }
+      ],
+      "refinement": {},
+      "technique": {},
+      "palette": "赤金火焰与蓝白冰晶有明确轮廓，冰火转换可读",
+      "presentation_category": "single_projectile",
+      "presentation_contract_version": 1,
+      "event_cues": [
+        {
+          "event": "resources_changed",
+          "when": "成功确认后mp_before>mp_after",
+          "target": "施法者",
+          "feedback": "按mp_before与mp_after的真实差显示扣费；失败指令不播放扣费或释放"
+        },
+        {
+          "event": "damage",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "damage"
+        },
+        {
+          "event": "status_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "apply_status",
+          "status_id": "burn"
+        }
+      ],
+      "cast": "以空手指尖划出火印",
+      "release": "将火印压向目标",
+      "hit": "小火伤后符印灼亮",
+      "recovery": "收掌，保留目标火种",
+      "travel": "短符印投射",
+      "target_shape": "单敌小型烙印",
+      "status_feedback": "后续periodic_damage在目标每次行动开始单独跳火，不播放角色再次施法，不暴击",
+      "prop_constraints": "双手空手施法，火核/冰晶是法术而非道具；不新增法杖、法器或武器。"
+    },
+    {
+      "form_id": "healer",
+      "identity_id": "healer",
+      "class_id": "healer",
+      "skill_id": "heal",
+      "name": "愈合",
+      "unlock_level": 1,
+      "target_rule": "single_ally",
+      "base_cost": 12,
+      "base_cooldown": 1,
+      "level5_cost": 14,
+      "level5_cooldown": 1,
+      "level5_effects": [
+        {
+          "type": "heal",
+          "fixed": 20,
+          "coefficient": 1.2,
+          "stat": "matk"
+        },
+        {
+          "type": "shield",
+          "fixed": 8,
+          "coefficient": 0.2,
+          "stat": "matk",
+          "duration": 1,
+          "clock": "target_slot"
+        }
+      ],
+      "refinement": {
+        "name": "护生",
+        "summary": "愈合后附加8+20%术攻护盾，持续1次目标行动；较弱护盾不会覆盖现有强盾。",
+        "unlock_level": 3
+      },
+      "technique": {},
+      "palette": "铃声带起青白生命光、柔和光纹、清晰护盾边缘",
+      "presentation_category": "single_support",
+      "presentation_contract_version": 1,
+      "event_cues": [
+        {
+          "event": "resources_changed",
+          "when": "成功确认后mp_before>mp_after",
+          "target": "施法者",
+          "feedback": "按mp_before与mp_after的真实差显示扣费；失败指令不播放扣费或释放"
+        },
+        {
+          "event": "healed",
+          "target": "该事件的实际target_id",
+          "when": "事件payload.actual>0时才显示真实回复；回复为0时不画领取收益",
+          "effect_type": "heal"
+        },
+        {
+          "event": "shield_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "shield"
+        }
+      ],
+      "cast": "轻摇既有铃，铃边聚起青白生命光",
+      "release": "治疗光轻送单友",
+      "hit": "目标生命光向上舒展",
+      "recovery": "铃边余光退去，持铃手复位",
+      "travel": "短柔和光流",
+      "target_shape": "单友躯干与脚边局部环绕",
+      "status_feedback": "healed显示实际HP而非总量；护生盾有独立边缘，强盾拒绝替换时不画新盾变薄",
+      "prop_constraints": "只使用既有铃作为施法道具；光纹是特效，不新增草叶、符纸或其他手持物。"
+    },
+    {
+      "form_id": "healer",
+      "identity_id": "healer",
+      "class_id": "healer",
+      "skill_id": "group_heal",
+      "name": "群疗",
+      "unlock_level": 1,
+      "target_rule": "all_allies",
+      "base_cost": 22,
+      "base_cooldown": 2,
+      "level5_cost": 22,
+      "level5_cooldown": 2,
+      "level5_effects": [
+        {
+          "type": "heal",
+          "fixed": 10,
+          "coefficient": 0.6,
+          "stat": "matk"
+        }
+      ],
+      "refinement": {},
+      "technique": {},
+      "palette": "铃声带起青白生命光、柔和光纹、清晰护盾边缘",
+      "presentation_category": "group_support",
+      "presentation_contract_version": 1,
+      "event_cues": [
+        {
+          "event": "resources_changed",
+          "when": "成功确认后mp_before>mp_after",
+          "target": "施法者",
+          "feedback": "按mp_before与mp_after的真实差显示扣费；失败指令不播放扣费或释放"
+        },
+        {
+          "event": "healed",
+          "target": "该事件的实际target_id",
+          "when": "事件payload.actual>0时才显示真实回复；回复为0时不画领取收益",
+          "effect_type": "heal"
+        }
+      ],
+      "cast": "持铃手轻摇既有铃，另一手展开引导生命光",
+      "release": "向每名存活队员分出一道柔光",
+      "hit": "各队员独立治疗光",
+      "recovery": "光路淡出，回到待机",
+      "travel": "多目标分流，不连接倒地队员",
+      "target_shape": "全体存活队友，包括自身",
+      "status_feedback": "每人按实际治疗量反馈；不复活，不免费附护生盾",
+      "prop_constraints": "只使用既有铃作为施法道具；光纹是特效，不新增草叶、符纸或其他手持物。"
+    },
+    {
+      "form_id": "healer",
+      "identity_id": "healer",
+      "class_id": "healer",
+      "skill_id": "cleanse",
+      "name": "净化",
+      "unlock_level": 2,
+      "target_rule": "single_ally",
+      "base_cost": 6,
+      "base_cooldown": 0,
+      "level5_cost": 8,
+      "level5_cooldown": 0,
+      "level5_effects": [
+        {
+          "type": "cleanse"
+        },
+        {
+          "type": "heal",
+          "fixed": 8,
+          "coefficient": 0.25,
+          "stat": "matk",
+          "requires": {
+            "target_cleansed": true
+          }
+        }
+      ],
+      "refinement": {},
+      "technique": {
+        "skill_id": "cleanse",
+        "unlock_level": 4,
+        "name": "回春",
+        "summary": "净化后，仅当本次实际移除了目标负面时回复8+25%术攻生命；没有负面时不回血，不复活。",
+        "mp_cost_add": 2,
+        "cooldown_add": 0,
+        "extra_effects": [
+          {
+            "type": "heal",
+            "fixed": 8,
+            "coefficient": 0.25,
+            "stat": "matk",
+            "requires": {
+              "target_cleansed": true
+            }
+          }
+        ]
+      },
+      "palette": "铃声带起青白生命光、柔和光纹、清晰护盾边缘",
+      "presentation_category": "single_support",
+      "presentation_contract_version": 1,
+      "event_cues": [
+        {
+          "event": "resources_changed",
+          "when": "成功确认后mp_before>mp_after",
+          "target": "施法者",
+          "feedback": "按mp_before与mp_after的真实差显示扣费；失败指令不播放扣费或释放"
+        },
+        {
+          "event": "status_removed",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "cleanse",
+          "reason": "cleanse"
+        },
+        {
+          "event": "healed",
+          "target": "该事件的实际target_id",
+          "when": "事件payload.actual>0时才显示真实回复；回复为0时不画领取收益",
+          "effect_type": "heal",
+          "requires": {
+            "target_cleansed": true
+          }
+        }
+      ],
+      "cast": "轻振既有铃，朝队友引导清净铃纹",
+      "release": "青白清流扫过目标",
+      "hit": "实际负面标记逐项溶解",
+      "recovery": "清流收束，角色收手",
+      "travel": "短清流到单友",
+      "target_shape": "单友附着清洁波",
+      "status_feedback": "仅status_removed reason=cleanse显示净化；回春只有真实移除后才显healed，空放不画回血",
+      "prop_constraints": "只使用既有铃作为施法道具；光纹是特效，不新增草叶、符纸或其他手持物。"
+    },
+    {
+      "form_id": "healer",
+      "identity_id": "healer",
+      "class_id": "healer",
+      "skill_id": "holy_shield",
+      "name": "圣盾",
+      "unlock_level": 3,
+      "target_rule": "single_ally",
+      "base_cost": 10,
+      "base_cooldown": 1,
+      "level5_cost": 12,
+      "level5_cooldown": 1,
+      "level5_effects": [
+        {
+          "type": "shield",
+          "fixed": 20,
+          "coefficient": 0.8,
+          "stat": "matk",
+          "duration": 2,
+          "clock": "target_slot"
+        },
+        {
+          "type": "apply_status",
+          "status_id": "awake",
+          "magnitude": 1,
+          "duration": 1,
+          "clock": "target_slot"
+        }
+      ],
+      "refinement": {},
+      "technique": {
+        "skill_id": "holy_shield",
+        "unlock_level": 5,
+        "name": "定神",
+        "summary": "圣盾后附加清醒，持续1次目标行动，期间免疫新眩晕；不移除已有眩晕，不免疫伤害或软负面。",
+        "mp_cost_add": 2,
+        "cooldown_add": 0,
+        "extra_effects": [
+          {
+            "type": "apply_status",
+            "status_id": "awake",
+            "magnitude": 1,
+            "duration": 1,
+            "clock": "target_slot"
+          }
+        ]
+      },
+      "palette": "铃声带起青白生命光、柔和光纹、清晰护盾边缘",
+      "presentation_category": "single_support",
+      "presentation_contract_version": 1,
+      "event_cues": [
+        {
+          "event": "resources_changed",
+          "when": "成功确认后mp_before>mp_after",
+          "target": "施法者",
+          "feedback": "按mp_before与mp_after的真实差显示扣费；失败指令不播放扣费或释放"
+        },
+        {
+          "event": "shield_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "shield"
+        },
+        {
+          "event": "status_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "apply_status",
+          "status_id": "awake"
+        }
+      ],
+      "cast": "持铃手抬起既有铃，空闲手托起护盾光纹",
+      "release": "铃纹引出的光膜在队友面前展开",
+      "hit": "无攻击命中；透明护盾覆盖目标",
+      "recovery": "铃边收光，盾边缘留下",
+      "travel": "短铃纹光流到目标",
+      "target_shape": "单友全身窄边护膜",
+      "status_feedback": "awake为清醒防新眩晕提示，不能画已有眩晕被净化；盾数值与清醒各自结束",
+      "prop_constraints": "只使用既有铃作为施法道具；光纹是特效，不新增草叶、符纸或其他手持物。"
+    },
+    {
+      "form_id": "controller",
+      "identity_id": "controller",
+      "class_id": "controller",
+      "skill_id": "weaken",
+      "name": "虚弱术",
+      "unlock_level": 1,
+      "target_rule": "single_enemy",
+      "base_cost": 8,
+      "base_cooldown": 0,
+      "level5_cost": 8,
+      "level5_cooldown": 0,
+      "level5_effects": [
+        {
+          "type": "apply_status",
+          "status_id": "weaken",
+          "magnitude": 0.2,
+          "duration": 2,
+          "clock": "target_slot"
+        }
+      ],
+      "refinement": {},
+      "technique": {},
+      "palette": "扇面与卷轴引出紫蓝符纹、束缚墨纹、破印时清晰碎裂",
+      "presentation_category": "single_status",
+      "presentation_contract_version": 1,
+      "event_cues": [
+        {
+          "event": "resources_changed",
+          "when": "成功确认后mp_before>mp_after",
+          "target": "施法者",
+          "feedback": "按mp_before与mp_after的真实差显示扣费；失败指令不播放扣费或释放"
+        },
+        {
+          "event": "status_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "apply_status",
+          "status_id": "weaken"
+        }
+      ],
+      "cast": "以既有扇面合拢咒纹，既有卷轴留在原有位置",
+      "release": "暗紫符束落到单敌",
+      "hit": "无伤害冲击；压制纹缓慢收紧",
+      "recovery": "扇面收势回到待机",
+      "travel": "从既有扇面引出的短咒线",
+      "target_shape": "单敌躯干束纹",
+      "status_feedback": "weaken降低输出，不能显示扣血；已有更强虚弱不变弱或续时",
+      "prop_constraints": "保留既有扇与卷轴；符纹为光效，不新增符笔、独立符纸或其他手持物。"
+    },
+    {
+      "form_id": "controller",
+      "identity_id": "controller",
+      "class_id": "controller",
+      "skill_id": "slow",
+      "name": "迟滞术",
+      "unlock_level": 1,
+      "target_rule": "all_enemies",
+      "base_cost": 10,
+      "base_cooldown": 1,
+      "level5_cost": 12,
+      "level5_cooldown": 1,
+      "level5_effects": [
+        {
+          "type": "apply_status",
+          "status_id": "slow",
+          "magnitude": 0.3,
+          "duration": 2,
+          "clock": "round_snapshot"
+        },
+        {
+          "type": "apply_status",
+          "status_id": "magic_break",
+          "magnitude": 0.15,
+          "duration": 2,
+          "clock": "target_slot",
+          "requires": {
+            "target_status": "weaken"
+          }
+        }
+      ],
+      "refinement": {},
+      "technique": {
+        "skill_id": "slow",
+        "unlock_level": 4,
+        "name": "蚀阵",
+        "summary": "迟滞后仅对施法前已虚弱的敌人追加15%破魔，持续2次目标行动；不消耗虚弱，更强破魔不被降级。",
+        "mp_cost_add": 2,
+        "cooldown_add": 0,
+        "extra_effects": [
+          {
+            "type": "apply_status",
+            "status_id": "magic_break",
+            "magnitude": 0.15,
+            "duration": 2,
+            "clock": "target_slot",
+            "requires": {
+              "target_status": "weaken"
+            }
+          }
+        ]
+      },
+      "palette": "扇面与卷轴引出紫蓝符纹、束缚墨纹、破印时清晰碎裂",
+      "presentation_category": "area_status",
+      "presentation_contract_version": 1,
+      "event_cues": [
+        {
+          "event": "resources_changed",
+          "when": "成功确认后mp_before>mp_after",
+          "target": "施法者",
+          "feedback": "按mp_before与mp_after的真实差显示扣费；失败指令不播放扣费或释放"
+        },
+        {
+          "event": "status_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "apply_status",
+          "status_id": "slow"
+        },
+        {
+          "event": "status_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "apply_status",
+          "status_id": "magic_break",
+          "requires": {
+            "target_status": "weaken"
+          }
+        }
+      ],
+      "cast": "展开既有扇面，借既有卷轴符纹指向敌群",
+      "release": "卷轴引出的符线在全敌脚边落成",
+      "hit": "无直接伤害；每个敌人独立出现迟滞纹",
+      "recovery": "扇面与卷轴恢复既有持用姿势",
+      "travel": "多点光质符纹落位，不增加实体符纸道具",
+      "target_shape": "全体敌人脚下局部阵纹",
+      "status_feedback": "只影响之后轮序快照；蚀阵仅已有weaken者附magic_break，不伪造当轮重排",
+      "prop_constraints": "保留既有扇与卷轴；符纹为光效，不新增符笔、独立符纸或其他手持物。"
+    },
+    {
+      "form_id": "controller",
+      "identity_id": "controller",
+      "class_id": "controller",
+      "skill_id": "seal",
+      "name": "封缄",
+      "unlock_level": 2,
+      "target_rule": "single_enemy",
+      "base_cost": 12,
+      "base_cooldown": 2,
+      "level5_cost": 12,
+      "level5_cooldown": 2,
+      "level5_effects": [
+        {
+          "type": "apply_status",
+          "status_id": "stun",
+          "magnitude": 1,
+          "duration": 1,
+          "clock": "target_slot"
+        },
+        {
+          "type": "interrupt"
+        },
+        {
+          "type": "restore_mp",
+          "fixed": 3,
+          "recipient": "source",
+          "requires": {
+            "target_status": "magic_break"
+          }
+        }
+      ],
+      "refinement": {},
+      "technique": {
+        "skill_id": "seal",
+        "unlock_level": 5,
+        "name": "解印",
+        "summary": "施法前目标已有破魔时，封缄结算后自身回复3MP，每次施放至多一次；须先付足12MP。眩晕和打断仍各自遵守免疫规则。",
+        "mp_cost_add": 0,
+        "cooldown_add": 0,
+        "extra_effects": [
+          {
+            "type": "restore_mp",
+            "fixed": 3,
+            "recipient": "source",
+            "requires": {
+              "target_status": "magic_break"
+            }
+          }
+        ]
+      },
+      "palette": "扇面与卷轴引出紫蓝符纹、束缚墨纹、破印时清晰碎裂",
+      "presentation_category": "single_status",
+      "presentation_contract_version": 1,
+      "event_cues": [
+        {
+          "event": "resources_changed",
+          "when": "成功确认后mp_before>mp_after",
+          "target": "施法者",
+          "feedback": "按mp_before与mp_after的真实差显示扣费；失败指令不播放扣费或释放"
+        },
+        {
+          "event": "status_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "apply_status",
+          "status_id": "stun"
+        },
+        {
+          "event": "charge_interrupted",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "interrupt"
+        },
+        {
+          "event": "mp_restored",
+          "target": "施法者",
+          "when": "事件payload.actual>0时才显示真实回复；回复为0时不画领取收益",
+          "effect_type": "restore_mp",
+          "requires": {
+            "target_status": "magic_break"
+          }
+        }
+      ],
+      "cast": "合拢既有扇面，配合卷轴符纹锁住单敌蓄力点",
+      "release": "光质封缄符纹快速压下",
+      "hit": "成功眩晕才显示束缚停顿；可打断蓄力才碎去蓄力光",
+      "recovery": "持扇回身，卷轴保持原有位置",
+      "travel": "一枚高速光质符纹",
+      "target_shape": "单敌紧贴封印",
+      "status_feedback": "stun与interrupt分别判免疫；清醒/不可打断时不画成功眩晕；解印回MP只在施法者显示一次",
+      "prop_constraints": "保留既有扇与卷轴；符纹为光效，不新增符笔、独立符纸或其他手持物。"
+    },
+    {
+      "form_id": "controller",
+      "identity_id": "controller",
+      "class_id": "controller",
+      "skill_id": "magic_break",
+      "name": "破魔印",
+      "unlock_level": 3,
+      "target_rule": "single_enemy",
+      "base_cost": 8,
+      "base_cooldown": 1,
+      "level5_cost": 9,
+      "level5_cooldown": 1,
+      "level5_effects": [
+        {
+          "type": "damage",
+          "damage_type": "magic",
+          "element": "spirit",
+          "coefficient": 0.6,
+          "single_direct": true,
+          "can_crit": true,
+          "condition": "target_has_status",
+          "status_id": "weaken",
+          "conditional_coefficient": 1.0
+        },
+        {
+          "type": "apply_status",
+          "status_id": "magic_break",
+          "magnitude": 0.25,
+          "duration": 2,
+          "clock": "target_slot"
+        }
+      ],
+      "refinement": {
+        "name": "解咒",
+        "summary": "目标已有虚弱时，破魔印伤害系数额外+40个百分点；随后保留原25%破魔/2行动。",
+        "unlock_level": 3
+      },
+      "technique": {},
+      "palette": "扇面与卷轴引出紫蓝符纹、束缚墨纹、破印时清晰碎裂",
+      "presentation_category": "single_projectile",
+      "presentation_contract_version": 1,
+      "event_cues": [
+        {
+          "event": "resources_changed",
+          "when": "成功确认后mp_before>mp_after",
+          "target": "施法者",
+          "feedback": "按mp_before与mp_after的真实差显示扣费；失败指令不播放扣费或释放"
+        },
+        {
+          "event": "damage",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "damage",
+          "status_id": "weaken"
+        },
+        {
+          "event": "status_applied",
+          "target": "该事件的实际target_id",
+          "when": "仅实际结算出现该事件时",
+          "effect_type": "apply_status",
+          "status_id": "magic_break"
+        }
+      ],
+      "cast": "以既有扇尖指向灵力节点，卷轴符纹呼应",
+      "release": "灵属性印记刺向单敌",
+      "hit": "小型灵光命中后护法纹破裂",
+      "recovery": "扇尖回收，卷轴保持原有位置",
+      "travel": "短灵印投射",
+      "target_shape": "单敌魔防破口",
+      "status_feedback": "解咒先读取weaken增强该次伤害，magic_break随后落定；不驱散目标已有正面状态",
+      "prop_constraints": "保留既有扇与卷轴；符纹为光效，不新增符笔、独立符纸或其他手持物。"
+    }
+  ]
+}

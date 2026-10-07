@@ -1,0 +1,4805 @@
+{
+  "character_id": "homura_mage",
+  "identity_id": "homura",
+  "form_id": "mage",
+  "dir": "res://assets/chars/pixel/homura_mage/video_actions/frames/",
+  "canvas": {
+    "w": 2048,
+    "h": 1024,
+    "anchor": [
+      1024,
+      930
+    ],
+    "content_height_px": 448,
+    "height_m": 1.7
+  },
+  "move_speed_mps": 2.6,
+  "run_speed_mps": 4.2,
+  "mirror_allowed": true,
+  "layers": [],
+  "portrait_source_manifest": "res://assets/chars/pixel/homura_mage/high_detail_complete/manifest.json",
+  "status": "video_actions_exact_runtime_pixels_restored",
+  "anims": {
+    "idle": {
+      "frames": [
+        "idle_037",
+        "idle_039",
+        "idle_041",
+        "idle_043",
+        "idle_045",
+        "idle_047",
+        "idle_049",
+        "idle_051",
+        "idle_053",
+        "idle_055",
+        "idle_057",
+        "idle_059",
+        "idle_061",
+        "idle_063",
+        "idle_065",
+        "idle_067",
+        "idle_069",
+        "idle_071",
+        "idle_073",
+        "idle_075",
+        "idle_077",
+        "idle_079",
+        "idle_081",
+        "idle_083",
+        "idle_085",
+        "idle_087",
+        "idle_089",
+        "idle_091",
+        "idle_093",
+        "idle_095",
+        "idle_097",
+        "idle_099",
+        "idle_101",
+        "idle_103",
+        "idle_105",
+        "idle_107",
+        "idle_109",
+        "idle_111",
+        "idle_113"
+      ],
+      "durations_ms": [
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333
+      ],
+      "loop": true
+    },
+    "walk": {
+      "frames": [
+        "walk_035",
+        "walk_037",
+        "walk_039",
+        "walk_041",
+        "walk_043",
+        "walk_045",
+        "walk_047",
+        "walk_049",
+        "walk_051",
+        "walk_053",
+        "walk_055",
+        "walk_057",
+        "walk_059",
+        "walk_061",
+        "walk_063",
+        "walk_065"
+      ],
+      "durations_ms": [
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333
+      ],
+      "loop": true
+    },
+    "attack": {
+      "frames": [
+        "attack_009",
+        "attack_011",
+        "attack_013",
+        "attack_015",
+        "attack_017",
+        "attack_019",
+        "attack_021",
+        "attack_023",
+        "attack_025",
+        "attack_027",
+        "attack_029",
+        "attack_031",
+        "attack_032",
+        "attack_033",
+        "attack_034",
+        "attack_035",
+        "attack_036",
+        "attack_037",
+        "attack_038",
+        "attack_039",
+        "attack_040",
+        "attack_041",
+        "attack_042",
+        "attack_043",
+        "attack_044",
+        "attack_045",
+        "attack_046",
+        "attack_047",
+        "attack_052",
+        "attack_057",
+        "attack_062",
+        "attack_067",
+        "attack_072",
+        "attack_077",
+        "attack_085",
+        "attack_087",
+        "attack_089",
+        "attack_091",
+        "attack_093",
+        "attack_095",
+        "attack_097",
+        "attack_099",
+        "attack_101",
+        "attack_103",
+        "attack_105",
+        "attack_107",
+        "attack_109",
+        "attack_111",
+        "attack_113"
+      ],
+      "durations_ms": [
+        30,
+        30,
+        30,
+        30,
+        30,
+        30,
+        30,
+        30,
+        30,
+        30,
+        30,
+        25,
+        25,
+        25,
+        25,
+        25,
+        25,
+        25,
+        25,
+        25,
+        25,
+        25,
+        25,
+        25,
+        25,
+        25,
+        25,
+        18,
+        18,
+        18,
+        18,
+        18,
+        18,
+        18,
+        30,
+        30,
+        30,
+        30,
+        30,
+        30,
+        30,
+        30,
+        30,
+        30,
+        30,
+        30,
+        30,
+        30,
+        30
+      ],
+      "loop": false,
+      "impact_ms": 730
+    },
+    "hit": {
+      "frames": [
+        "retained_hit"
+      ],
+      "durations_ms": [
+        180
+      ],
+      "loop": false,
+      "single_pose": true
+    },
+    "defend": {
+      "frames": [
+        "retained_defend"
+      ],
+      "durations_ms": [
+        300
+      ],
+      "loop": false,
+      "single_pose": true
+    },
+    "recover": {
+      "frames": [
+        "retained_recover"
+      ],
+      "durations_ms": [
+        300
+      ],
+      "loop": false,
+      "single_pose": true
+    },
+    "down": {
+      "frames": [
+        "down_023",
+        "down_026",
+        "down_029",
+        "down_032",
+        "down_035",
+        "down_038",
+        "down_041",
+        "down_044",
+        "down_047",
+        "down_050",
+        "down_053",
+        "down_056",
+        "down_059",
+        "down_062",
+        "down_065",
+        "down_121"
+      ],
+      "durations_ms": [
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        98.24561403508778,
+        1.7543859649122169
+      ],
+      "loop": false,
+      "events": {},
+      "hold_last_frame": true
+    },
+    "run": {
+      "frames": [
+        "run_053",
+        "run_054",
+        "run_055",
+        "run_056",
+        "run_057",
+        "run_058",
+        "run_059",
+        "run_060",
+        "run_061",
+        "run_062",
+        "run_063",
+        "run_064",
+        "run_065",
+        "run_066"
+      ],
+      "durations_ms": [
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0
+      ],
+      "loop": true,
+      "events": {}
+    },
+    "interact": {
+      "frames": [
+        "interact_006",
+        "interact_008",
+        "interact_010",
+        "interact_012",
+        "interact_014",
+        "interact_016",
+        "interact_018",
+        "interact_020",
+        "interact_022",
+        "interact_024",
+        "interact_026",
+        "interact_028",
+        "interact_030",
+        "interact_032",
+        "interact_034",
+        "interact_036",
+        "interact_038",
+        "interact_040",
+        "interact_042",
+        "interact_044",
+        "interact_046",
+        "interact_048",
+        "interact_050",
+        "interact_052"
+      ],
+      "durations_ms": [
+        100.0,
+        100.0,
+        100.0,
+        33.333333333333314,
+        33.33333333333337,
+        33.333333333333314,
+        33.33333333333337,
+        27.60416666666663,
+        21.875,
+        21.875,
+        21.875,
+        21.875,
+        21.875,
+        21.875,
+        21.875,
+        21.875,
+        21.875,
+        21.875,
+        21.875,
+        21.875,
+        21.875,
+        21.875,
+        21.875,
+        10.9375
+      ],
+      "loop": false,
+      "events": {
+        "interact": 300.0
+      }
+    },
+    "pickup": {
+      "frames": [
+        "interact_061",
+        "interact_064",
+        "interact_067",
+        "interact_070",
+        "interact_073",
+        "interact_076",
+        "interact_078",
+        "interact_079",
+        "interact_082",
+        "interact_085",
+        "interact_088",
+        "interact_091",
+        "interact_094",
+        "interact_097",
+        "interact_100",
+        "interact_103",
+        "interact_106",
+        "interact_109",
+        "interact_112",
+        "interact_115",
+        "interact_117"
+      ],
+      "durations_ms": [
+        58.333333333333336,
+        58.333333333333336,
+        58.33333333333333,
+        58.33333333333334,
+        58.33333333333334,
+        38.88888888888886,
+        19.444444444444457,
+        56.666666666666686,
+        56.66666666666663,
+        56.666666666666686,
+        43.0,
+        43.0,
+        43.0,
+        43.0,
+        43.0,
+        43.0,
+        43.0,
+        43.0,
+        43.0,
+        28.666666666666742,
+        14.333333333333258
+      ],
+      "loop": false,
+      "events": {
+        "pickup": 350.0
+      }
+    },
+    "item": {
+      "frames": [
+        "item_008",
+        "item_012",
+        "item_016",
+        "item_020",
+        "item_024",
+        "item_028",
+        "item_032",
+        "item_036",
+        "item_040",
+        "item_044",
+        "item_048",
+        "item_052",
+        "item_056",
+        "item_060",
+        "item_064",
+        "item_067",
+        "item_068",
+        "item_072",
+        "item_076",
+        "item_080",
+        "item_084",
+        "item_088",
+        "item_092",
+        "item_096",
+        "item_100",
+        "item_104",
+        "item_108",
+        "item_112",
+        "item_113",
+        "item_116",
+        "item_119"
+      ],
+      "durations_ms": [
+        31.515151515151516,
+        31.515151515151516,
+        31.515151515151516,
+        31.515151515151516,
+        31.5151515151515,
+        31.51515151515153,
+        31.5151515151515,
+        31.51515151515153,
+        29.80186480186478,
+        29.230769230769226,
+        29.230769230769226,
+        29.230769230769283,
+        29.23076923076917,
+        29.230769230769283,
+        21.923076923076906,
+        7.916666666666686,
+        31.66666666666663,
+        31.666666666666686,
+        31.66666666666663,
+        31.666666666666742,
+        31.66666666666663,
+        34.439655172413836,
+        42.75862068965512,
+        42.75862068965523,
+        42.75862068965512,
+        42.75862068965512,
+        42.75862068965523,
+        10.689655172413836,
+        32.068965517241395,
+        32.068965517241395,
+        10.689655172413723
+      ],
+      "loop": false,
+      "impact_ms": 450.0,
+      "events": {}
+    },
+    "jump": {
+      "frames": [
+        "jump_017",
+        "jump_020",
+        "jump_023",
+        "jump_026",
+        "jump_029",
+        "jump_032",
+        "jump_033",
+        "jump_034",
+        "jump_035",
+        "jump_038",
+        "jump_041",
+        "jump_044",
+        "jump_047",
+        "jump_050",
+        "jump_053",
+        "jump_056",
+        "jump_058",
+        "jump_059",
+        "jump_060",
+        "jump_062",
+        "jump_065",
+        "jump_068",
+        "jump_071",
+        "jump_074",
+        "jump_077",
+        "jump_080",
+        "jump_083",
+        "jump_086",
+        "jump_089",
+        "jump_092",
+        "jump_095"
+      ],
+      "durations_ms": [
+        34.94117647058823,
+        34.94117647058823,
+        34.941176470588246,
+        34.94117647058822,
+        34.94117647058826,
+        11.647058823529392,
+        11.64705882352942,
+        14.538461538461547,
+        43.615384615384585,
+        43.61538461538464,
+        43.615384615384585,
+        43.61538461538464,
+        65.25,
+        65.25,
+        65.25,
+        43.5,
+        21.75,
+        6.810810810810835,
+        13.621621621621557,
+        20.432432432432506,
+        20.432432432432392,
+        20.432432432432392,
+        20.432432432432506,
+        20.432432432432392,
+        20.432432432432506,
+        20.432432432432392,
+        20.432432432432392,
+        20.432432432432506,
+        20.432432432432392,
+        20.432432432432392,
+        6.810810810810835
+      ],
+      "loop": false,
+      "events": {
+        "takeoff": 198.0,
+        "apex": 387.0,
+        "landing": 648.0
+      },
+      "vertical_motion_baked": true
+    }
+  },
+  "packed_frames": {
+    "idle_037": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1889,
+        1849
+      ],
+      "region": [
+        1322,
+        1389,
+        258,
+        458
+      ],
+      "offset": [
+        865,
+        475
+      ]
+    },
+    "idle_039": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1889,
+        1849
+      ],
+      "region": [
+        1584,
+        1389,
+        258,
+        458
+      ],
+      "offset": [
+        865,
+        475
+      ]
+    },
+    "idle_041": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1889,
+        1849
+      ],
+      "region": [
+        1340,
+        927,
+        262,
+        458
+      ],
+      "offset": [
+        864,
+        475
+      ]
+    },
+    "idle_043": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1889,
+        1849
+      ],
+      "region": [
+        1623,
+        465,
+        264,
+        458
+      ],
+      "offset": [
+        862,
+        475
+      ]
+    },
+    "idle_045": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1889,
+        1849
+      ],
+      "region": [
+        2,
+        927,
+        264,
+        458
+      ],
+      "offset": [
+        862,
+        475
+      ]
+    },
+    "idle_047": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1889,
+        1849
+      ],
+      "region": [
+        815,
+        465,
+        266,
+        458
+      ],
+      "offset": [
+        862,
+        475
+      ]
+    },
+    "idle_049": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1889,
+        1849
+      ],
+      "region": [
+        1590,
+        2,
+        267,
+        458
+      ],
+      "offset": [
+        862,
+        475
+      ]
+    },
+    "idle_051": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1889,
+        1849
+      ],
+      "region": [
+        2,
+        2,
+        267,
+        459
+      ],
+      "offset": [
+        862,
+        474
+      ]
+    },
+    "idle_053": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1889,
+        1849
+      ],
+      "region": [
+        2,
+        465,
+        267,
+        458
+      ],
+      "offset": [
+        862,
+        475
+      ]
+    },
+    "idle_055": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1889,
+        1849
+      ],
+      "region": [
+        1085,
+        465,
+        265,
+        458
+      ],
+      "offset": [
+        864,
+        475
+      ]
+    },
+    "idle_057": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1889,
+        1849
+      ],
+      "region": [
+        270,
+        927,
+        264,
+        458
+      ],
+      "offset": [
+        865,
+        475
+      ]
+    },
+    "idle_059": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1889,
+        1849
+      ],
+      "region": [
+        806,
+        927,
+        263,
+        458
+      ],
+      "offset": [
+        865,
+        475
+      ]
+    },
+    "idle_061": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1889,
+        1849
+      ],
+      "region": [
+        2,
+        1389,
+        261,
+        458
+      ],
+      "offset": [
+        865,
+        475
+      ]
+    },
+    "idle_063": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1889,
+        1849
+      ],
+      "region": [
+        796,
+        1389,
+        259,
+        458
+      ],
+      "offset": [
+        867,
+        475
+      ]
+    },
+    "idle_065": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        1825,
+        924
+      ],
+      "region": [
+        788,
+        2,
+        257,
+        458
+      ],
+      "offset": [
+        868,
+        475
+      ]
+    },
+    "idle_067": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        1825,
+        924
+      ],
+      "region": [
+        1309,
+        2,
+        255,
+        458
+      ],
+      "offset": [
+        868,
+        475
+      ]
+    },
+    "idle_069": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        1825,
+        924
+      ],
+      "region": [
+        1568,
+        2,
+        255,
+        458
+      ],
+      "offset": [
+        868,
+        475
+      ]
+    },
+    "idle_071": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        1825,
+        924
+      ],
+      "region": [
+        520,
+        464,
+        254,
+        458
+      ],
+      "offset": [
+        868,
+        475
+      ]
+    },
+    "idle_073": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1889,
+        1849
+      ],
+      "region": [
+        1332,
+        2,
+        254,
+        459
+      ],
+      "offset": [
+        868,
+        474
+      ]
+    },
+    "idle_075": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        1825,
+        924
+      ],
+      "region": [
+        778,
+        464,
+        254,
+        458
+      ],
+      "offset": [
+        868,
+        475
+      ]
+    },
+    "idle_077": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        1825,
+        924
+      ],
+      "region": [
+        1049,
+        2,
+        256,
+        458
+      ],
+      "offset": [
+        867,
+        475
+      ]
+    },
+    "idle_079": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        1825,
+        924
+      ],
+      "region": [
+        2,
+        2,
+        258,
+        458
+      ],
+      "offset": [
+        865,
+        475
+      ]
+    },
+    "idle_081": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        1825,
+        924
+      ],
+      "region": [
+        264,
+        2,
+        258,
+        458
+      ],
+      "offset": [
+        865,
+        475
+      ]
+    },
+    "idle_083": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1889,
+        1849
+      ],
+      "region": [
+        532,
+        1389,
+        260,
+        458
+      ],
+      "offset": [
+        865,
+        475
+      ]
+    },
+    "idle_085": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1889,
+        1849
+      ],
+      "region": [
+        1606,
+        927,
+        262,
+        458
+      ],
+      "offset": [
+        864,
+        475
+      ]
+    },
+    "idle_087": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1889,
+        1849
+      ],
+      "region": [
+        538,
+        927,
+        264,
+        458
+      ],
+      "offset": [
+        862,
+        475
+      ]
+    },
+    "idle_089": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1889,
+        1849
+      ],
+      "region": [
+        544,
+        2,
+        266,
+        459
+      ],
+      "offset": [
+        862,
+        474
+      ]
+    },
+    "idle_091": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1889,
+        1849
+      ],
+      "region": [
+        273,
+        465,
+        267,
+        458
+      ],
+      "offset": [
+        862,
+        475
+      ]
+    },
+    "idle_093": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1889,
+        1849
+      ],
+      "region": [
+        273,
+        2,
+        267,
+        459
+      ],
+      "offset": [
+        862,
+        474
+      ]
+    },
+    "idle_095": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1889,
+        1849
+      ],
+      "region": [
+        544,
+        465,
+        267,
+        458
+      ],
+      "offset": [
+        862,
+        475
+      ]
+    },
+    "idle_097": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1889,
+        1849
+      ],
+      "region": [
+        1354,
+        465,
+        265,
+        458
+      ],
+      "offset": [
+        864,
+        475
+      ]
+    },
+    "idle_099": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1889,
+        1849
+      ],
+      "region": [
+        1073,
+        927,
+        263,
+        458
+      ],
+      "offset": [
+        865,
+        475
+      ]
+    },
+    "idle_101": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1889,
+        1849
+      ],
+      "region": [
+        267,
+        1389,
+        261,
+        458
+      ],
+      "offset": [
+        865,
+        475
+      ]
+    },
+    "idle_103": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1889,
+        1849
+      ],
+      "region": [
+        1059,
+        1389,
+        259,
+        458
+      ],
+      "offset": [
+        867,
+        475
+      ]
+    },
+    "idle_105": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        1825,
+        924
+      ],
+      "region": [
+        526,
+        2,
+        258,
+        458
+      ],
+      "offset": [
+        868,
+        475
+      ]
+    },
+    "idle_107": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        1825,
+        924
+      ],
+      "region": [
+        2,
+        464,
+        255,
+        458
+      ],
+      "offset": [
+        868,
+        475
+      ]
+    },
+    "idle_109": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_01.png",
+      "atlas_size": [
+        1825,
+        924
+      ],
+      "region": [
+        261,
+        464,
+        255,
+        458
+      ],
+      "offset": [
+        868,
+        475
+      ]
+    },
+    "idle_111": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1889,
+        1849
+      ],
+      "region": [
+        814,
+        2,
+        255,
+        459
+      ],
+      "offset": [
+        868,
+        474
+      ]
+    },
+    "idle_113": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "atlas_size": [
+        1889,
+        1849
+      ],
+      "region": [
+        1073,
+        2,
+        255,
+        459
+      ],
+      "offset": [
+        868,
+        474
+      ]
+    },
+    "walk_035": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        2021,
+        1846
+      ],
+      "region": [
+        548,
+        929,
+        258,
+        456
+      ],
+      "offset": [
+        871,
+        473
+      ]
+    },
+    "walk_037": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        2021,
+        1846
+      ],
+      "region": [
+        265,
+        466,
+        257,
+        459
+      ],
+      "offset": [
+        872,
+        472
+      ]
+    },
+    "walk_039": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        2021,
+        1846
+      ],
+      "region": [
+        1603,
+        466,
+        259,
+        458
+      ],
+      "offset": [
+        872,
+        471
+      ]
+    },
+    "walk_041": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        2021,
+        1846
+      ],
+      "region": [
+        2,
+        466,
+        259,
+        459
+      ],
+      "offset": [
+        872,
+        470
+      ]
+    },
+    "walk_043": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        2021,
+        1846
+      ],
+      "region": [
+        1757,
+        2,
+        262,
+        459
+      ],
+      "offset": [
+        872,
+        470
+      ]
+    },
+    "walk_045": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        2021,
+        1846
+      ],
+      "region": [
+        564,
+        1390,
+        262,
+        454
+      ],
+      "offset": [
+        872,
+        471
+      ]
+    },
+    "walk_047": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        2021,
+        1846
+      ],
+      "region": [
+        668,
+        2,
+        260,
+        460
+      ],
+      "offset": [
+        871,
+        471
+      ]
+    },
+    "walk_049": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2003,
+        1888
+      ],
+      "region": [
+        1705,
+        1424,
+        260,
+        461
+      ],
+      "offset": [
+        871,
+        472
+      ]
+    },
+    "walk_051": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2003,
+        1888
+      ],
+      "region": [
+        2,
+        1424,
+        265,
+        462
+      ],
+      "offset": [
+        869,
+        472
+      ]
+    },
+    "walk_053": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2003,
+        1888
+      ],
+      "region": [
+        1436,
+        1424,
+        265,
+        461
+      ],
+      "offset": [
+        866,
+        473
+      ]
+    },
+    "walk_055": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        2021,
+        1846
+      ],
+      "region": [
+        526,
+        466,
+        268,
+        458
+      ],
+      "offset": [
+        866,
+        476
+      ]
+    },
+    "walk_057": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        2021,
+        1846
+      ],
+      "region": [
+        798,
+        466,
+        265,
+        458
+      ],
+      "offset": [
+        866,
+        476
+      ]
+    },
+    "walk_059": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        2021,
+        1846
+      ],
+      "region": [
+        1336,
+        466,
+        263,
+        458
+      ],
+      "offset": [
+        866,
+        476
+      ]
+    },
+    "walk_061": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        2021,
+        1846
+      ],
+      "region": [
+        1067,
+        466,
+        265,
+        458
+      ],
+      "offset": [
+        863,
+        476
+      ]
+    },
+    "walk_063": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2003,
+        1888
+      ],
+      "region": [
+        271,
+        1424,
+        263,
+        462
+      ],
+      "offset": [
+        863,
+        473
+      ]
+    },
+    "walk_065": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2003,
+        1888
+      ],
+      "region": [
+        538,
+        1424,
+        261,
+        462
+      ],
+      "offset": [
+        863,
+        473
+      ]
+    },
+    "attack_009": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1922,
+        1845
+      ],
+      "region": [
+        832,
+        466,
+        264,
+        458
+      ],
+      "offset": [
+        862,
+        475
+      ]
+    },
+    "attack_011": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1922,
+        1845
+      ],
+      "region": [
+        1132,
+        928,
+        264,
+        455
+      ],
+      "offset": [
+        862,
+        478
+      ]
+    },
+    "attack_013": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1922,
+        1845
+      ],
+      "region": [
+        288,
+        928,
+        267,
+        456
+      ],
+      "offset": [
+        859,
+        477
+      ]
+    },
+    "attack_015": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        1882,
+        1828
+      ],
+      "region": [
+        1314,
+        918,
+        267,
+        452
+      ],
+      "offset": [
+        856,
+        481
+      ]
+    },
+    "attack_017": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        1882,
+        1828
+      ],
+      "region": [
+        1585,
+        918,
+        267,
+        452
+      ],
+      "offset": [
+        856,
+        481
+      ]
+    },
+    "attack_019": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        1882,
+        1828
+      ],
+      "region": [
+        1332,
+        1375,
+        267,
+        449
+      ],
+      "offset": [
+        853,
+        484
+      ]
+    },
+    "attack_021": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        1882,
+        1828
+      ],
+      "region": [
+        1603,
+        1375,
+        264,
+        449
+      ],
+      "offset": [
+        853,
+        484
+      ]
+    },
+    "attack_023": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1990,
+        1791
+      ],
+      "region": [
+        2,
+        2,
+        262,
+        446
+      ],
+      "offset": [
+        853,
+        487
+      ]
+    },
+    "attack_025": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1990,
+        1791
+      ],
+      "region": [
+        268,
+        2,
+        258,
+        446
+      ],
+      "offset": [
+        856,
+        487
+      ]
+    },
+    "attack_027": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1990,
+        1791
+      ],
+      "region": [
+        1328,
+        899,
+        255,
+        443
+      ],
+      "offset": [
+        859,
+        490
+      ]
+    },
+    "attack_029": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1990,
+        1791
+      ],
+      "region": [
+        515,
+        1346,
+        249,
+        443
+      ],
+      "offset": [
+        862,
+        490
+      ]
+    },
+    "attack_031": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1990,
+        1791
+      ],
+      "region": [
+        768,
+        1346,
+        249,
+        443
+      ],
+      "offset": [
+        865,
+        490
+      ]
+    },
+    "attack_032": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1990,
+        1791
+      ],
+      "region": [
+        1273,
+        1346,
+        247,
+        443
+      ],
+      "offset": [
+        867,
+        490
+      ]
+    },
+    "attack_033": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1990,
+        1791
+      ],
+      "region": [
+        1021,
+        1346,
+        248,
+        443
+      ],
+      "offset": [
+        868,
+        490
+      ]
+    },
+    "attack_034": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1990,
+        1791
+      ],
+      "region": [
+        260,
+        1346,
+        251,
+        443
+      ],
+      "offset": [
+        869,
+        490
+      ]
+    },
+    "attack_035": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1990,
+        1791
+      ],
+      "region": [
+        2,
+        1346,
+        254,
+        443
+      ],
+      "offset": [
+        871,
+        490
+      ]
+    },
+    "attack_036": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1990,
+        1791
+      ],
+      "region": [
+        1587,
+        899,
+        255,
+        443
+      ],
+      "offset": [
+        873,
+        490
+      ]
+    },
+    "attack_037": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1990,
+        1791
+      ],
+      "region": [
+        1067,
+        899,
+        257,
+        443
+      ],
+      "offset": [
+        874,
+        490
+      ]
+    },
+    "attack_038": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1990,
+        1791
+      ],
+      "region": [
+        804,
+        899,
+        259,
+        443
+      ],
+      "offset": [
+        876,
+        490
+      ]
+    },
+    "attack_039": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1990,
+        1791
+      ],
+      "region": [
+        539,
+        899,
+        261,
+        443
+      ],
+      "offset": [
+        877,
+        490
+      ]
+    },
+    "attack_040": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1990,
+        1791
+      ],
+      "region": [
+        271,
+        899,
+        264,
+        443
+      ],
+      "offset": [
+        877,
+        490
+      ]
+    },
+    "attack_041": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1990,
+        1791
+      ],
+      "region": [
+        2,
+        899,
+        265,
+        443
+      ],
+      "offset": [
+        879,
+        490
+      ]
+    },
+    "attack_042": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1990,
+        1791
+      ],
+      "region": [
+        1673,
+        452,
+        268,
+        443
+      ],
+      "offset": [
+        879,
+        490
+      ]
+    },
+    "attack_043": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1990,
+        1791
+      ],
+      "region": [
+        1399,
+        452,
+        270,
+        443
+      ],
+      "offset": [
+        880,
+        490
+      ]
+    },
+    "attack_044": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1990,
+        1791
+      ],
+      "region": [
+        1123,
+        452,
+        272,
+        443
+      ],
+      "offset": [
+        880,
+        490
+      ]
+    },
+    "attack_045": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1990,
+        1791
+      ],
+      "region": [
+        846,
+        452,
+        273,
+        443
+      ],
+      "offset": [
+        882,
+        490
+      ]
+    },
+    "attack_046": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1990,
+        1791
+      ],
+      "region": [
+        568,
+        452,
+        274,
+        443
+      ],
+      "offset": [
+        882,
+        490
+      ]
+    },
+    "attack_047": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1990,
+        1791
+      ],
+      "region": [
+        288,
+        452,
+        276,
+        443
+      ],
+      "offset": [
+        882,
+        490
+      ]
+    },
+    "attack_052": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1990,
+        1791
+      ],
+      "region": [
+        2,
+        452,
+        282,
+        443
+      ],
+      "offset": [
+        882,
+        490
+      ]
+    },
+    "attack_057": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1990,
+        1791
+      ],
+      "region": [
+        1702,
+        2,
+        286,
+        443
+      ],
+      "offset": [
+        879,
+        490
+      ]
+    },
+    "attack_062": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1990,
+        1791
+      ],
+      "region": [
+        825,
+        2,
+        289,
+        443
+      ],
+      "offset": [
+        876,
+        490
+      ]
+    },
+    "attack_067": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1990,
+        1791
+      ],
+      "region": [
+        530,
+        2,
+        291,
+        443
+      ],
+      "offset": [
+        874,
+        490
+      ]
+    },
+    "attack_072": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1990,
+        1791
+      ],
+      "region": [
+        1118,
+        2,
+        289,
+        443
+      ],
+      "offset": [
+        875,
+        490
+      ]
+    },
+    "attack_077": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1990,
+        1791
+      ],
+      "region": [
+        1411,
+        2,
+        287,
+        443
+      ],
+      "offset": [
+        877,
+        490
+      ]
+    },
+    "attack_085": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        1882,
+        1828
+      ],
+      "region": [
+        1040,
+        1375,
+        288,
+        449
+      ],
+      "offset": [
+        879,
+        484
+      ]
+    },
+    "attack_087": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        1882,
+        1828
+      ],
+      "region": [
+        1024,
+        918,
+        286,
+        452
+      ],
+      "offset": [
+        879,
+        481
+      ]
+    },
+    "attack_089": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        1882,
+        1828
+      ],
+      "region": [
+        555,
+        2,
+        287,
+        454
+      ],
+      "offset": [
+        877,
+        479
+      ]
+    },
+    "attack_091": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1922,
+        1845
+      ],
+      "region": [
+        559,
+        928,
+        285,
+        455
+      ],
+      "offset": [
+        876,
+        478
+      ]
+    },
+    "attack_093": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1922,
+        1845
+      ],
+      "region": [
+        2,
+        928,
+        282,
+        456
+      ],
+      "offset": [
+        876,
+        477
+      ]
+    },
+    "attack_095": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1922,
+        1845
+      ],
+      "region": [
+        848,
+        928,
+        280,
+        455
+      ],
+      "offset": [
+        873,
+        478
+      ]
+    },
+    "attack_097": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1922,
+        1845
+      ],
+      "region": [
+        2,
+        466,
+        278,
+        458
+      ],
+      "offset": [
+        871,
+        475
+      ]
+    },
+    "attack_099": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1922,
+        1845
+      ],
+      "region": [
+        284,
+        466,
+        273,
+        458
+      ],
+      "offset": [
+        868,
+        475
+      ]
+    },
+    "attack_101": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1922,
+        1845
+      ],
+      "region": [
+        280,
+        2,
+        269,
+        459
+      ],
+      "offset": [
+        867,
+        474
+      ]
+    },
+    "attack_103": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1922,
+        1845
+      ],
+      "region": [
+        561,
+        466,
+        267,
+        458
+      ],
+      "offset": [
+        865,
+        475
+      ]
+    },
+    "attack_105": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1922,
+        1845
+      ],
+      "region": [
+        1097,
+        2,
+        267,
+        459
+      ],
+      "offset": [
+        865,
+        474
+      ]
+    },
+    "attack_107": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1922,
+        1845
+      ],
+      "region": [
+        553,
+        2,
+        268,
+        459
+      ],
+      "offset": [
+        864,
+        474
+      ]
+    },
+    "attack_109": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1922,
+        1845
+      ],
+      "region": [
+        825,
+        2,
+        268,
+        459
+      ],
+      "offset": [
+        862,
+        474
+      ]
+    },
+    "attack_111": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1922,
+        1845
+      ],
+      "region": [
+        1368,
+        2,
+        265,
+        459
+      ],
+      "offset": [
+        864,
+        474
+      ]
+    },
+    "attack_113": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1922,
+        1845
+      ],
+      "region": [
+        1637,
+        2,
+        264,
+        459
+      ],
+      "offset": [
+        864,
+        474
+      ]
+    },
+    "run_053": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2003,
+        1888
+      ],
+      "region": [
+        1321,
+        955,
+        273,
+        463
+      ],
+      "offset": [
+        881,
+        454
+      ]
+    },
+    "run_054": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        2021,
+        1846
+      ],
+      "region": [
+        810,
+        929,
+        301,
+        455
+      ],
+      "offset": [
+        875,
+        456
+      ]
+    },
+    "run_055": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2003,
+        1888
+      ],
+      "region": [
+        2,
+        955,
+        326,
+        465
+      ],
+      "offset": [
+        871,
+        460
+      ]
+    },
+    "run_056": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2003,
+        1888
+      ],
+      "region": [
+        1667,
+        483,
+        334,
+        465
+      ],
+      "offset": [
+        871,
+        462
+      ]
+    },
+    "run_057": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2003,
+        1888
+      ],
+      "region": [
+        688,
+        955,
+        332,
+        463
+      ],
+      "offset": [
+        871,
+        464
+      ]
+    },
+    "run_058": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2003,
+        1888
+      ],
+      "region": [
+        803,
+        1424,
+        320,
+        461
+      ],
+      "offset": [
+        875,
+        462
+      ]
+    },
+    "run_059": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2003,
+        1888
+      ],
+      "region": [
+        1127,
+        1424,
+        305,
+        461
+      ],
+      "offset": [
+        879,
+        458
+      ]
+    },
+    "run_060": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2003,
+        1888
+      ],
+      "region": [
+        1024,
+        955,
+        293,
+        463
+      ],
+      "offset": [
+        881,
+        454
+      ]
+    },
+    "run_061": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        2021,
+        1846
+      ],
+      "region": [
+        932,
+        2,
+        281,
+        459
+      ],
+      "offset": [
+        883,
+        454
+      ]
+    },
+    "run_062": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2003,
+        1888
+      ],
+      "region": [
+        842,
+        483,
+        273,
+        467
+      ],
+      "offset": [
+        883,
+        458
+      ]
+    },
+    "run_063": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2003,
+        1888
+      ],
+      "region": [
+        883,
+        2,
+        281,
+        473
+      ],
+      "offset": [
+        881,
+        460
+      ]
+    },
+    "run_064": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2003,
+        1888
+      ],
+      "region": [
+        559,
+        483,
+        279,
+        467
+      ],
+      "offset": [
+        883,
+        464
+      ]
+    },
+    "run_065": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2003,
+        1888
+      ],
+      "region": [
+        1119,
+        483,
+        273,
+        467
+      ],
+      "offset": [
+        885,
+        462
+      ]
+    },
+    "run_066": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2003,
+        1888
+      ],
+      "region": [
+        1396,
+        483,
+        267,
+        467
+      ],
+      "offset": [
+        887,
+        458
+      ]
+    },
+    "interact_006": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        2004,
+        1824
+      ],
+      "region": [
+        824,
+        459,
+        265,
+        453
+      ],
+      "offset": [
+        873,
+        478
+      ]
+    },
+    "interact_008": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        2004,
+        1824
+      ],
+      "region": [
+        644,
+        2,
+        305,
+        453
+      ],
+      "offset": [
+        875,
+        478
+      ]
+    },
+    "interact_010": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        2021,
+        1846
+      ],
+      "region": [
+        1498,
+        1390,
+        326,
+        453
+      ],
+      "offset": [
+        875,
+        478
+      ]
+    },
+    "interact_012": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        2004,
+        1824
+      ],
+      "region": [
+        2,
+        916,
+        330,
+        451
+      ],
+      "offset": [
+        875,
+        480
+      ]
+    },
+    "interact_014": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        2004,
+        1824
+      ],
+      "region": [
+        1627,
+        459,
+        332,
+        451
+      ],
+      "offset": [
+        875,
+        480
+      ]
+    },
+    "interact_016": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        2004,
+        1824
+      ],
+      "region": [
+        336,
+        916,
+        330,
+        451
+      ],
+      "offset": [
+        877,
+        480
+      ]
+    },
+    "interact_018": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        2004,
+        1824
+      ],
+      "region": [
+        670,
+        916,
+        330,
+        451
+      ],
+      "offset": [
+        877,
+        480
+      ]
+    },
+    "interact_020": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        2004,
+        1824
+      ],
+      "region": [
+        1004,
+        916,
+        330,
+        451
+      ],
+      "offset": [
+        877,
+        480
+      ]
+    },
+    "interact_022": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        2004,
+        1824
+      ],
+      "region": [
+        1338,
+        916,
+        330,
+        451
+      ],
+      "offset": [
+        877,
+        480
+      ]
+    },
+    "interact_024": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        2004,
+        1824
+      ],
+      "region": [
+        1672,
+        916,
+        330,
+        451
+      ],
+      "offset": [
+        877,
+        480
+      ]
+    },
+    "interact_026": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        2004,
+        1824
+      ],
+      "region": [
+        2,
+        1371,
+        330,
+        451
+      ],
+      "offset": [
+        877,
+        480
+      ]
+    },
+    "interact_028": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        2004,
+        1824
+      ],
+      "region": [
+        336,
+        1371,
+        330,
+        451
+      ],
+      "offset": [
+        877,
+        480
+      ]
+    },
+    "interact_030": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        2004,
+        1824
+      ],
+      "region": [
+        670,
+        1371,
+        330,
+        451
+      ],
+      "offset": [
+        877,
+        480
+      ]
+    },
+    "interact_032": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        2021,
+        1846
+      ],
+      "region": [
+        830,
+        1390,
+        330,
+        453
+      ],
+      "offset": [
+        877,
+        478
+      ]
+    },
+    "interact_034": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        2004,
+        1824
+      ],
+      "region": [
+        1004,
+        1371,
+        330,
+        451
+      ],
+      "offset": [
+        877,
+        480
+      ]
+    },
+    "interact_036": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        2021,
+        1846
+      ],
+      "region": [
+        1164,
+        1390,
+        330,
+        453
+      ],
+      "offset": [
+        875,
+        478
+      ]
+    },
+    "interact_038": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        2004,
+        1824
+      ],
+      "region": [
+        1338,
+        1371,
+        314,
+        451
+      ],
+      "offset": [
+        875,
+        480
+      ]
+    },
+    "interact_040": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        2004,
+        1824
+      ],
+      "region": [
+        1656,
+        1371,
+        312,
+        451
+      ],
+      "offset": [
+        875,
+        480
+      ]
+    },
+    "interact_042": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        2004,
+        1824
+      ],
+      "region": [
+        324,
+        2,
+        316,
+        453
+      ],
+      "offset": [
+        875,
+        478
+      ]
+    },
+    "interact_044": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        2004,
+        1824
+      ],
+      "region": [
+        2,
+        2,
+        318,
+        453
+      ],
+      "offset": [
+        875,
+        478
+      ]
+    },
+    "interact_046": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        2004,
+        1824
+      ],
+      "region": [
+        953,
+        2,
+        295,
+        453
+      ],
+      "offset": [
+        875,
+        478
+      ]
+    },
+    "interact_048": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        2004,
+        1824
+      ],
+      "region": [
+        1540,
+        2,
+        283,
+        453
+      ],
+      "offset": [
+        875,
+        478
+      ]
+    },
+    "interact_050": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        2004,
+        1824
+      ],
+      "region": [
+        1093,
+        459,
+        265,
+        453
+      ],
+      "offset": [
+        873,
+        478
+      ]
+    },
+    "interact_052": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        2004,
+        1824
+      ],
+      "region": [
+        1362,
+        459,
+        261,
+        453
+      ],
+      "offset": [
+        873,
+        478
+      ]
+    },
+    "interact_061": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        2021,
+        1846
+      ],
+      "region": [
+        279,
+        929,
+        265,
+        457
+      ],
+      "offset": [
+        869,
+        472
+      ]
+    },
+    "interact_064": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2031,
+        1725
+      ],
+      "region": [
+        1171,
+        2,
+        273,
+        445
+      ],
+      "offset": [
+        865,
+        478
+      ]
+    },
+    "interact_067": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2031,
+        1725
+      ],
+      "region": [
+        1057,
+        457,
+        297,
+        431
+      ],
+      "offset": [
+        861,
+        502
+      ]
+    },
+    "interact_070": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2031,
+        1725
+      ],
+      "region": [
+        1128,
+        1331,
+        334,
+        374
+      ],
+      "offset": [
+        855,
+        559
+      ]
+    },
+    "interact_073": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2031,
+        1725
+      ],
+      "region": [
+        1466,
+        1331,
+        350,
+        338
+      ],
+      "offset": [
+        851,
+        595
+      ]
+    },
+    "interact_076": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_04.png",
+      "atlas_size": [
+        1812,
+        621
+      ],
+      "region": [
+        362,
+        2,
+        356,
+        322
+      ],
+      "offset": [
+        847,
+        611
+      ]
+    },
+    "interact_078": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_04.png",
+      "atlas_size": [
+        1812,
+        621
+      ],
+      "region": [
+        722,
+        2,
+        356,
+        299
+      ],
+      "offset": [
+        851,
+        636
+      ]
+    },
+    "interact_079": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_04.png",
+      "atlas_size": [
+        1812,
+        621
+      ],
+      "region": [
+        1082,
+        2,
+        356,
+        299
+      ],
+      "offset": [
+        851,
+        636
+      ]
+    },
+    "interact_082": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_04.png",
+      "atlas_size": [
+        1812,
+        621
+      ],
+      "region": [
+        1442,
+        2,
+        368,
+        285
+      ],
+      "offset": [
+        851,
+        652
+      ]
+    },
+    "interact_085": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_04.png",
+      "atlas_size": [
+        1812,
+        621
+      ],
+      "region": [
+        390,
+        336,
+        384,
+        267
+      ],
+      "offset": [
+        851,
+        672
+      ]
+    },
+    "interact_088": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_04.png",
+      "atlas_size": [
+        1812,
+        621
+      ],
+      "region": [
+        2,
+        336,
+        384,
+        283
+      ],
+      "offset": [
+        855,
+        654
+      ]
+    },
+    "interact_091": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_04.png",
+      "atlas_size": [
+        1812,
+        621
+      ],
+      "region": [
+        2,
+        2,
+        356,
+        330
+      ],
+      "offset": [
+        877,
+        603
+      ]
+    },
+    "interact_094": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2031,
+        1725
+      ],
+      "region": [
+        2,
+        1331,
+        332,
+        392
+      ],
+      "offset": [
+        895,
+        541
+      ]
+    },
+    "interact_097": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2031,
+        1725
+      ],
+      "region": [
+        751,
+        457,
+        302,
+        435
+      ],
+      "offset": [
+        903,
+        498
+      ]
+    },
+    "interact_100": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2031,
+        1725
+      ],
+      "region": [
+        877,
+        2,
+        290,
+        447
+      ],
+      "offset": [
+        905,
+        486
+      ]
+    },
+    "interact_103": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        2004,
+        1824
+      ],
+      "region": [
+        1252,
+        2,
+        284,
+        453
+      ],
+      "offset": [
+        901,
+        478
+      ]
+    },
+    "interact_106": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        2021,
+        1846
+      ],
+      "region": [
+        1115,
+        929,
+        277,
+        455
+      ],
+      "offset": [
+        897,
+        476
+      ]
+    },
+    "interact_109": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        2021,
+        1846
+      ],
+      "region": [
+        2,
+        929,
+        273,
+        457
+      ],
+      "offset": [
+        891,
+        476
+      ]
+    },
+    "interact_112": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        2004,
+        1824
+      ],
+      "region": [
+        2,
+        459,
+        273,
+        453
+      ],
+      "offset": [
+        881,
+        478
+      ]
+    },
+    "interact_115": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        2004,
+        1824
+      ],
+      "region": [
+        279,
+        459,
+        270,
+        453
+      ],
+      "offset": [
+        876,
+        478
+      ]
+    },
+    "interact_117": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_02.png",
+      "atlas_size": [
+        2004,
+        1824
+      ],
+      "region": [
+        553,
+        459,
+        267,
+        453
+      ],
+      "offset": [
+        875,
+        478
+      ]
+    },
+    "item_008": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        1882,
+        1828
+      ],
+      "region": [
+        1107,
+        2,
+        255,
+        453
+      ],
+      "offset": [
+        882,
+        479
+      ]
+    },
+    "item_012": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        1882,
+        1828
+      ],
+      "region": [
+        779,
+        461,
+        253,
+        453
+      ],
+      "offset": [
+        884,
+        479
+      ]
+    },
+    "item_016": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        1882,
+        1828
+      ],
+      "region": [
+        1036,
+        461,
+        253,
+        453
+      ],
+      "offset": [
+        886,
+        479
+      ]
+    },
+    "item_020": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        1882,
+        1828
+      ],
+      "region": [
+        259,
+        918,
+        251,
+        453
+      ],
+      "offset": [
+        888,
+        479
+      ]
+    },
+    "item_024": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        1882,
+        1828
+      ],
+      "region": [
+        2,
+        2,
+        251,
+        455
+      ],
+      "offset": [
+        888,
+        477
+      ]
+    },
+    "item_028": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1922,
+        1845
+      ],
+      "region": [
+        1040,
+        1388,
+        253,
+        455
+      ],
+      "offset": [
+        886,
+        477
+      ]
+    },
+    "item_032": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1922,
+        1845
+      ],
+      "region": [
+        1297,
+        1388,
+        253,
+        455
+      ],
+      "offset": [
+        884,
+        477
+      ]
+    },
+    "item_036": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1922,
+        1845
+      ],
+      "region": [
+        1663,
+        928,
+        257,
+        455
+      ],
+      "offset": [
+        880,
+        477
+      ]
+    },
+    "item_040": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1922,
+        1845
+      ],
+      "region": [
+        1400,
+        928,
+        259,
+        455
+      ],
+      "offset": [
+        878,
+        477
+      ]
+    },
+    "item_044": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1922,
+        1845
+      ],
+      "region": [
+        2,
+        1388,
+        257,
+        455
+      ],
+      "offset": [
+        880,
+        477
+      ]
+    },
+    "item_048": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1922,
+        1845
+      ],
+      "region": [
+        263,
+        1388,
+        255,
+        455
+      ],
+      "offset": [
+        882,
+        477
+      ]
+    },
+    "item_052": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1922,
+        1845
+      ],
+      "region": [
+        522,
+        1388,
+        255,
+        455
+      ],
+      "offset": [
+        882,
+        477
+      ]
+    },
+    "item_056": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1922,
+        1845
+      ],
+      "region": [
+        781,
+        1388,
+        255,
+        455
+      ],
+      "offset": [
+        884,
+        477
+      ]
+    },
+    "item_060": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        1882,
+        1828
+      ],
+      "region": [
+        1293,
+        461,
+        253,
+        453
+      ],
+      "offset": [
+        886,
+        479
+      ]
+    },
+    "item_064": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        1882,
+        1828
+      ],
+      "region": [
+        1550,
+        461,
+        253,
+        453
+      ],
+      "offset": [
+        886,
+        479
+      ]
+    },
+    "item_067": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        1882,
+        1828
+      ],
+      "region": [
+        263,
+        1375,
+        255,
+        451
+      ],
+      "offset": [
+        884,
+        481
+      ]
+    },
+    "item_068": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        1882,
+        1828
+      ],
+      "region": [
+        522,
+        1375,
+        255,
+        451
+      ],
+      "offset": [
+        884,
+        481
+      ]
+    },
+    "item_072": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        1882,
+        1828
+      ],
+      "region": [
+        781,
+        1375,
+        255,
+        451
+      ],
+      "offset": [
+        882,
+        481
+      ]
+    },
+    "item_076": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        1882,
+        1828
+      ],
+      "region": [
+        2,
+        1375,
+        257,
+        451
+      ],
+      "offset": [
+        880,
+        481
+      ]
+    },
+    "item_080": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        1882,
+        1828
+      ],
+      "region": [
+        846,
+        2,
+        257,
+        453
+      ],
+      "offset": [
+        880,
+        479
+      ]
+    },
+    "item_084": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        1882,
+        1828
+      ],
+      "region": [
+        1366,
+        2,
+        255,
+        453
+      ],
+      "offset": [
+        882,
+        479
+      ]
+    },
+    "item_088": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        1882,
+        1828
+      ],
+      "region": [
+        1625,
+        2,
+        255,
+        453
+      ],
+      "offset": [
+        884,
+        479
+      ]
+    },
+    "item_092": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1922,
+        1845
+      ],
+      "region": [
+        1554,
+        1388,
+        253,
+        455
+      ],
+      "offset": [
+        886,
+        477
+      ]
+    },
+    "item_096": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        1882,
+        1828
+      ],
+      "region": [
+        514,
+        918,
+        251,
+        453
+      ],
+      "offset": [
+        888,
+        479
+      ]
+    },
+    "item_100": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1922,
+        1845
+      ],
+      "region": [
+        1100,
+        466,
+        251,
+        457
+      ],
+      "offset": [
+        886,
+        475
+      ]
+    },
+    "item_104": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1922,
+        1845
+      ],
+      "region": [
+        1355,
+        466,
+        251,
+        457
+      ],
+      "offset": [
+        886,
+        475
+      ]
+    },
+    "item_108": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        1882,
+        1828
+      ],
+      "region": [
+        769,
+        918,
+        251,
+        453
+      ],
+      "offset": [
+        886,
+        479
+      ]
+    },
+    "item_112": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        1882,
+        1828
+      ],
+      "region": [
+        2,
+        461,
+        255,
+        453
+      ],
+      "offset": [
+        884,
+        479
+      ]
+    },
+    "item_113": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        1882,
+        1828
+      ],
+      "region": [
+        261,
+        461,
+        255,
+        453
+      ],
+      "offset": [
+        884,
+        479
+      ]
+    },
+    "item_116": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        1882,
+        1828
+      ],
+      "region": [
+        2,
+        918,
+        253,
+        453
+      ],
+      "offset": [
+        884,
+        479
+      ]
+    },
+    "item_119": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        1882,
+        1828
+      ],
+      "region": [
+        520,
+        461,
+        255,
+        453
+      ],
+      "offset": [
+        882,
+        479
+      ]
+    },
+    "down_023": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "atlas_size": [
+        1990,
+        1791
+      ],
+      "region": [
+        1524,
+        1346,
+        303,
+        422
+      ],
+      "offset": [
+        874,
+        512
+      ]
+    },
+    "down_026": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1920,
+        918
+      ],
+      "region": [
+        2,
+        2,
+        319,
+        398
+      ],
+      "offset": [
+        870,
+        536
+      ]
+    },
+    "down_029": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1920,
+        918
+      ],
+      "region": [
+        325,
+        2,
+        331,
+        374
+      ],
+      "offset": [
+        868,
+        556
+      ]
+    },
+    "down_032": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1920,
+        918
+      ],
+      "region": [
+        660,
+        2,
+        345,
+        333
+      ],
+      "offset": [
+        868,
+        597
+      ]
+    },
+    "down_035": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1920,
+        918
+      ],
+      "region": [
+        1009,
+        2,
+        353,
+        313
+      ],
+      "offset": [
+        868,
+        619
+      ]
+    },
+    "down_038": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1920,
+        918
+      ],
+      "region": [
+        1366,
+        2,
+        370,
+        268
+      ],
+      "offset": [
+        868,
+        666
+      ]
+    },
+    "down_041": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1920,
+        918
+      ],
+      "region": [
+        2,
+        404,
+        372,
+        262
+      ],
+      "offset": [
+        866,
+        672
+      ]
+    },
+    "down_044": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1920,
+        918
+      ],
+      "region": [
+        378,
+        404,
+        376,
+        256
+      ],
+      "offset": [
+        862,
+        680
+      ]
+    },
+    "down_047": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1920,
+        918
+      ],
+      "region": [
+        758,
+        404,
+        380,
+        252
+      ],
+      "offset": [
+        860,
+        684
+      ]
+    },
+    "down_050": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1920,
+        918
+      ],
+      "region": [
+        1142,
+        404,
+        382,
+        250
+      ],
+      "offset": [
+        860,
+        688
+      ]
+    },
+    "down_053": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1920,
+        918
+      ],
+      "region": [
+        1528,
+        404,
+        380,
+        246
+      ],
+      "offset": [
+        860,
+        692
+      ]
+    },
+    "down_056": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1920,
+        918
+      ],
+      "region": [
+        2,
+        670,
+        380,
+        246
+      ],
+      "offset": [
+        860,
+        692
+      ]
+    },
+    "down_059": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1920,
+        918
+      ],
+      "region": [
+        386,
+        670,
+        380,
+        244
+      ],
+      "offset": [
+        860,
+        694
+      ]
+    },
+    "down_062": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1920,
+        918
+      ],
+      "region": [
+        770,
+        670,
+        380,
+        244
+      ],
+      "offset": [
+        860,
+        694
+      ]
+    },
+    "down_065": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1920,
+        918
+      ],
+      "region": [
+        1154,
+        670,
+        380,
+        244
+      ],
+      "offset": [
+        860,
+        694
+      ]
+    },
+    "down_121": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_03.png",
+      "atlas_size": [
+        1920,
+        918
+      ],
+      "region": [
+        1538,
+        670,
+        380,
+        244
+      ],
+      "offset": [
+        860,
+        694
+      ]
+    },
+    "jump_017": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2031,
+        1725
+      ],
+      "region": [
+        589,
+        2,
+        284,
+        449
+      ],
+      "offset": [
+        874,
+        484
+      ]
+    },
+    "jump_020": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2031,
+        1725
+      ],
+      "region": [
+        1358,
+        457,
+        317,
+        430
+      ],
+      "offset": [
+        860,
+        503
+      ]
+    },
+    "jump_023": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2031,
+        1725
+      ],
+      "region": [
+        1492,
+        901,
+        369,
+        394
+      ],
+      "offset": [
+        841,
+        539
+      ]
+    },
+    "jump_026": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2031,
+        1725
+      ],
+      "region": [
+        338,
+        1331,
+        388,
+        385
+      ],
+      "offset": [
+        833,
+        550
+      ]
+    },
+    "jump_029": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2031,
+        1725
+      ],
+      "region": [
+        730,
+        1331,
+        394,
+        377
+      ],
+      "offset": [
+        833,
+        561
+      ]
+    },
+    "jump_032": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2031,
+        1725
+      ],
+      "region": [
+        1116,
+        901,
+        372,
+        397
+      ],
+      "offset": [
+        844,
+        539
+      ]
+    },
+    "jump_033": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2031,
+        1725
+      ],
+      "region": [
+        773,
+        901,
+        339,
+        416
+      ],
+      "offset": [
+        863,
+        520
+      ]
+    },
+    "jump_034": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2031,
+        1725
+      ],
+      "region": [
+        293,
+        2,
+        292,
+        450
+      ],
+      "offset": [
+        885,
+        480
+      ]
+    },
+    "jump_035": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2003,
+        1888
+      ],
+      "region": [
+        633,
+        2,
+        246,
+        475
+      ],
+      "offset": [
+        904,
+        425
+      ]
+    },
+    "jump_038": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2003,
+        1888
+      ],
+      "region": [
+        392,
+        2,
+        237,
+        476
+      ],
+      "offset": [
+        902,
+        374
+      ]
+    },
+    "jump_041": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2003,
+        1888
+      ],
+      "region": [
+        293,
+        483,
+        262,
+        468
+      ],
+      "offset": [
+        885,
+        355
+      ]
+    },
+    "jump_044": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2003,
+        1888
+      ],
+      "region": [
+        2,
+        483,
+        287,
+        468
+      ],
+      "offset": [
+        871,
+        352
+      ]
+    },
+    "jump_047": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        2021,
+        1846
+      ],
+      "region": [
+        345,
+        2,
+        319,
+        460
+      ],
+      "offset": [
+        855,
+        352
+      ]
+    },
+    "jump_050": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2003,
+        1888
+      ],
+      "region": [
+        1598,
+        955,
+        328,
+        462
+      ],
+      "offset": [
+        852,
+        355
+      ]
+    },
+    "jump_053": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        2021,
+        1846
+      ],
+      "region": [
+        2,
+        2,
+        339,
+        460
+      ],
+      "offset": [
+        849,
+        366
+      ]
+    },
+    "jump_056": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2003,
+        1888
+      ],
+      "region": [
+        332,
+        955,
+        352,
+        463
+      ],
+      "offset": [
+        844,
+        393
+      ]
+    },
+    "jump_058": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2003,
+        1888
+      ],
+      "region": [
+        2,
+        2,
+        386,
+        477
+      ],
+      "offset": [
+        830,
+        443
+      ]
+    },
+    "jump_059": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2003,
+        1888
+      ],
+      "region": [
+        1168,
+        2,
+        410,
+        470
+      ],
+      "offset": [
+        822,
+        465
+      ]
+    },
+    "jump_060": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
+      "atlas_size": [
+        2003,
+        1888
+      ],
+      "region": [
+        1582,
+        2,
+        410,
+        470
+      ],
+      "offset": [
+        822,
+        465
+      ]
+    },
+    "jump_062": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        2021,
+        1846
+      ],
+      "region": [
+        1396,
+        929,
+        429,
+        454
+      ],
+      "offset": [
+        811,
+        481
+      ]
+    },
+    "jump_065": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2031,
+        1725
+      ],
+      "region": [
+        331,
+        457,
+        416,
+        437
+      ],
+      "offset": [
+        819,
+        498
+      ]
+    },
+    "jump_068": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2031,
+        1725
+      ],
+      "region": [
+        372,
+        901,
+        397,
+        421
+      ],
+      "offset": [
+        827,
+        514
+      ]
+    },
+    "jump_071": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2031,
+        1725
+      ],
+      "region": [
+        2,
+        901,
+        366,
+        426
+      ],
+      "offset": [
+        841,
+        509
+      ]
+    },
+    "jump_074": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2031,
+        1725
+      ],
+      "region": [
+        1679,
+        457,
+        350,
+        429
+      ],
+      "offset": [
+        849,
+        506
+      ]
+    },
+    "jump_077": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2031,
+        1725
+      ],
+      "region": [
+        2,
+        457,
+        325,
+        440
+      ],
+      "offset": [
+        863,
+        495
+      ]
+    },
+    "jump_080": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2031,
+        1725
+      ],
+      "region": [
+        1448,
+        2,
+        306,
+        444
+      ],
+      "offset": [
+        874,
+        491
+      ]
+    },
+    "jump_083": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_03.png",
+      "atlas_size": [
+        2031,
+        1725
+      ],
+      "region": [
+        2,
+        2,
+        287,
+        451
+      ],
+      "offset": [
+        882,
+        484
+      ]
+    },
+    "jump_086": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        2021,
+        1846
+      ],
+      "region": [
+        2,
+        1390,
+        281,
+        454
+      ],
+      "offset": [
+        885,
+        481
+      ]
+    },
+    "jump_089": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        2021,
+        1846
+      ],
+      "region": [
+        287,
+        1390,
+        273,
+        454
+      ],
+      "offset": [
+        885,
+        481
+      ]
+    },
+    "jump_092": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        2021,
+        1846
+      ],
+      "region": [
+        1217,
+        2,
+        267,
+        459
+      ],
+      "offset": [
+        888,
+        476
+      ]
+    },
+    "jump_095": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
+      "atlas_size": [
+        2021,
+        1846
+      ],
+      "region": [
+        1488,
+        2,
+        265,
+        459
+      ],
+      "offset": [
+        885,
+        476
+      ]
+    },
+    "retained_hit": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "atlas_size": [
+        1882,
+        1828
+      ],
+      "region": [
+        257,
+        2,
+        294,
+        454
+      ],
+      "offset": [
+        856,
+        479
+      ]
+    },
+    "retained_defend": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1922,
+        1845
+      ],
+      "region": [
+        1610,
+        466,
+        302,
+        456
+      ],
+      "offset": [
+        852,
+        477
+      ]
+    },
+    "retained_recover": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "atlas_size": [
+        1922,
+        1845
+      ],
+      "region": [
+        2,
+        2,
+        274,
+        460
+      ],
+      "offset": [
+        865,
+        473
+      ]
+    }
+  },
+  "scene_integration": {
+    "contact_metadata": "res://assets/chars/pixel/homura_mage/video_actions/contacts.json"
+  },
+  "runtime_registration": {
+    "target_body_height_px": 448,
+    "fixed_scale": 1.0,
+    "fixed_offset": [
+      0.0,
+      0.0
+    ],
+    "logical_canvas": [
+      2048,
+      1024
+    ],
+    "anchor": [
+      1024,
+      930
+    ]
+  },
+  "texture_groups": {
+    "shared": [
+      "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
+      "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_01.png"
+    ],
+    "world": [
+      "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
+      "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
+      "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_02.png",
+      "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_03.png",
+      "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_04.png"
+    ],
+    "battle": [
+      "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
+      "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
+      "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
+      "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_03.png"
+    ]
+  }
+}

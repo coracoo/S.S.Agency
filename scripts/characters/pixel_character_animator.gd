@@ -1,6 +1,7 @@
 extends Node2D
 ## 只负责视觉，不读取战斗资源；保留原步态与收招，死亡优先于旧动作回调。
 signal action_finished
+signal action_marker(marker: StringName)
 signal visual_warning(message: String)
 var sprite := AnimatedSprite2D.new()
 var definition: Dictionary = {}
@@ -11,6 +12,11 @@ var _down := false
 var _generation := 0
 var _remaining := 0.0
 var _idle_clock := 0.0
+var _locomotion_mode: StringName = &"walk"
+var _action_elapsed := 0.0
+var _hit_stop_left := 0.0
+var _hit_stop_speed := 1.0
+var _pending_markers: Dictionary = {}
 var _layers: Array[Sprite2D] = []
 var _layer_specs: Array[Dictionary] = []
 var _layer_textures: Array = []
@@ -60,6 +66,19 @@ func set_motion(speed_mps: float, facing: int) -> void:
 	for layer in _layers: layer.flip_h = sprite.flip_h
 	_update_locomotion()
 
+# 运动意图与实测速度分开：奔跑碰墙仍回idle，半速跑不能误切walk。
+func set_locomotion_mode(mode: StringName) -> void:
+	_locomotion_mode = &"run" if mode == &"run" else &"walk"
+	_update_locomotion()
+
+# 极短停顿只作用于本精灵；不改Engine.time_scale、模型时钟或其它队员。
+func hit_stop(seconds: float = 0.045) -> void:
+	if not _locked or _down or not is_finite(seconds) or seconds <= 0: return
+	var duration := minf(seconds,0.08)
+	if _hit_stop_left <= 0: _hit_stop_speed = sprite.speed_scale
+	_hit_stop_left = maxf(_hit_stop_left,duration)
+	sprite.speed_scale = 0.0
+
 func request_action(state: StringName) -> bool:
 	if definition.is_empty(): return false
 	if state == &'down':
@@ -76,6 +95,9 @@ func request_action(state: StringName) -> bool:
 	_generation += 1
 	_locked = true
 	_remaining = 0.0
+	_action_elapsed = 0.0
+	_hit_stop_left = 0.0
+	_pending_markers = definition.manifest.get("anims", {}).get(str(state), {}).get("events", {}).duplicate(true)
 	sprite.speed_scale = 1.0
 	if not sprite.sprite_frames.has_animation(state):
 		visual_warning.emit('缺少 %s 帧：使用明确 neutral 表现' % state)
@@ -100,7 +122,11 @@ func _on_animation_finished() -> void:
 
 func _complete_action() -> void:
 	_remaining = 0.0
+	_pending_markers.clear()
 	if _down:
+		# watchdog或迟到信号都必须停在真正末帧。
+		if sprite.sprite_frames.has_animation(sprite.animation):
+			sprite.set_frame_and_progress(sprite.sprite_frames.get_frame_count(sprite.animation) - 1, 1.0)
 		sprite.pause()
 		return
 	_locked = false
@@ -110,12 +136,31 @@ func _complete_action() -> void:
 func _update_locomotion() -> void:
 	if definition.is_empty() or _locked or _down: return
 	var reference := float(definition.manifest.move_speed_mps)
-	var desired := 'walk' if _speed > reference * 0.03 else 'idle'
+	var moving := _speed > reference * 0.03
+	var desired := "idle"
+	if moving:
+		desired = "run" if _locomotion_mode == &"run" and sprite.sprite_frames.has_animation("run") else "walk"
+		if desired == "run": reference = float(definition.manifest.get("run_speed_mps", 4.2))
 	if sprite.animation != desired or not sprite.is_playing(): sprite.play(desired)
-	sprite.speed_scale = clampf(_speed / reference, 0.0, 2.0) if desired == 'walk' else 1.0
+	sprite.speed_scale = clampf(_speed / reference, 0.0, 2.0) if desired in ['walk', 'run'] else 1.0
 	_update_layers()
 
 func _process(delta: float) -> void:
+	if _hit_stop_left > 0:
+		var consumed := minf(delta,_hit_stop_left)
+		_hit_stop_left -= consumed
+		delta -= consumed
+		if _hit_stop_left <= 0: sprite.speed_scale = _hit_stop_speed
+		if delta <= 0: return
+	if _locked and _remaining > 0:
+		_action_elapsed += delta
+		var generation := _generation
+		for marker in _pending_markers.keys():
+			if _action_elapsed * 1000.0 >= float(_pending_markers[marker]):
+				_pending_markers.erase(marker)
+				action_marker.emit(StringName(marker))
+				# 交互回调可能换场、取消或重配；旧栈不能继续发标记。
+				if generation != _generation: return
 	if _remaining > 0:
 		_remaining -= delta
 		if _remaining <= 0:
@@ -142,6 +187,10 @@ func reset() -> void:
 	_speed = 0.0
 	_remaining = 0.0
 	_idle_clock = 0.0
+	_action_elapsed = 0.0
+	_hit_stop_left = 0.0
+	_pending_markers.clear()
+	_locomotion_mode = &"walk"
 	_update_locomotion()
 
 func is_action_locked() -> bool: return _locked or _down

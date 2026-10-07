@@ -1,0 +1,3304 @@
+{
+  "schema_version": 1,
+  "character_id": "mint",
+  "canvas": [
+    2048,
+    1024
+  ],
+  "anchor": [
+    1024,
+    930
+  ],
+  "frames": {
+    "idle_037": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_039": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_041": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_043": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_045": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_047": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_049": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_051": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_053": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_055": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_057": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_059": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_061": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_063": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_065": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_067": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_069": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_071": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_073": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_075": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_077": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_079": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_081": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_083": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_085": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_087": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_089": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_091": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_093": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_095": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_097": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_099": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "idle_101": {
+      "sha256": "8d6f688ab235b6c4431f2458cb555ed0f9ff173dcf5582bfc940c65de77e7ec0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "walk_025": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "walk_027": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "walk_029": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "walk_031": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "walk_033": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "walk_035": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "walk_037": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "walk_039": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "walk_041": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "walk_043": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "walk_045": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "walk_047": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "run_097": {
+      "sha256": "ff9aced24dfc8b95d6d73d453249b43efe55449710c92aa553e21f13a58090fa",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "run_098": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "run_099": {
+      "sha256": "ff9aced24dfc8b95d6d73d453249b43efe55449710c92aa553e21f13a58090fa",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "run_100": {
+      "sha256": "ff9aced24dfc8b95d6d73d453249b43efe55449710c92aa553e21f13a58090fa",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "run_101": {
+      "sha256": "ff9aced24dfc8b95d6d73d453249b43efe55449710c92aa553e21f13a58090fa",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "run_102": {
+      "sha256": "ff9aced24dfc8b95d6d73d453249b43efe55449710c92aa553e21f13a58090fa",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "run_103": {
+      "sha256": "ff9aced24dfc8b95d6d73d453249b43efe55449710c92aa553e21f13a58090fa",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "run_104": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "run_105": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "run_106": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "run_107": {
+      "sha256": "ff9aced24dfc8b95d6d73d453249b43efe55449710c92aa553e21f13a58090fa",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "run_108": {
+      "sha256": "ff9aced24dfc8b95d6d73d453249b43efe55449710c92aa553e21f13a58090fa",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "run_109": {
+      "sha256": "ff9aced24dfc8b95d6d73d453249b43efe55449710c92aa553e21f13a58090fa",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "run_110": {
+      "sha256": "ff9aced24dfc8b95d6d73d453249b43efe55449710c92aa553e21f13a58090fa",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "run_111": {
+      "sha256": "ff9aced24dfc8b95d6d73d453249b43efe55449710c92aa553e21f13a58090fa",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "run_112": {
+      "sha256": "ff9aced24dfc8b95d6d73d453249b43efe55449710c92aa553e21f13a58090fa",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "interact_006": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "interact_008": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "interact_010": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "interact_012": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "interact_014": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "interact_016": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "interact_018": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "interact_019": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "interact_024": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "interact_026": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "interact_028": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "interact_030": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "interact_031": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "interact_032": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "interact_034": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "interact_036": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "interact_038": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "interact_040": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "interact_042": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "interact_044": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "interact_046": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "interact_048": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "interact_050": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "interact_052": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "interact_053": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_001": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_004": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_007": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_010": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_013": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_016": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_019": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_022": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_025": {
+      "sha256": "ff9aced24dfc8b95d6d73d453249b43efe55449710c92aa553e21f13a58090fa",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_028": {
+      "sha256": "ff9aced24dfc8b95d6d73d453249b43efe55449710c92aa553e21f13a58090fa",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_029": {
+      "sha256": "ff9aced24dfc8b95d6d73d453249b43efe55449710c92aa553e21f13a58090fa",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_031": {
+      "sha256": "ff9aced24dfc8b95d6d73d453249b43efe55449710c92aa553e21f13a58090fa",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_034": {
+      "sha256": "ff9aced24dfc8b95d6d73d453249b43efe55449710c92aa553e21f13a58090fa",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_037": {
+      "sha256": "7313bab15e42ac0bb5f883dd3013f24322ad0759051bab71c498779fba906af7",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_040": {
+      "sha256": "7313bab15e42ac0bb5f883dd3013f24322ad0759051bab71c498779fba906af7",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_043": {
+      "sha256": "7313bab15e42ac0bb5f883dd3013f24322ad0759051bab71c498779fba906af7",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_045": {
+      "sha256": "7313bab15e42ac0bb5f883dd3013f24322ad0759051bab71c498779fba906af7",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_046": {
+      "sha256": "7313bab15e42ac0bb5f883dd3013f24322ad0759051bab71c498779fba906af7",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_049": {
+      "sha256": "7313bab15e42ac0bb5f883dd3013f24322ad0759051bab71c498779fba906af7",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_052": {
+      "sha256": "7313bab15e42ac0bb5f883dd3013f24322ad0759051bab71c498779fba906af7",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_055": {
+      "sha256": "7313bab15e42ac0bb5f883dd3013f24322ad0759051bab71c498779fba906af7",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_058": {
+      "sha256": "7313bab15e42ac0bb5f883dd3013f24322ad0759051bab71c498779fba906af7",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_061": {
+      "sha256": "7313bab15e42ac0bb5f883dd3013f24322ad0759051bab71c498779fba906af7",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_064": {
+      "sha256": "7313bab15e42ac0bb5f883dd3013f24322ad0759051bab71c498779fba906af7",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_067": {
+      "sha256": "7313bab15e42ac0bb5f883dd3013f24322ad0759051bab71c498779fba906af7",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_070": {
+      "sha256": "7313bab15e42ac0bb5f883dd3013f24322ad0759051bab71c498779fba906af7",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_073": {
+      "sha256": "7313bab15e42ac0bb5f883dd3013f24322ad0759051bab71c498779fba906af7",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_076": {
+      "sha256": "7313bab15e42ac0bb5f883dd3013f24322ad0759051bab71c498779fba906af7",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_079": {
+      "sha256": "ff9aced24dfc8b95d6d73d453249b43efe55449710c92aa553e21f13a58090fa",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_082": {
+      "sha256": "ff9aced24dfc8b95d6d73d453249b43efe55449710c92aa553e21f13a58090fa",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_085": {
+      "sha256": "ff9aced24dfc8b95d6d73d453249b43efe55449710c92aa553e21f13a58090fa",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_088": {
+      "sha256": "ff9aced24dfc8b95d6d73d453249b43efe55449710c92aa553e21f13a58090fa",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_091": {
+      "sha256": "ff9aced24dfc8b95d6d73d453249b43efe55449710c92aa553e21f13a58090fa",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_094": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_095": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_097": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_100": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_103": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "pickup_106": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "item_005": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "item_009": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "item_013": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "item_017": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "item_021": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "item_022": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "item_025": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "item_028": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "item_029": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "item_033": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "item_037": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "item_041": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "item_042": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "item_045": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "item_049": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "item_053": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "item_057": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "item_059": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_025": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_028": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_031": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_034": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_037": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_040": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_043": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_046": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_049": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_052": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_055": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_058": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_061": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_064": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_067": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_070": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_073": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_076": {
+      "sha256": "33ec0b1d8679f1b835a37b6bb9645c438667d231e81f14b0eaf53b2de33ab49d",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_079": {
+      "sha256": "33ec0b1d8679f1b835a37b6bb9645c438667d231e81f14b0eaf53b2de33ab49d",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_082": {
+      "sha256": "33ec0b1d8679f1b835a37b6bb9645c438667d231e81f14b0eaf53b2de33ab49d",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_085": {
+      "sha256": "33ec0b1d8679f1b835a37b6bb9645c438667d231e81f14b0eaf53b2de33ab49d",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_088": {
+      "sha256": "33ec0b1d8679f1b835a37b6bb9645c438667d231e81f14b0eaf53b2de33ab49d",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_091": {
+      "sha256": "33ec0b1d8679f1b835a37b6bb9645c438667d231e81f14b0eaf53b2de33ab49d",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_094": {
+      "sha256": "33ec0b1d8679f1b835a37b6bb9645c438667d231e81f14b0eaf53b2de33ab49d",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_097": {
+      "sha256": "33ec0b1d8679f1b835a37b6bb9645c438667d231e81f14b0eaf53b2de33ab49d",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_100": {
+      "sha256": "33ec0b1d8679f1b835a37b6bb9645c438667d231e81f14b0eaf53b2de33ab49d",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_103": {
+      "sha256": "33ec0b1d8679f1b835a37b6bb9645c438667d231e81f14b0eaf53b2de33ab49d",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_106": {
+      "sha256": "33ec0b1d8679f1b835a37b6bb9645c438667d231e81f14b0eaf53b2de33ab49d",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_109": {
+      "sha256": "33ec0b1d8679f1b835a37b6bb9645c438667d231e81f14b0eaf53b2de33ab49d",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "down_121": {
+      "sha256": "33ec0b1d8679f1b835a37b6bb9645c438667d231e81f14b0eaf53b2de33ab49d",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "jump_030": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "jump_033": {
+      "sha256": "ff9aced24dfc8b95d6d73d453249b43efe55449710c92aa553e21f13a58090fa",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "jump_036": {
+      "sha256": "ff9aced24dfc8b95d6d73d453249b43efe55449710c92aa553e21f13a58090fa",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "jump_037": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "jump_038": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "jump_039": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "jump_042": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "jump_045": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "jump_048": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "jump_051": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "jump_054": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "jump_056": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "jump_057": {
+      "sha256": "ff9aced24dfc8b95d6d73d453249b43efe55449710c92aa553e21f13a58090fa",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "jump_058": {
+      "sha256": "ff9aced24dfc8b95d6d73d453249b43efe55449710c92aa553e21f13a58090fa",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "jump_060": {
+      "sha256": "ff9aced24dfc8b95d6d73d453249b43efe55449710c92aa553e21f13a58090fa",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "jump_063": {
+      "sha256": "ff9aced24dfc8b95d6d73d453249b43efe55449710c92aa553e21f13a58090fa",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "jump_066": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "jump_069": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "jump_072": {
+      "sha256": "961857bc13e05e4ed0611a65db847fcdd8c8d84a5b10329bba250ba56324bf2f",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "jump_075": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "jump_078": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "jump_081": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "jump_084": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "jump_085": {
+      "sha256": "748d05a87b289500871e2c055d68e0d31e7a9f7515fa1c97ccc60013841ecce9",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_001": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_005": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_009": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_013": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_017": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_021": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_025": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_029": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_033": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_036": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_041": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_046": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_051": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_056": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_061": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_065": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_069": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_071": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_072": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_073": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_077": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_081": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_085": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_089": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_091": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_093": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_094": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_099": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_101": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_105": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_107": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_109": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_113": {
+      "sha256": "5773a24427169913e1fb33762da03165690dfa123b767f5f4b43671bfb2789b0",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_117": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "attack_121": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "retained_hit": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "retained_defend": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    },
+    "retained_recover": {
+      "sha256": "cb9639bb33e199dc8f579550be0325a6c24fe579125ddd3f8b322b6f503c7a23",
+      "contacts": [
+        {
+          "point": [
+            1024,
+            930
+          ],
+          "width_px": 98.56,
+          "strength": 0.55,
+          "kind": "root"
+        }
+      ]
+    }
+  }
+}

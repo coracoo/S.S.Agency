@@ -31,6 +31,8 @@ var _source_pavers: Array[Dictionary] = []
 var _source_leaves: Array[Dictionary] = []
 var _atmosphere_materials: Dictionary = {}
 var _tree_occluders: Array[Dictionary] = []
+var _battle_prop_occlusion_enabled := false
+var _battle_lanterns: Array[Node3D] = []
 var _earth_material: StandardMaterial3D
 var _weather: Node3D
 
@@ -139,6 +141,7 @@ func _dressing() -> void:
 func _stone_lantern(parent: Node3D, at: Vector3, lit: bool) -> void:
 	var lantern := Node3D.new(); lantern.name = "StoneLantern"; lantern.position = at
 	parent.add_child(lantern)
+	_battle_lanterns.append(lantern)
 	_visual_box(lantern,"Base",Vector3(0,.12,0),Vector3(.56,.24,.56),"stone")
 	_visual_box(lantern,"Pillar",Vector3(0,.62,0),Vector3(.22,.76,.22),"stone")
 	_visual_box(lantern,"Firebox",Vector3(0,1.18,0),Vector3(.46,.34,.46),"stone")
@@ -706,6 +709,28 @@ func _register_tree_occluder(meshes: Array[MeshInstance3D]) -> void:
 		bounds = bounds.merge(value) if initialized else value; initialized = true
 	_tree_occluders.append({"meshes":meshes,"bounds":bounds,"opacity":1.0,"occluded":false,"materials":[],"overrides_active":false})
 
+# 仅战斗实例显式启用：只让遮挡身体的石灯上半部渐隐，底座保留接地感。
+# 原探索场景不调用此方法；灯、碰撞、世界位置与故事对象完全不变。
+func enable_battle_prop_occlusion() -> void:
+	if _battle_prop_occlusion_enabled: return
+	_battle_prop_occlusion_enabled = true
+	for lantern in _battle_lanterns:
+		var meshes: Array[MeshInstance3D] = []
+		for piece in lantern.get_children():
+			if piece is MeshInstance3D and piece.name != "Base": meshes.append(piece)
+		_register_tree_occluder(meshes)
+	# 实拍左侧构图挡头的是原山路GLB石灯；该石头网格合并了底座与灯盖。
+	# 只登记已定位的石/纸面一对，保留12%轮廓和原照明，不拆改源几何。
+	var approach := get_node_or_null("ApproachArt/OriginalApproach")
+	if approach != null:
+		var meshes: Array[MeshInstance3D] = []
+		for piece_name in ["20_Lantern_Left_Stone","21_Lantern_Left_WashiGlow"]:
+			var piece := approach.find_child(piece_name,true,false) as MeshInstance3D
+			if piece != null: meshes.append(piece)
+		if not meshes.is_empty():
+			_register_tree_occluder(meshes)
+			_tree_occluders.back()["occluded_opacity"] = .12
+
 func update_tree_occlusion(position: Vector3, delta: float, camera: Camera3D = null) -> void:
 	update_tree_occlusion_many([position],delta,camera)
 
@@ -736,7 +761,7 @@ func update_tree_occlusion_many(positions: Array[Vector3], delta: float, camera:
 			if front_depth>float(actor.depth)+.20 and projection.intersects(actor_test):
 				blocked = true; break
 		entry.occluded = blocked
-		var target := .012 if blocked else 1.0
+		var target: float = float(entry.get("occluded_opacity",.012)) if blocked else 1.0
 		var opacity := move_toward(float(entry.opacity),target,clampf(delta,0.0,.10)*(5.5 if blocked else 2.0))
 		_apply_tree_opacity(entry,opacity)
 

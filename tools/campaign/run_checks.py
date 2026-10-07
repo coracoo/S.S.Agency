@@ -5,6 +5,7 @@ import os
 from pathlib import Path
 import re
 import shutil
+import subprocess
 import sys
 import tempfile
 
@@ -37,6 +38,11 @@ def main():
         for script in ['test_state.gd', 'test_dual_form.gd']:
             code, output = runner.run(engine, PROJECT, env, ['--script', 'res://tools/campaign/' + script])
             failed |= bool(code or re.search(r'(^|\n)(?:SCRIPT ERROR|ERROR):', output))
+        # The legacy corruption suite deliberately leaves an unreadable slot. New
+        # world tests get their own verified user:// instead of clearing that data.
+        for script in ['test_world_actions.gd', 'test_world_action_stage.gd']:
+            result = subprocess.run([sys.executable, str(PROJECT / 'tools/campaign/run_act_one_checks.py'), '--godot', engine, '--script', 'res://tools/campaign/' + script], cwd=PROJECT)
+            failed |= bool(result.returncode)
         return 1 if failed else 0
 
 if __name__ == '__main__':

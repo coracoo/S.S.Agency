@@ -19,6 +19,8 @@ static func run() -> Array[String]:
 
 static func _test_bundle(failures: Array[String]) -> void:
 	var Bundle = load("res://scripts/characters/party_asset_bundle.gd")
+	for key in ["rinne", "mint", "guard", "homura_sword", "homura_mage", "healer", "controller"]:
+		F.expect(Bundle.MANIFESTS.get(key) == "res://assets/chars/pixel/%s/video_actions/manifest.json" % key, "七形态正式映射不得遗留静态占位：" + key, failures)
 	var bundle = Bundle.new()
 	var progress: Array = []
 	bundle.progress.connect(func(completed, total): progress.append([completed, total]))
@@ -29,13 +31,16 @@ static func _test_bundle(failures: Array[String]) -> void:
 	var weak: WeakRef
 	for id in ["rinne", "mint", "guard"]:
 		var definition: Dictionary = bundle.get_definition(id)
-		F.expect(definition.get("ok", false) and definition.manifest.dir == "res://assets/chars/pixel/%s/high_detail_complete/frames/" % id, id + "严格使用高清白名单", failures)
+		F.expect(definition.get("ok", false) and definition.manifest.dir == "res://assets/chars/pixel/%s/video_actions/frames/" % id and definition.manifest.has("packed_frames"), id + "严格使用已验视频图集白名单", failures)
 		F.expect(definition.manifest.identity_id == id, id + "身份未变成职业", failures)
 		if id == "rinne": weak = weakref(definition.frames.get_frame_texture("idle", 0))
 	F.expect(bundle.get_definition("homura").is_empty() and bundle.get_definition("healer").is_empty(), "不预载其它人物或形态", failures)
 	var original: Dictionary = bundle.get_definition("rinne")
-	var second: Dictionary = Definition.load_definition("res://assets/chars/pixel/rinne/high_detail_complete/manifest.json")
-	F.expect(original.frames.get_frame_texture("idle", 0).get_rid() == second.frames.get_frame_texture("idle", 0).get_rid(), "探索与战斗复用同源纹理RID", failures)
+	var second: Dictionary = Definition.load_definition(Bundle.MANIFESTS.rinne, "battle")
+	var world: Dictionary = Definition.load_definition(Bundle.MANIFESTS.rinne, "world")
+	F.expect(second.ok and world.ok and _atlas_page(original.frames.get_frame_texture("idle", 0)).get_rid() == _atlas_page(second.frames.get_frame_texture("idle", 0)).get_rid() and _atlas_page(world.frames.get_frame_texture("idle", 0)).get_rid() == _atlas_page(second.frames.get_frame_texture("idle", 0)).get_rid(), "探索与战斗共享相同底层PNG页，而非要求各Atlas视图对象相同", failures)
+	F.expect(not world.frames.has_animation("attack") and not second.frames.has_animation("walk"), "世界与战斗不额外加载对方专用动作", failures)
+	world.clear()
 	second.clear()
 	original.clear()
 	prepared = await bundle.prepare(Profile.BINDINGS)
@@ -251,3 +256,7 @@ static func _wait(player: Node, failures: Array[String]) -> void:
 
 static func _tree() -> SceneTree:
 	return Engine.get_main_loop() as SceneTree
+
+static func _atlas_page(texture: Texture2D) -> Texture2D:
+	while texture is AtlasTexture: texture = texture.atlas
+	return texture

@@ -16,9 +16,11 @@ static func run() -> Array[String]:
 	F.expect((await bundle.prepare(Profile.BINDINGS)).ok, "立绘采用三人共享bundle", failures)
 	for id in ["rinne", "mint", "guard"]:
 		var definition: Dictionary = bundle.get_definition(id)
+		var approved: Dictionary = Portraits.load_idle_definition(id)
+		F.expect(approved.ok and approved.manifest.dir == "res://assets/chars/pixel/%s/high_detail_complete/frames/" % id, "UI仍严格使用同身份批准静态立绘：" + id, failures)
 		for kind in ["portrait", "avatar"]:
 			var art: Dictionary = Portraits.from_definition(definition, id, kind)
-			F.expect(art.ok and art.texture is AtlasTexture and art.texture.atlas.get_rid() == definition.frames.get_frame_texture("idle", 0).get_rid(), "立绘/头像共享新HD纹理：" + id + "/" + kind, failures)
+			F.expect(art.ok and art.texture is AtlasTexture and art.texture.atlas.get_rid() == approved.frames.get_frame_texture("idle", 0).get_rid(), "立绘/头像共享批准静态原图，独立于视频身体图集：" + id + "/" + kind, failures)
 			F.expect(Rect2(Vector2.ZERO, art.texture.atlas.get_size()).encloses(art.texture.region) and art.source_path.contains("high_detail_complete/frames/"), "裁切只取新帧内部，不回落旧图", failures)
 	F.expect(not Portraits.from_definition({}, "rinne", "portrait").ok, "缺新图时明确失败，不伪装旧图成功", failures)
 	var tree: SceneTree = Engine.get_main_loop()
@@ -29,7 +31,7 @@ static func run() -> Array[String]:
 	var nodes: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/dialogues.json")).stages.test_approach.nodes
 	overlay._nodes = nodes
 	overlay._present_node("a1")
-	F.expect(overlay._portraits.left.path == "identity:rinne:portrait" and overlay._portraits.left.tex.atlas.get_rid() == bundle.get_definition("rinne").frames.get_frame_texture("idle", 0).get_rid(), "真实对白凛音用新HD上身", failures)
+	F.expect(overlay._portraits.left.path == "identity:rinne:portrait" and overlay._portraits.left.tex.atlas.get_rid() == Portraits.load_idle_definition("rinne").frames.get_frame_texture("idle", 0).get_rid(), "真实对白凛音使用批准静态原图上身", failures)
 	overlay._present_node("a2")
 	F.expect(overlay._portraits.right.path == "identity:mint:portrait" and overlay._portraits.right.ctrl.flip_h, "真实对白薄荷用新HD并朝向对话中央", failures)
 	overlay.portrait_provider = func(_speaker: String): return {"ok": false, "error": "missing approved art"}

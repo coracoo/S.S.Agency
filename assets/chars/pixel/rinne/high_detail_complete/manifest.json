@@ -190,9 +190,5 @@
   "status": "approved_campaign_art",
   "limitations": [
     "walk5/walk6/down保留各自原版；其余19帧采用本轮发型修正。"
-  ],
-  "art_revision": {
-    "revision": "2026-10-04-approved-art",
-    "provenance": "res://data/characters/art_revisions/rinne_20261004.json"
-  }
+  ]
 }

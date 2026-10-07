@@ -1,7 +1,7 @@
 # 分组遵守失败数组契约；显式加载，不依赖全局类缓存。
 extends SceneTree
 
-const SUITES := ["data", "rules", "engine", "replay", "ai", "campaign", "ui", "roster", "approach", "acceptance"]
+const SUITES := ["data", "refinements", "tactics", "tactics_encounters", "rules", "engine", "replay", "ai", "campaign", "ui", "roster", "approach", "acceptance"]
 
 func _initialize() -> void:
 	if OS.get_environment("RPG_TEST_ISOLATED") != "1":

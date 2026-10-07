@@ -190,9 +190,5 @@
   "status": "approved_campaign_art",
   "limitations": [
     "绘制动作仍有轻微轮廓变化；不以局部程序变形修改身体。"
-  ],
-  "art_revision": {
-    "revision": "2026-10-04-approved-art",
-    "provenance": "res://data/characters/art_revisions/guard_20261004.json"
-  }
+  ]
 }

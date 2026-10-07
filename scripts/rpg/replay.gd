@@ -4,13 +4,20 @@ extends RefCounted
 
 const BattleEngine = preload("res://scripts/rpg/battle_engine.gd")
 const Commands = preload("res://scripts/rpg/command_rules.gd")
+const Catalog = preload("res://scripts/rpg/catalog.gd")
 
-static func record(initial: Dictionary, commands: Array[Dictionary], events: Array[Dictionary]) -> Dictionary:
-	return {"schema_version": 1, "rules_version": initial.get("rules_version", ""), "seed": initial.get("seed", 0), "initial": initial.duplicate(true), "commands": commands.duplicate(true), "events": events.duplicate(true)}
+static func record(initial: Dictionary, commands: Array[Dictionary], events: Array[Dictionary], catalog: RefCounted = null) -> Dictionary:
+	var effective := catalog
+	if effective == null:
+		effective = Catalog.new()
+		effective.load_all()
+	return {"schema_version": 1, "rules_version": initial.get("rules_version", ""), "mechanics_fingerprint": effective.mechanics_fingerprint(), "seed": initial.get("seed", 0), "initial": initial.duplicate(true), "commands": commands.duplicate(true), "events": events.duplicate(true)}
 
 static func verify(recording: Dictionary, catalog: RefCounted, policy: RefCounted = null) -> Dictionary:
 	if recording.get("schema_version") != 1 or recording.get("rules_version") != catalog.rules_version or not recording.get("initial") is Dictionary or not recording.get("commands") is Array or not recording.get("events") is Array:
 		return _failure(-1, "重放结构或规则版本非法", null, null)
+	if recording.has("mechanics_fingerprint") and recording.mechanics_fingerprint != catalog.mechanics_fingerprint():
+		return _failure(-1, "重放技能数据指纹与当前目录不符", recording.mechanics_fingerprint, catalog.mechanics_fingerprint())
 	if recording.get("seed") != recording.initial.get("seed"):
 		return _failure(-1, "seed与初始快照不符", recording.initial.get("seed"), recording.get("seed"))
 	var engine := BattleEngine.new(catalog)
@@ -37,7 +44,7 @@ static func verify(recording: Dictionary, catalog: RefCounted, policy: RefCounte
 		var wanted = expected[index] if index < expected.size() else null
 		var found = actual[index] if index < actual.size() else null
 		if not _same_json_value(wanted, found, recording.schema_version is float): return _failure(index, "结算事件不同", wanted, found)
-	return {"matches": true, "first_difference": {}, "event_count": actual.size()}
+	return {"matches": true, "first_difference": {}, "event_count": actual.size(), "fingerprint_verified": recording.has("mechanics_fingerprint"), "legacy_unfingerprinted": not recording.has("mechanics_fingerprint")}
 
 # Dictionary键序不属于规则输入；数值的JSON表示统一，但数组顺序保持。
 static func canonical(value) -> String:

@@ -182,12 +182,13 @@ class PackTests(unittest.TestCase):
         self.assertNotIn('"Old"', filtered)
         self.assertNotIn('tools/', filtered)
 
-    def test_manifest_art_revision_provenance_is_retained_without_raw_generation_sources(self):
+    def test_manifest_art_revision_provenance_is_not_a_runtime_dependency(self):
         originals, _ = self.module.formal_dependencies()
         for manifest_path in (self.module.PROJECT / "assets/chars/pixel").glob("*/high_detail_complete/manifest.json"):
             provenance = json.loads(manifest_path.read_text()).get("art_revision", {}).get("provenance")
             if provenance:
-                self.assertIn(provenance.removeprefix("res://"), originals, "正式成品来源JSON必须随manifest保留")
+                self.assertNotIn(provenance.removeprefix("res://"), originals, "制作来源JSON不是运行依赖")
+        self.assertFalse(any("art_revisions/" in path or "provenance" in path for path in originals))
         self.assertFalse(any("full-set-raw" in path for path in originals))
 
     def test_uid_cache_preserves_ids_only_for_actual_pack_targets(self):

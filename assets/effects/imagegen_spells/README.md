@@ -1,0 +1,5 @@
+# 透明技能帧运行资源
+
+本目录只保存登记的运行PNG与最小帧清单。registry版本为2，以manifest_sha256校验各清单；manifest版本为1，以runtime_atlas_sha256校验图集原字节。哈希用于完整性校验，不替代游戏内视觉验收。
+
+production_renderer_enabled保持false，gameplay_qa_pending保持true；素材批准只允许明确预览。播放使用全部登记阶段与帧顺序，atlas_native_xywh乘runtime_scale得到实际区域，anchor_runtime_px保持注册锚，nominal_duration_ms保持时长权重。

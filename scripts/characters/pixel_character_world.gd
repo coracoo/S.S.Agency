@@ -3,6 +3,7 @@ extends CharacterBody3D
 const Definition = preload('res://scripts/characters/pixel_character_definition.gd')
 const BodyStature = preload('res://scripts/characters/character_stature.gd')
 const Animator = preload('res://scripts/characters/pixel_character_animator.gd')
+const TightFrame = preload('res://scripts/characters/tight_sprite_frame.gd')
 var animator = Animator.new()
 var composite := SubViewport.new()
 var billboard := Sprite3D.new()
@@ -15,6 +16,11 @@ var warning := ''
 var _reference_speed := 2.6
 var _shadow_ray := RayCast3D.new()
 var scene_integration: Node3D
+var _tight_frames := TightFrame.new()
+var _direct_rendering := false
+var _direct_last_texture_id := 0
+var _direct_last_flip := false
+var _direct_last_tint := Color.WHITE
 
 func enable_scene_integration(stage: Node = null) -> bool:
 	if scene_integration == null:
@@ -51,6 +57,8 @@ func _ready() -> void:
 	add_child(composite)
 	composite.add_child(animator)
 	animator.visual_warning.connect(func(message: String): warning = message)
+	animator.sprite.frame_changed.connect(_sync_direct_frame)
+	animator.sprite.animation_changed.connect(_sync_direct_frame)
 	billboard.texture = composite.get_texture()
 	billboard.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 	billboard.billboard = BaseMaterial3D.BILLBOARD_FIXED_Y
@@ -93,12 +101,7 @@ func select_manifest(id: String, path: String) -> bool:
 	if not animator.configure(definition): return false
 	form_id = id
 	warning = '原版凛音动作基线（非新像素成品）' if id == 'legacy_rinne' else str(definition.manifest.get('status', '待验收'))
-	var canvas: Dictionary = definition.manifest.canvas
-	composite.size = Vector2i(canvas.w, canvas.h)
-	# Sprite3D offset.y为向上，和2D画布方向相反。
-	var body_anchor := BodyStature.body_anchor(definition)
-	billboard.offset = Vector2(float(canvas.w) * 0.5 - body_anchor.x, body_anchor.y - float(canvas.h) * 0.5)
-	billboard.pixel_size = BodyStature.world_pixel_size(definition)
+	configure_rendering(definition)
 	_reference_speed = float(definition.manifest.move_speed_mps)
 	velocity = Vector3.ZERO
 	motion_axis = 0
@@ -136,7 +139,53 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		animator.request_action('attack')
 		get_viewport().set_input_as_handled()
 
+func configure_rendering(definition: Dictionary) -> void:
+	_tight_frames.clear()
+	_direct_last_texture_id = 0
+	var canvas: Dictionary = definition.manifest.canvas
+	composite.size = Vector2i(canvas.w,canvas.h)
+	billboard.pixel_size = BodyStature.world_pixel_size(definition)
+	# 只旁路已校验的单层视频。旧预览/动态头发层仍由原2D视口合成。
+	_direct_rendering = definition.manifest.has('packed_frames') and definition.get('layer_frames',[]).is_empty()
+	animator.visible = not _direct_rendering
+	if _direct_rendering:
+		_sync_direct_frame()
+	else:
+		var anchor := BodyStature.body_anchor(definition)
+		billboard.offset = Vector2(float(canvas.w)*.5-anchor.x,anchor.y-float(canvas.h)*.5)
+		billboard.flip_h = false
+		billboard.modulate = Color.WHITE
+		billboard.texture = composite.get_texture()
+		for key in ['logical_frame_texture_id','logical_frame_rect','logical_canvas_size']:
+			if billboard.has_meta(key): billboard.remove_meta(key)
+	_update_visibility()
+
+func _sync_direct_frame() -> void:
+	if not _direct_rendering or animator.definition.is_empty(): return
+	var sprite: AnimatedSprite2D = animator.sprite
+	if sprite.sprite_frames == null or not sprite.sprite_frames.has_animation(sprite.animation): return
+	var source: Texture2D = sprite.sprite_frames.get_frame_texture(sprite.animation,sprite.frame)
+	if source == null: return
+	var tint: Color = animator.modulate*sprite.modulate*sprite.self_modulate
+	if source.get_instance_id() == _direct_last_texture_id and sprite.flip_h == _direct_last_flip and tint == _direct_last_tint: return
+	_direct_last_texture_id = source.get_instance_id()
+	_direct_last_flip = sprite.flip_h
+	_direct_last_tint = tint
+	billboard.offset = TightFrame.offset_for(source,BodyStature.body_anchor(animator.definition),sprite.flip_h)
+	billboard.flip_h = sprite.flip_h
+	billboard.modulate = tint
+	billboard.texture = _tight_frames.texture_for(source)
+	# 截图量测只记录整数ID/矩形，不延长旧定义纹理的生命周期。
+	billboard.set_meta('logical_frame_texture_id',source.get_instance_id())
+	billboard.set_meta('logical_frame_rect',TightFrame.logical_rect(source))
+	billboard.set_meta('logical_canvas_size',source.get_size())
+	if scene_integration != null: scene_integration.sync_art_texture()
+
+func _process(_delta: float) -> void:
+	# flip_h没有专用变更信号；帧事件即时同步，朝向/染色在绘制前补齐。
+	_sync_direct_frame()
+
 func _update_visibility() -> void:
 	var active := is_visible_in_tree()
-	composite.render_target_update_mode = SubViewport.UPDATE_ALWAYS if active else SubViewport.UPDATE_DISABLED
+	composite.render_target_update_mode = SubViewport.UPDATE_ALWAYS if active and not _direct_rendering else SubViewport.UPDATE_DISABLED
 	animator.process_mode = Node.PROCESS_MODE_INHERIT if active else Node.PROCESS_MODE_DISABLED

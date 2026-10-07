@@ -45,16 +45,26 @@ static func resolve(state: Dictionary, command: Dictionary, catalog: RefCounted,
 			return [event(type, source.actor_id, source.actor_id, {"reason": mode, "step": source.boss.step, "locked_targets": source.boss.locked_targets.duplicate()})]
 	for effect in ability.get("effects", []):
 		if effect.type == "charge": return Boss.start_charge(state, source.actor_id, command.target_ids, effect, catalog)
+	# 条件读取施法开始快照，避免伤害击杀/标记消耗/前项状态写入改变触发依据。
+	var source_before := source.duplicate(true)
+	var target_before: Dictionary = {}
+	for id in command.target_ids: target_before[id] = state.actors[id].duplicate(true)
+	var source_feedback_applied := false
 	for original_id in command.target_ids:
 		var target_id: String = original_id
 		var cover_reduction := 0.0
 		var redirected := false
-		for effect in ability.get("effects", []):
+		for effect_index in ability.get("effects", []).size():
+			var effect: Dictionary = ability.effects[effect_index]
+			if not _requirement_met(effect.get("requires", {}), source_before, target_before[original_id], events, original_id): continue
+			var to_source: bool = effect.get("recipient", "") == "source"
+			if to_source and source_feedback_applied: continue
 			if effect.type == "damage" and redirected:
 				target_id = original_id
-			var target: Dictionary = state.actors[target_id]
+			var target: Dictionary = source if to_source else state.actors[target_id]
 			if effect.type != "revive" and int(target.hp) <= 0:
 				continue
+			if to_source: source_feedback_applied = true
 			match effect.type:
 				"damage":
 					# 只检查原单体命中一次；附带负面沿实际承伤者继续，不递归转伤。
@@ -122,7 +132,7 @@ static func resolve(state: Dictionary, command: Dictionary, catalog: RefCounted,
 						amount = Damage.heal_amount(float(effect.fixed), float(effect.coefficient), float(source.stats[effect.stat]))
 					var before := int(target[resource])
 					target[resource] = mini(int(target.stats[resource]), before + amount)
-					events.append(event("healed" if resource == "hp" else "mp_restored", source.actor_id, target_id, {"resource": resource, "before": before, "after": target[resource], "amount": amount, "actual": int(target[resource]) - before}))
+					events.append(event("healed" if resource == "hp" else "mp_restored", source.actor_id, target.actor_id, {"resource": resource, "before": before, "after": target[resource], "amount": amount, "actual": int(target[resource]) - before}))
 				"revive":
 					if int(target.hp) == 0:
 						target.hp = maxi(1, roundi(float(target.stats.hp) * float(effect.fraction)))
@@ -140,6 +150,15 @@ static func resolve(state: Dictionary, command: Dictionary, catalog: RefCounted,
 						events.append(event("effect_ignored", source.actor_id, target_id, {"effect": effect.duplicate(true), "reason": reason}))
 	events.append_array(Saga.after_ability(state, source.actor_id, ability, events))
 	return events
+
+# 净化回春要求本次实际移除了负面；其余技法仅看本次施法前的状态。
+static func _requirement_met(requirement: Dictionary, source: Dictionary, target: Dictionary, events: Array[Dictionary], target_id: String) -> bool:
+	if requirement.is_empty(): return true
+	if requirement.has("source_status"): return source.statuses.any(func(status): return status.id == requirement.source_status)
+	if requirement.has("target_status"): return target.statuses.any(func(status): return status.id == requirement.target_status)
+	if requirement.has("source_has_shield"): return int(source.get("shield", {}).get("amount", 0)) > 0
+	if requirement.has("target_cleansed"): return events.any(func(value): return value.type == "status_removed" and value.target_id == target_id and value.payload.get("reason") == "cleanse")
+	return false
 
 static func cover_for(state: Dictionary, target_id: String) -> Dictionary:
 	var ids: Array = state.actors.keys()

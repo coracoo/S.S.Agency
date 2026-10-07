@@ -9,7 +9,7 @@ import subprocess
 import sys
 import tempfile
 
-SUITES = ("data", "rules", "engine", "ai", "campaign", "ui", "roster", "approach", "acceptance", "all")
+SUITES = ("data", "refinements", "tactics", "tactics_encounters", "rules", "engine", "ai", "campaign", "ui", "roster", "approach", "acceptance", "all")
 
 
 def run(engine: str, project: Path, env: dict, arguments: list[str], headless: bool = True) -> tuple[int, str]:

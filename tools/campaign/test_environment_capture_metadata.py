@@ -1,4 +1,4 @@
-"""Dream Loop 捕获身份信息的纯读取回归。"""
+"""环境捕获身份信息的纯读取回归。"""
 import importlib.util
 import json
 from pathlib import Path

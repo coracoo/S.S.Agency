@@ -38,6 +38,8 @@ static func preview(state: Dictionary, command: Dictionary, catalog: RefCounted)
 		reasons.append("技能或道具不存在")
 		return result
 	if command.kind == "skill":
+		if ability.has("refinement"): result["refinement"] = ability.refinement.duplicate(true)
+		if ability.has("technique"): result["technique"] = ability.technique.duplicate(true)
 		if not source.skill_ids.has(command.ability_id): reasons.append("该角色没有此技能")
 		if source.level < int(ability.get("unlock_level", 1)): reasons.append("技能尚未解锁")
 		if int(source.cooldown_until.get(command.ability_id, 0)) > int(source.slot_count): reasons.append("技能冷却中")
@@ -59,11 +61,15 @@ static func preview(state: Dictionary, command: Dictionary, catalog: RefCounted)
 	var resolved := command.duplicate(true)
 	resolved.target_ids = targets
 	var simulation := Resolver.simulation_state(state)
+	# 实战先付费后结算，预览回馈也必须从同一MP起点计算，尤其是满MP出手。
+	if command.kind == "skill": simulation.actors[source.actor_id].mp -= result.mp_cost
 	var events := Resolver.resolve(simulation, resolved, catalog, null)
 	result.effects = events.duplicate(true)
 	var any_effect := false
 	var pure_control := true
 	for effect in ability.effects:
+		# 条件回馈不是可无条件消费行动的主效果；全免疫且未触发回馈仍须拒绝。
+		if effect.get("recipient") == "source": continue
 		if not effect.type in ["apply_status", "interrupt"]: pure_control = false
 	for item in events:
 		if item.type == "effect_ignored":

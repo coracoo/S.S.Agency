@@ -2,6 +2,7 @@
 class_name RpgCampaign
 extends RefCounted
 
+const WorldObjects = preload("res://scripts/campaign/world_object_catalog.gd")
 const Saga = preload("res://scripts/campaign/saga_catalog.gd")
 const SagaProgress = preload("res://scripts/campaign/saga_progress.gd")
 const Forms = preload("res://scripts/rpg/dual_form.gd")
@@ -184,6 +185,32 @@ func save_exploration(world: Dictionary) -> Dictionary:
 	candidate.return_scene = world.scene_path
 	if _formal(): candidate.world_history[world.scene_id] = world.duplicate(true)
 	return _commit(candidate)
+
+# 物品与门使用同一次安全提交；视图不能传入奖励、完成标记或其他地图的ID。
+func commit_world_object(world: Dictionary, object_id: String) -> Dictionary:
+	if not _outside() or not _chapter_world_ok(world) or not _safe.story_phase in ["exploration", "ritual"]: return _fail("当前不能提交地图互动")
+	var object := WorldObjects.get_object(object_id)
+	if object.is_empty() or not WorldObjects.belongs_to_night(object_id, int(world.night)): return _fail("地图物件不属于当前地区")
+	var at := Vector3(world.position[0],world.position[1],world.position[2])
+	var target := Vector3(object.position[0],object.position[1],object.position[2])
+	if at.distance_to(target) > float(object.radius) + 0.05: return _fail("请先走到物件旁再互动")
+	if _safe.get("world_objects",{}).get(object_id,false): return _unchanged()
+	var candidate := safe_snapshot()
+	candidate.world = world.duplicate(true)
+	candidate.world_history[world.scene_id] = world.duplicate(true)
+	candidate.return_scene = world.scene_path
+	if not candidate.has("world_objects"): candidate["world_objects"] = {}
+	candidate.world_objects[object_id] = true
+	if object.kind == "pickup":
+		var item: Dictionary = _catalog.get_definition("items",str(object.item_id))
+		if item.is_empty(): return _fail("地图物品尚未登记")
+		candidate.inventory[object.item_id] = int(candidate.inventory.get(object.item_id,0)) + int(object.quantity)
+	var committed := _commit(candidate)
+	if committed.ok:
+		committed["world"] = _safe.world.duplicate(true)
+		committed["object_id"] = object_id
+		committed["notice"] = "%s ×%d 已收进背包" % [str(_catalog.get_definition("items",object.item_id).name),int(object.quantity)] if object.kind == "pickup" else "门已打开，通路已保存。"
+	return committed
 
 # 剧情只沿已登记顺序提交；画面拿到成功后才开放下一操作。
 func commit_world_event(world: Dictionary, event_id: String) -> Dictionary:

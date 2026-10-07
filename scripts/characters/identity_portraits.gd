@@ -21,6 +21,11 @@ static func from_definition(definition: Dictionary, identity_id: String, kind: S
 	var manifest: Dictionary = definition.get("manifest", {})
 	var key := Bundle.asset_key(identity_id, str(manifest.get("form_id", "")))
 	if key.is_empty() or not REGIONS.has(key) or not REGIONS[key].has(kind): return _failure("人物或UI取景未登记")
+	if manifest.get("identity_id") != identity_id: return _failure("人物立绘与已选高清身份不符")
+	if manifest.has("portrait_source_manifest"):
+		var portrait_definition := _load_portrait_source(manifest, identity_id, key)
+		if not portrait_definition.get("ok", false): return portrait_definition
+		return from_definition(portrait_definition, identity_id, kind)
 	if manifest.get("identity_id") != identity_id or manifest.get("dir") != "res://assets/chars/pixel/%s/high_detail_complete/frames/" % key: return _failure("人物立绘与已选高清身份不符")
 	if not manifest.get("anims") is Dictionary or not manifest.anims.get("idle") is Dictionary or not manifest.anims.idle.get("frames") is Array or manifest.anims.idle.frames.is_empty() or not manifest.anims.idle.frames[0] is String: return _failure("人物首帧来源不完整")
 	var frames: SpriteFrames = definition.frames
@@ -46,6 +51,7 @@ static func from_idle_manifest(value: Variant, identity_id: String) -> Dictionar
 	var key := Bundle.asset_key(identity_id, str(value.get("form_id", "")))
 	if not Bundle.MANIFESTS.has(key) or value.get("identity_id") != identity_id: return _failure("高清人物清单身份无效")
 	var manifest: Dictionary = value
+	if manifest.has("portrait_source_manifest"): return _load_portrait_source(manifest, identity_id, key)
 	if not manifest.get("canvas") is Dictionary or not manifest.get("anims") is Dictionary or not manifest.anims.get("idle") is Dictionary: return _failure("高清人物清单缺少画布或待机")
 	var canvas: Dictionary = manifest.canvas
 	for field in ["w", "h", "content_height_px", "height_m"]:
@@ -70,5 +76,15 @@ static func from_idle_manifest(value: Variant, identity_id: String) -> Dictionar
 	if idle.get("pingpong", false):
 		for index in range(idle.frames.size() - 2, 0, -1): frames.add_frame(&"idle", frames.get_frame_texture(&"idle", index), float(idle.durations_ms[index]) / 1000.0)
 	return {"ok": true, "errors": [], "manifest": manifest, "frames": frames, "layer_frames": []}
+
+# 视频动作的画布和取景不同，UI只能显式回到同身份已批准的原始高清立绘。
+static func _load_portrait_source(manifest: Dictionary, identity_id: String, key: String) -> Dictionary:
+	var path := "res://assets/chars/pixel/%s/high_detail_complete/manifest.json" % key
+	if manifest.get("portrait_source_manifest") != path or not FileAccess.file_exists(path): return _failure("人物立绘原始来源无效")
+	var source: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+	if not source is Dictionary or source.has("portrait_source_manifest") or Bundle.asset_key(str(source.get("identity_id", "")), str(source.get("form_id", ""))) != key:
+		return _failure("人物立绘原始身份无效")
+	return from_idle_manifest(source, identity_id)
+
 static func _failure(message: String) -> Dictionary:
 	return {"ok": false, "error": message, "errors": [message], "texture": null}

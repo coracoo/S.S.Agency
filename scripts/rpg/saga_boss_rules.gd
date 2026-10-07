@@ -142,7 +142,9 @@ static func _memory(actor: Dictionary, command: Dictionary, catalog: RefCounted)
 	if command.kind == "item": return "heal"
 	if command.kind == "attack_magic": return "magic"
 	if command.kind == "attack_physical": return "physical"
-	var ability: Dictionary = catalog.skill_for(actor, command.ability_id)
+	# 借声记录基础24卡的主动作类别，不统计本次收益；专精/技法的返MP、回春、附盾
+	# 不能把控制/战意改写成治疗/防守。此路径仅由上方player分支调用。
+	var ability: Dictionary = catalog.get_definition("skills", command.ability_id)
 	for effect in ability.get("effects", []):
 		if effect.type in ["heal", "restore_hp", "restore_mp", "revive"]: return "heal"
 		if effect.type == "damage": return "magic" if effect.damage_type == "magic" else "physical"

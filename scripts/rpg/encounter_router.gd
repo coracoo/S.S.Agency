@@ -150,7 +150,7 @@ func capture_replay(battle_engine: RefCounted) -> Dictionary:
 	var events: Array[Dictionary] = []
 	for event in current.event_log:
 		if event.sequence > _initial.event_sequence: events.append(event.duplicate(true))
-	return Replay.record(_initial, commands, events)
+	return Replay.record(_initial, commands, events, _catalog)
 
 func result_from_engine() -> Dictionary:
 	if engine == null or _setup.is_empty(): return {}

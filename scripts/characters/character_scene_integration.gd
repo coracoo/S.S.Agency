@@ -28,7 +28,8 @@ func attach_to(actor, profile_path: String = DEFAULT_PROFILE) -> bool:
 	_baseline_cast_shadow = actor.billboard.cast_shadow
 	_baseline_shadow_visible = actor.shadow.visible
 	_material.shader = load(str(profile.character_shader))
-	_material.set_shader_parameter('art_texture', actor.billboard.texture)
+	actor.billboard.texture_changed.connect(sync_art_texture)
+	sync_art_texture()
 	_material.set_shader_parameter('scene_light_mix',float(profile.scene_light_mix))
 	for i in 3:
 		var shadow := MeshInstance3D.new()
@@ -43,6 +44,11 @@ func attach_to(actor, profile_path: String = DEFAULT_PROFILE) -> bool:
 		add_child(shadow)
 		_shadows.append(shadow)
 	return true
+func sync_art_texture() -> void:
+	if not is_instance_valid(_actor): return
+	_material.set_shader_parameter('art_texture',_actor.billboard.texture)
+	_material.set_shader_parameter('appearance_tint',_actor.billboard.modulate)
+
 func set_enabled(value: bool) -> void:
 	if _actor == null: return
 	enabled = value
@@ -105,6 +111,9 @@ func current_contact_specs() -> Array:
 			var frame_name = str(names[index])
 			var record: Dictionary = _metadata.get('frames',{}).get(frame_name,{})
 			var path = str(manifest.dir).path_join(frame_name+'.png')
+			# 视频使用共享图集原字节校验；接触点仍是统一逻辑画布坐标。
+			if manifest.get('packed_frames', {}).has(frame_name):
+				path = str(manifest.packed_frames[frame_name].atlas)
 			var source_key = path+':'+str(sprite.sprite_frames.get_frame_texture(name,sprite.frame).get_rid().get_id())
 			if not _verified_sources.has(source_key):
 				if _verified_sources.size() >= 64: _verified_sources.clear()
@@ -147,13 +156,17 @@ func update_contacts() -> void:
 	if root_hit.is_empty(): return
 	var elevation = maxf(0.0,_actor.global_position.y-root_hit.position.y)
 	var air_fade = clampf(1.0-elevation/0.8,0.0,1.0)
+	# 原生跳跃的身体已在视频内离地，根胶囊接地时也要同步减弱接触影。
+	var jump_factors: Vector2 = _actor.get_jump_shadow_factors() if _actor.has_method('get_jump_shadow_factors') else Vector2.ONE
+	air_fade *= jump_factors.y
 	var contacts = current_contact_specs()
 	var camera = get_viewport().get_camera_3d()
 	for i in mini(contacts.size(),_shadows.size()):
 		var spec: Dictionary = contacts[i]
 		var hit: Dictionary = root_hit
 		var direction = Vector3.DOWN
-		if contact_mode == 'annotated' and camera != null:
+		# 标注为root的固定脚锚仍用真实根地面，不能被相机前方的台阶/石灯截断。
+		if contact_mode == 'annotated' and str(spec.get('kind','')) != 'root' and camera != null:
 			var point = canvas_point_to_world(Vector2(spec.point[0],spec.point[1]))
 			var screen = camera.unproject_position(point)
 			var origin = camera.project_ray_origin(screen)
@@ -168,10 +181,15 @@ func update_contacts() -> void:
 		location += normal*0.004
 		var width = float(spec.width_px)*_actor.billboard.pixel_size*1.45
 		var length = width*0.75
-		if contact_mode == 'root_fallback': width = 0.65; length = 0.30
+		var root_contact := contact_mode == 'root_fallback' or str(spec.get('kind','')) == 'root'
+		if root_contact: width = 0.65; length = 0.30
+		width *= jump_factors.x
+		length *= jump_factors.x
 		var shadow: MeshInstance3D = _shadows[i]
 		shadow.global_transform = Transform3D(Basis(Quaternion(Vector3.UP,normal)).scaled_local(Vector3(width,1,length)),location)
 		var opacity = float(profile.get('shadow_opacity',0.36)) if contact_mode == 'annotated' else float(profile.get('root_shadow_opacity',0.20))
+		# 固定根影的中心常被双靴遮住；略宽的柔和边缘保留可读脚下轮廓。
+		shadow.material_override.set_shader_parameter('falloff',1.4 if root_contact else 3.2)
 		shadow.material_override.set_shader_parameter('opacity',opacity*float(spec.strength)*air_fade)
 		shadow.show()
 		grounded_count += 1
@@ -181,6 +199,7 @@ func _exit_tree() -> void:
 	# helper可单独移除；恢复仍存活的actor，不把材质/隐藏影遗留给调用方。
 	if is_instance_valid(_actor):
 		if is_instance_valid(_actor.billboard):
+			if _actor.billboard.texture_changed.is_connected(sync_art_texture): _actor.billboard.texture_changed.disconnect(sync_art_texture)
 			_actor.billboard.material_override = _baseline_material
 			_actor.billboard.cast_shadow = _baseline_cast_shadow
 		if is_instance_valid(_actor.shadow): _actor.shadow.visible = _baseline_shadow_visible

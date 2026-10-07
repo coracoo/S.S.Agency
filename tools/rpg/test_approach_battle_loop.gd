@@ -6,6 +6,7 @@ const Router = preload("res://scripts/rpg/encounter_router.gd")
 const World = preload("res://scripts/exploration_3d/world_snapshot.gd")
 const BaseView = preload("res://scripts/rpg/ui/battle_view.gd")
 const Policies = preload("res://tools/rpg/strategy_policies.gd")
+const Portraits = preload("res://scripts/characters/identity_portraits.gd")
 class BrokenBundle extends RefCounted:
 	func prepare(_bindings: Dictionary) -> Dictionary: return {"ok": false, "error": "注入资源加载失败"}
 	func clear() -> void: pass
@@ -144,7 +145,7 @@ static func _test_view_integration(failures: Array[String]) -> void:
 	for id in session.campaign.safe_snapshot().party:
 		var identity: String = session.campaign.safe_snapshot().roster[id].identity_id
 		var avatar: TextureRect = view._actors[id].avatar
-		F.expect(avatar.texture is AtlasTexture and avatar.get_meta("identity_id", "") == identity and avatar.texture.atlas.get_rid() == session.bundle.get_definition(identity).frames.get_frame_texture("idle", 0).get_rid(), "实际战斗卡头像按身份共享新HD：" + identity, failures)
+		F.expect(avatar.texture is AtlasTexture and avatar.get_meta("identity_id", "") == identity and avatar.texture.atlas.get_rid() == Portraits.load_idle_definition(identity).frames.get_frame_texture("idle", 0).get_rid(), "实际战斗卡头像按身份共享批准静态原图：" + identity, failures)
 	F.expect(view._presentation_views.size() == 5, "全体五名参战者受同一事件时序约束", failures)
 	var enemy = view._presentation_views.e_01_hound
 	view.select_command("attack_physical")
