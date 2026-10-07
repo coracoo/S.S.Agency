@@ -2,6 +2,7 @@
 class_name RpgBattlePresenter
 extends RefCounted
 const Resolver = preload("res://scripts/rpg/effect_resolver.gd")
+const Loadouts = preload("res://scripts/rpg/loadout_rules.gd")
 static var presentation: Dictionary = {}
 static var identity_names: Dictionary = {}
 
@@ -36,15 +37,19 @@ static func present(state: Dictionary, catalog: RefCounted, display_actor_id: St
 		if not intent.is_empty():
 			intent["name"] = ability_name(intent.ability_id, catalog)
 			intent["text"] = intent_text(intent, actor, state, catalog)
-		actors.append({"actor_id": id, "side": actor.side, "class_id": actor.class_id, "name": presentation_name(actor, definition), "label": actor_name(actor, catalog), "hp": actor.hp, "max_hp": actor.stats.hp, "mp": actor.mp, "max_mp": actor.stats.mp, "shield": actor.shield.get("amount", 0), "shield_remaining": actor.shield.get("remaining", 0), "statuses": statuses, "intent": intent, "level": actor.level, "active": id == state.get("active_actor_id", "")})
+		var row := {"actor_id": id, "side": actor.side, "class_id": actor.class_id, "name": presentation_name(actor, definition), "label": actor_name(actor, catalog), "hp": actor.hp, "max_hp": actor.stats.hp, "mp": actor.mp, "max_mp": actor.stats.mp, "spd": actor.stats.spd, "shield": actor.shield.get("amount", 0), "shield_remaining": actor.shield.get("remaining", 0), "statuses": statuses, "intent": intent, "active": id == state.get("active_actor_id", "")}
+		if not Loadouts.has_data(actor) and actor.has("level"): row.level = actor.get("level")
+		actors.append(row)
 	var active: Dictionary = state.get("actors", {}).get(display_actor_id if not display_actor_id.is_empty() else state.get("active_actor_id", ""), {})
 	var skills: Array[Dictionary] = []
 	var basic: Array[String] = ["attack_physical", "defend", "item"]
 	if not active.is_empty() and active.side == "player":
 		for skill_id in active.get("skill_ids", catalog.get_definition("classes", active.get("active_class_id", active.class_id)).skill_ids):
 			var definition: Dictionary = Resolver.ability_for(active, {"kind": "skill", "ability_id": skill_id}, catalog)
+			if definition.is_empty(): continue
 			skills.append({"id": skill_id, "name": definition.name, "mp_cost": definition.mp_cost, "cooldown": definition.cooldown, "target_label": TARGET_NAMES.get(definition.target_rule, definition.target_rule), "target_short": TARGET_SHORT.get(definition.target_rule, ""), "effects": definition.effects.duplicate(true), "refinement": definition.get("refinement", {}).duplicate(true), "technique": definition.get("technique", {}).duplicate(true)})
-		if active.get("active_class_id", active.class_id) in ["mage", "healer", "controller"]: basic.push_front("attack_magic")
+		var magic_attack: bool = Loadouts.derive(active, catalog).get("weapon_tags", []).has("focus") if Loadouts.has_data(active) else active.get("active_class_id", active.class_id) in ["mage", "healer", "controller"]
+		if magic_attack: basic.push_front("attack_magic")
 	return {"round": state.get("round", 0), "active_actor_id": state.get("active_actor_id", ""), "queue": state.get("queue", []).duplicate(), "queue_index": state.get("queue_index", 0), "actors": actors, "commands": {"skills": skills, "basic": basic}, "inventory": state.get("inventory", {}).duplicate(), "outcome": state.get("outcome", ""), "danger": danger_markers(state, catalog)}
 
 # 意图的状态/取消/等待来自解析器预览；准备时只读已承诺释放的目录信息，不推算伤害。
@@ -255,6 +260,7 @@ static func danger_markers(state: Dictionary, catalog: RefCounted) -> Array[Dict
 
 # 成长界面明确标为未来等级预览，只改临时副本，不升级或写角色。
 static func branch_preview(actor: Dictionary, branch_id: String, catalog: RefCounted) -> String:
+	if Loadouts.has_data(actor): return loadout_summary(actor, catalog) + "\n" + character_guide(actor, catalog)
 	if branch_id.is_empty(): return "无分支 · 保留四个固定卡位\nL6可选择一条分支；L9强化同一分支\n" + character_guide(actor, catalog)
 	var lines: Array[String] = ["%s分支预览（不改变当前等级/资源）" % {"economy": "节约", "duration": "持续", "power": "强度"}.get(branch_id, branch_id)]
 	for level in [6, 9]:
@@ -306,6 +312,14 @@ static func condition_label(effect: Dictionary, catalog: RefCounted, detailed: b
 static func character_guide(actor: Dictionary, catalog: RefCounted) -> String:
 	var refinement: Dictionary = catalog.refinement_for(actor)
 	if refinement.is_empty(): return ""
+	if Loadouts.has_data(actor):
+		var current: Dictionary = catalog.skill_for(actor, str(refinement.get("skill_id", ""))) if actor.get("skill_ids", []).has(refinement.get("skill_id")) else {}
+		var lines: Array[String] = ["身份专长·%s\n%s\n%s" % [refinement.name, refinement.summary, refinement.tactic]]
+		lines.append("对应主动卡未装配；准备后生效。" if current.is_empty() else "当前%s：MP%d · CD%d" % [current.name, current.mp_cost, current.cooldown])
+		for technique in refinement.get("techniques", []):
+			var prepared: bool = actor.get("skill_ids", []).has(technique.skill_id)
+			lines.append("技法·%s（%s）\n%s" % [technique.name, "对应主动已准备" if prepared else "对应主动未准备", technique.summary])
+		return "\n".join(lines)
 	var skill: Dictionary = catalog.skill_for(actor, refinement.skill_id)
 	var unlocked: bool = int(actor.get("level", 1)) >= int(refinement.unlock_level)
 	var label: String = "个人专精·" + refinement.name + ("（已开放）" if unlocked else "（L3开放）")
@@ -316,6 +330,13 @@ static func character_guide(actor: Dictionary, catalog: RefCounted) -> String:
 		var future: Dictionary = catalog.skill_for(projected, technique.skill_id)
 		lines.append("L%d技法·%s%s · %s · MP%d/CD%d\n%s" % [technique.unlock_level, technique.name, "（已开放）" if int(actor.level) >= int(technique.unlock_level) else "（待开放）", future.name, future.mp_cost, future.cooldown, technique.summary])
 	return "\n".join(lines)
+
+static func loadout_summary(actor: Dictionary, catalog: RefCounted) -> String:
+	var derived := Loadouts.derive(actor, catalog)
+	var capacity: Dictionary = derived.get("capacity", {})
+	var passive: Array[String] = []
+	for id in actor.get("build", {}).get("passive", []): passive.append(str(Loadouts.card(id).get("name", id)))
+	return "主动 %d/4 · 容量 %d/%d；被动 %d/2 · 容量 %d/%d\n共享被动：%s；速度 %d 决定轮序。" % [actor.get("skill_ids", []).size(), capacity.get("active_used", 0), capacity.get("active_max", 10), passive.size(), capacity.get("passive_used", 0), capacity.get("passive_max", 4), "、".join(passive) if not passive.is_empty() else "未准备", actor.get("stats", {}).get("spd", 0)]
 
 static func requirement_label(requirement: Dictionary, catalog: RefCounted) -> String:
 	if requirement.has("source_status"): return "施法前自身有" + str(catalog.get_definition("statuses", requirement.source_status).name)

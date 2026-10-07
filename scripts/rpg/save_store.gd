@@ -12,6 +12,8 @@ const WorldSnapshot = preload("res://scripts/exploration_3d/world_snapshot.gd")
 const Catalog = preload("res://scripts/rpg/catalog.gd")
 const State = preload("res://scripts/rpg/battle_state.gd")
 const Factory = preload("res://scripts/rpg/actor_factory.gd")
+const Loadouts = preload("res://scripts/rpg/loadout_rules.gd")
+const Threats = preload("res://scripts/rpg/strategy_encounters.gd")
 const DEFAULT_PATH := "user://rpg_v1/slot_01.json"
 const SAFE_PHASES := ["preparation", "exploration", "rest"]
 var last_error := ""
@@ -87,18 +89,23 @@ func _decode(contents: String) -> Dictionary:
 
 func normalize(value: Dictionary) -> Dictionary:
 	var saved := value.duplicate(true)
+	State._int_fields(saved, ["schema_version", "level", "xp", "battle_counter", "night", "progression_version"])
+	# normalize 也供历史局部快照工具使用；有版本却非法时不再做迁移，缺版本仍由 validate 拒绝存档。
+	if saved.has("schema_version") and (not saved.schema_version is int or saved.schema_version not in [1,2,3]):return saved
 	if saved.get("saga") is Dictionary: saved.saga = Saga.normalize(saved.saga)
-	State._int_fields(saved, ["schema_version", "level", "xp", "battle_counter", "night"])
+	if saved.get("cards") is Dictionary:saved.cards=Catalog._integerize(saved.cards)
+	if saved.get("migration") is Dictionary:State._int_fields(saved.migration,["from_schema"])
 	var normalized := State.normalize_snapshot({"actors": saved.get("roster", {}), "inventory": saved.get("inventory", {})})
 	if saved.has("roster"): saved.roster = normalized.actors
 	if saved.has("inventory"):
 		saved.inventory = normalized.inventory
 		# 目录新增道具时旧档补发初始库存，与 gear 持有表同级的数据迁移。
-		for item in _catalog.get_all("items"):
-			if not saved.inventory.has(item.id): saved.inventory[item.id] = item.initial_stock
+		if saved.get("schema_version")!=3:
+			for item in _catalog.get_all("items"):
+				if not saved.inventory.has(item.id): saved.inventory[item.id] = item.initial_stock
 	if saved.get("gear") is Dictionary:
 		saved.gear = Catalog._integerize(saved.gear)
-	else:
+	elif saved.get("schema_version")!=3:
 		# 旧档没有装备持有表：按标准套装补默认，并按已清空遭遇一次性补发装备战利品。
 		saved["gear"] = {}
 		for slot in Factory.STANDARD: saved.gear[Factory.STANDARD[slot]] = 1
@@ -108,16 +115,17 @@ func normalize(value: Dictionary) -> Dictionary:
 				saved.gear[gear_id] = int(saved.gear.get(gear_id, 0)) + int(loot.gear[gear_id])
 	if saved.get("world") is Dictionary:
 		if (saved.world.get("world_version") is int or saved.world.get("world_version") is float) and saved.world.world_version == 3:
-			saved.world = Chapters.normalize(saved.world)
+			saved.world = Chapters.normalize(saved.world,saved.get("schema_version")!=3)
 		elif saved.world.has("world_version"):
 			saved.world = WorldSnapshot.normalize(saved.world)
 		else:
 			State._int_fields(saved.world, ["facing", "spirit", "party_index"])
 	if saved.get("world_history") is Dictionary:
 		for id in saved.world_history:
-			if saved.world_history[id] is Dictionary: saved.world_history[id] = Chapters.normalize(saved.world_history[id])
+			if saved.world_history[id] is Dictionary: saved.world_history[id] = Chapters.normalize(saved.world_history[id],saved.get("schema_version")!=3)
 	if saved.get("pending_battle") is Dictionary:
 		State._int_fields(saved.pending_battle, ["seed", "xp"])
+		if saved.pending_battle.get("rewards") is Dictionary:saved.pending_battle.rewards=Catalog._integerize(saved.pending_battle.rewards)
 		if saved.pending_battle.get("story_patch") is Dictionary:
 			State._int_fields(saved.pending_battle.story_patch, ["patch_version"])
 	return saved
@@ -149,16 +157,24 @@ func _cleared_encounter_ids(saved: Dictionary) -> Array[String]:
 func validate(saved: Dictionary) -> Array[String]:
 	var errors: Array[String] = []
 	if not State._plain(saved): return ["存档只允许有限JSON值"]
+	if not saved.get("schema_version") is int or saved.schema_version not in [1,2,3]:return ["未知存档schema_version，保留文件原样"]
+	var strategy:bool=saved.get("schema_version")==3
 	if saved.has("world_objects"):
-		if saved.get("schema_version") != 2: errors.append("地图物件状态仅用于正式存档")
+		if not saved.get("schema_version") in [2,3]: errors.append("地图物件状态仅用于正式存档")
 		errors.append_array(WorldObjects.validate_saved(saved.world_objects))
-	if not saved.get("schema_version") is int or not saved.get("schema_version") in [1, 2]: errors.append("未知存档schema_version，保留文件原样")
 	if not saved.get("rules_version") is String or saved.get("rules_version") != _catalog.rules_version: errors.append("存档规则版本不兼容")
 	if not SAFE_PHASES.has(saved.get("phase")): errors.append("只允许战外安全状态保存，战斗或过场不可存档")
 	if not saved.get("run_id") is String or saved.get("run_id", "").is_empty(): errors.append("缺少运行ID")
-	if not saved.get("level") is int or saved.level < 1 or saved.level > 10: errors.append("队伍等级非法")
-	if not State._natural(saved.get("xp")): errors.append("经验非法")
-	elif saved.get("level") is int and ((saved.level == 10 and saved.xp != 0) or saved.xp >= saved.level * 100): errors.append("经验与等级阈值不符")
+	if strategy:
+		if saved.has("level") or saved.has("xp"):errors.append("正式无等级档不得保留等级/经验")
+		if not saved.get("progression_version") is int or saved.progression_version!=1:errors.append("未知装配成长版本")
+		if not saved.get("cards") is Dictionary:errors.append("缺少技能卡收藏")
+		if saved.has("migration"):
+			if not saved.migration is Dictionary or saved.migration.size()!=2 or not saved.migration.get("from_schema") is int or saved.migration.from_schema!=2 or not saved.migration.get("source_sha256") is String or RegEx.create_from_string("^[0-9a-f]{64}$").search(saved.migration.source_sha256)==null:errors.append("旧档迁移来源非法")
+	else:
+		if not saved.get("level") is int or saved.level < 1 or saved.level > 10: errors.append("队伍等级非法")
+		if not State._natural(saved.get("xp")): errors.append("经验非法")
+		elif saved.get("level") is int and ((saved.level == 10 and saved.xp != 0) or saved.xp >= saved.level * 100): errors.append("经验与等级阈值不符")
 	if not State._natural(saved.get("battle_counter")): errors.append("战斗计数非法")
 	if not saved.get("next_encounter_id") is String or (not saved.get("next_encounter_id", "").is_empty() and _catalog.get_definition("encounters", saved.next_encounter_id).is_empty()): errors.append("后续遭遇引用非法")
 	if saved.has("return_scene") and (not saved.return_scene is String or (not saved.return_scene.is_empty() and (not saved.return_scene.begins_with("res://scenes/") or not saved.return_scene.ends_with(".tscn")))): errors.append("已提交返回场景非法")
@@ -179,8 +195,10 @@ func validate(saved: Dictionary) -> Array[String]:
 		if not shape_errors.is_empty():
 			errors.append_array(shape_errors)
 			continue
-		if actor.get("class_id") != class_id or actor.get("side") != "player" or actor.get("level") != saved.get("level"): errors.append("固定职业/共享等级不符：" + id)
-		if actor.get("equipment") is Dictionary and actor.get("level") is int:
+		if actor.get("class_id") != class_id or actor.get("side") != "player" or (not strategy and actor.get("level") != saved.get("level")): errors.append("固定身份不符：" + id)
+		if strategy:
+			errors.append_array(Loadouts.validate_actor(actor,_catalog,saved.cards))
+		elif actor.get("equipment") is Dictionary and actor.get("level") is int:
 			if actor.get("stats") != factory.stats_for(class_id, actor.level, actor.equipment): errors.append("角色属性与职业/等级/装备不符：" + id)
 		if not _valid_branch(actor): errors.append("技能分支引用/解锁非法：" + id)
 		for field in ["statuses", "shield", "cooldown_until", "intent", "boss"]:
@@ -196,11 +214,15 @@ func validate(saved: Dictionary) -> Array[String]:
 		elif not State._natural(saved.gear[gear_id]) or saved.gear[gear_id] < 1:
 			errors.append("装备持有数量非法：" + str(gear_id))
 	if errors.is_empty():
+		var occupied:Dictionary={}
 		for actor in roster.values():
 			for slot in actor.equipment:
 				var equipped: String = actor.equipment[slot]
 				if not equipped.is_empty() and not saved.gear.has(equipped):
 					errors.append("角色装备了未持有装备：" + actor.actor_id + "/" + equipped)
+				if strategy and not equipped.is_empty():occupied[equipped]=int(occupied.get(equipped,0))+1
+		for id in occupied:
+			if occupied[id]>saved.gear.get(id,0):errors.append("装备数量不足以同时穿戴："+id)
 	var battle := {"schema_version": 1, "rules_version": saved.get("rules_version"), "revision": 0, "seed": 0, "rng_state": "0", "round": 0, "phase": "preparation", "queue": [], "queue_index": 0, "active_actor_id": "", "actors": roster, "inventory": saved.inventory, "outcome": "", "accepted_commands": {}}
 	errors.append_array(State.validate(battle))
 	for item_id in _catalog.get_ids("items"):
@@ -213,12 +235,12 @@ func validate(saved: Dictionary) -> Array[String]:
 		for id in party:
 			if not id is String or not roster.has(id) or seen.has(id): errors.append("编队引用缺失/重复")
 			seen[id] = true
-	if saved.get("schema_version") == 2:
+	if saved.get("schema_version") in [2,3]:
 		if not saved.get("world") is Dictionary: errors.append("正式世界必须为字典")
 		else: errors.append_array(Chapters.validate_world(saved.world))
 	else:
 		errors.append_array(validate_world(saved.get("world")))
-	if saved.has("run_profile") and saved.get("schema_version") == 2:
+	if saved.has("run_profile") and saved.get("schema_version") in [2,3]:
 		errors.append("正式档不可携带旧试玩profile")
 	elif saved.has("run_profile"):
 		if not saved.run_profile is Dictionary:
@@ -234,7 +256,7 @@ func validate(saved: Dictionary) -> Array[String]:
 		for actor in roster.values():
 			if Forms.has_data(actor): errors.append("双职业元数据仅允许正式schema2存档")
 	if saved.get("schema_version") == 1 and saved.get("world") is Dictionary and saved.world.get("world_version") == 3: errors.append("正式3D世界必须使用独立schema2")
-	if saved.get("schema_version") == 2: errors.append_array(_validate_campaign(saved))
+	if saved.get("schema_version") in [2,3]: errors.append_array(_validate_campaign(saved))
 	var applied = saved.get("applied_battle_ids")
 	if not applied is Array:
 		errors.append("缺少已提交战斗ID")
@@ -249,7 +271,9 @@ func validate(saved: Dictionary) -> Array[String]:
 	elif not pending.is_empty():
 		var definition: Dictionary = _catalog.get_definition("encounters", str(pending.get("encounter_id", "")))
 		if definition.is_empty() or not pending.get("battle_id") is String or pending.get("battle_id", "").is_empty() or not pending.get("seed") is int: errors.append("战前遭遇/战斗ID/种子非法")
-		if not pending.get("xp") is int or pending.get("xp") != definition.get("xp"): errors.append("战前经验与遭遇冲突")
+		if strategy:
+			if pending.has("xp") or not pending.get("rewards") is Dictionary or pending.rewards!=Threats.rewards(str(pending.get("encounter_id",""))) or pending.rewards.is_empty():errors.append("战前固定奖励与登记不符")
+		elif not pending.get("xp") is int or pending.get("xp") != definition.get("xp"): errors.append("战前经验与遭遇冲突")
 		if pending.get("battle_id") is String and applied is Array and applied.has(pending.battle_id): errors.append("已交付战果不能仍待处理")
 		if saved.get("world") is Dictionary: errors.append_array(validate_story_patch(pending.get("story_patch"), saved.world))
 		if saved.get("world") is Dictionary and saved.world.get("world_version") == 2 and pending.get("encounter_id") != "approach_basin": errors.append("3D 战前上下文遭遇归属不符")
@@ -259,7 +283,7 @@ static func _actor_shape(actor: Dictionary) -> Array[String]:
 	var errors: Array[String] = []
 	for field in ["actor_id", "side", "class_id"]:
 		if not actor.get(field) is String: errors.append("角色字符串字段错误：" + field)
-	for field in ["level", "hp", "mp", "slot_count", "opportunity_count", "revived_round"]:
+	for field in (["hp", "mp", "slot_count", "opportunity_count", "revived_round"] if Loadouts.has_data(actor) else ["level", "hp", "mp", "slot_count", "opportunity_count", "revived_round"]):
 		if not actor.get(field) is int: errors.append("角色整数字段错误：" + field)
 	for field in ["stats", "equipment", "branch", "shield", "cooldown_until", "intent", "boss"]:
 		if not actor.get(field) is Dictionary: errors.append("角色字典字段错误：" + field)
@@ -270,6 +294,7 @@ static func _actor_shape(actor: Dictionary) -> Array[String]:
 func _valid_branch(actor: Dictionary) -> bool:
 	var branch = actor.get("branch")
 	if not branch is Dictionary: return false
+	if Loadouts.has_data(actor):return branch.is_empty()
 	if branch.is_empty(): return true
 	if branch.size() != 1 or not actor.get("level") is int or actor.level < 6 or not branch.get("id") is String: return false
 	return branch_ids(str(actor.get("class_id", ""))).has(branch.id)
@@ -361,7 +386,7 @@ func _validate_campaign(saved: Dictionary) -> Array[String]:
 	elif not pending.is_empty():
 		for field in ["battle_id", "encounter_id"]:
 			if not pending.get(field) is String: errors.append("正式战前字符串字段非法：" + field)
-		for field in ["seed", "xp"]:
+		for field in (["seed"] if saved.get("schema_version")==3 else ["seed", "xp"]):
 			if not pending.get(field) is int: errors.append("正式战前整数字段非法：" + field)
 		if not pending.get("story_patch") is Dictionary: errors.append("正式战果补丁必须为字典")
 	if not errors.is_empty(): return errors
@@ -398,7 +423,7 @@ func _validate_campaign(saved: Dictionary) -> Array[String]:
 			if id == 1: first_night_cleared = true
 		if id == world.night and checkpoint != world: errors.append("当前世界与场景检查点不符")
 	var expected_xp: int = cleared * 40 + (80 if world.night == 5 and world.event_flags.has("battle:cleared") else 0)
-	if saved.get("level") != 5 or saved.get("xp") != expected_xp: errors.append("正式等级/经验与已提交五夜遭遇不符")
+	if saved.get("schema_version")!=3 and (saved.get("level") != 5 or saved.get("xp") != expected_xp): errors.append("正式等级/经验与已提交五夜遭遇不符")
 	if saved.get("applied_battle_ids") is Array and saved.applied_battle_ids.size() != cleared: errors.append("胜利数与已提交战果数不符")
 	if saved.get("battle_counter") is int and saved.get("pending_battle") is Dictionary and saved.get("applied_battle_ids") is Array:
 		if saved.battle_counter != saved.applied_battle_ids.size() + (0 if saved.pending_battle.is_empty() else 1): errors.append("战斗计数与提交记录不符")
@@ -424,4 +449,81 @@ func _validate_campaign(saved: Dictionary) -> Array[String]:
 
 func _schema_path(saved: Dictionary, path: String) -> bool:
 	if not saved.get("schema_version") is int: return false
-	return (saved.get("schema_version") == 2 and path.begins_with("user://campaign_v1/")) or (saved.get("schema_version") == 1 and path.begins_with("user://rpg_v1/"))
+	return (saved.get("schema_version") in [2,3] and path.begins_with("user://campaign_v1/")) or (saved.get("schema_version") == 1 and path.begins_with("user://rpg_v1/"))
+
+# 先验证完整旧档，再备份原字节并走原子替换；任何失败都不公布新状态。
+func migrate_loadout(path:String)->Dictionary:
+	var loaded:=load_safe(path)
+	if not loaded.ok:return loaded
+	if loaded.snapshot.schema_version==3:return loaded
+	if loaded.snapshot.schema_version!=2:return _failure("只迁移正式schema2，旧试玩档保持不变")
+	var original:=FileAccess.get_file_as_bytes(path)
+	var digest:=FileAccess.get_sha256(path)
+	var candidate:=_upgrade_loadout(loaded.snapshot,digest)
+	var errors:=validate(candidate)
+	if not errors.is_empty():return _failure("装配迁移校验失败："+"；".join(errors))
+	var backup:=path+".schema2-"+digest.substr(0,12)+".bak"
+	var directory:=DirAccess.open(path.get_base_dir())
+	if directory==null or directory.is_link(backup.get_file()):return _failure("迁移备份路径非法")
+	if FileAccess.file_exists(backup):
+		if FileAccess.get_file_as_bytes(backup)!=original:return _failure("已有迁移备份与原档不一致")
+	else:
+		var temporary:=backup+".tmp-"+Crypto.new().generate_random_bytes(12).hex_encode()
+		var error:=_write_backup_file(temporary,original)
+		if error==OK and FileAccess.get_file_as_bytes(temporary)!=original:error=ERR_FILE_CORRUPT
+		if error==OK:
+			# 别的写入者已完成同一备份时只接受完全相同内容；不覆盖不明备份。
+			if FileAccess.file_exists(backup):
+				if FileAccess.get_file_as_bytes(backup)!=original:error=ERR_FILE_CORRUPT
+			else:error=DirAccess.rename_absolute(temporary,backup)
+		if FileAccess.file_exists(temporary):DirAccess.remove_absolute(temporary)
+		if error!=OK:return _failure("旧档备份未完成，原档保留且可重试",error)
+	if FileAccess.get_file_as_bytes(path)!=original:return _failure("原档已变化，停止迁移")
+	var written:=write_safe(candidate,path)
+	if written!=OK:return _failure("装配迁移写入失败，旧档保留",written)
+	var result:=load_safe(path)
+	result["backup_path"]=backup
+	return result
+
+func _write_backup_file(path:String,contents:PackedByteArray)->Error:
+	var file:=FileAccess.open(path,FileAccess.WRITE)
+	if file==null:return FileAccess.get_open_error()
+	file.store_buffer(contents);file.flush()
+	var error:=file.get_error();file.close()
+	return error
+
+func _upgrade_loadout(old:Dictionary,digest:String)->Dictionary:
+	var saved:=old.duplicate(true)
+	saved.schema_version=3;saved.erase("level");saved.erase("xp")
+	saved["progression_version"]=1;saved["cards"]=Loadouts.initial_cards()
+	saved["migration"]={"from_schema":2,"source_sha256":digest}
+	var factory:=Factory.new(_catalog)
+	for id in saved.roster:
+		var previous:Dictionary=old.roster[id]
+		var build:=Loadouts.default_build(str(previous.class_id))
+		var passive:String={"economy":"swift_cast","power":"force_channel","duration":"sustained_rite"}.get(previous.branch.get("id",""),"")
+		if not passive.is_empty():build.passive=[passive];saved.cards[passive]=maxi(1,int(saved.cards.get(passive,0)))
+		var equipment:=Loadouts.starting_equipment(previous.class_id)
+		for slot in equipment:
+			var starter:String=equipment[slot]
+			if not saved.gear.has(starter):saved.gear[starter]=1
+		for slot in ["armor","accessory"]:equipment[slot]=previous.equipment.get(slot,"")
+		var identity:Dictionary=Chapters.BINDINGS[id].duplicate(true)
+		identity.form_id=previous.form_id
+		var actor:=factory.create_loadout(previous.class_id,id,identity,equipment,build)
+		var kept:=actor.duplicate(true);kept.equipment.weapon=previous.equipment.get("weapon","")
+		var derived:=Loadouts.derive(kept,_catalog)
+		if derived.ok:actor.equipment=kept.equipment;actor.stats=derived.stats;actor.skill_ids=derived.skill_ids
+		if id=="p_mage":
+			actor["dual_form_version"]=Forms.VERSION;actor["unlocked_forms"]=previous.unlocked_forms.duplicate();Forms.apply(actor,previous.form_id,_catalog)
+		actor.hp=mini(int(previous.hp),int(actor.stats.hp));actor.mp=mini(int(previous.mp),int(actor.stats.mp))
+		saved.roster[id]=actor
+	# 旧版允许同一标准装被六人引用；迁移只承认当时合法的已穿戴数量，不靠重读增发。
+	var occupied:Dictionary={}
+	for actor in saved.roster.values():
+		for id in actor.equipment.values():
+			if not str(id).is_empty():occupied[id]=int(occupied.get(id,0))+1
+	for id in occupied:saved.gear[id]=maxi(int(saved.gear.get(id,0)),int(occupied[id]))
+	if not saved.pending_battle.is_empty():
+		saved.pending_battle.erase("xp");saved.pending_battle["rewards"]=Threats.rewards(saved.pending_battle.encounter_id)
+	return saved

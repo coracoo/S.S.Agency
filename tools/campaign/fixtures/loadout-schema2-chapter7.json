@@ -1,0 +1,1994 @@
+{
+  "applied_battle_ids": [
+    "6f485ec43ea74614ca65787447b2266d:1",
+    "6f485ec43ea74614ca65787447b2266d:2",
+    "6f485ec43ea74614ca65787447b2266d:3",
+    "6f485ec43ea74614ca65787447b2266d:4",
+    "6f485ec43ea74614ca65787447b2266d:5",
+    "6f485ec43ea74614ca65787447b2266d:6",
+    "6f485ec43ea74614ca65787447b2266d:7",
+    "6f485ec43ea74614ca65787447b2266d:8",
+    "6f485ec43ea74614ca65787447b2266d:9",
+    "6f485ec43ea74614ca65787447b2266d:10",
+    "6f485ec43ea74614ca65787447b2266d:11",
+    "6f485ec43ea74614ca65787447b2266d:12",
+    "6f485ec43ea74614ca65787447b2266d:13",
+    "6f485ec43ea74614ca65787447b2266d:14",
+    "6f485ec43ea74614ca65787447b2266d:15",
+    "6f485ec43ea74614ca65787447b2266d:16",
+    "6f485ec43ea74614ca65787447b2266d:17",
+    "6f485ec43ea74614ca65787447b2266d:18",
+    "6f485ec43ea74614ca65787447b2266d:19",
+    "6f485ec43ea74614ca65787447b2266d:20",
+    "6f485ec43ea74614ca65787447b2266d:21",
+    "6f485ec43ea74614ca65787447b2266d:22"
+  ],
+  "battle_counter": 22,
+  "campaign_id": "five_night_3d_v1",
+  "case_status": "closed",
+  "chapter_complete": false,
+  "gear": {
+    "bead_bracelet": 1,
+    "exorcism_sword": 1,
+    "monk_kesa": 1,
+    "ranger_garb": 1,
+    "spirit_bell": 1,
+    "standard_accessory": 1,
+    "standard_armor": 1,
+    "standard_weapon": 1
+  },
+  "inventory": {
+    "cleansing_powder": 1,
+    "energy_tea": 0,
+    "guard_charm": 1,
+    "healing_potion": 0,
+    "mana_potion": 0,
+    "moxa_roll": 0,
+    "revival_potion": 1
+  },
+  "level": 10,
+  "next_encounter_id": "",
+  "night": 11,
+  "party": [
+    "p_guard",
+    "p_mage",
+    "p_healer"
+  ],
+  "pending_battle": {},
+  "phase": "exploration",
+  "resolution": "sendoff",
+  "return_scene": "res://scenes/campaign/saga.tscn",
+  "roster": {
+    "p_controller": {
+      "actor_id": "p_controller",
+      "boss": {},
+      "branch": {},
+      "class_id": "controller",
+      "cooldown_until": {},
+      "equipment": {
+        "accessory": "standard_accessory",
+        "armor": "standard_armor",
+        "weapon": "standard_weapon"
+      },
+      "form_id": "controller",
+      "hp": 275,
+      "identity_id": "controller",
+      "intent": {},
+      "last_slot_round": 0,
+      "level": 10,
+      "mp": 90,
+      "opportunity_count": 0,
+      "resistances": [],
+      "revived_round": -1,
+      "shield": {},
+      "side": "player",
+      "skill_ids": [
+        "weaken",
+        "slow",
+        "seal",
+        "magic_break"
+      ],
+      "slot_count": 0,
+      "stats": {
+        "atk": 36,
+        "def": 27,
+        "hp": 275,
+        "matk": 72,
+        "mdef": 42,
+        "mp": 90,
+        "spd": 50
+      },
+      "status_generation": 0,
+      "statuses": [],
+      "weaknesses": []
+    },
+    "p_guard": {
+      "actor_id": "p_guard",
+      "boss": {},
+      "branch": {},
+      "class_id": "guard",
+      "cooldown_until": {},
+      "equipment": {
+        "accessory": "standard_accessory",
+        "armor": "standard_armor",
+        "weapon": "standard_weapon"
+      },
+      "form_id": "guard",
+      "hp": 361,
+      "identity_id": "guard",
+      "intent": {},
+      "last_slot_round": 0,
+      "level": 10,
+      "mp": 40,
+      "opportunity_count": 0,
+      "resistances": [],
+      "revived_round": -1,
+      "shield": {},
+      "side": "player",
+      "skill_ids": [
+        "cover",
+        "shield_bash",
+        "iron_wall",
+        "taunt"
+      ],
+      "slot_count": 0,
+      "stats": {
+        "atk": 57,
+        "def": 65,
+        "hp": 440,
+        "matk": 23,
+        "mdef": 40,
+        "mp": 40,
+        "spd": 25
+      },
+      "status_generation": 0,
+      "statuses": [],
+      "weaknesses": []
+    },
+    "p_healer": {
+      "actor_id": "p_healer",
+      "boss": {},
+      "branch": {},
+      "class_id": "healer",
+      "cooldown_until": {},
+      "equipment": {
+        "accessory": "standard_accessory",
+        "armor": "standard_armor",
+        "weapon": "standard_weapon"
+      },
+      "form_id": "healer",
+      "hp": 290,
+      "identity_id": "healer",
+      "intent": {},
+      "last_slot_round": 0,
+      "level": 10,
+      "mp": 100,
+      "opportunity_count": 0,
+      "resistances": [],
+      "revived_round": -1,
+      "shield": {},
+      "side": "player",
+      "skill_ids": [
+        "heal",
+        "group_heal",
+        "cleanse",
+        "holy_shield"
+      ],
+      "slot_count": 0,
+      "stats": {
+        "atk": 25,
+        "def": 35,
+        "hp": 290,
+        "matk": 75,
+        "mdef": 55,
+        "mp": 100,
+        "spd": 30
+      },
+      "status_generation": 0,
+      "statuses": [],
+      "weaknesses": []
+    },
+    "p_mage": {
+      "active_class_id": "mage",
+      "actor_id": "p_mage",
+      "boss": {},
+      "branch": {},
+      "class_id": "mage",
+      "cooldown_until": {},
+      "dual_form_version": 1,
+      "equipment": {
+        "accessory": "standard_accessory",
+        "armor": "standard_armor",
+        "weapon": "standard_weapon"
+      },
+      "form_id": "mage",
+      "hp": 230,
+      "identity_id": "homura",
+      "intent": {},
+      "last_slot_round": 0,
+      "level": 10,
+      "mp": 68,
+      "opportunity_count": 0,
+      "resistances": [],
+      "revived_round": -1,
+      "shield": {},
+      "side": "player",
+      "skill_ids": [
+        "firebolt",
+        "flame_wave",
+        "ice_arrow",
+        "burn_brand"
+      ],
+      "slot_count": 0,
+      "stats": {
+        "atk": 23,
+        "def": 20,
+        "hp": 230,
+        "matk": 90,
+        "mdef": 45,
+        "mp": 110,
+        "spd": 33
+      },
+      "status_generation": 0,
+      "statuses": [],
+      "unlocked_forms": [
+        "sword",
+        "mage"
+      ],
+      "weaknesses": []
+    },
+    "p_ranger": {
+      "actor_id": "p_ranger",
+      "boss": {},
+      "branch": {},
+      "class_id": "ranger",
+      "cooldown_until": {},
+      "equipment": {
+        "accessory": "standard_accessory",
+        "armor": "standard_armor",
+        "weapon": "standard_weapon"
+      },
+      "form_id": "mint",
+      "hp": 250,
+      "identity_id": "mint",
+      "intent": {},
+      "last_slot_round": 0,
+      "level": 10,
+      "mp": 60,
+      "opportunity_count": 0,
+      "resistances": [],
+      "revived_round": -1,
+      "shield": {},
+      "side": "player",
+      "skill_ids": [
+        "mark",
+        "hunt",
+        "ambush",
+        "smoke_screen"
+      ],
+      "slot_count": 0,
+      "stats": {
+        "atk": 74,
+        "def": 25,
+        "hp": 250,
+        "matk": 27,
+        "mdef": 25,
+        "mp": 60,
+        "spd": 60
+      },
+      "status_generation": 0,
+      "statuses": [],
+      "weaknesses": []
+    },
+    "p_swordsman": {
+      "actor_id": "p_swordsman",
+      "boss": {},
+      "branch": {},
+      "class_id": "swordsman",
+      "cooldown_until": {},
+      "equipment": {
+        "accessory": "standard_accessory",
+        "armor": "standard_armor",
+        "weapon": "standard_weapon"
+      },
+      "form_id": "rinne",
+      "hp": 330,
+      "identity_id": "rinne",
+      "intent": {},
+      "last_slot_round": 0,
+      "level": 10,
+      "mp": 55,
+      "opportunity_count": 0,
+      "resistances": [],
+      "revived_round": -1,
+      "shield": {},
+      "side": "player",
+      "skill_ids": [
+        "heavy_slash",
+        "armor_break",
+        "sweep",
+        "battle_spirit"
+      ],
+      "slot_count": 0,
+      "stats": {
+        "atk": 85,
+        "def": 40,
+        "hp": 330,
+        "matk": 25,
+        "mdef": 35,
+        "mp": 55,
+        "spd": 40
+      },
+      "status_generation": 0,
+      "statuses": [],
+      "weaknesses": []
+    }
+  },
+  "rules_version": "rpg-0.1",
+  "run_id": "6f485ec43ea74614ca65787447b2266d",
+  "saga": {
+    "active_scene": "",
+    "battle_encounters": {
+      "C2-03": "saga_c2_03",
+      "C2-07": "saga_c2_07",
+      "C2-09": "saga_c2_09",
+      "C2-12": "saga_c2_12",
+      "C2-S02": "saga_c2_s02",
+      "C3-03": "saga_c3_03",
+      "C3-07": "saga_c3_07",
+      "C3-10": "saga_c3_10",
+      "C3-S01": "saga_c3_s01",
+      "C4-04": "saga_c4_04",
+      "C4-09": "saga_c4_09",
+      "C4-S02": "saga_c4_s02",
+      "C5-09": "saga_c5_09",
+      "C5-12": "saga_c5_12",
+      "C5-S02": "saga_c5_s02",
+      "C6-11": "saga_c6_11",
+      "C6-S04": "saga_c6_s04"
+    },
+    "battles": [
+      "C2-03",
+      "C2-S02",
+      "C2-07",
+      "C2-09",
+      "C2-12",
+      "C3-03",
+      "C3-S01",
+      "C3-07",
+      "C3-10",
+      "C4-S02",
+      "C4-04",
+      "C4-09",
+      "C5-S02",
+      "C5-09",
+      "C5-12",
+      "C6-11",
+      "C6-S04"
+    ],
+    "chapter": 7,
+    "choices": {
+      "C2-16": "a2",
+      "C2-S01": "a",
+      "C3-06": "b",
+      "C3-15": "c",
+      "C3-17": "a",
+      "C3-S01": "a",
+      "C4-05": "a",
+      "C4-R04": "a",
+      "C4-S01": "a",
+      "C5-08": "a",
+      "C5-R04": "a",
+      "C5-S01": "a",
+      "C6-14": "a",
+      "C6-S03": "a",
+      "C6-S04": "a"
+    },
+    "coins": 1353,
+    "completed": [
+      "C2-01",
+      "C2-02",
+      "C2-03",
+      "C2-04",
+      "C2-S01",
+      "C2-S02",
+      "C2-S03",
+      "C2-05",
+      "C2-06",
+      "C2-07",
+      "C2-08",
+      "C2-09",
+      "C2-10",
+      "C2-11",
+      "C2-12",
+      "C2-13",
+      "C2-14",
+      "C2-17",
+      "C2-15",
+      "C2-16",
+      "C3-01",
+      "C3-02",
+      "C3-03",
+      "C3-04",
+      "C3-05",
+      "C3-S01",
+      "C3-06",
+      "C3-07",
+      "C3-08",
+      "C3-09",
+      "C3-10",
+      "C3-11",
+      "C3-12",
+      "C3-13",
+      "C3-14",
+      "C3-16",
+      "C3-15",
+      "C3-17",
+      "C4-01",
+      "C4-S01",
+      "C4-S02",
+      "C4-02",
+      "C4-03",
+      "C4-04",
+      "C4-05",
+      "C4-06",
+      "C4-07",
+      "C4-08",
+      "C4-09",
+      "C4-10",
+      "C4-11",
+      "C4-12",
+      "C4-13",
+      "C4-14",
+      "C4-R04",
+      "C5-01",
+      "C5-S01",
+      "C5-S02",
+      "C5-02",
+      "C5-03",
+      "C5-04",
+      "C5-05",
+      "C5-06",
+      "C5-07",
+      "C5-08",
+      "C5-09",
+      "C5-10",
+      "C5-11",
+      "C5-12",
+      "C5-13",
+      "C5-14",
+      "C5-15",
+      "C5-16",
+      "C5-R04",
+      "C6-01",
+      "C6-02",
+      "C6-03",
+      "C6-07",
+      "C6-08",
+      "C6-09",
+      "C6-10",
+      "C6-11",
+      "C6-12",
+      "C6-S03",
+      "C6-S04",
+      "C6-13",
+      "C6-14"
+    ],
+    "cursors": {
+      "2": "",
+      "3": "",
+      "4": "",
+      "5": "",
+      "6": "",
+      "7": "C7-01"
+    },
+    "ending": "",
+    "events": [
+      {
+        "choice": "",
+        "id": "C2-01"
+      },
+      {
+        "choice": "",
+        "id": "C2-02"
+      },
+      {
+        "choice": "",
+        "id": "C2-03"
+      },
+      {
+        "choice": "",
+        "id": "C2-04"
+      },
+      {
+        "choice": "a",
+        "id": "C2-S01"
+      },
+      {
+        "choice": "",
+        "id": "C2-S02"
+      },
+      {
+        "choice": "",
+        "id": "C2-S03"
+      },
+      {
+        "choice": "",
+        "id": "C2-05"
+      },
+      {
+        "choice": "",
+        "id": "C2-06"
+      },
+      {
+        "choice": "",
+        "id": "C2-07"
+      },
+      {
+        "choice": "",
+        "id": "C2-08"
+      },
+      {
+        "choice": "",
+        "id": "C2-09"
+      },
+      {
+        "choice": "",
+        "id": "C2-10"
+      },
+      {
+        "choice": "",
+        "id": "C2-11"
+      },
+      {
+        "choice": "",
+        "id": "C2-12"
+      },
+      {
+        "choice": "",
+        "id": "C2-13"
+      },
+      {
+        "choice": "",
+        "id": "C2-14"
+      },
+      {
+        "choice": "",
+        "id": "C2-17"
+      },
+      {
+        "choice": "",
+        "id": "C2-15"
+      },
+      {
+        "choice": "a2",
+        "id": "C2-16"
+      },
+      {
+        "choice": "",
+        "id": "C3-01"
+      },
+      {
+        "choice": "",
+        "id": "C3-02"
+      },
+      {
+        "choice": "",
+        "id": "C3-03"
+      },
+      {
+        "choice": "",
+        "id": "C3-04"
+      },
+      {
+        "choice": "",
+        "id": "C3-05"
+      },
+      {
+        "choice": "a",
+        "id": "C3-S01"
+      },
+      {
+        "choice": "b",
+        "id": "C3-06"
+      },
+      {
+        "choice": "",
+        "id": "C3-07"
+      },
+      {
+        "choice": "",
+        "id": "C3-08"
+      },
+      {
+        "choice": "",
+        "id": "C3-09"
+      },
+      {
+        "choice": "",
+        "id": "C3-10"
+      },
+      {
+        "choice": "",
+        "id": "C3-11"
+      },
+      {
+        "choice": "",
+        "id": "C3-12"
+      },
+      {
+        "choice": "",
+        "id": "C3-13"
+      },
+      {
+        "choice": "",
+        "id": "C3-14"
+      },
+      {
+        "choice": "",
+        "id": "C3-16"
+      },
+      {
+        "choice": "c",
+        "id": "C3-15"
+      },
+      {
+        "choice": "a",
+        "id": "C3-17"
+      },
+      {
+        "choice": "",
+        "id": "C4-01"
+      },
+      {
+        "choice": "a",
+        "id": "C4-S01"
+      },
+      {
+        "choice": "",
+        "id": "C4-S02"
+      },
+      {
+        "choice": "",
+        "id": "C4-02"
+      },
+      {
+        "choice": "",
+        "id": "C4-03"
+      },
+      {
+        "choice": "",
+        "id": "C4-04"
+      },
+      {
+        "choice": "a",
+        "id": "C4-05"
+      },
+      {
+        "choice": "",
+        "id": "C4-06"
+      },
+      {
+        "choice": "",
+        "id": "C4-07"
+      },
+      {
+        "choice": "",
+        "id": "C4-08"
+      },
+      {
+        "choice": "",
+        "id": "C4-09"
+      },
+      {
+        "choice": "",
+        "id": "C4-10"
+      },
+      {
+        "choice": "",
+        "id": "C4-11"
+      },
+      {
+        "choice": "",
+        "id": "C4-12"
+      },
+      {
+        "choice": "",
+        "id": "C4-13"
+      },
+      {
+        "choice": "",
+        "id": "C4-14"
+      },
+      {
+        "choice": "a",
+        "id": "C4-R04"
+      },
+      {
+        "choice": "",
+        "id": "C5-01"
+      },
+      {
+        "choice": "a",
+        "id": "C5-S01"
+      },
+      {
+        "choice": "",
+        "id": "C5-S02"
+      },
+      {
+        "choice": "",
+        "id": "C5-02"
+      },
+      {
+        "choice": "",
+        "id": "C5-03"
+      },
+      {
+        "choice": "",
+        "id": "C5-04"
+      },
+      {
+        "choice": "",
+        "id": "C5-05"
+      },
+      {
+        "choice": "",
+        "id": "C5-06"
+      },
+      {
+        "choice": "",
+        "id": "C5-07"
+      },
+      {
+        "choice": "a",
+        "id": "C5-08"
+      },
+      {
+        "choice": "",
+        "id": "C5-09"
+      },
+      {
+        "choice": "",
+        "id": "C5-10"
+      },
+      {
+        "choice": "",
+        "id": "C5-11"
+      },
+      {
+        "choice": "",
+        "id": "C5-12"
+      },
+      {
+        "choice": "",
+        "id": "C5-13"
+      },
+      {
+        "choice": "",
+        "id": "C5-14"
+      },
+      {
+        "choice": "",
+        "id": "C5-15"
+      },
+      {
+        "choice": "",
+        "id": "C5-16"
+      },
+      {
+        "choice": "a",
+        "id": "C5-R04"
+      },
+      {
+        "choice": "",
+        "id": "C6-01"
+      },
+      {
+        "choice": "",
+        "id": "C6-02"
+      },
+      {
+        "choice": "",
+        "id": "C6-03"
+      },
+      {
+        "choice": "",
+        "id": "C6-07"
+      },
+      {
+        "choice": "",
+        "id": "C6-08"
+      },
+      {
+        "choice": "",
+        "id": "C6-09"
+      },
+      {
+        "choice": "",
+        "id": "C6-10"
+      },
+      {
+        "choice": "",
+        "id": "C6-11"
+      },
+      {
+        "choice": "",
+        "id": "C6-12"
+      },
+      {
+        "choice": "a",
+        "id": "C6-S03"
+      },
+      {
+        "choice": "a",
+        "id": "C6-S04"
+      },
+      {
+        "choice": "",
+        "id": "C6-13"
+      },
+      {
+        "choice": "a",
+        "id": "C6-14"
+      }
+    ],
+    "flags": {
+      "alley_rescued": true,
+      "battle_retry_pending": false,
+      "chat_seen_c2_r01_1": false,
+      "chat_seen_c2_r01_2": false,
+      "chat_seen_c2_r01_3": false,
+      "chat_seen_c3_r01_1": false,
+      "chat_seen_c3_r01_2": false,
+      "chat_seen_c3_r01_3": false,
+      "chat_seen_c4_r02_1": false,
+      "chat_seen_c4_r02_2": false,
+      "chat_seen_c4_r02_3": false,
+      "chat_seen_c5_r02_1": false,
+      "chat_seen_c5_r02_2": false,
+      "chat_seen_c5_r02_3": false,
+      "clinic_awake": true,
+      "clinic_experiment_verified": true,
+      "clinic_plan": "gentle",
+      "connection_map": true,
+      "control_pin_held": true,
+      "dream_intake_reconnected": false,
+      "dream_intake_stopped": true,
+      "ending_plan": "",
+      "evacuation_notebook": true,
+      "evacuation_route_ready": true,
+      "family_rescued": true,
+      "ferry_passengers_safe": true,
+      "ferry_repaired": true,
+      "ferry_shrink_verified": true,
+      "first_array_plan": true,
+      "first_chapter_sendoff": true,
+      "guide_lamp_repaired": true,
+      "late_sendoff_posted": false,
+      "letter_posted": true,
+      "letter_receipt_received": true,
+      "luyun_departed": true,
+      "maintenance_ledger": true,
+      "night_market_outside": true,
+      "night_market_rescued": true,
+      "old_recording": true,
+      "patients_outside": true,
+      "qiuan_rescued": true,
+      "relics_posted": true,
+      "repair_archive": true,
+      "resolution": "sendoff",
+      "responsibility_resolved": true,
+      "retreat_route": "tow",
+      "retry_stage": 0.0,
+      "return_paths_open": true,
+      "seal_removed": false,
+      "segment_network_ready": true,
+      "segment_plan": true,
+      "shared_mirror_shard": true,
+      "shipping_manifest": true,
+      "street_guests_safe": true,
+      "tea_wick_recovered": true,
+      "temporary_ward_verified": true,
+      "warehouse_status": "protected",
+      "water_echo_verified": true,
+      "wuji_departed": true
+    },
+    "max_chapter": 7,
+    "navigation": [
+      {
+        "choice": "",
+        "events": 1,
+        "id": "C2-01",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 2,
+        "id": "C2-02",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 3,
+        "id": "C2-03",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 4,
+        "id": "C2-04",
+        "kind": "scene"
+      },
+      {
+        "choice": "a",
+        "events": 5,
+        "id": "C2-S01",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 6,
+        "id": "C2-S02",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 7,
+        "id": "C2-S03",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 8,
+        "id": "C2-05",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 9,
+        "id": "C2-06",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 10,
+        "id": "C2-07",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 11,
+        "id": "C2-08",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 12,
+        "id": "C2-09",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 13,
+        "id": "C2-10",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 14,
+        "id": "C2-11",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 15,
+        "id": "C2-12",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 16,
+        "id": "C2-13",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 17,
+        "id": "C2-14",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 18,
+        "id": "C2-17",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 19,
+        "id": "C2-15",
+        "kind": "scene"
+      },
+      {
+        "choice": "a2",
+        "events": 20,
+        "id": "C2-16",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 21,
+        "id": "C3-01",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 22,
+        "id": "C3-02",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 23,
+        "id": "C3-03",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 24,
+        "id": "C3-04",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 25,
+        "id": "C3-05",
+        "kind": "scene"
+      },
+      {
+        "choice": "a",
+        "events": 26,
+        "id": "C3-S01",
+        "kind": "scene"
+      },
+      {
+        "choice": "b",
+        "events": 27,
+        "id": "C3-06",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 28,
+        "id": "C3-07",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 29,
+        "id": "C3-08",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 30,
+        "id": "C3-09",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 31,
+        "id": "C3-10",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 32,
+        "id": "C3-11",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 33,
+        "id": "C3-12",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 34,
+        "id": "C3-13",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 35,
+        "id": "C3-14",
+        "kind": "scene"
+      },
+      {
+        "choice": "a",
+        "events": 35,
+        "id": "C3-15",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 36,
+        "id": "C3-16",
+        "kind": "scene"
+      },
+      {
+        "choice": "c",
+        "events": 37,
+        "id": "C3-15",
+        "kind": "scene"
+      },
+      {
+        "choice": "a",
+        "events": 38,
+        "id": "C3-17",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 39,
+        "id": "C4-01",
+        "kind": "scene"
+      },
+      {
+        "choice": "a",
+        "events": 40,
+        "id": "C4-S01",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 41,
+        "id": "C4-S02",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 42,
+        "id": "C4-02",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 43,
+        "id": "C4-03",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 44,
+        "id": "C4-04",
+        "kind": "scene"
+      },
+      {
+        "choice": "a",
+        "events": 45,
+        "id": "C4-05",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 46,
+        "id": "C4-06",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 47,
+        "id": "C4-07",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 48,
+        "id": "C4-08",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 49,
+        "id": "C4-09",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 50,
+        "id": "C4-10",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 51,
+        "id": "C4-11",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 52,
+        "id": "C4-12",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 53,
+        "id": "C4-13",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 54,
+        "id": "C4-14",
+        "kind": "scene"
+      },
+      {
+        "choice": "a",
+        "events": 55,
+        "id": "C4-R04",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 56,
+        "id": "C5-01",
+        "kind": "scene"
+      },
+      {
+        "choice": "a",
+        "events": 57,
+        "id": "C5-S01",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 58,
+        "id": "C5-S02",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 59,
+        "id": "C5-02",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 60,
+        "id": "C5-03",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 61,
+        "id": "C5-04",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 62,
+        "id": "C5-05",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 63,
+        "id": "C5-06",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 64,
+        "id": "C5-07",
+        "kind": "scene"
+      },
+      {
+        "choice": "a",
+        "events": 65,
+        "id": "C5-08",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 66,
+        "id": "C5-09",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 67,
+        "id": "C5-10",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 68,
+        "id": "C5-11",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 69,
+        "id": "C5-12",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 70,
+        "id": "C5-13",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 71,
+        "id": "C5-14",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 72,
+        "id": "C5-15",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 73,
+        "id": "C5-16",
+        "kind": "scene"
+      },
+      {
+        "choice": "a",
+        "events": 74,
+        "id": "C5-R04",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 75,
+        "id": "C6-01",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 76,
+        "id": "C6-02",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 77,
+        "id": "C6-03",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 78,
+        "id": "C6-07",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 79,
+        "id": "C6-08",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 80,
+        "id": "C6-09",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 81,
+        "id": "C6-10",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 82,
+        "id": "C6-11",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 83,
+        "id": "C6-12",
+        "kind": "scene"
+      },
+      {
+        "choice": "a",
+        "events": 84,
+        "id": "C6-S03",
+        "kind": "scene"
+      },
+      {
+        "choice": "a",
+        "events": 85,
+        "id": "C6-S04",
+        "kind": "scene"
+      },
+      {
+        "choice": "",
+        "events": 86,
+        "id": "C6-13",
+        "kind": "scene"
+      },
+      {
+        "choice": "a",
+        "events": 87,
+        "id": "C6-14",
+        "kind": "scene"
+      }
+    ],
+    "retry": {},
+    "scene": "C7-01",
+    "transactions": [],
+    "version": 1
+  },
+  "scene_id": "night_11",
+  "schema_version": 2,
+  "story_phase": "exploration",
+  "world": {
+    "dlg_fired": {},
+    "event_flags": {},
+    "exit_prompted": false,
+    "facing": 1,
+    "map_layout": "saga_regions_v1",
+    "night": 11,
+    "party_index": 0,
+    "player_x": -21.0,
+    "position": [
+      -21.0,
+      0.0,
+      0.0
+    ],
+    "resolved": {},
+    "return_anchor": "spawn",
+    "scene_id": "night_11",
+    "scene_path": "res://scenes/campaign/saga.tscn",
+    "space": "3d",
+    "spirit": 2,
+    "story_choice": "",
+    "story_encounter": "",
+    "story_scene": "",
+    "world_version": 3
+  },
+  "world_history": {
+    "night_1": {
+      "dlg_fired": {
+        "a1": true,
+        "h1": true,
+        "r1": true
+      },
+      "event_flags": {
+        "battle:cleared": true,
+        "dialogue:a1": true,
+        "dialogue:h1": true,
+        "dialogue:r1": true
+      },
+      "exit_prompted": false,
+      "facing": 1,
+      "map_layout": "act_one_connected_v1",
+      "night": 1,
+      "party_index": 0,
+      "player_x": -4.3,
+      "position": [
+        -4.3,
+        0.04,
+        1.6
+      ],
+      "resolved": {
+        "basin_reflection": true
+      },
+      "return_anchor": "spawn",
+      "scene_id": "night_1",
+      "scene_path": "res://scenes/campaign/night_1.tscn",
+      "space": "3d",
+      "spirit": 2,
+      "world_version": 3
+    },
+    "night_10": {
+      "dlg_fired": {
+        "C6-01": true,
+        "C6-02": true,
+        "C6-03": true,
+        "C6-07": true,
+        "C6-08": true,
+        "C6-09": true,
+        "C6-10": true,
+        "C6-11": true,
+        "C6-12": true,
+        "C6-13": true,
+        "C6-14": true,
+        "C6-S03": true,
+        "C6-S04": true
+      },
+      "event_flags": {
+        "battle:C6-11": true,
+        "battle:C6-S04": true,
+        "scene:C6-01": true,
+        "scene:C6-02": true,
+        "scene:C6-03": true,
+        "scene:C6-07": true,
+        "scene:C6-08": true,
+        "scene:C6-09": true,
+        "scene:C6-10": true,
+        "scene:C6-11": true,
+        "scene:C6-12": true,
+        "scene:C6-13": true,
+        "scene:C6-14": true,
+        "scene:C6-S03": true,
+        "scene:C6-S04": true
+      },
+      "exit_prompted": false,
+      "facing": 1,
+      "map_layout": "saga_regions_v1",
+      "night": 10,
+      "party_index": 0,
+      "player_x": -20.0,
+      "position": [
+        -20.0,
+        0.0,
+        0.0
+      ],
+      "resolved": {
+        "C6-11": true,
+        "C6-S04": true
+      },
+      "return_anchor": "spawn",
+      "scene_id": "night_10",
+      "scene_path": "res://scenes/campaign/saga.tscn",
+      "space": "3d",
+      "spirit": 2,
+      "story_choice": "",
+      "story_encounter": "",
+      "story_scene": "",
+      "world_version": 3
+    },
+    "night_11": {
+      "dlg_fired": {},
+      "event_flags": {},
+      "exit_prompted": false,
+      "facing": 1,
+      "map_layout": "saga_regions_v1",
+      "night": 11,
+      "party_index": 0,
+      "player_x": -21.0,
+      "position": [
+        -21.0,
+        0.0,
+        0.0
+      ],
+      "resolved": {},
+      "return_anchor": "spawn",
+      "scene_id": "night_11",
+      "scene_path": "res://scenes/campaign/saga.tscn",
+      "space": "3d",
+      "spirit": 2,
+      "story_choice": "",
+      "story_encounter": "",
+      "story_scene": "",
+      "world_version": 3
+    },
+    "night_2": {
+      "dlg_fired": {
+        "c1": true
+      },
+      "event_flags": {
+        "battle:cleared": true,
+        "dialogue:c1": true,
+        "ritual:guide": true,
+        "ritual:identify": true,
+        "ritual:place": true
+      },
+      "exit_prompted": false,
+      "facing": 1,
+      "map_layout": "act_one_connected_v1",
+      "night": 2,
+      "party_index": 0,
+      "player_x": -4.3,
+      "position": [
+        -4.3,
+        0.04,
+        1.6
+      ],
+      "resolved": {
+        "bell_self_ring": true,
+        "coffin_sendoff": true
+      },
+      "return_anchor": "spawn",
+      "scene_id": "night_2",
+      "scene_path": "res://scenes/campaign/night_2.tscn",
+      "space": "3d",
+      "spirit": 2,
+      "world_version": 3
+    },
+    "night_3": {
+      "dlg_fired": {
+        "p1": true,
+        "p3": true
+      },
+      "event_flags": {
+        "battle:cleared": true,
+        "dialogue:p1": true,
+        "dialogue:p3": true
+      },
+      "exit_prompted": false,
+      "facing": 1,
+      "map_layout": "act_one_connected_v1",
+      "night": 3,
+      "party_index": 0,
+      "player_x": -4.3,
+      "position": [
+        -4.3,
+        0.04,
+        1.6
+      ],
+      "resolved": {
+        "coffin_procession": true
+      },
+      "return_anchor": "spawn",
+      "scene_id": "night_3",
+      "scene_path": "res://scenes/campaign/night_3.tscn",
+      "space": "3d",
+      "spirit": 2,
+      "world_version": 3
+    },
+    "night_4": {
+      "dlg_fired": {
+        "m1": true
+      },
+      "event_flags": {
+        "battle:cleared": true,
+        "dialogue:m1": true
+      },
+      "exit_prompted": false,
+      "facing": 1,
+      "map_layout": "act_one_connected_v1",
+      "night": 4,
+      "party_index": 0,
+      "player_x": -4.3,
+      "position": [
+        -4.3,
+        0.04,
+        1.6
+      ],
+      "resolved": {
+        "mirror_in_coffin": true
+      },
+      "return_anchor": "spawn",
+      "scene_id": "night_4",
+      "scene_path": "res://scenes/campaign/night_4.tscn",
+      "space": "3d",
+      "spirit": 2,
+      "world_version": 3
+    },
+    "night_5": {
+      "dlg_fired": {
+        "hd1": true,
+        "hd5": true
+      },
+      "event_flags": {
+        "battle:cleared": true,
+        "dialogue:hd1": true,
+        "dialogue:hd5": true
+      },
+      "exit_prompted": false,
+      "facing": 1,
+      "map_layout": "act_one_connected_v1",
+      "night": 5,
+      "party_index": 0,
+      "player_x": -4.3,
+      "position": [
+        -4.3,
+        0.04,
+        1.6
+      ],
+      "resolved": {
+        "hollow_coffin_glow": true
+      },
+      "return_anchor": "spawn",
+      "scene_id": "night_5",
+      "scene_path": "res://scenes/campaign/night_5.tscn",
+      "space": "3d",
+      "spirit": 2,
+      "world_version": 3
+    },
+    "night_6": {
+      "dlg_fired": {
+        "C2-01": true,
+        "C2-02": true,
+        "C2-03": true,
+        "C2-04": true,
+        "C2-05": true,
+        "C2-06": true,
+        "C2-07": true,
+        "C2-08": true,
+        "C2-09": true,
+        "C2-10": true,
+        "C2-11": true,
+        "C2-12": true,
+        "C2-13": true,
+        "C2-14": true,
+        "C2-15": true,
+        "C2-16": true,
+        "C2-17": true,
+        "C2-S01": true,
+        "C2-S02": true,
+        "C2-S03": true
+      },
+      "event_flags": {
+        "battle:C2-03": true,
+        "battle:C2-07": true,
+        "battle:C2-09": true,
+        "battle:C2-12": true,
+        "battle:C2-S02": true,
+        "scene:C2-01": true,
+        "scene:C2-02": true,
+        "scene:C2-03": true,
+        "scene:C2-04": true,
+        "scene:C2-05": true,
+        "scene:C2-06": true,
+        "scene:C2-07": true,
+        "scene:C2-08": true,
+        "scene:C2-09": true,
+        "scene:C2-10": true,
+        "scene:C2-11": true,
+        "scene:C2-12": true,
+        "scene:C2-13": true,
+        "scene:C2-14": true,
+        "scene:C2-15": true,
+        "scene:C2-16": true,
+        "scene:C2-17": true,
+        "scene:C2-S01": true,
+        "scene:C2-S02": true,
+        "scene:C2-S03": true
+      },
+      "exit_prompted": false,
+      "facing": 1,
+      "map_layout": "saga_regions_v1",
+      "night": 6,
+      "party_index": 0,
+      "player_x": -21.0,
+      "position": [
+        -21.0,
+        0.0,
+        0.0
+      ],
+      "resolved": {
+        "C2-03": true,
+        "C2-07": true,
+        "C2-09": true,
+        "C2-12": true,
+        "C2-S02": true
+      },
+      "return_anchor": "spawn",
+      "scene_id": "night_6",
+      "scene_path": "res://scenes/campaign/saga.tscn",
+      "space": "3d",
+      "spirit": 2,
+      "story_choice": "",
+      "story_encounter": "",
+      "story_scene": "",
+      "world_version": 3
+    },
+    "night_7": {
+      "dlg_fired": {
+        "C3-01": true,
+        "C3-02": true,
+        "C3-03": true,
+        "C3-04": true,
+        "C3-05": true,
+        "C3-06": true,
+        "C3-07": true,
+        "C3-08": true,
+        "C3-09": true,
+        "C3-10": true,
+        "C3-11": true,
+        "C3-12": true,
+        "C3-13": true,
+        "C3-14": true,
+        "C3-15": true,
+        "C3-16": true,
+        "C3-17": true,
+        "C3-S01": true
+      },
+      "event_flags": {
+        "battle:C3-03": true,
+        "battle:C3-07": true,
+        "battle:C3-10": true,
+        "battle:C3-S01": true,
+        "scene:C3-01": true,
+        "scene:C3-02": true,
+        "scene:C3-03": true,
+        "scene:C3-04": true,
+        "scene:C3-05": true,
+        "scene:C3-06": true,
+        "scene:C3-07": true,
+        "scene:C3-08": true,
+        "scene:C3-09": true,
+        "scene:C3-10": true,
+        "scene:C3-11": true,
+        "scene:C3-12": true,
+        "scene:C3-13": true,
+        "scene:C3-14": true,
+        "scene:C3-15": true,
+        "scene:C3-16": true,
+        "scene:C3-17": true,
+        "scene:C3-S01": true
+      },
+      "exit_prompted": false,
+      "facing": 1,
+      "map_layout": "saga_regions_v1",
+      "night": 7,
+      "party_index": 0,
+      "player_x": -21.0,
+      "position": [
+        -21.0,
+        0.0,
+        0.0
+      ],
+      "resolved": {
+        "C3-03": true,
+        "C3-07": true,
+        "C3-10": true,
+        "C3-S01": true
+      },
+      "return_anchor": "spawn",
+      "scene_id": "night_7",
+      "scene_path": "res://scenes/campaign/saga.tscn",
+      "space": "3d",
+      "spirit": 2,
+      "story_choice": "",
+      "story_encounter": "",
+      "story_scene": "",
+      "world_version": 3
+    },
+    "night_8": {
+      "dlg_fired": {
+        "C4-01": true,
+        "C4-02": true,
+        "C4-03": true,
+        "C4-04": true,
+        "C4-05": true,
+        "C4-06": true,
+        "C4-07": true,
+        "C4-08": true,
+        "C4-09": true,
+        "C4-10": true,
+        "C4-11": true,
+        "C4-12": true,
+        "C4-13": true,
+        "C4-14": true,
+        "C4-R04": true,
+        "C4-S01": true,
+        "C4-S02": true
+      },
+      "event_flags": {
+        "battle:C4-04": true,
+        "battle:C4-09": true,
+        "battle:C4-S02": true,
+        "scene:C4-01": true,
+        "scene:C4-02": true,
+        "scene:C4-03": true,
+        "scene:C4-04": true,
+        "scene:C4-05": true,
+        "scene:C4-06": true,
+        "scene:C4-07": true,
+        "scene:C4-08": true,
+        "scene:C4-09": true,
+        "scene:C4-10": true,
+        "scene:C4-11": true,
+        "scene:C4-12": true,
+        "scene:C4-13": true,
+        "scene:C4-14": true,
+        "scene:C4-R04": true,
+        "scene:C4-S01": true,
+        "scene:C4-S02": true
+      },
+      "exit_prompted": false,
+      "facing": 1,
+      "map_layout": "saga_regions_v1",
+      "night": 8,
+      "party_index": 0,
+      "player_x": -21.0,
+      "position": [
+        -21.0,
+        0.0,
+        1.0
+      ],
+      "resolved": {
+        "C4-04": true,
+        "C4-09": true,
+        "C4-S02": true
+      },
+      "return_anchor": "spawn",
+      "scene_id": "night_8",
+      "scene_path": "res://scenes/campaign/saga.tscn",
+      "space": "3d",
+      "spirit": 2,
+      "story_choice": "",
+      "story_encounter": "",
+      "story_scene": "",
+      "world_version": 3
+    },
+    "night_9": {
+      "dlg_fired": {
+        "C5-01": true,
+        "C5-02": true,
+        "C5-03": true,
+        "C5-04": true,
+        "C5-05": true,
+        "C5-06": true,
+        "C5-07": true,
+        "C5-08": true,
+        "C5-09": true,
+        "C5-10": true,
+        "C5-11": true,
+        "C5-12": true,
+        "C5-13": true,
+        "C5-14": true,
+        "C5-15": true,
+        "C5-16": true,
+        "C5-R04": true,
+        "C5-S01": true,
+        "C5-S02": true
+      },
+      "event_flags": {
+        "battle:C5-09": true,
+        "battle:C5-12": true,
+        "battle:C5-S02": true,
+        "scene:C5-01": true,
+        "scene:C5-02": true,
+        "scene:C5-03": true,
+        "scene:C5-04": true,
+        "scene:C5-05": true,
+        "scene:C5-06": true,
+        "scene:C5-07": true,
+        "scene:C5-08": true,
+        "scene:C5-09": true,
+        "scene:C5-10": true,
+        "scene:C5-11": true,
+        "scene:C5-12": true,
+        "scene:C5-13": true,
+        "scene:C5-14": true,
+        "scene:C5-15": true,
+        "scene:C5-16": true,
+        "scene:C5-R04": true,
+        "scene:C5-S01": true,
+        "scene:C5-S02": true
+      },
+      "exit_prompted": false,
+      "facing": 1,
+      "map_layout": "saga_regions_v1",
+      "night": 9,
+      "party_index": 0,
+      "player_x": -20.0,
+      "position": [
+        -20.0,
+        0.0,
+        0.0
+      ],
+      "resolved": {
+        "C5-09": true,
+        "C5-12": true,
+        "C5-S02": true
+      },
+      "return_anchor": "spawn",
+      "scene_id": "night_9",
+      "scene_path": "res://scenes/campaign/saga.tscn",
+      "space": "3d",
+      "spirit": 2,
+      "story_choice": "",
+      "story_encounter": "",
+      "story_scene": "",
+      "world_version": 3
+    }
+  },
+  "xp": 0
+}

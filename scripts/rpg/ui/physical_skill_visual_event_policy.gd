@@ -4,6 +4,7 @@
 extends RefCounted
 
 const Forms = preload("res://scripts/rpg/dual_form.gd")
+const Loadouts = preload("res://scripts/rpg/loadout_rules.gd")
 const SKILLS := {
 	"rinne": ["heavy_slash", "armor_break", "sweep", "battle_spirit"],
 	"homura_sword": ["heavy_slash", "armor_break", "sweep", "battle_spirit"],
@@ -63,7 +64,8 @@ static func context_from_result(before: Dictionary, derived_skill: Dictionary, r
 	var context := command.duplicate(true)
 	context.source_id = source.actor_id
 	context.effect_target_ids = targets.duplicate()
-	context.form = _form(source)
+	# 构筑角色的form是素材家族；人物身份与专长仍取真实source，不借素材冒充身份。
+	context.form = Loadouts.visual_form(source,str(command.get("ability_id",""))) if Loadouts.has_data(source) else _form(source)
 	context.variant_key = "%s-%s" % [context.form, command.ability_id] if context.form in ["rinne", "homura_sword"] else str(command.get("ability_id", ""))
 	context.accepted_sequence = int(accepted.sequence)
 	context.last_sequence = last_sequence

@@ -5,6 +5,7 @@ extends RefCounted
 const Forms = preload("res://scripts/rpg/dual_form.gd")
 const Resolver = preload("res://scripts/rpg/effect_resolver.gd")
 const State = preload("res://scripts/rpg/battle_state.gd")
+const Loadouts = preload("res://scripts/rpg/loadout_rules.gd")
 
 static func preview(state: Dictionary, command: Dictionary, catalog: RefCounted) -> Dictionary:
 	var reasons: Array[String] = []
@@ -41,7 +42,7 @@ static func preview(state: Dictionary, command: Dictionary, catalog: RefCounted)
 		if ability.has("refinement"): result["refinement"] = ability.refinement.duplicate(true)
 		if ability.has("technique"): result["technique"] = ability.technique.duplicate(true)
 		if not source.skill_ids.has(command.ability_id): reasons.append("该角色没有此技能")
-		if source.level < int(ability.get("unlock_level", 1)): reasons.append("技能尚未解锁")
+		if source.has("level") and source.level < int(ability.get("unlock_level", 1)): reasons.append("技能尚未解锁")
 		if int(source.cooldown_until.get(command.ability_id, 0)) > int(source.slot_count): reasons.append("技能冷却中")
 		result.mp_cost = int(ability.get("mp_cost", 0))
 		result.cooldown = int(ability.get("cooldown", 0))
@@ -52,8 +53,10 @@ static func preview(state: Dictionary, command: Dictionary, catalog: RefCounted)
 		if int(state.inventory.get(command.ability_id, 0)) < 1: reasons.append("道具库存不足")
 	elif not command.ability_id.is_empty():
 		reasons.append("基础指令不接受技能ID")
-	if command.kind == "attack_magic" and source.side == "player" and not Forms.active_class(source) in ["mage", "healer", "controller"]:
-		reasons.append("该职业没有魔法普攻")
+	if command.kind == "attack_magic" and source.side == "player":
+		if Loadouts.has_data(source):
+			if not Loadouts.derive(source,catalog).weapon_tags.has("focus"):reasons.append("当前武器没有术法普攻")
+		elif not Forms.active_class(source) in ["mage", "healer", "controller"]:reasons.append("该职业没有魔法普攻")
 	var targets := _targets(state, source, ability.target_rule, command.target_ids, reasons)
 	result.effective_target_ids = targets.duplicate()
 	if not reasons.is_empty():

@@ -1,11 +1,12 @@
 # 后六章状态事务。视图只请求操作，不自行修改剧情/货币/奖励。
 class_name CampaignSagaProgress
 extends RefCounted
+const Threats = preload("res://scripts/rpg/strategy_encounters.gd")
 const Saga = preload("res://scripts/campaign/saga_catalog.gd")
 
 static func continue_run(model: RefCounted) -> Dictionary:
 	var saved: Dictionary = model.safe_snapshot()
-	if not model._outside() or saved.get("schema_version") != 2 or saved.has("saga") or saved.get("story_phase") != "complete" or saved.get("night") != 5:
+	if not model._outside() or not saved.get("schema_version") in [2,3] or saved.has("saga") or saved.get("story_phase") != "complete" or saved.get("night") != 5:
 		return model._fail("请先完成第一章结案，再沿山路下山")
 	var candidate := saved.duplicate(true)
 	candidate["saga"] = Saga.initial(str(saved.resolution))
@@ -171,7 +172,7 @@ static func apply_battle(candidate: Dictionary, encounter: Dictionary) -> void:
 	var id: String = candidate.world.story_scene
 	if not candidate.saga.battles.has(id): candidate.saga.battles.append(id)
 	candidate.saga.battle_encounters[id] = str(encounter.id)
-	candidate.saga.coins += 25 + int(encounter.get("xp", 0)) / 5
+	candidate.saga.coins += int(Threats.rewards(str(encounter.id)).get("coins",0)) if candidate.get("schema_version")==3 else 25 + int(encounter.get("xp", 0)) / 5
 	candidate.next_encounter_id = ""
 	candidate.world_history[candidate.world.scene_id] = candidate.world.duplicate(true)
 

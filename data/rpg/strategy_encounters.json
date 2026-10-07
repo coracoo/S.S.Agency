@@ -1,0 +1,1144 @@
+{
+  "schema_version": 1,
+  "rules_version": "strategy-threat-1",
+  "notes": "2026-10-08：由既有正式遭遇与敌人表离线固化，保留原出场次序、固定属性与装备掉落。银钱为原后六章结算结果的明确常量，首章不新增银钱，道具与卡片不免费新增。运行时不读取人物等级、遭遇等级或经验，不随玩家成长缩放。当前仅是待无等级全程自然补给校准的初始基线，不能据此宣称已完成平衡。",
+  "source_files": [
+    "data/rpg/encounters.json",
+    "data/rpg/saga_encounters.json",
+    "data/rpg/enemies.json",
+    "data/rpg/saga_enemies.json"
+  ],
+  "definitions": [
+    {
+      "id": "campaign_night_1",
+      "name": "正式主线第1夜",
+      "chapter": 1,
+      "enemy_ids": [
+        "hound",
+        "shield_soldier"
+      ],
+      "enemy_stats": {
+        "hound": {
+          "hp": 180,
+          "mp": 0,
+          "atk": 45,
+          "matk": 10,
+          "def": 20,
+          "mdef": 15,
+          "spd": 40
+        },
+        "shield_soldier": {
+          "hp": 240,
+          "mp": 18,
+          "atk": 40,
+          "matk": 18,
+          "def": 40,
+          "mdef": 25,
+          "spd": 18
+        }
+      },
+      "rewards": {
+        "coins": 0,
+        "gear": {},
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "campaign_night_2",
+      "name": "正式主线第2夜",
+      "chapter": 1,
+      "enemy_ids": [
+        "hound",
+        "cultist"
+      ],
+      "enemy_stats": {
+        "hound": {
+          "hp": 180,
+          "mp": 0,
+          "atk": 45,
+          "matk": 10,
+          "def": 20,
+          "mdef": 15,
+          "spd": 40
+        },
+        "cultist": {
+          "hp": 210,
+          "mp": 40,
+          "atk": 35,
+          "matk": 45,
+          "def": 20,
+          "mdef": 30,
+          "spd": 26
+        }
+      },
+      "rewards": {
+        "coins": 0,
+        "gear": {
+          "exorcism_sword": 1
+        },
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "campaign_night_3",
+      "name": "正式主线第3夜",
+      "chapter": 1,
+      "enemy_ids": [
+        "shield_soldier",
+        "elite_shield_soldier"
+      ],
+      "enemy_stats": {
+        "shield_soldier": {
+          "hp": 240,
+          "mp": 18,
+          "atk": 40,
+          "matk": 18,
+          "def": 40,
+          "mdef": 25,
+          "spd": 18
+        },
+        "elite_shield_soldier": {
+          "hp": 360,
+          "mp": 24,
+          "atk": 52,
+          "matk": 25,
+          "def": 45,
+          "mdef": 30,
+          "spd": 24
+        }
+      },
+      "rewards": {
+        "coins": 0,
+        "gear": {
+          "ranger_garb": 1
+        },
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "campaign_night_4",
+      "name": "正式主线第4夜",
+      "chapter": 1,
+      "enemy_ids": [
+        "cultist",
+        "fire_spirit"
+      ],
+      "enemy_stats": {
+        "cultist": {
+          "hp": 210,
+          "mp": 40,
+          "atk": 35,
+          "matk": 45,
+          "def": 20,
+          "mdef": 30,
+          "spd": 26
+        },
+        "fire_spirit": {
+          "hp": 190,
+          "mp": 40,
+          "atk": 15,
+          "matk": 50,
+          "def": 15,
+          "mdef": 30,
+          "spd": 32
+        }
+      },
+      "rewards": {
+        "coins": 0,
+        "gear": {
+          "spirit_bell": 1,
+          "bead_bracelet": 1
+        },
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "campaign_night_5",
+      "name": "正式主线第5夜",
+      "chapter": 1,
+      "enemy_ids": [
+        "gatekeeper"
+      ],
+      "enemy_stats": {
+        "gatekeeper": {
+          "hp": 780,
+          "mp": 60,
+          "atk": 60,
+          "matk": 45,
+          "def": 30,
+          "mdef": 30,
+          "spd": 30
+        }
+      },
+      "rewards": {
+        "coins": 0,
+        "gear": {
+          "monk_kesa": 1
+        },
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "saga_c2_03",
+      "name": "清开护送巷口",
+      "chapter": 2,
+      "enemy_ids": [
+        "saga_paper_soldier",
+        "saga_lamp_shadow"
+      ],
+      "enemy_stats": {
+        "saga_paper_soldier": {
+          "hp": 145,
+          "mp": 30,
+          "atk": 31,
+          "matk": 18,
+          "def": 24,
+          "mdef": 24,
+          "spd": 24
+        },
+        "saga_lamp_shadow": {
+          "hp": 165,
+          "mp": 30,
+          "atk": 20,
+          "matk": 36,
+          "def": 24,
+          "mdef": 24,
+          "spd": 27
+        }
+      },
+      "rewards": {
+        "coins": 59,
+        "gear": {},
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "saga_c2_07",
+      "name": "茶棚取芯",
+      "chapter": 2,
+      "enemy_ids": [
+        "saga_lamp_shadow",
+        "saga_paper_soldier"
+      ],
+      "enemy_stats": {
+        "saga_lamp_shadow": {
+          "hp": 165,
+          "mp": 30,
+          "atk": 20,
+          "matk": 36,
+          "def": 24,
+          "mdef": 24,
+          "spd": 27
+        },
+        "saga_paper_soldier": {
+          "hp": 145,
+          "mp": 30,
+          "atk": 31,
+          "matk": 18,
+          "def": 24,
+          "mdef": 24,
+          "spd": 24
+        }
+      },
+      "rewards": {
+        "coins": 59,
+        "gear": {},
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "saga_c2_09",
+      "name": "守住引路灯",
+      "chapter": 2,
+      "enemy_ids": [
+        "saga_lamp_shadow",
+        "saga_lamp_shadow"
+      ],
+      "enemy_stats": {
+        "saga_lamp_shadow": {
+          "hp": 165,
+          "mp": 30,
+          "atk": 20,
+          "matk": 36,
+          "def": 24,
+          "mdef": 24,
+          "spd": 27
+        }
+      },
+      "rewards": {
+        "coins": 59,
+        "gear": {},
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "saga_c2_s02",
+      "name": "染坊救援",
+      "chapter": 2,
+      "enemy_ids": [
+        "saga_paper_soldier",
+        "saga_paper_soldier"
+      ],
+      "enemy_stats": {
+        "saga_paper_soldier": {
+          "hp": 145,
+          "mp": 30,
+          "atk": 31,
+          "matk": 18,
+          "def": 24,
+          "mdef": 24,
+          "spd": 24
+        }
+      },
+      "rewards": {
+        "coins": 59,
+        "gear": {},
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "saga_c3_03",
+      "name": "拿回缆桩",
+      "chapter": 3,
+      "enemy_ids": [
+        "saga_paper_soldier",
+        "saga_mirror_shard"
+      ],
+      "enemy_stats": {
+        "saga_paper_soldier": {
+          "hp": 160,
+          "mp": 33,
+          "atk": 34,
+          "matk": 20,
+          "def": 26,
+          "mdef": 26,
+          "spd": 25
+        },
+        "saga_mirror_shard": {
+          "hp": 204,
+          "mp": 33,
+          "atk": 39,
+          "matk": 31,
+          "def": 26,
+          "mdef": 26,
+          "spd": 26
+        }
+      },
+      "rewards": {
+        "coins": 59,
+        "gear": {},
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "saga_c3_07",
+      "name": "撤向第二岸",
+      "chapter": 3,
+      "enemy_ids": [
+        "saga_paper_soldier",
+        "saga_paper_soldier",
+        "saga_lamp_shadow"
+      ],
+      "enemy_stats": {
+        "saga_paper_soldier": {
+          "hp": 160,
+          "mp": 33,
+          "atk": 34,
+          "matk": 20,
+          "def": 26,
+          "mdef": 26,
+          "spd": 25
+        },
+        "saga_lamp_shadow": {
+          "hp": 182,
+          "mp": 33,
+          "atk": 22,
+          "matk": 40,
+          "def": 26,
+          "mdef": 26,
+          "spd": 28
+        }
+      },
+      "rewards": {
+        "coins": 59,
+        "gear": {},
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "saga_c3_s01",
+      "name": "护住货仓",
+      "chapter": 3,
+      "enemy_ids": [
+        "saga_paper_soldier",
+        "saga_mirror_shard"
+      ],
+      "enemy_stats": {
+        "saga_paper_soldier": {
+          "hp": 160,
+          "mp": 33,
+          "atk": 34,
+          "matk": 20,
+          "def": 26,
+          "mdef": 26,
+          "spd": 25
+        },
+        "saga_mirror_shard": {
+          "hp": 204,
+          "mp": 33,
+          "atk": 39,
+          "matk": 31,
+          "def": 26,
+          "mdef": 26,
+          "spd": 26
+        }
+      },
+      "rewards": {
+        "coins": 59,
+        "gear": {},
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "saga_c3_s02",
+      "name": "退水后清障",
+      "chapter": 3,
+      "enemy_ids": [
+        "saga_lamp_shadow",
+        "saga_paper_soldier"
+      ],
+      "enemy_stats": {
+        "saga_lamp_shadow": {
+          "hp": 182,
+          "mp": 33,
+          "atk": 22,
+          "matk": 40,
+          "def": 26,
+          "mdef": 26,
+          "spd": 28
+        },
+        "saga_paper_soldier": {
+          "hp": 160,
+          "mp": 33,
+          "atk": 34,
+          "matk": 20,
+          "def": 26,
+          "mdef": 26,
+          "spd": 25
+        }
+      },
+      "rewards": {
+        "coins": 59,
+        "gear": {},
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "saga_c4_04",
+      "name": "拆开镜廊活扣",
+      "chapter": 4,
+      "enemy_ids": [
+        "saga_mirror_shard",
+        "saga_lamp_shadow"
+      ],
+      "enemy_stats": {
+        "saga_mirror_shard": {
+          "hp": 222,
+          "mp": 36,
+          "atk": 42,
+          "matk": 34,
+          "def": 29,
+          "mdef": 29,
+          "spd": 27
+        },
+        "saga_lamp_shadow": {
+          "hp": 198,
+          "mp": 36,
+          "atk": 24,
+          "matk": 43,
+          "def": 29,
+          "mdef": 29,
+          "spd": 29
+        }
+      },
+      "rewards": {
+        "coins": 59,
+        "gear": {},
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "saga_c4_s02",
+      "name": "邱安救援",
+      "chapter": 4,
+      "enemy_ids": [
+        "saga_mirror_shard",
+        "saga_paper_soldier"
+      ],
+      "enemy_stats": {
+        "saga_mirror_shard": {
+          "hp": 222,
+          "mp": 36,
+          "atk": 42,
+          "matk": 34,
+          "def": 29,
+          "mdef": 29,
+          "spd": 27
+        },
+        "saga_paper_soldier": {
+          "hp": 174,
+          "mp": 36,
+          "atk": 37,
+          "matk": 22,
+          "def": 29,
+          "mdef": 29,
+          "spd": 26
+        }
+      },
+      "rewards": {
+        "coins": 59,
+        "gear": {},
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "saga_c5_09",
+      "name": "药库护械",
+      "chapter": 5,
+      "enemy_ids": [
+        "saga_mirror_shard",
+        "saga_paper_soldier",
+        "saga_lamp_shadow"
+      ],
+      "enemy_stats": {
+        "saga_mirror_shard": {
+          "hp": 241,
+          "mp": 39,
+          "atk": 46,
+          "matk": 36,
+          "def": 31,
+          "mdef": 31,
+          "spd": 28
+        },
+        "saga_paper_soldier": {
+          "hp": 189,
+          "mp": 39,
+          "atk": 40,
+          "matk": 23,
+          "def": 31,
+          "mdef": 31,
+          "spd": 27
+        },
+        "saga_lamp_shadow": {
+          "hp": 215,
+          "mp": 39,
+          "atk": 26,
+          "matk": 47,
+          "def": 31,
+          "mdef": 31,
+          "spd": 30
+        }
+      },
+      "rewards": {
+        "coins": 59,
+        "gear": {},
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "saga_c5_s02",
+      "name": "药棚家属救援",
+      "chapter": 5,
+      "enemy_ids": [
+        "saga_lamp_shadow",
+        "saga_paper_soldier"
+      ],
+      "enemy_stats": {
+        "saga_lamp_shadow": {
+          "hp": 215,
+          "mp": 39,
+          "atk": 26,
+          "matk": 47,
+          "def": 31,
+          "mdef": 31,
+          "spd": 30
+        },
+        "saga_paper_soldier": {
+          "hp": 189,
+          "mp": 39,
+          "atk": 40,
+          "matk": 23,
+          "def": 31,
+          "mdef": 31,
+          "spd": 27
+        }
+      },
+      "rewards": {
+        "coins": 59,
+        "gear": {},
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "saga_c6_04",
+      "name": "分层揭印守灯",
+      "chapter": 6,
+      "enemy_ids": [
+        "saga_lamp_shadow",
+        "saga_mirror_shard",
+        "saga_paper_soldier"
+      ],
+      "enemy_stats": {
+        "saga_lamp_shadow": {
+          "hp": 215,
+          "mp": 39,
+          "atk": 26,
+          "matk": 47,
+          "def": 31,
+          "mdef": 31,
+          "spd": 30
+        },
+        "saga_mirror_shard": {
+          "hp": 241,
+          "mp": 39,
+          "atk": 46,
+          "matk": 36,
+          "def": 31,
+          "mdef": 31,
+          "spd": 28
+        },
+        "saga_paper_soldier": {
+          "hp": 189,
+          "mp": 39,
+          "atk": 40,
+          "matk": 23,
+          "def": 31,
+          "mdef": 31,
+          "spd": 27
+        }
+      },
+      "rewards": {
+        "coins": 59,
+        "gear": {},
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "saga_c6_s02",
+      "name": "守护两条返身路",
+      "chapter": 6,
+      "enemy_ids": [
+        "saga_lamp_shadow",
+        "saga_mirror_shard",
+        "saga_lamp_shadow"
+      ],
+      "enemy_stats": {
+        "saga_lamp_shadow": {
+          "hp": 231,
+          "mp": 42,
+          "atk": 28,
+          "matk": 50,
+          "def": 34,
+          "mdef": 34,
+          "spd": 31
+        },
+        "saga_mirror_shard": {
+          "hp": 259,
+          "mp": 42,
+          "atk": 49,
+          "matk": 39,
+          "def": 34,
+          "mdef": 34,
+          "spd": 29
+        }
+      },
+      "rewards": {
+        "coins": 59,
+        "gear": {},
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "saga_c6_s04",
+      "name": "后巷最后两人",
+      "chapter": 6,
+      "enemy_ids": [
+        "saga_mirror_shard",
+        "saga_paper_soldier"
+      ],
+      "enemy_stats": {
+        "saga_mirror_shard": {
+          "hp": 259,
+          "mp": 42,
+          "atk": 49,
+          "matk": 39,
+          "def": 34,
+          "mdef": 34,
+          "spd": 29
+        },
+        "saga_paper_soldier": {
+          "hp": 203,
+          "mp": 42,
+          "atk": 43,
+          "matk": 25,
+          "def": 34,
+          "mdef": 34,
+          "spd": 28
+        }
+      },
+      "rewards": {
+        "coins": 59,
+        "gear": {},
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "saga_c2_12",
+      "name": "借声客",
+      "chapter": 2,
+      "enemy_ids": [
+        "saga_borrowed_voice"
+      ],
+      "enemy_stats": {
+        "saga_borrowed_voice": {
+          "hp": 550,
+          "mp": 30,
+          "atk": 42,
+          "matk": 44,
+          "def": 24,
+          "mdef": 24,
+          "spd": 28
+        }
+      },
+      "rewards": {
+        "coins": 105,
+        "gear": {},
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "saga_c3_10",
+      "name": "背岸将",
+      "chapter": 3,
+      "enemy_ids": [
+        "saga_backshore_general",
+        "saga_paper_soldier",
+        "saga_paper_soldier"
+      ],
+      "enemy_stats": {
+        "saga_backshore_general": {
+          "hp": 726,
+          "mp": 33,
+          "atk": 46,
+          "matk": 35,
+          "def": 26,
+          "mdef": 26,
+          "spd": 23
+        },
+        "saga_paper_soldier": {
+          "hp": 160,
+          "mp": 33,
+          "atk": 34,
+          "matk": 20,
+          "def": 26,
+          "mdef": 26,
+          "spd": 25
+        }
+      },
+      "rewards": {
+        "coins": 105,
+        "gear": {},
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "saga_c4_09",
+      "name": "合面镜",
+      "chapter": 4,
+      "enemy_ids": [
+        "saga_joined_mirror"
+      ],
+      "enemy_stats": {
+        "saga_joined_mirror": {
+          "hp": 780,
+          "mp": 36,
+          "atk": 50,
+          "matk": 50,
+          "def": 29,
+          "mdef": 29,
+          "spd": 27
+        }
+      },
+      "rewards": {
+        "coins": 105,
+        "gear": {},
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "saga_c5_12",
+      "name": "百手灯母",
+      "chapter": 5,
+      "enemy_ids": [
+        "saga_hundredhand_lamp"
+      ],
+      "enemy_stats": {
+        "saga_hundredhand_lamp": {
+          "hp": 975,
+          "mp": 39,
+          "atk": 36,
+          "matk": 56,
+          "def": 31,
+          "mdef": 31,
+          "spd": 27
+        }
+      },
+      "rewards": {
+        "coins": 105,
+        "gear": {},
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "saga_c6_11",
+      "name": "无更巡守",
+      "chapter": 6,
+      "enemy_ids": [
+        "saga_nochange_warden",
+        "saga_anchor_left",
+        "saga_anchor_right"
+      ],
+      "enemy_stats": {
+        "saga_nochange_warden": {
+          "hp": 924,
+          "mp": 42,
+          "atk": 59,
+          "matk": 50,
+          "def": 34,
+          "mdef": 34,
+          "spd": 27
+        },
+        "saga_anchor_left": {
+          "hp": 231,
+          "mp": 42,
+          "atk": 38,
+          "matk": 28,
+          "def": 34,
+          "mdef": 34,
+          "spd": 21
+        },
+        "saga_anchor_right": {
+          "hp": 231,
+          "mp": 42,
+          "atk": 38,
+          "matk": 28,
+          "def": 34,
+          "mdef": 34,
+          "spd": 21
+        }
+      },
+      "rewards": {
+        "coins": 105,
+        "gear": {},
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "saga_c7_05",
+      "name": "终战第一阶段·护面",
+      "chapter": 7,
+      "enemy_ids": [
+        "saga_master_mirror"
+      ],
+      "enemy_stats": {
+        "saga_master_mirror": {
+          "hp": 1170,
+          "mp": 45,
+          "atk": 65,
+          "matk": 68,
+          "def": 36,
+          "mdef": 36,
+          "spd": 32
+        }
+      },
+      "rewards": {
+        "coins": 105,
+        "gear": {},
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "saga_c7_06",
+      "name": "终战第二阶段·执灯人",
+      "chapter": 7,
+      "enemy_ids": [
+        "saga_lamp_bearer",
+        "saga_paper_soldier",
+        "saga_paper_soldier"
+      ],
+      "enemy_stats": {
+        "saga_lamp_bearer": {
+          "hp": 1185,
+          "mp": 45,
+          "atk": 60,
+          "matk": 65,
+          "def": 36,
+          "mdef": 36,
+          "spd": 28
+        },
+        "saga_paper_soldier": {
+          "hp": 218,
+          "mp": 45,
+          "atk": 47,
+          "matk": 27,
+          "def": 36,
+          "mdef": 36,
+          "spd": 29
+        }
+      },
+      "rewards": {
+        "coins": 105,
+        "gear": {},
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "saga_c7_10",
+      "name": "分段撤阵",
+      "chapter": 7,
+      "enemy_ids": [
+        "saga_final_recoil",
+        "saga_relay_recoil",
+        "saga_exit_recoil"
+      ],
+      "enemy_stats": {
+        "saga_final_recoil": {
+          "hp": 810,
+          "mp": 45,
+          "atk": 53,
+          "matk": 59,
+          "def": 36,
+          "mdef": 36,
+          "spd": 25
+        },
+        "saga_relay_recoil": {
+          "hp": 345,
+          "mp": 45,
+          "atk": 44,
+          "matk": 53,
+          "def": 36,
+          "mdef": 36,
+          "spd": 26
+        },
+        "saga_exit_recoil": {
+          "hp": 300,
+          "mp": 45,
+          "atk": 50,
+          "matk": 47,
+          "def": 36,
+          "mdef": 36,
+          "spd": 28
+        }
+      },
+      "rewards": {
+        "coins": 115,
+        "gear": {},
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "saga_c7_11",
+      "name": "限期防护",
+      "chapter": 7,
+      "enemy_ids": [
+        "saga_final_recoil",
+        "saga_relay_recoil",
+        "saga_exit_recoil"
+      ],
+      "enemy_stats": {
+        "saga_final_recoil": {
+          "hp": 810,
+          "mp": 45,
+          "atk": 53,
+          "matk": 59,
+          "def": 36,
+          "mdef": 36,
+          "spd": 25
+        },
+        "saga_relay_recoil": {
+          "hp": 345,
+          "mp": 45,
+          "atk": 44,
+          "matk": 53,
+          "def": 36,
+          "mdef": 36,
+          "spd": 26
+        },
+        "saga_exit_recoil": {
+          "hp": 300,
+          "mp": 45,
+          "atk": 50,
+          "matk": 47,
+          "def": 36,
+          "mdef": 36,
+          "spd": 28
+        }
+      },
+      "rewards": {
+        "coins": 115,
+        "gear": {},
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "saga_c7_12",
+      "name": "强拆撤离",
+      "chapter": 7,
+      "enemy_ids": [
+        "saga_final_recoil",
+        "saga_relay_recoil",
+        "saga_exit_recoil"
+      ],
+      "enemy_stats": {
+        "saga_final_recoil": {
+          "hp": 810,
+          "mp": 45,
+          "atk": 53,
+          "matk": 59,
+          "def": 36,
+          "mdef": 36,
+          "spd": 25
+        },
+        "saga_relay_recoil": {
+          "hp": 345,
+          "mp": 45,
+          "atk": 44,
+          "matk": 53,
+          "def": 36,
+          "mdef": 36,
+          "spd": 26
+        },
+        "saga_exit_recoil": {
+          "hp": 300,
+          "mp": 45,
+          "atk": 50,
+          "matk": 47,
+          "def": 36,
+          "mdef": 36,
+          "spd": 28
+        }
+      },
+      "rewards": {
+        "coins": 115,
+        "gear": {},
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    },
+    {
+      "id": "saga_c7_13",
+      "name": "稳住出口",
+      "chapter": 7,
+      "enemy_ids": [
+        "saga_final_recoil",
+        "saga_relay_recoil",
+        "saga_exit_recoil"
+      ],
+      "enemy_stats": {
+        "saga_final_recoil": {
+          "hp": 810,
+          "mp": 45,
+          "atk": 53,
+          "matk": 59,
+          "def": 36,
+          "mdef": 36,
+          "spd": 25
+        },
+        "saga_relay_recoil": {
+          "hp": 345,
+          "mp": 45,
+          "atk": 44,
+          "matk": 53,
+          "def": 36,
+          "mdef": 36,
+          "spd": 26
+        },
+        "saga_exit_recoil": {
+          "hp": 300,
+          "mp": 45,
+          "atk": 50,
+          "matk": 47,
+          "def": 36,
+          "mdef": 36,
+          "spd": 28
+        }
+      },
+      "rewards": {
+        "coins": 115,
+        "gear": {},
+        "items": {},
+        "cards": {}
+      },
+      "notes": "原批准遭遇数值离线固化的初始基线；待无等级三类队伍自然补给七章校准。"
+    }
+  ]
+}

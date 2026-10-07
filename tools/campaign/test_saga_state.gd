@@ -50,7 +50,7 @@ func _victory(model: RefCounted, started: Dictionary) -> Dictionary:
 		return result
 	var roster: Array[Dictionary] = []
 	for id in model.safe_snapshot().party: roster.append(started.setup.actors[id].duplicate(true))
-	return {"battle_id": started.battle_id, "outcome": "victory", "roster": roster, "inventory": started.setup.inventory.duplicate(true), "xp": started.xp, "story_patch": started.story_patch.duplicate(true), "replay": {}}
+	return {"battle_id": started.battle_id, "outcome": "victory", "roster": roster, "inventory": started.setup.inventory.duplicate(true), "rewards": started.rewards.duplicate(true), "story_patch": started.story_patch.duplicate(true), "replay": {}}
 func _finish_first(session: RefCounted, resolution: String) -> bool:
 	for id in range(1, 6):
 		for event in Chapters.events(id):
@@ -166,7 +166,7 @@ func _story_route(resolution: String, ending_id: String, clinic_plan: String, de
 			if id.begins_with("C7-"): _save_resume_snapshot(model, "pending_" + id)
 			if id == "C7-05" and ending_id == "vigil" and not retry_tested and OS.get_environment("SAGA_REAL_BATTLES") != "1":
 				var lost := _victory(model, started)
-				lost.outcome = "defeat"; lost.xp = 0; lost.story_patch = {}
+				lost.outcome = "defeat"; lost.rewards = {"coins":0,"gear":{},"items":{},"cards":{}}; lost.story_patch = {}
 				for actor in lost.roster: actor.hp = 0
 				expect(session.router.finish(lost).ok, "终战败北仍保留战前安全档")
 				expect(model.has_method("leave_saga_battle"), "终战败北可回真实整备并触发R04")
@@ -200,7 +200,8 @@ func _story_route(resolution: String, ending_id: String, clinic_plan: String, de
 	expect(final.saga.flags.letter_posted and final.saga.flags.responsibility_resolved, "书信和首章责任持续到终章")
 	expect(final.saga.flags.night_market_rescued and final.saga.flags.family_rescued and final.saga.flags.qiuan_rescued, "已执行救援状态持续到终章")
 	if resolution == "sendoff": expect(not final.saga.completed.has("C6-04") and not final.saga.completed.has("C6-05") and not final.saga.completed.has("C6-06"), "已离开小夜不会在第六章复生")
-	print("SAGA_ROUTE: ", resolution, "/", clinic_plan, "/", ending_id, " scenes=", final.saga.completed.size(), " battles=", final.saga.battles.size(), " level=", final.level, " steps=", steps)
+	expect(final.schema_version==3 and not final.has("level") and not final.has("xp"),"完整七章没有等级/经验成长")
+	print("SAGA_ROUTE: ", resolution, "/", clinic_plan, "/", ending_id, " scenes=", final.saga.completed.size(), " battles=", final.saga.battles.size(), " progression=loadout steps=", steps)
 	session.close()
 
 func _save_resume_snapshot(model: RefCounted, name: String) -> void:

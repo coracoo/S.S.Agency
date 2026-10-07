@@ -5,6 +5,8 @@ const Chapters = preload("res://scripts/campaign/chapter_catalog.gd")
 const Catalog = preload("res://scripts/rpg/catalog.gd")
 const View = preload("res://scripts/rpg/ui/battle_view.gd")
 const PartyPanel = preload("res://scripts/campaign/party_panel.gd")
+const Support = preload("res://tools/campaign/presentation_test_support.gd")
+const Loadouts = preload("res://scripts/rpg/loadout_rules.gd")
 var failures: Array[String] = []
 var assertions := 0
 func check(value: bool, message: String) -> void:
@@ -23,7 +25,7 @@ func _result(session: RefCounted, started: Dictionary, outcome: String, actors: 
 		var actor: Dictionary = (actors if not actors.is_empty() else started.setup.actors)[id].duplicate(true)
 		if outcome == "defeat": actor.hp = 0
 		roster.append(actor)
-	return {"battle_id": started.battle_id, "outcome": outcome, "roster": roster, "inventory": started.setup.inventory.duplicate(true), "xp": started.xp if outcome == "victory" else 0, "story_patch": started.story_patch.duplicate(true) if outcome == "victory" else {}, "replay": {}}
+	return {"battle_id": started.battle_id, "outcome": outcome, "roster": roster, "inventory": started.setup.inventory.duplicate(true), "rewards": Support.rewards(started, outcome), "story_patch": started.story_patch.duplicate(true) if outcome == "victory" else {}, "replay": {}}
 func _events(session: RefCounted, night: int) -> void:
 	for event in Chapters.events(night):
 		if event == "dialogue:hd5": continue
@@ -32,6 +34,7 @@ func _run() -> void:
 	var session := Session.new()
 	check(session.start_new(true, ["mage", "ranger", "guard"]).ok, "双职业正式三人新档")
 	var actor: Dictionary = session.campaign.safe_snapshot().roster.p_mage
+	check(session.campaign.safe_snapshot().schema_version == 3 and actor.has("build") and not actor.has("level") and not actor.has("xp"), "双形态正式schema3无等级构筑")
 	check(actor.get("form_id") == "sword" and actor.get("active_class_id") == "swordsman" and actor.get("unlocked_forms") == ["sword"], "焰华开局剑士且术形态锁定")
 	var probe_view := View.new()
 	check(probe_view.has_method("switch_active_form"), "真实战斗自由切换按钮提交接口")
@@ -64,13 +67,18 @@ func _run() -> void:
 	var view := View.new()
 	view.router = resumed.router
 	root.add_child(view)
+	var ready: Dictionary = await Support.wait_for_battle(self, view, resumed.campaign.safe_snapshot().party)
+	check(ready.ok, "双形态真实战斗资源与演员就绪：" + ready.error)
+	if not ready.ok:
+		view.free(); resumed.close(); _finish(); return
 	view._cancel_presentation()
 	view._render()
 	check(view._hud.has("form") and view._hud.form.visible and not view._hud.form.disabled, "解锁后当前焰华行动显示可用切换按钮")
 	var catalog := Catalog.new(); catalog.load_all()
-	var sword_skills: Array = catalog.get_definition("classes", "swordsman").skill_ids
-	var mage_skills: Array = catalog.get_definition("classes", "mage").skill_ids
-	check(engine.snapshot().actors.p_mage.skill_ids == sword_skills and not view._basic_buttons.attack_magic.visible, "剑士四技能与物理基础指令显示")
+	var sword_skills: Array = actor.build.active.sword
+	var mage_skills: Array = actor.build.active.mage
+	var focus_weapon: bool = Loadouts.derive(engine.snapshot().actors.p_mage, catalog).weapon_tags.has("focus")
+	check(engine.snapshot().actors.p_mage.skill_ids == sword_skills and view._basic_buttons.attack_magic.visible == focus_weapon, "剑形态展示已准备卡，魔攻入口服从共享武器focus标签")
 	# 把真实冷却值加入合法恢复快照，验证形态切换不重置该角色的共享冷却。
 	var cooldown_state: Dictionary = engine.snapshot()
 	cooldown_state.actors.p_mage.cooldown_until["firebolt"] = int(cooldown_state.actors.p_mage.slot_count) + 2
@@ -82,9 +90,9 @@ func _run() -> void:
 	check(changed.get("accepted", false), "UI通过唯一引擎submit成功切至法师")
 	var switched: Dictionary = engine.snapshot()
 	for field in ["phase", "active_actor_id", "slot_token", "queue", "queue_index", "rng_state", "inventory"]: check(switched[field] == switch_before[field], "自由切换保留行动槽/队列/RNG/库存：" + field)
-	for field in ["hp", "mp", "stats", "equipment", "cooldown_until", "statuses", "slot_count", "opportunity_count"]: check(switched.actors.p_mage[field] == switch_before.actors.p_mage[field], "自由切换不改共享资源：" + field)
+	for field in ["actor_id", "identity_id", "class_id", "build", "hp", "mp", "stats", "equipment", "cooldown_until", "statuses", "slot_count", "opportunity_count"]: check(switched.actors.p_mage[field] == switch_before.actors.p_mage[field], "自由切换不改身份、构筑或共享资源：" + field)
 	check(switched.revision == switch_before.revision + 1 and switched.actors.p_mage.skill_ids == mage_skills and switched.actors.p_mage.active_class_id == "mage", "只更新revision、当前职业与法师四技能")
-	check(view._hd_views.p_mage._definition.manifest.form_id == "mage" and view._basic_buttons.attack_magic.visible and view._skill_buttons[0].text.contains("火弹"), "同一高清节点瞬时换术形态、魔攻和四技能")
+	check(view._hd_views.p_mage._definition.manifest.form_id == "mage" and view._basic_buttons.attack_magic.visible == focus_weapon and view._skill_buttons[0].text.contains(catalog.get_definition("skills", mage_skills[0]).name), "同一高清节点瞬时换术形态、共享武器入口和已准备卡")
 	check(not view._hd_player.is_busy() and not view.processing, "自由切换不触发攻击动画、不锁额外行动")
 	if not OS.get_environment("CAMPAIGN_PRESENTATION_OUTPUT").is_empty(): await _save_frame("battle_homura_mage_turn.png")
 	var cd_preview: Dictionary = engine.preview({"command_id": "probe_cooldown", "expected_revision": switched.revision, "actor_id": "p_mage", "kind": "skill", "ability_id": "firebolt", "target_ids": ["e_01_hound"]})
@@ -95,7 +103,12 @@ func _run() -> void:
 	check(defeat.ok and resumed.router.retry().ok and resumed.router.create_engine().snapshot().actors.p_mage.form_id == "sword", "败北重试恢复战前剑形态，不持久战内临时切换")
 	view.free()
 	engine = resumed.router.create_engine(); _seek_homura(engine)
-	view = View.new(); view.router = resumed.router; root.add_child(view); view._cancel_presentation(); view._render()
+	view = View.new(); view.router = resumed.router; root.add_child(view)
+	ready = await Support.wait_for_battle(self, view, resumed.campaign.safe_snapshot().party)
+	check(ready.ok, "重试战斗资源与演员就绪：" + ready.error)
+	if not ready.ok:
+		view.free(); resumed.close(); _finish(); return
+	view._cancel_presentation(); view._render()
 	check(view.call("switch_active_form").get("accepted", false), "重试仍可在本人行动槽切术")
 	var victory: Dictionary = resumed.router.finish(_result(resumed, second, "victory", engine.snapshot().actors))
 	check(victory.ok and resumed.campaign.safe_snapshot().roster.p_mage.form_id == "mage" and resumed.campaign.safe_snapshot().roster.p_mage.skill_ids == mage_skills, "胜利提交持久最终职业与四技能")

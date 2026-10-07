@@ -18,6 +18,7 @@ const Saga = preload("res://scripts/campaign/saga_catalog.gd")
 const SagaNarrator = preload("res://scripts/campaign/saga_battle_narrator.gd")
 const HdEvents = preload("res://scripts/rpg/ui/hd_event_player.gd")
 const Catalog = preload("res://scripts/rpg/catalog.gd")
+const Loadouts = preload("res://scripts/rpg/loadout_rules.gd")
 const Router = preload("res://scripts/rpg/encounter_router.gd")
 const Presenter = preload("res://scripts/rpg/ui/battle_presenter.gd")
 const Kit = preload("res://scripts/rpg/ui/ui_kit.gd")
@@ -238,7 +239,7 @@ func _asset_session() -> RefCounted:
 func _hd_enabled() -> bool:
 	return _is_chapter() or _asset_session() != null
 func _is_chapter() -> bool:
-	return (campaign != null and campaign.safe_snapshot().get("schema_version") == 2) or (ChapterSession.current != null and ChapterSession.current.router == router)
+	return (campaign != null and campaign.safe_snapshot().get("schema_version") in [2,3]) or (ChapterSession.current != null and ChapterSession.current.router == router)
 func _actor_definition(actor: Dictionary) -> Dictionary:
 	var session := _asset_session()
 	if session == null or session.bundle == null: return {}
@@ -1014,7 +1015,14 @@ func _show_result() -> void:
 		lines.append("安全档保持原样。修复写入问题后可以重试提交。")
 	elif victory:
 		var saved: Dictionary = campaign.snapshot()
-		lines.append("共享等级 L%d　经验 %d" % [saved.level, saved.xp])
+		if saved.get("schema_version")==3:
+			lines.append("战果已保存 · 属性由装备和技能装配决定")
+			if router!=null and router._setup.has("rewards"):
+				var reward:Dictionary=router._setup.rewards
+				if int(reward.coins)>0:lines.append("银钱 +%d"%int(reward.coins))
+				for id in reward.gear:lines.append("获得 %s ×%d"%[_catalog.get_definition("equipment",str(id)).get("name",id),reward.gear[id]])
+				for id in reward.cards:lines.append("收录技能卡 %s"%Loadouts.card(str(id)).get("name",id))
+		else:lines.append("共享等级 L%d　经验 %d" % [saved.level, saved.xp])
 		for id in saved.party:
 			var actor: Dictionary = saved.roster[id]
 			lines.append("%s　HP %d/%d　MP %d/%d" % [Presenter.actor_name(actor, _catalog), actor.hp, actor.stats.hp, actor.mp, actor.stats.mp])
@@ -1460,7 +1468,10 @@ func _annotate_effect_context(events: Array, state: Dictionary, before: Dictiona
 			context["generation"] = _presentation_generation
 			var actor: Dictionary = state.actors.get(context.source_id,{})
 			var identity := str(actor.get("identity_id",actor.get("class_id","")))
-			context["form"] = "homura_"+str(actor.get("form_id","sword")) if identity=="homura" else identity
+			var body_form:String="homura_"+str(actor.get("form_id","sword")) if identity=="homura" else identity
+			context["body_form"]=body_form
+			context["form"]=Loadouts.visual_form(actor,str(context.get("ability_id",""))) if Loadouts.has_data(actor) and context.get("kind")=="skill" else body_form
+			context["cross_class_visual"]=Loadouts.has_data(actor) and context.get("kind")=="skill" and context.form!=body_form
 		if event.get("type") == "periodic_damage":
 			event["_effect_context"] = {}
 			continue

@@ -3,6 +3,7 @@ class_name RpgActorFactory
 extends RefCounted
 
 const Catalog = preload("res://scripts/rpg/catalog.gd")
+const Loadouts = preload("res://scripts/rpg/loadout_rules.gd")
 const STAT_KEYS := ["hp", "mp", "atk", "matk", "def", "mdef", "spd"]
 const STANDARD := {"weapon": "standard_weapon", "armor": "standard_armor", "accessory": "standard_accessory"}
 var _catalog: RefCounted
@@ -49,6 +50,20 @@ func create(class_id: String, actor_id: String, level: int, equipment: Dictionar
 		"statuses": [], "shield": {}, "cooldown_until": {}, "revived_round": -1,
 		"intent": {}, "boss": {}, "weaknesses": [], "resistances": []
 	}
+
+# 正式角色从固定身份与构筑创建，不经过旧等级成长函数。
+func create_loadout(class_id: String, actor_id: String, identity: Dictionary, equipment: Dictionary = {}, build: Dictionary = {}) -> Dictionary:
+	var actor := {"actor_id":actor_id,"side":"player","class_id":class_id,
+		"equipment":Loadouts.starting_equipment(class_id) if equipment.is_empty() else equipment.duplicate(true),
+		"build":Loadouts.default_build(class_id) if build.is_empty() else build.duplicate(true),
+		"branch":{},"slot_count":0,"opportunity_count":0,"statuses":[],"shield":{},"cooldown_until":{},
+		"revived_round":-1,"intent":{},"boss":{},"weaknesses":[],"resistances":[]}
+	actor.merge(identity,true)
+	var derived := Loadouts.derive(actor,_catalog)
+	if not derived.ok:return {}
+	actor["stats"]=derived.stats;actor["skill_ids"]=derived.skill_ids
+	actor["hp"]=actor.stats.hp;actor["mp"]=actor.stats.mp
+	return actor
 
 func unlocked_skill_ids(class_id: String, level: int) -> Array[String]:
 	var result: Array[String] = []

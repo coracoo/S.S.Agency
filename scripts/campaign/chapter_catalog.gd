@@ -151,12 +151,12 @@ static func _flags(value, allowed: Array) -> bool:
 		if not key is String or not allowed.has(key) or not value[key] is bool or value[key] != true: return false
 	return true
 
-static func normalize(world: Dictionary) -> Dictionary:
+static func normalize(world: Dictionary, allow_legacy_migration:bool=true) -> Dictionary:
 	var result := world.duplicate(true)
 	State._int_fields(result, ["world_version", "night", "facing", "spirit", "party_index"])
 	# 无标志的v3只在完整旧世界合法时迁移，未知布局永不猜测或重标。
 	# 正式存档world/history及pending快照均经此入口；normalize重复调用不会偏移两次。
-	if not result.has("map_layout") and _validate_world(result, true).is_empty():
+	if allow_legacy_migration and not result.has("map_layout") and _validate_world(result, true).is_empty():
 		result.position = Layout.to_world(result.position, result.night)
 		result["player_x"] = result.position[0]
 		result["map_layout"] = Layout.ID

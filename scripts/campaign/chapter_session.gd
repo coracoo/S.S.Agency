@@ -35,7 +35,7 @@ func start_new(replace_confirmed: bool, class_ids: Array[String] = Chapters.DEFA
 func resume() -> Dictionary:
 	var result: Dictionary = router.load_safe_run()
 	if not result.ok: return _wrap(result)
-	if campaign.safe_snapshot().get("schema_version") != 2: return _failure("该槽不是正式五夜档")
+	if campaign.safe_snapshot().get("schema_version") != 3: return _failure("该槽不是当前正式装配档")
 	_activate()
 	return _wrap(result)
 

@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "rules_version": "rpg-0.1",
+  "definitions": [
+    {
+      "id": "training_blade",
+      "name": "巡山练刃",
+      "slot": "weapon",
+      "stats": {
+        "atk": 7,
+        "matk": 3
+      }
+    },
+    {
+      "id": "training_bow",
+      "name": "夜行短弓",
+      "slot": "weapon",
+      "stats": {
+        "atk": 6,
+        "matk": 2,
+        "spd": 1
+      }
+    },
+    {
+      "id": "training_guard_blade",
+      "name": "守灯刀盾",
+      "slot": "weapon",
+      "stats": {
+        "atk": 5,
+        "matk": 3,
+        "def": 2
+      }
+    },
+    {
+      "id": "training_focus_blade",
+      "name": "焰纹法刃",
+      "slot": "weapon",
+      "stats": {
+        "atk": 5,
+        "matk": 5
+      }
+    },
+    {
+      "id": "training_bell",
+      "name": "清心法铃",
+      "slot": "weapon",
+      "stats": {
+        "atk": 2,
+        "matk": 7
+      }
+    },
+    {
+      "id": "training_sigil",
+      "name": "缚影符具",
+      "slot": "weapon",
+      "stats": {
+        "atk": 2,
+        "matk": 6,
+        "spd": 1
+      }
+    }
+  ]
+}

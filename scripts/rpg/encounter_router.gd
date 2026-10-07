@@ -56,7 +56,7 @@ func supports(source_scene: String, battle_scene: String, pending_clue_id: Strin
 func begin(source_scene: String, battle_scene: String, world: Dictionary, pending_clue_id: String = "") -> Dictionary:
 	var route := _route(source_scene, battle_scene, pending_clue_id)
 	if route.is_empty():
-		if campaign.safe_snapshot().get("schema_version") == 2: return _failure("未登记的正式战斗，禁止回退旧入口")
+		if campaign.safe_snapshot().get("schema_version") in [2,3]: return _failure("未登记的正式战斗，禁止回退旧入口")
 		return {"ok": false, "handled": false, "error": "未映射战斗，沿用现有入口"}
 	if world.get("scene_path") != source_scene: return _failure("来源场景与世界快照不符")
 	var patch: Dictionary = route.get("story_patch", {}).duplicate(true)
@@ -159,7 +159,10 @@ func result_from_engine() -> Dictionary:
 	var roster: Array[Dictionary] = []
 	for id in campaign.safe_snapshot().party: roster.append(current.actors[id].duplicate(true))
 	var victory: bool = current.outcome == "victory"
-	return {"battle_id": _setup.battle_id, "outcome": current.outcome, "roster": roster, "inventory": current.inventory.duplicate(true), "xp": _setup.xp if victory else 0, "story_patch": _setup.story_patch.duplicate(true) if victory else {}, "replay": capture_replay(engine)}
+	var result:Dictionary={"battle_id": _setup.battle_id, "outcome": current.outcome, "roster": roster, "inventory": current.inventory.duplicate(true), "story_patch": _setup.story_patch.duplicate(true) if victory else {}, "replay": capture_replay(engine)}
+	if _setup.has("rewards"):result["rewards"]=_setup.rewards.duplicate(true) if victory else {"coins":0,"gear":{},"items":{},"cards":{}}
+	else:result["xp"]=_setup.xp if victory else 0
+	return result
 
 func finish(result: Dictionary) -> Dictionary:
 	var applied: Dictionary = campaign.apply_result(result)
@@ -204,7 +207,7 @@ func load_safe_run() -> Dictionary:
 	return loaded
 
 func _route(source: String, battle: String, clue: String, route_field: String = "scene_routes") -> Dictionary:
-	if campaign.safe_snapshot().get("schema_version") == 2:
+	if campaign.safe_snapshot().get("schema_version") in [2,3]:
 		if route_field != "scene_routes" or battle != "res://scenes/rpg/battle.tscn": return {}
 		var safe: Dictionary = campaign.safe_snapshot()
 		if safe.has("saga"):

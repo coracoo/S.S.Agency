@@ -9,6 +9,8 @@ const Presenter = preload("res://scripts/rpg/ui/battle_presenter.gd")
 const Kit = preload("res://scripts/rpg/ui/ui_kit.gd")
 const Art = preload("res://scripts/campaign/presentation/night_menu_art.gd")
 const Resolver = preload("res://scripts/rpg/effect_resolver.gd")
+const LoadoutPanel = preload("res://scripts/campaign/loadout_panel.gd")
+const Loadouts = preload("res://scripts/rpg/loadout_rules.gd")
 const CLASSES: Array[String] = ["swordsman", "ranger", "guard", "mage", "healer", "controller"]
 const ITEM_CATEGORIES := {"all": "全部", "heal": "恢复", "support": "辅助"}
 var session: RefCounted
@@ -42,12 +44,13 @@ var _gear_options: Dictionary = {}
 var _menu_cards: Array = []
 var _generation := 0
 var _closing := false
+var _loadout: Control
 
 func _init() -> void:
 	layer = 20
 	_catalog.load_all()
 func open(value: RefCounted, page: String = "party") -> void:
-	current_page = page if page in ["menu", "party", "inventory", "equipment"] else "party"
+	current_page = page if page in ["menu", "party", "inventory", "equipment", "loadout"] else "party"
 	session = value
 	campaign = session.campaign if session != null else null
 	if campaign == null: last_error = "没有正式主线会话"
@@ -56,6 +59,8 @@ func open(value: RefCounted, page: String = "party") -> void:
 		draft_party.assign(state.get("party", []))
 		if not draft_party.is_empty(): detail_actor_id = draft_party[0]
 		preview_branch_id = _detail().get("branch", {}).get("id", "")
+		selected_equipment_id = _detail().get("equipment", {}).get(selected_slot, "")
+		if current_page == "loadout" and not Loadouts.has_data(_detail()): current_page = "party"
 	var first_open := _root == null
 	if first_open: _build()
 	_render()
@@ -77,12 +82,12 @@ func _build() -> void:
 	_hud.heading = Kit.label(_canvas, "夜巡整备", Rect2(322, 167, 335, 72), 34)
 	_hud.heading.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_hud.heading.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	for index in 3:
-		var page: String = ["party", "inventory", "equipment"][index]
-		_tabs[page] = Art.button(_canvas, ["队伍", "行囊", "武具"][index], Rect2(716 + index * 188, 167, 178, 72), show_page.bind(page))
+	for index in 4:
+		var page: String = ["party", "inventory", "equipment", "loadout"][index]
+		_tabs[page] = Art.button(_canvas, ["队伍", "行囊", "武具", "装配"][index], Rect2(700 + index * 170, 167, 160, 72), show_page.bind(page))
 	_hud.close = Art.button(_canvas, "返回探索", Rect2(1392, 167, 204, 72), close_panel)
 	_hud.count = Kit.muted(Kit.label(_canvas, "", Rect2(322, 243, 1280, 35), 21))
-	for page in ["menu", "party", "inventory", "equipment"]:
+	for page in ["menu", "party", "inventory", "equipment", "loadout"]:
 		var node := Control.new()
 		node.name = "Page_" + page
 		node.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -111,6 +116,11 @@ func _build() -> void:
 	_build_party()
 	_build_inventory()
 	_build_equipment()
+	_loadout = LoadoutPanel.new()
+	_loadout.position = Vector2(688, 277)
+	_loadout.size = Vector2(912, 582)
+	_pages.loadout.add_child(_loadout)
+	_loadout.applied.connect(_render)
 	_build_menu()
 	_hud.back = Art.button(_canvas, "返回菜单 [Esc]", Rect2(1392, 862, 204, 68), back)
 	_hud.back.add_theme_font_size_override("font_size", 19)
@@ -142,6 +152,7 @@ func _build_party() -> void:
 		_branches[branch].add_theme_font_size_override("font_size", 20)
 	_hud.branch_apply = Art.button(page, "应用分支", Rect2(1398, 644, 178, 72), apply_branch)
 	_hud.branch_apply.add_theme_font_size_override("font_size", 20)
+	_hud.loadout = Art.button(page, "技能装配 · 主动与被动", Rect2(940, 644, 636, 72), show_page.bind("loadout"))
 	_hud.branch_preview = Kit.scroll_text(page, Rect2(942, 724, 630, 62), 20)
 	_hud.form = Art.button(page, "", Rect2(940, 784, 290, 72), toggle_form)
 	_hud.form.add_theme_font_size_override("font_size", 20)
@@ -185,10 +196,14 @@ func _build_equipment() -> void:
 		Art.icon(page, slot, Rect2(712 + index * 308, 302, 28, 28))
 	Art.panel(page, Rect2(688, 362, 380, 498), true)
 	Kit.label(page, "持有装备 · 点选预览后确认", Rect2(704, 372, 348, 32), 22).horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_gear_list = Control.new()
-	_gear_list.position = Vector2(704, 412)
-	_gear_list.size = Vector2(348, 434)
-	page.add_child(_gear_list)
+	var scroll := ScrollContainer.new()
+	scroll.position = Vector2(704, 412)
+	scroll.size = Vector2(348, 434)
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	page.add_child(scroll)
+	_gear_list = VBoxContainer.new()
+	_gear_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	scroll.add_child(_gear_list)
 	Art.panel(page, Rect2(1080, 362, 520, 498), true)
 	_hud.equipment_title = Kit.label(page, "", Rect2(1100, 376, 480, 40), 26)
 	_hud.equipment_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -217,18 +232,23 @@ func _build_menu() -> void:
 		card.mp = Kit.label(page, "", Rect2(718, y + 90, 112, 28), 20)
 		_menu_cards.append(card)
 	Kit.muted(Kit.label(page, "WASD 行走  ·  E 调查  ·  M 地图", Rect2(358, 792, 554, 40), 20))
-	var actions := [["行囊 · 使用道具", "inventory"], ["武具 · 查看与更换", "equipment"], ["队伍 · 编队与形态", "party"]]
+	var actions := [["行囊 · 使用道具", "inventory"], ["武具 · 查看与更换", "equipment"], ["队伍 · 编队与形态", "party"], ["技能装配 · 主动与被动", "loadout"]]
 	for index in actions.size():
-		Art.button(page, actions[index][0], Rect2(982, 298 + index * 81, 576, 66), show_page.bind(actions[index][1]))
-	_hud.rest = Art.button(page, "休息 · 全员恢复", Rect2(982, 541, 576, 60), rest_party)
-	_hud.save = Art.button(page, "保存当前位置", Rect2(982, 622, 280, 72), _emit_menu.bind("save"))
-	_hud.depth = Art.button(page, "景深", Rect2(1278, 622, 280, 72), _emit_menu.bind("depth"))
-	Art.button(page, "返回标题", Rect2(982, 703, 576, 72), _emit_menu.bind("title"))
-	Art.button(page, "继续探索", Rect2(982, 784, 576, 72), close_panel, true)
+		var button := Art.button(page, actions[index][0], Rect2(982, 282 + index * 72, 576, 72), show_page.bind(actions[index][1]))
+		if actions[index][1] == "loadout": _hud.menu_loadout = button
+	_hud.rest = Art.button(page, "休息 · 全员恢复", Rect2(982, 570, 576, 72), rest_party)
+	_hud.save = Art.button(page, "保存当前位置", Rect2(982, 642, 280, 72), _emit_menu.bind("save"))
+	_hud.depth = Art.button(page, "景深", Rect2(1278, 642, 280, 72), _emit_menu.bind("depth"))
+	Art.button(page, "返回标题", Rect2(982, 714, 576, 72), _emit_menu.bind("title"))
+	Art.button(page, "继续探索", Rect2(982, 786, 576, 72), close_panel, true)
 func show_page(page: String) -> void:
 	if busy or not _pages.has(page): return
+	if page == "loadout" and not Loadouts.has_data(_detail()): return
+	var entering_loadout: bool = page == "loadout" and (current_page != "loadout" or _loadout.actor_id != detail_actor_id)
+	if current_page == "loadout" and page != "loadout" and _loadout != null: _loadout.cancel_changes()
 	current_page = page
 	last_error = ""
+	if entering_loadout: _loadout.open(campaign, detail_actor_id)
 	_render()
 	if page == "inventory":
 		var focus_item: Button = _items.get(selected_item_id)
@@ -236,6 +256,7 @@ func show_page(page: String) -> void:
 		else: _hud.close.grab_focus()
 	elif page == "equipment": _equipment[selected_slot].grab_focus()
 	elif page == "party" and _rows.has(detail_actor_id): _rows[detail_actor_id].detail.grab_focus()
+	elif page == "loadout": _loadout.focus_first()
 	else: _hud.close.grab_focus()
 func back() -> void:
 	if current_page == "menu": close_panel()
@@ -261,8 +282,9 @@ func _detail() -> Dictionary:
 func select_actor(actor_id: String) -> void:
 	if busy or campaign == null or not campaign.safe_snapshot().roster.has(actor_id): return
 	detail_actor_id = actor_id
-	preview_branch_id = _detail().branch.get("id", "")
+	preview_branch_id = _detail().get("branch", {}).get("id", "")
 	selected_equipment_id = _detail().equipment.get(selected_slot, "")
+	if current_page == "loadout": _loadout.open(campaign, detail_actor_id)
 	_render()
 func toggle_member(actor_id: String) -> void:
 	if busy or campaign == null or not campaign.can_prepare() or not campaign.safe_snapshot().roster.has(actor_id): return
@@ -286,11 +308,12 @@ func toggle_form() -> Dictionary:
 	_render()
 	return result
 func preview_branch(branch: String) -> void:
-	if busy: return
+	if busy or Loadouts.has_data(_detail()): return
 	preview_branch_id = "duration" if branch == "economy" and _detail().get("class_id") == "ranger" else branch
 	_render()
 func apply_branch() -> Dictionary:
 	if busy or campaign == null: return _failure("整备操作暂不可用，请等待人物加载")
+	if Loadouts.has_data(_detail()): return _failure("请在技能装配页配置主动与被动卡")
 	return _show_response(campaign.set_branch(detail_actor_id, preview_branch_id))
 func toggle_equipment(slot: String) -> Dictionary:
 	if busy or campaign == null: return _failure("整备操作暂不可用，请等待人物加载")
@@ -345,7 +368,15 @@ func _render() -> void:
 		return
 	var state: Dictionary = campaign.safe_snapshot()
 	var editable: bool = not busy and campaign.can_prepare()
-	_hud.count.text = "出战 %d / 3　·　队伍 / 道具 / 装备变更成功后自动保存" % draft_party.size()
+	var uses_loadout := Loadouts.has_data(actor)
+	_tabs.loadout.visible = uses_loadout
+	_hud.menu_loadout.visible = uses_loadout
+	_hud.loadout.visible = uses_loadout
+	_hud.loadout.disabled = busy
+	_hud.count.text = "出战 %d / 3　·　队伍 / 道具 / 装备 / 装配确认后自动保存" % draft_party.size() if uses_loadout else "出战 %d / 3　·　队伍 / 道具 / 装备变更成功后自动保存" % draft_party.size()
+	if current_page == "loadout":
+		_hud.count.text = "装配草稿：应用后保存；取消、切换队员或离开此页会放弃未应用的改动。"
+		_loadout.set_locked(busy)
 	_hud.apply.disabled = not editable or draft_party.size() != 3 or draft_party == state.party
 	_hud.rest.disabled = not editable
 	_hud.save.disabled = busy
@@ -367,7 +398,8 @@ func _render() -> void:
 		row.toggle.text = "✓ 出战" if draft_party.has(id) else "+ 加入"
 		Art.selected(row.toggle, draft_party.has(id))
 		row.toggle.disabled = not editable or (not draft_party.has(id) and draft_party.size() >= 3)
-	_hud.title.text = "%s · L%d · %s" % [actor_name(actor), actor.level, _catalog.get_definition("classes", actor.get("active_class_id", actor.class_id)).name]
+	var class_name_text: String = _catalog.get_definition("classes", actor.get("active_class_id", actor.class_id)).name
+	_hud.title.text = "%s · %s" % [actor_name(actor), class_name_text] if uses_loadout else "%s · L%d · %s" % [actor_name(actor), actor.level, class_name_text]
 	_hud.hpbar.max_value = maxi(1, actor.stats.hp)
 	_hud.hpbar.value = clampi(actor.hp, 0, actor.stats.hp)
 	_hud.hp_value.text = "%d/%d" % [maxi(0, actor.hp), actor.stats.hp]
@@ -381,17 +413,22 @@ func _render() -> void:
 	_hud.form.text = ("切换剑士形态" if actor.form_id == "mage" else "切换法师形态") if mage_unlocked else "法师形态未解锁"
 	_hud.form.tooltip_text = "第一夜胜利解锁；切换共享HP、MP、状态、装备，不免费恢复"
 	for index in 4:
-		var skill: Dictionary = _catalog.skill_for(actor, actor.skill_ids[index])
-		var line := "%s%s　MP%d · CD%d　%s" % ["L%d锁定 · " % skill.unlock_level if actor.level < skill.unlock_level else "", skill.name, skill.mp_cost, skill.cooldown, Presenter.ability_summary(skill, {}, _catalog)]
+		var skill: Dictionary = _catalog.skill_for(actor, actor.skill_ids[index]) if index < actor.get("skill_ids", []).size() else {}
+		var line := "主动%d · 未装配" % (index + 1)
+		if not skill.is_empty():
+			var locked_text := "" if uses_loadout else ("L%d锁定 · " % skill.unlock_level if actor.level < skill.unlock_level else "")
+			line = "%s%s　MP%d · CD%d　%s" % [locked_text, skill.name, skill.mp_cost, skill.cooldown, Presenter.ability_summary(skill, {}, _catalog)]
 		_skills[index].text = line
 		_skills[index].text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		_skills[index].tooltip_text = line
 	for id in _branches:
+		_branches[id].visible = not uses_loadout
 		var actual: String = "duration" if id == "economy" and actor.class_id == "ranger" else id
 		_branches[id].text = {"": "无分支", "economy": "节约", "duration": "持续", "power": "强度"}[actual]
 		_branches[id].disabled = busy
 		Art.selected(_branches[id], actual == preview_branch_id)
-	_hud.branch_apply.disabled = not editable or (actor.level < 6 and not preview_branch_id.is_empty()) or preview_branch_id == actor.branch.get("id", "")
+	_hud.branch_apply.visible = not uses_loadout
+	_hud.branch_apply.disabled = true if uses_loadout else (not editable or (actor.level < 6 and not preview_branch_id.is_empty()) or preview_branch_id == actor.branch.get("id", ""))
 	_hud.branch_preview.text = Presenter.branch_preview(actor, preview_branch_id, _catalog)
 	_render_inventory(state)
 	_render_equipment(actor, editable)
@@ -403,7 +440,7 @@ func _render() -> void:
 		if not visible: continue
 		var entry: Dictionary = state.roster[state.party[index]]
 		var card: Dictionary = _menu_cards[index]
-		card.name.text = "%s　Lv.%d" % [actor_name(entry), entry.level]
+		card.name.text = "%s　速度%d" % [actor_name(entry), entry.stats.spd] if Loadouts.has_data(entry) else "%s　Lv.%d" % [actor_name(entry), entry.level]
 		card.status.text = _menu_status_line(entry)
 		card.hpbar.max_value = maxi(1, entry.stats.hp)
 		card.hpbar.value = clampi(entry.hp, 0, entry.stats.hp)
@@ -554,6 +591,9 @@ func select_equipment(slot: String, equipment_id: String) -> void:
 	_render()
 func equipment_preview() -> Dictionary:
 	var actor := _detail()
+	if Loadouts.has_data(actor):
+		var result: Dictionary = campaign.preview_equipment(detail_actor_id, selected_slot, selected_equipment_id)
+		return result.get("stats", {}) if result.get("ok", false) else {}
 	var equipment: Dictionary = actor.equipment.duplicate(true)
 	equipment[selected_slot] = selected_equipment_id
 	return Factory.new(_catalog).stats_for(actor.class_id, actor.level, equipment)
@@ -565,7 +605,9 @@ func _render_equipment(actor: Dictionary, editable: bool) -> void:
 		_equipment[slot].disabled = busy
 		Art.selected(_equipment[slot], slot == selected_slot)
 	# 持有装备总览：当前槽位全部持有装备一行一件，点选即预览，卸下作为最后一行。
-	for child in _gear_list.get_children(): child.queue_free()
+	for child in _gear_list.get_children():
+		_gear_list.remove_child(child)
+		child.queue_free()
 	_gear_options = {}
 	var rows: Array[Dictionary] = []
 	var owned_gear: Dictionary = campaign.safe_snapshot().get("gear", {})
@@ -574,13 +616,15 @@ func _render_equipment(actor: Dictionary, editable: bool) -> void:
 		var definition: Dictionary = _catalog.get_definition("equipment", gear_id)
 		if definition.is_empty() or definition.slot != selected_slot: continue
 		var equipped_now: bool = actor.equipment.get(selected_slot, "") == gear_id
-		rows.append({"id": gear_id, "sort": definition.name, "label": ("✓ " if equipped_now else "") + "%s　%s" % [definition.name, gear_stat_summary(definition.get("stats", {}))]})
+		rows.append({"id": gear_id, "sort": definition.name, "label": ("✓ " if equipped_now else "") + "%s ×%d　%s" % [definition.name, int(owned_gear[gear_id]), gear_stat_summary(definition.get("stats", {}))]})
 	rows.sort_custom(func(a, b): return str(a.sort) < str(b.sort))
 	rows.append({"id": "", "sort": "￿", "label": "（卸下此槽装备）"})
 	for index in rows.size():
 		var row: Dictionary = rows[index]
 		var button := Art.button(_gear_list, row.label, Rect2(0, index * 72, 348, 64), select_equipment.bind(selected_slot, row.id))
 		button.add_theme_font_size_override("font_size", 17)
+		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		button.tooltip_text = row.label
 		button.disabled = busy
 		Art.selected(button, row.id == selected_equipment_id)
 		_gear_options[row.id] = button
@@ -589,16 +633,22 @@ func _render_equipment(actor: Dictionary, editable: bool) -> void:
 	_hud.equipment_title.text = "%s · %s" % [actor_name(actor), names[selected_slot]]
 	_hud.equipment_description.text = "预览：" + ("卸下装备" if selected_equipment_id.is_empty() else _catalog.get_definition("equipment", selected_equipment_id).name)
 	var preview := equipment_preview()
+	var verdict: Dictionary = campaign.preview_equipment(detail_actor_id, selected_slot, selected_equipment_id) if Loadouts.has_data(actor) else {"ok": true}
 	var labels := {"hp": "生命上限", "mp": "灵力上限", "atk": "攻击", "matk": "术攻", "def": "防御", "mdef": "术防", "spd": "速度"}
 	var lines: Array[String] = []
 	for key in Factory.STAT_KEYS:
+		if not preview.has(key): continue
 		var delta: int = preview[key] - actor.stats[key]
 		lines.append("%s　%d → %d　%s" % [labels[key], actor.stats[key], preview[key], ("%+d" % delta) if delta != 0 else "—"])
 	_hud.equipment_stats.text = "\n".join(lines)
 	var same: bool = actor.equipment.get(selected_slot, "") == selected_equipment_id
 	_hud.equipment_note.text = "当前已是此配装" if same else "更换自动保存；上限降低会截短当前HP/MP，装回不会免费恢复。"
 	if not editable: _hud.equipment_note.text = "当前地点不能更换装备"
-	_hud.equipment_apply.disabled = not editable or same
+	if not verdict.get("ok", false):
+		_hud.equipment_note.text = str(verdict.get("error", "当前配装不合法")) + "；请先在装配页调整技能。"
+		_hud.equipment_note.tooltip_text = _hud.equipment_note.text
+		_hud.equipment_stats.text = "此变更暂不可应用。\n保留当前装备与技能装配。"
+	_hud.equipment_apply.disabled = not editable or same or not verdict.get("ok", false)
 	_hud.equipment_apply.text = "确认卸下" if selected_equipment_id.is_empty() else "确认装备"
 func confirm_equipment() -> Dictionary:
 	if busy or campaign == null: return _failure("当前无法更换装备")

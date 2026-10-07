@@ -2,6 +2,7 @@
 extends SceneTree
 const Bundle = preload("res://scripts/characters/party_asset_bundle.gd")
 const Portraits = preload("res://scripts/characters/identity_portraits.gd")
+const Support = preload("res://tools/campaign/presentation_test_support.gd")
 var failures: Array[String] = []
 var assertions := 0
 func _initialize() -> void:
@@ -81,7 +82,11 @@ func _test_session_panel() -> void:
 	var panel = Panel.new()
 	root.add_child(panel)
 	panel.open(session)
-	check(panel._rows.size() == 6 and panel._items.size() == 4 and panel._equipment.size() == 3 and panel._branches.size() == 3 and panel._skills.size() == 4, "整备保留六人/道具/装备/技能分支入口")
+	check(panel._rows.size() == 6 and panel._items.size() == panel._catalog.get_all("items").size() and panel._equipment.size() == 3 and panel._skills.size() == 4, "整备六人、全部目录道具、三装备槽与四主动槽入口")
+	check(session.campaign.safe_snapshot().schema_version == 3 and not panel._detail().has("level") and not panel._detail().has("xp"), "正式整备使用无等级schema3模型")
+	panel.show_page("loadout")
+	check(panel._loadout.is_visible_in_tree() and not panel._hud.branch_apply.visible, "正式技能装配页替代旧等级分支")
+	panel.show_page("party")
 	var safe: Dictionary = session.campaign.safe_snapshot()
 	panel.draft_party.assign(["p_mage", "p_mage", "p_healer"])
 	check(not (await panel.apply_party()).ok and session.campaign.safe_snapshot() == safe, "整备拒绝重复身份且不写档")
@@ -102,7 +107,7 @@ func _test_session_panel() -> void:
 	panel.busy = false
 	panel.preview_branch("power")
 	var before_branch: Dictionary = session.campaign.safe_snapshot()
-	check(not panel.apply_branch().ok and session.campaign.safe_snapshot() == before_branch, "L5分支不可通过整备提前解锁")
+	check(not panel.apply_branch().ok and session.campaign.safe_snapshot() == before_branch, "正式装配模型拒绝旧等级分支写入")
 	check(panel.toggle_equipment("armor").ok and panel.toggle_equipment("armor").ok, "原有装备三槽能力仍由模型保存")
 	var before_item: Dictionary = session.campaign.safe_snapshot()
 	check(panel.use_item("healing_potion").ok and session.campaign.safe_snapshot().inventory.healing_potion == before_item.inventory.healing_potion - 1, "原有战外道具实际保存库存与恢复")
@@ -119,7 +124,10 @@ func _test_session_panel() -> void:
 		var view = View.new()
 		view.router = resumed.router
 		root.add_child(view)
-		await process_frame
+		var ready: Dictionary = await Support.wait_for_battle(self, view, resumed.campaign.safe_snapshot().party)
+		check(ready.ok, "正式战斗资源、引擎与演员实际就绪：" + ready.error)
+		if not ready.ok:
+			view.free(); resumed.close(); return
 		check(view._hd_enabled() and view._is_chapter() and view._hd_views.size() == 3 and not view._hd_failed, "正式ChapterSession驱动非默认三人高清战斗")
 		check(view._canvas.get_meta("background_path", "") == "res://scripts/campaign/act_one_geometry.gd", "真实正式首夜战斗复用连续寺域几何")
 		check(is_instance_valid(view._world_backdrop) and view._world_backdrop.viewport.own_world_3d and view._world_backdrop.geometry != null, "战斗有独立可渲染的同源3D世界")
@@ -204,7 +212,7 @@ func _capture_battle_team(classes: Array[String], form: String, filename: String
 		var first: Dictionary = session.begin_encounter(session.campaign.safe_snapshot().world, "basin_reflection")
 		var roster: Array[Dictionary] = []
 		for id in session.campaign.safe_snapshot().party: roster.append(first.setup.actors[id].duplicate(true))
-		check(session.router.finish({"battle_id": first.battle_id, "outcome": "victory", "roster": roster, "inventory": first.setup.inventory.duplicate(true), "xp": first.xp, "story_patch": first.story_patch.duplicate(true), "replay": {}}).ok, "术形态图形首夜胜利解锁")
+		check(session.router.finish({"battle_id": first.battle_id, "outcome": "victory", "roster": roster, "inventory": first.setup.inventory.duplicate(true), "rewards": Support.rewards(first, "victory"), "story_patch": first.story_patch.duplicate(true), "replay": {}}).ok, "术形态图形首夜胜利解锁")
 		check(session.advance_night(session.campaign.safe_snapshot().world).ok, "术形态图形进入第二夜")
 		check(session.campaign.set_form("p_mage", form).ok, "图形已解锁焰华法师")
 	check((await session.prepare_assets()).ok, "图形战斗所选三人真实资源加载")
@@ -213,6 +221,10 @@ func _capture_battle_team(classes: Array[String], form: String, filename: String
 	var view = View.new()
 	view.router = session.router
 	root.add_child(view)
+	var ready: Dictionary = await Support.wait_for_battle(self, view, session.campaign.safe_snapshot().party)
+	check(ready.ok, "图形战斗资源与演员实际就绪：" + ready.error)
+	if not ready.ok:
+		view.free(); session.close(); return
 	check(view._hd_views.size() == 3 and not view._hd_failed, "图形三人高清战斗：" + filename)
 	await _save_frame(filename)
 	view.free()

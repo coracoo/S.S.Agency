@@ -2,7 +2,7 @@
 
 ## 2026-10-08 持续策略改造目标
 
-用户已指定十一项持续目标，完整范围与当前证据见 [持续进度](docs/strategy-overhaul-progress.md)，新设计见 [GDD v5](docs/GDD.md) 与 [实施计划](docs/superpowers/plans/2026-10-08-strategy-overhaul.md)。目标为无人物等级、装备/道具/技能卡构筑；技能允许跨职业，但受武器与容量限制，速度决定轮序。当前旧等级模型仍待正式替换，不能只隐藏Lv文本或把本设计写成已实现。
+用户已指定十一项持续目标，完整范围与当前证据见 [持续进度](docs/strategy-overhaul-progress.md)，新设计见 [GDD v5](docs/GDD.md) 与 [实施计划](docs/superpowers/plans/2026-10-08-strategy-overhaul.md)。正式新档及合法迁移档已经使用无人物等级的schema3：固定基础属性、装备、4主动/2被动技能装配；跨职业受武器与容量限制。旧RPG试玩仍保留历史等级规则，不能恢复到正式模式。当前七章敌人已固定数值，完整自然补给平衡尚未完成；不能把一次测试队伍通关当全队伍平衡。
 
 解谜小游戏任务系统只规划，不实现任务运行时/UI；地图机关与七章节奏按独立关卡设计实施。批准对白与剧情物证来源继续保护。当前全部24技能/28图形变体已接入并开启生产，原字节/变体/待验收门禁仍有效；新增跨职业配置后必须再次验证视觉变体合法性。敌方使用原PNG的动作表现与共享技能图集，不伪称已有新视频逐帧敌图。
 
@@ -68,7 +68,7 @@ godot --path .
 | XLSX编辑源与导出工具 | `config/`、`tools/export_*_xlsx.py` |
 | 发布与PCK验证 | `tools/campaign/build_release.py`、`release_pack.py` |
 
-正式档仅用 `user://campaign_v1/slot_01.json`，schema2；新世界map_layout为act_one_connected_v1，旧正式局部世界须先合法校验再一次性坐标迁移。继续只读取正式档。旧卡牌、RPG试作、参道试玩存档不迁移、覆盖或删除。损坏/未知版本必须明确报错，不能当空档覆盖。
+正式档仅用 `user://campaign_v1/slot_01.json`，当前schema3。schema2须先完整合法校验，保留原字节 `.schema2-<hash>.bak` 后原子迁移；剧情、战果、银钱与交易不重发。新世界map_layout为act_one_connected_v1，旧坐标迁移仅适用旧版本，schema3缺失标记不能静默补造。继续只读取正式档。旧卡牌、RPG试作、参道试玩存档不迁移、覆盖或删除。损坏/未知版本必须明确报错，不能当空档覆盖。详见[装配与迁移验证](docs/verification/2026-10-08-strategy-loadouts.md)。
 
 ## 隔离测试与导入
 

@@ -9,6 +9,9 @@ const Store = preload("res://scripts/rpg/save_store.gd")
 const Replay = preload("res://scripts/rpg/replay.gd")
 const Enemy = preload("res://scripts/rpg/enemy_policy.gd")
 const Policies = preload("res://tools/rpg/strategy_policies.gd")
+const Loadouts = preload("res://scripts/rpg/loadout_rules.gd")
+const State = preload("res://scripts/rpg/battle_state.gd")
+const EXPECTED_GEAR := [{}, {"exorcism_sword": 1}, {"ranger_garb": 1}, {"spirit_bell": 1, "bead_bracelet": 1}, {"monk_kesa": 1}]
 const EXPECTED_ENEMIES := [["hound", "shield_soldier"], ["hound", "cultist"], ["shield_soldier", "elite_shield_soldier"], ["cultist", "fire_spirit"], ["gatekeeper"]]
 const SESSION_METHODS := ["start_new", "resume", "save_world", "commit_event", "begin_encounter", "advance_night", "choose_resolution", "finish_ending", "prepare_assets", "close"]
 var _args: Dictionary = {}
@@ -105,7 +108,7 @@ func _start_new() -> void:
 	var created := _call("start_new", [false])
 	if not created.get("ok", false): return
 	var safe: Dictionary = _session.campaign.safe_snapshot()
-	_expect(safe.schema_version == 2 and safe.level == 5 and safe.xp == 0, "全新正式schema2与L5/0XP")
+	_expect_loadouts(safe, "全新正式schema3")
 	_expect(safe.party == ["p_swordsman", "p_ranger", "p_guard"], "默认队凛音/薄荷/岑照")
 	_expect(safe.world == Chapters.initial_world(1), "全新流程只从第一夜开始")
 	_expect(not _session.call("advance_night", safe.world).get("ok", false), "未调查不能跨夜")
@@ -118,7 +121,7 @@ func _resume() -> Dictionary:
 	if not resumed.get("ok", false): return {}
 	var safe: Dictionary = _session.campaign.safe_snapshot()
 	_result.before = safe.duplicate(true)
-	_expect(safe.schema_version == 2 and safe.campaign_id == Chapters.PROFILE_ID, "新进程只恢复正式档")
+	_expect(safe.schema_version == 3 and safe.campaign_id == Chapters.PROFILE_ID, "新进程只恢复正式schema3档")
 	_expect(Chapters.validate_world(safe.world).is_empty(), "续档世界通过正式登记校验")
 	_expect(safe.party == ["p_swordsman", "p_ranger", "p_guard"], "五夜均保持默认三人队")
 	if safe.pending_battle.is_empty():
@@ -130,14 +133,15 @@ func _resume() -> Dictionary:
 
 func _checkpoint() -> void:
 	var safe: Dictionary = _session.campaign.safe_snapshot()
+	_expect_loadouts(safe, "安全检查点")
 	_result.after = safe.duplicate(true)
 	var loaded: Dictionary = Store.new(_catalog).load_safe(Chapters.SAVE_PATH)
 	_expect(loaded.get("ok", false), "安全检查点实际落盘且可校验")
 	if not loaded.get("ok", false): return
-	for field in ["run_id", "schema_version", "night", "scene_id", "story_phase", "xp", "party", "inventory", "world", "world_history", "pending_battle", "applied_battle_ids", "resolution", "case_status", "chapter_complete"]:
+	for field in ["run_id", "schema_version", "progression_version", "night", "scene_id", "story_phase", "party", "inventory", "gear", "cards", "world", "world_history", "pending_battle", "applied_battle_ids", "resolution", "case_status", "chapter_complete"]:
 		_expect(Replay.canonical(loaded.snapshot.get(field)) == Replay.canonical(safe.get(field)), "落盘与内存一致：" + field)
 	for id in safe.roster:
-		for field in ["hp", "mp", "identity_id", "form_id", "class_id", "skill_ids", "equipment", "branch", "active_class_id", "unlocked_forms", "dual_form_version"]:
+		for field in ["hp", "mp", "identity_id", "form_id", "class_id", "skill_ids", "stats", "build", "equipment", "branch", "active_class_id", "unlocked_forms", "dual_form_version"]:
 			_expect(Replay.canonical(loaded.snapshot.roster[id].get(field)) == Replay.canonical(safe.roster[id].get(field)), "队伍资源持久：" + id + "/" + field)
 
 func _repeat_from_previous_process() -> void:
@@ -155,7 +159,7 @@ func _repeat_from_previous_process() -> void:
 	_expect(verification.get("matches", false), "上一进程落盘真实战斗重放通过")
 	var duplicate: Dictionary = _session.router.finish(result)
 	_expect(duplicate.get("ok", false) and duplicate.get("already_applied", false), "实际Godot进程重启后识别已提交战果")
-	_expect(_session.campaign.safe_snapshot() == safe, "跨进程重复结算不改HP/MP/库存/XP/世界")
+	_expect(_session.campaign.safe_snapshot() == safe, "跨进程重复结算不改HP/MP/装备/卡片/库存/世界")
 	_checkpoint()
 
 func _step() -> void:
@@ -235,7 +239,7 @@ func _step() -> void:
 		var started := _call("begin_encounter", [_session.campaign.safe_snapshot().world, Chapters.night(night_id).clue_id])
 		if started.get("ok", false):
 			_expect(started.get("battle_scene") == "res://scenes/rpg/battle.tscn", "调查只进入真实RPG引擎")
-			_expect(started.get("xp") == (120 if night_id == 5 else 40), "本夜登记奖励正确")
+			_expect(not started.has("xp") and started.get("rewards") == _expected_rewards(night_id), "本夜战前承诺明确奖励且没有经验")
 			var actual: Array = []
 			for actor in started.setup.actors.values():
 				if actor.side == "enemy": actual.append(actor.class_id)
@@ -306,7 +310,7 @@ func _battle_run(engine: RefCounted, passive: bool, probe_dual_form: bool = fals
 		else:
 			command = Enemy.new().choose_command(state, _catalog)
 		if command.is_empty():
-			_expect(false, "公开策略没有给出合法指令")
+			_expect(false, "公开策略没有给出合法指令，phase=%s actor=%s 状态错误=%s" % [state.phase, state.active_actor_id, str(State.validate(state))])
 			break
 		var preview: Dictionary = engine.preview(command)
 		_expect(preview.get("legal", false), "真实引擎预览合法指令：" + str(command.command_id))
@@ -363,16 +367,19 @@ func _fight(safe: Dictionary, passive: bool) -> void:
 		_block("正式router未能创建引擎：" + _session.router.last_error)
 		return
 	_expect(engine.snapshot().seed == pending.seed, "续档使用持久seed")
+	_expect(engine.snapshot().actors.values().all(func(actor): return not actor.has("level") and not actor.has("xp") and (actor.has("build") if actor.side == "player" else actor.has("threat_profile"))), "实际参战角色无等级，双方分别使用构筑与固定威胁")
 	var played := _battle_run(engine, passive)
 	_expect(played.outcome == ("defeat" if passive else "victory"), "真实模型终局满足此用例：" + str(played.outcome))
 	if played.outcome != ("defeat" if passive else "victory"): return
 	var result: Dictionary = _session.router.result_from_engine()
 	_expect(result.outcome == played.outcome and result.battle_id == pending.battle_id, "战果由router从实际引擎捕获")
+	var expected_rewards: Dictionary = {"coins": 0, "gear": {}, "items": {}, "cards": {}} if passive else _expected_rewards(int(safe.world.night))
+	_expect(not result.has("xp") and result.get("rewards") == expected_rewards, "真实战果仅包含已登记奖励，败北各项为零")
 	var finished: Dictionary = _session.router.finish(result)
 	_expect(finished.get("ok", false), "真实战果事务提交：" + str(finished.get("error", "")))
 	if not finished.get("ok", false): return
 	if passive:
-		_expect(_session.campaign.safe_snapshot() == safe, "真实败北不保存战内损耗/XP/调查/跨夜")
+		_expect(_session.campaign.safe_snapshot() == safe, "真实败北不保存战内损耗/奖励/调查/跨夜")
 		_expect(not _session.call("advance_night", safe.world).get("ok", false), "真实败北不能提前解锁下一夜")
 		var retried: Dictionary = _session.router.retry()
 		_expect(retried.get("ok", false) and retried.battle_id == pending.battle_id and retried.seed == pending.seed and retried.setup == started.setup, "败北重试同战斗ID/seed/战前资源")
@@ -382,13 +389,18 @@ func _fight(safe: Dictionary, passive: bool) -> void:
 		return
 	var after: Dictionary = _session.campaign.safe_snapshot()
 	var night_id := int(safe.world.night)
-	_expect(after.xp == (280 if night_id == 5 else night_id * 40) and after.level == 5, "逐夜只提交规定XP，总计280且L5")
+	_expect_loadouts(after, "逐夜真实胜利")
+	var expected_gear: Dictionary = safe.gear.duplicate(true)
+	for gear_id in expected_rewards.gear: expected_gear[gear_id] = int(expected_gear.get(gear_id, 0)) + int(expected_rewards.gear[gear_id])
+	_expect(after.gear == expected_gear and after.cards == safe.cards and after.inventory == result.inventory, "逐夜只发规定装备，保留战内真实消耗，不补卡片与道具")
+	for actor_id in safe.roster:
+		_expect(after.roster[actor_id].stats == safe.roster[actor_id].stats and after.roster[actor_id].build == safe.roster[actor_id].build, "真实胜利不偷偷增加属性或替换构筑：" + actor_id)
 	_expect(after.world.event_flags.has("battle:cleared") and after.world.resolved.has(Chapters.night(night_id).clue_id), "真实胜利才提交本夜调查")
 	_expect(finished.get("next_scene") == Chapters.scene_path(night_id), "胜利返场当前正式3D夜晚")
 	_expect(after.world.position == safe.world.position and after.world.facing == safe.world.facing, "胜利返场保留大地图战前位置与朝向")
 	_expect(after.pending_battle.is_empty() and after.applied_battle_ids.size() == night_id, "每夜仅一个已提交battle_id")
 	var repeated: Dictionary = _session.router.finish(result)
-	_expect(repeated.get("ok", false) and repeated.get("already_applied", false) and _session.campaign.safe_snapshot() == after, "同进程重复战果不能重复XP或推进")
+	_expect(repeated.get("ok", false) and repeated.get("already_applied", false) and _session.campaign.safe_snapshot() == after, "同进程重复战果不能重复奖励或推进")
 	var fresh: RefCounted = Session.new()
 	var restored: Dictionary = fresh.call("resume")
 	_expect(restored.get("ok", false), "新会话恢复胜利返场检查点")
@@ -397,8 +409,16 @@ func _fight(safe: Dictionary, passive: bool) -> void:
 	fresh.call("close")
 	_result["applied_result"] = result
 
+func _expected_rewards(night_id: int) -> Dictionary:
+	return {"coins": 0, "gear": EXPECTED_GEAR[night_id - 1].duplicate(true), "items": {}, "cards": {}}
+
+func _expect_loadouts(safe: Dictionary, label: String) -> void:
+	_expect(safe.schema_version == 3 and not safe.has("level") and not safe.has("xp"), label + "没有等级与经验字段")
+	for actor in safe.roster.values():
+		_expect(actor.has("build") and Loadouts.validate_actor(actor, _catalog, safe.cards).is_empty(), label + "角色属性和技能由真实构筑派生：" + actor.actor_id)
+
 func _verify_complete(safe: Dictionary) -> void:
-	_expect(safe.story_phase == "complete" and safe.chapter_complete and safe.xp == 280 and safe.applied_battle_ids.size() == 5, "五夜全部真实胜利与本章完成记录")
+	_expect(safe.story_phase == "complete" and safe.chapter_complete and not safe.has("xp") and safe.applied_battle_ids.size() == 5, "五夜全部真实胜利与本章完成记录")
 	_expect(safe.resolution == _result.resolution and safe.case_status == ("closed" if _result.resolution == "sendoff" else "monitoring"), "送行结案/镇守续监含义保留")
 	_expect(safe.world_history.size() == 5, "五个世界检查点均保留")
 	for id in range(1, 6):
@@ -505,7 +525,7 @@ func _test_roster() -> void:
 	_session = Session.new()
 	if not _call("resume", []).get("ok", false): return
 	var unlocked: Dictionary = _session.campaign.safe_snapshot()
-	_expect(unlocked.xp == 40 and unlocked.world.event_flags.has("battle:cleared") and unlocked.roster.p_mage.unlocked_forms == ["sword", "mage"], "真实首夜胜利解锁同actor法职业并持久保存")
+	_expect(not unlocked.has("xp") and unlocked.applied_battle_ids.size() == 1 and unlocked.world.event_flags.has("battle:cleared") and unlocked.roster.p_mage.unlocked_forms == ["sword", "mage"], "真实首夜胜利解锁同actor法职业并持久保存")
 	_expect(_session.campaign.set_party(alternate).get("ok", false), "解锁后焰华与另外两身份仍可合法编队")
 	var shared: Dictionary = _session.campaign.safe_snapshot().roster.p_mage
 	for form_id in ["mage", "sword", "mage"]:

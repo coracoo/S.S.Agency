@@ -6,6 +6,7 @@ const Saga = preload("res://scripts/campaign/saga_catalog.gd")
 const Chapters = preload("res://scripts/campaign/chapter_catalog.gd")
 const Forms = preload("res://scripts/rpg/dual_form.gd")
 const State = preload("res://scripts/rpg/battle_state.gd")
+const Threats = preload("res://scripts/rpg/strategy_encounters.gd")
 
 static func validate(saved: Dictionary, catalog: RefCounted) -> Array[String]:
 	var errors: Array[String] = []
@@ -119,8 +120,11 @@ static func validate(saved: Dictionary, catalog: RefCounted) -> Array[String]:
 		var encounter: Dictionary = catalog.get_definition("encounters", encounter_id)
 		if encounter_id.is_empty() or encounter.is_empty(): return ["后续战斗未登记"]
 		if not saga.completed.has(id) and saga.active_scene != id: errors.append("后续战胜记录不属于已完成或当前场次")
-		total_xp += int(encounter.xp)
-		expected_coins += 25 + int(encounter.xp) / 5
+		if saved.get("schema_version")==3:
+			expected_coins+=int(Threats.rewards(encounter_id).get("coins",0))
+		else:
+			total_xp += int(encounter.xp)
+			expected_coins += 25 + int(encounter.xp) / 5
 	for transaction in saga.transactions:
 		if not transaction is Dictionary or not transaction.get("item") is String or not transaction.get("count") is int or not transaction.get("cost") is int: return ["后续交易记录非法"]
 		if not Saga.SHOP.has(transaction.item) or transaction.count < 1 or transaction.count > 9 or transaction.cost != Saga.SHOP.get(transaction.item, 0) * transaction.count: return ["后续交易数量/价格非法"]
@@ -131,7 +135,7 @@ static func validate(saved: Dictionary, catalog: RefCounted) -> Array[String]:
 		total_xp -= 100 * level
 		level += 1
 	if level == 10: total_xp = 0
-	if saved.get("level") != level or saved.get("xp") != total_xp: errors.append("后续等级/经验与遭遇记录不符")
+	if saved.get("schema_version")!=3 and (saved.get("level") != level or saved.get("xp") != total_xp): errors.append("后续等级/经验与遭遇记录不符")
 	var applied = saved.get("applied_battle_ids")
 	var pending = saved.get("pending_battle")
 	if not applied is Array or not pending is Dictionary: return ["后续战斗持久字段非法"]

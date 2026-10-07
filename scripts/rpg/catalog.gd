@@ -4,6 +4,8 @@ extends RefCounted
 
 const Refinements = preload("res://scripts/rpg/character_refinements.gd")
 const Forms = preload("res://scripts/rpg/dual_form.gd")
+const Loadouts = preload("res://scripts/rpg/loadout_rules.gd")
+const Threats = preload("res://scripts/rpg/strategy_encounters.gd")
 const KINDS := ["classes", "skills", "statuses", "enemies", "items", "equipment", "encounters"]
 const CLASS_IDS := ["guard", "swordsman", "ranger", "mage", "healer", "controller"]
 const STAT_KEYS := ["hp", "mp", "atk", "matk", "def", "mdef", "spd"]
@@ -49,8 +51,8 @@ func load_all(root_path: String = "res://data/rpg") -> Array[String]:
 			candidate[kind][raw.id] = _integerize(raw)
 	# 后六章新增敌人与遭遇独立导出，避免旧XLSX重导覆盖主线扩展。
 	if root_path == "res://data/rpg":
-		for kind in ["enemies", "encounters"]:
-			var extra_path := root_path.path_join("saga_" + kind + ".json")
+		for kind in ["enemies", "encounters", "equipment"]:
+			var extra_path := root_path.path_join(("loadout_" if kind=="equipment" else "saga_") + kind + ".json")
 			if not FileAccess.file_exists(extra_path): continue
 			var extra = JSON.parse_string(FileAccess.get_file_as_string(extra_path))
 			if not extra is Dictionary or extra.get("schema_version") != 1 or extra.get("rules_version") != version or not extra.get("definitions") is Array:
@@ -86,11 +88,26 @@ func get_all(kind: String) -> Array[Dictionary]:
 
 # 新重放绑定实际数据内容；战役存档不携带此指纹，也不因此失去读档兼容。
 func mechanics_fingerprint() -> String:
-	return JSON.stringify(_definitions, "", true, true).sha256_text()
+	return JSON.stringify({"catalog":_definitions,"loadouts":Loadouts._data(),"threats":Threats._data()}, "", true, true).sha256_text()
 
 # 四卡和基础表不变；分支先派生，身份专精后派生，调用者总是拿到深复制。
 func skill_for(actor: Dictionary, skill_id: String) -> Dictionary:
 	var skill := get_definition("skills", skill_id)
+	if Loadouts.has_data(actor):
+		if skill.is_empty() or not actor.get("skill_ids") is Array or not actor.skill_ids.has(skill_id):return {}
+		# 身份专长固定存在，只有装上对应技能才生效；卡牌不冒充另一个角色的专长。
+		var innate := refinement_for(actor)
+		if innate.get("skill_id")==skill_id:skill=Refinements.apply(skill,innate)
+		for technique in innate.get("techniques",[]):
+			if technique.skill_id==skill_id:skill=Refinements.apply_technique(skill,technique)
+		var modifiers := Loadouts.skill_modifiers(actor,skill_id)
+		skill.mp_cost=maxi(0,int(skill.mp_cost)+int(modifiers.mp_cost_add))
+		skill.cooldown=maxi(0,int(skill.cooldown)+int(modifiers.cooldown_add))
+		for effect in skill.effects:
+			if effect.has("coefficient"):effect.coefficient=maxf(0,float(effect.coefficient)+float(modifiers.coefficient_add))
+			if effect.has("duration"):effect.duration=maxi(1,int(effect.duration)+int(modifiers.duration_add))
+		skill["loadout_modifiers"]=modifiers
+		return skill
 	var own: Array = get_definition("classes", Forms.active_class(actor)).get("skill_ids", [])
 	if skill.is_empty() or not own.has(skill_id): return {}
 	var branch: Dictionary = actor.get("branch", {})

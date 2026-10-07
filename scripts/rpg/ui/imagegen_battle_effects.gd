@@ -257,6 +257,7 @@ func update_ground_positions(positions:Dictionary)->void:
 	_ground_positions=positions.duplicate();queue_redraw()
 func requires_source_attachment() -> bool: return true
 func requires_source_attachment_for(context: Dictionary) -> bool:
+	if context.get("cross_class_visual",false):return false # 跨职业用真实身体施术中心，不能伪造未标注的原角色手点。
 	return PhysicalPolicy.contract_identity(str(context.get("form","")),str(context.get("ability_id",""))).is_empty()
 # 掩护反应发生在敌方动作里；保留实际动作窗，不伪造敌方技能图或重新创建掩护状态。
 func prepare_event_window(context: Dictionary, battle_id: String) -> void:

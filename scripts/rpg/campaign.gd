@@ -14,6 +14,8 @@ const Factory = preload("res://scripts/rpg/actor_factory.gd")
 const State = preload("res://scripts/rpg/battle_state.gd")
 const Store = preload("res://scripts/rpg/save_store.gd")
 const Resolver = preload("res://scripts/rpg/effect_resolver.gd")
+const Loadouts = preload("res://scripts/rpg/loadout_rules.gd")
+const Threats = preload("res://scripts/rpg/strategy_encounters.gd")
 var _catalog: RefCounted
 var _store: RefCounted
 var _path: String
@@ -30,6 +32,7 @@ func _init(catalog: RefCounted = null, store: RefCounted = null, path: String = 
 	_path = path
 
 func new_run(class_ids: Array[String], level: int = 5, profile: Dictionary = {}) -> Dictionary:
+	if profile.get("id")==Chapters.PROFILE_ID:return _new_loadout_run(class_ids,profile)
 	if class_ids.size() != 3 or level < 1 or level > 10: return _fail("新局需要三个不同职业与1–10级")
 	var party: Array[String] = []
 	for id in class_ids:
@@ -43,14 +46,7 @@ func new_run(class_ids: Array[String], level: int = 5, profile: Dictionary = {})
 	var gear: Dictionary = {}
 	for slot in Factory.STANDARD: gear[Factory.STANDARD[slot]] = 1
 	var candidate := {"schema_version": 1, "rules_version": _catalog.rules_version, "run_id": Crypto.new().generate_random_bytes(16).hex_encode(), "phase": "preparation", "level": level, "xp": 0, "roster": roster, "party": party, "inventory": inventory, "gear": gear, "world": {}, "applied_battle_ids": [], "battle_counter": 0, "next_encounter_id": "slice_1", "pending_battle": {}, "return_scene": ""}
-	if profile.get("id") == Chapters.PROFILE_ID:
-		if profile.get("bindings") != Chapters.BINDINGS or not profile.get("world") is Dictionary or profile.world != Chapters.initial_world(1) or level != 5: return _fail("正式初始化配置非法")
-		for key in profile:
-			if not key in ["id", "bindings", "world"]: return _fail("正式初始化含未知配置字段")
-		candidate.merge({"schema_version": 2, "campaign_id": Chapters.PROFILE_ID, "story_phase": "exploration", "night": 1, "scene_id": "night_1", "world": profile.world.duplicate(true), "world_history": {"night_1": profile.world.duplicate(true)}, "resolution": "", "case_status": "open", "chapter_complete": false, "phase": "exploration", "next_encounter_id": Chapters.night(1).encounter_id}, true)
-		for id in Chapters.BINDINGS: candidate.roster[id].merge(Chapters.BINDINGS[id], true)
-		Forms.initialize(candidate.roster.p_mage, _catalog)
-	elif not profile.is_empty():
+	if not profile.is_empty():
 		var errors := TrialProfile.validate(profile)
 		if not errors.is_empty() or not profile.get("world") is Dictionary or class_ids != TrialProfile.CLASS_IDS or level != 5: return _fail("试玩初始化配置非法")
 		candidate["run_profile"] = {"id": profile.id, "bindings": profile.bindings.duplicate(true)}
@@ -63,6 +59,9 @@ func new_run(class_ids: Array[String], level: int = 5, profile: Dictionary = {})
 func load_run() -> Dictionary:
 	var loaded: Dictionary = _store.load_safe(_path)
 	if not loaded.ok: return _fail(loaded.error)
+	if loaded.snapshot.get("schema_version")==2:
+		loaded=_store.migrate_loadout(_path)
+		if not loaded.ok:return _fail(loaded.error)
 	_safe = loaded.snapshot.duplicate(true)
 	_mode = _safe.phase
 	last_error = ""
@@ -75,6 +74,73 @@ func snapshot() -> Dictionary:
 
 func safe_snapshot() -> Dictionary:
 	return _safe.duplicate(true)
+
+func _new_loadout_run(class_ids:Array[String],profile:Dictionary)->Dictionary:
+	if class_ids.size()!=3 or profile.get("bindings")!=Chapters.BINDINGS or profile.get("world")!=Chapters.initial_world(1):return _fail("正式新局的身份/世界配置非法")
+	for key in profile:
+		if key not in ["id","bindings","world"]:return _fail("正式初始化含未知配置字段")
+	var party:Array[String]=[]
+	for id in class_ids:
+		if id not in Catalog.CLASS_IDS or party.has("p_"+id):return _fail("出战身份未知或重复")
+		party.append("p_"+id)
+	var roster:Dictionary={};var gear:Dictionary={};var inventory:Dictionary={}
+	var factory:=Factory.new(_catalog)
+	for class_id in Catalog.CLASS_IDS:
+		var id:String="p_"+class_id
+		var actor:=factory.create_loadout(class_id,id,Chapters.BINDINGS[id])
+		if actor.is_empty():return _fail("初始构筑数据无效："+id)
+		if id=="p_mage":Forms.initialize(actor,_catalog)
+		roster[id]=actor
+		for equipment_id in actor.equipment.values():gear[equipment_id]=int(gear.get(equipment_id,0))+1
+	for item in _catalog.get_all("items"):inventory[item.id]=item.initial_stock
+	var world:Dictionary=profile.world.duplicate(true)
+	var candidate:Dictionary={"schema_version":3,"progression_version":1,"rules_version":_catalog.rules_version,
+		"run_id":Crypto.new().generate_random_bytes(16).hex_encode(),"phase":"exploration","roster":roster,"party":party,
+		"cards":Loadouts.initial_cards(),"inventory":inventory,"gear":gear,"applied_battle_ids":[],"battle_counter":0,"pending_battle":{},"return_scene":"",
+		"campaign_id":Chapters.PROFILE_ID,"story_phase":"exploration","night":1,"scene_id":"night_1","world":world,"world_history":{"night_1":world.duplicate(true)},
+		"resolution":"","case_status":"open","chapter_complete":false,"next_encounter_id":Chapters.night(1).encounter_id}
+	return _commit(candidate,true)
+
+func uses_loadouts()->bool:return _safe.get("schema_version")==3
+
+func preview_loadout(actor_id:String,build:Dictionary,equipment:Variant=null)->Dictionary:
+	if not uses_loadouts() or not _safe.roster.has(actor_id):return {"ok":false,"error":"当前身份不支持装配","errors":["当前身份不支持装配"],"stats":{}}
+	var actor:Dictionary=_safe.roster[actor_id].duplicate(true)
+	actor.build=build.duplicate(true)
+	if equipment!=null:
+		if not equipment is Dictionary:return {"ok":false,"error":"装备格式非法","errors":["装备格式非法"],"stats":{}}
+		actor.equipment=equipment.duplicate(true)
+	var result:=Loadouts.derive(actor,_catalog)
+	var errors:Array[String]=[];errors.assign(result.errors)
+	if not result.ok:
+		result["actor"]=actor;result["error"]="；".join(errors)
+		return result
+	if result.ok:
+		actor.stats=result.stats;actor.skill_ids=result.skill_ids
+		actor.hp=mini(int(actor.hp),int(actor.stats.hp));actor.mp=mini(int(actor.mp),int(actor.stats.mp))
+		errors.append_array(Loadouts.validate_actor(actor,_catalog,_safe.cards))
+	var worn:Dictionary={}
+	for id in _safe.roster:
+		var selected:Dictionary=actor if id==actor_id else _safe.roster[id]
+		for gear_id in selected.equipment.values():
+			if not str(gear_id).is_empty():worn[gear_id]=int(worn.get(gear_id,0))+1
+	for gear_id in worn:
+		if worn[gear_id]>_safe.gear.get(gear_id,0):errors.append("装备已被其他队员使用或尚未获得："+gear_id)
+	result["actor"]=actor;result["errors"]=errors;result["ok"]=errors.is_empty();result["error"]="；".join(errors)
+	return result
+
+func preview_equipment(actor_id:String,slot:String,item_id:String)->Dictionary:
+	if not uses_loadouts() or not _safe.roster.has(actor_id):return {"ok":false,"error":"当前身份不支持装配","stats":{}}
+	var equipment:Dictionary=_safe.roster[actor_id].equipment.duplicate(true)
+	equipment[slot]=item_id
+	return preview_loadout(actor_id,_safe.roster[actor_id].build,equipment)
+
+func set_loadout(actor_id:String,build:Dictionary)->Dictionary:
+	if not _preparing():return _fail("只能在战前整备更换装配")
+	var preview:=preview_loadout(actor_id,build)
+	if not preview.ok:return _fail(preview.error)
+	var candidate:=safe_snapshot();candidate.roster[actor_id]=preview.actor
+	return _commit(candidate)
 
 # 可选补丁只由场景路由提供；不携带Node、旧奖励或自创剧情。
 func begin_battle(encounter_id: String, world: Dictionary, story_patch: Dictionary = {}) -> Dictionary:
@@ -101,6 +167,9 @@ func begin_battle(encounter_id: String, world: Dictionary, story_patch: Dictiona
 	candidate.battle_counter += 1
 	var battle_id: String = candidate.run_id + ":" + str(candidate.battle_counter)
 	candidate.pending_battle = {"battle_id": battle_id, "encounter_id": encounter_id, "seed": int(battle_id.hash()), "xp": definition.xp, "story_patch": story_patch.duplicate(true)}
+	if uses_loadouts():
+		if Threats.definition(encounter_id).is_empty():return _fail("固定遭遇未登记")
+		candidate.pending_battle.erase("xp");candidate.pending_battle["rewards"]=Threats.rewards(encounter_id)
 	var committed := _commit(candidate)
 	if not committed.ok: return committed
 	_mode = "battle"
@@ -140,7 +209,7 @@ func apply_result(result: Dictionary) -> Dictionary:
 		if _formal() and actor.actor_id == "p_mage": Forms.apply(persisted, actor.form_id, _catalog)
 		_clear_battle_state(persisted)
 	candidate.inventory = result.inventory.duplicate(true)
-	_add_xp(candidate, result.xp)
+	if not uses_loadouts():_add_xp(candidate, result.xp)
 	var patch: Dictionary = candidate.pending_battle.story_patch
 	if patch.has("resolved"): candidate.world.resolved.merge(patch.resolved, true)
 	if patch.has("event_flags"): candidate.world.event_flags.merge(patch.event_flags, true)
@@ -148,11 +217,13 @@ func apply_result(result: Dictionary) -> Dictionary:
 	var encounter: Dictionary = _catalog.get_definition("encounters", candidate.pending_battle.encounter_id)
 	candidate.next_encounter_id = encounter.next_id
 	# 战利品来自目录配置，只增不减；已提交ID防重复发放，战斗侧不能自报奖励。
-	var loot: Dictionary = encounter.get("loot", {})
+	var loot: Dictionary = Threats.rewards(str(encounter.id)) if uses_loadouts() else encounter.get("loot", {})
 	for item_id in loot.get("items", {}):
 		candidate.inventory[item_id] = int(candidate.inventory.get(item_id, 0)) + int(loot.items[item_id])
 	for gear_id in loot.get("gear", {}):
 		candidate.gear[gear_id] = int(candidate.gear.get(gear_id, 0)) + int(loot.gear[gear_id])
+	if uses_loadouts():
+		for card_id in loot.get("cards",{}):candidate.cards[card_id]=int(candidate.cards.get(card_id,0))+int(loot.cards[card_id])
 	var unlocked_mage := false
 	if _formal():
 		if candidate.world.night == 1 and candidate.roster.p_mage.unlocked_forms == Forms.LOCKED_FORMS:
@@ -302,6 +373,11 @@ func set_party(actor_ids: Array[String]) -> Dictionary:
 
 func equip(actor_id: String, slot: String, item_id: String) -> Dictionary:
 	if not _preparing() or not _safe.roster.has(actor_id) or not Factory.STANDARD.has(slot): return _fail("当前不能更换该装备槽")
+	if uses_loadouts():
+		var preview:=preview_equipment(actor_id,slot,item_id)
+		if not preview.ok:return _fail(preview.error)
+		var changed:=safe_snapshot();changed.roster[actor_id]=preview.actor
+		return _commit(changed)
 	var definition: Dictionary = _catalog.get_definition("equipment", item_id)
 	if not item_id.is_empty() and (definition.is_empty() or definition.slot != slot): return _fail("装备ID未知或槽位不符")
 	if not item_id.is_empty() and int(_safe.get("gear", {}).get(item_id, 0)) < 1: return _fail("尚未获得该装备")
@@ -314,6 +390,7 @@ func equip(actor_id: String, slot: String, item_id: String) -> Dictionary:
 	return _commit(candidate)
 
 func set_branch(actor_id: String, branch_id: String) -> Dictionary:
+	if uses_loadouts():return _fail("正式成长请在装配页选择技能卡，无等级分支")
 	if not _preparing() or not _safe.roster.has(actor_id): return _fail("只在准备/休息点更换分支")
 	var actor: Dictionary = _safe.roster[actor_id]
 	if not branch_id.is_empty() and (actor.level < 6 or not Store.new(_catalog).branch_ids(actor.class_id).has(branch_id)): return _fail("分支尚未解锁或未定义")
@@ -331,8 +408,11 @@ func _battle_setup() -> Dictionary:
 	for index in range(encounter.enemy_ids.size()):
 		var enemy_id: String = encounter.enemy_ids[index]
 		var id := "e_%02d_%s" % [index + 1, enemy_id]
-		actors[id] = _enemy(enemy_id, id, encounter.level)
-	return {"ok": true, "error": "", "setup": {"actors": actors, "inventory": _safe.inventory.duplicate(true)}, "seed": pending.seed, "battle_id": pending.battle_id, "encounter_id": pending.encounter_id, "xp": pending.xp, "story_patch": pending.story_patch.duplicate(true), "world": _safe.world.duplicate(true)}
+		actors[id] = Threats.enemy_actor(str(encounter.id),enemy_id,id,_catalog) if uses_loadouts() else _enemy(enemy_id, id, encounter.level)
+	var result:Dictionary={"ok": true, "error": "", "setup": {"actors": actors, "inventory": _safe.inventory.duplicate(true)}, "seed": pending.seed, "battle_id": pending.battle_id, "encounter_id": pending.encounter_id, "story_patch": pending.story_patch.duplicate(true), "world": _safe.world.duplicate(true)}
+	if uses_loadouts():result["rewards"]=pending.rewards.duplicate(true)
+	else:result["xp"]=pending.xp
+	return result
 
 func _enemy(enemy_id: String, id: String, level: int) -> Dictionary:
 	var definition: Dictionary = _catalog.get_definition("enemies", enemy_id)
@@ -347,7 +427,10 @@ func _result_errors(result: Dictionary) -> Array[String]:
 	var errors: Array[String] = []
 	if not State._plain(result): return ["战果只能包含JSON值"]
 	if not result.get("outcome") in ["victory", "defeat"]: return ["战果胜负非法"]
-	if not result.get("xp") is int or result.xp != (_safe.pending_battle.xp if result.outcome == "victory" else 0): errors.append("战果经验与遭遇不符")
+	if uses_loadouts():
+		var expected:Dictionary=_safe.pending_battle.rewards if result.outcome=="victory" else {"coins":0,"gear":{},"items":{},"cards":{}}
+		if result.has("xp") or not result.get("rewards") is Dictionary or result.rewards!=expected:errors.append("战果固定奖励与遭遇不符")
+	elif not result.get("xp") is int or result.xp != (_safe.pending_battle.xp if result.outcome == "victory" else 0): errors.append("战果经验与遭遇不符")
 	if not result.get("story_patch") is Dictionary or result.story_patch != (_safe.pending_battle.story_patch if result.outcome == "victory" else {}): errors.append("战果剧情补丁与进战承诺不符")
 	if not result.get("replay") is Dictionary: errors.append("战果缺少重放字典")
 	if not result.get("roster") is Array or result.roster.size() != 3: return ["战果必须包含恰好三名出战者"]
@@ -359,13 +442,14 @@ func _result_errors(result: Dictionary) -> Array[String]:
 			continue
 		seen[actor.actor_id] = true
 		var original: Dictionary = _safe.roster[actor.actor_id]
-		for field in ["actor_id", "side", "class_id", "level", "stats", "equipment", "branch"]:
+		for field in (["actor_id", "side", "class_id", "stats", "equipment", "branch", "build"] if uses_loadouts() else ["actor_id", "side", "class_id", "level", "stats", "equipment", "branch"]):
 			if typeof(actor.get(field)) != typeof(original[field]) or actor.get(field) != original[field]: errors.append("战果不能改写角色设定：" + field)
 		if _formal() and actor.actor_id == "p_mage":
 			errors.append_array(Forms.validate(actor, _catalog))
 			for field in ["identity_id", "dual_form_version", "unlocked_forms"]:
 				if typeof(actor.get(field)) != typeof(original.get(field)) or actor.get(field) != original.get(field): errors.append("战果不能伪造焰华身份/解锁：" + field)
 		elif not actor.get("skill_ids") is Array or actor.skill_ids != original.skill_ids: errors.append("战果不能改写角色技能")
+		if uses_loadouts():errors.append_array(Loadouts.validate_actor(actor,_catalog,_safe.cards))
 		for field in ["hp", "mp"]:
 			if not State._natural(actor.get(field)) or actor[field] > original.stats[field]: errors.append("战果资源越界：" + field)
 		if State._natural(actor.get("hp")) and actor.hp > 0: alive = true
@@ -427,7 +511,7 @@ func _fail(message: String) -> Dictionary:
 	return {"ok": false, "already_applied": false, "error": message, "story_patch": {}}
 
 func _formal() -> bool:
-	return _safe.get("schema_version") == 2
+	return _safe.get("schema_version") in [2,3]
 
 func _chapter_world_ok(world: Dictionary) -> bool:
 	return _formal() and Chapters.validate_world(world).is_empty() and Chapters.same_story(_safe.world, world)

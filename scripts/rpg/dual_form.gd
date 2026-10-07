@@ -1,6 +1,7 @@
 # One Homura actor owns both existing careers, one resource pool and one slot.
 class_name RpgDualForm
 extends RefCounted
+const Loadouts = preload("res://scripts/rpg/loadout_rules.gd")
 const VERSION := 1
 const FORM_CLASSES := {"sword": "swordsman", "mage": "mage"}
 const LOCKED_FORMS := ["sword"]
@@ -27,15 +28,26 @@ static func initialize(actor: Dictionary, catalog: RefCounted) -> void:
 static func apply(actor: Dictionary, form_id: String, catalog: RefCounted) -> void:
 	actor["form_id"] = form_id
 	actor["active_class_id"] = FORM_CLASSES[form_id]
-	actor["skill_ids"] = catalog.get_definition("classes", FORM_CLASSES[form_id]).skill_ids.duplicate()
+	if Loadouts.has_data(actor):
+		var prepared:Variant=_prepared_groups(actor).get(form_id,[])
+		actor["skill_ids"]=prepared.duplicate() if prepared is Array else []
+	else:actor["skill_ids"]=catalog.get_definition("classes", FORM_CLASSES[form_id]).skill_ids.duplicate()
+
+static func _prepared_groups(actor:Dictionary)->Dictionary:
+	var build:Variant=actor.get("build")
+	if not build is Dictionary or not build.get("active") is Dictionary:return {}
+	return build.active
 
 static func available_skills(actor: Dictionary, catalog: RefCounted) -> Array:
+	if Loadouts.has_data(actor) and _prepared_groups(actor).is_empty():return []
 	if not enabled(actor): return actor.get("skill_ids", []).duplicate() if actor.get("skill_ids") is Array else []
 	var skills: Array = []
 	if not actor.get("unlocked_forms") is Array: return skills
 	for form in actor.unlocked_forms:
 		if not form is String or not FORM_CLASSES.has(form): continue
-		for id in catalog.get_definition("classes", FORM_CLASSES[form]).get("skill_ids", []):
+		var prepared:Variant=_prepared_groups(actor).get(form,[]) if Loadouts.has_data(actor) else catalog.get_definition("classes", FORM_CLASSES[form]).get("skill_ids", [])
+		if not prepared is Array:return []
+		for id in prepared:
 			if not skills.has(id): skills.append(id)
 	return skills
 
@@ -51,7 +63,11 @@ static func validate(actor: Dictionary, catalog: RefCounted) -> Array[String]:
 	if actor.unlocked_forms != LOCKED_FORMS and actor.unlocked_forms != UNLOCKED_FORMS: errors.append("焰华形态解锁集合非法")
 	if not actor.unlocked_forms.has(actor.form_id): errors.append("当前焰华形态尚未解锁")
 	if actor.active_class_id != FORM_CLASSES[actor.form_id]: errors.append("焰华形态与当前职业不符")
-	if actor.skill_ids != catalog.get_definition("classes", FORM_CLASSES[actor.form_id]).get("skill_ids", []): errors.append("焰华当前四技能必须匹配既有职业")
+	if Loadouts.has_data(actor):
+		var derived:=Loadouts.derive(actor,catalog)
+		errors.append_array(derived.errors)
+		if derived.ok and actor.skill_ids!=derived.skill_ids:errors.append("焰华当前技能必须匹配已准备形态")
+	elif actor.skill_ids != catalog.get_definition("classes", FORM_CLASSES[actor.form_id]).get("skill_ids", []): errors.append("焰华当前四技能必须匹配既有职业")
 	return errors
 
 static func switch_reason(actor: Dictionary, form_id: String) -> String:

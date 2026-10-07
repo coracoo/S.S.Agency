@@ -5,6 +5,8 @@ extends RefCounted
 const Saga = preload("res://scripts/rpg/saga_boss_rules.gd")
 const Forms = preload("res://scripts/rpg/dual_form.gd")
 const Catalog = preload("res://scripts/rpg/catalog.gd")
+const Loadouts = preload("res://scripts/rpg/loadout_rules.gd")
+const Threats = preload("res://scripts/rpg/strategy_encounters.gd")
 static var _catalog_cache: RefCounted
 
 const STAT_KEYS := ["hp", "mp", "atk", "matk", "def", "mdef", "spd"]
@@ -80,7 +82,12 @@ static func _validate_actor(id: String, actor: Dictionary, errors: Array[String]
 		errors.append(id + " 永久 ID／阵营非法")
 	if not actor.get("class_id") is String or actor.get("class_id", "").is_empty() or (actor.get("side") == "player" and not CLASS_IDS.has(actor.get("class_id"))):
 		errors.append(id + " 职业非法")
-	if not actor.get("level") is int or actor.level < 1 or actor.level > 10:
+	if Loadouts.has_data(actor):
+		if actor.get("side")!="player":errors.append(id+" 构筑仅用于玩家")
+		errors.append_array(Loadouts.validate_actor(actor,_catalog_cache))
+	elif actor.has("threat_version"):
+		errors.append_array(Threats.validate_actor(actor,_catalog_cache))
+	elif not actor.get("level") is int or actor.level < 1 or actor.level > 10:
 		errors.append(id + " 等级非法")
 	var stats = actor.get("stats")
 	if not stats is Dictionary or stats.size() != 7:
@@ -117,7 +124,7 @@ static func _validate_actor(id: String, actor: Dictionary, errors: Array[String]
 		for skill in actor.cooldown_until:
 			if not skill is String or not _natural(actor.cooldown_until[skill]) or not actor.get("skill_ids") is Array or not available_skills.has(skill):
 				errors.append(id + " 冷却计数非法")
-	if not actor.get("skill_ids") is Array or (actor.get("side") == "player" and actor.skill_ids.size() != 4):
+	if not actor.get("skill_ids") is Array or (actor.get("side") == "player" and (actor.skill_ids.size()>4 if Loadouts.has_data(actor) else actor.skill_ids.size()!=4)):
 		errors.append(id + " 技能卡位非法")
 	else:
 		var skills: Dictionary = {}
@@ -127,7 +134,7 @@ static func _validate_actor(id: String, actor: Dictionary, errors: Array[String]
 			skills[skill] = true
 			if _catalog_cache.get_definition("abilities", str(skill)).is_empty():
 				errors.append(id + " 技能引用缺失")
-		if actor.get("side") == "player":
+		if actor.get("side") == "player" and not Loadouts.has_data(actor):
 			var definition: Dictionary = _catalog_cache.get_definition("classes", Forms.active_class(actor))
 			if actor.skill_ids != definition.get("skill_ids", []):
 				errors.append(id + " 职业固定卡位不符")
@@ -204,6 +211,8 @@ static func normalize_snapshot(saved: Dictionary) -> Dictionary:
 			if not actor is Dictionary: continue
 			Saga.normalize(actor)
 			_int_fields(actor, ["level", "hp", "mp", "slot_count", "opportunity_count", "revived_round", "status_generation", "last_slot_round", "dual_form_version"])
+			_int_fields(actor,["threat_version"])
+			if actor.get("build") is Dictionary:actor.build=Catalog._integerize(actor.build)
 			for field in ["stats", "cooldown_until"]:
 				if actor.get(field) is Dictionary: _int_fields(actor[field], actor[field].keys())
 			if actor.get("boss") is Dictionary:
