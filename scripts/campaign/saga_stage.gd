@@ -567,7 +567,7 @@ func _refresh_hud() -> void:
 	_hud.map.disabled = not ready_for_play or not controls_enabled
 	_hud.pause.disabled = not ready_for_play or not controls_enabled
 	var target := nearest_interaction()
-	_hud.prompt.text = "E · " + str(target.label) if not target.is_empty() else ("WASD 行走 · Shift 跑步 · Space 短跳\nE 互动 · Tab 换领队 · M 地图" if _tutorial_remaining > 0 else "")
+	_hud.prompt.text = "E · " + str(target.label) if not target.is_empty() else (EXPLORATION_CONTROLS if _tutorial_remaining > 0 else "")
 	if nearby_interactions().size()>1: _hud.prompt.text = "E · 调查此处（多项）"
 	_hud.prompt_panel.visible = not _hud.prompt.text.is_empty()
 

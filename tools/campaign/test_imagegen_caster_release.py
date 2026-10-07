@@ -16,13 +16,13 @@ def read(skill):
 
 
 class CasterRuntimeRelease(unittest.TestCase):
-    def test_all_twelve_registered_with_unchanged_mage_contracts_and_closed_gates(self):
+    def test_all_twelve_registered_with_unchanged_mage_contracts_and_verified_gates(self):
         registry = json.loads((FOLDER / "registry.json").read_text())
         self.assertTrue(set(EXPECTED) | set(MAGE_MANIFESTS) <= set(registry["effects"]))
-        self.assertIs(registry["production_renderer_enabled"], False)
+        self.assertIs(registry["production_renderer_enabled"], True)
         for skill in set(EXPECTED) | set(MAGE_MANIFESTS):
             entry = registry["effects"][skill]
-            self.assertIs(entry["gameplay_qa_pending"], True)
+            self.assertIs(entry["gameplay_qa_pending"], False)
             self.assertIs(entry["approved_for_runtime"], True)
             self.assertEqual(.5, entry["runtime_scale"])
             self.assertEqual(256, entry["display_size_px"])

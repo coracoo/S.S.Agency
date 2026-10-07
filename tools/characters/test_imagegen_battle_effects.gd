@@ -16,9 +16,14 @@ func _run() -> void:
 	check(Script!=null,"独立imagegen事件渲染器存在")
 	if Script!=null:
 		var fx = Script.new(); root.add_child(fx); fx.set_process(false)
+		var disabled: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(fx.registry_path))
+		disabled.production_renderer_enabled=false
+		var gate_file := FileAccess.open("user://effect_renderer_disabled.json",FileAccess.WRITE)
+		gate_file.store_string(JSON.stringify(disabled));gate_file.close()
+		fx.registry_path="user://effect_renderer_disabled.json"
 		var context := _context()
 		var targets := {"target":Vector2(420,320),"second":Vector2(620,340)}
-		check(not fx.present_action(context,"homura_mage",Vector2(100,300),targets,"battle"),"默认生产关闭")
+		check(not fx.present_action(context,"homura_mage",Vector2(100,300),targets,"battle"),"显式关闭生产时拒绝播放")
 		fx.preview_pending_art=true
 		check(fx.has_method("sample_burst"),"cast手点跟踪与发射冻结拥有可检查的同一渲染采样入口")
 		check(fx.present_action(context,"homura_mage",Vector2(100,300),targets,"battle"),"明确预览开启实际12帧施法")

@@ -137,13 +137,19 @@ def verify(source, candidate, before=None, after=None):
         equal(sha(source / name), sha(candidate / name), name + ":PNG")
     old_registry = read(source / "assets/effects/imagegen_spells/registry.json")
     new_registry = read(candidate / "assets/effects/imagegen_spells/registry.json")
-    if old_registry.get("production_renderer_enabled") is not False or new_registry.get("production_renderer_enabled") is not False:
-        raise ValueError("生产门禁必须保持关闭")
+    if type(old_registry.get("production_renderer_enabled")) is not bool or type(new_registry.get("production_renderer_enabled")) is not bool:
+        raise ValueError("生产门禁必须是布尔值")
+    equal(old_registry["production_renderer_enabled"],new_registry["production_renderer_enabled"],"production gate")
     equal(set(old_registry["effects"]), set(new_registry["effects"]), "registered effects")
     old_entries = {(skill, form):entry for skill, form, entry in effect_entries(old_registry)}
     new_entries = {(skill, form):entry for skill, form, entry in effect_entries(new_registry)}
     equal(set(old_entries), set(new_entries), "registered variants")
     for (skill, form), entry in old_entries.items():
+        for label, value in (("源", entry), ("候选", new_entries[(skill, form)])):
+            if value.get("approved_for_runtime") is not True or type(value.get("gameplay_qa_pending")) is not bool:
+                raise ValueError(label + "技能批准字段必须为合法布尔：" + skill)
+            if old_registry["production_renderer_enabled"] and value["gameplay_qa_pending"]:
+                raise ValueError(label + "生产仍有未验收变体：" + skill)
         for key in ("manifest", "approved_for_runtime", "runtime_scale", "display_size_px", "gameplay_qa_pending", "particles"):
             equal(entry[key], new_entries[(skill, form)][key], skill + ":" + form + ":registry:" + key)
     if before is not None:
@@ -151,7 +157,7 @@ def verify(source, candidate, before=None, after=None):
     return {"passed":True, "exact_comparisons":comparisons, "character_unique_frames":frame_count,
             "animations":animation_count, "duration_values":duration_count, "event_markers":events,
             "contact_records":contacts, "unchanged_atlases":len(pages), "effect_frames":effect_frames,
-            "godot_runtime_projections_equal":True if before is not None else None, "production_renderer_enabled":False}
+            "godot_runtime_projections_equal":True if before is not None else None, "production_renderer_enabled":old_registry["production_renderer_enabled"]}
 
 
 def main():

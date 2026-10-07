@@ -4,12 +4,14 @@ extends Control
 signal presentation_tick
 const PartyFraming = preload("res://scripts/rpg/ui/battle_party_framing.gd")
 const BattleEffects = preload("res://scripts/rpg/ui/imagegen_battle_effects.gd")
+const PhysicalVisualPolicy = preload("res://scripts/rpg/ui/physical_skill_visual_event_policy.gd")
 const WorldBackdrop = preload("res://scripts/rpg/ui/battle_world_backdrop.gd")
 const Stature = preload("res://scripts/characters/character_stature.gd")
 const ChapterSession = preload("res://scripts/campaign/chapter_session.gd")
 const TrialSession = preload("res://scripts/exploration_3d/approach_session.gd")
 const Portraits = preload("res://scripts/characters/identity_portraits.gd")
 const LegacyActor = preload("res://scripts/rpg/ui/legacy_actor_view.gd")
+const EnemyPresentation = preload("res://scripts/rpg/ui/enemy_presentation_profiles.gd")
 const HdActor = preload("res://scripts/rpg/ui/hd_actor_view.gd")
 const SagaEnemyArt = preload("res://scripts/rpg/ui/saga_enemy_art.gd")
 const Saga = preload("res://scripts/campaign/saga_catalog.gd")
@@ -464,7 +466,7 @@ func _build_actors() -> void:
 				_canvas.remove_child(sprite)
 				var adapter := LegacyActor.new()
 				adapter.parent_controls_defeat_tint=true
-				adapter.configure(sprite, float(layout[2]), native_facing, toward_right)
+				adapter.configure(sprite, float(layout[2]), native_facing, toward_right, str(actor.side))
 				_canvas.add_child(adapter)
 				sprite = adapter
 		if _hd_enabled(): _presentation_views[id] = sprite
@@ -974,7 +976,7 @@ func _consume_events(events: Array, before: Dictionary = {}) -> void:
 		for event in visual_events:
 			if int(event.get("sequence",0)) > 0: _visual_sequences[int(event.sequence)] = true
 		if visual_events.any(func(event): return event.get("type") != "form_changed"):
-			_annotate_effect_context(visual_events,state)
+			_annotate_effect_context(visual_events,state,before)
 			_defer_impact_hp(visual_events, before, state)
 			_hd_player.enqueue(visual_events, state)
 	while _log_lines.size() > 80: _log_lines.pop_front()
@@ -1301,9 +1303,7 @@ func _play_visual_effect(event: Dictionary) -> void:
 	if _actors.has(source_id): origin = _effect_center(source_id)
 	var effect_event := event
 	if event.get("type") == "saga_reflected":
-		# 原事件/HP令牌不变，只把已发生的反射伤害交给伤害视觉入口。
-		effect_event = event.duplicate(true)
-		effect_event.type = "damage"
+		# 保持真实反射类型，不能把它伪装为原技能的条件命中证据。
 		form = str(context.get("form",form))
 	var spawned: bool = _fx_layer.present_event(effect_event,form,origin,target,_effect_battle_id(),context)
 	if spawned and event.get("type") == "damage" and _hd_views.has(source_id):
@@ -1445,15 +1445,18 @@ func _effect_center(actor_id: String) -> Vector2:
 	return source.position-Vector2(0,float(source.get_meta("content_height",300))*.48)
 
 # 仅标注已经复制的视觉事件；实际承伤/受益者决定FX目标，反射和回合燃烧单独处理。
-func _annotate_effect_context(events: Array, state: Dictionary) -> void:
+func _annotate_effect_context(events: Array, state: Dictionary, before: Dictionary = {}) -> void:
 	var context: Dictionary = {}
+	var verified := _physical_event_contexts(events,state,before)
 	for event in events:
 		# 周期事件没有技能上下文，仍必须独立携带换场/取消代次。
 		event["_presentation_generation"] = _presentation_generation
 		if event.get("type") == "command_accepted":
-			context = event.get("payload",{}).get("command",{}).duplicate(true)
+			var command: Dictionary = event.get("payload",{}).get("command",{})
+			context = verified.get(str(command.get("command_id","")),command).duplicate(true)
 			context["source_id"] = str(event.get("actor_id",""))
-			context["effect_target_ids"] = []
+			context["effect_target_ids"] = context.get("effect_target_ids",[]).duplicate()
+			context["visual_target_ids"] = []
 			context["generation"] = _presentation_generation
 			var actor: Dictionary = state.actors.get(context.source_id,{})
 			var identity := str(actor.get("identity_id",actor.get("class_id","")))
@@ -1465,23 +1468,68 @@ func _annotate_effect_context(events: Array, state: Dictionary) -> void:
 		if context.is_empty() or event.get("type") not in ["damage","healed","revived","mp_restored","shield_applied","shield_refreshed","status_applied","status_refreshed","status_removed","cleansed","charge_interrupted","effect_ignored"]: continue
 		if event.get("type") == "status_removed" and event.get("payload",{}).get("reason") != "cleanse": continue
 		var target_id := str(event.get("target_id",""))
-		if _actors.has(target_id) and not context.effect_target_ids.has(target_id): context.effect_target_ids.append(target_id)
+		# 物理策略的resolved集合来自接纳边界；不能用后来的反射/掩护事件改写施法前证明。
+		if context.get("source_side") == "enemy":
+			if event.get("type") == "damage" and _actors.has(target_id) and not context.visual_target_ids.has(target_id): context.visual_target_ids.append(target_id)
+		elif PhysicalVisualPolicy.contract_identity(str(context.get("form","")),str(context.get("ability_id",""))).is_empty():
+			if _actors.has(target_id) and not context.effect_target_ids.has(target_id): context.effect_target_ids.append(target_id)
+
+func _physical_event_contexts(events: Array, state: Dictionary, before: Dictionary) -> Dictionary:
+	var result := {}
+	for index in events.size():
+		var event: Dictionary = events[index]
+		if event.get("type") != "command_accepted": continue
+		var end := index+1
+		while end < events.size() and events[end].get("type") != "command_accepted": end += 1
+		var window: Array = events.slice(index,end)
+		var command: Dictionary = event.get("payload",{}).get("command",{})
+		var source: Dictionary = state.get("actors",{}).get(command.get("actor_id",""),{})
+		var context := {}
+		if source.get("side") == "enemy":
+			context = PhysicalVisualPolicy.context_from_enemy_events(state.actors,window)
+		elif not before.is_empty() and command.get("expected_revision",-1) == before.get("revision",-2):
+			var original: Dictionary = before.get("actors",{}).get(command.get("actor_id",""),{})
+			var derived: Dictionary = _catalog.skill_for(original,str(command.get("ability_id",""))) if command.get("kind") == "skill" else {}
+			# 已发布command_accepted证明事务成功，revision严格取同一提交边界；条件仍只读真实before。
+			context = PhysicalVisualPolicy.context_from_result(before,derived,{"accepted":true,"events":window,"revision":int(command.get("expected_revision",-1))+1})
+		if not context.is_empty(): result[str(command.command_id)] = context
+	return result
 
 func _on_action_started(event: Dictionary, timing: Dictionary) -> void:
-	if not _skill_effects_ready or not is_instance_valid(_fx_layer) or engine == null: return
+	if engine == null: return
 	var context: Dictionary = event.get("_effect_context",{}).duplicate(true)
 	if context.is_empty() or int(context.get("generation",-1)) != _presentation_generation: return
 	var source_id := str(context.get("source_id",""))
 	if not _actors.has(source_id): return
+	var actor: Dictionary = engine.snapshot().actors.get(source_id,{})
+	var enemy_profile := {}
+	if actor.get("side") == "enemy":
+		var ability: Dictionary = _catalog.get_definition("abilities",str(context.get("ability_id","")))
+		enemy_profile = EnemyPresentation.resolve(str(actor.get("class_id","")),context,ability)
+		if _actors[source_id].sprite.has_method("configure_attack_presentation"):
+			_actors[source_id].sprite.configure_attack_presentation(enemy_profile)
+	if not _skill_effects_ready or not is_instance_valid(_fx_layer): return
 	# 接近已经完成；这里以原生命中剩余时长启动一次起手/飞行。
 	context["impact_delay"] = float(timing.get("native_impact_seconds",0))
 	context["action_duration"] = float(timing.get("action_duration",0))
+	if actor.get("side") == "enemy":
+		# 静态原图的命中在0.36秒动作结束后；只给视觉保留短尾，不伪造原生视频命中标记。
+		context["impact_delay"] = LegacyActor.ATTACK_SECONDS
+		context["action_duration"] = maxf(float(context.action_duration),LegacyActor.ATTACK_SECONDS+.24)
 	_effect_actions[source_id]={"context":context,"battle_id":_effect_battle_id()}
+	if _fx_layer.has_method("prepare_event_window"): _fx_layer.prepare_event_window(context,_effect_battle_id())
+	# 敌方动作窗供已存在的掩护反应使用；普通攻击/道具不冒充玩家技能图。
+	if actor.get("side") != "enemy" and context.get("kind") != "skill": return
 	var targets := {}
-	for target_id in context.get("effect_target_ids",[]):
+	for target_id in context.get("visual_target_ids",[]) if actor.get("side") == "enemy" else context.get("effect_target_ids",[]):
 		if _actors.has(target_id): targets[str(target_id)] = _effect_center(str(target_id))
 	var origin := _effect_center(source_id)
-	if _fx_layer.has_method("requires_source_attachment") and _fx_layer.requires_source_attachment():
+	if actor.get("side") == "enemy":
+		_sync_effect_positions()
+		_fx_layer.present_enemy_action(context,enemy_profile,origin,targets,_effect_battle_id())
+		return
+	var needs_attachment: bool = _fx_layer.requires_source_attachment_for(context) if _fx_layer.has_method("requires_source_attachment_for") else (_fx_layer.has_method("requires_source_attachment") and _fx_layer.requires_source_attachment())
+	if needs_attachment:
 		var point: Dictionary = _world_backdrop.actor_action_attachment(source_id) if is_instance_valid(_world_backdrop) else {"ok":false,"reason":"missing_backdrop"}
 		if not point.ok:
 			_fx_layer.record_missing("source_attachment:"+str(context.get("form","")),str(point.reason))
@@ -1490,7 +1538,8 @@ func _on_action_started(event: Dictionary, timing: Dictionary) -> void:
 		for cue in ["launch_seconds","cast_scale"]:
 			if point.has(cue):context[cue]=point[cue]
 	_sync_effect_positions()
-	_fx_layer.present_action(context,str(context.get("form","")),origin,targets,_effect_battle_id())
+	if _fx_layer.present_action(context,str(context.get("form","")),origin,targets,_effect_battle_id()):
+		_fx_layer.present_event(event,str(context.get("form","")),origin,origin,_effect_battle_id(),context)
 
 func _on_effect_actor_finished(actor_id: String) -> void:
 	if not _effect_actions.has(actor_id): return

@@ -1,6 +1,7 @@
 """七章正式包闭包、目标引擎与包外探针的回归。"""
 import importlib.util
 import json
+import shutil
 import os
 import subprocess
 from pathlib import Path
@@ -42,7 +43,7 @@ class SagaReleaseTests(unittest.TestCase):
                     continue
                 target = project / name
                 target.parent.mkdir(parents=True, exist_ok=True)
-                target.symlink_to(ROOT / name)
+                shutil.copyfile(ROOT / name, target)
             folder = project / "assets/chars/npcs/saga"
             folder.mkdir(parents=True)
             manifest = folder / "asset_manifest.json"
@@ -68,7 +69,7 @@ class SagaReleaseTests(unittest.TestCase):
                     continue
                 target = project / name
                 target.parent.mkdir(parents=True, exist_ok=True)
-                target.symlink_to(ROOT / name)
+                shutil.copyfile(ROOT / name, target)
             folder = project / "assets/chars/enemies/saga"
             folder.mkdir(parents=True)
             manifest = folder / "asset_manifest.json"
@@ -103,8 +104,9 @@ class SagaReleaseTests(unittest.TestCase):
             title_index = next(index for index, command in enumerate(commands) if "--quit-after" in command)
             saga_index = next(index for index, command in enumerate(commands) if str(probe) in command)
             self.assertLess(title_index, saga_index)
-            self.assertEqual("/tmp/empty", commands[saga_index][3])
+        self.assertEqual(str(Path("/tmp/empty")), commands[saga_index][3])
 
+    @unittest.skipIf(os.name == "nt", "Linux 启动脚本在 POSIX 实机执行，Windows 由独立 BAT 用例覆盖")
     def test_linux_launcher_is_executable_and_preserves_engine_arguments(self):
         runner = load_module("build_release")
         self.assertTrue(hasattr(runner, "write_launchers"), "发布启动脚本必须可直接执行")
@@ -121,6 +123,20 @@ class SagaReleaseTests(unittest.TestCase):
             self.assertEqual(0, result.returncode, result.stderr)
             self.assertEqual([str(output), "--main-pack", "ssa-seven-chapter-formal.pck", "--headless", "--quit-after", "2"], result.stdout.splitlines())
 
+    @unittest.skipUnless(os.name == "nt", "Windows BAT 需要原生 cmd.exe")
+    def test_windows_launcher_changes_directory_and_preserves_engine_arguments(self):
+        runner = load_module("build_release")
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "release with spaces"
+            output.mkdir()
+            runner.write_launchers(output)
+            engine = output / "fake engine.bat"
+            engine.write_text('@echo off\necho %CD%\necho %*\n', encoding="utf8")
+            env = dict(os.environ, GODOT_BIN=str(engine))
+            result = subprocess.run([os.environ["COMSPEC"], "/d", "/c", str(output / "launch_campaign.bat"), "--headless", "--quit-after", "2"], cwd=directory, env=env, text=True, capture_output=True)
+            self.assertEqual(0, result.returncode, result.stderr)
+            self.assertEqual([str(output), "--main-pack ssa-seven-chapter-formal.pck --headless --quit-after 2"], result.stdout.splitlines())
+
     def test_dirty_or_changed_source_never_reports_formal_pass(self):
         runner = load_module("build_release")
         self.assertTrue(hasattr(runner, "verification_status"))
@@ -135,7 +151,7 @@ class SagaReleaseTests(unittest.TestCase):
         command = runner.saga_e2e_command("godot", Path("/tmp/game.pck"), Path("/tmp/evidence"))
         self.assertIn(str(ROOT / "tools/campaign/run_saga_checks.py"), command)
         self.assertEqual("real", command[command.index("--mode") + 1])
-        self.assertEqual("/tmp/game.pck", command[command.index("--pack") + 1])
+        self.assertEqual(str(Path("/tmp/game.pck")), command[command.index("--pack") + 1])
 
 
 if __name__ == "__main__":

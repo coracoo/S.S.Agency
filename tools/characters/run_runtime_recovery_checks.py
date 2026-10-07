@@ -3,14 +3,15 @@
 from __future__ import annotations
 
 import argparse
-import fcntl
 import os
 from pathlib import Path
 import re
-import selectors
 import subprocess
+import sys
 import tempfile
-import time
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from verification_support import exclusive_file_lock, run_captured
 
 ROOT = Path(__file__).resolve().parents[2]
 ERROR = re.compile(r"(^|\n)(?:SCRIPT ERROR|ERROR):")
@@ -47,8 +48,7 @@ def main() -> int:
     args.log.parent.mkdir(parents=True, exist_ok=True)
     logs: list[str] = []
     try:
-        with (ROOT.parent / "godot-import.lock").open("a") as lock, tempfile.TemporaryDirectory(prefix="ssa-runtime-recovery-") as temporary:
-            fcntl.flock(lock, fcntl.LOCK_EX)
+        with exclusive_file_lock(ROOT.parent / "godot-import.lock"), tempfile.TemporaryDirectory(prefix="ssa-runtime-recovery-") as temporary:
             isolated = Path(temporary).resolve()
             env = os.environ.copy()
             for key in ("XDG_DATA_HOME", "XDG_CONFIG_HOME", "XDG_CACHE_HOME", "APPDATA", "LOCALAPPDATA"):
@@ -59,32 +59,10 @@ def main() -> int:
 
             def run(arguments: list[str], timeout: int = 300) -> tuple[int, str]:
                 command = [args.godot, "--headless", "--path", str(ROOT), *arguments]
-                output = b""
-                with subprocess.Popen(command, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT) as process:
-                    with selectors.DefaultSelector() as selector:
-                        selector.register(process.stdout, selectors.EVENT_READ)
-                        deadline = time.monotonic() + timeout
-                        while process.poll() is None:
-                            if time.monotonic() >= deadline:
-                                process.kill()
-                                tail, _ = process.communicate()
-                                raise subprocess.TimeoutExpired(command, timeout, output=output + tail)
-                            for key, _ in selector.select(.1):
-                                output += os.read(key.fd, 65536)
-                            # 解析/运行错误后的SceneTree常继续空转；立即终止本次失败，释放共享锁。
-                            if ERROR.search(output.decode("utf-8", errors="replace")):
-                                process.terminate()
-                                break
-                        try:
-                            tail, _ = process.communicate(timeout=5)
-                        except subprocess.TimeoutExpired:
-                            process.kill()
-                            tail, _ = process.communicate()
-                        output += tail
-                    text = output.decode("utf-8", errors="replace")
-                    print(text, end="", flush=True)
-                    logs.append(text)
-                    return process.returncode, text
+                result = run_captured(command, env=env, timeout=timeout)
+                print(result.stdout, end="", flush=True)
+                logs.append(result.stdout)
+                return result.returncode, result.stdout
 
             code, output = run(["--script", "res://tools/rpg/test_environment.gd"], 60)
             matches = re.findall(r"^RPG_ISOLATION_OK:(.+)$", output, re.M)

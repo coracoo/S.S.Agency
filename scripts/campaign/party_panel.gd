@@ -455,6 +455,8 @@ func item_reason(item_id: String, target_id: String) -> String:
 	var state: Dictionary = campaign.safe_snapshot()
 	var item: Dictionary = _catalog.get_definition("items", item_id)
 	if item.is_empty() or not state.roster.has(target_id): return "请选择道具与队员"
+	var restriction: String = campaign.item_outside_restriction(item_id)
+	if not restriction.is_empty(): return restriction
 	if state.inventory.get(item_id, 0) <= 0: return "道具已用尽"
 	var actor: Dictionary = state.roster[target_id]
 	if item.target_rule == "fallen_ally" and actor.hp > 0: return "只能用于倒地队员"

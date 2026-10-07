@@ -29,6 +29,7 @@ func _run() -> void:
 	check(panel.has_method("select_equipment"), "选择装备候选不直接提交")
 	check(panel.has_method("confirm_item"), "明确确认道具及目标")
 	check(panel.has_method("confirm_equipment"), "比较属性后明确确认装备")
+	_charm_usage(panel, session)
 	if failures.is_empty():
 		await _flows(panel, session)
 		await _mouse_keyboard(panel, session)
@@ -36,6 +37,18 @@ func _run() -> void:
 	session.close()
 	print("INVENTORY_MENU_ASSERTIONS:", assertions, " FAILURES:", failures.size())
 	quit(0 if failures.is_empty() else 1)
+func _charm_usage(panel, session) -> void:
+	panel.show_page("inventory")
+	panel.select_item("guard_charm")
+	panel.select_actor("p_guard")
+	var charm_before: Dictionary = session.campaign.safe_snapshot()
+	check(panel._hud.item_use.disabled and panel.item_reason("guard_charm", "p_guard").contains("战斗"), "回合护盾只在战斗内使用，菜单解释禁用原因")
+	check(not panel.confirm_item().ok and session.campaign.safe_snapshot() == charm_before, "菜单确认护身纸不消耗库存或写入无效护盾")
+	check(not session.campaign.use_item_outside("guard_charm", "p_guard").ok and session.campaign.safe_snapshot() == charm_before, "绕过菜单也不能在战外消耗护身纸")
+	var resumed = Session.Campaign.new(null, null, Session.Chapters.SAVE_PATH)
+	check(resumed.load_run().ok and resumed.safe_snapshot() == charm_before, "拒绝战外护盾后，重新载入仍保留库存和原状态")
+	panel.show_page("menu")
+
 func _flows(panel, session) -> void:
 	var before: Dictionary = session.campaign.safe_snapshot()
 	panel.show_page("menu")
@@ -82,6 +95,12 @@ func _flows(panel, session) -> void:
 		check(panel.current_page == page and panel._pages[page].visible, "反复切页：" + page)
 		for key in panel._pages: check(panel._pages[key].visible == (key == page), "只有一页可交互")
 	panel.show_page("party")
+	await process_frame
+	var branch_scroll: VScrollBar = panel._hud.branch_preview.get_v_scroll_bar()
+	branch_scroll.value = branch_scroll.max_value
+	await process_frame
+	check(branch_scroll.value > 0 and is_equal_approx(branch_scroll.value, branch_scroll.max_value - branch_scroll.page), "新版长专精说明可实际滚动到最后一行")
+	branch_scroll.value = 0
 	check(panel._hud.hpbar.max_value >= 1 and panel._hud.hpbar.value <= panel._hud.hpbar.max_value, "队伍页HP条数值在范围内")
 	check(panel._hud.stat_line.text.contains("攻击") and panel._hud.stat_line.text.contains("速度"), "队伍页显示五维数值")
 	var resumed := Session.new()
@@ -177,7 +196,8 @@ func _text_alignment(panel) -> void:
 	for button in panel._tabs.values(): check(button.alignment == HORIZONTAL_ALIGNMENT_CENTER, "页签文字保持中心对齐")
 
 func _text_safe_interiors(panel) -> void:
-	check(panel._hud.branch_preview.get_content_height() <= panel._hud.branch_preview.size.y, "默认分支两行说明完整显示，不截半行")
+	# 新版专精包含条件与连招全文，沿用滚动控件，不能继续要求历史两行文本契约。
+	check(panel._hud.branch_preview.scroll_active and panel._hud.branch_preview.size.y >= 60, "专精说明保留可滚动的完整字行视窗")
 	var nodes: Array[Node] = [panel._canvas]
 	while not nodes.is_empty():
 		var node: Node = nodes.pop_back()

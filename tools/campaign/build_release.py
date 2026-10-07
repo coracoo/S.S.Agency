@@ -2,7 +2,6 @@
 """官方4.7.2七章导出、精确源依赖追加、空目录PCK验收和可回退源码交付。"""
 import argparse
 from datetime import datetime, timezone
-import fcntl
 import hashlib
 import json
 import os
@@ -12,6 +11,9 @@ import shutil
 import subprocess
 import sys
 import tempfile
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from verification_support import exclusive_file_lock, run_captured
 
 PROJECT = Path(__file__).resolve().parents[2]
 BASE = "6c14f659613d7eafb769441dde8e173ee533341a"
@@ -100,8 +102,7 @@ def main():
               "standalone_executable": "not_generated", "manual_gui": "not_run_by_this_builder"}
 
     def invoke(command, env=None, timeout=600):
-        result = subprocess.run(command, env=env, text=True, encoding="utf-8", errors="replace",
-                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=timeout)
+        result = run_captured(command, env=env, timeout=timeout)
         print(result.stdout, end="", flush=True)
         logs.append({"argv": command, "exit": result.returncode, "output": result.stdout})
         if result.returncode or ERRORS.search(result.stdout):
@@ -136,8 +137,7 @@ def main():
                 raise RuntimeError("实际user://隔离未获验证，已阻止导出/测试")
             env["RPG_TEST_ISOLATED"] = "1"
             lock = args.import_lock.resolve() if args.import_lock else output.parent / "godot-import.lock"
-            with lock.open("a") as stream:
-                fcntl.flock(stream, fcntl.LOCK_EX)
+            with exclusive_file_lock(lock):
                 invoke([engine, "--headless", "--path", str(PROJECT), "--export-pack", "Windows Desktop", str(pack)], env)
             invoke([sys.executable, str(PROJECT / "tools/campaign/release_pack.py"), "--pack", str(pack), "--output-dir", str(output), "--append-originals"])
             code, text = invoke(packed_command(engine, empty, pack, PROJECT / "tools/rpg/test_environment.gd"), env)

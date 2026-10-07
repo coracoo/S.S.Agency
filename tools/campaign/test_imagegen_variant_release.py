@@ -39,13 +39,13 @@ class ImagegenVariantRelease(unittest.TestCase):
         registry = read(FOLDER / "registry.json")
         self.assertEqual(24, len(registry["effects"]))
         self.assertEqual(28, len(list(entries(registry))))
-        self.assertIs(registry["production_renderer_enabled"], False)
+        self.assertIs(registry["production_renderer_enabled"], True)
         for skill in ("heavy_slash", "armor_break", "sweep", "battle_spirit"):
             self.assertEqual({"variants"}, set(registry["effects"][skill]))
             self.assertEqual({"rinne", "homura_sword"}, set(registry["effects"][skill]["variants"]))
         for skill, form, entry in entries(registry):
             self.assertIs(entry["approved_for_runtime"], True)
-            self.assertIs(entry["gameplay_qa_pending"], True)
+            self.assertIs(entry["gameplay_qa_pending"], False)
             self.assertEqual(.5, entry["runtime_scale"])
             self.assertEqual(256, entry["display_size_px"])
 

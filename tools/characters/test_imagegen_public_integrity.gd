@@ -39,11 +39,15 @@ func _run() -> void:
 	write_json("user://changed_atlas_registry.json", changed)
 	check(reason(Loader.load_effect("firebolt", "user://changed_atlas_registry.json", true), "atlas_hash_mismatch"), "图集原字节篡改被拒绝")
 	changed = registry.duplicate(true); changed.production_renderer_enabled = true
+	changed.effects.firebolt.gameplay_qa_pending = true
 	write_json("user://pending_registry.json", changed)
 	check(reason(Loader.load_effect("firebolt", "user://pending_registry.json"), "gameplay_qa_pending"), "游戏验收门禁独立保留")
 	changed = registry.duplicate(true); changed.effects.firebolt.approved_for_runtime = false
 	write_json("user://unapproved_registry.json", changed)
 	check(reason(Loader.load_effect("firebolt", "user://unapproved_registry.json", true), "art_unapproved"), "未批准素材在预览也不能载入")
-	check(reason(Loader.load_effect("firebolt"), "production_disabled"), "原生产开关始终关闭")
+	check(Loader.load_effect("firebolt").ok, "已验收登记正式加载")
+	changed = registry.duplicate(true); changed.production_renderer_enabled = false
+	write_json("user://disabled_registry.json", changed)
+	check(reason(Loader.load_effect("firebolt", "user://disabled_registry.json"), "production_disabled"), "关闭总开关仍严格拒绝")
 	print("IMAGEGEN_PUBLIC_INTEGRITY: %d assertions, %d failures" % [checks, failures])
 	quit(1 if failures else 0)

@@ -32,7 +32,7 @@ func _run() -> void:
 			check(effect.ok, "已登记形态可显式预览："+skill+":"+form+":"+str(effect.get("reason","")))
 			if not effect.ok: continue
 			decoded_bytes += int(effect.texture_bytes)
-			check(loader.load_effect(skill,loader.REGISTRY,false,form).get("reason")=="production_disabled", "生产总门禁保持关闭")
+			check(loader.load_effect(skill,loader.REGISTRY,false,form).ok, "已验收变体可在生产加载")
 			var entry: Dictionary = variants[form]
 			var manifest: Dictionary = loader._json(entry.manifest)
 			check(FileAccess.get_sha256(entry.manifest)==entry.manifest_sha256, "清单SHA与登记一致")
@@ -72,10 +72,15 @@ func _run() -> void:
 	check(count==28 and new_count==16, "二十八形态包含新十六套")
 	check(decoded_bytes==114294784, "二十八套RGBA解码合计109MiB")
 	var pending := registry.duplicate(true); pending.production_renderer_enabled=true
+	for skill in pending.effects:
+		for entry in pending.effects[skill].get("variants",{"":pending.effects[skill]}).values(): entry.gameplay_qa_pending=true
 	write_json("user://variant_pending_registry.json",pending)
 	for skill in pending.effects:
 		for form in pending.effects[skill].get("variants",{"":pending.effects[skill]}):
 			check(loader.load_effect(skill,"user://variant_pending_registry.json",false,form).get("reason")=="gameplay_qa_pending", "每个形态独立保留游戏QA门禁")
+	var disabled := registry.duplicate(true); disabled.production_renderer_enabled=false
+	write_json("user://variant_disabled_registry.json",disabled)
+	check(loader.load_effect("heavy_slash","user://variant_disabled_registry.json",false,"rinne").get("reason")=="production_disabled","总开关关闭仍拒绝已验收变体")
 	var swapped := registry.duplicate(true)
 	swapped.effects.heavy_slash.variants.rinne = registry.effects.heavy_slash.variants.homura_sword.duplicate(true)
 	write_json("user://swapped_variant_registry.json",swapped)

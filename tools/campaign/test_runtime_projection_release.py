@@ -244,7 +244,41 @@ class RuntimeProjectionRelease(unittest.TestCase):
             self.assertEqual(before, snapshot(source))
             self.assertTrue(verify_projection.verify(source, candidate)["passed"])
 
-    def test_both_source_contracts_preserve_production_off_requirement(self):
+    def test_ready_source_preserves_enabled_state_and_rejects_candidate_gate_change(self):
+        for schema in (1, 2):
+            with tempfile.TemporaryDirectory() as temporary, self.subTest(schema=schema):
+                root = Path(temporary)
+                raw, public = self.public_source(root)
+                source = raw if schema == 1 else public
+                path = source / "assets/effects/imagegen_spells/registry.json"
+                registry = projection.read(path)
+                registry["production_renderer_enabled"] = True
+                for _, _, entry in projection.effect_entries(registry):
+                    entry["gameplay_qa_pending"] = False
+                write(path, registry)
+                candidate = root / "candidate"
+                shutil.copytree(source, candidate)
+                before = snapshot(source)
+                report = projection.sanitize(source, candidate)
+                self.assertIs(report["production_renderer_enabled"], True)
+                self.assertEqual(before, snapshot(source))
+                self.assertTrue(verify_projection.verify(source, candidate)["passed"])
+                changed = projection.read(candidate / path.relative_to(source))
+                changed["production_renderer_enabled"] = False
+                write(candidate / path.relative_to(source), changed)
+                with self.assertRaises(ValueError):
+                    verify_projection.verify(source, candidate)
+
+                changed["production_renderer_enabled"] = True
+                for field, invalid, original_value in (("approved_for_runtime", 1, True), ("gameplay_qa_pending", 0, False)):
+                    entry = next(projection.effect_entries(changed))[2]
+                    entry[field] = invalid
+                    write(candidate / path.relative_to(source), changed)
+                    with self.assertRaises(ValueError, msg="候选布尔不能变成相等数字：" + field):
+                        verify_projection.verify(source, candidate)
+                    entry[field] = original_value
+
+    def test_both_source_contracts_reject_enabled_gate_with_pending_variants(self):
         for schema in (1, 2):
             with tempfile.TemporaryDirectory() as temporary, self.subTest(schema=schema):
                 root = Path(temporary)

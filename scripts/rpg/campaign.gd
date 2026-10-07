@@ -270,6 +270,8 @@ func use_item_outside(item_id: String, target_id: String) -> Dictionary:
 	if not _outside() or not _safe.roster.has(target_id): return _fail("当前无法对该角色使用战外道具")
 	var item: Dictionary = _catalog.get_definition("items", item_id)
 	if item.is_empty() or _safe.inventory.get(item_id, 0) < 1: return _fail("道具未知或库存不足")
+	var restriction := item_outside_restriction(item_id)
+	if not restriction.is_empty(): return _fail(restriction)
 	var target: Dictionary = _safe.roster[target_id]
 	if (item.target_rule == "fallen_ally") != (target.hp == 0): return _fail("道具不能用于当前存活/倒地目标")
 	var candidate := safe_snapshot()
@@ -281,6 +283,12 @@ func use_item_outside(item_id: String, target_id: String) -> Dictionary:
 	_clear_battle_state(candidate.roster[target_id])
 	candidate.inventory[item_id] -= 1
 	return _commit(candidate)
+
+func item_outside_restriction(item_id: String) -> String:
+	# 回合护盾在持久档中会清除，不能让战外预览产生可消费的假收益。
+	for effect in _catalog.get_definition("items", item_id).get("effects", []):
+		if effect.get("type", "") == "shield": return "护盾道具只能在战斗中使用"
+	return ""
 
 func set_party(actor_ids: Array[String]) -> Dictionary:
 	if not _preparing() or actor_ids.size() != 3: return _fail("准备/休息点需选择三名不同队员")

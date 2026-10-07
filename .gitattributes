@@ -1,0 +1,5 @@
+# 技能登记收据校验原字节 SHA256，Windows checkout 也必须保持批准的 LF。
+/assets/effects/imagegen_spells/*/manifest.json text eol=lf
+# 批准剧情按原字节核验，Windows不能把源对白/大纲自动转成CRLF。
+/docs/story/review/v1/逢魔退治帖_七章完整对白_v1.txt text eol=lf
+/docs/story/review/v1/逢魔退治帖_第二至七章分场大纲_v1.txt text eol=lf

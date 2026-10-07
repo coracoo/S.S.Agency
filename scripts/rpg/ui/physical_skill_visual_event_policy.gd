@@ -1,6 +1,6 @@
 # 十六视觉形态的纯事件策略；不访问 Node/纹理，不结算数值，也不修改传入状态。
 # context_from_result 必须在 submit 后使用真正的 submit 前快照及当时 catalog.skill_for 派生值。
-# begin/consume/finish 与现 caster policy 并列；loader已校验声明，正式renderer仍须独立接线验收。
+# begin/consume/finish 与 caster policy 并列接入renderer；loader与真实队列分别校验声明和生命周期。
 extends RefCounted
 
 const Forms = preload("res://scripts/rpg/dual_form.gd")

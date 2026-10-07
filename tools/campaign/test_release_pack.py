@@ -2,6 +2,7 @@
 import hashlib
 import importlib.util
 import json
+import shutil
 from pathlib import Path
 import struct
 import tempfile
@@ -156,7 +157,7 @@ class PackTests(unittest.TestCase):
                     continue
                 target = root / name
                 target.parent.mkdir(parents=True, exist_ok=True)
-                target.symlink_to(self.module.PROJECT / name)
+                shutil.copyfile(self.module.PROJECT / name, target)
             expected = {"assets/ui/night_menu/" + name + ".png"
                         for name in ("panel", "gauge_track", "gauge_hp", "gauge_mp")}
             excluded = {"assets/ui/night_menu/source/unapproved.png",

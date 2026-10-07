@@ -36,7 +36,7 @@ func _run() -> void:
 	for skill in registry.effects:
 		for form in registry.effects[skill].get("variants", {"":registry.effects[skill]}):
 			var blocked: Dictionary = Effects.load_effect(skill, Effects.REGISTRY, false, form)
-			check(not blocked.ok and blocked.reason == "production_disabled", skill + " 保持生产关闭")
+			check(blocked.ok, skill + " 已验收生产加载")
 			var effect: Dictionary = Effects.load_effect(skill, Effects.REGISTRY, true, form)
 			check(effect.ok, skill + " 可显式预览")
 			if not effect.ok: continue

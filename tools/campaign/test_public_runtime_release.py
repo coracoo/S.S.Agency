@@ -69,7 +69,7 @@ class PublicRuntimeRelease(unittest.TestCase):
         folder = ROOT / "assets/effects/imagegen_spells"
         registry = json.loads((folder / "registry.json").read_text())
         self.assertEqual(2, registry["schema_version"])
-        self.assertIs(registry["production_renderer_enabled"], False)
+        self.assertIs(registry["production_renderer_enabled"], True)
         released = release.imagegen_effect_sources(ROOT)
         self.assertNotIn("assets/effects/imagegen_spells/qa_acceptance.json", released)
         if STRICT_CANDIDATE:
@@ -102,7 +102,7 @@ class PublicRuntimeRelease(unittest.TestCase):
                     self.assertEqual({"phase", "event_type", "requires", "lifetime", "activation_frames", "loop_frames", "target", "endpoints"}, set(layer))
                 self.assertFalse(set(value.get("placement", {})) - {"cast", "travel_origin", "travel_target", "travel_mode"})
                 self.assertIs(entry["approved_for_runtime"], True)
-                self.assertIs(entry["gameplay_qa_pending"], True)
+                self.assertIs(entry["gameplay_qa_pending"], False)
                 for frame in value["frames"]:
                     self.assertEqual({"frame", "phase", "recovery_tail", "anchor_runtime_px", "atlas_native_xywh", "nominal_duration_ms"}, set(frame))
                 atlas = folder / value["runtime_atlas"]

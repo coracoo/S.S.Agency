@@ -1,6 +1,9 @@
 # 旧敌方素材的表现适配器：和高清人物共用顺序队列，不读取或结算 HP。
 extends Node2D
+signal presentation_position_changed
 const Kit = preload("res://scripts/rpg/ui/ui_kit.gd")
+const ATTACK_SECONDS := 0.36
+const DEFEAT_SECONDS := 0.60
 var visual: Node2D
 var feedback_label := Label.new()
 var _facing := 1
@@ -11,11 +14,25 @@ var _action: StringName = &""
 var _remaining := 0.0
 var _duration := 0.0
 var _feedback_remaining := 0.0
-func configure(sprite: Node2D, height: float, native_facing: String, toward_right: bool) -> void:
+var _actor_side := "player"
+var _defeat_pending := false
+var _generation := 0
+var _attack_profile := {"style":"melee", "tint":Color.WHITE}
+func configure(sprite: Node2D, height: float, native_facing: String, toward_right: bool, actor_side: String = "player") -> void:
+	Kit.init()
+	_down = false
+	_actor_side = actor_side
+	cancel_action()
+	if is_instance_valid(visual) and visual != sprite:
+		remove_child(visual)
+		visual.queue_free()
 	visual = sprite
-	add_child(visual)
+	if visual.get_parent() != self: add_child(visual)
 	visual.set_meta("source_facing", native_facing)
 	visual.position = Vector2.ZERO
+	visual.modulate = Color.WHITE
+	_attack_profile = {"style":"melee", "tint":Color.WHITE}
+	show()
 	_facing = 1 if toward_right else -1
 	Kit.face_actor(visual, toward_right)
 	feedback_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -27,30 +44,65 @@ func configure(sprite: Node2D, height: float, native_facing: String, toward_righ
 	feedback_label.add_theme_color_override("font_outline_color", Color(0.08, 0.07, 0.08))
 	feedback_label.add_theme_constant_override("outline_size", 6)
 	feedback_label.hide()
-	add_child(feedback_label)
+	if feedback_label.get_parent() != self: add_child(feedback_label)
+	presentation_position_changed.emit()
+# action_started发生在play_action之后；只替换当前样式，不重置0.36秒动作时钟。
+func configure_attack_presentation(profile: Dictionary) -> void:
+	var style := str(profile.get("style", "melee"))
+	if style not in ["melee", "ranged", "cast"]: style = "melee"
+	var tint: Variant = profile.get("tint", Color.WHITE)
+	_attack_profile = {"style":style, "tint":tint if tint is Color else Color.WHITE}
+	if _action == &"attack" and _remaining > 0:
+		_apply_attack_pose()
+		presentation_position_changed.emit()
 func play_action(action: StringName) -> bool:
 	if _down and action != &"recover": return false
-	if action == &"recover": _down = false
+	if action == &"recover": set_downed(false)
 	_action = action
-	_duration = 0.36 if action == &"attack" else 0.2
+	_duration = ATTACK_SECONDS if action == &"attack" else 0.2
 	_remaining = _duration
 	return true
 func set_downed(value: bool) -> void:
+	if _down == value: return
 	_down = value
-	if value: cancel_action()
+	if value and _actor_side == "enemy": _start_defeat()
+	else: cancel_action()
 func set_downed_after_hit() -> void:
-	if _action == &"hit" and _remaining>0: _down=true
+	if _down: return
+	if _action == &"hit" and _remaining>0:
+		_down = true
+		_defeat_pending = _actor_side == "enemy"
 	else: set_downed(true)
 func is_downed() -> bool: return _down
 func is_action_busy() -> bool: return _remaining > 0
 func action_timeout() -> float: return 1.0
+func presentation_generation() -> int: return _generation
 func cancel_action() -> void:
+	_generation += 1
+	_defeat_pending = false
+	_action = &""
 	_remaining = 0.0
 	if is_instance_valid(visual):
 		visual.position = Vector2.ZERO
 		visual.modulate = _resting_tint()
 	_feedback_remaining = 0.0
 	feedback_label.hide()
+	# 取消表现对齐既成倒地；同一死者再次快照同步不能重新闪烁或显形。
+	visible = not (_down and _actor_side == "enemy")
+	presentation_position_changed.emit()
+func _start_defeat() -> void:
+	_defeat_pending = false
+	_action = &"down"
+	_duration = DEFEAT_SECONDS
+	_remaining = _duration
+	visual.position = Vector2.ZERO
+	visual.modulate = _resting_tint()
+	presentation_position_changed.emit()
+func _apply_attack_pose() -> void:
+	var wave := sin((1.0 - _remaining / _duration) * PI)
+	var style: String = _attack_profile.style
+	visual.position.x = wave * (-16.0 if style == "ranged" else (-5.0 if style == "cast" else 38.0)) * _facing
+	visual.modulate = Color.WHITE.lerp(_attack_profile.tint, wave * (0.8 if style == "cast" else 0.25))
 func _resting_tint() -> Color:
 	return Color(0.4,0.4,0.4,0.55) if _down and not parent_controls_defeat_tint else Color.WHITE
 func show_feedback(text: String, color: Color) -> void:
@@ -66,9 +118,17 @@ func _process(delta: float) -> void:
 	if _remaining <= 0: return
 	_remaining = maxf(0, _remaining - delta)
 	var wave := sin((1.0 - _remaining / _duration) * PI)
-	if _action == &"attack": visual.position.x = wave * 30 * _facing
+	if _action == &"attack": _apply_attack_pose()
 	elif _action == &"hit": visual.modulate = Color.WHITE.lerp(Color(1.0, 0.45, 0.35), wave)
 	elif _action == &"defend": visual.modulate = Color.WHITE.lerp(Color(0.6, 0.8, 1.0), wave)
+	elif _action == &"down" and _actor_side == "enemy":
+		visual.modulate = _resting_tint()
+		visual.modulate.a *= 0.08 if floori((_duration - _remaining) / 0.10) % 2 == 1 else 1.0
 	if _remaining <= 0:
 		visual.position = Vector2.ZERO
 		visual.modulate = _resting_tint()
+		if _defeat_pending:
+			_start_defeat()
+			return
+		if _action == &"down" and _actor_side == "enemy": hide()
+	presentation_position_changed.emit()

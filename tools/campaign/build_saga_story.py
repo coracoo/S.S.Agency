@@ -515,7 +515,7 @@ def build_content():
         for effects in [scene['effects']]+[c['effects'] for c in scene['choices']]:
             for key,value in effects.items():
                 all_flags.setdefault(key,False if isinstance(value,bool) else '')
-    return {'schema_version':1,'title':'逢魔退治帖：七章连续主线','source':str(SOURCE.relative_to(ROOT)),
+    return {'schema_version':1,'title':'逢魔退治帖：七章连续主线','source':SOURCE.relative_to(ROOT).as_posix(),
         'source_sha256':APPROVED_SHA,'outline_sha256':hashlib.sha256(OUTLINE.read_bytes()).hexdigest(),
         'contract':{'conditions':'AND 等值；缺失布尔=false；done: 与 battle:由模型派生',
             'flow':'lines → choice.lines → confirmation → battle → after_lines → followup_lines → effects',

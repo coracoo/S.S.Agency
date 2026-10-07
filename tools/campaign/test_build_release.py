@@ -14,7 +14,7 @@ class ReleaseRunnerTests(unittest.TestCase):
 
     def test_packed_command_has_only_empty_project_and_external_test(self):
         command = self.module.packed_command("godot", Path("/tmp/empty"), Path("/tmp/game.pck"), Path("/tmp/test.gd"))
-        self.assertEqual(["godot", "--headless", "--path", "/tmp/empty", "--main-pack", "/tmp/game.pck", "--script", "/tmp/test.gd"], command)
+        self.assertEqual(["godot", "--headless", "--path", str(Path("/tmp/empty")), "--main-pack", str(Path("/tmp/game.pck")), "--script", str(Path("/tmp/test.gd"))], command)
 
     def test_isolation_accepts_only_one_actual_subdirectory_marker(self):
         with tempfile.TemporaryDirectory() as directory:

@@ -12,11 +12,15 @@ func _run() -> void:
 	var loader = load("res://scripts/rpg/ui/imagegen_effect_manifest.gd")
 	check(loader != null,"独立imagegen清单加载器存在")
 	if loader != null:
+		var disabled: Dictionary = loader._json(loader.REGISTRY)
+		disabled.production_renderer_enabled=false
+		var gate_file := FileAccess.open("user://disabled_effect_registry.json",FileAccess.WRITE)
+		gate_file.store_string(JSON.stringify(disabled));gate_file.close()
 		for skill in ["firebolt","flame_wave","ice_arrow","burn_brand","heal","group_heal","cleanse","holy_shield","weaken","slow","seal","magic_break"]:
-			var blocked: Dictionary = loader.load_effect(skill)
+			var blocked: Dictionary = loader.load_effect(skill,"user://disabled_effect_registry.json")
 			check(not blocked.ok and blocked.reason=="production_disabled","素材存在不等于生产呈现已经通过："+skill)
-			var effect: Dictionary = loader.load_effect(skill,loader.REGISTRY,true)
-			check(effect.ok,"技术QA批准的素材可在明确预览加载："+skill)
+			var effect: Dictionary = loader.load_effect(skill,loader.REGISTRY,false)
+			check(effect.ok,"已验收素材正式加载，不依赖预览绕过："+skill)
 			if not effect.ok: continue
 			decoded_bytes += int(effect.texture_bytes)
 			check(int(effect.texture_bytes)==effect.frames.size()*256*256*4,"原RGBA解码内存与已登记帧数相符")

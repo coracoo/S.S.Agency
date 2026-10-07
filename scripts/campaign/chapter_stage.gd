@@ -23,6 +23,8 @@ const Router = preload("res://scripts/rpg/encounter_router.gd")
 const Kit = preload("res://scripts/rpg/ui/ui_kit.gd")
 const Art = preload("res://scripts/campaign/presentation/night_menu_art.gd")
 const ThemeData = preload("res://scripts/ui/theme.gd")
+const EXPLORATION_CONTROLS := "WASD 行走 · Shift 跑步 · 空格 原地跳跃\nE 互动 · Tab 换领队 · M 地图"
+const CONTROL_HELP := "WASD 行走；按住 Shift 跑步；空格原地短跳。\n短跳不会越过门墙或地形边界。\nE 互动；Tab 换领队；M 地图；Esc 菜单。\n关闭菜单后，先松开移动、跑步和跳跃键，再重新操作。"
 @export var night_id := 1
 @export var hd2d_experiment := true
 var _hd2d_profile: Node3D
@@ -728,6 +730,7 @@ func _build_hud() -> void:
 	for tool in [_hud.map, _hud.pause]:
 		tool.focus_mode = Control.FOCUS_NONE
 		tool.add_theme_font_size_override("font_size", 20)
+		tool.tooltip_text = CONTROL_HELP
 	_hud.prompt_panel = Art.panel(root, Rect2(638, 956, 644, 94), true)
 	_hud.prompt = Kit.label(root, "", Rect2(664, 978, 592, 48), 23)
 	_hud.prompt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -791,7 +794,7 @@ func _refresh_hud() -> void:
 			_hud.prompt.add_theme_color_override("font_color", Kit.color("ui_focus"))
 			_hud.prompt.text = "E  ·  与" + str(target.label) + "交谈" if target.kind == "npc" else "E  ·  " + str(target.label)
 		elif _tutorial_remaining > 0.0:
-			_hud.prompt.text = "WASD 行走 · Shift 跑步 · Space 短跳\nE 互动 · Tab 换领队 · M 地图"
+			_hud.prompt.text = EXPLORATION_CONTROLS
 			_hud.prompt.add_theme_color_override("font_color", Kit.color("ui_muted"))
 			_hud.prompt.modulate.a = minf(1.0, _tutorial_remaining / 1.5)
 			_hud.prompt_panel.modulate.a = _hud.prompt.modulate.a

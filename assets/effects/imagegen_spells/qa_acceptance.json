@@ -1,0 +1,274 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-08",
+  "scope": "28变体真实事件renderer接入与离屏合成，非七章人工GUI全通",
+  "source_commit": "7770411d623e8dc4d5f8efccfd33eb976063fb12",
+  "working_tree_changes": true,
+  "variants": [
+    {
+      "ability_id": "firebolt",
+      "form": "",
+      "manifest": "res://assets/effects/imagegen_spells/firebolt/manifest.json",
+      "manifest_sha256": "6a5cecd39b858bb3595649e05b88f1c185d6e398f017a4990d7d03ac5a28defd",
+      "atlas_sha256": "81f4f42df53315c743d7ab7ad4d8a51b6fc07f508e422739e6c1c44c9eb3076b",
+      "frame_count": 12
+    },
+    {
+      "ability_id": "flame_wave",
+      "form": "",
+      "manifest": "res://assets/effects/imagegen_spells/flame_wave/manifest.json",
+      "manifest_sha256": "538909cc19d0bd5634e0168e5f54149831cba609ac84996a32b47fd39e2ddb84",
+      "atlas_sha256": "703d7ec835a41009ee9c946d61e2ded252383400c52ca7a66612c094e585befa",
+      "frame_count": 12
+    },
+    {
+      "ability_id": "ice_arrow",
+      "form": "",
+      "manifest": "res://assets/effects/imagegen_spells/ice_arrow/manifest.json",
+      "manifest_sha256": "5216ca26b3f6f9e46e861ac6f871f07994931725c58870e335244612490f932b",
+      "atlas_sha256": "973e762e2f6a69303d23e230f48d31619144ba2a93bae5758f998d3596b5a8bc",
+      "frame_count": 16
+    },
+    {
+      "ability_id": "burn_brand",
+      "form": "",
+      "manifest": "res://assets/effects/imagegen_spells/burn_brand/manifest.json",
+      "manifest_sha256": "c6ead7fa245cd92f87d7d56c15f5fc97a6e0cb08dea8b36c18d46e358d34b294",
+      "atlas_sha256": "eb4b81719a5813a5c71d5004608fdfb337c1fca83533daf72c8590eeedaf6c53",
+      "frame_count": 16
+    },
+    {
+      "ability_id": "heal",
+      "form": "",
+      "manifest": "res://assets/effects/imagegen_spells/heal/manifest.json",
+      "manifest_sha256": "40f8907043a136d1a21e5d103cc9ce65eff5450baeda02caa47952d5fb11a927",
+      "atlas_sha256": "e2375e60e3b677b3069624381467922ecef3633136929e9286898281f740668d",
+      "frame_count": 16
+    },
+    {
+      "ability_id": "group_heal",
+      "form": "",
+      "manifest": "res://assets/effects/imagegen_spells/group_heal/manifest.json",
+      "manifest_sha256": "93802579176e368a91f86713d0f847707d8d6cd957e97eaa16811ec51ed32b86",
+      "atlas_sha256": "c8ace0021461d9dc22991fe852a5737a1e69f6b5532b1c0d949960a8b7aac763",
+      "frame_count": 12
+    },
+    {
+      "ability_id": "cleanse",
+      "form": "",
+      "manifest": "res://assets/effects/imagegen_spells/cleanse/manifest.json",
+      "manifest_sha256": "3cae360a4cdfd19145008ea7a9a9d8f3f250f67357b75edd5696fb9506706df6",
+      "atlas_sha256": "e1388bd968cf7bac1fb97dbffade5b5545fe7dd2abbf72d9859699f776ea2b6a",
+      "frame_count": 16
+    },
+    {
+      "ability_id": "holy_shield",
+      "form": "",
+      "manifest": "res://assets/effects/imagegen_spells/holy_shield/manifest.json",
+      "manifest_sha256": "2c4dc1dad6ce88234b4dd42a5c328cbc94075c7e7e58938c7ddf4b8761ef14b0",
+      "atlas_sha256": "397d11916057e683fd344a13fbecb20d915ed487259a135f6daeb569f07d0610",
+      "frame_count": 16
+    },
+    {
+      "ability_id": "weaken",
+      "form": "",
+      "manifest": "res://assets/effects/imagegen_spells/weaken/manifest.json",
+      "manifest_sha256": "8a47fa9795fe1233ade6ac5633a01b57088336accac6441ed0e8e7eb675898c6",
+      "atlas_sha256": "3b912a6f8e96c10c5d289329b9f7d5f5ec88ae5540f5654bd95e077ec165bcf4",
+      "frame_count": 16
+    },
+    {
+      "ability_id": "slow",
+      "form": "",
+      "manifest": "res://assets/effects/imagegen_spells/slow/manifest.json",
+      "manifest_sha256": "3c3c1301dc1e1a730d16ad964e4c9c09c365b7f60e438d6eaf4b5e222b8dd549",
+      "atlas_sha256": "c4c7c8c49e182d38b48b23afbf453224b981dc15bd29bb268faf5cdeea28576f",
+      "frame_count": 16
+    },
+    {
+      "ability_id": "seal",
+      "form": "",
+      "manifest": "res://assets/effects/imagegen_spells/seal/manifest.json",
+      "manifest_sha256": "76607695c340dc9c161dc5133754219d06158e70b2b2a4a351dec2236c86ada9",
+      "atlas_sha256": "a63abff0b442093bc6bf62e4112b1fe565d5b26111f973cbaae188129536d90f",
+      "frame_count": 16
+    },
+    {
+      "ability_id": "magic_break",
+      "form": "",
+      "manifest": "res://assets/effects/imagegen_spells/magic_break/manifest.json",
+      "manifest_sha256": "9e86aaf6bcf84113fd59ebbed9362c3e98680a7851e25e26566260d182ada81e",
+      "atlas_sha256": "dc4dc7e0deb8324ef62ad1f250e1d4c3848e36fcd28107be6f20ca0769912f41",
+      "frame_count": 16
+    },
+    {
+      "ability_id": "heavy_slash",
+      "form": "rinne",
+      "manifest": "res://assets/effects/imagegen_spells/rinne-heavy_slash/manifest.json",
+      "manifest_sha256": "e3f739aa3ad92f38e58bc4738991b492f8956aaaa44b10e043c1325b14a470d5",
+      "atlas_sha256": "fcf4e1aea2686ad582b82b7485b62626c62fa95bfc5fb6288953d97b2f5ab932",
+      "frame_count": 16
+    },
+    {
+      "ability_id": "heavy_slash",
+      "form": "homura_sword",
+      "manifest": "res://assets/effects/imagegen_spells/homura_sword-heavy_slash/manifest.json",
+      "manifest_sha256": "b7e7f28685a687f1dccf12cdef5ac8698161e04d8ea9484b13b40a0a37275f34",
+      "atlas_sha256": "b9c93c51f87a57fec689332cec0a39793af3059631f02cd6c2b79f35d06f5781",
+      "frame_count": 16
+    },
+    {
+      "ability_id": "armor_break",
+      "form": "rinne",
+      "manifest": "res://assets/effects/imagegen_spells/rinne-armor_break/manifest.json",
+      "manifest_sha256": "55101bfc1a1ed6b0e4260bde6fcd676a0d8899299b94be00af164a612e013e42",
+      "atlas_sha256": "02d8cba8edec9528cb1273c83cfc00c953995d5d00b63aa1a2ebee75a74b3886",
+      "frame_count": 16
+    },
+    {
+      "ability_id": "armor_break",
+      "form": "homura_sword",
+      "manifest": "res://assets/effects/imagegen_spells/homura_sword-armor_break/manifest.json",
+      "manifest_sha256": "99e06f75e831d4d00a8c9d8132603a0e1629c89e1ff6ae4d832885153db56a8c",
+      "atlas_sha256": "9abc4b4443e7454b265f11a4d3573eb912684b9780342ed08b3c987c7d0bdb0f",
+      "frame_count": 16
+    },
+    {
+      "ability_id": "sweep",
+      "form": "rinne",
+      "manifest": "res://assets/effects/imagegen_spells/rinne-sweep/manifest.json",
+      "manifest_sha256": "3f6e9b9cb32c295bb30588ffe8fa0fc595bbb3372f8a09179fb0c315eec42e1a",
+      "atlas_sha256": "e974bba0b531b7e79d7e4118e4276c92935cee45b702cbf2c27de0aceed7966f",
+      "frame_count": 16
+    },
+    {
+      "ability_id": "sweep",
+      "form": "homura_sword",
+      "manifest": "res://assets/effects/imagegen_spells/homura_sword-sweep/manifest.json",
+      "manifest_sha256": "db758992d0f094d2f7e74f6c26e337998a4df01783c30070414ebc4dc01e2312",
+      "atlas_sha256": "794e9bb72c0fd393dfe2629c8c1fbdfc4f8468f1bae8abac1c904d8d23b1ac18",
+      "frame_count": 16
+    },
+    {
+      "ability_id": "battle_spirit",
+      "form": "rinne",
+      "manifest": "res://assets/effects/imagegen_spells/rinne-battle_spirit/manifest.json",
+      "manifest_sha256": "1f406d1570e98639c3bd93f087f17b6ebff5985fcb230d614532ad3fdc623dd3",
+      "atlas_sha256": "c1756fb2686f1fe8a46360032eed806751f261892a3a4346845d044ad2259000",
+      "frame_count": 16
+    },
+    {
+      "ability_id": "battle_spirit",
+      "form": "homura_sword",
+      "manifest": "res://assets/effects/imagegen_spells/homura_sword-battle_spirit/manifest.json",
+      "manifest_sha256": "d6b1d6f4498ec7e1c470db6ac14226607d618743ce91b61158910fb45ac0a80f",
+      "atlas_sha256": "4ae8a79434e1fd99bbefade75b3b0741eb0887db50e7db9a4bf75ab01ab9dd4f",
+      "frame_count": 16
+    },
+    {
+      "ability_id": "cover",
+      "form": "guard",
+      "manifest": "res://assets/effects/imagegen_spells/cover/manifest.json",
+      "manifest_sha256": "52c40b7657200670273efc2c5cd8db21aa149b805d920c4031d67f745a7e41cf",
+      "atlas_sha256": "eea7ba89d4f65a3ea6205b062ab093dc1b1b00809c0005dbc31af681befe187b",
+      "frame_count": 16
+    },
+    {
+      "ability_id": "shield_bash",
+      "form": "guard",
+      "manifest": "res://assets/effects/imagegen_spells/shield_bash/manifest.json",
+      "manifest_sha256": "3d7a7a72e8a632883352961ff3e74e6d9ecc3490dba07c3211bc553e1cff59dc",
+      "atlas_sha256": "1b9de7ed66088cdd915e7e4d44a90dadab2b2a09855182b85e6454cd00225083",
+      "frame_count": 16
+    },
+    {
+      "ability_id": "iron_wall",
+      "form": "guard",
+      "manifest": "res://assets/effects/imagegen_spells/iron_wall/manifest.json",
+      "manifest_sha256": "070bc57425b2e08cb69048ddde837afc65d390cdb4dc95b0e72dce4a421ad382",
+      "atlas_sha256": "ccd7ea29448e748f6674bb5ec3568788056f8cd6e7a949687db8b75c9d63f7be",
+      "frame_count": 16
+    },
+    {
+      "ability_id": "taunt",
+      "form": "guard",
+      "manifest": "res://assets/effects/imagegen_spells/taunt/manifest.json",
+      "manifest_sha256": "d12507b0c614b6c848d6e85c103a356a677bf0b811c05cdebff905eff79ecb42",
+      "atlas_sha256": "ae922b66f9b278e5bc6c18dce9b42a55ae52847333f5f91be4bb27e27b4a34e2",
+      "frame_count": 16
+    },
+    {
+      "ability_id": "mark",
+      "form": "mint",
+      "manifest": "res://assets/effects/imagegen_spells/mark/manifest.json",
+      "manifest_sha256": "75845d89cdabcb4558a37f99b511bc55a6c4742d38be9e56d3fa39c88c84df2e",
+      "atlas_sha256": "a65bad0bc509f48aabe2604b80fcb0d11555eabcc3d60d7c2becbf7680ea0e93",
+      "frame_count": 16
+    },
+    {
+      "ability_id": "hunt",
+      "form": "mint",
+      "manifest": "res://assets/effects/imagegen_spells/hunt/manifest.json",
+      "manifest_sha256": "ea7e7fb9f1d68e05d6b7ec4a47426e78b54992e8fc56dfa4b0fac16f022f38f7",
+      "atlas_sha256": "261deeeff4991ce8814bd70c03505fbe1c44c2457fcb6ded4146ae6b05281653",
+      "frame_count": 16
+    },
+    {
+      "ability_id": "ambush",
+      "form": "mint",
+      "manifest": "res://assets/effects/imagegen_spells/ambush/manifest.json",
+      "manifest_sha256": "310f1b9da019bed7addf578fa472e507c003b3a04fe3a67905f82525044d2b5c",
+      "atlas_sha256": "91f9f28831a52cb6e06eb15ff40402bfcda64e9eabaaca568ea1c83aa49fcc48",
+      "frame_count": 16
+    },
+    {
+      "ability_id": "smoke_screen",
+      "form": "mint",
+      "manifest": "res://assets/effects/imagegen_spells/smoke_screen/manifest.json",
+      "manifest_sha256": "be99ca45bd2f225961c7d48a0d72875ac0cfe78b2782158ddfaf5b1fef3ae0ea",
+      "atlas_sha256": "ce700ab240c48b42bac8745ec094a468b973665641381f44985d94916fc98e77",
+      "frame_count": 16
+    }
+  ],
+  "evidence_root": "J:\\godot\\ssa-campaign-evidence\\goal-strategy-20261008",
+  "checks": [
+    {
+      "file": "09-physical-policy-final.log",
+      "sha256": "00578ad7cec1183e3f1397d41ce9f7e00e945a62c05a036fb5ffc949f53a4dce"
+    },
+    {
+      "file": "13-review-green.log",
+      "sha256": "1d948900254f311e7358afafb66678b81a2bdc2bab7e95a25e175bd3af6f95fa"
+    },
+    {
+      "file": "14-physical-real-queue.log",
+      "sha256": "3aa41bf5ae4fb9f9cb1fda82ea30f82e4edad9787dcd67dd0efdd938289e0b52"
+    },
+    {
+      "file": "08-skill-capture.log",
+      "sha256": "d1bcb9797fee03299756c88a63211e9a2c4266a08266d18d0b55b9cf3fd6ba15"
+    },
+    {
+      "file": "19-production-runtime.log",
+      "sha256": "c65eec63b5b511e4c7ac74e4fef9b2aee65c4694911f9848e2dbfa3e0979fc87"
+    },
+    {
+      "file": "29-production-battle-clean.log",
+      "sha256": "aaa15c6e91cd7494ac34003d90c12b1716521ff590676b44943b4622ca148065"
+    },
+    {
+      "file": "30-core-runtime-complete.log",
+      "sha256": "fa6e19676412735c0113ead5c5b18c47c786db2733b5511b4be6fde025a04a7d"
+    },
+    {
+      "file": "32-projection-type-green.log",
+      "sha256": "b1c9f8c57bfc073a2c904bbef41852607cb397e073169598871037084d5aec5e"
+    }
+  ],
+  "graphical_samples": 168,
+  "production_renderer_enabled": true,
+  "manual_complete_campaign": "not_run",
+  "artwork_bytes_changed": false,
+  "production_battle_screenshots": 16,
+  "production_battle_capture": "battle-capture-clean"
+}

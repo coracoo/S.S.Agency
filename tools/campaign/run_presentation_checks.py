@@ -5,7 +5,10 @@ import os
 from pathlib import Path
 import re
 import subprocess
+import sys
 import tempfile
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from verification_support import run_captured
 PROJECT = Path(__file__).resolve().parents[2]
 
 def main():
@@ -30,7 +33,7 @@ def main():
         def run(script,headless=True):
             command=[args.godot,*(['--headless'] if headless else ['--rendering-method','gl_compatibility','--audio-driver','Dummy']),'--path',str(PROJECT)]
             if args.pack: command+=['--main-pack',str(args.pack.resolve())]
-            process=subprocess.run(command+['--script',script],env=env,text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+            process=run_captured(command+['--script',script],env=env,timeout=300)
             print(process.stdout,end='',flush=True);logs.append(process.stdout)
             return process.returncode,process.stdout
         code,output=run('res://tools/rpg/test_environment.gd')

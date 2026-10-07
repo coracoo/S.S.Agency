@@ -34,7 +34,7 @@ EFFECT_README = """# 透明技能帧运行资源
 
 本目录只保存登记的运行PNG与最小帧清单。registry版本为2，以manifest_sha256校验各清单；manifest版本为1，以runtime_atlas_sha256校验图集原字节。哈希用于完整性校验，不替代游戏内视觉验收。
 
-production_renderer_enabled保持false，gameplay_qa_pending保持true；素材批准只允许明确预览。播放使用全部登记阶段与帧顺序，atlas_native_xywh乘runtime_scale得到实际区域，anchor_runtime_px保持注册锚，nominal_duration_ms保持时长权重。
+production_renderer_enabled与各变体gameplay_qa_pending严格保留源登记。只有全部变体已完成游戏验收才能开启生产；投影不授予验收、不自行开关功能。播放使用全部登记阶段与帧顺序，atlas_native_xywh乘runtime_scale得到实际区域，anchor_runtime_px保持注册锚，nominal_duration_ms保持时长权重。
 
 required_phases缺省为cast/travel/hit；无伤害技能声明真实阶段。placement与event_layers只保存运行落点、权威事件条件及独立生命周期，不保存制作描述。新增登记不代表完成游戏内呈现。
 
@@ -158,8 +158,9 @@ def sanitize(source: Path, candidate: Path):
     folder = source / "assets/effects/imagegen_spells"
     registry = read(folder / "registry.json")
     source_schema = registry.get("schema_version")
-    if type(source_schema) is not int or source_schema not in (1, 2) or registry.get("production_renderer_enabled") is not False:
-        raise ValueError("只接受仍关闭生产门禁的源registry v1/v2")
+    enabled = registry.get("production_renderer_enabled")
+    if type(source_schema) is not int or source_schema not in (1, 2) or type(enabled) is not bool:
+        raise ValueError("源registry v1/v2必须明确声明布尔生产状态")
     if source_schema == 1 and registry.get("generation_route") != "image_gen.imagegen":
         raise ValueError("源素材路线不符")
     receipt_verified, integrity_verified = [], []
@@ -173,8 +174,9 @@ def sanitize(source: Path, candidate: Path):
         manifest = read(path)
         if manifest.get("skill_id") != skill or (form and manifest.get("form_id") != form):
             raise ValueError("源技能清单不符")
-        if entry.get("approved_for_runtime") is not True or entry.get("gameplay_qa_pending") is not True:
-            raise ValueError("源技能批准状态改变")
+        pending = entry.get("gameplay_qa_pending")
+        if entry.get("approved_for_runtime") is not True or type(pending) is not bool or enabled and pending:
+            raise ValueError("源技能未批准，或生产开启时仍有待验收变体")
         if "manifest_sha256" in entry and entry["manifest_sha256"] != sha(path):
             raise ValueError("源技能清单登记哈希不匹配：" + skill)
         if source_schema == 1 or "qa_receipt" in entry:
@@ -258,7 +260,7 @@ def sanitize(source: Path, candidate: Path):
     for name in sorted(removed):
         (candidate / name).unlink(missing_ok=True)
     return {"characters":characters, "effects":effects, "changed_metadata":sorted(writes), "omitted_paths":sorted(removed),
-            "atlas_sha256":dict(sorted(atlas_hashes.items())), "production_renderer_enabled":False,
+            "atlas_sha256":dict(sorted(atlas_hashes.items())), "production_renderer_enabled":enabled,
             "source_registry_schema":source_schema, "source_receipts_verified":len(receipt_verified) == len(effects),
             "source_receipt_verified_skills":sorted(receipt_verified),
             "source_integrity_verified_skills":sorted(integrity_verified), "runtime_atlas_bytes_identical":True}
