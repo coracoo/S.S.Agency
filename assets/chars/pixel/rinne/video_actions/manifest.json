@@ -18,7 +18,7 @@
   "mirror_allowed": true,
   "layers": [],
   "portrait_source_manifest": "res://assets/chars/pixel/rinne/high_detail_complete/manifest.json",
-  "status": "video_actions_exact_runtime_pixels_restored",
+  "status": "video_actions_reviewed_runtime_revisions",
   "anims": {
     "idle": {
       "frames": [
@@ -264,133 +264,44 @@
     },
     "attack": {
       "frames": [
-        "attack_001",
-        "attack_002",
-        "attack_003",
-        "attack_004",
-        "attack_005",
-        "attack_006",
-        "attack_007",
-        "attack_008",
-        "attack_009",
-        "attack_010",
-        "attack_011",
-        "attack_012",
-        "attack_013",
-        "attack_014",
-        "attack_015",
-        "attack_016",
-        "attack_017",
-        "attack_018",
-        "attack_019",
-        "attack_020",
-        "attack_021",
-        "attack_022",
-        "attack_023",
-        "attack_024",
-        "attack_025",
-        "attack_026",
-        "attack_027",
-        "attack_028",
-        "attack_029",
-        "attack_030",
-        "attack_031",
-        "attack_032",
-        "attack_033",
-        "attack_034",
-        "attack_035",
-        "attack_036",
-        "attack_037",
-        "attack_038",
-        "attack_039",
-        "attack_040",
-        "attack_041",
-        "attack_042",
-        "attack_043",
-        "attack_044",
-        "attack_045",
-        "attack_046",
-        "attack_047",
-        "attack_048",
-        "attack_049",
-        "attack_050",
-        "attack_051",
-        "attack_052",
-        "attack_053",
-        "attack_054",
-        "attack_055",
-        "attack_056",
-        "attack_057",
-        "attack_058",
-        "attack_059",
-        "attack_060",
-        "attack_061",
-        "attack_062",
-        "attack_063",
-        "attack_064",
-        "attack_065",
-        "attack_066",
-        "attack_067",
-        "attack_068",
-        "attack_069",
-        "attack_070",
-        "attack_071",
-        "attack_072",
-        "attack_073",
-        "attack_074",
-        "attack_075",
-        "attack_076",
-        "attack_077",
-        "attack_078",
-        "attack_079",
-        "attack_080",
-        "attack_081",
-        "attack_082",
-        "attack_083",
-        "attack_084",
-        "attack_085",
-        "attack_086",
-        "attack_087",
-        "attack_088",
-        "attack_089",
-        "attack_090",
-        "attack_091",
-        "attack_092",
-        "attack_093",
-        "attack_094",
-        "attack_095",
-        "attack_096",
-        "attack_097"
+        "attack_clean_005",
+        "attack_clean_006",
+        "attack_clean_007",
+        "attack_clean_008",
+        "attack_clean_009",
+        "attack_clean_010",
+        "attack_clean_015",
+        "attack_clean_016",
+        "attack_clean_017",
+        "attack_clean_018",
+        "attack_clean_019",
+        "attack_clean_020",
+        "attack_clean_021",
+        "attack_clean_022",
+        "attack_clean_027",
+        "attack_clean_028",
+        "attack_clean_029",
+        "attack_clean_030",
+        "attack_clean_031",
+        "attack_clean_032",
+        "attack_clean_033",
+        "attack_clean_067",
+        "attack_clean_068",
+        "attack_clean_069",
+        "attack_clean_070",
+        "attack_clean_071",
+        "attack_clean_072",
+        "attack_clean_073",
+        "attack_clean_074",
+        "attack_clean_075",
+        "attack_clean_076",
+        "attack_clean_077",
+        "attack_clean_078",
+        "attack_clean_079",
+        "attack_clean_080",
+        "attack_clean_081"
       ],
       "durations_ms": [
-        20.833333333333332,
-        20.833333333333332,
-        20.833333333333332,
-        20.833333333333332,
-        20.833333333333332,
-        20.833333333333332,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
         41.666666666666664,
         41.666666666666664,
         41.666666666666664,
@@ -410,59 +321,28 @@
         41.666666666666664,
         41.666666666666664,
         41.666666666666664,
-        20.833333333333332,
-        20.833333333333332,
-        20.833333333333332,
-        20.833333333333332,
-        20.833333333333332,
-        20.833333333333332,
-        20.833333333333332,
-        20.833333333333332,
-        20.833333333333332,
-        20.833333333333332,
-        20.833333333333332,
-        20.833333333333332,
-        20.833333333333332,
-        20.833333333333332,
-        20.833333333333332,
-        20.833333333333332,
-        20.833333333333332,
-        20.833333333333332,
-        20.833333333333332,
-        20.833333333333332,
-        20.833333333333332,
-        20.833333333333332,
-        20.833333333333332,
-        27.77777777777778,
-        27.77777777777778,
-        27.77777777777778,
-        27.77777777777778,
-        27.77777777777778,
-        27.77777777777778,
-        27.77777777777778,
-        27.77777777777778,
-        27.77777777777778,
-        27.77777777777778,
-        27.77777777777778,
-        27.77777777777778,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889,
-        13.88888888888889
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664
       ],
       "loop": false,
-      "impact_ms": 847.2222222222222
+      "impact_ms": 708.3333333333333,
+      "clean_body": true,
+      "independent_ghost_ready": true
     },
     "hit": {
       "frames": [
@@ -835,6 +715,26 @@
       "events": {
         "pickup": 309.30232558139534
       }
+    },
+    "battle_dash": {
+      "frames": [
+        "battle_dash_001",
+        "battle_dash_002",
+        "battle_dash_003",
+        "battle_dash_004",
+        "battle_dash_005"
+      ],
+      "durations_ms": [
+        40.0,
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "loop": false,
+      "qa_approved": true,
+      "clean_body": true,
+      "independent_ghost_ready": false
     }
   },
   "packed_frames": {
@@ -2774,1655 +2674,6 @@
       "offset": [
         873,
         998
-      ]
-    },
-    "attack_001": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1991,
-        1853
-      ],
-      "region": [
-        1484,
-        1392,
-        293,
-        458
-      ],
-      "offset": [
-        871,
-        988
-      ]
-    },
-    "attack_002": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_01.png",
-      "atlas_size": [
-        2016,
-        2002
-      ],
-      "region": [
-        675,
-        1533,
-        295,
-        461
-      ],
-      "offset": [
-        871,
-        988
-      ]
-    },
-    "attack_003": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
-      "atlas_size": [
-        2001,
-        1812
-      ],
-      "region": [
-        1644,
-        2,
-        309,
-        455
-      ],
-      "offset": [
-        874,
-        990
-      ]
-    },
-    "attack_004": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
-      "atlas_size": [
-        2001,
-        1812
-      ],
-      "region": [
-        1316,
-        2,
-        324,
-        455
-      ],
-      "offset": [
-        876,
-        990
-      ]
-    },
-    "attack_005": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
-      "atlas_size": [
-        2001,
-        1812
-      ],
-      "region": [
-        2,
-        922,
-        340,
-        447
-      ],
-      "offset": [
-        878,
-        995
-      ]
-    },
-    "attack_006": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
-      "atlas_size": [
-        2001,
-        1812
-      ],
-      "region": [
-        978,
-        922,
-        345,
-        442
-      ],
-      "offset": [
-        878,
-        995
-      ]
-    },
-    "attack_007": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
-      "atlas_size": [
-        2001,
-        1812
-      ],
-      "region": [
-        304,
-        1373,
-        286,
-        437
-      ],
-      "offset": [
-        886,
-        1012
-      ]
-    },
-    "attack_008": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
-      "atlas_size": [
-        1897,
-        2027
-      ],
-      "region": [
-        683,
-        2,
-        347,
-        424
-      ],
-      "offset": [
-        843,
-        1030
-      ]
-    },
-    "attack_009": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
-      "atlas_size": [
-        1897,
-        2027
-      ],
-      "region": [
-        683,
-        430,
-        410,
-        414
-      ],
-      "offset": [
-        790,
-        1043
-      ]
-    },
-    "attack_010": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
-      "atlas_size": [
-        1897,
-        2027
-      ],
-      "region": [
-        2,
-        1260,
-        510,
-        395
-      ],
-      "offset": [
-        697,
-        1062
-      ]
-    },
-    "attack_011": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
-      "atlas_size": [
-        1897,
-        2027
-      ],
-      "region": [
-        2,
-        1659,
-        514,
-        366
-      ],
-      "offset": [
-        697,
-        1091
-      ]
-    },
-    "attack_012": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
-      "atlas_size": [
-        1897,
-        2027
-      ],
-      "region": [
-        520,
-        1659,
-        512,
-        364
-      ],
-      "offset": [
-        697,
-        1093
-      ]
-    },
-    "attack_013": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
-      "atlas_size": [
-        2035,
-        1797
-      ],
-      "region": [
-        2,
-        364,
-        506,
-        356
-      ],
-      "offset": [
-        699,
-        1101
-      ]
-    },
-    "attack_014": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
-      "atlas_size": [
-        2035,
-        1797
-      ],
-      "region": [
-        1420,
-        2,
-        508,
-        356
-      ],
-      "offset": [
-        697,
-        1101
-      ]
-    },
-    "attack_015": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
-      "atlas_size": [
-        2035,
-        1797
-      ],
-      "region": [
-        512,
-        364,
-        503,
-        355
-      ],
-      "offset": [
-        697,
-        1102
-      ]
-    },
-    "attack_016": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
-      "atlas_size": [
-        2035,
-        1797
-      ],
-      "region": [
-        1019,
-        364,
-        503,
-        355
-      ],
-      "offset": [
-        697,
-        1102
-      ]
-    },
-    "attack_017": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
-      "atlas_size": [
-        2035,
-        1797
-      ],
-      "region": [
-        1526,
-        364,
-        500,
-        355
-      ],
-      "offset": [
-        697,
-        1102
-      ]
-    },
-    "attack_018": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
-      "atlas_size": [
-        2035,
-        1797
-      ],
-      "region": [
-        2,
-        724,
-        500,
-        355
-      ],
-      "offset": [
-        697,
-        1102
-      ]
-    },
-    "attack_019": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
-      "atlas_size": [
-        2035,
-        1797
-      ],
-      "region": [
-        506,
-        724,
-        491,
-        355
-      ],
-      "offset": [
-        697,
-        1102
-      ]
-    },
-    "attack_020": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
-      "atlas_size": [
-        2035,
-        1797
-      ],
-      "region": [
-        1001,
-        724,
-        491,
-        355
-      ],
-      "offset": [
-        697,
-        1102
-      ]
-    },
-    "attack_021": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
-      "atlas_size": [
-        2035,
-        1797
-      ],
-      "region": [
-        486,
-        1083,
-        486,
-        353
-      ],
-      "offset": [
-        697,
-        1104
-      ]
-    },
-    "attack_022": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
-      "atlas_size": [
-        2035,
-        1797
-      ],
-      "region": [
-        1496,
-        724,
-        486,
-        355
-      ],
-      "offset": [
-        697,
-        1102
-      ]
-    },
-    "attack_023": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
-      "atlas_size": [
-        2035,
-        1797
-      ],
-      "region": [
-        2,
-        2,
-        580,
-        358
-      ],
-      "offset": [
-        597,
-        1104
-      ]
-    },
-    "attack_024": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
-      "atlas_size": [
-        2035,
-        1797
-      ],
-      "region": [
-        2,
-        1442,
-        477,
-        353
-      ],
-      "offset": [
-        697,
-        1104
-      ]
-    },
-    "attack_025": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
-      "atlas_size": [
-        2035,
-        1797
-      ],
-      "region": [
-        483,
-        1442,
-        477,
-        353
-      ],
-      "offset": [
-        697,
-        1104
-      ]
-    },
-    "attack_026": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
-      "atlas_size": [
-        2035,
-        1797
-      ],
-      "region": [
-        2,
-        1083,
-        480,
-        355
-      ],
-      "offset": [
-        697,
-        1102
-      ]
-    },
-    "attack_027": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
-      "atlas_size": [
-        2035,
-        1797
-      ],
-      "region": [
-        976,
-        1083,
-        480,
-        353
-      ],
-      "offset": [
-        697,
-        1104
-      ]
-    },
-    "attack_028": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
-      "atlas_size": [
-        2035,
-        1797
-      ],
-      "region": [
-        1460,
-        1083,
-        480,
-        353
-      ],
-      "offset": [
-        697,
-        1104
-      ]
-    },
-    "attack_029": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
-      "atlas_size": [
-        2035,
-        1797
-      ],
-      "region": [
-        990,
-        2,
-        426,
-        357
-      ],
-      "offset": [
-        751,
-        1101
-      ]
-    },
-    "attack_030": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
-      "atlas_size": [
-        1897,
-        2027
-      ],
-      "region": [
-        1382,
-        1659,
-        391,
-        360
-      ],
-      "offset": [
-        788,
-        1097
-      ]
-    },
-    "attack_031": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
-      "atlas_size": [
-        2001,
-        1812
-      ],
-      "region": [
-        346,
-        922,
-        628,
-        443
-      ],
-      "offset": [
-        621,
-        995
-      ]
-    },
-    "attack_032": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_00.png",
-      "atlas_size": [
-        1901,
-        1711
-      ],
-      "region": [
-        763,
-        1182,
-        755,
-        526
-      ],
-      "offset": [
-        622,
-        912
-      ]
-    },
-    "attack_033": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_00.png",
-      "atlas_size": [
-        1901,
-        1711
-      ],
-      "region": [
-        2,
-        1182,
-        757,
-        527
-      ],
-      "offset": [
-        647,
-        911
-      ]
-    },
-    "attack_034": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_01.png",
-      "atlas_size": [
-        2016,
-        2002
-      ],
-      "region": [
-        2,
-        2,
-        718,
-        518
-      ],
-      "offset": [
-        679,
-        918
-      ]
-    },
-    "attack_035": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_01.png",
-      "atlas_size": [
-        2016,
-        2002
-      ],
-      "region": [
-        2,
-        524,
-        597,
-        516
-      ],
-      "offset": [
-        802,
-        922
-      ]
-    },
-    "attack_036": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_01.png",
-      "atlas_size": [
-        2016,
-        2002
-      ],
-      "region": [
-        603,
-        524,
-        597,
-        514
-      ],
-      "offset": [
-        802,
-        922
-      ]
-    },
-    "attack_037": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_01.png",
-      "atlas_size": [
-        2016,
-        2002
-      ],
-      "region": [
-        1285,
-        2,
-        546,
-        518
-      ],
-      "offset": [
-        823,
-        944
-      ]
-    },
-    "attack_038": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_01.png",
-      "atlas_size": [
-        2016,
-        2002
-      ],
-      "region": [
-        724,
-        2,
-        557,
-        518
-      ],
-      "offset": [
-        818,
-        944
-      ]
-    },
-    "attack_039": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_00.png",
-      "atlas_size": [
-        1901,
-        1711
-      ],
-      "region": [
-        630,
-        2,
-        595,
-        587
-      ],
-      "offset": [
-        756,
-        899
-      ]
-    },
-    "attack_040": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_00.png",
-      "atlas_size": [
-        1901,
-        1711
-      ],
-      "region": [
-        1229,
-        2,
-        595,
-        587
-      ],
-      "offset": [
-        756,
-        899
-      ]
-    },
-    "attack_041": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_00.png",
-      "atlas_size": [
-        1901,
-        1711
-      ],
-      "region": [
-        2,
-        2,
-        624,
-        587
-      ],
-      "offset": [
-        751,
-        899
-      ]
-    },
-    "attack_042": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_00.png",
-      "atlas_size": [
-        1901,
-        1711
-      ],
-      "region": [
-        2,
-        593,
-        629,
-        585
-      ],
-      "offset": [
-        751,
-        901
-      ]
-    },
-    "attack_043": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_00.png",
-      "atlas_size": [
-        1901,
-        1711
-      ],
-      "region": [
-        635,
-        593,
-        630,
-        531
-      ],
-      "offset": [
-        756,
-        955
-      ]
-    },
-    "attack_044": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_00.png",
-      "atlas_size": [
-        1901,
-        1711
-      ],
-      "region": [
-        1269,
-        593,
-        630,
-        531
-      ],
-      "offset": [
-        756,
-        955
-      ]
-    },
-    "attack_045": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1991,
-        1853
-      ],
-      "region": [
-        972,
-        2,
-        663,
-        459
-      ],
-      "offset": [
-        756,
-        1027
-      ]
-    },
-    "attack_046": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_01.png",
-      "atlas_size": [
-        2016,
-        2002
-      ],
-      "region": [
-        2,
-        1533,
-        669,
-        467
-      ],
-      "offset": [
-        756,
-        1019
-      ]
-    },
-    "attack_047": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
-      "atlas_size": [
-        1897,
-        2027
-      ],
-      "region": [
-        1097,
-        430,
-        677,
-        407
-      ],
-      "offset": [
-        760,
-        1079
-      ]
-    },
-    "attack_048": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
-      "atlas_size": [
-        1897,
-        2027
-      ],
-      "region": [
-        2,
-        849,
-        674,
-        407
-      ],
-      "offset": [
-        760,
-        1079
-      ]
-    },
-    "attack_049": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
-      "atlas_size": [
-        1897,
-        2027
-      ],
-      "region": [
-        2,
-        430,
-        677,
-        415
-      ],
-      "offset": [
-        764,
-        1071
-      ]
-    },
-    "attack_050": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
-      "atlas_size": [
-        1897,
-        2027
-      ],
-      "region": [
-        2,
-        2,
-        677,
-        424
-      ],
-      "offset": [
-        764,
-        1062
-      ]
-    },
-    "attack_051": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
-      "atlas_size": [
-        2001,
-        1812
-      ],
-      "region": [
-        1327,
-        922,
-        672,
-        441
-      ],
-      "offset": [
-        771,
-        1045
-      ]
-    },
-    "attack_052": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
-      "atlas_size": [
-        2001,
-        1812
-      ],
-      "region": [
-        405,
-        464,
-        672,
-        450
-      ],
-      "offset": [
-        771,
-        1036
-      ]
-    },
-    "attack_053": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1991,
-        1853
-      ],
-      "region": [
-        295,
-        2,
-        673,
-        459
-      ],
-      "offset": [
-        776,
-        1027
-      ]
-    },
-    "attack_054": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_01.png",
-      "atlas_size": [
-        2016,
-        2002
-      ],
-      "region": [
-        1340,
-        1044,
-        674,
-        470
-      ],
-      "offset": [
-        775,
-        1016
-      ]
-    },
-    "attack_055": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_01.png",
-      "atlas_size": [
-        2016,
-        2002
-      ],
-      "region": [
-        2,
-        1044,
-        665,
-        485
-      ],
-      "offset": [
-        782,
-        1001
-      ]
-    },
-    "attack_056": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_01.png",
-      "atlas_size": [
-        2016,
-        2002
-      ],
-      "region": [
-        1204,
-        524,
-        665,
-        494
-      ],
-      "offset": [
-        782,
-        992
-      ]
-    },
-    "attack_057": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_01.png",
-      "atlas_size": [
-        2016,
-        2002
-      ],
-      "region": [
-        671,
-        1044,
-        665,
-        481
-      ],
-      "offset": [
-        786,
-        1005
-      ]
-    },
-    "attack_058": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
-      "atlas_size": [
-        2035,
-        1797
-      ],
-      "region": [
-        1368,
-        1442,
-        665,
-        350
-      ],
-      "offset": [
-        786,
-        1136
-      ]
-    },
-    "attack_059": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
-      "atlas_size": [
-        2045,
-        1958
-      ],
-      "region": [
-        2,
-        2,
-        661,
-        350
-      ],
-      "offset": [
-        788,
-        1136
-      ]
-    },
-    "attack_060": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
-      "atlas_size": [
-        2045,
-        1958
-      ],
-      "region": [
-        667,
-        2,
-        659,
-        350
-      ],
-      "offset": [
-        788,
-        1136
-      ]
-    },
-    "attack_061": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
-      "atlas_size": [
-        2045,
-        1958
-      ],
-      "region": [
-        2,
-        356,
-        575,
-        348
-      ],
-      "offset": [
-        791,
-        1136
-      ]
-    },
-    "attack_062": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
-      "atlas_size": [
-        2045,
-        1958
-      ],
-      "region": [
-        581,
-        356,
-        575,
-        348
-      ],
-      "offset": [
-        791,
-        1136
-      ]
-    },
-    "attack_063": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
-      "atlas_size": [
-        2045,
-        1958
-      ],
-      "region": [
-        1160,
-        356,
-        484,
-        347
-      ],
-      "offset": [
-        791,
-        1136
-      ]
-    },
-    "attack_064": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
-      "atlas_size": [
-        2045,
-        1958
-      ],
-      "region": [
-        2,
-        708,
-        484,
-        347
-      ],
-      "offset": [
-        791,
-        1136
-      ]
-    },
-    "attack_065": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
-      "atlas_size": [
-        2045,
-        1958
-      ],
-      "region": [
-        490,
-        708,
-        484,
-        347
-      ],
-      "offset": [
-        791,
-        1136
-      ]
-    },
-    "attack_066": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
-      "atlas_size": [
-        2045,
-        1958
-      ],
-      "region": [
-        978,
-        708,
-        469,
-        346
-      ],
-      "offset": [
-        791,
-        1134
-      ]
-    },
-    "attack_067": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
-      "atlas_size": [
-        2045,
-        1958
-      ],
-      "region": [
-        1330,
-        2,
-        397,
-        349
-      ],
-      "offset": [
-        791,
-        1126
-      ]
-    },
-    "attack_068": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
-      "atlas_size": [
-        2035,
-        1797
-      ],
-      "region": [
-        964,
-        1442,
-        400,
-        352
-      ],
-      "offset": [
-        788,
-        1119
-      ]
-    },
-    "attack_069": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
-      "atlas_size": [
-        2035,
-        1797
-      ],
-      "region": [
-        586,
-        2,
-        400,
-        358
-      ],
-      "offset": [
-        790,
-        1113
-      ]
-    },
-    "attack_070": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
-      "atlas_size": [
-        1897,
-        2027
-      ],
-      "region": [
-        847,
-        1260,
-        850,
-        378
-      ],
-      "offset": [
-        802,
-        1095
-      ]
-    },
-    "attack_071": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
-      "atlas_size": [
-        1897,
-        2027
-      ],
-      "region": [
-        1160,
-        849,
-        414,
-        402
-      ],
-      "offset": [
-        813,
-        1064
-      ]
-    },
-    "attack_072": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
-      "atlas_size": [
-        1897,
-        2027
-      ],
-      "region": [
-        1034,
-        2,
-        435,
-        419
-      ],
-      "offset": [
-        823,
-        1047
-      ]
-    },
-    "attack_073": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
-      "atlas_size": [
-        2001,
-        1812
-      ],
-      "region": [
-        1045,
-        1373,
-        454,
-        428
-      ],
-      "offset": [
-        832,
-        1032
-      ]
-    },
-    "attack_074": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
-      "atlas_size": [
-        2001,
-        1812
-      ],
-      "region": [
-        594,
-        1373,
-        447,
-        436
-      ],
-      "offset": [
-        845,
-        1019
-      ]
-    },
-    "attack_075": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
-      "atlas_size": [
-        2001,
-        1812
-      ],
-      "region": [
-        1081,
-        464,
-        414,
-        450
-      ],
-      "offset": [
-        863,
-        1001
-      ]
-    },
-    "attack_076": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
-      "atlas_size": [
-        2001,
-        1812
-      ],
-      "region": [
-        2,
-        464,
-        399,
-        454
-      ],
-      "offset": [
-        869,
-        995
-      ]
-    },
-    "attack_077": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
-      "atlas_size": [
-        2001,
-        1812
-      ],
-      "region": [
-        295,
-        2,
-        382,
-        457
-      ],
-      "offset": [
-        867,
-        992
-      ]
-    },
-    "attack_078": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1991,
-        1853
-      ],
-      "region": [
-        1639,
-        2,
-        350,
-        459
-      ],
-      "offset": [
-        874,
-        990
-      ]
-    },
-    "attack_079": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
-      "atlas_size": [
-        2001,
-        1812
-      ],
-      "region": [
-        681,
-        2,
-        323,
-        456
-      ],
-      "offset": [
-        876,
-        990
-      ]
-    },
-    "attack_080": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
-      "atlas_size": [
-        2001,
-        1812
-      ],
-      "region": [
-        1008,
-        2,
-        304,
-        456
-      ],
-      "offset": [
-        876,
-        990
-      ]
-    },
-    "attack_081": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1991,
-        1853
-      ],
-      "region": [
-        2,
-        1392,
-        294,
-        459
-      ],
-      "offset": [
-        876,
-        990
-      ]
-    },
-    "attack_082": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1991,
-        1853
-      ],
-      "region": [
-        300,
-        1392,
-        292,
-        459
-      ],
-      "offset": [
-        874,
-        990
-      ]
-    },
-    "attack_083": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1991,
-        1853
-      ],
-      "region": [
-        596,
-        1392,
-        292,
-        459
-      ],
-      "offset": [
-        874,
-        990
-      ]
-    },
-    "attack_084": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1991,
-        1853
-      ],
-      "region": [
-        892,
-        1392,
-        292,
-        459
-      ],
-      "offset": [
-        874,
-        990
-      ]
-    },
-    "attack_085": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1991,
-        1853
-      ],
-      "region": [
-        1507,
-        466,
-        295,
-        459
-      ],
-      "offset": [
-        871,
-        990
-      ]
-    },
-    "attack_086": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1991,
-        1853
-      ],
-      "region": [
-        2,
-        929,
-        295,
-        459
-      ],
-      "offset": [
-        871,
-        990
-      ]
-    },
-    "attack_087": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1991,
-        1853
-      ],
-      "region": [
-        301,
-        929,
-        295,
-        459
-      ],
-      "offset": [
-        871,
-        990
-      ]
-    },
-    "attack_088": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1991,
-        1853
-      ],
-      "region": [
-        2,
-        466,
-        297,
-        459
-      ],
-      "offset": [
-        869,
-        990
-      ]
-    },
-    "attack_089": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1991,
-        1853
-      ],
-      "region": [
-        303,
-        466,
-        297,
-        459
-      ],
-      "offset": [
-        869,
-        990
-      ]
-    },
-    "attack_090": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1991,
-        1853
-      ],
-      "region": [
-        604,
-        466,
-        297,
-        459
-      ],
-      "offset": [
-        869,
-        990
-      ]
-    },
-    "attack_091": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1991,
-        1853
-      ],
-      "region": [
-        905,
-        466,
-        297,
-        459
-      ],
-      "offset": [
-        869,
-        990
-      ]
-    },
-    "attack_092": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1991,
-        1853
-      ],
-      "region": [
-        600,
-        929,
-        295,
-        459
-      ],
-      "offset": [
-        871,
-        990
-      ]
-    },
-    "attack_093": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1991,
-        1853
-      ],
-      "region": [
-        899,
-        929,
-        295,
-        459
-      ],
-      "offset": [
-        871,
-        990
-      ]
-    },
-    "attack_094": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1991,
-        1853
-      ],
-      "region": [
-        1206,
-        466,
-        297,
-        459
-      ],
-      "offset": [
-        871,
-        990
-      ]
-    },
-    "attack_095": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1991,
-        1853
-      ],
-      "region": [
-        1198,
-        929,
-        295,
-        459
-      ],
-      "offset": [
-        871,
-        990
-      ]
-    },
-    "attack_096": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1991,
-        1853
-      ],
-      "region": [
-        1497,
-        929,
-        295,
-        459
-      ],
-      "offset": [
-        871,
-        990
-      ]
-    },
-    "attack_097": {
-      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1991,
-        1853
-      ],
-      "region": [
-        1188,
-        1392,
-        292,
-        459
-      ],
-      "offset": [
-        874,
-        990
       ]
     },
     "run_033": {
@@ -6872,6 +5123,703 @@
         770,
         1041
       ]
+    },
+    "attack_clean_005": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_00.png",
+      "atlas_size": [
+        1824,
+        1522
+      ],
+      "region": [
+        2,
+        2,
+        290,
+        468
+      ],
+      "offset": [
+        883,
+        983
+      ]
+    },
+    "attack_clean_006": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_00.png",
+      "atlas_size": [
+        1824,
+        1522
+      ],
+      "region": [
+        296,
+        2,
+        307,
+        451
+      ],
+      "offset": [
+        870,
+        1000
+      ]
+    },
+    "attack_clean_007": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_00.png",
+      "atlas_size": [
+        1824,
+        1522
+      ],
+      "region": [
+        607,
+        2,
+        341,
+        422
+      ],
+      "offset": [
+        845,
+        1029
+      ]
+    },
+    "attack_clean_008": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_00.png",
+      "atlas_size": [
+        1824,
+        1522
+      ],
+      "region": [
+        952,
+        2,
+        358,
+        404
+      ],
+      "offset": [
+        836,
+        1047
+      ]
+    },
+    "attack_clean_009": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_00.png",
+      "atlas_size": [
+        1824,
+        1522
+      ],
+      "region": [
+        1314,
+        2,
+        383,
+        413
+      ],
+      "offset": [
+        828,
+        1038
+      ]
+    },
+    "attack_clean_010": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_00.png",
+      "atlas_size": [
+        1824,
+        1522
+      ],
+      "region": [
+        2,
+        474,
+        383,
+        430
+      ],
+      "offset": [
+        828,
+        1021
+      ]
+    },
+    "attack_clean_015": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_00.png",
+      "atlas_size": [
+        1824,
+        1522
+      ],
+      "region": [
+        389,
+        474,
+        358,
+        426
+      ],
+      "offset": [
+        840,
+        1025
+      ]
+    },
+    "attack_clean_016": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_00.png",
+      "atlas_size": [
+        1824,
+        1522
+      ],
+      "region": [
+        751,
+        474,
+        345,
+        464
+      ],
+      "offset": [
+        840,
+        987
+      ]
+    },
+    "attack_clean_017": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_00.png",
+      "atlas_size": [
+        1824,
+        1522
+      ],
+      "region": [
+        1100,
+        474,
+        319,
+        523
+      ],
+      "offset": [
+        879,
+        928
+      ]
+    },
+    "attack_clean_018": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_00.png",
+      "atlas_size": [
+        1824,
+        1522
+      ],
+      "region": [
+        1423,
+        474,
+        349,
+        523
+      ],
+      "offset": [
+        883,
+        928
+      ]
+    },
+    "attack_clean_019": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_00.png",
+      "atlas_size": [
+        1824,
+        1522
+      ],
+      "region": [
+        2,
+        1001,
+        353,
+        519
+      ],
+      "offset": [
+        887,
+        932
+      ]
+    },
+    "attack_clean_020": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_00.png",
+      "atlas_size": [
+        1824,
+        1522
+      ],
+      "region": [
+        359,
+        1001,
+        353,
+        519
+      ],
+      "offset": [
+        887,
+        932
+      ]
+    },
+    "attack_clean_021": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_00.png",
+      "atlas_size": [
+        1824,
+        1522
+      ],
+      "region": [
+        716,
+        1001,
+        353,
+        519
+      ],
+      "offset": [
+        887,
+        932
+      ]
+    },
+    "attack_clean_022": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_00.png",
+      "atlas_size": [
+        1824,
+        1522
+      ],
+      "region": [
+        1073,
+        1001,
+        358,
+        519
+      ],
+      "offset": [
+        883,
+        932
+      ]
+    },
+    "attack_clean_027": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_00.png",
+      "atlas_size": [
+        1824,
+        1522
+      ],
+      "region": [
+        1435,
+        1001,
+        387,
+        510
+      ],
+      "offset": [
+        858,
+        941
+      ]
+    },
+    "attack_clean_028": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_01.png",
+      "atlas_size": [
+        1926,
+        1711
+      ],
+      "region": [
+        2,
+        2,
+        400,
+        540
+      ],
+      "offset": [
+        870,
+        915
+      ]
+    },
+    "attack_clean_029": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_01.png",
+      "atlas_size": [
+        1926,
+        1711
+      ],
+      "region": [
+        406,
+        2,
+        430,
+        570
+      ],
+      "offset": [
+        900,
+        889
+      ]
+    },
+    "attack_clean_030": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_01.png",
+      "atlas_size": [
+        1926,
+        1711
+      ],
+      "region": [
+        840,
+        2,
+        689,
+        393
+      ],
+      "offset": [
+        879,
+        1063
+      ]
+    },
+    "attack_clean_031": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_01.png",
+      "atlas_size": [
+        1926,
+        1711
+      ],
+      "region": [
+        2,
+        576,
+        683,
+        375
+      ],
+      "offset": [
+        874,
+        1080
+      ]
+    },
+    "attack_clean_032": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_01.png",
+      "atlas_size": [
+        1926,
+        1711
+      ],
+      "region": [
+        689,
+        576,
+        683,
+        376
+      ],
+      "offset": [
+        874,
+        1080
+      ]
+    },
+    "attack_clean_033": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_01.png",
+      "atlas_size": [
+        1926,
+        1711
+      ],
+      "region": [
+        2,
+        956,
+        689,
+        388
+      ],
+      "offset": [
+        874,
+        1068
+      ]
+    },
+    "attack_clean_067": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_01.png",
+      "atlas_size": [
+        1926,
+        1711
+      ],
+      "region": [
+        695,
+        956,
+        676,
+        350
+      ],
+      "offset": [
+        879,
+        1110
+      ]
+    },
+    "attack_clean_068": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_01.png",
+      "atlas_size": [
+        1926,
+        1711
+      ],
+      "region": [
+        2,
+        1348,
+        672,
+        350
+      ],
+      "offset": [
+        879,
+        1106
+      ]
+    },
+    "attack_clean_069": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_01.png",
+      "atlas_size": [
+        1926,
+        1711
+      ],
+      "region": [
+        678,
+        1348,
+        638,
+        349
+      ],
+      "offset": [
+        870,
+        1106
+      ]
+    },
+    "attack_clean_070": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_01.png",
+      "atlas_size": [
+        1926,
+        1711
+      ],
+      "region": [
+        1320,
+        1348,
+        604,
+        361
+      ],
+      "offset": [
+        866,
+        1094
+      ]
+    },
+    "attack_clean_071": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_02.png",
+      "atlas_size": [
+        2038,
+        1323
+      ],
+      "region": [
+        2,
+        2,
+        570,
+        366
+      ],
+      "offset": [
+        854,
+        1089
+      ]
+    },
+    "attack_clean_072": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_02.png",
+      "atlas_size": [
+        2038,
+        1323
+      ],
+      "region": [
+        576,
+        2,
+        553,
+        379
+      ],
+      "offset": [
+        845,
+        1076
+      ]
+    },
+    "attack_clean_073": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_02.png",
+      "atlas_size": [
+        2038,
+        1323
+      ],
+      "region": [
+        1133,
+        2,
+        527,
+        387
+      ],
+      "offset": [
+        837,
+        1068
+      ]
+    },
+    "attack_clean_074": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_02.png",
+      "atlas_size": [
+        2038,
+        1323
+      ],
+      "region": [
+        2,
+        393,
+        511,
+        396
+      ],
+      "offset": [
+        836,
+        1059
+      ]
+    },
+    "attack_clean_075": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_02.png",
+      "atlas_size": [
+        2038,
+        1323
+      ],
+      "region": [
+        517,
+        393,
+        417,
+        408
+      ],
+      "offset": [
+        845,
+        1047
+      ]
+    },
+    "attack_clean_076": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_02.png",
+      "atlas_size": [
+        2038,
+        1323
+      ],
+      "region": [
+        938,
+        393,
+        370,
+        421
+      ],
+      "offset": [
+        845,
+        1034
+      ]
+    },
+    "attack_clean_077": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_02.png",
+      "atlas_size": [
+        2038,
+        1323
+      ],
+      "region": [
+        1312,
+        393,
+        362,
+        438
+      ],
+      "offset": [
+        845,
+        1017
+      ]
+    },
+    "attack_clean_078": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_02.png",
+      "atlas_size": [
+        2038,
+        1323
+      ],
+      "region": [
+        1678,
+        393,
+        358,
+        452
+      ],
+      "offset": [
+        853,
+        1000
+      ]
+    },
+    "attack_clean_079": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_02.png",
+      "atlas_size": [
+        2038,
+        1323
+      ],
+      "region": [
+        2,
+        849,
+        345,
+        468
+      ],
+      "offset": [
+        866,
+        987
+      ]
+    },
+    "attack_clean_080": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_02.png",
+      "atlas_size": [
+        2038,
+        1323
+      ],
+      "region": [
+        351,
+        849,
+        341,
+        472
+      ],
+      "offset": [
+        870,
+        983
+      ]
+    },
+    "attack_clean_081": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_02.png",
+      "atlas_size": [
+        2038,
+        1323
+      ],
+      "region": [
+        696,
+        849,
+        341,
+        472
+      ],
+      "offset": [
+        866,
+        983
+      ]
+    },
+    "battle_dash_001": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/battle_dash_v001_00.png",
+      "atlas_size": [
+        1854,
+        441
+      ],
+      "region": [
+        2,
+        2,
+        321,
+        429
+      ],
+      "offset": [
+        803,
+        1014
+      ]
+    },
+    "battle_dash_002": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/battle_dash_v001_00.png",
+      "atlas_size": [
+        1854,
+        441
+      ],
+      "region": [
+        327,
+        2,
+        355,
+        429
+      ],
+      "offset": [
+        805,
+        1012
+      ]
+    },
+    "battle_dash_003": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/battle_dash_v001_00.png",
+      "atlas_size": [
+        1854,
+        441
+      ],
+      "region": [
+        686,
+        2,
+        375,
+        435
+      ],
+      "offset": [
+        811,
+        1004
+      ]
+    },
+    "battle_dash_004": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/battle_dash_v001_00.png",
+      "atlas_size": [
+        1854,
+        441
+      ],
+      "region": [
+        1065,
+        2,
+        387,
+        437
+      ],
+      "offset": [
+        814,
+        1000
+      ]
+    },
+    "battle_dash_005": {
+      "atlas": "res://assets/chars/pixel/rinne/video_actions/sheets/battle_dash_v001_00.png",
+      "atlas_size": [
+        1854,
+        441
+      ],
+      "region": [
+        1456,
+        2,
+        396,
+        424
+      ],
+      "offset": [
+        813,
+        998
+      ]
     }
   },
   "scene_integration": {
@@ -6908,15 +5856,17 @@
       "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_world_05.png"
     ],
     "battle": [
-      "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_00.png",
       "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_01.png",
       "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_02.png",
       "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_03.png",
       "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_04.png",
       "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_05.png",
-      "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_06.png",
       "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_07.png",
-      "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_08.png"
+      "res://assets/chars/pixel/rinne/video_actions/sheets/runtime448_battle_08.png",
+      "res://assets/chars/pixel/rinne/video_actions/sheets/battle_dash_v001_00.png",
+      "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_00.png",
+      "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_01.png",
+      "res://assets/chars/pixel/rinne/video_actions/sheets/attack_clean_v001_02.png"
     ]
   }
 }

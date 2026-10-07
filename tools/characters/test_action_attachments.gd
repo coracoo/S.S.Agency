@@ -21,7 +21,8 @@ func _run()->void:
 		var body:Sprite3D=backdrop.actor_entries.mage.body
 		var fixed_offset:=body.offset;var fixed_size:=body.pixel_size
 		var first:Dictionary=backdrop.actor_action_attachment("mage")
-		check(first.ok and first.frame_key=="attack_013","旧源校准按真实渲染帧键读取："+str(first))
+		var quick:bool=definition.manifest.anims.attack.frames.size()==21
+		check(first.ok and first.frame_key==("attack_cycles_032" if quick else "attack_013") and first.profile==("homura_mage_quick_attack_hand_v1" if quick else "homura_mage_recovered_attack_hand_v1"),"正式源按自己校准的真实渲染帧键读取："+str(first))
 		if not first.ok:
 			print("ATTACHMENT_SOURCE:",definition.manifest.canvas," ",definition.manifest.anims.attack)
 			actor.free();backdrop.free();quit(1);return
@@ -39,7 +40,7 @@ func _run()->void:
 		actor.animator.sprite.set_frame_and_progress(12,0)
 		var raised:Dictionary=backdrop.actor_action_attachment("mage")
 		check(raised.position.y<mirrored.position.y,"抬掌动作逐帧跟踪，非固定屏幕Y偏移")
-		var changed:=definition.duplicate(true);changed.manifest.anims.attack.frames=changed.manifest.anims.attack.frames.slice(0,21)
+		var changed:=definition.duplicate(true);changed.manifest.anims.attack.frames=changed.manifest.anims.attack.frames.slice(0,20)
 		actor.configure(changed,323,1);actor.play_action(&"attack");backdrop.sync_visuals(0)
 		check(not backdrop.actor_action_attachment("mage").ok,"新875ms/不同选帧动作不能盲套旧手部轨迹")
 		actor.free()

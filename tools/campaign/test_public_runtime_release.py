@@ -76,12 +76,31 @@ class PublicRuntimeRelease(unittest.TestCase):
             self.assertEqual(released | {"assets/effects/imagegen_spells/README.md"},
                              {p.relative_to(ROOT).as_posix() for p in folder.rglob("*") if p.is_file()},
                              "公开候选只含登记的技能运行文件，私有QA可留开发树")
-        for skill, entry in registry["effects"].items():
+        for skill, form, entry in release.imagegen_effect_entries(registry):
             with self.subTest(skill=skill):
                 path = ROOT / entry["manifest"].removeprefix("res://")
                 self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest(), entry["manifest_sha256"])
                 value = json.loads(path.read_text())
-                self.assertEqual({"schema_version", "skill_id", "runtime_atlas", "runtime_atlas_sha256", "frame_count", "frames", "phases"}, set(value))
+                required_fields = {"schema_version", "skill_id", "runtime_atlas", "runtime_atlas_sha256", "frame_count", "frames", "phases"}
+                self.assertTrue(required_fields <= set(value))
+                self.assertFalse(set(value) - required_fields - {"required_phases", "placement", "event_layers", "form_id", "skill_name", "phase_groups", "visual_event_contract", "reaction_layers"})
+                for group in value.get("phase_groups", {}).values():
+                    self.assertEqual({"activation_frames", "loop_frames", "binding"}, set(group))
+                    self.assertEqual("physical_skill_visual_v1" if "visual_event_contract" in value else "unbound", group["binding"])
+                for layer in value.get("event_layers", {}).values():
+                    self.assertFalse(set(layer) - {"phase", "event_type", "target", "placement", "lifetime", "status_id", "positive_payload", "activation_frames", "loop_frames", "max_instances_per_action", "payload_equals", "requires_event", "cue", "start_phase", "reason", "positive_actual", "requires_precision", "precast_evidence", "phase_segments"})
+                    self.assertFalse(set(layer.get("precast_evidence", {})) - {"schema", "source", "refinement_id", "damage_effect_index", "unique_damage_effect", "condition", "status_id", "original_target_matches"})
+                    for segment in layer.get("phase_segments", []):
+                        self.assertFalse(set(segment) - {"phase", "frames", "loop_frames"})
+                    self.assertFalse(set(layer.get("payload_equals", {})) - {"reason"})
+                    requirement = layer.get("requires_event", {})
+                    self.assertFalse(set(requirement) - {"event_type", "same_action", "same_target", "payload_equals"})
+                    self.assertFalse(set(requirement.get("payload_equals", {})) - {"reason"})
+                if "visual_event_contract" in value:
+                    self.assertEqual({"id", "version", "form", "ability_id", "variant_key"}, set(value["visual_event_contract"]))
+                for layer in value.get("reaction_layers", {}).values():
+                    self.assertEqual({"phase", "event_type", "requires", "lifetime", "activation_frames", "loop_frames", "target", "endpoints"}, set(layer))
+                self.assertFalse(set(value.get("placement", {})) - {"cast", "travel_origin", "travel_target", "travel_mode"})
                 self.assertIs(entry["approved_for_runtime"], True)
                 self.assertIs(entry["gameplay_qa_pending"], True)
                 for frame in value["frames"]:
@@ -95,7 +114,16 @@ class PublicRuntimeRelease(unittest.TestCase):
         self.assertFalse(any("provenance" in name or "art_revisions" in name or "qa_acceptance" in name or "recovery_validation" in name
                              or any(part.startswith(("frozen_", "original_runtime_")) for part in Path(name).parts) for name in published))
         self.assertIn("assets/effects/imagegen_spells/registry.json", originals)
-        self.assertEqual(9, sum(name.startswith("assets/effects/imagegen_spells/") for name in originals))
+        self.assertIn("scripts/rpg/ui/physical_skill_visual_event_policy.gd", resources)
+        self.assertIn("scripts/rpg/dual_form.gd", resources)
+        folder = ROOT / "assets/effects/imagegen_spells"
+        registry = json.loads((folder / "registry.json").read_text())
+        expected = {"assets/effects/imagegen_spells/registry.json"}
+        for _, _, entry in release.imagegen_effect_entries(registry):
+            manifest_path = entry["manifest"].removeprefix("res://")
+            manifest = json.loads((ROOT / manifest_path).read_text())
+            expected.update({manifest_path, "assets/effects/imagegen_spells/" + manifest["runtime_atlas"]})
+        self.assertEqual(expected, {name for name in originals if name.startswith("assets/effects/imagegen_spells/")})
 
     def test_pack_audit_rejects_history_and_production_records(self):
         paths = {"assets/chars/pixel/a/video_actions/provenance.json",

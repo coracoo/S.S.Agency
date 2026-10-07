@@ -1,0 +1,338 @@
+{
+  "skill_id": "heal",
+  "runtime_atlas": "heal/heal-atlas-runtime-256.png",
+  "runtime_atlas_sha256": "e2375e60e3b677b3069624381467922ecef3633136929e9286898281f740668d",
+  "frame_count": 16,
+  "phases": {
+    "cast": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "travel": [
+      5,
+      6,
+      7,
+      8
+    ],
+    "heal_impact": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "guard_life_shield": [
+      13,
+      14,
+      15,
+      16
+    ],
+    "recovery_tail": [
+      11,
+      12
+    ]
+  },
+  "required_phases": [
+    "cast",
+    "travel",
+    "heal_impact",
+    "guard_life_shield"
+  ],
+  "schema_version": 1,
+  "frames": [
+    {
+      "frame": 1,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 2,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 3,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 65
+    },
+    {
+      "frame": 4,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1536,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 60
+    },
+    {
+      "frame": 5,
+      "phase": "travel",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        192.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        0,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 6,
+      "phase": "travel",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        192.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        512,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 7,
+      "phase": "travel",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        192.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1024,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 8,
+      "phase": "travel",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        192.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1536,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 9,
+      "phase": "heal_impact",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        192.0
+      ],
+      "atlas_native_xywh": [
+        0,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 10,
+      "phase": "heal_impact",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        192.0
+      ],
+      "atlas_native_xywh": [
+        512,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 65
+    },
+    {
+      "frame": 11,
+      "phase": "heal_impact",
+      "recovery_tail": true,
+      "anchor_runtime_px": [
+        128.0,
+        192.0
+      ],
+      "atlas_native_xywh": [
+        1024,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 70
+    },
+    {
+      "frame": 12,
+      "phase": "heal_impact",
+      "recovery_tail": true,
+      "anchor_runtime_px": [
+        128.0,
+        192.0
+      ],
+      "atlas_native_xywh": [
+        1536,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 90
+    },
+    {
+      "frame": 13,
+      "phase": "guard_life_shield",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        0,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 140
+    },
+    {
+      "frame": 14,
+      "phase": "guard_life_shield",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        512,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 140
+    },
+    {
+      "frame": 15,
+      "phase": "guard_life_shield",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1024,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 140
+    },
+    {
+      "frame": 16,
+      "phase": "guard_life_shield",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1536,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 140
+    }
+  ],
+  "placement": {
+    "cast": "caster_focus",
+    "travel_origin": "caster_focus",
+    "travel_target": "target_ground",
+    "travel_mode": "projectile"
+  },
+  "event_layers": {
+    "heal_impact": {
+      "phase": "heal_impact",
+      "event_type": "healed",
+      "target": "event_target",
+      "placement": "target_ground",
+      "lifetime": "action",
+      "positive_payload": "actual",
+      "activation_frames": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "loop_frames": []
+    },
+    "guard_life_shield": {
+      "phase": "guard_life_shield",
+      "event_type": "shield_applied",
+      "target": "event_target",
+      "placement": "target_body",
+      "lifetime": "shield",
+      "activation_frames": [],
+      "loop_frames": [
+        13,
+        14,
+        15,
+        16
+      ]
+    }
+  }
+}

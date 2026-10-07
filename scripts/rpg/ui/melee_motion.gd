@@ -13,8 +13,9 @@ static func form_key(definition: Dictionary) -> String:
 static func is_melee_form(definition: Dictionary) -> bool:
 	return REACH_BY_FORM.has(form_key(definition))
 
-static func strike_point(home: Vector2, target: Vector2, body_height: float, form: String, target_radius: float, allowed_feet: Rect2) -> Vector2:
-	var gap := maxf(24.0, target_radius) + body_height * float(REACH_BY_FORM.get(form,0.34))
+static func strike_point(home: Vector2, target: Vector2, body_height: float, form: String, target_radius: float, allowed_feet: Rect2, contact_reach_px:float=-1.0) -> Vector2:
+	var reach:=contact_reach_px if is_finite(contact_reach_px) and contact_reach_px>0 else body_height*float(REACH_BY_FORM.get(form,0.34))
+	var gap := maxf(24.0, target_radius) + reach
 	var distance := home.distance_to(target)
 	if distance <= gap: return home
 	var desired := target + (home-target).normalized()*gap

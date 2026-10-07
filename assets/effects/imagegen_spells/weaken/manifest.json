@@ -1,0 +1,335 @@
+{
+  "skill_id": "weaken",
+  "runtime_atlas": "weaken/weaken-atlas-runtime-256.png",
+  "runtime_atlas_sha256": "3b912a6f8e96c10c5d289329b9f7d5f5ec88ae5540f5654bd95e077ec165bcf4",
+  "frame_count": 16,
+  "phases": {
+    "cast": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "travel": [
+      5,
+      6,
+      7,
+      8
+    ],
+    "weaken_apply": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "weaken_status": [
+      13,
+      14,
+      15,
+      16
+    ]
+  },
+  "required_phases": [
+    "cast",
+    "travel",
+    "weaken_apply",
+    "weaken_status"
+  ],
+  "schema_version": 1,
+  "frames": [
+    {
+      "frame": 1,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 50
+    },
+    {
+      "frame": 2,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 3,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 60
+    },
+    {
+      "frame": 4,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1536,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 60
+    },
+    {
+      "frame": 5,
+      "phase": "travel",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        192.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        0,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 6,
+      "phase": "travel",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        192.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        512,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 7,
+      "phase": "travel",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        192.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1024,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 8,
+      "phase": "travel",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        192.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1536,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 9,
+      "phase": "weaken_apply",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        0,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 10,
+      "phase": "weaken_apply",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        512,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 70
+    },
+    {
+      "frame": 11,
+      "phase": "weaken_apply",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1024,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 85
+    },
+    {
+      "frame": 12,
+      "phase": "weaken_apply",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1536,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 100
+    },
+    {
+      "frame": 13,
+      "phase": "weaken_status",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        0,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 160
+    },
+    {
+      "frame": 14,
+      "phase": "weaken_status",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        512,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 160
+    },
+    {
+      "frame": 15,
+      "phase": "weaken_status",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1024,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 160
+    },
+    {
+      "frame": 16,
+      "phase": "weaken_status",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1536,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 160
+    }
+  ],
+  "placement": {
+    "cast": "caster_focus",
+    "travel_origin": "caster_focus",
+    "travel_target": "target_body",
+    "travel_mode": "projectile"
+  },
+  "event_layers": {
+    "weaken_apply": {
+      "phase": "weaken_apply",
+      "event_type": "status_applied",
+      "target": "event_target",
+      "placement": "target_body",
+      "lifetime": "action",
+      "status_id": "weaken",
+      "activation_frames": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "loop_frames": []
+    },
+    "weaken_status": {
+      "phase": "weaken_status",
+      "event_type": "status_applied",
+      "target": "event_target",
+      "placement": "target_body",
+      "lifetime": "status",
+      "status_id": "weaken",
+      "activation_frames": [],
+      "loop_frames": [
+        13,
+        14,
+        15,
+        16
+      ]
+    }
+  }
+}

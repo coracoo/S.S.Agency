@@ -1,0 +1,499 @@
+{
+  "skill_id": "hunt",
+  "form_id": "mint",
+  "skill_name": "猎杀",
+  "runtime_atlas": "hunt/hunt-atlas-runtime-256.png",
+  "runtime_atlas_sha256": "261deeeff4991ce8814bd70c03505fbe1c44c2457fcb6ded4146ae6b05281653",
+  "frame_count": 16,
+  "phases": {
+    "cast": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "travel": [
+      5,
+      6,
+      7,
+      8
+    ],
+    "damage_recovery": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "mark_consumed": [
+      13,
+      14
+    ],
+    "mp_refund": [
+      15,
+      16
+    ]
+  },
+  "required_phases": [
+    "cast",
+    "travel",
+    "damage_recovery",
+    "mark_consumed",
+    "mp_refund"
+  ],
+  "schema_version": 1,
+  "frames": [
+    {
+      "frame": 1,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 2,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 3,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 4,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1536,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 5,
+      "phase": "travel",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        176.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        0,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 6,
+      "phase": "travel",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        176.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        512,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 7,
+      "phase": "travel",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        176.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1024,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 8,
+      "phase": "travel",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        176.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1536,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 9,
+      "phase": "damage_recovery",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        0,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 10,
+      "phase": "damage_recovery",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        512,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 65
+    },
+    {
+      "frame": 11,
+      "phase": "damage_recovery",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1024,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 80
+    },
+    {
+      "frame": 12,
+      "phase": "damage_recovery",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1536,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 100
+    },
+    {
+      "frame": 13,
+      "phase": "mark_consumed",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        0,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 14,
+      "phase": "mark_consumed",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        512,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 65
+    },
+    {
+      "frame": 15,
+      "phase": "mp_refund",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1024,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 80
+    },
+    {
+      "frame": 16,
+      "phase": "mp_refund",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1536,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 100
+    }
+  ],
+  "visual_event_contract": {
+    "id": "physical_skill_visual_v1",
+    "version": 1,
+    "form": "mint",
+    "ability_id": "hunt",
+    "variant_key": "hunt"
+  },
+  "reaction_layers": {},
+  "event_layers": {
+    "cast": {
+      "phase": "cast",
+      "event_type": "command_accepted",
+      "target": "source",
+      "placement": "caster_body",
+      "lifetime": "action",
+      "status_id": "",
+      "activation_frames": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "loop_frames": [],
+      "cue": "start",
+      "start_phase": "",
+      "phase_segments": [
+        {
+          "phase": "cast",
+          "frames": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "loop_frames": []
+        }
+      ]
+    },
+    "damage_recovery": {
+      "phase": "damage_recovery",
+      "event_type": "damage",
+      "target": "event_target",
+      "placement": "target_body",
+      "lifetime": "action",
+      "status_id": "",
+      "activation_frames": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "loop_frames": [],
+      "cue": "impact",
+      "start_phase": "",
+      "phase_segments": [
+        {
+          "phase": "damage_recovery",
+          "frames": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "loop_frames": []
+        }
+      ]
+    },
+    "mark_consumed": {
+      "phase": "mark_consumed",
+      "event_type": "status_removed",
+      "target": "event_target",
+      "placement": "target_body",
+      "lifetime": "action",
+      "status_id": "mark",
+      "activation_frames": [
+        13,
+        14
+      ],
+      "loop_frames": [],
+      "cue": "impact",
+      "start_phase": "",
+      "reason": "skill_consumed",
+      "phase_segments": [
+        {
+          "phase": "mark_consumed",
+          "frames": [
+            13,
+            14
+          ],
+          "loop_frames": []
+        }
+      ]
+    },
+    "mp_refund": {
+      "phase": "mp_refund",
+      "event_type": "mp_restored",
+      "target": "source",
+      "placement": "caster_body",
+      "lifetime": "action",
+      "status_id": "",
+      "activation_frames": [
+        15,
+        16
+      ],
+      "loop_frames": [],
+      "cue": "impact",
+      "start_phase": "",
+      "positive_actual": true,
+      "phase_segments": [
+        {
+          "phase": "mp_refund",
+          "frames": [
+            15,
+            16
+          ],
+          "loop_frames": []
+        }
+      ]
+    },
+    "travel": {
+      "phase": "travel",
+      "event_type": "command_accepted",
+      "target": "event_target",
+      "placement": "projectile",
+      "lifetime": "action",
+      "status_id": "",
+      "activation_frames": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "loop_frames": [],
+      "cue": "launch",
+      "start_phase": "",
+      "phase_segments": [
+        {
+          "phase": "travel",
+          "frames": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "loop_frames": []
+        }
+      ]
+    }
+  },
+  "phase_groups": {
+    "cast": {
+      "activation_frames": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "loop_frames": [],
+      "binding": "physical_skill_visual_v1"
+    },
+    "travel": {
+      "activation_frames": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "loop_frames": [],
+      "binding": "physical_skill_visual_v1"
+    },
+    "damage_recovery": {
+      "activation_frames": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "loop_frames": [],
+      "binding": "physical_skill_visual_v1"
+    },
+    "mark_consumed": {
+      "activation_frames": [
+        13,
+        14
+      ],
+      "loop_frames": [],
+      "binding": "physical_skill_visual_v1"
+    },
+    "mp_refund": {
+      "activation_frames": [
+        15,
+        16
+      ],
+      "loop_frames": [],
+      "binding": "physical_skill_visual_v1"
+    }
+  }
+}

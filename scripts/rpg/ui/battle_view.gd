@@ -79,6 +79,7 @@ var _display_hp: Dictionary = {}
 var _display_mp: Dictionary = {}
 var _display_shields: Dictionary = {}
 var _display_statuses: Dictionary = {}
+var _display_intents: Dictionary = {}
 var _pending_hp_events: Dictionary = {}
 var _hp_event_nonce := 0
 
@@ -462,6 +463,7 @@ func _build_actors() -> void:
 			if _hd_enabled():
 				_canvas.remove_child(sprite)
 				var adapter := LegacyActor.new()
+				adapter.parent_controls_defeat_tint=true
 				adapter.configure(sprite, float(layout[2]), native_facing, toward_right)
 				_canvas.add_child(adapter)
 				sprite = adapter
@@ -523,11 +525,11 @@ func _build_actors() -> void:
 		var status := Kit.scroll_text(card, Rect2(26, 192 if ally else 142, content_width, 64 if ally else 30), 18 if ally else 17)
 		status.add_theme_color_override("default_color", Color("d3d0b9"))
 		if compact:
-			title.position.y = 24
+			title.position.y = 20
 			title.size.y = 24
-			hp.position.y = 54
-			hpbar.position.y = 84
-			mp.position.y = 98
+			hp.position.y = 48
+			hpbar.position.y = 78
+			mp.position.y = 92
 			status.position.y = 130
 			status.size.y = 24
 		var intent: Label
@@ -564,7 +566,7 @@ func _render() -> void:
 	var state: Dictionary = engine.snapshot()
 	# 只覆盖显示副本，实时预览/合法性始终读取engine权威状态。
 	var shown := state.duplicate(true)
-	for field in [["hp",_display_hp],["mp",_display_mp],["shield",_display_shields],["statuses",_display_statuses]]:
+	for field in [["hp",_display_hp],["mp",_display_mp],["shield",_display_shields],["statuses",_display_statuses],["intent",_display_intents]]:
 		for actor_id in field[1]:
 			if shown.actors.has(actor_id): shown.actors[actor_id][field[0]] = field[1][actor_id]
 	var model := Presenter.present(shown, _catalog, _display_actor_id if processing else "")
@@ -611,11 +613,10 @@ func _render() -> void:
 		if row.shield > 0: status_lines.append(shield_text)
 		if not row.statuses.is_empty(): status_lines.append(status_text)
 		w.status.text = "\n".join(status_lines)
-		if row.side == "enemy":
-			# 窄卡首行只放可完整读完的状态名；时钟与全部状态仍可滚动或悬停查看。
-			w.status.text = _enemy_status_summary(shown.actors[row.actor_id], row.shield, w.status.size.x, w.status.get_theme_font_size("normal_font_size")) + "\n" + "\n".join(status_lines) if not row.statuses.is_empty() else (shield_text if row.shield > 0 else "")
 		w.status.visible = row.shield > 0 or not row.statuses.is_empty()
-		if row.side == "enemy": w.mp.visible = row.max_mp > 0
+		if row.side == "enemy":
+			w.mp.visible = row.max_mp > 0
+			_layout_enemy_status(w,row)
 		# 空状态收拢卡片，但生图内框继续保留原有20～28像素底部阅读区。
 		var content_bottom: float = w.hpbar.position.y + w.hpbar.size.y
 		if w.mp.visible: content_bottom = maxf(content_bottom, w.mp.position.y + w.mp.size.y)
@@ -630,7 +631,7 @@ func _render() -> void:
 		w.target.tooltip_text = "%s\n%s" % [row.label, w.status.tooltip_text]
 		if w.intent != null:
 			var full_intent: String = row.intent.get("text", "倒地" if row.hp == 0 else "意图待定")
-			w.intent.text = full_intent.get_slice("\n", 0)
+			w.intent.text = _enemy_intent_summary(row.intent,full_intent)
 			w.intent.tooltip_text = full_intent
 			w.target.tooltip_text += "\n" + full_intent
 	for index in range(4):
@@ -695,15 +696,59 @@ func _render() -> void:
 	_hud.latest.text = _log_lines.back() if not _log_lines.is_empty() else "HP/MP与库存跨战保留 · 道具占用一次行动"
 	_sync_modal_focus()
 
-func _enemy_status_summary(actor: Dictionary, shield: int, width: float, font_size: int) -> String:
-	var names: Array[String] = []
-	for status in actor.get("statuses", []):
-		names.append(_catalog.get_definition("statuses", status.id).get("name", status.id))
-	var prefix := "盾%d · " % shield if shield > 0 else ""
-	for count in range(names.size(), 0, -1):
-		var summary := prefix + " / ".join(names.slice(0, count)) + (" +%d" % (names.size() - count) if count < names.size() else "")
-		if Kit.font.get_string_size(summary, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x <= width - 16: return summary
-	return prefix + "%d种状态" % names.size()
+# 状态名与完整时钟各写一次；隐藏MP的空位用于完整行，保留超量状态滚动。
+func _layout_enemy_status(w:Dictionary,row:Dictionary)->void:
+	var lines:Array[String]=[]
+	if row.shield>0:lines.append("盾%d · %d次行动"%[row.shield,row.shield_remaining])
+	lines.append_array(row.statuses)
+	var text_value:="\n".join(lines)
+	w.status.tooltip_text="盾 %d · %d次行动\n%s"%[row.shield,row.shield_remaining,"\n".join(row.statuses)]
+	w.status.position.y=w.hpbar.position.y+w.hpbar.size.y+4
+	if w.mp.visible:w.status.position.y=maxf(w.status.position.y,w.mp.position.y+w.mp.size.y+4)
+	var font_size:int=17
+	var font:Font=w.status.get_theme_font("normal_font")
+	var line_height:=ceilf(font.get_height(font_size))
+	var needed:=ceilf(font.get_multiline_string_size(text_value,HORIZONTAL_ALIGNMENT_LEFT,w.status.size.x-16,font_size).y)
+	var head:float=w.sprite.position.y-float(w.sprite.get_meta("content_height",300))
+	if is_instance_valid(_world_backdrop):
+		var bounds:Rect2=_world_backdrop.actor_screen_bounds(str(row.actor_id))
+		if bounds.has_area():head=bounds.position.y
+	var padding:=20.0 if w.card.size.x<300 else 22.0
+	var available:float=head-w.card.position.y-w.status.position.y-padding-2
+	if needed>available and lines.size()>=3:
+		font_size=16
+		line_height=ceilf(font.get_height(font_size))
+		needed=ceilf(font.get_multiline_string_size(text_value,HORIZONTAL_ALIGNMENT_LEFT,w.status.size.x-16,font_size).y)
+	# 带MP敌卡的安全高度不足时，优先让常见三状态名称和各自次数同时可读。
+	# 完整时钟不删减，保留在上面的tooltip；超量六状态仍使用原全文滚动。
+	if needed>available and lines.size()<=4:
+		var packed:Array[String]=[]
+		var current:=""
+		for line in lines:
+			var brief:String=line.replace("至下次行动","下次").replace("次行动","动").replace("次轮序","轮").replace(" ","")
+			var candidate:String=brief if current.is_empty() else current+" / "+brief
+			if not current.is_empty() and font.get_string_size(candidate,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x>w.status.size.x-16:
+				packed.append(current);current=brief
+			else:current=candidate
+		if not current.is_empty():packed.append(current)
+		text_value="\n".join(packed)
+		needed=ceilf(font.get_multiline_string_size(text_value,HORIZONTAL_ALIGNMENT_LEFT,w.status.size.x-16,font_size).y)
+		w.status.tooltip_text+="\n动=目标行动；轮=轮序快照"
+	if w.status.text!=text_value:w.status.text=text_value;w.status.scroll_to_line(0)
+	w.status.add_theme_font_size_override("normal_font_size",font_size)
+	var complete_lines:=maxi(1,int(floor(available/line_height)))
+	w.status.size.y=maxf(line_height,minf(needed,line_height*minf(3,complete_lines)))
+	w.status.visible=not lines.is_empty()
+
+# 只取真实预览中的取消类型；其余意图保持原技能首行，全文仍可悬停。
+func _enemy_intent_summary(intent:Dictionary,full_text:String)->String:
+	var preview:Dictionary=intent.get("preview",{})
+	for effect in preview.get("effects",[]):
+		match str(effect.get("type","")):
+			"saga_cancelled":return str(preview.get("hint",effect.get("payload",{}).get("text","号令已打断，本次行动失效"))).get_slice("；",0)
+			"boss_idle":return "释放取消 · 不造成伤害"
+			"charge_empty":return "锁定目标倒地 · 空放"
+	return full_text.get_slice("\n",0)
 
 # 自由切换也是权威引擎的一次标准命令；不调用advance、不结束当前行动槽。
 func switch_active_form() -> Dictionary:
@@ -1200,6 +1245,9 @@ func _defer_impact_hp(events: Array, before: Dictionary, state: Dictionary) -> v
 		var display := {"target":target}
 		var absorption: Dictionary = payload.get("absorption", {})
 		match str(event.get("type", "")):
+			"intent_updated":
+				display.intent=payload.get("intent",{}).duplicate(true)
+				if not _display_intents.has(target):_display_intents[target]=previous.get("intent",{}).duplicate(true)
 			"resources_changed":
 				display.mp = int(payload.get("mp_after",previous.mp))
 				if not _display_mp.has(target): _display_mp[target] = int(payload.get("mp_before",previous.mp))
@@ -1279,6 +1327,7 @@ func _on_event_presented(event: Dictionary) -> void:
 	if displayed.has("mp"): _display_mp[target] = displayed.mp
 	if displayed.has("shield"): _display_shields[target] = displayed.shield
 	if displayed.has("statuses"): _display_statuses[target] = displayed.statuses
+	if displayed.has("intent"): _display_intents[target] = displayed.intent
 	if displayed.has("status_event"):
 		var status_event: Dictionary = displayed.status_event
 		var status: Dictionary = status_event.payload.get("status", status_event.payload.get("after", {}))
@@ -1292,11 +1341,12 @@ func _on_event_presented(event: Dictionary) -> void:
 		if is_instance_valid(_world_backdrop): _world_backdrop.sync_visuals(0.0)
 
 func _reconcile_display_hp() -> void:
-	if _display_hp.is_empty() and _display_mp.is_empty() and _display_shields.is_empty() and _display_statuses.is_empty() and _pending_hp_events.is_empty(): return
+	if _display_hp.is_empty() and _display_mp.is_empty() and _display_shields.is_empty() and _display_statuses.is_empty() and _display_intents.is_empty() and _pending_hp_events.is_empty(): return
 	_display_hp.clear()
 	_display_mp.clear()
 	_display_shields.clear()
 	_display_statuses.clear()
+	_display_intents.clear()
 	_pending_hp_events.clear()
 	# 取消/解绑可能发生在搭建或退出中，只更新现有控件，不能重入_build_actors。
 	if not _built or engine == null: return
@@ -1314,6 +1364,16 @@ func _reconcile_display_hp() -> void:
 		if not row.statuses.is_empty(): status_lines.append(" / ".join(row.statuses))
 		widgets.status.text = "\n".join(status_lines)
 		widgets.status.visible = not status_lines.is_empty()
+		if row.side=="enemy":
+			_layout_enemy_status(widgets,row)
+			var content_bottom:float=widgets.hpbar.position.y+widgets.hpbar.size.y
+			if widgets.mp.visible:content_bottom=maxf(content_bottom,widgets.mp.position.y+widgets.mp.size.y)
+			if widgets.status.visible:content_bottom=maxf(content_bottom,widgets.status.position.y+widgets.status.size.y)
+			widgets.card.size.y=content_bottom+(20.0 if widgets.card.size.x<300 else 22.0)
+		if is_instance_valid(widgets.intent):
+			var full_intent:String=row.intent.get("text","倒地" if row.hp==0 else "意图待定")
+			widgets.intent.text=_enemy_intent_summary(row.intent,full_intent);widgets.intent.tooltip_text=full_intent
+			widgets.target.tooltip_text=row.label+"\n"+widgets.status.tooltip_text+"\n"+full_intent
 		widgets.title.text = (row.label if row.side == "enemy" and model.actors.size() > 5 else row.name) + (" · 倒地" if row.hp == 0 else "")
 		widgets.sprite.modulate = Color(0.4, 0.4, 0.4, 0.55) if row.hp == 0 else Color.WHITE
 		if widgets.sprite.has_method("set_downed"): widgets.sprite.set_downed(row.hp == 0)
@@ -1367,13 +1427,16 @@ func _sync_effect_positions() -> void:
 	if not _skill_effects_ready or not is_instance_valid(_fx_layer) or not _fx_layer.has_method("update_positions"): return
 	var positions := {}
 	var hands := {}
+	var grounds := {}
 	for actor_id in _actors:
 		if not is_instance_valid(_actors[actor_id].sprite): continue
 		positions[str(actor_id)]=_effect_center(str(actor_id))
+		if is_instance_valid(_world_backdrop) and _world_backdrop.actor_entries.has(actor_id):grounds[str(actor_id)]=_world_backdrop.camera.unproject_position(_world_backdrop.actor_entries[actor_id].body.global_position)
 		if is_instance_valid(_world_backdrop):
 			var point: Dictionary = _world_backdrop.actor_action_attachment(str(actor_id))
 			if point.ok: hands[str(actor_id)]=point.position
 	_fx_layer.update_positions(positions,hands)
+	if _fx_layer.has_method("update_ground_positions"):_fx_layer.update_ground_positions(grounds)
 
 func _effect_center(actor_id: String) -> Vector2:
 	if is_instance_valid(_world_backdrop) and _world_backdrop.actor_entries.has(actor_id):
@@ -1424,6 +1487,8 @@ func _on_action_started(event: Dictionary, timing: Dictionary) -> void:
 			_fx_layer.record_missing("source_attachment:"+str(context.get("form","")),str(point.reason))
 			return
 		origin=point.position
+		for cue in ["launch_seconds","cast_scale"]:
+			if point.has(cue):context[cue]=point[cue]
 	_sync_effect_positions()
 	_fx_layer.present_action(context,str(context.get("form","")),origin,targets,_effect_battle_id())
 

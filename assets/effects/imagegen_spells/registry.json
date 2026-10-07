@@ -38,6 +38,238 @@
       "gameplay_qa_pending": true,
       "particles": [],
       "manifest_sha256": "c6ead7fa245cd92f87d7d56c15f5fc97a6e0cb08dea8b36c18d46e358d34b294"
+    },
+    "heal": {
+      "manifest": "res://assets/effects/imagegen_spells/heal/manifest.json",
+      "approved_for_runtime": true,
+      "runtime_scale": 0.5,
+      "display_size_px": 256,
+      "gameplay_qa_pending": true,
+      "particles": [],
+      "manifest_sha256": "40f8907043a136d1a21e5d103cc9ce65eff5450baeda02caa47952d5fb11a927"
+    },
+    "group_heal": {
+      "manifest": "res://assets/effects/imagegen_spells/group_heal/manifest.json",
+      "approved_for_runtime": true,
+      "runtime_scale": 0.5,
+      "display_size_px": 256,
+      "gameplay_qa_pending": true,
+      "particles": [],
+      "manifest_sha256": "93802579176e368a91f86713d0f847707d8d6cd957e97eaa16811ec51ed32b86"
+    },
+    "cleanse": {
+      "manifest": "res://assets/effects/imagegen_spells/cleanse/manifest.json",
+      "approved_for_runtime": true,
+      "runtime_scale": 0.5,
+      "display_size_px": 256,
+      "gameplay_qa_pending": true,
+      "particles": [],
+      "manifest_sha256": "3cae360a4cdfd19145008ea7a9a9d8f3f250f67357b75edd5696fb9506706df6"
+    },
+    "holy_shield": {
+      "manifest": "res://assets/effects/imagegen_spells/holy_shield/manifest.json",
+      "approved_for_runtime": true,
+      "runtime_scale": 0.5,
+      "display_size_px": 256,
+      "gameplay_qa_pending": true,
+      "particles": [],
+      "manifest_sha256": "2c4dc1dad6ce88234b4dd42a5c328cbc94075c7e7e58938c7ddf4b8761ef14b0"
+    },
+    "weaken": {
+      "manifest": "res://assets/effects/imagegen_spells/weaken/manifest.json",
+      "approved_for_runtime": true,
+      "runtime_scale": 0.5,
+      "display_size_px": 256,
+      "gameplay_qa_pending": true,
+      "particles": [],
+      "manifest_sha256": "8a47fa9795fe1233ade6ac5633a01b57088336accac6441ed0e8e7eb675898c6"
+    },
+    "slow": {
+      "manifest": "res://assets/effects/imagegen_spells/slow/manifest.json",
+      "approved_for_runtime": true,
+      "runtime_scale": 0.5,
+      "display_size_px": 256,
+      "gameplay_qa_pending": true,
+      "particles": [],
+      "manifest_sha256": "3c3c1301dc1e1a730d16ad964e4c9c09c365b7f60e438d6eaf4b5e222b8dd549"
+    },
+    "seal": {
+      "manifest": "res://assets/effects/imagegen_spells/seal/manifest.json",
+      "approved_for_runtime": true,
+      "runtime_scale": 0.5,
+      "display_size_px": 256,
+      "gameplay_qa_pending": true,
+      "particles": [],
+      "manifest_sha256": "76607695c340dc9c161dc5133754219d06158e70b2b2a4a351dec2236c86ada9"
+    },
+    "magic_break": {
+      "manifest": "res://assets/effects/imagegen_spells/magic_break/manifest.json",
+      "approved_for_runtime": true,
+      "runtime_scale": 0.5,
+      "display_size_px": 256,
+      "gameplay_qa_pending": true,
+      "particles": [],
+      "manifest_sha256": "9e86aaf6bcf84113fd59ebbed9362c3e98680a7851e25e26566260d182ada81e"
+    },
+    "heavy_slash": {
+      "variants": {
+        "rinne": {
+          "manifest": "res://assets/effects/imagegen_spells/rinne-heavy_slash/manifest.json",
+          "approved_for_runtime": true,
+          "runtime_scale": 0.5,
+          "display_size_px": 256,
+          "gameplay_qa_pending": true,
+          "particles": [],
+          "manifest_sha256": "e3f739aa3ad92f38e58bc4738991b492f8956aaaa44b10e043c1325b14a470d5"
+        },
+        "homura_sword": {
+          "manifest": "res://assets/effects/imagegen_spells/homura_sword-heavy_slash/manifest.json",
+          "approved_for_runtime": true,
+          "runtime_scale": 0.5,
+          "display_size_px": 256,
+          "gameplay_qa_pending": true,
+          "particles": [],
+          "manifest_sha256": "b7e7f28685a687f1dccf12cdef5ac8698161e04d8ea9484b13b40a0a37275f34"
+        }
+      }
+    },
+    "armor_break": {
+      "variants": {
+        "rinne": {
+          "manifest": "res://assets/effects/imagegen_spells/rinne-armor_break/manifest.json",
+          "approved_for_runtime": true,
+          "runtime_scale": 0.5,
+          "display_size_px": 256,
+          "gameplay_qa_pending": true,
+          "particles": [],
+          "manifest_sha256": "55101bfc1a1ed6b0e4260bde6fcd676a0d8899299b94be00af164a612e013e42"
+        },
+        "homura_sword": {
+          "manifest": "res://assets/effects/imagegen_spells/homura_sword-armor_break/manifest.json",
+          "approved_for_runtime": true,
+          "runtime_scale": 0.5,
+          "display_size_px": 256,
+          "gameplay_qa_pending": true,
+          "particles": [],
+          "manifest_sha256": "99e06f75e831d4d00a8c9d8132603a0e1629c89e1ff6ae4d832885153db56a8c"
+        }
+      }
+    },
+    "sweep": {
+      "variants": {
+        "rinne": {
+          "manifest": "res://assets/effects/imagegen_spells/rinne-sweep/manifest.json",
+          "approved_for_runtime": true,
+          "runtime_scale": 0.5,
+          "display_size_px": 256,
+          "gameplay_qa_pending": true,
+          "particles": [],
+          "manifest_sha256": "3f6e9b9cb32c295bb30588ffe8fa0fc595bbb3372f8a09179fb0c315eec42e1a"
+        },
+        "homura_sword": {
+          "manifest": "res://assets/effects/imagegen_spells/homura_sword-sweep/manifest.json",
+          "approved_for_runtime": true,
+          "runtime_scale": 0.5,
+          "display_size_px": 256,
+          "gameplay_qa_pending": true,
+          "particles": [],
+          "manifest_sha256": "db758992d0f094d2f7e74f6c26e337998a4df01783c30070414ebc4dc01e2312"
+        }
+      }
+    },
+    "battle_spirit": {
+      "variants": {
+        "rinne": {
+          "manifest": "res://assets/effects/imagegen_spells/rinne-battle_spirit/manifest.json",
+          "approved_for_runtime": true,
+          "runtime_scale": 0.5,
+          "display_size_px": 256,
+          "gameplay_qa_pending": true,
+          "particles": [],
+          "manifest_sha256": "1f406d1570e98639c3bd93f087f17b6ebff5985fcb230d614532ad3fdc623dd3"
+        },
+        "homura_sword": {
+          "manifest": "res://assets/effects/imagegen_spells/homura_sword-battle_spirit/manifest.json",
+          "approved_for_runtime": true,
+          "runtime_scale": 0.5,
+          "display_size_px": 256,
+          "gameplay_qa_pending": true,
+          "particles": [],
+          "manifest_sha256": "d6b1d6f4498ec7e1c470db6ac14226607d618743ce91b61158910fb45ac0a80f"
+        }
+      }
+    },
+    "cover": {
+      "manifest": "res://assets/effects/imagegen_spells/cover/manifest.json",
+      "approved_for_runtime": true,
+      "runtime_scale": 0.5,
+      "display_size_px": 256,
+      "gameplay_qa_pending": true,
+      "particles": [],
+      "manifest_sha256": "52c40b7657200670273efc2c5cd8db21aa149b805d920c4031d67f745a7e41cf"
+    },
+    "shield_bash": {
+      "manifest": "res://assets/effects/imagegen_spells/shield_bash/manifest.json",
+      "approved_for_runtime": true,
+      "runtime_scale": 0.5,
+      "display_size_px": 256,
+      "gameplay_qa_pending": true,
+      "particles": [],
+      "manifest_sha256": "3d7a7a72e8a632883352961ff3e74e6d9ecc3490dba07c3211bc553e1cff59dc"
+    },
+    "iron_wall": {
+      "manifest": "res://assets/effects/imagegen_spells/iron_wall/manifest.json",
+      "approved_for_runtime": true,
+      "runtime_scale": 0.5,
+      "display_size_px": 256,
+      "gameplay_qa_pending": true,
+      "particles": [],
+      "manifest_sha256": "070bc57425b2e08cb69048ddde837afc65d390cdb4dc95b0e72dce4a421ad382"
+    },
+    "taunt": {
+      "manifest": "res://assets/effects/imagegen_spells/taunt/manifest.json",
+      "approved_for_runtime": true,
+      "runtime_scale": 0.5,
+      "display_size_px": 256,
+      "gameplay_qa_pending": true,
+      "particles": [],
+      "manifest_sha256": "d12507b0c614b6c848d6e85c103a356a677bf0b811c05cdebff905eff79ecb42"
+    },
+    "mark": {
+      "manifest": "res://assets/effects/imagegen_spells/mark/manifest.json",
+      "approved_for_runtime": true,
+      "runtime_scale": 0.5,
+      "display_size_px": 256,
+      "gameplay_qa_pending": true,
+      "particles": [],
+      "manifest_sha256": "75845d89cdabcb4558a37f99b511bc55a6c4742d38be9e56d3fa39c88c84df2e"
+    },
+    "hunt": {
+      "manifest": "res://assets/effects/imagegen_spells/hunt/manifest.json",
+      "approved_for_runtime": true,
+      "runtime_scale": 0.5,
+      "display_size_px": 256,
+      "gameplay_qa_pending": true,
+      "particles": [],
+      "manifest_sha256": "ea7e7fb9f1d68e05d6b7ec4a47426e78b54992e8fc56dfa4b0fac16f022f38f7"
+    },
+    "ambush": {
+      "manifest": "res://assets/effects/imagegen_spells/ambush/manifest.json",
+      "approved_for_runtime": true,
+      "runtime_scale": 0.5,
+      "display_size_px": 256,
+      "gameplay_qa_pending": true,
+      "particles": [],
+      "manifest_sha256": "310f1b9da019bed7addf578fa472e507c003b3a04fe3a67905f82525044d2b5c"
+    },
+    "smoke_screen": {
+      "manifest": "res://assets/effects/imagegen_spells/smoke_screen/manifest.json",
+      "approved_for_runtime": true,
+      "runtime_scale": 0.5,
+      "display_size_px": 256,
+      "gameplay_qa_pending": true,
+      "particles": [],
+      "manifest_sha256": "be99ca45bd2f225961c7d48a0d72875ac0cfe78b2782158ddfaf5b1fef3ae0ea"
     }
   }
 }

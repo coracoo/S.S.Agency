@@ -121,6 +121,68 @@ class RuntimeProjectionRelease(unittest.TestCase):
                 path = "assets/chars/pixel/"+form+"/video_actions/manifest.json"
                 self.assertEqual((source/path).read_bytes(), (candidate/path).read_bytes())
 
+    def test_schema2_mixed_effects_preserve_structured_layers_and_omit_private_fields(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            raw, source = self.public_source(root)
+            prefix = "assets/effects/imagegen_spells/"
+            registry = projection.read(source / (prefix + "registry.json"))
+            path = source / (prefix + "firebolt/manifest.json")
+            manifest = projection.read(raw / (prefix + "firebolt/manifest.json"))
+            manifest["schema_version"] = 1
+            manifest["required_phases"] = ["cast", "travel", "hit"]
+            manifest["placement"] = {"cast":"caster_focus", "travel_origin":"caster_focus", "travel_target":"target_body", "travel_mode":"projectile", "private_note":"omit"}
+            layer = {"phase":"hit", "event_type":"damage", "target":"event_target", "placement":"target_body", "lifetime":"action", "activation_frames":[1], "loop_frames":[]}
+            manifest["event_layers"] = {"damage":dict(layer, private_note="omit")}
+            write(path, manifest)
+            registry["effects"]["firebolt"]["manifest_sha256"] = projection.sha(path)
+            write(source / (prefix + "registry.json"), registry)
+            candidate = root / "candidate"
+            shutil.copytree(source, candidate)
+            before = snapshot(source)
+            result = projection.sanitize(source, candidate)
+            public = projection.read(candidate / path.relative_to(source))
+            self.assertEqual(manifest["required_phases"], public.get("required_phases"))
+            self.assertEqual({k:v for k,v in manifest["placement"].items() if k != "private_note"}, public.get("placement"))
+            self.assertEqual({"damage":layer}, public.get("event_layers"))
+            self.assertNotIn("source_prompt", public)
+            self.assertNotIn("generator", public)
+            self.assertFalse(result["source_receipts_verified"])
+            self.assertEqual(before, snapshot(source))
+            self.assertTrue(verify_projection.verify(source, candidate)["passed"])
+            for field in ("required_phases", "placement", "event_layers"):
+                with self.subTest(field=field):
+                    changed = json.loads(json.dumps(public))
+                    changed.pop(field)
+                    write(candidate / path.relative_to(source), changed)
+                    with self.assertRaisesRegex(ValueError, "运行投影改变"):
+                        verify_projection.verify(source, candidate)
+            write(candidate / path.relative_to(source), public)
+
+    def test_schema2_mixes_receipt_backed_full_entry_with_minimal_entries(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            raw, source = self.public_source(root)
+            prefix = "assets/effects/imagegen_spells/"
+            registry = projection.read(source / (prefix + "registry.json"))
+            raw_registry = projection.read(raw / (prefix + "registry.json"))
+            registry["effects"]["firebolt"] = raw_registry["effects"]["firebolt"]
+            write(source / (prefix + "registry.json"), registry)
+            for name in ("firebolt/manifest.json", "qa_acceptance.json"):
+                shutil.copyfile(raw / (prefix + name), source / (prefix + name))
+            candidate = root / "candidate"
+            shutil.copytree(source, candidate)
+            before = snapshot(source)
+            try:
+                result = projection.sanitize(source, candidate)
+            except ValueError as error:
+                self.fail("schema2须接受有独立收据的完整条目：" + str(error))
+            self.assertEqual(["firebolt"], result["source_receipt_verified_skills"])
+            self.assertFalse(result["source_receipts_verified"], "不能把部分收据复验说成全体重新QA")
+            self.assertEqual(before, snapshot(source))
+            self.assertTrue(verify_projection.verify(source, candidate)["passed"])
+            self.assertFalse((candidate / (prefix + "qa_acceptance.json")).exists())
+
     def test_schema2_manifest_and_atlas_tampering_fail_before_any_write(self):
         for target in ("manifest.json", "runtime.png"):
             with tempfile.TemporaryDirectory() as temporary, self.subTest(target=target):

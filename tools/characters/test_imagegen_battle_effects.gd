@@ -43,6 +43,8 @@ func _run() -> void:
 		check(not fx.present_event(hit,"homura_mage",Vector2.ZERO,targets.target,"battle",context),"相同damage去重")
 		check(fx.present_event(_event("damage",2,{"damage":11},"second"),"homura_mage",Vector2.ZERO,targets.second,"battle",context),"真实多目标各命中一次")
 		check(fx.hit_count()==2,"两目标主效果各一份")
+		fx.present_event(_event("actor_defeated",98),"homura_mage",Vector2.ZERO,targets.target,"battle",context)
+		check(fx.hit_count()==2,"同M的KO清状态但不抹掉已经发生的一次命中层")
 		fx._process(.36)
 		check(fx.active_count()==0 and fx.texture_memory_bytes()==0,"E清掉所有瞬态及页面强引用")
 		context=_context("burn","burn_brand")
@@ -71,6 +73,30 @@ func _run() -> void:
 		check(not fx.present_event(_event("damage",91),"homura_mage",Vector2.ZERO,targets.target,"battle",context),"取消后晚到命中不生成效果")
 		fx.clear()
 		check(fx.active_count()==0 and fx.texture_memory_bytes()==0,"退出清空所有效果页")
-		fx.free()
+		var wave_targets:Dictionary={"a":Vector2(150,460),"b":Vector2(374,460),"c":Vector2(598,460)}
+		var wave:=_context("group-wave","flame_wave")
+		check(fx.present_action(wave,"homura_mage",Vector2(1100,420),wave_targets,"wave-battle"),"群体炎浪沿真实三目标发起")
+		var travels:Array=fx._bursts.filter(func(burst):return burst.phase=="travel")
+		check(travels.size()==1,"炎浪只有一个群体波前，不复制成三枚火团")
+		fx._process(.18)
+		if travels.size()==1:
+			var sample:Dictionary=fx.sample_burst(travels[0])
+			check(sample.stretch.x>1 and sample.stretch.y==1,"波前按目标范围横向展开，保持垂直可见高度")
+		fx._process(.06)
+		for i in 3:fx.present_event(_event("damage",200+i,{"damage":5},["a","b","c"][i]),"homura_mage",Vector2.ZERO,wave_targets[["a","b","c"][i]],"wave-battle",wave)
+		check(fx.hit_count()==3,"群体波前不合并或重复实际三次目标命中")
+		fx.clear()
+		var quick:=_context("quick-cast","firebolt")
+		quick.impact_delay=7.0/24.0;quick.action_duration=.875
+		quick.launch_seconds=5.0/24.0;quick.cast_scale=.55
+		check(fx.present_action(quick,"homura_mage",Vector2(1100,420),targets,"quick-battle"),"新动作独立释放点可启动")
+		var quick_cast:Dictionary=fx._bursts.filter(func(burst):return burst.phase=="cast")[0]
+		var quick_travel:Dictionary=fx._bursts.filter(func(burst):return burst.phase=="travel")[0]
+		check(absf(quick_cast.end-5.0/24.0)<.0001 and absf(quick_travel.start-5.0/24.0)<.0001,"等待新动作推掌再发射，真实M不变")
+		fx._process(.18)
+		check(fx.sample_burst(quick_travel).is_empty(),"收掌时火弹尚未离身")
+		var quick_sample:Dictionary=fx.sample_burst(quick_cast)
+		check(not quick_sample.is_empty() and absf(quick_sample.scale-float(quick_sample.frame.scale)*.55)<.0001,"只缩小聚能球保留脸部，飞弹和命中图尺寸不变")
+		fx.clear();fx.free()
 	print("IMAGEGEN_BATTLE_EFFECTS: %d assertions, %d failures" % [checks,failures])
 	quit(1 if failures else 0)

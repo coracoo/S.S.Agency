@@ -14,7 +14,8 @@ func rect(value: Rect2) -> Array:
 func _run() -> void:
 	if OS.get_environment("RPG_TEST_ISOLATED") != "1": quit(2); return
 	var snapshot := {"characters":{}, "effects":{}}
-	for form in FORMS:
+	# 合同聚焦入口可只投影全部技能；常规入口仍覆盖七形态身体。
+	for form in ([] if OS.get_environment("PHYSICAL_EFFECTS_ONLY")=="1" else FORMS):
 		var contexts := {}
 		for context in ["full", "world", "battle"]:
 			var definition: Dictionary = Definition.load_definition("res://assets/chars/pixel/%s/video_actions/manifest.json" % form, context)
@@ -31,23 +32,25 @@ func _run() -> void:
 			contexts[context] = {"canvas":definition.manifest.canvas.duplicate(true), "animations":animations, "layer_count":definition.layer_frames.size()}
 			definition.clear()
 		snapshot.characters[form] = contexts
-	for skill in ["firebolt", "flame_wave", "ice_arrow", "burn_brand"]:
-		var blocked: Dictionary = Effects.load_effect(skill)
-		check(not blocked.ok and blocked.reason == "production_disabled", skill + " 保持生产关闭")
-		var effect: Dictionary = Effects.load_effect(skill, Effects.REGISTRY, true)
-		check(effect.ok, skill + " 可显式预览")
-		if not effect.ok: continue
-		var frames := {}
-		for id in effect.frames:
-			var frame: Dictionary = effect.frames[id]
-			frames[str(id)] = {"region":rect(frame.texture.region), "anchor":[frame.anchor.x, frame.anchor.y], "duration_ms":frame.duration_ms, "phase":frame.phase, "tail":frame.tail, "scale":frame.scale}
-		var samples := {}
-		for phase in effect.phases:
-			var ids := []
-			for step in range(101):
-				ids.append(Effects.phase_frame(effect, phase, float(step) / 100.0).get("frame", 0))
-			samples[phase] = ids
-		snapshot.effects[skill] = {"frames":frames, "phases":effect.phases, "samples":samples, "atlas_sha256":effect.atlas_sha256, "texture_bytes":effect.texture_bytes, "display_size":effect.display_size, "particles":effect.particles, "blocked_reason":blocked.reason}
+	var registry: Dictionary = Effects._json(Effects.REGISTRY)
+	for skill in registry.effects:
+		for form in registry.effects[skill].get("variants", {"":registry.effects[skill]}):
+			var blocked: Dictionary = Effects.load_effect(skill, Effects.REGISTRY, false, form)
+			check(not blocked.ok and blocked.reason == "production_disabled", skill + " 保持生产关闭")
+			var effect: Dictionary = Effects.load_effect(skill, Effects.REGISTRY, true, form)
+			check(effect.ok, skill + " 可显式预览")
+			if not effect.ok: continue
+			var frames := {}
+			for id in effect.frames:
+				var frame: Dictionary = effect.frames[id]
+				frames[str(id)] = {"region":rect(frame.texture.region), "anchor":[frame.anchor.x, frame.anchor.y], "duration_ms":frame.duration_ms, "phase":frame.phase, "tail":frame.tail, "scale":frame.scale}
+			var samples := {}
+			for phase in effect.phases:
+				var ids := []
+				for step in range(101):
+					ids.append(Effects.phase_frame(effect, phase, float(step) / 100.0).get("frame", 0))
+				samples[phase] = ids
+			snapshot.effects[effect.variant_key] = {"form_id":effect.form_id, "phase_groups":effect.phase_groups, "frames":frames, "phases":effect.phases, "samples":samples, "atlas_sha256":effect.atlas_sha256, "texture_bytes":effect.texture_bytes, "display_size":effect.display_size, "particles":effect.particles, "blocked_reason":blocked.reason, "required_phases":effect.required_phases, "event_layers":effect.event_layers, "reaction_layers":effect.reaction_layers, "visual_event_contract":effect.visual_event_contract, "placement":effect.placement}
 	var path := OS.get_environment("PUBLIC_RUNTIME_SNAPSHOT_PATH")
 	check(not path.is_empty() and not path.begins_with("res://"), "投影证据位于项目外")
 	if not path.is_empty():

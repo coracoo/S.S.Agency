@@ -1,0 +1,452 @@
+{
+  "skill_id": "mark",
+  "form_id": "mint",
+  "skill_name": "标记",
+  "runtime_atlas": "mark/mark-atlas-runtime-256.png",
+  "runtime_atlas_sha256": "a65bad0bc509f48aabe2604b80fcb0d11555eabcc3d60d7c2becbf7680ea0e93",
+  "frame_count": 16,
+  "phases": {
+    "cast": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "travel": [
+      5,
+      6,
+      7,
+      8
+    ],
+    "mark_apply": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "mark_sustain": [
+      13,
+      14,
+      15,
+      16
+    ]
+  },
+  "required_phases": [
+    "cast",
+    "travel",
+    "mark_apply",
+    "mark_sustain"
+  ],
+  "schema_version": 1,
+  "frames": [
+    {
+      "frame": 1,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 2,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 3,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 4,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1536,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 5,
+      "phase": "travel",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        176.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        0,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 6,
+      "phase": "travel",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        176.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        512,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 7,
+      "phase": "travel",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        176.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1024,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 8,
+      "phase": "travel",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        176.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1536,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 9,
+      "phase": "mark_apply",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        0,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 10,
+      "phase": "mark_apply",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        512,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 65
+    },
+    {
+      "frame": 11,
+      "phase": "mark_apply",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1024,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 80
+    },
+    {
+      "frame": 12,
+      "phase": "mark_apply",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1536,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 100
+    },
+    {
+      "frame": 13,
+      "phase": "mark_sustain",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        0,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 150
+    },
+    {
+      "frame": 14,
+      "phase": "mark_sustain",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        512,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 150
+    },
+    {
+      "frame": 15,
+      "phase": "mark_sustain",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1024,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 150
+    },
+    {
+      "frame": 16,
+      "phase": "mark_sustain",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1536,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 150
+    }
+  ],
+  "visual_event_contract": {
+    "id": "physical_skill_visual_v1",
+    "version": 1,
+    "form": "mint",
+    "ability_id": "mark",
+    "variant_key": "mark"
+  },
+  "reaction_layers": {},
+  "event_layers": {
+    "cast": {
+      "phase": "cast",
+      "event_type": "command_accepted",
+      "target": "source",
+      "placement": "caster_body",
+      "lifetime": "action",
+      "status_id": "",
+      "activation_frames": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "loop_frames": [],
+      "cue": "start",
+      "start_phase": "",
+      "phase_segments": [
+        {
+          "phase": "cast",
+          "frames": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "loop_frames": []
+        }
+      ]
+    },
+    "mark_sustain": {
+      "phase": "mark_sustain",
+      "event_type": "status_applied",
+      "target": "event_target",
+      "placement": "target_body",
+      "lifetime": "status",
+      "status_id": "mark",
+      "activation_frames": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "loop_frames": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "cue": "impact",
+      "start_phase": "mark_apply",
+      "phase_segments": [
+        {
+          "phase": "mark_apply",
+          "frames": [
+            9,
+            10,
+            11,
+            12
+          ]
+        },
+        {
+          "phase": "mark_sustain",
+          "frames": [],
+          "loop_frames": [
+            13,
+            14,
+            15,
+            16
+          ]
+        }
+      ]
+    },
+    "travel": {
+      "phase": "travel",
+      "event_type": "command_accepted",
+      "target": "event_target",
+      "placement": "projectile",
+      "lifetime": "action",
+      "status_id": "",
+      "activation_frames": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "loop_frames": [],
+      "cue": "launch",
+      "start_phase": "",
+      "phase_segments": [
+        {
+          "phase": "travel",
+          "frames": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "loop_frames": []
+        }
+      ]
+    }
+  },
+  "phase_groups": {
+    "cast": {
+      "activation_frames": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "loop_frames": [],
+      "binding": "physical_skill_visual_v1"
+    },
+    "travel": {
+      "activation_frames": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "loop_frames": [],
+      "binding": "physical_skill_visual_v1"
+    },
+    "mark_apply": {
+      "activation_frames": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "loop_frames": [],
+      "binding": "physical_skill_visual_v1"
+    },
+    "mark_sustain": {
+      "activation_frames": [],
+      "loop_frames": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "binding": "physical_skill_visual_v1"
+    }
+  }
+}

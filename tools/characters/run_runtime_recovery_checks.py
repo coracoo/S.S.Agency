@@ -15,6 +15,16 @@ import time
 ROOT = Path(__file__).resolve().parents[2]
 ERROR = re.compile(r"(^|\n)(?:SCRIPT ERROR|ERROR):")
 CORE = [
+    ("tools/characters/test_enemy_status_readability.gd", r"ENEMY_STATUS_READABILITY: \d+ assertions, 0 failures"),
+    ("tools/characters/test_imagegen_battle_generation.gd", r"IMAGEGEN_BATTLE_GENERATION: \d+ assertions, 0 failures"),
+    ("tools/characters/test_caster_tool_attachments.gd", r"CASTER_TOOL_ATTACHMENTS: \d+ assertions, 0 failures"),
+    ("tools/characters/test_imagegen_event_layers.gd", r"IMAGEGEN_EVENT_LAYERS: \d+ assertions, 0 failures"),
+    ("tools/characters/test_caster_event_bridge.gd", r"CASTER_EVENT_BRIDGE: \d+ assertions, 0 failures"),
+    ("tools/characters/test_registered_battle_actions.gd", r"REGISTERED_BATTLE_ACTIONS: \d+ assertions, 0 failures"),
+    ("tools/characters/test_parallel_impact_timing.gd", r"PARALLEL_IMPACT_TIMING: \d+ assertions, 0 failures"),
+    ("tools/characters/test_parallel_impact_boundaries.gd", r"PARALLEL_IMPACT_BOUNDARIES: \d+ assertions, 0 failures"),
+    ("tools/characters/test_deferred_defeat_pose.gd", r"DEFERRED_DEFEAT_POSE: \d+ assertions, 0 failures"),
+    ("tools/characters/test_battle_motion_bridge.gd", r"BATTLE_MOTION_BRIDGE: \d+ assertions, 0 failures"),
     ("tools/characters/test_melee_return_dash.gd", r"MELEE_RETURN_DASH: \d+ assertions, 0 failures"),
     ("tools/characters/test_melee_production_gate.gd", r"MELEE_PRODUCTION_GATE: \d+ assertions, 0 failures"),
     ("tools/characters/test_texture_contexts.gd", r"TEXTURE_CONTEXTS: \d+ assertions, 0 failures"),

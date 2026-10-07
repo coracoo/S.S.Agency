@@ -1,0 +1,457 @@
+{
+  "skill_id": "cover",
+  "form_id": "guard",
+  "skill_name": "掩护",
+  "runtime_atlas": "cover/cover-atlas-runtime-256.png",
+  "runtime_atlas_sha256": "eea7ba89d4f65a3ea6205b062ab093dc1b1b00809c0005dbc31af681befe187b",
+  "frame_count": 16,
+  "phases": {
+    "cast": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "cover_link": [
+      5,
+      6,
+      7,
+      8
+    ],
+    "cover_status": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "cover_redirected": [
+      13,
+      14,
+      15,
+      16
+    ]
+  },
+  "required_phases": [
+    "cast",
+    "cover_link",
+    "cover_status",
+    "cover_redirected"
+  ],
+  "schema_version": 1,
+  "frames": [
+    {
+      "frame": 1,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 2,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 3,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 4,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1536,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 5,
+      "phase": "cover_link",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        0,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 150
+    },
+    {
+      "frame": 6,
+      "phase": "cover_link",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        512,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 150
+    },
+    {
+      "frame": 7,
+      "phase": "cover_link",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1024,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 150
+    },
+    {
+      "frame": 8,
+      "phase": "cover_link",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1536,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 150
+    },
+    {
+      "frame": 9,
+      "phase": "cover_status",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        0,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 150
+    },
+    {
+      "frame": 10,
+      "phase": "cover_status",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        512,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 150
+    },
+    {
+      "frame": 11,
+      "phase": "cover_status",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1024,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 150
+    },
+    {
+      "frame": 12,
+      "phase": "cover_status",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1536,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 150
+    },
+    {
+      "frame": 13,
+      "phase": "cover_redirected",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        0,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 14,
+      "phase": "cover_redirected",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        512,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 65
+    },
+    {
+      "frame": 15,
+      "phase": "cover_redirected",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1024,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 80
+    },
+    {
+      "frame": 16,
+      "phase": "cover_redirected",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1536,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 100
+    }
+  ],
+  "visual_event_contract": {
+    "id": "physical_skill_visual_v1",
+    "version": 1,
+    "form": "guard",
+    "ability_id": "cover",
+    "variant_key": "cover"
+  },
+  "reaction_layers": {
+    "cover_redirected": {
+      "phase": "cover_redirected",
+      "event_type": "cover_redirected",
+      "requires": "same_accepted_enemy_command_and_immediately_preceding_cover_consumed",
+      "lifetime": "action",
+      "activation_frames": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "loop_frames": [],
+      "target": "actual_guard",
+      "endpoints": [
+        "actual_guard",
+        "original_target_id"
+      ]
+    }
+  },
+  "event_layers": {
+    "cast": {
+      "phase": "cast",
+      "event_type": "command_accepted",
+      "target": "source",
+      "placement": "caster_body",
+      "lifetime": "action",
+      "status_id": "",
+      "activation_frames": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "loop_frames": [],
+      "cue": "start",
+      "start_phase": "",
+      "phase_segments": [
+        {
+          "phase": "cast",
+          "frames": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "loop_frames": []
+        }
+      ]
+    },
+    "cover_link": {
+      "phase": "cover_link",
+      "event_type": "status_applied",
+      "target": "event_target",
+      "placement": "cover_link",
+      "lifetime": "status",
+      "status_id": "cover",
+      "activation_frames": [],
+      "loop_frames": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "cue": "impact",
+      "start_phase": "",
+      "phase_segments": [
+        {
+          "phase": "cover_link",
+          "frames": [],
+          "loop_frames": [
+            5,
+            6,
+            7,
+            8
+          ]
+        }
+      ]
+    },
+    "cover_status": {
+      "phase": "cover_status",
+      "event_type": "status_applied",
+      "target": "event_target",
+      "placement": "target_body",
+      "lifetime": "status",
+      "status_id": "cover",
+      "activation_frames": [],
+      "loop_frames": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "cue": "impact",
+      "start_phase": "",
+      "phase_segments": [
+        {
+          "phase": "cover_status",
+          "frames": [],
+          "loop_frames": [
+            9,
+            10,
+            11,
+            12
+          ]
+        }
+      ]
+    }
+  },
+  "phase_groups": {
+    "cast": {
+      "activation_frames": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "loop_frames": [],
+      "binding": "physical_skill_visual_v1"
+    },
+    "cover_link": {
+      "activation_frames": [],
+      "loop_frames": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "binding": "physical_skill_visual_v1"
+    },
+    "cover_status": {
+      "activation_frames": [],
+      "loop_frames": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "binding": "physical_skill_visual_v1"
+    },
+    "cover_redirected": {
+      "activation_frames": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "loop_frames": [],
+      "binding": "physical_skill_visual_v1"
+    }
+  }
+}

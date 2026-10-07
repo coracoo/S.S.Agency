@@ -1,7 +1,9 @@
 # 独立战斗镜头复用正式寺域几何。只桥接现有动作帧与脚点，不保存或结算战斗状态。
 extends Control
 signal visuals_synchronized
+const MeleeMotion = preload("res://scripts/rpg/ui/melee_motion.gd")
 const Attachments = preload("res://scripts/characters/action_attachment_points.gd")
+const MeleeContacts = preload("res://scripts/characters/melee_contact_points.gd")
 const SagaWorld = preload("res://scripts/campaign/saga_world.gd")
 const Geometry = preload("res://scripts/campaign/act_one_geometry.gd")
 const Layout = preload("res://scripts/campaign/act_one_layout.gd")
@@ -189,6 +191,19 @@ func sync_visuals(delta: float = 1.0/60.0) -> void:
 		body.material_override.set_shader_parameter("art_texture",texture)
 		body.material_override.set_shader_parameter("appearance_tint",tint)
 		body.position = _ground_point(foot)
+		if record.animated:
+			# 帧资源可被重绑复用；资格随当前definition检查，页面原字节校验在profile内缓存。
+			var contact:Dictionary=MeleeContacts.resolve(source._definition)
+			var reach:=-1.0
+			if not contact.is_empty():
+				var offset:Vector2=contact.logical_point-Stature.body_anchor(source._definition)
+				if body.flip_h:offset.x=-offset.x
+				var right:=Vector3(camera.global_basis.x.x,0,camera.global_basis.x.z).normalized()
+				var point:=camera.unproject_position(body.global_position+(right*offset.x-Vector3.UP*offset.y)*body.pixel_size)
+				reach=absf(point.x-camera.unproject_position(body.global_position).x)
+				source.set_meta("melee_contact_profile",contact.profile)
+			elif source.has_meta("melee_contact_profile"):source.remove_meta("melee_contact_profile")
+			if source.has_method("configure_melee_contact_reach"):source.configure_melee_contact_reach(reach)
 		record.shadow.position = body.position + Vector3(0,.014,0)
 		body.visible = source.visible
 		record.shadow.visible = source.visible
@@ -264,8 +279,13 @@ func _sync_trail(record: Dictionary, original: Texture2D, anchor: Vector2, tint:
 	if record.animated and source.visible and not source.is_downed():
 		var action := str(record.visual.sprite.animation)
 		var spec: Dictionary = source._definition.get("manifest",{}).get("anims",{}).get(action,{})
-		# 旧attack可能已经烘焙破损影/刀光；必须由清洁源QA显式解禁。
-		allowed = action in ["battle_dash","attack"] and (bool(spec.get("clean_body",false)) or bool(spec.get("independent_ghost_ready",false)))
+		# clean只代表源资格；设计启用独立判断，施法者不会因清洁素材自动出影。
+		var clean: Variant = spec.get("clean_body",false)
+		var approved: Variant = spec.get("qa_approved",false)
+		var independent: Variant = spec.get("independent_ghost_ready",false)
+		var form := MeleeMotion.form_key(source._definition)
+		if action=="battle_dash": allowed=MeleeMotion.is_melee_form(source._definition) and clean is bool and clean and approved is bool and approved
+		elif action=="attack": allowed=form=="rinne" and clean is bool and clean and independent is bool and independent
 	if not allowed:
 		record.trail.cancel()
 		record.ghost_elapsed = 0.0

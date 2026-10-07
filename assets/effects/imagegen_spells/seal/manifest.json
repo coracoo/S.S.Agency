@@ -1,0 +1,350 @@
+{
+  "skill_id": "seal",
+  "runtime_atlas": "seal/seal-atlas-runtime-256.png",
+  "runtime_atlas_sha256": "a63abff0b442093bc6bf62e4112b1fe565d5b26111f973cbaae188129536d90f",
+  "frame_count": 16,
+  "phases": {
+    "cast": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "travel": [
+      5,
+      6,
+      7,
+      8
+    ],
+    "stun_apply_sustain": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "charge_interrupt": [
+      13,
+      14
+    ],
+    "mp_refund": [
+      15,
+      16
+    ]
+  },
+  "required_phases": [
+    "cast",
+    "travel",
+    "stun_apply_sustain",
+    "charge_interrupt",
+    "mp_refund"
+  ],
+  "schema_version": 1,
+  "frames": [
+    {
+      "frame": 1,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 50
+    },
+    {
+      "frame": 2,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 3,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 60
+    },
+    {
+      "frame": 4,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1536,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 60
+    },
+    {
+      "frame": 5,
+      "phase": "travel",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        192.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        0,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 6,
+      "phase": "travel",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        192.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        512,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 7,
+      "phase": "travel",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        192.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1024,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 8,
+      "phase": "travel",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        192.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1536,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 9,
+      "phase": "stun_apply_sustain",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        0,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 10,
+      "phase": "stun_apply_sustain",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        512,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 70
+    },
+    {
+      "frame": 11,
+      "phase": "stun_apply_sustain",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1024,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 85
+    },
+    {
+      "frame": 12,
+      "phase": "stun_apply_sustain",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1536,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 100
+    },
+    {
+      "frame": 13,
+      "phase": "charge_interrupt",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        0,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 90
+    },
+    {
+      "frame": 14,
+      "phase": "charge_interrupt",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        512,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 90
+    },
+    {
+      "frame": 15,
+      "phase": "mp_refund",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1024,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 90
+    },
+    {
+      "frame": 16,
+      "phase": "mp_refund",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1536,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 90
+    }
+  ],
+  "placement": {
+    "cast": "caster_focus",
+    "travel_origin": "caster_focus",
+    "travel_target": "target_body",
+    "travel_mode": "projectile"
+  },
+  "event_layers": {
+    "stun_apply_sustain": {
+      "phase": "stun_apply_sustain",
+      "event_type": "status_applied",
+      "target": "event_target",
+      "placement": "target_body",
+      "lifetime": "status",
+      "status_id": "stun",
+      "activation_frames": [
+        9,
+        10
+      ],
+      "loop_frames": [
+        11,
+        12
+      ]
+    },
+    "charge_interrupt": {
+      "phase": "charge_interrupt",
+      "event_type": "charge_interrupted",
+      "target": "event_target",
+      "placement": "target_body",
+      "lifetime": "action",
+      "activation_frames": [
+        13,
+        14
+      ],
+      "loop_frames": []
+    },
+    "mp_refund": {
+      "phase": "mp_refund",
+      "event_type": "mp_restored",
+      "target": "source",
+      "placement": "caster_body",
+      "lifetime": "action",
+      "positive_payload": "actual",
+      "activation_frames": [
+        15,
+        16
+      ],
+      "loop_frames": [],
+      "max_instances_per_action": 1
+    }
+  }
+}

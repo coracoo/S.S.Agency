@@ -1,0 +1,454 @@
+{
+  "skill_id": "battle_spirit",
+  "form_id": "rinne",
+  "skill_name": "战意",
+  "runtime_atlas": "rinne-battle_spirit/rinne-battle_spirit-atlas-runtime-256.png",
+  "runtime_atlas_sha256": "c1756fb2686f1fe8a46360032eed806751f261892a3a4346845d044ad2259000",
+  "frame_count": 16,
+  "phases": {
+    "cast": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "battle_spirit_apply": [
+      5,
+      6,
+      7,
+      8
+    ],
+    "recovery": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "battle_spirit_status": [
+      13,
+      14,
+      15,
+      16
+    ]
+  },
+  "required_phases": [
+    "cast",
+    "battle_spirit_apply",
+    "recovery",
+    "battle_spirit_status"
+  ],
+  "schema_version": 1,
+  "frames": [
+    {
+      "frame": 1,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 2,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 50
+    },
+    {
+      "frame": 3,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 4,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        1536,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 5,
+      "phase": "battle_spirit_apply",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        0,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 120
+    },
+    {
+      "frame": 6,
+      "phase": "battle_spirit_apply",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        512,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 120
+    },
+    {
+      "frame": 7,
+      "phase": "battle_spirit_apply",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        1024,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 120
+    },
+    {
+      "frame": 8,
+      "phase": "battle_spirit_apply",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        1536,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 120
+    },
+    {
+      "frame": 9,
+      "phase": "recovery",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        0,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 10,
+      "phase": "recovery",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        512,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 65
+    },
+    {
+      "frame": 11,
+      "phase": "recovery",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        1024,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 75
+    },
+    {
+      "frame": 12,
+      "phase": "recovery",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        1536,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 90
+    },
+    {
+      "frame": 13,
+      "phase": "battle_spirit_status",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        0,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 120
+    },
+    {
+      "frame": 14,
+      "phase": "battle_spirit_status",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        512,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 120
+    },
+    {
+      "frame": 15,
+      "phase": "battle_spirit_status",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        1024,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 120
+    },
+    {
+      "frame": 16,
+      "phase": "battle_spirit_status",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        1536,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 120
+    }
+  ],
+  "visual_event_contract": {
+    "id": "physical_skill_visual_v1",
+    "version": 1,
+    "form": "rinne",
+    "ability_id": "battle_spirit",
+    "variant_key": "rinne-battle_spirit"
+  },
+  "reaction_layers": {},
+  "event_layers": {
+    "battle_spirit_status": {
+      "phase": "battle_spirit_status",
+      "event_type": "status_applied",
+      "target": "event_target",
+      "placement": "target_body",
+      "lifetime": "status",
+      "status_id": "battle_spirit",
+      "activation_frames": [
+        5,
+        6,
+        7,
+        8,
+        13,
+        14
+      ],
+      "loop_frames": [
+        15,
+        16
+      ],
+      "cue": "impact",
+      "start_phase": "battle_spirit_apply",
+      "phase_segments": [
+        {
+          "phase": "battle_spirit_apply",
+          "frames": [
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "phase": "battle_spirit_status",
+          "frames": [
+            13,
+            14
+          ],
+          "loop_frames": [
+            15,
+            16
+          ]
+        }
+      ]
+    },
+    "cast": {
+      "phase": "cast",
+      "event_type": "command_accepted",
+      "target": "source",
+      "placement": "caster_body",
+      "lifetime": "action",
+      "status_id": "",
+      "activation_frames": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "loop_frames": [],
+      "cue": "start",
+      "start_phase": "",
+      "phase_segments": [
+        {
+          "phase": "cast",
+          "frames": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "loop_frames": []
+        }
+      ]
+    },
+    "recovery": {
+      "phase": "recovery",
+      "event_type": "status_applied",
+      "target": "source",
+      "placement": "caster_body",
+      "lifetime": "action",
+      "status_id": "battle_spirit",
+      "activation_frames": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "loop_frames": [],
+      "cue": "recovery",
+      "start_phase": "",
+      "phase_segments": [
+        {
+          "phase": "recovery",
+          "frames": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "loop_frames": []
+        }
+      ]
+    }
+  },
+  "phase_groups": {
+    "cast": {
+      "activation_frames": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "loop_frames": [],
+      "binding": "physical_skill_visual_v1"
+    },
+    "battle_spirit_apply": {
+      "activation_frames": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "loop_frames": [],
+      "binding": "physical_skill_visual_v1"
+    },
+    "recovery": {
+      "activation_frames": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "loop_frames": [],
+      "binding": "physical_skill_visual_v1"
+    },
+    "battle_spirit_status": {
+      "activation_frames": [
+        13,
+        14
+      ],
+      "loop_frames": [
+        15,
+        16
+      ],
+      "binding": "physical_skill_visual_v1"
+    }
+  }
+}

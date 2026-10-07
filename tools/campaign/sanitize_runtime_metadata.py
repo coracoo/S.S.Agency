@@ -19,12 +19,26 @@ CONTACT_FIELDS = ("point", "width_px", "strength", "kind")
 LAYER_FIELDS = ("frames", "amplitude_px", "period_s", "root_y", "full_motion_y", "z_index")
 REGISTRATION_FIELDS = ("target_body_height_px", "fixed_scale", "fixed_offset", "logical_canvas", "anchor")
 EFFECT_FRAME_FIELDS = ("frame", "phase", "recovery_tail", "anchor_runtime_px", "atlas_native_xywh", "nominal_duration_ms")
+EFFECT_PLACEMENT_FIELDS = ("cast", "travel_origin", "travel_target", "travel_mode")
+EFFECT_LAYER_FIELDS = ("phase", "event_type", "target", "placement", "lifetime", "status_id", "positive_payload",
+                       "activation_frames", "loop_frames", "max_instances_per_action", "cue", "start_phase", "reason", "positive_actual", "requires_precision")
+EFFECT_CONTRACT_FIELDS = ("id", "version", "form", "ability_id", "variant_key")
+EFFECT_SEGMENT_FIELDS = ("phase", "frames", "loop_frames")
+EFFECT_PRECAST_FIELDS = ("schema", "source", "refinement_id", "damage_effect_index", "unique_damage_effect",
+                         "condition", "status_id", "original_target_matches")
+EFFECT_REACTION_FIELDS = ("phase", "event_type", "requires", "lifetime", "activation_frames", "loop_frames", "target", "endpoints")
+EFFECT_REQUIREMENT_FIELDS = ("event_type", "same_action", "same_target")
+EFFECT_GROUP_FIELDS = ("activation_frames", "loop_frames", "binding")
 EFFECT_ENTRY_FIELDS = ("manifest", "approved_for_runtime", "runtime_scale", "display_size_px", "gameplay_qa_pending", "particles")
 EFFECT_README = """# 透明技能帧运行资源
 
 本目录只保存登记的运行PNG与最小帧清单。registry版本为2，以manifest_sha256校验各清单；manifest版本为1，以runtime_atlas_sha256校验图集原字节。哈希用于完整性校验，不替代游戏内视觉验收。
 
 production_renderer_enabled保持false，gameplay_qa_pending保持true；素材批准只允许明确预览。播放使用全部登记阶段与帧顺序，atlas_native_xywh乘runtime_scale得到实际区域，anchor_runtime_px保持注册锚，nominal_duration_ms保持时长权重。
+
+required_phases缺省为cast/travel/hit；无伤害技能声明真实阶段。placement与event_layers只保存运行落点、权威事件条件及独立生命周期，不保存制作描述。新增登记不代表完成游戏内呈现。
+
+四个共享近战ID按variants中的rinne/homura_sword明确选图，未给形态不得回退。新十六套visual_event_contract=physical_skill_visual_v1/version1，phase_groups保留冻结激活/循环帧；event_layers及独立reaction_layers由同一有限纯策略严格校验。无合同的分组仍须unbound且无事件/反应。数据绑定及预览不代表renderer已接线或游戏内验收完成。
 """
 
 
@@ -52,6 +66,22 @@ def resource(uri):
     if not path or Path(path).is_absolute() or ".." in Path(path).parts or "\\" in path:
         raise ValueError("运行资源路径越界")
     return path
+
+
+def effect_entries(registry):
+    """只展开明确登记的形态，不把同名技能的第一套图当默认值。"""
+    for skill, entry in registry["effects"].items():
+        if "variants" in entry:
+            variants = entry["variants"]
+            if skill not in ("heavy_slash", "armor_break", "sweep", "battle_spirit") or not isinstance(variants, dict) or set(variants) != {"rinne", "homura_sword"}:
+                raise ValueError("共享技能形态登记无效")
+            for form, variant in variants.items():
+                if not isinstance(variant, dict): raise ValueError("形态条目无效")
+                yield skill, form, variant
+        else:
+            if skill in ("heavy_slash", "armor_break", "sweep", "battle_spirit"):
+                raise ValueError("共享技能不可省略形态登记")
+            yield skill, "", entry
 
 
 def sanitize(source: Path, candidate: Path):
@@ -137,15 +167,17 @@ def sanitize(source: Path, candidate: Path):
     public_registry["schema_version"] = 2
     public_registry["effects"] = {}
     effect_allowed = {"assets/effects/imagegen_spells/registry.json", "assets/effects/imagegen_spells/README.md"}
-    for skill, entry in registry["effects"].items():
+    for skill, form, entry in effect_entries(registry):
         name = resource(entry["manifest"])
         path = source / name
         manifest = read(path)
-        if manifest.get("skill_id") != skill:
+        if manifest.get("skill_id") != skill or (form and manifest.get("form_id") != form):
             raise ValueError("源技能清单不符")
         if entry.get("approved_for_runtime") is not True or entry.get("gameplay_qa_pending") is not True:
             raise ValueError("源技能批准状态改变")
-        if source_schema == 1:
+        if "manifest_sha256" in entry and entry["manifest_sha256"] != sha(path):
+            raise ValueError("源技能清单登记哈希不匹配：" + skill)
+        if source_schema == 1 or "qa_receipt" in entry:
             if manifest.get("generator") != "image_gen.imagegen":
                 raise ValueError("源技能生成路线不符")
             receipt = read(source / resource(entry["qa_receipt"]))
@@ -162,15 +194,42 @@ def sanitize(source: Path, candidate: Path):
         if preserve_atlas(atlas) != manifest["runtime_atlas_sha256"]:
             raise ValueError("源技能图集哈希不符：" + skill)
         integrity_verified.append(skill)
-        public = subset(manifest, ("skill_id", "runtime_atlas", "runtime_atlas_sha256", "frame_count", "phases"))
+        public = subset(manifest, ("skill_id", "form_id", "skill_name", "runtime_atlas", "runtime_atlas_sha256", "frame_count", "phases", "required_phases"))
         public["schema_version"] = 1
         public["frames"] = [subset(frame, EFFECT_FRAME_FIELDS) for frame in manifest["frames"]]
+        if "placement" in manifest:
+            public["placement"] = subset(manifest["placement"], EFFECT_PLACEMENT_FIELDS)
+        if "visual_event_contract" in manifest:
+            public["visual_event_contract"] = subset(manifest["visual_event_contract"], EFFECT_CONTRACT_FIELDS)
+        if "reaction_layers" in manifest:
+            public["reaction_layers"] = {name:subset(layer, EFFECT_REACTION_FIELDS) for name, layer in manifest["reaction_layers"].items()}
+        if "event_layers" in manifest:
+            public["event_layers"] = {}
+            for layer_id, layer in manifest["event_layers"].items():
+                runtime_layer = subset(layer, EFFECT_LAYER_FIELDS)
+                if "phase_segments" in layer:
+                    runtime_layer["phase_segments"] = [subset(segment, EFFECT_SEGMENT_FIELDS) for segment in layer["phase_segments"]]
+                if "precast_evidence" in layer:
+                    runtime_layer["precast_evidence"] = subset(layer["precast_evidence"], EFFECT_PRECAST_FIELDS)
+                if "payload_equals" in layer:
+                    runtime_layer["payload_equals"] = subset(layer["payload_equals"], ("reason",))
+                if "requires_event" in layer:
+                    required = layer["requires_event"]
+                    runtime_layer["requires_event"] = subset(required, EFFECT_REQUIREMENT_FIELDS)
+                    if "payload_equals" in required:
+                        runtime_layer["requires_event"]["payload_equals"] = subset(required["payload_equals"], ("reason",))
+                public["event_layers"][layer_id] = runtime_layer
+        if "phase_groups" in manifest:
+            public["phase_groups"] = {phase:subset(group, EFFECT_GROUP_FIELDS) for phase, group in manifest["phase_groups"].items()}
         stage(name, public)
         public_entry = subset(entry, EFFECT_ENTRY_FIELDS)
         public_entry["manifest_sha256"] = hashlib.sha256(writes[name]).hexdigest()
-        public_registry["effects"][skill] = public_entry
+        if form:
+            public_registry["effects"].setdefault(skill, {"variants":{}})["variants"][form] = public_entry
+        else:
+            public_registry["effects"][skill] = public_entry
         effect_allowed.update({name, atlas})
-        effects.append({"skill":skill, "frames":len(public["frames"]), "runtime_atlas_sha256":manifest["runtime_atlas_sha256"]})
+        effects.append({"skill":skill, "form_id":form or manifest.get("form_id", ""), "frames":len(public["frames"]), "runtime_atlas_sha256":manifest["runtime_atlas_sha256"]})
     stage("assets/effects/imagegen_spells/registry.json", public_registry)
     writes["assets/effects/imagegen_spells/README.md"] = EFFECT_README.encode("utf-8")
     for root in (source, candidate):
@@ -200,7 +259,7 @@ def sanitize(source: Path, candidate: Path):
         (candidate / name).unlink(missing_ok=True)
     return {"characters":characters, "effects":effects, "changed_metadata":sorted(writes), "omitted_paths":sorted(removed),
             "atlas_sha256":dict(sorted(atlas_hashes.items())), "production_renderer_enabled":False,
-            "source_registry_schema":source_schema, "source_receipts_verified":source_schema == 1,
+            "source_registry_schema":source_schema, "source_receipts_verified":len(receipt_verified) == len(effects),
             "source_receipt_verified_skills":sorted(receipt_verified),
             "source_integrity_verified_skills":sorted(integrity_verified), "runtime_atlas_bytes_identical":True}
 

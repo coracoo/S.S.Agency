@@ -20,6 +20,7 @@ func _definition() -> Dictionary:
 		frames.add_frame(action,original,200); frames.add_frame(action,original.duplicate(),200)
 		manifest.anims[action] = {"frames":["body","body"],"impact_ms":200}
 	manifest.anims.battle_dash.clean_body = true
+	manifest.anims.battle_dash.qa_approved = true
 	return {"ok":true,"frames":frames,"manifest":manifest,"layer_frames":[]}
 func _run() -> void:
 	if OS.get_environment("RPG_TEST_ISOLATED") != "1": quit(2); return
@@ -75,7 +76,15 @@ func _run() -> void:
 			check(record.trail.active_count()==0,"无清洁标签的旧attack默认禁止叠影")
 			source._definition.manifest.anims.attack.independent_ghost_ready=true
 			backdrop.sync_visuals(.06)
-			check(record.trail.active_count()==1,"独立QA明确标记的clean attack才可拍影")
+			check(record.trail.active_count()==0,"独立设计标记不能代替清洁源资格")
+			source._definition.manifest.anims.attack.clean_body=true
+			backdrop.sync_visuals(.06)
+			check(record.trail.active_count()==1,"凛音清洁源与独立幽影设计双标记才可拍影")
+			for identity in ["homura","healer","controller"]:
+				source._definition.manifest.identity_id=identity;source._definition.manifest.form_id="mage" if identity=="homura" else identity
+				backdrop.sync_visuals(.06)
+				check(record.trail.active_count()==0,"施法角色不因clean或误设独立标记产生身体残影："+identity)
+			source._definition.manifest.identity_id="rinne";source._definition.manifest.form_id="rinne"
 			backdrop.cancel_trails()
 			check(record.trail.active_count()==0,"整段取消立即释放残影")
 		var prior_bounds: Rect2 = source._melee_allowed_feet

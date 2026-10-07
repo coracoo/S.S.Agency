@@ -1,0 +1,471 @@
+{
+  "skill_id": "sweep",
+  "form_id": "rinne",
+  "skill_name": "横扫",
+  "runtime_atlas": "rinne-sweep/rinne-sweep-atlas-runtime-256.png",
+  "runtime_atlas_sha256": "e974bba0b531b7e79d7e4118e4276c92935cee45b702cbf2c27de0aceed7966f",
+  "frame_count": 16,
+  "phases": {
+    "cast_sweep": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "contact_damage": [
+      5,
+      6,
+      7,
+      8
+    ],
+    "conditional_slow": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "armor_break_consumed": [
+      13,
+      14,
+      15,
+      16
+    ]
+  },
+  "required_phases": [
+    "cast_sweep",
+    "contact_damage",
+    "conditional_slow",
+    "armor_break_consumed"
+  ],
+  "schema_version": 1,
+  "frames": [
+    {
+      "frame": 1,
+      "phase": "cast_sweep",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 2,
+      "phase": "cast_sweep",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 50
+    },
+    {
+      "frame": 3,
+      "phase": "cast_sweep",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 4,
+      "phase": "cast_sweep",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        1536,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 5,
+      "phase": "contact_damage",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        0,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 35
+    },
+    {
+      "frame": 6,
+      "phase": "contact_damage",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        512,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 7,
+      "phase": "contact_damage",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        1024,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 50
+    },
+    {
+      "frame": 8,
+      "phase": "contact_damage",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        1536,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 70
+    },
+    {
+      "frame": 9,
+      "phase": "conditional_slow",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        0,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 120
+    },
+    {
+      "frame": 10,
+      "phase": "conditional_slow",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        512,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 120
+    },
+    {
+      "frame": 11,
+      "phase": "conditional_slow",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        1024,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 120
+    },
+    {
+      "frame": 12,
+      "phase": "conditional_slow",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        1536,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 120
+    },
+    {
+      "frame": 13,
+      "phase": "armor_break_consumed",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        0,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 120
+    },
+    {
+      "frame": 14,
+      "phase": "armor_break_consumed",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        512,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 120
+    },
+    {
+      "frame": 15,
+      "phase": "armor_break_consumed",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        1024,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 120
+    },
+    {
+      "frame": 16,
+      "phase": "armor_break_consumed",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128,
+        128
+      ],
+      "atlas_native_xywh": [
+        1536,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 120
+    }
+  ],
+  "visual_event_contract": {
+    "id": "physical_skill_visual_v1",
+    "version": 1,
+    "form": "rinne",
+    "ability_id": "sweep",
+    "variant_key": "rinne-sweep"
+  },
+  "reaction_layers": {},
+  "event_layers": {
+    "armor_break_consumed": {
+      "phase": "armor_break_consumed",
+      "event_type": "status_removed",
+      "target": "event_target",
+      "placement": "target_body",
+      "lifetime": "action",
+      "status_id": "armor_break",
+      "activation_frames": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "loop_frames": [],
+      "cue": "impact",
+      "start_phase": "",
+      "reason": "skill_consumed",
+      "phase_segments": [
+        {
+          "phase": "armor_break_consumed",
+          "frames": [
+            13,
+            14,
+            15,
+            16
+          ],
+          "loop_frames": []
+        }
+      ]
+    },
+    "cast_sweep": {
+      "phase": "cast_sweep",
+      "event_type": "command_accepted",
+      "target": "source",
+      "placement": "caster_body",
+      "lifetime": "action",
+      "status_id": "",
+      "activation_frames": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "loop_frames": [],
+      "cue": "start",
+      "start_phase": "",
+      "phase_segments": [
+        {
+          "phase": "cast_sweep",
+          "frames": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "loop_frames": []
+        }
+      ]
+    },
+    "conditional_slow": {
+      "phase": "conditional_slow",
+      "event_type": "status_applied",
+      "target": "event_target",
+      "placement": "target_body",
+      "lifetime": "status",
+      "status_id": "slow",
+      "activation_frames": [
+        9,
+        10
+      ],
+      "loop_frames": [
+        11,
+        12
+      ],
+      "cue": "impact",
+      "start_phase": "",
+      "phase_segments": [
+        {
+          "phase": "conditional_slow",
+          "frames": [
+            9,
+            10
+          ],
+          "loop_frames": [
+            11,
+            12
+          ]
+        }
+      ]
+    },
+    "contact_damage": {
+      "phase": "contact_damage",
+      "event_type": "damage",
+      "target": "event_target",
+      "placement": "target_body",
+      "lifetime": "action",
+      "status_id": "",
+      "activation_frames": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "loop_frames": [],
+      "cue": "impact",
+      "start_phase": "",
+      "phase_segments": [
+        {
+          "phase": "contact_damage",
+          "frames": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "loop_frames": []
+        }
+      ]
+    }
+  },
+  "phase_groups": {
+    "cast_sweep": {
+      "activation_frames": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "loop_frames": [],
+      "binding": "physical_skill_visual_v1"
+    },
+    "contact_damage": {
+      "activation_frames": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "loop_frames": [],
+      "binding": "physical_skill_visual_v1"
+    },
+    "conditional_slow": {
+      "activation_frames": [
+        9,
+        10
+      ],
+      "loop_frames": [
+        11,
+        12
+      ],
+      "binding": "physical_skill_visual_v1"
+    },
+    "armor_break_consumed": {
+      "activation_frames": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "loop_frames": [],
+      "binding": "physical_skill_visual_v1"
+    }
+  }
+}

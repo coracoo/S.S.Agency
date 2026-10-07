@@ -18,51 +18,93 @@
   "mirror_allowed": true,
   "layers": [],
   "portrait_source_manifest": "res://assets/chars/pixel/homura_mage/high_detail_complete/manifest.json",
-  "status": "video_actions_exact_runtime_pixels_restored",
+  "status": "video_actions_reviewed_runtime_revisions",
   "anims": {
     "idle": {
       "frames": [
-        "idle_037",
-        "idle_039",
-        "idle_041",
-        "idle_043",
-        "idle_045",
-        "idle_047",
-        "idle_049",
-        "idle_051",
-        "idle_053",
-        "idle_055",
-        "idle_057",
-        "idle_059",
-        "idle_061",
-        "idle_063",
-        "idle_065",
-        "idle_067",
-        "idle_069",
-        "idle_071",
-        "idle_073",
-        "idle_075",
-        "idle_077",
-        "idle_079",
-        "idle_081",
-        "idle_083",
-        "idle_085",
-        "idle_087",
-        "idle_089",
-        "idle_091",
-        "idle_093",
-        "idle_095",
-        "idle_097",
-        "idle_099",
-        "idle_101",
-        "idle_103",
-        "idle_105",
-        "idle_107",
-        "idle_109",
-        "idle_111",
-        "idle_113"
+        "idle_natural_001",
+        "idle_natural_003",
+        "idle_natural_005",
+        "idle_natural_007",
+        "idle_natural_009",
+        "idle_natural_011",
+        "idle_natural_013",
+        "idle_natural_015",
+        "idle_natural_017",
+        "idle_natural_019",
+        "idle_natural_021",
+        "idle_natural_023",
+        "idle_natural_025",
+        "idle_natural_027",
+        "idle_natural_029",
+        "idle_natural_031",
+        "idle_natural_033",
+        "idle_natural_035",
+        "idle_natural_037",
+        "idle_natural_039",
+        "idle_natural_041",
+        "idle_natural_043",
+        "idle_natural_045",
+        "idle_natural_047",
+        "idle_natural_049",
+        "idle_natural_051",
+        "idle_natural_053",
+        "idle_natural_055",
+        "idle_natural_057",
+        "idle_natural_059",
+        "idle_natural_061",
+        "idle_natural_063",
+        "idle_natural_065",
+        "idle_natural_067",
+        "idle_natural_069",
+        "idle_natural_071",
+        "idle_natural_073",
+        "idle_natural_075",
+        "idle_natural_077",
+        "idle_natural_079",
+        "idle_natural_081",
+        "idle_natural_083",
+        "idle_natural_085",
+        "idle_natural_087",
+        "idle_natural_089",
+        "idle_natural_091",
+        "idle_natural_093",
+        "idle_natural_095",
+        "idle_natural_097",
+        "idle_natural_099",
+        "idle_natural_101",
+        "idle_natural_103",
+        "idle_natural_105",
+        "idle_natural_107",
+        "idle_natural_109",
+        "idle_natural_111",
+        "idle_natural_113",
+        "idle_natural_115",
+        "idle_natural_117",
+        "idle_natural_119"
       ],
       "durations_ms": [
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
+        83.33333333333333,
         83.33333333333333,
         83.33333333333333,
         83.33333333333333,
@@ -146,109 +188,54 @@
     },
     "attack": {
       "frames": [
-        "attack_009",
-        "attack_011",
-        "attack_013",
-        "attack_015",
-        "attack_017",
-        "attack_019",
-        "attack_021",
-        "attack_023",
-        "attack_025",
-        "attack_027",
-        "attack_029",
-        "attack_031",
-        "attack_032",
-        "attack_033",
-        "attack_034",
-        "attack_035",
-        "attack_036",
-        "attack_037",
-        "attack_038",
-        "attack_039",
-        "attack_040",
-        "attack_041",
-        "attack_042",
-        "attack_043",
-        "attack_044",
-        "attack_045",
-        "attack_046",
-        "attack_047",
-        "attack_052",
-        "attack_057",
-        "attack_062",
-        "attack_067",
-        "attack_072",
-        "attack_077",
-        "attack_085",
-        "attack_087",
-        "attack_089",
-        "attack_091",
-        "attack_093",
-        "attack_095",
-        "attack_097",
-        "attack_099",
-        "attack_101",
-        "attack_103",
-        "attack_105",
-        "attack_107",
-        "attack_109",
-        "attack_111",
-        "attack_113"
+        "attack_cycles_030",
+        "attack_cycles_031",
+        "attack_cycles_032",
+        "attack_cycles_033",
+        "attack_cycles_034",
+        "attack_cycles_035",
+        "attack_cycles_036",
+        "attack_cycles_037",
+        "attack_cycles_038",
+        "attack_cycles_039",
+        "attack_cycles_040",
+        "attack_cycles_041",
+        "attack_cycles_042",
+        "attack_cycles_043",
+        "attack_cycles_044",
+        "attack_cycles_045",
+        "attack_cycles_046",
+        "attack_cycles_047",
+        "attack_cycles_048",
+        "attack_cycles_049",
+        "attack_cycles_050"
       ],
       "durations_ms": [
-        30,
-        30,
-        30,
-        30,
-        30,
-        30,
-        30,
-        30,
-        30,
-        30,
-        30,
-        25,
-        25,
-        25,
-        25,
-        25,
-        25,
-        25,
-        25,
-        25,
-        25,
-        25,
-        25,
-        25,
-        25,
-        25,
-        25,
-        18,
-        18,
-        18,
-        18,
-        18,
-        18,
-        18,
-        30,
-        30,
-        30,
-        30,
-        30,
-        30,
-        30,
-        30,
-        30,
-        30,
-        30,
-        30,
-        30,
-        30,
-        30
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664
       ],
       "loop": false,
-      "impact_ms": 730
+      "impact_ms": 291.6666666666667,
+      "clean_body": true
     },
     "hit": {
       "frames": [
@@ -323,36 +310,32 @@
     },
     "run": {
       "frames": [
-        "run_053",
-        "run_054",
-        "run_055",
-        "run_056",
-        "run_057",
-        "run_058",
-        "run_059",
-        "run_060",
-        "run_061",
-        "run_062",
-        "run_063",
-        "run_064",
-        "run_065",
-        "run_066"
+        "run_pilot_060",
+        "run_pilot_061",
+        "run_pilot_062",
+        "run_pilot_063",
+        "run_pilot_064",
+        "run_pilot_065",
+        "run_pilot_066",
+        "run_pilot_067",
+        "run_pilot_068",
+        "run_pilot_069",
+        "run_pilot_070",
+        "run_pilot_071"
       ],
       "durations_ms": [
-        50.0,
-        50.0,
-        50.0,
-        50.0,
-        50.0,
-        50.0,
-        50.0,
-        50.0,
-        50.0,
-        50.0,
-        50.0,
-        50.0,
-        50.0,
-        50.0
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664,
+        41.666666666666664
       ],
       "loop": true,
       "events": {}
@@ -615,669 +598,6 @@
     }
   },
   "packed_frames": {
-    "idle_037": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "atlas_size": [
-        1889,
-        1849
-      ],
-      "region": [
-        1322,
-        1389,
-        258,
-        458
-      ],
-      "offset": [
-        865,
-        475
-      ]
-    },
-    "idle_039": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "atlas_size": [
-        1889,
-        1849
-      ],
-      "region": [
-        1584,
-        1389,
-        258,
-        458
-      ],
-      "offset": [
-        865,
-        475
-      ]
-    },
-    "idle_041": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "atlas_size": [
-        1889,
-        1849
-      ],
-      "region": [
-        1340,
-        927,
-        262,
-        458
-      ],
-      "offset": [
-        864,
-        475
-      ]
-    },
-    "idle_043": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "atlas_size": [
-        1889,
-        1849
-      ],
-      "region": [
-        1623,
-        465,
-        264,
-        458
-      ],
-      "offset": [
-        862,
-        475
-      ]
-    },
-    "idle_045": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "atlas_size": [
-        1889,
-        1849
-      ],
-      "region": [
-        2,
-        927,
-        264,
-        458
-      ],
-      "offset": [
-        862,
-        475
-      ]
-    },
-    "idle_047": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "atlas_size": [
-        1889,
-        1849
-      ],
-      "region": [
-        815,
-        465,
-        266,
-        458
-      ],
-      "offset": [
-        862,
-        475
-      ]
-    },
-    "idle_049": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "atlas_size": [
-        1889,
-        1849
-      ],
-      "region": [
-        1590,
-        2,
-        267,
-        458
-      ],
-      "offset": [
-        862,
-        475
-      ]
-    },
-    "idle_051": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "atlas_size": [
-        1889,
-        1849
-      ],
-      "region": [
-        2,
-        2,
-        267,
-        459
-      ],
-      "offset": [
-        862,
-        474
-      ]
-    },
-    "idle_053": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "atlas_size": [
-        1889,
-        1849
-      ],
-      "region": [
-        2,
-        465,
-        267,
-        458
-      ],
-      "offset": [
-        862,
-        475
-      ]
-    },
-    "idle_055": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "atlas_size": [
-        1889,
-        1849
-      ],
-      "region": [
-        1085,
-        465,
-        265,
-        458
-      ],
-      "offset": [
-        864,
-        475
-      ]
-    },
-    "idle_057": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "atlas_size": [
-        1889,
-        1849
-      ],
-      "region": [
-        270,
-        927,
-        264,
-        458
-      ],
-      "offset": [
-        865,
-        475
-      ]
-    },
-    "idle_059": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "atlas_size": [
-        1889,
-        1849
-      ],
-      "region": [
-        806,
-        927,
-        263,
-        458
-      ],
-      "offset": [
-        865,
-        475
-      ]
-    },
-    "idle_061": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "atlas_size": [
-        1889,
-        1849
-      ],
-      "region": [
-        2,
-        1389,
-        261,
-        458
-      ],
-      "offset": [
-        865,
-        475
-      ]
-    },
-    "idle_063": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "atlas_size": [
-        1889,
-        1849
-      ],
-      "region": [
-        796,
-        1389,
-        259,
-        458
-      ],
-      "offset": [
-        867,
-        475
-      ]
-    },
-    "idle_065": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_01.png",
-      "atlas_size": [
-        1825,
-        924
-      ],
-      "region": [
-        788,
-        2,
-        257,
-        458
-      ],
-      "offset": [
-        868,
-        475
-      ]
-    },
-    "idle_067": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_01.png",
-      "atlas_size": [
-        1825,
-        924
-      ],
-      "region": [
-        1309,
-        2,
-        255,
-        458
-      ],
-      "offset": [
-        868,
-        475
-      ]
-    },
-    "idle_069": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_01.png",
-      "atlas_size": [
-        1825,
-        924
-      ],
-      "region": [
-        1568,
-        2,
-        255,
-        458
-      ],
-      "offset": [
-        868,
-        475
-      ]
-    },
-    "idle_071": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_01.png",
-      "atlas_size": [
-        1825,
-        924
-      ],
-      "region": [
-        520,
-        464,
-        254,
-        458
-      ],
-      "offset": [
-        868,
-        475
-      ]
-    },
-    "idle_073": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "atlas_size": [
-        1889,
-        1849
-      ],
-      "region": [
-        1332,
-        2,
-        254,
-        459
-      ],
-      "offset": [
-        868,
-        474
-      ]
-    },
-    "idle_075": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_01.png",
-      "atlas_size": [
-        1825,
-        924
-      ],
-      "region": [
-        778,
-        464,
-        254,
-        458
-      ],
-      "offset": [
-        868,
-        475
-      ]
-    },
-    "idle_077": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_01.png",
-      "atlas_size": [
-        1825,
-        924
-      ],
-      "region": [
-        1049,
-        2,
-        256,
-        458
-      ],
-      "offset": [
-        867,
-        475
-      ]
-    },
-    "idle_079": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_01.png",
-      "atlas_size": [
-        1825,
-        924
-      ],
-      "region": [
-        2,
-        2,
-        258,
-        458
-      ],
-      "offset": [
-        865,
-        475
-      ]
-    },
-    "idle_081": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_01.png",
-      "atlas_size": [
-        1825,
-        924
-      ],
-      "region": [
-        264,
-        2,
-        258,
-        458
-      ],
-      "offset": [
-        865,
-        475
-      ]
-    },
-    "idle_083": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "atlas_size": [
-        1889,
-        1849
-      ],
-      "region": [
-        532,
-        1389,
-        260,
-        458
-      ],
-      "offset": [
-        865,
-        475
-      ]
-    },
-    "idle_085": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "atlas_size": [
-        1889,
-        1849
-      ],
-      "region": [
-        1606,
-        927,
-        262,
-        458
-      ],
-      "offset": [
-        864,
-        475
-      ]
-    },
-    "idle_087": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "atlas_size": [
-        1889,
-        1849
-      ],
-      "region": [
-        538,
-        927,
-        264,
-        458
-      ],
-      "offset": [
-        862,
-        475
-      ]
-    },
-    "idle_089": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "atlas_size": [
-        1889,
-        1849
-      ],
-      "region": [
-        544,
-        2,
-        266,
-        459
-      ],
-      "offset": [
-        862,
-        474
-      ]
-    },
-    "idle_091": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "atlas_size": [
-        1889,
-        1849
-      ],
-      "region": [
-        273,
-        465,
-        267,
-        458
-      ],
-      "offset": [
-        862,
-        475
-      ]
-    },
-    "idle_093": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "atlas_size": [
-        1889,
-        1849
-      ],
-      "region": [
-        273,
-        2,
-        267,
-        459
-      ],
-      "offset": [
-        862,
-        474
-      ]
-    },
-    "idle_095": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "atlas_size": [
-        1889,
-        1849
-      ],
-      "region": [
-        544,
-        465,
-        267,
-        458
-      ],
-      "offset": [
-        862,
-        475
-      ]
-    },
-    "idle_097": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "atlas_size": [
-        1889,
-        1849
-      ],
-      "region": [
-        1354,
-        465,
-        265,
-        458
-      ],
-      "offset": [
-        864,
-        475
-      ]
-    },
-    "idle_099": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "atlas_size": [
-        1889,
-        1849
-      ],
-      "region": [
-        1073,
-        927,
-        263,
-        458
-      ],
-      "offset": [
-        865,
-        475
-      ]
-    },
-    "idle_101": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "atlas_size": [
-        1889,
-        1849
-      ],
-      "region": [
-        267,
-        1389,
-        261,
-        458
-      ],
-      "offset": [
-        865,
-        475
-      ]
-    },
-    "idle_103": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "atlas_size": [
-        1889,
-        1849
-      ],
-      "region": [
-        1059,
-        1389,
-        259,
-        458
-      ],
-      "offset": [
-        867,
-        475
-      ]
-    },
-    "idle_105": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_01.png",
-      "atlas_size": [
-        1825,
-        924
-      ],
-      "region": [
-        526,
-        2,
-        258,
-        458
-      ],
-      "offset": [
-        868,
-        475
-      ]
-    },
-    "idle_107": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_01.png",
-      "atlas_size": [
-        1825,
-        924
-      ],
-      "region": [
-        2,
-        464,
-        255,
-        458
-      ],
-      "offset": [
-        868,
-        475
-      ]
-    },
-    "idle_109": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_01.png",
-      "atlas_size": [
-        1825,
-        924
-      ],
-      "region": [
-        261,
-        464,
-        255,
-        458
-      ],
-      "offset": [
-        868,
-        475
-      ]
-    },
-    "idle_111": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "atlas_size": [
-        1889,
-        1849
-      ],
-      "region": [
-        814,
-        2,
-        255,
-        459
-      ],
-      "offset": [
-        868,
-        474
-      ]
-    },
-    "idle_113": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "atlas_size": [
-        1889,
-        1849
-      ],
-      "region": [
-        1073,
-        2,
-        255,
-        459
-      ],
-      "offset": [
-        868,
-        474
-      ]
-    },
     "walk_035": {
       "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
       "atlas_size": [
@@ -1548,1077 +868,6 @@
       "offset": [
         863,
         473
-      ]
-    },
-    "attack_009": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
-      "atlas_size": [
-        1922,
-        1845
-      ],
-      "region": [
-        832,
-        466,
-        264,
-        458
-      ],
-      "offset": [
-        862,
-        475
-      ]
-    },
-    "attack_011": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
-      "atlas_size": [
-        1922,
-        1845
-      ],
-      "region": [
-        1132,
-        928,
-        264,
-        455
-      ],
-      "offset": [
-        862,
-        478
-      ]
-    },
-    "attack_013": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
-      "atlas_size": [
-        1922,
-        1845
-      ],
-      "region": [
-        288,
-        928,
-        267,
-        456
-      ],
-      "offset": [
-        859,
-        477
-      ]
-    },
-    "attack_015": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
-      "atlas_size": [
-        1882,
-        1828
-      ],
-      "region": [
-        1314,
-        918,
-        267,
-        452
-      ],
-      "offset": [
-        856,
-        481
-      ]
-    },
-    "attack_017": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
-      "atlas_size": [
-        1882,
-        1828
-      ],
-      "region": [
-        1585,
-        918,
-        267,
-        452
-      ],
-      "offset": [
-        856,
-        481
-      ]
-    },
-    "attack_019": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
-      "atlas_size": [
-        1882,
-        1828
-      ],
-      "region": [
-        1332,
-        1375,
-        267,
-        449
-      ],
-      "offset": [
-        853,
-        484
-      ]
-    },
-    "attack_021": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
-      "atlas_size": [
-        1882,
-        1828
-      ],
-      "region": [
-        1603,
-        1375,
-        264,
-        449
-      ],
-      "offset": [
-        853,
-        484
-      ]
-    },
-    "attack_023": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1990,
-        1791
-      ],
-      "region": [
-        2,
-        2,
-        262,
-        446
-      ],
-      "offset": [
-        853,
-        487
-      ]
-    },
-    "attack_025": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1990,
-        1791
-      ],
-      "region": [
-        268,
-        2,
-        258,
-        446
-      ],
-      "offset": [
-        856,
-        487
-      ]
-    },
-    "attack_027": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1990,
-        1791
-      ],
-      "region": [
-        1328,
-        899,
-        255,
-        443
-      ],
-      "offset": [
-        859,
-        490
-      ]
-    },
-    "attack_029": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1990,
-        1791
-      ],
-      "region": [
-        515,
-        1346,
-        249,
-        443
-      ],
-      "offset": [
-        862,
-        490
-      ]
-    },
-    "attack_031": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1990,
-        1791
-      ],
-      "region": [
-        768,
-        1346,
-        249,
-        443
-      ],
-      "offset": [
-        865,
-        490
-      ]
-    },
-    "attack_032": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1990,
-        1791
-      ],
-      "region": [
-        1273,
-        1346,
-        247,
-        443
-      ],
-      "offset": [
-        867,
-        490
-      ]
-    },
-    "attack_033": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1990,
-        1791
-      ],
-      "region": [
-        1021,
-        1346,
-        248,
-        443
-      ],
-      "offset": [
-        868,
-        490
-      ]
-    },
-    "attack_034": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1990,
-        1791
-      ],
-      "region": [
-        260,
-        1346,
-        251,
-        443
-      ],
-      "offset": [
-        869,
-        490
-      ]
-    },
-    "attack_035": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1990,
-        1791
-      ],
-      "region": [
-        2,
-        1346,
-        254,
-        443
-      ],
-      "offset": [
-        871,
-        490
-      ]
-    },
-    "attack_036": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1990,
-        1791
-      ],
-      "region": [
-        1587,
-        899,
-        255,
-        443
-      ],
-      "offset": [
-        873,
-        490
-      ]
-    },
-    "attack_037": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1990,
-        1791
-      ],
-      "region": [
-        1067,
-        899,
-        257,
-        443
-      ],
-      "offset": [
-        874,
-        490
-      ]
-    },
-    "attack_038": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1990,
-        1791
-      ],
-      "region": [
-        804,
-        899,
-        259,
-        443
-      ],
-      "offset": [
-        876,
-        490
-      ]
-    },
-    "attack_039": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1990,
-        1791
-      ],
-      "region": [
-        539,
-        899,
-        261,
-        443
-      ],
-      "offset": [
-        877,
-        490
-      ]
-    },
-    "attack_040": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1990,
-        1791
-      ],
-      "region": [
-        271,
-        899,
-        264,
-        443
-      ],
-      "offset": [
-        877,
-        490
-      ]
-    },
-    "attack_041": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1990,
-        1791
-      ],
-      "region": [
-        2,
-        899,
-        265,
-        443
-      ],
-      "offset": [
-        879,
-        490
-      ]
-    },
-    "attack_042": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1990,
-        1791
-      ],
-      "region": [
-        1673,
-        452,
-        268,
-        443
-      ],
-      "offset": [
-        879,
-        490
-      ]
-    },
-    "attack_043": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1990,
-        1791
-      ],
-      "region": [
-        1399,
-        452,
-        270,
-        443
-      ],
-      "offset": [
-        880,
-        490
-      ]
-    },
-    "attack_044": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1990,
-        1791
-      ],
-      "region": [
-        1123,
-        452,
-        272,
-        443
-      ],
-      "offset": [
-        880,
-        490
-      ]
-    },
-    "attack_045": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1990,
-        1791
-      ],
-      "region": [
-        846,
-        452,
-        273,
-        443
-      ],
-      "offset": [
-        882,
-        490
-      ]
-    },
-    "attack_046": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1990,
-        1791
-      ],
-      "region": [
-        568,
-        452,
-        274,
-        443
-      ],
-      "offset": [
-        882,
-        490
-      ]
-    },
-    "attack_047": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1990,
-        1791
-      ],
-      "region": [
-        288,
-        452,
-        276,
-        443
-      ],
-      "offset": [
-        882,
-        490
-      ]
-    },
-    "attack_052": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1990,
-        1791
-      ],
-      "region": [
-        2,
-        452,
-        282,
-        443
-      ],
-      "offset": [
-        882,
-        490
-      ]
-    },
-    "attack_057": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1990,
-        1791
-      ],
-      "region": [
-        1702,
-        2,
-        286,
-        443
-      ],
-      "offset": [
-        879,
-        490
-      ]
-    },
-    "attack_062": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1990,
-        1791
-      ],
-      "region": [
-        825,
-        2,
-        289,
-        443
-      ],
-      "offset": [
-        876,
-        490
-      ]
-    },
-    "attack_067": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1990,
-        1791
-      ],
-      "region": [
-        530,
-        2,
-        291,
-        443
-      ],
-      "offset": [
-        874,
-        490
-      ]
-    },
-    "attack_072": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1990,
-        1791
-      ],
-      "region": [
-        1118,
-        2,
-        289,
-        443
-      ],
-      "offset": [
-        875,
-        490
-      ]
-    },
-    "attack_077": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
-      "atlas_size": [
-        1990,
-        1791
-      ],
-      "region": [
-        1411,
-        2,
-        287,
-        443
-      ],
-      "offset": [
-        877,
-        490
-      ]
-    },
-    "attack_085": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
-      "atlas_size": [
-        1882,
-        1828
-      ],
-      "region": [
-        1040,
-        1375,
-        288,
-        449
-      ],
-      "offset": [
-        879,
-        484
-      ]
-    },
-    "attack_087": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
-      "atlas_size": [
-        1882,
-        1828
-      ],
-      "region": [
-        1024,
-        918,
-        286,
-        452
-      ],
-      "offset": [
-        879,
-        481
-      ]
-    },
-    "attack_089": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
-      "atlas_size": [
-        1882,
-        1828
-      ],
-      "region": [
-        555,
-        2,
-        287,
-        454
-      ],
-      "offset": [
-        877,
-        479
-      ]
-    },
-    "attack_091": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
-      "atlas_size": [
-        1922,
-        1845
-      ],
-      "region": [
-        559,
-        928,
-        285,
-        455
-      ],
-      "offset": [
-        876,
-        478
-      ]
-    },
-    "attack_093": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
-      "atlas_size": [
-        1922,
-        1845
-      ],
-      "region": [
-        2,
-        928,
-        282,
-        456
-      ],
-      "offset": [
-        876,
-        477
-      ]
-    },
-    "attack_095": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
-      "atlas_size": [
-        1922,
-        1845
-      ],
-      "region": [
-        848,
-        928,
-        280,
-        455
-      ],
-      "offset": [
-        873,
-        478
-      ]
-    },
-    "attack_097": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
-      "atlas_size": [
-        1922,
-        1845
-      ],
-      "region": [
-        2,
-        466,
-        278,
-        458
-      ],
-      "offset": [
-        871,
-        475
-      ]
-    },
-    "attack_099": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
-      "atlas_size": [
-        1922,
-        1845
-      ],
-      "region": [
-        284,
-        466,
-        273,
-        458
-      ],
-      "offset": [
-        868,
-        475
-      ]
-    },
-    "attack_101": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
-      "atlas_size": [
-        1922,
-        1845
-      ],
-      "region": [
-        280,
-        2,
-        269,
-        459
-      ],
-      "offset": [
-        867,
-        474
-      ]
-    },
-    "attack_103": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
-      "atlas_size": [
-        1922,
-        1845
-      ],
-      "region": [
-        561,
-        466,
-        267,
-        458
-      ],
-      "offset": [
-        865,
-        475
-      ]
-    },
-    "attack_105": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
-      "atlas_size": [
-        1922,
-        1845
-      ],
-      "region": [
-        1097,
-        2,
-        267,
-        459
-      ],
-      "offset": [
-        865,
-        474
-      ]
-    },
-    "attack_107": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
-      "atlas_size": [
-        1922,
-        1845
-      ],
-      "region": [
-        553,
-        2,
-        268,
-        459
-      ],
-      "offset": [
-        864,
-        474
-      ]
-    },
-    "attack_109": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
-      "atlas_size": [
-        1922,
-        1845
-      ],
-      "region": [
-        825,
-        2,
-        268,
-        459
-      ],
-      "offset": [
-        862,
-        474
-      ]
-    },
-    "attack_111": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
-      "atlas_size": [
-        1922,
-        1845
-      ],
-      "region": [
-        1368,
-        2,
-        265,
-        459
-      ],
-      "offset": [
-        864,
-        474
-      ]
-    },
-    "attack_113": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
-      "atlas_size": [
-        1922,
-        1845
-      ],
-      "region": [
-        1637,
-        2,
-        264,
-        459
-      ],
-      "offset": [
-        864,
-        474
-      ]
-    },
-    "run_053": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
-      "atlas_size": [
-        2003,
-        1888
-      ],
-      "region": [
-        1321,
-        955,
-        273,
-        463
-      ],
-      "offset": [
-        881,
-        454
-      ]
-    },
-    "run_054": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
-      "atlas_size": [
-        2021,
-        1846
-      ],
-      "region": [
-        810,
-        929,
-        301,
-        455
-      ],
-      "offset": [
-        875,
-        456
-      ]
-    },
-    "run_055": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
-      "atlas_size": [
-        2003,
-        1888
-      ],
-      "region": [
-        2,
-        955,
-        326,
-        465
-      ],
-      "offset": [
-        871,
-        460
-      ]
-    },
-    "run_056": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
-      "atlas_size": [
-        2003,
-        1888
-      ],
-      "region": [
-        1667,
-        483,
-        334,
-        465
-      ],
-      "offset": [
-        871,
-        462
-      ]
-    },
-    "run_057": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
-      "atlas_size": [
-        2003,
-        1888
-      ],
-      "region": [
-        688,
-        955,
-        332,
-        463
-      ],
-      "offset": [
-        871,
-        464
-      ]
-    },
-    "run_058": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
-      "atlas_size": [
-        2003,
-        1888
-      ],
-      "region": [
-        803,
-        1424,
-        320,
-        461
-      ],
-      "offset": [
-        875,
-        462
-      ]
-    },
-    "run_059": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
-      "atlas_size": [
-        2003,
-        1888
-      ],
-      "region": [
-        1127,
-        1424,
-        305,
-        461
-      ],
-      "offset": [
-        879,
-        458
-      ]
-    },
-    "run_060": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
-      "atlas_size": [
-        2003,
-        1888
-      ],
-      "region": [
-        1024,
-        955,
-        293,
-        463
-      ],
-      "offset": [
-        881,
-        454
-      ]
-    },
-    "run_061": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
-      "atlas_size": [
-        2021,
-        1846
-      ],
-      "region": [
-        932,
-        2,
-        281,
-        459
-      ],
-      "offset": [
-        883,
-        454
-      ]
-    },
-    "run_062": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
-      "atlas_size": [
-        2003,
-        1888
-      ],
-      "region": [
-        842,
-        483,
-        273,
-        467
-      ],
-      "offset": [
-        883,
-        458
-      ]
-    },
-    "run_063": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
-      "atlas_size": [
-        2003,
-        1888
-      ],
-      "region": [
-        883,
-        2,
-        281,
-        473
-      ],
-      "offset": [
-        881,
-        460
-      ]
-    },
-    "run_064": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
-      "atlas_size": [
-        2003,
-        1888
-      ],
-      "region": [
-        559,
-        483,
-        279,
-        467
-      ],
-      "offset": [
-        883,
-        464
-      ]
-    },
-    "run_065": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
-      "atlas_size": [
-        2003,
-        1888
-      ],
-      "region": [
-        1119,
-        483,
-        273,
-        467
-      ],
-      "offset": [
-        885,
-        462
-      ]
-    },
-    "run_066": {
-      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
-      "atlas_size": [
-        2003,
-        1888
-      ],
-      "region": [
-        1396,
-        483,
-        267,
-        467
-      ],
-      "offset": [
-        887,
-        458
       ]
     },
     "interact_006": {
@@ -4762,6 +3011,1587 @@
         865,
         473
       ]
+    },
+    "idle_natural_001": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "atlas_size": [
+        1852,
+        1832
+      ],
+      "region": [
+        2,
+        2,
+        254,
+        454
+      ],
+      "offset": [
+        898,
+        478
+      ]
+    },
+    "idle_natural_003": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "atlas_size": [
+        1852,
+        1832
+      ],
+      "region": [
+        260,
+        2,
+        254,
+        452
+      ],
+      "offset": [
+        898,
+        480
+      ]
+    },
+    "idle_natural_005": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "atlas_size": [
+        1852,
+        1832
+      ],
+      "region": [
+        518,
+        2,
+        254,
+        452
+      ],
+      "offset": [
+        898,
+        480
+      ]
+    },
+    "idle_natural_007": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "atlas_size": [
+        1852,
+        1832
+      ],
+      "region": [
+        776,
+        2,
+        256,
+        452
+      ],
+      "offset": [
+        898,
+        480
+      ]
+    },
+    "idle_natural_009": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "atlas_size": [
+        1852,
+        1832
+      ],
+      "region": [
+        1036,
+        2,
+        256,
+        452
+      ],
+      "offset": [
+        896,
+        480
+      ]
+    },
+    "idle_natural_011": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "atlas_size": [
+        1852,
+        1832
+      ],
+      "region": [
+        1296,
+        2,
+        256,
+        452
+      ],
+      "offset": [
+        896,
+        480
+      ]
+    },
+    "idle_natural_013": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "atlas_size": [
+        1852,
+        1832
+      ],
+      "region": [
+        1556,
+        2,
+        260,
+        452
+      ],
+      "offset": [
+        896,
+        480
+      ]
+    },
+    "idle_natural_015": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "atlas_size": [
+        1852,
+        1832
+      ],
+      "region": [
+        2,
+        460,
+        262,
+        454
+      ],
+      "offset": [
+        894,
+        478
+      ]
+    },
+    "idle_natural_017": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "atlas_size": [
+        1852,
+        1832
+      ],
+      "region": [
+        268,
+        460,
+        260,
+        453
+      ],
+      "offset": [
+        894,
+        479
+      ]
+    },
+    "idle_natural_019": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "atlas_size": [
+        1852,
+        1832
+      ],
+      "region": [
+        532,
+        460,
+        262,
+        454
+      ],
+      "offset": [
+        894,
+        478
+      ]
+    },
+    "idle_natural_021": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "atlas_size": [
+        1852,
+        1832
+      ],
+      "region": [
+        798,
+        460,
+        260,
+        454
+      ],
+      "offset": [
+        894,
+        478
+      ]
+    },
+    "idle_natural_023": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "atlas_size": [
+        1852,
+        1832
+      ],
+      "region": [
+        1062,
+        460,
+        260,
+        452
+      ],
+      "offset": [
+        894,
+        480
+      ]
+    },
+    "idle_natural_025": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "atlas_size": [
+        1852,
+        1832
+      ],
+      "region": [
+        1326,
+        460,
+        260,
+        454
+      ],
+      "offset": [
+        894,
+        478
+      ]
+    },
+    "idle_natural_027": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "atlas_size": [
+        1852,
+        1832
+      ],
+      "region": [
+        1590,
+        460,
+        260,
+        454
+      ],
+      "offset": [
+        894,
+        478
+      ]
+    },
+    "idle_natural_029": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "atlas_size": [
+        1852,
+        1832
+      ],
+      "region": [
+        2,
+        918,
+        258,
+        454
+      ],
+      "offset": [
+        894,
+        478
+      ]
+    },
+    "idle_natural_031": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "atlas_size": [
+        1852,
+        1832
+      ],
+      "region": [
+        264,
+        918,
+        260,
+        454
+      ],
+      "offset": [
+        894,
+        478
+      ]
+    },
+    "idle_natural_033": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "atlas_size": [
+        1852,
+        1832
+      ],
+      "region": [
+        528,
+        918,
+        257,
+        454
+      ],
+      "offset": [
+        895,
+        478
+      ]
+    },
+    "idle_natural_035": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "atlas_size": [
+        1852,
+        1832
+      ],
+      "region": [
+        789,
+        918,
+        256,
+        454
+      ],
+      "offset": [
+        896,
+        478
+      ]
+    },
+    "idle_natural_037": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "atlas_size": [
+        1852,
+        1832
+      ],
+      "region": [
+        1049,
+        918,
+        256,
+        454
+      ],
+      "offset": [
+        896,
+        478
+      ]
+    },
+    "idle_natural_039": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "atlas_size": [
+        1852,
+        1832
+      ],
+      "region": [
+        1309,
+        918,
+        254,
+        454
+      ],
+      "offset": [
+        897,
+        478
+      ]
+    },
+    "idle_natural_041": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "atlas_size": [
+        1852,
+        1832
+      ],
+      "region": [
+        1567,
+        918,
+        253,
+        454
+      ],
+      "offset": [
+        898,
+        478
+      ]
+    },
+    "idle_natural_043": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "atlas_size": [
+        1852,
+        1832
+      ],
+      "region": [
+        2,
+        1376,
+        256,
+        454
+      ],
+      "offset": [
+        898,
+        478
+      ]
+    },
+    "idle_natural_045": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "atlas_size": [
+        1852,
+        1832
+      ],
+      "region": [
+        262,
+        1376,
+        251,
+        454
+      ],
+      "offset": [
+        900,
+        478
+      ]
+    },
+    "idle_natural_047": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "atlas_size": [
+        1852,
+        1832
+      ],
+      "region": [
+        517,
+        1376,
+        252,
+        453
+      ],
+      "offset": [
+        900,
+        479
+      ]
+    },
+    "idle_natural_049": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "atlas_size": [
+        1852,
+        1832
+      ],
+      "region": [
+        773,
+        1376,
+        254,
+        454
+      ],
+      "offset": [
+        898,
+        478
+      ]
+    },
+    "idle_natural_051": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "atlas_size": [
+        1852,
+        1832
+      ],
+      "region": [
+        1031,
+        1376,
+        258,
+        454
+      ],
+      "offset": [
+        898,
+        478
+      ]
+    },
+    "idle_natural_053": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "atlas_size": [
+        1852,
+        1832
+      ],
+      "region": [
+        1293,
+        1376,
+        260,
+        454
+      ],
+      "offset": [
+        896,
+        478
+      ]
+    },
+    "idle_natural_055": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "atlas_size": [
+        1852,
+        1832
+      ],
+      "region": [
+        1557,
+        1376,
+        256,
+        454
+      ],
+      "offset": [
+        896,
+        478
+      ]
+    },
+    "idle_natural_057": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "atlas_size": [
+        1845,
+        1835
+      ],
+      "region": [
+        2,
+        2,
+        259,
+        453
+      ],
+      "offset": [
+        894,
+        479
+      ]
+    },
+    "idle_natural_059": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "atlas_size": [
+        1845,
+        1835
+      ],
+      "region": [
+        265,
+        2,
+        262,
+        455
+      ],
+      "offset": [
+        894,
+        477
+      ]
+    },
+    "idle_natural_061": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "atlas_size": [
+        1845,
+        1835
+      ],
+      "region": [
+        531,
+        2,
+        262,
+        453
+      ],
+      "offset": [
+        894,
+        479
+      ]
+    },
+    "idle_natural_063": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "atlas_size": [
+        1845,
+        1835
+      ],
+      "region": [
+        797,
+        2,
+        260,
+        454
+      ],
+      "offset": [
+        894,
+        478
+      ]
+    },
+    "idle_natural_065": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "atlas_size": [
+        1845,
+        1835
+      ],
+      "region": [
+        1061,
+        2,
+        258,
+        454
+      ],
+      "offset": [
+        894,
+        478
+      ]
+    },
+    "idle_natural_067": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "atlas_size": [
+        1845,
+        1835
+      ],
+      "region": [
+        1323,
+        2,
+        260,
+        454
+      ],
+      "offset": [
+        896,
+        478
+      ]
+    },
+    "idle_natural_069": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "atlas_size": [
+        1845,
+        1835
+      ],
+      "region": [
+        1587,
+        2,
+        256,
+        452
+      ],
+      "offset": [
+        896,
+        480
+      ]
+    },
+    "idle_natural_071": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "atlas_size": [
+        1845,
+        1835
+      ],
+      "region": [
+        2,
+        461,
+        256,
+        454
+      ],
+      "offset": [
+        896,
+        478
+      ]
+    },
+    "idle_natural_073": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "atlas_size": [
+        1845,
+        1835
+      ],
+      "region": [
+        262,
+        461,
+        254,
+        454
+      ],
+      "offset": [
+        898,
+        478
+      ]
+    },
+    "idle_natural_075": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "atlas_size": [
+        1845,
+        1835
+      ],
+      "region": [
+        520,
+        461,
+        252,
+        454
+      ],
+      "offset": [
+        898,
+        478
+      ]
+    },
+    "idle_natural_077": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "atlas_size": [
+        1845,
+        1835
+      ],
+      "region": [
+        776,
+        461,
+        253,
+        454
+      ],
+      "offset": [
+        898,
+        478
+      ]
+    },
+    "idle_natural_079": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "atlas_size": [
+        1845,
+        1835
+      ],
+      "region": [
+        1033,
+        461,
+        254,
+        456
+      ],
+      "offset": [
+        898,
+        476
+      ]
+    },
+    "idle_natural_081": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "atlas_size": [
+        1845,
+        1835
+      ],
+      "region": [
+        1291,
+        461,
+        256,
+        453
+      ],
+      "offset": [
+        896,
+        479
+      ]
+    },
+    "idle_natural_083": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "atlas_size": [
+        1845,
+        1835
+      ],
+      "region": [
+        1551,
+        461,
+        256,
+        454
+      ],
+      "offset": [
+        896,
+        478
+      ]
+    },
+    "idle_natural_085": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "atlas_size": [
+        1845,
+        1835
+      ],
+      "region": [
+        2,
+        921,
+        256,
+        454
+      ],
+      "offset": [
+        896,
+        478
+      ]
+    },
+    "idle_natural_087": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "atlas_size": [
+        1845,
+        1835
+      ],
+      "region": [
+        262,
+        921,
+        260,
+        454
+      ],
+      "offset": [
+        894,
+        478
+      ]
+    },
+    "idle_natural_089": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "atlas_size": [
+        1845,
+        1835
+      ],
+      "region": [
+        526,
+        921,
+        258,
+        454
+      ],
+      "offset": [
+        894,
+        478
+      ]
+    },
+    "idle_natural_091": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "atlas_size": [
+        1845,
+        1835
+      ],
+      "region": [
+        788,
+        921,
+        262,
+        454
+      ],
+      "offset": [
+        894,
+        478
+      ]
+    },
+    "idle_natural_093": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "atlas_size": [
+        1845,
+        1835
+      ],
+      "region": [
+        1054,
+        921,
+        262,
+        454
+      ],
+      "offset": [
+        894,
+        478
+      ]
+    },
+    "idle_natural_095": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "atlas_size": [
+        1845,
+        1835
+      ],
+      "region": [
+        1320,
+        921,
+        260,
+        454
+      ],
+      "offset": [
+        894,
+        478
+      ]
+    },
+    "idle_natural_097": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "atlas_size": [
+        1845,
+        1835
+      ],
+      "region": [
+        1584,
+        921,
+        258,
+        453
+      ],
+      "offset": [
+        894,
+        479
+      ]
+    },
+    "idle_natural_099": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "atlas_size": [
+        1845,
+        1835
+      ],
+      "region": [
+        2,
+        1379,
+        260,
+        454
+      ],
+      "offset": [
+        896,
+        478
+      ]
+    },
+    "idle_natural_101": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "atlas_size": [
+        1845,
+        1835
+      ],
+      "region": [
+        266,
+        1379,
+        258,
+        454
+      ],
+      "offset": [
+        896,
+        478
+      ]
+    },
+    "idle_natural_103": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "atlas_size": [
+        1845,
+        1835
+      ],
+      "region": [
+        528,
+        1379,
+        256,
+        454
+      ],
+      "offset": [
+        896,
+        478
+      ]
+    },
+    "idle_natural_105": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "atlas_size": [
+        1845,
+        1835
+      ],
+      "region": [
+        788,
+        1379,
+        254,
+        454
+      ],
+      "offset": [
+        898,
+        478
+      ]
+    },
+    "idle_natural_107": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "atlas_size": [
+        1845,
+        1835
+      ],
+      "region": [
+        1046,
+        1379,
+        254,
+        454
+      ],
+      "offset": [
+        898,
+        478
+      ]
+    },
+    "idle_natural_109": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "atlas_size": [
+        1845,
+        1835
+      ],
+      "region": [
+        1304,
+        1379,
+        252,
+        454
+      ],
+      "offset": [
+        900,
+        478
+      ]
+    },
+    "idle_natural_111": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "atlas_size": [
+        1845,
+        1835
+      ],
+      "region": [
+        1560,
+        1379,
+        256,
+        454
+      ],
+      "offset": [
+        900,
+        478
+      ]
+    },
+    "idle_natural_113": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_02.png",
+      "atlas_size": [
+        1047,
+        458
+      ],
+      "region": [
+        2,
+        2,
+        254,
+        454
+      ],
+      "offset": [
+        898,
+        478
+      ]
+    },
+    "idle_natural_115": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_02.png",
+      "atlas_size": [
+        1047,
+        458
+      ],
+      "region": [
+        260,
+        2,
+        258,
+        454
+      ],
+      "offset": [
+        898,
+        478
+      ]
+    },
+    "idle_natural_117": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_02.png",
+      "atlas_size": [
+        1047,
+        458
+      ],
+      "region": [
+        522,
+        2,
+        260,
+        454
+      ],
+      "offset": [
+        896,
+        478
+      ]
+    },
+    "idle_natural_119": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_02.png",
+      "atlas_size": [
+        1047,
+        458
+      ],
+      "region": [
+        786,
+        2,
+        259,
+        454
+      ],
+      "offset": [
+        895,
+        478
+      ]
+    },
+    "run_pilot_060": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/run_pilot_v001_00.png",
+      "atlas_size": [
+        1986,
+        850
+      ],
+      "region": [
+        2,
+        2,
+        377,
+        422
+      ],
+      "offset": [
+        864,
+        510
+      ]
+    },
+    "run_pilot_061": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/run_pilot_v001_00.png",
+      "atlas_size": [
+        1986,
+        850
+      ],
+      "region": [
+        383,
+        2,
+        347,
+        414
+      ],
+      "offset": [
+        856,
+        512
+      ]
+    },
+    "run_pilot_062": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/run_pilot_v001_00.png",
+      "atlas_size": [
+        1986,
+        850
+      ],
+      "region": [
+        734,
+        2,
+        290,
+        401
+      ],
+      "offset": [
+        860,
+        506
+      ]
+    },
+    "run_pilot_063": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/run_pilot_v001_00.png",
+      "atlas_size": [
+        1986,
+        850
+      ],
+      "region": [
+        1028,
+        2,
+        292,
+        401
+      ],
+      "offset": [
+        862,
+        500
+      ]
+    },
+    "run_pilot_064": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/run_pilot_v001_00.png",
+      "atlas_size": [
+        1986,
+        850
+      ],
+      "region": [
+        1324,
+        2,
+        294,
+        401
+      ],
+      "offset": [
+        860,
+        500
+      ]
+    },
+    "run_pilot_065": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/run_pilot_v001_00.png",
+      "atlas_size": [
+        1986,
+        850
+      ],
+      "region": [
+        1622,
+        2,
+        346,
+        420
+      ],
+      "offset": [
+        854,
+        506
+      ]
+    },
+    "run_pilot_066": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/run_pilot_v001_00.png",
+      "atlas_size": [
+        1986,
+        850
+      ],
+      "region": [
+        2,
+        428,
+        344,
+        420
+      ],
+      "offset": [
+        856,
+        506
+      ]
+    },
+    "run_pilot_067": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/run_pilot_v001_00.png",
+      "atlas_size": [
+        1986,
+        850
+      ],
+      "region": [
+        350,
+        428,
+        311,
+        405
+      ],
+      "offset": [
+        868,
+        511
+      ]
+    },
+    "run_pilot_068": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/run_pilot_v001_00.png",
+      "atlas_size": [
+        1986,
+        850
+      ],
+      "region": [
+        665,
+        428,
+        296,
+        403
+      ],
+      "offset": [
+        870,
+        510
+      ]
+    },
+    "run_pilot_069": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/run_pilot_v001_00.png",
+      "atlas_size": [
+        1986,
+        850
+      ],
+      "region": [
+        965,
+        428,
+        333,
+        391
+      ],
+      "offset": [
+        880,
+        500
+      ]
+    },
+    "run_pilot_070": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/run_pilot_v001_00.png",
+      "atlas_size": [
+        1986,
+        850
+      ],
+      "region": [
+        1302,
+        428,
+        339,
+        397
+      ],
+      "offset": [
+        880,
+        500
+      ]
+    },
+    "run_pilot_071": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/run_pilot_v001_00.png",
+      "atlas_size": [
+        1986,
+        850
+      ],
+      "region": [
+        1645,
+        428,
+        339,
+        397
+      ],
+      "offset": [
+        880,
+        500
+      ]
+    },
+    "attack_cycles_030": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/attack_cycles_v001_00.png",
+      "atlas_size": [
+        1926,
+        1849
+      ],
+      "region": [
+        2,
+        2,
+        265,
+        459
+      ],
+      "offset": [
+        882,
+        476
+      ]
+    },
+    "attack_cycles_031": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/attack_cycles_v001_00.png",
+      "atlas_size": [
+        1926,
+        1849
+      ],
+      "region": [
+        271,
+        2,
+        268,
+        459
+      ],
+      "offset": [
+        879,
+        476
+      ]
+    },
+    "attack_cycles_032": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/attack_cycles_v001_00.png",
+      "atlas_size": [
+        1926,
+        1849
+      ],
+      "region": [
+        543,
+        2,
+        268,
+        459
+      ],
+      "offset": [
+        879,
+        476
+      ]
+    },
+    "attack_cycles_033": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/attack_cycles_v001_00.png",
+      "atlas_size": [
+        1926,
+        1849
+      ],
+      "region": [
+        815,
+        2,
+        268,
+        459
+      ],
+      "offset": [
+        879,
+        476
+      ]
+    },
+    "attack_cycles_034": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/attack_cycles_v001_00.png",
+      "atlas_size": [
+        1926,
+        1849
+      ],
+      "region": [
+        1087,
+        2,
+        265,
+        459
+      ],
+      "offset": [
+        879,
+        476
+      ]
+    },
+    "attack_cycles_035": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/attack_cycles_v001_00.png",
+      "atlas_size": [
+        1926,
+        1849
+      ],
+      "region": [
+        1356,
+        2,
+        268,
+        459
+      ],
+      "offset": [
+        879,
+        476
+      ]
+    },
+    "attack_cycles_036": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/attack_cycles_v001_00.png",
+      "atlas_size": [
+        1926,
+        1849
+      ],
+      "region": [
+        1628,
+        2,
+        287,
+        459
+      ],
+      "offset": [
+        879,
+        476
+      ]
+    },
+    "attack_cycles_037": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/attack_cycles_v001_00.png",
+      "atlas_size": [
+        1926,
+        1849
+      ],
+      "region": [
+        2,
+        465,
+        299,
+        459
+      ],
+      "offset": [
+        879,
+        476
+      ]
+    },
+    "attack_cycles_038": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/attack_cycles_v001_00.png",
+      "atlas_size": [
+        1926,
+        1849
+      ],
+      "region": [
+        305,
+        465,
+        299,
+        459
+      ],
+      "offset": [
+        882,
+        476
+      ]
+    },
+    "attack_cycles_039": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/attack_cycles_v001_00.png",
+      "atlas_size": [
+        1926,
+        1849
+      ],
+      "region": [
+        608,
+        465,
+        326,
+        459
+      ],
+      "offset": [
+        882,
+        476
+      ]
+    },
+    "attack_cycles_040": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/attack_cycles_v001_00.png",
+      "atlas_size": [
+        1926,
+        1849
+      ],
+      "region": [
+        938,
+        465,
+        326,
+        459
+      ],
+      "offset": [
+        882,
+        476
+      ]
+    },
+    "attack_cycles_041": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/attack_cycles_v001_00.png",
+      "atlas_size": [
+        1926,
+        1849
+      ],
+      "region": [
+        1268,
+        465,
+        326,
+        459
+      ],
+      "offset": [
+        882,
+        476
+      ]
+    },
+    "attack_cycles_042": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/attack_cycles_v001_00.png",
+      "atlas_size": [
+        1926,
+        1849
+      ],
+      "region": [
+        1598,
+        465,
+        326,
+        459
+      ],
+      "offset": [
+        882,
+        476
+      ]
+    },
+    "attack_cycles_043": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/attack_cycles_v001_00.png",
+      "atlas_size": [
+        1926,
+        1849
+      ],
+      "region": [
+        2,
+        928,
+        326,
+        459
+      ],
+      "offset": [
+        882,
+        476
+      ]
+    },
+    "attack_cycles_044": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/attack_cycles_v001_00.png",
+      "atlas_size": [
+        1926,
+        1849
+      ],
+      "region": [
+        332,
+        928,
+        326,
+        459
+      ],
+      "offset": [
+        882,
+        476
+      ]
+    },
+    "attack_cycles_045": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/attack_cycles_v001_00.png",
+      "atlas_size": [
+        1926,
+        1849
+      ],
+      "region": [
+        662,
+        928,
+        323,
+        459
+      ],
+      "offset": [
+        882,
+        476
+      ]
+    },
+    "attack_cycles_046": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/attack_cycles_v001_00.png",
+      "atlas_size": [
+        1926,
+        1849
+      ],
+      "region": [
+        989,
+        928,
+        311,
+        456
+      ],
+      "offset": [
+        882,
+        476
+      ]
+    },
+    "attack_cycles_047": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/attack_cycles_v001_00.png",
+      "atlas_size": [
+        1926,
+        1849
+      ],
+      "region": [
+        1304,
+        928,
+        287,
+        456
+      ],
+      "offset": [
+        882,
+        476
+      ]
+    },
+    "attack_cycles_048": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/attack_cycles_v001_00.png",
+      "atlas_size": [
+        1926,
+        1849
+      ],
+      "region": [
+        1595,
+        928,
+        265,
+        456
+      ],
+      "offset": [
+        882,
+        476
+      ]
+    },
+    "attack_cycles_049": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/attack_cycles_v001_00.png",
+      "atlas_size": [
+        1926,
+        1849
+      ],
+      "region": [
+        2,
+        1391,
+        268,
+        456
+      ],
+      "offset": [
+        879,
+        476
+      ]
+    },
+    "attack_cycles_050": {
+      "atlas": "res://assets/chars/pixel/homura_mage/video_actions/sheets/attack_cycles_v001_00.png",
+      "atlas_size": [
+        1926,
+        1849
+      ],
+      "region": [
+        274,
+        1391,
+        268,
+        456
+      ],
+      "offset": [
+        879,
+        476
+      ]
     }
   },
   "scene_integration": {
@@ -4785,21 +4615,24 @@
   },
   "texture_groups": {
     "shared": [
-      "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_00.png",
-      "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_shared_01.png"
+      "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_00.png",
+      "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_01.png",
+      "res://assets/chars/pixel/homura_mage/video_actions/sheets/idle_natural_v001_02.png"
     ],
     "world": [
       "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_00.png",
       "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_01.png",
       "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_02.png",
       "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_03.png",
-      "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_04.png"
+      "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_world_04.png",
+      "res://assets/chars/pixel/homura_mage/video_actions/sheets/run_pilot_v001_00.png"
     ],
     "battle": [
       "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_00.png",
       "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_01.png",
       "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_02.png",
-      "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_03.png"
+      "res://assets/chars/pixel/homura_mage/video_actions/sheets/runtime448_battle_03.png",
+      "res://assets/chars/pixel/homura_mage/video_actions/sheets/attack_cycles_v001_00.png"
     ]
   }
 }

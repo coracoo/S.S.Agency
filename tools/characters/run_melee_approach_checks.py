@@ -32,7 +32,7 @@ def main() -> int:
                 env[key] = str(path)
             env.update(RPG_TEST_ROOT=str(isolation), RPG_TEST_ISOLATED='0')
             def run(script: str) -> tuple[int,str]:
-                timing = [] if script.endswith('test_video_atlas_loader.gd') else ['--fixed-fps','60']
+                timing = ['--fixed-fps','60']
                 result = subprocess.run([args.godot,'--headless','--path',str(ROOT),*timing,'--script',script],env=env,text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,timeout=300)
                 print(result.stdout,end='',flush=True)
                 logs.append(result.stdout)
@@ -50,13 +50,14 @@ def main() -> int:
             ]
             if args.regression:
                 scripts += [
-                    ('test_video_atlas_loader.gd', r'VIDEO_ATLAS_LOADER_RESULT: 0'),
+                    # 恢复后的正式替代覆盖；遗失的旧视频测试不伪称已运行。
+                    ('test_recovered_action_timing.gd', r'RECOVERED_ACTION_TIMING: \d+ assertions, 0 failures'),
+                    ('test_texture_contexts.gd', r'TEXTURE_CONTEXTS: \d+ assertions, 0 failures'),
                     ('test_expanded_actions.gd', r'EXPANDED_ACTIONS_RESULT: 0'),
-                    ('test_video_impact_hud.gd', r'VIDEO_IMPACT_HUD_RESULT: 0'),
-                    ('test_item_impact_hud.gd', r'ITEM_IMPACT_HUD_RESULT: 0'),
+                    ('test_registered_battle_actions.gd', r'REGISTERED_BATTLE_ACTIONS: \d+ assertions, 0 failures'),
                     ('test_lethal_status_impact.gd', r'LETHAL_STATUS_IMPACT_RESULT: 0'),
                     ('test_enemy_impact_hud.gd', r'ENEMY_IMPACT_HUD_RESULT: 0'),
-                    ('test_rinne_video_runtime.gd', r'RINNE_VIDEO_RUNTIME: \d+ assertions, 0 failures'),
+                    ('test_battle_view_motion.gd', r'BATTLE_VIEW_MOTION: \d+ assertions, 0 failures'),
                 ]
             failed = False
             for script, marker in scripts:

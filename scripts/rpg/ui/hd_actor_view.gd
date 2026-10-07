@@ -15,6 +15,8 @@ var _feedback_remaining := 0.0
 var _melee: Dictionary = {}
 var _melee_generation := 0
 var _presentation_generation := 0
+var _defeat_after_hit := false
+var _melee_contact_reach_px := -1.0
 # 仅录制/组件诊断显式开启；正式演员默认不得用静帧滑移冒充已交付冲刺。
 var allow_unapproved_melee_preview := false
 # 实际3D战场应以整段投影范围配置；默认仅供独立人物/旧2D场景安全降级。
@@ -31,6 +33,7 @@ func _init() -> void:
 	feedback_label.add_theme_color_override("font_outline_color", Color(0.08, 0.07, 0.08))
 	feedback_label.add_theme_constant_override("outline_size", 5)
 	feedback_label.visible = false
+	animator.action_finished.connect(_finish_deferred_defeat)
 	animator.visual_warning.connect(func(message: String): visual_warning.emit(message))
 
 func configure(definition: Dictionary, height_px: float, facing: int) -> bool:
@@ -39,6 +42,8 @@ func configure(definition: Dictionary, height_px: float, facing: int) -> bool:
 	if not canvas.get("content_height_px") is float and not canvas.get("content_height_px") is int: return false
 	if not is_finite(float(canvas.content_height_px)) or float(canvas.content_height_px) <= 0: return false
 	_presentation_generation += 1
+	_defeat_after_hit = false
+	_melee_contact_reach_px = -1.0
 	allow_unapproved_melee_preview = false
 	restore_melee_home()
 	if not animator.configure(definition): return false
@@ -73,13 +78,24 @@ func set_downed(value: bool) -> void:
 	if value: restore_melee_home()
 	if value == is_downed(): return
 	_presentation_generation += 1
+	_defeat_after_hit = false
 	if value: animator.request_action(&"down")
 	else:
 		animator.reset()
 		set_facing(_facing)
 
+# 同M消费KO事件但保留当前受击；仅姿态转换延后，逻辑状态立即成立。
+func set_downed_after_hit() -> void:
+	if animator.sprite.animation != &"hit" or not animator.is_action_locked(): set_downed(true); return
+	restore_melee_home()
+	_presentation_generation += 1
+	_defeat_after_hit = true
+func _finish_deferred_defeat() -> void:
+	if not _defeat_after_hit: return
+	_defeat_after_hit = false
+	animator.request_action(&"down")
 func is_downed() -> bool:
-	return animator.is_downed()
+	return _defeat_after_hit or animator.is_downed()
 
 func is_action_busy() -> bool:
 	return animator.is_action_locked() and (not animator.is_downed() or animator.sprite.is_playing())
@@ -108,6 +124,7 @@ func cancel_action() -> void:
 	_presentation_generation += 1
 	restore_melee_home()
 	var down := is_downed()
+	_defeat_after_hit = false
 	animator.reset()
 	set_facing(_facing)
 	if down: animator.request_action(&"down")
@@ -122,6 +139,9 @@ func configure_melee_bounds(allowed_feet: Rect2, target_radius_px: float = 45.0)
 func supports_melee_approach() -> bool:
 	return Melee.is_melee_form(_definition) and (allow_unapproved_melee_preview or has_approved_melee_dash())
 
+func configure_melee_contact_reach(value:float)->void:
+	_melee_contact_reach_px=value if is_finite(value) and value>0 else -1.0
+
 func has_approved_melee_dash() -> bool:
 	var frames: SpriteFrames = animator.sprite.sprite_frames
 	var spec: Dictionary = _definition.get("manifest",{}).get("anims",{}).get("battle_dash",{})
@@ -135,7 +155,7 @@ func begin_melee_approach(target: Node2D) -> bool:
 	if not supports_melee_approach() or is_downed() or is_action_busy() or not is_instance_valid(target): return false
 	if target.has_method("is_downed") and target.is_downed(): return false
 	restore_melee_home()
-	var destination := Melee.strike_point(position,target.position,_height_px,Melee.form_key(_definition),float(target.get_meta("melee_body_radius_px",45.0)),_melee_allowed_feet)
+	var destination := Melee.strike_point(position,target.position,_height_px,Melee.form_key(_definition),float(target.get_meta("melee_body_radius_px",45.0)),_melee_allowed_feet,_melee_contact_reach_px)
 	if position.distance_to(destination) < 2.0: return false
 	_melee_generation += 1
 	_melee = {"phase":"approach","home":position,"from":position,"to":destination,"elapsed":0.0,"facing":_facing,"target":weakref(target)}

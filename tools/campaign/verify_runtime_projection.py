@@ -15,6 +15,22 @@ def sha(path):
         return hashlib.file_digest(stream, "sha256").hexdigest()
 
 
+def effect_entries(registry):
+    """只展开明确登记的形态，不把同名技能的第一套图当默认值。"""
+    for skill, entry in registry["effects"].items():
+        if "variants" in entry:
+            variants = entry["variants"]
+            if skill not in ("heavy_slash", "armor_break", "sweep", "battle_spirit") or not isinstance(variants, dict) or set(variants) != {"rinne", "homura_sword"}:
+                raise ValueError("共享技能形态登记无效")
+            for form, variant in variants.items():
+                if not isinstance(variant, dict): raise ValueError("形态条目无效")
+                yield skill, form, variant
+        else:
+            if skill in ("heavy_slash", "armor_break", "sweep", "battle_spirit"):
+                raise ValueError("共享技能不可省略形态登记")
+            yield skill, "", entry
+
+
 def verify(source, candidate, before=None, after=None):
     comparisons = 0
     pages = set()
@@ -70,6 +86,47 @@ def verify(source, candidate, before=None, after=None):
         original, public = read(path), read(candidate / path.relative_to(source))
         for key in ("skill_id", "runtime_atlas", "runtime_atlas_sha256", "frame_count", "phases"):
             equal(original[key], public[key], path.parent.name + ":" + key)
+        for key in ("form_id", "skill_name"):
+            equal(original.get(key), public.get(key), path.parent.name + ":" + key)
+        if "phase_groups" in original:
+            expected_groups = {phase:{key:group[key] for key in ("activation_frames", "loop_frames", "binding") if key in group}
+                               for phase, group in original["phase_groups"].items()}
+            equal(expected_groups, public.get("phase_groups"), path.parent.name + ":phase_groups")
+        equal(original.get("required_phases"), public.get("required_phases"), path.parent.name + ":required_phases")
+        if "placement" in original:
+            expected_placement = {key:original["placement"][key] for key in
+                                  ("cast", "travel_origin", "travel_target", "travel_mode") if key in original["placement"]}
+            equal(expected_placement, public.get("placement"), path.parent.name + ":placement")
+        if "visual_event_contract" in original:
+            expected_contract = {key:original["visual_event_contract"][key] for key in
+                                 ("id", "version", "form", "ability_id", "variant_key") if key in original["visual_event_contract"]}
+            equal(expected_contract, public.get("visual_event_contract"), path.parent.name + ":visual_event_contract")
+        if "reaction_layers" in original:
+            expected_reactions = {name:{key:layer[key] for key in
+                                  ("phase", "event_type", "requires", "lifetime", "activation_frames", "loop_frames", "target", "endpoints") if key in layer}
+                                  for name, layer in original["reaction_layers"].items()}
+            equal(expected_reactions, public.get("reaction_layers"), path.parent.name + ":reaction_layers")
+        if "event_layers" in original:
+            expected_layers = {}
+            for layer_id, layer in original["event_layers"].items():
+                expected = {key:layer[key] for key in ("phase", "event_type", "target", "placement", "lifetime", "status_id",
+                            "positive_payload", "activation_frames", "loop_frames", "max_instances_per_action", "cue", "start_phase", "reason", "positive_actual", "requires_precision") if key in layer}
+                if "phase_segments" in layer:
+                    expected["phase_segments"] = [{key:segment[key] for key in ("phase", "frames", "loop_frames") if key in segment}
+                                                  for segment in layer["phase_segments"]]
+                if "precast_evidence" in layer:
+                    expected["precast_evidence"] = {key:layer["precast_evidence"][key] for key in
+                        ("schema", "source", "refinement_id", "damage_effect_index", "unique_damage_effect", "condition", "status_id", "original_target_matches")
+                        if key in layer["precast_evidence"]}
+                if "payload_equals" in layer:
+                    expected["payload_equals"] = {key:layer["payload_equals"][key] for key in ("reason",) if key in layer["payload_equals"]}
+                if "requires_event" in layer:
+                    requirement = layer["requires_event"]
+                    expected["requires_event"] = {key:requirement[key] for key in ("event_type", "same_action", "same_target") if key in requirement}
+                    if "payload_equals" in requirement:
+                        expected["requires_event"]["payload_equals"] = {key:requirement["payload_equals"][key] for key in ("reason",) if key in requirement["payload_equals"]}
+                expected_layers[layer_id] = expected
+            equal(expected_layers, public.get("event_layers"), path.parent.name + ":event_layers")
         equal(len(original["frames"]), len(public["frames"]), path.parent.name + ":frame_count")
         effect_frames += len(public["frames"])
         for old_frame, new_frame in zip(original["frames"], public["frames"]):
@@ -83,9 +140,12 @@ def verify(source, candidate, before=None, after=None):
     if old_registry.get("production_renderer_enabled") is not False or new_registry.get("production_renderer_enabled") is not False:
         raise ValueError("生产门禁必须保持关闭")
     equal(set(old_registry["effects"]), set(new_registry["effects"]), "registered effects")
-    for skill, entry in old_registry["effects"].items():
-        for key in ("approved_for_runtime", "runtime_scale", "display_size_px", "gameplay_qa_pending", "particles"):
-            equal(entry[key], new_registry["effects"][skill][key], skill + ":registry:" + key)
+    old_entries = {(skill, form):entry for skill, form, entry in effect_entries(old_registry)}
+    new_entries = {(skill, form):entry for skill, form, entry in effect_entries(new_registry)}
+    equal(set(old_entries), set(new_entries), "registered variants")
+    for (skill, form), entry in old_entries.items():
+        for key in ("manifest", "approved_for_runtime", "runtime_scale", "display_size_px", "gameplay_qa_pending", "particles"):
+            equal(entry[key], new_entries[(skill, form)][key], skill + ":" + form + ":registry:" + key)
     if before is not None:
         equal(read(before), read(after), "Godot真实运行投影")
     return {"passed":True, "exact_comparisons":comparisons, "character_unique_frames":frame_count,

@@ -1,0 +1,467 @@
+{
+  "skill_id": "taunt",
+  "form_id": "guard",
+  "skill_name": "挑衅",
+  "runtime_atlas": "taunt/taunt-atlas-runtime-256.png",
+  "runtime_atlas_sha256": "ae922b66f9b278e5bc6c18dce9b42a55ae52847333f5f91be4bb27e27b4a34e2",
+  "frame_count": 16,
+  "phases": {
+    "cast": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "sound_travel": [
+      5,
+      6,
+      7,
+      8
+    ],
+    "taunt_status": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "conditional_weaken": [
+      13,
+      14,
+      15,
+      16
+    ]
+  },
+  "required_phases": [
+    "cast",
+    "sound_travel",
+    "taunt_status",
+    "conditional_weaken"
+  ],
+  "schema_version": 1,
+  "frames": [
+    {
+      "frame": 1,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 2,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 3,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 4,
+      "phase": "cast",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1536,
+        0,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 55
+    },
+    {
+      "frame": 5,
+      "phase": "sound_travel",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        176.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        0,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 6,
+      "phase": "sound_travel",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        176.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        512,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 7,
+      "phase": "sound_travel",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        176.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1024,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 8,
+      "phase": "sound_travel",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        176.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1536,
+        512,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 45
+    },
+    {
+      "frame": 9,
+      "phase": "taunt_status",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        0,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 150
+    },
+    {
+      "frame": 10,
+      "phase": "taunt_status",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        512,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 150
+    },
+    {
+      "frame": 11,
+      "phase": "taunt_status",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1024,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 150
+    },
+    {
+      "frame": 12,
+      "phase": "taunt_status",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1536,
+        1024,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 150
+    },
+    {
+      "frame": 13,
+      "phase": "conditional_weaken",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        0,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 150
+    },
+    {
+      "frame": 14,
+      "phase": "conditional_weaken",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        512,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 150
+    },
+    {
+      "frame": 15,
+      "phase": "conditional_weaken",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1024,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 150
+    },
+    {
+      "frame": 16,
+      "phase": "conditional_weaken",
+      "recovery_tail": false,
+      "anchor_runtime_px": [
+        128.0,
+        128.0
+      ],
+      "atlas_native_xywh": [
+        1536,
+        1536,
+        512,
+        512
+      ],
+      "nominal_duration_ms": 150
+    }
+  ],
+  "visual_event_contract": {
+    "id": "physical_skill_visual_v1",
+    "version": 1,
+    "form": "guard",
+    "ability_id": "taunt",
+    "variant_key": "taunt"
+  },
+  "reaction_layers": {},
+  "event_layers": {
+    "cast": {
+      "phase": "cast",
+      "event_type": "command_accepted",
+      "target": "source",
+      "placement": "caster_body",
+      "lifetime": "action",
+      "status_id": "",
+      "activation_frames": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "loop_frames": [],
+      "cue": "start",
+      "start_phase": "",
+      "phase_segments": [
+        {
+          "phase": "cast",
+          "frames": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "loop_frames": []
+        }
+      ]
+    },
+    "conditional_weaken": {
+      "phase": "conditional_weaken",
+      "event_type": "status_applied",
+      "target": "event_target",
+      "placement": "target_body",
+      "lifetime": "status",
+      "status_id": "weaken",
+      "activation_frames": [],
+      "loop_frames": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "cue": "impact",
+      "start_phase": "",
+      "phase_segments": [
+        {
+          "phase": "conditional_weaken",
+          "frames": [],
+          "loop_frames": [
+            13,
+            14,
+            15,
+            16
+          ]
+        }
+      ]
+    },
+    "sound_travel": {
+      "phase": "sound_travel",
+      "event_type": "command_accepted",
+      "target": "event_target",
+      "placement": "projectile",
+      "lifetime": "action",
+      "status_id": "",
+      "activation_frames": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "loop_frames": [],
+      "cue": "launch",
+      "start_phase": "",
+      "phase_segments": [
+        {
+          "phase": "sound_travel",
+          "frames": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "loop_frames": []
+        }
+      ]
+    },
+    "taunt_status": {
+      "phase": "taunt_status",
+      "event_type": "status_applied",
+      "target": "event_target",
+      "placement": "target_body",
+      "lifetime": "status",
+      "status_id": "taunt",
+      "activation_frames": [],
+      "loop_frames": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "cue": "impact",
+      "start_phase": "",
+      "phase_segments": [
+        {
+          "phase": "taunt_status",
+          "frames": [],
+          "loop_frames": [
+            9,
+            10,
+            11,
+            12
+          ]
+        }
+      ]
+    }
+  },
+  "phase_groups": {
+    "cast": {
+      "activation_frames": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "loop_frames": [],
+      "binding": "physical_skill_visual_v1"
+    },
+    "sound_travel": {
+      "activation_frames": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "loop_frames": [],
+      "binding": "physical_skill_visual_v1"
+    },
+    "taunt_status": {
+      "activation_frames": [],
+      "loop_frames": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "binding": "physical_skill_visual_v1"
+    },
+    "conditional_weaken": {
+      "activation_frames": [],
+      "loop_frames": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "binding": "physical_skill_visual_v1"
+    }
+  }
+}

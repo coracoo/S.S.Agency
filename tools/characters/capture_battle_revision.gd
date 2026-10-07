@@ -6,8 +6,10 @@ const Definition = preload("res://scripts/characters/pixel_character_definition.
 const CapturePngCache = preload("res://scripts/ui/png_loader.gd")
 class CaptureView extends "res://scripts/rpg/ui/battle_view.gd":
 	var definition: Dictionary
+	var extra_definitions: Dictionary = {}
 	func _hd_enabled() -> bool: return true
-	func _actor_definition(_actor: Dictionary) -> Dictionary: return definition
+	func _actor_definition(actor: Dictionary) -> Dictionary:
+		return definition if actor.actor_id=="p_source" else extra_definitions.get(str(actor.get("identity_id","")),{})
 	func _build() -> void:
 		super._build()
 		# 无会话夹具的super会创建2D后备背景；替换为真实3D层，避免它盖住3D演员。
@@ -22,6 +24,12 @@ class CaptureOverlay extends Label:
 var output := ""
 var form := ""
 var side := ""
+var ability_id := ""
+var target_ids: Array[String] = []
+var self_target := false
+var first_effect_time := -1.0
+var fixture_variant := ""
+var tail_frames := 12
 var cancel_case := false
 var cancel_phase := "approach"
 var cancel_applied := false
@@ -42,6 +50,11 @@ func _initialize() -> void:
 	output = OS.get_environment("BATTLE_REVISION_OUTPUT")
 	form = OS.get_environment("BATTLE_REVISION_FORM")
 	side = OS.get_environment("BATTLE_REVISION_SIDE")
+	ability_id = OS.get_environment("BATTLE_REVISION_ABILITY")
+	self_target = OS.get_environment("BATTLE_REVISION_SELF_TARGET")=="1"
+	fixture_variant=OS.get_environment("BATTLE_REVISION_FIXTURE_VARIANT")
+	tail_frames=maxi(12,int(OS.get_environment("BATTLE_REVISION_TAIL_FRAMES")))
+	if ability_id.is_empty() and form=="homura_mage": ability_id="firebolt"
 	cancel_case = OS.get_environment("BATTLE_REVISION_CANCEL") == "1"
 	cancel_phase = OS.get_environment("BATTLE_REVISION_CANCEL_PHASE")
 	if cancel_phase.is_empty(): cancel_phase="approach"
@@ -58,18 +71,42 @@ func _run() -> void:
 	if manifest_path.is_empty(): manifest_path="res://assets/chars/pixel/%s/video_actions/manifest.json" % form
 	var definition := Definition.load_definition(manifest_path,"battle")
 	if not definition.get("ok",false): printerr("CAPTURE_ASSET_FAIL:",definition); quit(1); return
-	var class_id := "guard" if form == "guard" else ("mage" if form == "homura_mage" else "swordsman")
+	var class_id := str({"guard":"guard","homura_mage":"mage","healer":"healer","controller":"controller","mint":"ranger"}.get(form,"swordsman"))
 	var source := F.actor(class_id,"p_source")
 	source["identity_id"] = "homura" if form.begins_with("homura_") else form
 	source["form_id"] = form.trim_prefix("homura_") if form.begins_with("homura_") else form
 	# 只固定先行动的顺序与目标存活空间；攻击/防御/技能规则及伤害数值不改。
 	source.stats.spd = 999
-	var enemy := F.enemy("hound","e_target"); enemy.stats.hp = 5000; enemy.hp = 5000
+	if self_target or ability_id=="group_heal": source.hp = maxi(1,roundi(float(source.stats.hp)*.4))
+	if ability_id=="cleanse" and fixture_variant!="cleanse_empty": source.statuses=[F.status("weaken",.2,3,"e_target")]
+	var actors := {"p_source":source}
+	var extra_definitions := {}
+	if ability_id=="group_heal":
+		target_ids.append("p_source")
+		for ally_form in ["guard","rinne"]:
+			var id:String="p_"+ally_form
+			var ally:Dictionary=F.actor("guard" if ally_form=="guard" else "swordsman",id)
+			ally["identity_id"]=str(ally_form);ally["form_id"]=str(ally_form);ally.hp=maxi(1,roundi(float(ally.stats.hp)*.4))
+			actors[id]=ally;target_ids.append(id)
+			extra_definitions[ally_form]=Definition.load_definition("res://assets/chars/pixel/%s/video_actions/manifest.json"%ally_form,"battle")
+	var target_count := clampi(int(OS.get_environment("BATTLE_REVISION_TARGET_COUNT")),1,3)
+	var target_hp := int(OS.get_environment("BATTLE_REVISION_TARGET_HP"))
+	if target_hp<=0: target_hp=5000
+	for index in target_count:
+		var id := "e_target" if index==0 else "e_target_%d"%index
+		var enemy := F.enemy("saga_borrowed_voice" if fixture_variant=="seal_interrupt" else "hound",id);enemy.stats.hp=5000;enemy.hp=target_hp
+		if fixture_variant=="status_six" and index==0:
+			for status_id in ["weaken","slow","magic_break","armor_break","mark","burn"]:enemy.statuses.append(F.status(status_id,.2,3,"p_source",{"base":1}))
+		if fixture_variant=="slow_preweakened_first" and index==0:enemy.statuses=[F.status("weaken",.2,3,"p_source")]
+		if fixture_variant=="seal_interrupt":enemy.statuses=[F.status("magic_break",.25,3,"p_source")]
+		actors[id]=enemy;target_ids.append(id)
+	if self_target: target_ids.append("p_source")
 	var engine := Battle.new()
-	var initialized := engine.start({"actors":{"p_source":source,"e_target":enemy},"inventory":{"healing_potion":2}},771)
+	if fixture_variant=="seal_interrupt":engine.set_policy(load("res://scripts/rpg/enemy_policy.gd").new())
+	var initialized := engine.start({"actors":actors,"inventory":{"healing_potion":2}},771)
 	if not initialized.started: printerr("CAPTURE_MODEL_FAIL:",initialized); quit(1); return
 	engine.advance(false)
-	view = CaptureView.new(); view.definition = definition; view.engine = engine; view._config.near_side = side
+	view = CaptureView.new(); view.definition = definition;view.extra_definitions=extra_definitions; view.engine = engine; view._config.near_side = side
 	root.add_child(view)
 	if view._hd_failed: printerr("CAPTURE_VIEW_FAIL:",view.last_error); quit(1); return
 	if OS.get_environment("BATTLE_REVISION_IMAGEGEN_PREVIEW")=="1":
@@ -92,7 +129,7 @@ func _run() -> void:
 	started_usec = Time.get_ticks_usec()
 	for frame in 12: await _frame()
 	var before: Dictionary = engine.snapshot()
-	var command := {"command_id":"capture_"+form+"_"+side,"expected_revision":before.revision,"actor_id":"p_source","kind":"skill" if form=="homura_mage" else "attack_physical","ability_id":"firebolt" if form=="homura_mage" else "","target_ids":["e_target"]}
+	var command := {"command_id":"capture_"+form+"_"+side,"expected_revision":before.revision,"actor_id":"p_source","kind":"skill" if not ability_id.is_empty() else "attack_physical","ability_id":ability_id,"target_ids":["p_source"] if self_target else ([] if ability_id in ["flame_wave","group_heal","slow"] else ["e_target"])}
 	var result: Dictionary = engine.submit(command)
 	if not result.accepted: printerr("CAPTURE_COMMAND_FAIL:",result); quit(1); return
 	var committed := engine.snapshot()
@@ -100,7 +137,7 @@ func _run() -> void:
 	submitted_at = clock
 	events.append({"type":"command_accepted","simulation_seconds":clock,"wall_seconds":float(Time.get_ticks_usec()-started_usec)/1000000.0,"command":command.duplicate(true),"pose":_source_pose()})
 	var actor_can_approach: bool = view._actors.p_source.sprite.supports_melee_approach()
-	current_label = "原地施法" if form=="homura_mage" else ("原地攻击（dash待QA，正式安全门）" if not actor_can_approach else ("连续原生battle_dash接近" if definition.frames.has_animation("battle_dash") else "诊断：缺battle_dash，首帧临时滑移"))
+	current_label = "原地施法" if form in ["homura_mage","healer","controller"] else ("原地攻击（dash待QA，正式安全门）" if not actor_can_approach else ("连续原生battle_dash接近" if definition.frames.has_animation("battle_dash") else "诊断：缺battle_dash，首帧临时滑移"))
 	view._display_actor_id = "p_source"
 	view.processing = true; view._consume_events(result.events,before); view._render()
 	for frame in 180:
@@ -112,10 +149,16 @@ func _run() -> void:
 			view._cancel_presentation(); current_label = "表现取消后精确归位；模型已提交且不重复结算"
 		if not view._hd_player.is_busy(): break
 	view.processing = false; view._render()
-	for frame in 12: await _frame()
+	for frame in tail_frames: await _frame()
 	var actor: Node2D = view._actors.p_source.sprite
 	var body: Sprite3D = view._world_backdrop.actor_entries.p_source.body
-	var report := {"kind":"native_graphical_battle_fixture","form":form,"side":side,"cancel_case":cancel_case,"display_server":DisplayServer.get_name(),"renderer":RenderingServer.get_video_adapter_name(),"rendering_method":RenderingServer.get_current_rendering_method(),"engine":Engine.get_version_info().string,"recording_fps":30,"fixed_step":true,"not_realtime_fps":true,"wall_seconds":float(Time.get_ticks_usec()-started_usec)/1000000.0,"captured_frames":frames.size(),"model_unchanged_by_presentation":engine.snapshot()==committed,"events_unchanged":result.events==original_events,"returned_home":actor.position.is_equal_approx(home),"returned_world_home":body.position.is_equal_approx(body_home),"caster_stationary":frames.all(func(frame):return Vector2(frame.foot[0],frame.foot[1]).is_equal_approx(home)) if form=="homura_mage" else null,"native_attack_frames":definition.frames.get_frame_count("attack"),"native_attack_ms":definition.manifest.anims.attack.durations_ms.reduce(func(total,value):return total+value,0.0),"native_impact_ms":definition.manifest.anims.attack.get("impact_ms"),"battle_dash_available":definition.frames.has_animation("battle_dash"),"fallback_pose":bool(actor.get_meta("melee_dash_interim_fallback",false)),"procedural_effects_enabled":false,"imagegen_effects_preview":view._skill_effects_ready,"submitted_at":submitted_at,"action_started_at":native_start,"damage_presented_at":impact_time,"warnings":warnings,"events":events,"frames":frames,"fixture_note":"注册视频图集、真实BattleView/Backdrop/Engine；只固定速度顺序与目标HP容量，不改攻防或结算。固定步长导出不是实测30fps。当前无多帧dash的接近只属明确降级。"}
+	var report := {"kind":"native_graphical_battle_fixture","ability_id":ability_id,"target_ids":target_ids,"initial_target_hp":target_hp,"form":form,"side":side,"cancel_case":cancel_case,"display_server":DisplayServer.get_name(),"renderer":RenderingServer.get_video_adapter_name(),"rendering_method":RenderingServer.get_current_rendering_method(),"engine":Engine.get_version_info().string,"recording_fps":30,"fixed_step":true,"not_realtime_fps":true,"wall_seconds":float(Time.get_ticks_usec()-started_usec)/1000000.0,"captured_frames":frames.size(),"model_unchanged_by_presentation":engine.snapshot()==committed,"events_unchanged":result.events==original_events,"returned_home":actor.position.is_equal_approx(home),"returned_world_home":body.position.is_equal_approx(body_home),"caster_stationary":frames.all(func(frame):return Vector2(frame.foot[0],frame.foot[1]).is_equal_approx(home)) if form in ["homura_mage","healer","controller"] else null,"native_attack_frames":definition.frames.get_frame_count("attack"),"native_attack_ms":definition.manifest.anims.attack.durations_ms.reduce(func(total,value):return total+value,0.0),"native_impact_ms":definition.manifest.anims.attack.get("impact_ms"),"battle_dash_available":definition.frames.has_animation("battle_dash"),"fallback_pose":bool(actor.get_meta("melee_dash_interim_fallback",false)),"procedural_effects_enabled":false,"imagegen_effects_preview":view._skill_effects_ready,"submitted_at":submitted_at,"action_started_at":native_start,"damage_presented_at":impact_time,"warnings":warnings,"events":events,"frames":frames,"fixture_note":"注册视频图集、真实BattleView/Backdrop/Engine；只固定速度顺序与目标HP容量，不改攻防或结算。固定步长导出不是实测30fps。当前无多帧dash的接近只属明确降级。"}
+	report["first_effect_presented_at"] = first_effect_time
+	report["self_target"] = self_target
+	report["fixture_variant"] = fixture_variant
+	report["initial_actors"] = before.actors
+	report["final_actors"] = committed.actors
+	report["initial_source_hp"] = before.actors.p_source.hp
 	report["imagegen_missing_art"] = view._fx_layer.missing_art()
 	report["cancel_phase"] = cancel_phase
 	report["cancel_applied"] = cancel_applied
@@ -148,8 +191,21 @@ func _action_started(event: Dictionary,timing: Dictionary) -> void:
 	current_label = "原生动作开始；等待真实命中"
 	events.append({"type":"action_started","simulation_seconds":clock,"wall_seconds":float(Time.get_ticks_usec()-started_usec)/1000000.0,"command_id":event.payload.command.command_id,"timing":timing.duplicate(true),"pose":_source_pose(),"approach_window_start_from_signal_duration":clock-float(timing.approach_seconds)})
 func _event_presented(event: Dictionary) -> void:
+	if event.type in ["damage","healed","shield_applied","status_applied"] and first_effect_time<0: first_effect_time=clock
 	if event.type == "damage": impact_time = clock; current_label = "真实命中 / 收招与返回"
-	events.append({"type":event.type,"simulation_seconds":clock,"wall_seconds":float(Time.get_ticks_usec()-started_usec)/1000000.0,"source":event.get("actor_id",""),"target":event.get("target_id",""),"payload":event.get("payload",{}).duplicate(true),"hud_source_mp":view._actors.p_source.mpbar.value,"hud_target_hp":view._actors.e_target.hpbar.value,"pose":_source_pose()})
+	if event.type == "healed": current_label = "真实治疗 / 原地收招"
+	if event.type in ["shield_applied","status_applied"]:current_label="真实状态生效 / 原地收招"
+	if event.type=="charge_interrupted":current_label="真实打断 / 原地收招"
+	events.append({"type":event.type,"simulation_seconds":clock,"wall_seconds":float(Time.get_ticks_usec()-started_usec)/1000000.0,"source":event.get("actor_id",""),"target":event.get("target_id",""),"payload":event.get("payload",{}).duplicate(true),"all_targets":_capture_targets(),"hud_source_mp":view._actors.p_source.mpbar.value,"hud_target_hp":view._actors.e_target.hpbar.value,"pose":_source_pose()})
+func _capture_targets() -> Dictionary:
+	var result := {}
+	for id in target_ids:
+		var actor: Node2D = view._actors[id].sprite
+		var body: Sprite3D = view._world_backdrop.actor_entries[id].body
+		var center: Vector2 = view._world_backdrop.actor_effect_center(id)
+		var tint: Color = body.material_override.get_shader_parameter("appearance_tint")
+		result[id]={"hp":view._actors[id].hpbar.value,"down":actor.is_downed(),"reaction_busy":actor.is_action_busy(),"effect_center":[center.x,center.y],"body_tint":[tint.r,tint.g,tint.b,tint.a],"status_text":view._actors[id].status.text,"status_height":view._actors[id].status.size.y,"status_content_height":view._actors[id].status.get_content_height(),"status_scroll_visible":view._actors[id].status.get_v_scroll_bar().visible,"intent_text":view._actors[id].intent.text if is_instance_valid(view._actors[id].intent) else "","intent_tooltip":view._actors[id].intent.tooltip_text if is_instance_valid(view._actors[id].intent) else ""}
+	return result
 func _capture_attachment() -> Dictionary:
 	var point: Dictionary = view._world_backdrop.actor_action_attachment("p_source")
 	if not point.ok: return point
@@ -177,7 +233,7 @@ func _update_capture_overlay() -> void:
 	if not is_instance_valid(view) or not view._actors.has("p_source"): return
 	var actual := _billboard_frame()
 	var actor: Node2D = view._actors.p_source.sprite
-	var label := ("未QA诊断 " if actor.allow_unapproved_melee_preview and not actor.has_approved_melee_dash() else "")+form
+	var label := ("未QA诊断 " if actor.allow_unapproved_melee_preview and not actor.has_approved_melee_dash() else "")+form+("/"+ability_id if not ability_id.is_empty() else "")
 	title.text = "%s  %s  |  %.3fs  实绘 %s #%03d  |  %s  |  固定步长30fps导出，非实时性能" % [label,"右→左" if side=="right" else "左→右",clock,actual.animation,actual.index,current_label]
 func _frame() -> void:
 	await process_frame
@@ -194,4 +250,4 @@ func _frame() -> void:
 	if not approach_recorded and actor._melee.get("phase","")=="approach" and not foot.is_equal_approx(home_foot):
 		approach_recorded = true
 		events.append({"type":"first_visible_approach","simulation_seconds":clock,"wall_seconds":float(Time.get_ticks_usec()-started_usec)/1000000.0,"pose":_source_pose(),"capture_index":frames.size()})
-	frames.append({"index":frames.size(),"simulation_seconds":clock,"wall_seconds":float(Time.get_ticks_usec()-started_usec)/1000000.0,"animation":str(sprite.animation),"source_frame":sprite.frame,"source_frame_duration":sprite.sprite_frames.get_frame_duration(sprite.animation,sprite.frame)/sprite.sprite_frames.get_animation_speed(sprite.animation),"billboard":_billboard_frame(),"overlay_text":title.text,"foot":[foot.x,foot.y],"world_foot":[world.x,world.y,world.z],"source_mp":view._actors.p_source.mpbar.value,"cast_attachment":_capture_attachment(),"target_hp":view._actors.e_target.hpbar.value,"model_target_hp":view.engine.snapshot().actors.e_target.hp,"melee_phase":str(actor._melee.get("phase","home")),"card_overlap_count":overlaps.size(),"ghost_count":record.trail.active_count(),"presentation_busy":view._hd_player.is_busy(),"source_action_locked":actor.is_action_busy(),"imagegen_active":view._fx_layer.active_count(),"imagegen_texture_bytes":view._fx_layer.texture_memory_bytes(),"imagegen_drawn":view._fx_layer.draw_snapshot(),"visible_latest_log":view._hud.latest.text})
+	frames.append({"index":frames.size(),"simulation_seconds":clock,"wall_seconds":float(Time.get_ticks_usec()-started_usec)/1000000.0,"animation":str(sprite.animation),"source_frame":sprite.frame,"source_frame_duration":sprite.sprite_frames.get_frame_duration(sprite.animation,sprite.frame)/sprite.sprite_frames.get_animation_speed(sprite.animation),"billboard":_billboard_frame(),"overlay_text":title.text,"foot":[foot.x,foot.y],"world_foot":[world.x,world.y,world.z],"all_targets":_capture_targets(),"source_hp":view._actors.p_source.hpbar.value,"source_mp":view._actors.p_source.mpbar.value,"cast_attachment":_capture_attachment(),"target_hp":view._actors.e_target.hpbar.value,"model_target_hp":view.engine.snapshot().actors.e_target.hp,"melee_phase":str(actor._melee.get("phase","home")),"melee_contact_reach_px":actor._melee_contact_reach_px,"melee_contact_profile":str(actor.get_meta("melee_contact_profile","")),"card_overlap_count":overlaps.size(),"ghost_count":record.trail.active_count(),"presentation_busy":view._hd_player.is_busy(),"source_action_locked":actor.is_action_busy(),"imagegen_active":view._fx_layer.active_count(),"imagegen_texture_bytes":view._fx_layer.texture_memory_bytes(),"imagegen_drawn":view._fx_layer.draw_snapshot(),"imagegen_layers":view._fx_layer.layer_snapshot(),"visible_latest_log":view._hud.latest.text})

@@ -5,6 +5,8 @@ var visual: Node2D
 var feedback_label := Label.new()
 var _facing := 1
 var _down := false
+# BattleView在根节点统一施加KO基色；独立适配器默认仍自行着色。
+var parent_controls_defeat_tint := false
 var _action: StringName = &""
 var _remaining := 0.0
 var _duration := 0.0
@@ -36,6 +38,9 @@ func play_action(action: StringName) -> bool:
 func set_downed(value: bool) -> void:
 	_down = value
 	if value: cancel_action()
+func set_downed_after_hit() -> void:
+	if _action == &"hit" and _remaining>0: _down=true
+	else: set_downed(true)
 func is_downed() -> bool: return _down
 func is_action_busy() -> bool: return _remaining > 0
 func action_timeout() -> float: return 1.0
@@ -43,9 +48,11 @@ func cancel_action() -> void:
 	_remaining = 0.0
 	if is_instance_valid(visual):
 		visual.position = Vector2.ZERO
-		visual.modulate = Color(0.4, 0.4, 0.4, 0.55) if _down else Color.WHITE
+		visual.modulate = _resting_tint()
 	_feedback_remaining = 0.0
 	feedback_label.hide()
+func _resting_tint() -> Color:
+	return Color(0.4,0.4,0.4,0.55) if _down and not parent_controls_defeat_tint else Color.WHITE
 func show_feedback(text: String, color: Color) -> void:
 	feedback_label.text = text
 	feedback_label.modulate = color
@@ -64,4 +71,4 @@ func _process(delta: float) -> void:
 	elif _action == &"defend": visual.modulate = Color.WHITE.lerp(Color(0.6, 0.8, 1.0), wave)
 	if _remaining <= 0:
 		visual.position = Vector2.ZERO
-		visual.modulate = Color(0.4, 0.4, 0.4, 0.55) if _down else Color.WHITE
+		visual.modulate = _resting_tint()

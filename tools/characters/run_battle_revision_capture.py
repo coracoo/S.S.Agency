@@ -26,6 +26,12 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--godot', type=Path, default=BASE/'tools/godot-4.7.2/Godot_v4.7.2-stable_linux.x86_64')
     parser.add_argument('--output',type=Path,default=BASE/'runtime-capture-current-20261007')
+    parser.add_argument('--ability',default='',help='真实引擎技能ID；默认Mage火弹')
+    parser.add_argument('--self-target',action='store_true',help='真实自疗指令；夹具初始来源HP为40%')
+    parser.add_argument('--fixture-variant',default='',choices=['','cleanse_empty','seal_interrupt','slow_preweakened_first','status_six'])
+    parser.add_argument('--tail-frames',type=int,default=12)
+    parser.add_argument('--target-count',type=int,choices=[1,3],default=1)
+    parser.add_argument('--target-initial-hp',type=int,default=5000,help='仅夹具初始HP，攻防和伤害规则不改')
     parser.add_argument('--cases',default='guard:right,guard:left,homura_sword:right,homura_sword:left,homura_mage:right,guard:cancel')
     parser.add_argument('--imagegen-preview',action='store_true',help='明确预览已像素批准、游戏QA尚待完成的imagegen帧')
     parser.add_argument('--continue-shutdown-diagnostic',action='store_true',help='保留失败结论，只允许已知两张349524B退出纹理错误继续收集其它原生案例')
@@ -77,8 +83,14 @@ def main():
             if form in overrides:
                 loaded_manifest=isolated/(form+'-candidate.json')
                 loaded_manifest.write_text(json.dumps(spec,ensure_ascii=False)+'\n')
-            for relative in ['scripts/rpg/ui/battle_view.gd','scripts/rpg/ui/battle_world_backdrop.gd','scripts/rpg/ui/imagegen_battle_effects.gd','scripts/rpg/ui/imagegen_effect_manifest.gd','scripts/rpg/ui/hd_actor_view.gd','scripts/rpg/ui/hd_event_player.gd','scripts/characters/pixel_character_definition.gd','scripts/characters/action_attachment_points.gd','scripts/rpg/battle_engine.gd','tools/characters/capture_battle_revision.gd']:
+            for relative in ['scripts/rpg/ui/battle_view.gd','scripts/rpg/ui/battle_world_backdrop.gd','scripts/rpg/ui/imagegen_battle_effects.gd','scripts/rpg/ui/imagegen_effect_manifest.gd','scripts/rpg/ui/hd_actor_view.gd','scripts/rpg/ui/legacy_actor_view.gd','scripts/rpg/ui/hd_event_player.gd','scripts/rpg/ui/melee_motion.gd','scripts/characters/pixel_character_definition.gd','scripts/characters/action_attachment_points.gd','scripts/characters/caster_tool_focus_points.gd','scripts/rpg/ui/skill_visual_event_policy.gd','scripts/characters/melee_contact_points.gd','scripts/rpg/battle_engine.gd','tools/characters/capture_battle_revision.gd']:
                 resources[relative]=digest(ROOT/relative)
+            if args.ability=='group_heal':
+                for ally in ['guard','rinne']:
+                    ally_manifest=ROOT/f'assets/chars/pixel/{ally}/video_actions/manifest.json'
+                    resources[label(ally_manifest)]=digest(ally_manifest)
+                    for frame in json.loads(ally_manifest.read_text()).get('packed_frames',{}).values():
+                        page=ROOT/frame['atlas'].removeprefix('res://');resources[label(page)]=digest(page)
             if args.imagegen_preview:
                 for asset in (ROOT/'assets/effects/imagegen_spells').rglob('*'):
                     if asset.is_file() and asset.suffix in ['.png','.json']: resources[label(asset)]=digest(asset)
@@ -88,7 +100,7 @@ def main():
                 if relative.startswith(('scripts/','tools/')):
                     target=directory/'source-snapshot'/relative;target.parent.mkdir(parents=True,exist_ok=True)
                     shutil.copyfile(ROOT/relative,target)
-            env.update(BATTLE_REVISION_IMAGEGEN_PREVIEW='1' if args.imagegen_preview else '0',BATTLE_REVISION_OUTPUT=str(directory),BATTLE_REVISION_FORM=form,BATTLE_REVISION_SIDE=side,BATTLE_REVISION_CANCEL='1' if cancel else '0',BATTLE_REVISION_CANCEL_PHASE=cancel_phase,BATTLE_REVISION_MANIFEST=str(loaded_manifest),BATTLE_REVISION_ALLOW_UNAPPROVED_DASH='1' if args.allow_unapproved_dash else '0')
+            env.update(BATTLE_REVISION_FIXTURE_VARIANT=args.fixture_variant,BATTLE_REVISION_TAIL_FRAMES=str(args.tail_frames),BATTLE_REVISION_SELF_TARGET='1' if args.self_target else '0',BATTLE_REVISION_ABILITY=args.ability,BATTLE_REVISION_TARGET_COUNT=str(args.target_count),BATTLE_REVISION_TARGET_HP=str(args.target_initial_hp),BATTLE_REVISION_IMAGEGEN_PREVIEW='1' if args.imagegen_preview else '0',BATTLE_REVISION_OUTPUT=str(directory),BATTLE_REVISION_FORM=form,BATTLE_REVISION_SIDE=side,BATTLE_REVISION_CANCEL='1' if cancel else '0',BATTLE_REVISION_CANCEL_PHASE=cancel_phase,BATTLE_REVISION_MANIFEST=str(loaded_manifest),BATTLE_REVISION_ALLOW_UNAPPROVED_DASH='1' if args.allow_unapproved_dash else '0')
             status.update(state='capturing',active=case);publish();start=time.monotonic()
             with (directory/'godot.log').open('w') as log:
                 result=subprocess.run([engine,'--path',str(ROOT),'--rendering-method','gl_compatibility','--audio-driver','Dummy','--resolution','1280x720','--fixed-fps','30','--script','res://tools/characters/capture_battle_revision.gd'],env=env,stdout=log,stderr=subprocess.STDOUT,timeout=600)

@@ -212,6 +212,22 @@ def video_action_sources(project):
     return sources
 
 
+def imagegen_effect_entries(registry):
+    """只展开明确登记的形态，不把同名技能的第一套图当默认值。"""
+    for skill, entry in registry["effects"].items():
+        if "variants" in entry:
+            variants = entry["variants"]
+            if skill not in ("heavy_slash", "armor_break", "sweep", "battle_spirit") or not isinstance(variants, dict) or set(variants) != {"rinne", "homura_sword"}:
+                raise ValueError("共享技能形态登记无效")
+            for form, variant in variants.items():
+                if not isinstance(variant, dict): raise ValueError("形态条目无效")
+                yield skill, form, variant
+        else:
+            if skill in ("heavy_slash", "armor_break", "sweep", "battle_spirit"):
+                raise ValueError("共享技能不可省略形态登记")
+            yield skill, "", entry
+
+
 def imagegen_effect_sources(project):
     """生图清单的运行闭包：registry、最小帧描述与原PNG，不携带制作收据。"""
     folder = project / "assets/effects/imagegen_spells"
@@ -222,8 +238,9 @@ def imagegen_effect_sources(project):
     if registry.get("schema_version") != 2 or registry.get("asset_root") != "res://assets/effects/imagegen_spells":
         raise ValueError("生图运行registry版本或根目录无效")
     sources = {registry_path.relative_to(project).as_posix()}
-    for skill, entry in registry["effects"].items():
-        expected = "res://assets/effects/imagegen_spells/" + skill + "/manifest.json"
+    for skill, form, entry in imagegen_effect_entries(registry):
+        asset_key = form + "-" + skill if form else skill
+        expected = "res://assets/effects/imagegen_spells/" + asset_key + "/manifest.json"
         if not re.fullmatch(r"[a-z][a-z0-9_]*", skill) or entry.get("manifest") != expected:
             raise ValueError("生图清单路径非法")
         path = project / expected.removeprefix("res://")
@@ -231,7 +248,7 @@ def imagegen_effect_sources(project):
             raise ValueError("生图运行清单哈希不符：" + skill)
         manifest = json.loads(path.read_text())
         atlas = manifest.get("runtime_atlas", "")
-        if manifest.get("schema_version") != 1 or manifest.get("skill_id") != skill or not isinstance(atlas, str) or len(Path(atlas).parts) != 2 or Path(atlas).parts[0] != skill or Path(atlas).suffix != ".png" or "\\" in atlas or ".." in Path(atlas).parts:
+        if manifest.get("schema_version") != 1 or manifest.get("skill_id") != skill or (form and manifest.get("form_id") != form) or not isinstance(atlas, str) or len(Path(atlas).parts) != 2 or Path(atlas).parts[0] != asset_key or Path(atlas).suffix != ".png" or "\\" in atlas or ".." in Path(atlas).parts:
             raise ValueError("生图运行图集路径或版本非法")
         atlas_path = folder / atlas
         if hashlib.sha256(atlas_path.read_bytes()).hexdigest() != manifest.get("runtime_atlas_sha256"):
