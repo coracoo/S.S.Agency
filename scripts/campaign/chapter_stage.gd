@@ -16,6 +16,8 @@ const Layout = preload("res://scripts/campaign/act_one_layout.gd")
 const WorldMap = preload("res://scripts/campaign/presentation/act_one_map.gd")
 const WorldDepth = preload("res://scripts/campaign/presentation/act_one_depth.gd")
 const Dialogue = preload("res://scripts/ui/dialogue_overlay.gd")
+const Cutscene = preload("res://scripts/campaign/cutscene_player.gd")
+const Cutscenes = preload("res://scripts/campaign/cutscene_catalog.gd")
 const Portraits = preload("res://scripts/characters/identity_portraits.gd")
 const Router = preload("res://scripts/rpg/encounter_router.gd")
 const Kit = preload("res://scripts/rpg/ui/ui_kit.gd")
@@ -42,6 +44,7 @@ var _closed := false
 var _confirm_armed := false
 var _transition_busy := false
 var _dialogue: CanvasLayer
+var _cutscene: CanvasLayer
 var _modal: Control
 var _modal_buttons: Array[Button] = []
 var _hud: Dictionary = {}
@@ -190,6 +193,7 @@ func shutdown() -> void:
 	_title_party_draft = null
 	_generation += 1
 	set_controls_enabled(false)
+	if is_instance_valid(_cutscene): _cutscene.abort()
 	if is_instance_valid(_dialogue): _dialogue.abort()
 func _exit_tree() -> void:
 	shutdown()
@@ -365,6 +369,30 @@ func _play_root(root_id: String, afterward: Callable = Callable()) -> bool:
 	if not begin_operation("dialogue"): return false
 	_close_modal()
 	var token := operation_token()
+	var clip := Cutscenes.for_dialogue(night_id, root_id)
+	if not clip.is_empty():
+		_cutscene = Cutscene.new()
+		add_child(_cutscene)
+		_cutscene.finished.connect(_cutscene_finished.bind(root_id, str(clip.continue_at), token, afterward), CONNECT_ONE_SHOT)
+		if _cutscene.play_file(_cutscene_path(str(clip.file))):
+			_mode = "cutscene"
+			return true
+		_cutscene.queue_free()
+		_cutscene = null
+	_start_root_dialogue(root_id, root_id, token, afterward)
+	return true
+func _cutscene_path(file_name: String) -> String:
+	return Cutscenes.resolve_file(file_name)
+func _cutscene_finished(result: String, root_id: String, continuation: String, token: int, afterward: Callable) -> void:
+	if not callback_valid(token) or not is_inside_tree() or _mode != "cutscene": return
+	if is_instance_valid(_cutscene): _cutscene.queue_free()
+	_cutscene = null
+	# 消耗Esc的同一帧不让输入落进新对白；片段失败保留h1/h2完整内容。
+	_mode = "dialogue"
+	var start_id := continuation if result in ["completed", "skipped"] else root_id
+	_start_root_dialogue.call_deferred(root_id, start_id, token, afterward)
+func _start_root_dialogue(root_id: String, start_id: String, token: int, afterward: Callable) -> void:
+	if not callback_valid(token) or not is_inside_tree(): return
 	_dialogue = Dialogue.new(_theme)
 	_dialogue.advance_action = &"approach_interact"
 	_dialogue.require_release = true
@@ -372,8 +400,7 @@ func _play_root(root_id: String, afterward: Callable = Callable()) -> bool:
 	_dialogue.portrait_failed.connect(_portrait_failed)
 	add_child(_dialogue)
 	_dialogue.finished.connect(_root_finished.bind(root_id, token, afterward), CONNECT_ONE_SHOT)
-	_dialogue.play(dialogue_nodes(night_id), root_id)
-	return true
+	_dialogue.play(dialogue_nodes(night_id), start_id)
 func _root_finished(root_id: String, token: int, afterward: Callable) -> void:
 	if not callback_valid(token) or not is_inside_tree(): return
 	if is_instance_valid(_dialogue): _dialogue.queue_free()
