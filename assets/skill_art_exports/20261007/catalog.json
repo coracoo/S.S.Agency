@@ -9411,8 +9411,11 @@
       "form_id": "guard",
       "skill_id": "cover",
       "skill_name": "掩护",
-      "native_atlas": null,
-      "native_atlas_size": null,
+      "native_atlas": "guard/cover/native-atlas.png",
+      "native_atlas_size": [
+        2048,
+        2048
+      ],
       "runtime_atlas": "guard/cover/runtime-atlas.png",
       "runtime_atlas_size": [
         1024,
@@ -9892,22 +9895,17 @@
           "end": "clear after this one reception/recovery, no later than receiving attack completion",
           "meaning": "one actual eligible single direct attack interception; never damages enemy or creates repeated damage; normal cast does not trigger this layer"
         }
-      ],
-      "availability": "partial",
-      "pending_assets": [
-        {
-          "kind": "native_atlas",
-          "expected_path": "guard/cover/native-atlas.png",
-          "status": "upload_pending"
-        }
       ]
     },
     {
       "form_id": "guard",
       "skill_id": "shield_bash",
       "skill_name": "盾击",
-      "native_atlas": null,
-      "native_atlas_size": null,
+      "native_atlas": "guard/shield_bash/native-atlas.png",
+      "native_atlas_size": [
+        2048,
+        2048
+      ],
       "runtime_atlas": "guard/shield_bash/runtime-atlas.png",
       "runtime_atlas_size": [
         1024,
@@ -10387,14 +10385,6 @@
           "loop": true,
           "end": "matching status_removed, actor_defeated/KO, or scene exit; never expire from animation seconds",
           "meaning": "20% weaken from L3; may succeed even if interrupt absent; never stack/downgrade stronger weaken"
-        }
-      ],
-      "availability": "partial",
-      "pending_assets": [
-        {
-          "kind": "native_atlas",
-          "expected_path": "guard/shield_bash/native-atlas.png",
-          "status": "upload_pending"
         }
       ]
     },
@@ -10886,8 +10876,7 @@
           "end": "attack E",
           "meaning": "one feedback per real removed status; no heal or regained action opportunity; independent of shield success"
         }
-      ],
-      "availability": "complete"
+      ]
     },
     {
       "form_id": "guard",
@@ -11378,8 +11367,7 @@
           "end": "matching status_removed, actor_defeated/KO, or scene exit; never expire from animation seconds",
           "meaning": "20% weaken only if authoritative condition succeeds; independent from taunt and no damage"
         }
-      ],
-      "availability": "complete"
+      ]
     },
     {
       "form_id": "mint",
@@ -11857,8 +11845,7 @@
           "end": "matching status_removed, actor_defeated/KO, or scene exit; never expire from animation seconds",
           "meaning": "remove on skill_consumed or actor_defeated; no damage-over-time"
         }
-      ],
-      "availability": "complete"
+      ]
     },
     {
       "form_id": "mint",
@@ -12346,8 +12333,7 @@
           "meaning": "L4 restores actual amount up to3 after preexisting mark; upfront9MP required, persists on target KO; never infer refund from consumption alone",
           "max_instances_per_cast": 1
         }
-      ],
-      "availability": "complete"
+      ]
     },
     {
       "form_id": "mint",
@@ -12833,8 +12819,7 @@
           ],
           "meaning": "L3 tracking refinement; no marker on effect_ignored; no repeated damage"
         }
-      ],
-      "availability": "complete"
+      ]
     },
     {
       "form_id": "mint",
@@ -13332,15 +13317,7 @@
           ],
           "meaning": "L5 +25% attack for next owner action, ending by actual status removal; independent of shield lifetime"
         }
-      ],
-      "availability": "complete"
+      ]
     }
-  ],
-  "export_status": "partial",
-  "complete_variant_count": 26,
-  "partial_variant_count": 2,
-  "native_atlas_count": 26,
-  "runtime_atlas_count": 28,
-  "available_png_count": 490,
-  "pending_asset_count": 2
+  ]
 }
