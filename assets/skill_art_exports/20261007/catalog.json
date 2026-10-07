@@ -10402,10 +10402,16 @@
       "form_id": "guard",
       "skill_id": "iron_wall",
       "skill_name": "铁壁",
-      "native_atlas": null,
-      "native_atlas_size": null,
-      "runtime_atlas": null,
-      "runtime_atlas_size": null,
+      "native_atlas": "guard/iron_wall/native-atlas.png",
+      "native_atlas_size": [
+        2048,
+        2048
+      ],
+      "runtime_atlas": "guard/iron_wall/runtime-atlas.png",
+      "runtime_atlas_size": [
+        1024,
+        1024
+      ],
       "frame_count": 16,
       "frames": [
         {
@@ -10881,26 +10887,17 @@
           "meaning": "one feedback per real removed status; no heal or regained action opportunity; independent of shield success"
         }
       ],
-      "availability": "partial",
-      "pending_assets": [
-        {
-          "kind": "native_atlas",
-          "expected_path": "guard/iron_wall/native-atlas.png",
-          "status": "upload_pending"
-        },
-        {
-          "kind": "runtime_atlas",
-          "expected_path": "guard/iron_wall/runtime-atlas.png",
-          "status": "upload_pending"
-        }
-      ]
+      "availability": "complete"
     },
     {
       "form_id": "guard",
       "skill_id": "taunt",
       "skill_name": "挑衅",
-      "native_atlas": null,
-      "native_atlas_size": null,
+      "native_atlas": "guard/taunt/native-atlas.png",
+      "native_atlas_size": [
+        2048,
+        2048
+      ],
       "runtime_atlas": "guard/taunt/runtime-atlas.png",
       "runtime_atlas_size": [
         1024,
@@ -11382,21 +11379,17 @@
           "meaning": "20% weaken only if authoritative condition succeeds; independent from taunt and no damage"
         }
       ],
-      "availability": "partial",
-      "pending_assets": [
-        {
-          "kind": "native_atlas",
-          "expected_path": "guard/taunt/native-atlas.png",
-          "status": "upload_pending"
-        }
-      ]
+      "availability": "complete"
     },
     {
       "form_id": "mint",
       "skill_id": "mark",
       "skill_name": "标记",
-      "native_atlas": null,
-      "native_atlas_size": null,
+      "native_atlas": "mint/mark/native-atlas.png",
+      "native_atlas_size": [
+        2048,
+        2048
+      ],
       "runtime_atlas": "mint/mark/runtime-atlas.png",
       "runtime_atlas_size": [
         1024,
@@ -11865,21 +11858,17 @@
           "meaning": "remove on skill_consumed or actor_defeated; no damage-over-time"
         }
       ],
-      "availability": "partial",
-      "pending_assets": [
-        {
-          "kind": "native_atlas",
-          "expected_path": "mint/mark/native-atlas.png",
-          "status": "upload_pending"
-        }
-      ]
+      "availability": "complete"
     },
     {
       "form_id": "mint",
       "skill_id": "hunt",
       "skill_name": "猎杀",
-      "native_atlas": null,
-      "native_atlas_size": null,
+      "native_atlas": "mint/hunt/native-atlas.png",
+      "native_atlas_size": [
+        2048,
+        2048
+      ],
       "runtime_atlas": "mint/hunt/runtime-atlas.png",
       "runtime_atlas_size": [
         1024,
@@ -12358,21 +12347,17 @@
           "max_instances_per_cast": 1
         }
       ],
-      "availability": "partial",
-      "pending_assets": [
-        {
-          "kind": "native_atlas",
-          "expected_path": "mint/hunt/native-atlas.png",
-          "status": "upload_pending"
-        }
-      ]
+      "availability": "complete"
     },
     {
       "form_id": "mint",
       "skill_id": "ambush",
       "skill_name": "奇袭",
-      "native_atlas": null,
-      "native_atlas_size": null,
+      "native_atlas": "mint/ambush/native-atlas.png",
+      "native_atlas_size": [
+        2048,
+        2048
+      ],
       "runtime_atlas": "mint/ambush/runtime-atlas.png",
       "runtime_atlas_size": [
         1024,
@@ -12849,21 +12834,17 @@
           "meaning": "L3 tracking refinement; no marker on effect_ignored; no repeated damage"
         }
       ],
-      "availability": "partial",
-      "pending_assets": [
-        {
-          "kind": "native_atlas",
-          "expected_path": "mint/ambush/native-atlas.png",
-          "status": "upload_pending"
-        }
-      ]
+      "availability": "complete"
     },
     {
       "form_id": "mint",
       "skill_id": "smoke_screen",
       "skill_name": "烟幕",
-      "native_atlas": null,
-      "native_atlas_size": null,
+      "native_atlas": "mint/smoke_screen/native-atlas.png",
+      "native_atlas_size": [
+        2048,
+        2048
+      ],
       "runtime_atlas": "mint/smoke_screen/runtime-atlas.png",
       "runtime_atlas_size": [
         1024,
@@ -13352,21 +13333,14 @@
           "meaning": "L5 +25% attack for next owner action, ending by actual status removal; independent of shield lifetime"
         }
       ],
-      "availability": "partial",
-      "pending_assets": [
-        {
-          "kind": "native_atlas",
-          "expected_path": "mint/smoke_screen/native-atlas.png",
-          "status": "upload_pending"
-        }
-      ]
+      "availability": "complete"
     }
   ],
   "export_status": "partial",
-  "complete_variant_count": 20,
-  "partial_variant_count": 8,
-  "native_atlas_count": 20,
-  "runtime_atlas_count": 27,
-  "available_png_count": 483,
-  "pending_asset_count": 9
+  "complete_variant_count": 26,
+  "partial_variant_count": 2,
+  "native_atlas_count": 26,
+  "runtime_atlas_count": 28,
+  "available_png_count": 490,
+  "pending_asset_count": 2
 }
