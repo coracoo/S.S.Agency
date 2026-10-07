@@ -3,3 +3,5 @@
 # 批准剧情按原字节核验，Windows不能把源对白/大纲自动转成CRLF。
 /docs/story/review/v1/逢魔退治帖_七章完整对白_v1.txt text eol=lf
 /docs/story/review/v1/逢魔退治帖_第二至七章分场大纲_v1.txt text eol=lf
+# 历史归档记录的是原文件字节，不能在提交/跨平台检出时自动转换换行。
+/docs/archive/2026-10-08-before-strategy/GDD-v4.md -text
