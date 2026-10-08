@@ -18,6 +18,7 @@ const Loadouts = preload("res://scripts/rpg/loadout_rules.gd")
 const Threats = preload("res://scripts/rpg/strategy_encounters.gd")
 const Merchant = preload("res://scripts/campaign/merchant_catalog.gd")
 const Recoveries = preload("res://scripts/campaign/recovery_catalog.gd")
+const Mechanisms = preload("res://scripts/campaign/mechanism_rules.gd")
 var _catalog: RefCounted
 var _store: RefCounted
 var _path: String
@@ -61,7 +62,7 @@ func new_run(class_ids: Array[String], level: int = 5, profile: Dictionary = {})
 func load_run() -> Dictionary:
 	var loaded: Dictionary = _store.load_safe(_path)
 	if not loaded.ok: return _fail(loaded.error)
-	if loaded.snapshot.get("schema_version")==2 or (loaded.snapshot.get("schema_version")==3 and loaded.snapshot.get("progression_version")==1):
+	if loaded.snapshot.get("schema_version")==2 or (loaded.snapshot.get("schema_version")==3 and loaded.snapshot.get("progression_version")<3):
 		loaded=_store.migrate_loadout(_path)
 		if not loaded.ok:return _fail(loaded.error)
 	_safe = loaded.snapshot.duplicate(true)
@@ -96,7 +97,7 @@ func _new_loadout_run(class_ids:Array[String],profile:Dictionary)->Dictionary:
 		for equipment_id in actor.equipment.values():gear[equipment_id]=int(gear.get(equipment_id,0))+1
 	for item in _catalog.get_all("items"):inventory[item.id]=item.initial_stock
 	var world:Dictionary=profile.world.duplicate(true)
-	var candidate:Dictionary={"schema_version":3,"progression_version":2,"merchant":Merchant.initial(),"rules_version":_catalog.rules_version,
+	var candidate:Dictionary={"schema_version":3,"progression_version":3,"merchant":Merchant.initial(),"mechanisms":Mechanisms.initial(),"rules_version":_catalog.rules_version,
 		"run_id":Crypto.new().generate_random_bytes(16).hex_encode(),"phase":"exploration","roster":roster,"party":party,
 		"cards":Loadouts.initial_cards(),"inventory":inventory,"gear":gear,"applied_battle_ids":[],"battle_counter":0,"pending_battle":{},"return_scene":"",
 		"campaign_id":Chapters.PROFILE_ID,"story_phase":"exploration","night":1,"scene_id":"night_1","world":world,"world_history":{"night_1":world.duplicate(true)},
@@ -154,6 +155,9 @@ func begin_battle(encounter_id: String, world: Dictionary, story_patch: Dictiona
 		if not _chapter_world_ok(world) or not Chapters.validate_patch(story_patch, world).is_empty(): return _fail("正式遭遇未登记、前置不足或世界剧情不符")
 		var expected_encounter: String = str(world.story_encounter) if _safe.has("saga") else Chapters.night(world.night).encounter_id
 		if encounter_id != expected_encounter: return _fail("遭遇与当前场次或选择不符")
+		if uses_loadouts() and _safe.progression_version>=3 and _safe.has("saga"):
+			var gate_errors:=Mechanisms.battle_errors(_safe,str(_safe.saga.active_scene))
+			if not gate_errors.is_empty():return _fail("；".join(gate_errors))
 	var definition: Dictionary = _catalog.get_definition("encounters", encounter_id)
 	if definition.is_empty(): return _fail("未知遭遇：" + encounter_id)
 	var world_errors := Store.validate_world(world)
@@ -630,6 +634,15 @@ func buy_merchant_item(world:Dictionary,offer_id:String,count:Variant=1)->Dictio
 	if not proposal.get("ok",false):return _fail(str(proposal.get("error","交易条件不满足")))
 	var committed:=_commit(proposal.candidate)
 	if committed.ok:committed["receipt"]=proposal.receipt.duplicate(true)
+	return committed
+
+func commit_mechanism(world:Dictionary,mechanism_id:String,action_id:String,actor_id:String="")->Dictionary:
+	if not _outside() or not uses_loadouts() or _safe.progression_version<3 or not _chapter_world_ok(world) or not _safe.pending_battle.is_empty():return _fail("当前不能操作实地机关")
+	var operator:String=actor_id if not actor_id.is_empty() else str(_safe.party[0])
+	var proposal:Dictionary=Mechanisms.preview(safe_snapshot(),world,mechanism_id,action_id,operator)
+	if not proposal.get("ok",false):return _fail(str(proposal.get("error","这项操作尚未满足条件")))
+	var committed:=_commit(proposal.candidate)
+	if committed.ok:committed["mechanism"]=Mechanisms.view_state(_safe,mechanism_id)
 	return committed
 
 func leave_saga_battle() -> Dictionary:

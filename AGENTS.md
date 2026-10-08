@@ -8,9 +8,13 @@
 
 批准对白源、大纲及技能manifest按.gitattributes保持LF；不得为CRLF问题更新批准哈希。Windows主发布/动作门禁使用 `tools/verification_support.py` 的跨平台锁与进程清理。所有写档测试仍先核验隔离user目录。
 
-神秘商人已接入：`merchant_catalog.gd`、`mysterious_merchant.json`、独立地区实体与交易面板；新档schema3/progression_version=2。无等级v1检查点先严格校验、原字节备份再加空账本，不重新迁移角色或奖励。商人账本由正式Campaign原子提交，普通补给与商人扣款共同核对；NPC只在安全窗口出现，C7-05首胜后全局离场。当前人物是程序化静态斗笠披风，无专用逐帧美术。终战普通休息/采购限制及自然七章资源仍待整体平衡，不把新商人离場误写成全部补给已锁。
+神秘商人已接入：`merchant_catalog.gd`、`mysterious_merchant.json`、独立地区实体与交易面板；商人账本于progression_version=2加入，当前新档随机关扩展使用schema3/progression_version=3。无等级v1检查点先严格校验、原字节备份再加空账本，不重新迁移角色或奖励。商人账本由正式Campaign原子提交，普通补给与商人扣款共同核对；NPC只在安全窗口出现，C7-05首胜后全局离场。当前人物是程序化静态斗笠披风，无专用逐帧美术。终战普通休息/采购限制及自然七章资源仍待整体平衡，不把新商人离场误写成全部补给已锁。
 
 敌物回收已接入：`recovery_catalog.gd`从严格胜利顺序与`applied_battle_ids`派生21敌种首次回收，不另存领取状态。战果成功保存才返回`new_recoveries`；永久回收册只读，34组调查联系按批准场次门禁。原关键物来源不变，不把回收册写成任务系统。玩家文案不得显示内部run/battle/encounter编号或审计说明。
+
+六个实地机关已接入`mechanism_rules.gd`/`mechanism_layer.gd`：水口、共享修渡、双线灯座、换手停阵、漂木担架、后巷镜路。对白按批准source_index在成功叙述前暂停回地图；新版本场次完成与后巷进战由模型门禁控制。`mechanisms`根记录实际操作和迁移历史前缀，不发物、不直接改剧情flags。旧schema2及无等级v1/v2先完整校验和原字节备份，再投影已完成事实；暂缓不冒充成功。逐步续档、六组真实行走和七章模型事务已验证，范围见[机关验证](docs/verification/2026-10-08-map-mechanisms.md)，不能写成人工全章通关。
+
+技能强引的普通/条件系数现统一派生，`SKILL_DERIVATION_VERSION=2`纳入回放指纹；旧算法记录应明确拒绝或报告事件差异，不能称同版本回放。正式存档不因此增加人物等级或重发资源。
 
 ## 2026-10-05 七章连续主线
 

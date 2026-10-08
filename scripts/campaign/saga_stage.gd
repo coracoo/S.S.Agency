@@ -6,6 +6,8 @@ const ResidentArt = preload("res://scripts/campaign/saga_npc_art.gd")
 const Merchant = preload("res://scripts/campaign/merchant_catalog.gd")
 const MerchantPanel = preload("res://scripts/campaign/merchant_panel.gd")
 const MerchantActor = preload("res://scripts/campaign/merchant_actor.gd")
+const Mechanisms = preload("res://scripts/campaign/mechanism_rules.gd")
+const MechanismLayer = preload("res://scripts/campaign/mechanism_layer.gd")
 const SPEAKER_IDS := {"凛音":"rinne","薄荷":"mint","岑照":"guard","焰华":"homura","苏合":"healer","清明":"controller","小夜":"sayo","镜中薄荷":"mint","镜中焰华":"homura","焰华的镜影":"homura","凛音的镜影":"rinne"}
 const CHAPTER_NUMBERS := ["二","三","四","五","六","七"]
 var chapter_id := 2
@@ -17,6 +19,10 @@ var _notice_remaining := 0.0
 var _service_bought := false
 var _merchant_actor: Node3D
 var _merchant_panel: Control
+var _mechanism_layer: Node3D
+var _mechanism_route: Dictionary = {}
+var _mechanism_animating := false
+var _mechanism_focus: Node3D
 
 func _ready() -> void:
 	_register_input()
@@ -79,6 +85,8 @@ func _process(delta: float) -> void:
 		if controls_enabled:
 			camera_rig.follow(player,delta)
 			_tutorial_remaining = maxf(0.0,_tutorial_remaining-delta)
+		elif _mechanism_animating and is_instance_valid(_mechanism_focus):
+			camera_rig.follow(_mechanism_focus,delta)
 		if is_instance_valid(_hd2d_profile): _hd2d_profile.follow(player.position)
 	if _notice_remaining > 0:
 		_notice_remaining = maxf(0.0,_notice_remaining-delta)
@@ -95,7 +103,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		if _mode == "explore": _open_pause()
 		elif _mode == "merchant": _merchant_closed()
-		elif _mode in ["pause","map","journal","travel","interaction_select"]: _resume_explore()
+		elif _mode in ["pause","map","journal","travel","interaction_select","mechanism_prompt"]: _resume_explore()
 		return
 	if event.is_action_pressed("approach_map"):
 		get_viewport().set_input_as_handled()
@@ -114,6 +122,8 @@ func _saga() -> Dictionary:
 func apply_committed_world(world: Dictionary, animate_objects: bool = false) -> void:
 	super.apply_committed_world(world,animate_objects)
 	_refresh_merchant()
+	if not _mechanism_animating: _refresh_mechanisms()
+	_sync_mechanism_targets()
 
 func _refresh_targets() -> void:
 	_targets.clear()
@@ -135,10 +145,12 @@ func _refresh_targets() -> void:
 		var anchor: Vector3 = Merchant.anchor(session.campaign.safe_snapshot())
 		_targets.append({"id":"@merchant","label":"神秘商人 · 查看行囊","kind":"merchant","location":"mysterious_merchant","position":[anchor.x,anchor.y,anchor.z],"radius":2.15})
 	_targets.append_array(_available_world_objects())
+	_sync_mechanism_targets()
 	config["interactions"] = _targets.duplicate(true)
 	_refresh_story_markers()
 	_refresh_npcs()
 	_refresh_merchant()
+	_refresh_mechanisms()
 
 func nearby_interactions() -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
@@ -168,6 +180,7 @@ func request_interaction(id: String) -> bool:
 		"travel": _show_travel()
 		"field_shop": _show_field_shop()
 		"merchant": _show_merchant()
+		"mechanism": _show_mechanism(target)
 		_: _begin_story(id)
 	return true
 
@@ -234,7 +247,94 @@ func _fit_modal() -> void:
 		return
 	super._fit_modal()
 
+func _sync_mechanism_targets() -> void:
+	if session == null: return
+	var kept: Array[Dictionary] = []
+	for target in _targets:
+		if target.kind != "mechanism": kept.append(target)
+	for target in Mechanisms.targets(session.campaign.safe_snapshot()):
+		target["kind"] = "mechanism"
+		target["location"] = str(target.id)
+		target["main"] = false
+		kept.append(target)
+	_targets = kept
+	if not config.is_empty(): config["interactions"] = _targets.duplicate(true)
+
+func _refresh_mechanisms() -> void:
+	if session == null or not is_instance_valid(_geometry): return
+	if not is_instance_valid(_mechanism_layer):
+		_mechanism_layer = MechanismLayer.new()
+		_mechanism_layer.name = "CommittedMechanisms"
+		add_child(_mechanism_layer)
+	_mechanism_layer.configure(session.campaign.safe_snapshot())
+	# 复用原水域，仅替换同一泊位的装饰船，不能让试航时原船仍留在身下。
+	if _mechanism_layer.groups.has("ferry"):
+		var paths: Dictionary = Mechanisms.definition("ferry").get("boat_paths",{})
+		var points: Array = paths.get(str(chapter_id),[])
+		if not points.is_empty():
+			var origin := Geometry.vector(points[0])
+			for boat in _geometry.find_children("MooredRiverBoat*","Node3D",true,false):
+				if boat.global_position.distance_to(origin) < .15: boat.hide()
+
+# 显示形态只用于找到身份；焰华的剑/法资产键必须映射到同一个p_mage。
+static func mechanism_actor_id(saved: Dictionary, lead_key: String, leads: Array) -> String:
+	for lead in leads:
+		if str(lead.get("key","")) != lead_key: continue
+		for actor_id in saved.get("party",[]):
+			if str(saved.get("roster",{}).get(actor_id,{}).get("identity_id","")) == str(lead.get("identity","")): return str(actor_id)
+	return ""
+
+func _current_mechanism_actor() -> String:
+	return mechanism_actor_id(session.campaign.safe_snapshot(),str(session.get_meta("exploration_lead","")),exploration_leads())
+
+func _show_mechanism(target: Dictionary) -> void:
+	_mode = "mechanism_prompt"
+	var body := str(target.get("hint",""))
+	var actor_id := _current_mechanism_actor()
+	var actor: Dictionary = session.campaign.safe_snapshot().roster.get(actor_id,{})
+	if not actor.is_empty(): body += "\n当前操作：" + Presenter.presentation_name(actor,{})
+	if str(target.action_id) == "second_operator": body += "\n需要另一位同伴：返回地图按 Tab 换领队，切换焰华形态不算换人。"
+	var actions: Array = []
+	# 目录可操作性包含“有其他同伴可复验”；确认按钮还须以当前领队作只读校验。
+	var preview:Dictionary=Mechanisms.preview(session.campaign.safe_snapshot(),export_world(),str(target.mechanism_id),str(target.action_id),actor_id)
+	if preview.get("ok",false): actions.append({"text":str(target.label),"call":_commit_mechanism.bind(target.duplicate(true))})
+	else: body += "\n"+str(preview.get("error",target.get("reason","请先观察这里的结构与通路。")))
+	actions.append({"text":"回到地图继续观察","call":_resume_explore})
+	_show_modal(str(target.label),body,actions)
+
+func _commit_mechanism(target: Dictionary) -> void:
+	if _closed or _transition_busy: return
+	_transition_busy = true
+	set_controls_enabled(false)
+	var token := operation_token()
+	var result: Dictionary = session.campaign.commit_mechanism(export_world(),str(target.mechanism_id),str(target.action_id),_current_mechanism_actor())
+	if not result.get("ok",false):
+		_transition_busy = false
+		_show_error(str(result.get("error","操作状态尚未保存")),_commit_mechanism.bind(target))
+		return
+	_close_modal()
+	_mechanism_animating = true
+	_mode = "mechanism_animation"
+	apply_committed_world(session.campaign.safe_snapshot().world)
+	_mechanism_focus = _mechanism_layer.part("ferry","boat") if str(target.action_id) in ["sail_out","sail_back"] else null
+	if is_instance_valid(_mechanism_focus): camera_rig.follow(_mechanism_focus,1.0)
+	await _mechanism_layer.animate_commit(session.campaign.safe_snapshot(),target)
+	if not callback_valid(token) or not is_inside_tree(): return
+	_mechanism_animating = false
+	_mechanism_focus = null
+	_transition_busy = false
+	_refresh_targets()
+	if not _mechanism_route.is_empty():
+		var pending: Array = Mechanisms.gates(session.campaign.safe_snapshot(),str(_mechanism_route.scene_id),str(_mechanism_route.channel))
+		var boundary := int(_mechanism_route.from_source_index)
+		if pending.is_empty() or int(pending[0].before_source_index) > boundary:
+			_continue_mechanism_story()
+			return
+	_resume_explore()
+	_notice("眼前的变化已保存。")
+
 func _begin_story(id: String) -> void:
+	_mechanism_route.clear()
 	var result: Dictionary = session.campaign.begin_saga_scene(export_world(),id)
 	if not result.get("ok",false):
 		_show_error(str(result.get("error","调查检查点保存失败")),_begin_story.bind(id)); return
@@ -247,10 +347,10 @@ func _begin_story(id: String) -> void:
 	if resumes_battle_aftermath(_saga(),id): _play_aftermath(); return
 	if not _selected_option.is_empty():
 		var resumed_lines: Array = _selected_option.get("confirmation",{}).get("lines",[]) if _selected_option.has("confirmation") else _selected_option.get("lines",[])
-		_play_lines(resumed_lines,_after_option); return
+		_play_story_channel("choice",resumed_lines,_after_option); return
 	var opening: Array = _active_entry.get("lines",[])
 	if _saga().completed.has(id) and not _active_entry.get("event_lines",{}).get("revisit",[]).is_empty(): opening = _active_entry.event_lines.revisit
-	_play_lines(opening,_after_opening)
+	_play_story_channel("opening",opening,_after_opening)
 
 static func confirmed_choice(world: Dictionary) -> Dictionary:
 	return Saga.choice(str(world.get("story_scene","")),str(world.get("story_choice","")))
@@ -319,7 +419,7 @@ func _commit_option(confirmed: bool) -> void:
 		_show_error(str(result.get("error","选择尚未保存")),_commit_option.bind(confirmed)); return
 	apply_committed_world(session.campaign.safe_snapshot().world)
 	var lines: Array = _selected_option.get("confirmation",{}).get("lines",[]) if confirmed else _selected_option.get("lines",[])
-	_play_lines(lines,_after_option)
+	_play_story_channel("choice",lines,_after_option)
 
 func _after_option() -> void:
 	match str(_selected_option.get("service","")):
@@ -385,7 +485,7 @@ func _play_aftermath() -> void:
 	if lines.is_empty(): lines = _active_entry.get("after_lines",[])
 	var combined: Array = lines.duplicate(true)
 	combined.append_array(_active_entry.get("followup_lines",[]))
-	_play_lines(combined,_complete_story)
+	_play_story_channel("aftermath",combined,_complete_story)
 
 func _complete_story() -> void:
 	_transition_busy = true
@@ -399,6 +499,7 @@ func _complete_story() -> void:
 	if int(safe.saga.chapter) != chapter_id: _go_scene(Saga.SCENE_PATH); return
 	_active_entry = {}
 	_selected_option = {}
+	_mechanism_route.clear()
 	_refresh_targets()
 	_resume_explore()
 	_notice("记录已保存。" + ("请沿灯路前往下一处。" if not str(safe.saga.get("active_scene","")).is_empty() else ""))
@@ -420,6 +521,31 @@ func _play_lines(lines: Array, afterward: Callable) -> void:
 	_dialogue.finished.connect(_lines_finished.bind(operation_token(),afterward),CONNECT_ONE_SHOT)
 	_dialogue.play(nodes,"line_0")
 
+func _play_story_channel(channel: String, lines: Array, afterward: Callable) -> void:
+	_mechanism_route = {"scene_id":str(_active_entry.get("id","")),"channel":channel,"lines":lines.duplicate(true),"from_source_index":0,"afterward":afterward}
+	_continue_mechanism_story()
+
+func _continue_mechanism_story() -> void:
+	if _mechanism_route.is_empty() or _closed: return
+	var scene_id := str(_mechanism_route.scene_id)
+	var channel := str(_mechanism_route.channel)
+	var gates: Array = Mechanisms.gates(session.campaign.safe_snapshot(),scene_id,channel)
+	var visible: Array = Saga.visible_lines(_mechanism_route.lines,_saga())
+	var segment := next_story_segment(visible,gates,int(_mechanism_route.from_source_index))
+	_play_lines(segment.lines,_story_segment_finished.bind(scene_id,channel,int(segment.next_source_index),segment.gate))
+
+func _story_segment_finished(scene_id: String, channel: String, next_source: int, gate: Dictionary) -> void:
+	if _mechanism_route.get("scene_id") != scene_id or _mechanism_route.get("channel") != channel: return
+	_mechanism_route.from_source_index = next_source
+	if gate.is_empty():
+		var afterward: Callable = _mechanism_route.afterward
+		_mechanism_route.clear()
+		if afterward.is_valid(): afterward.call()
+		return
+	_refresh_targets()
+	_resume_explore()
+	_notice(str(gate.get("hint","请在现场操作物件，核清实际变化。"))+" 走到物件旁按 E 观察。")
+
 static func saga_dialogue_nodes(lines: Array) -> Dictionary:
 	var nodes: Dictionary = {}
 	for index in lines.size():
@@ -427,6 +553,22 @@ static func saga_dialogue_nodes(lines: Array) -> Dictionary:
 		var speaker := str(line.get("speaker","旁白"))
 		nodes["line_%d" % index] = {"name":speaker,"speaker":str(SPEAKER_IDS.get(speaker,speaker)),"text":str(line.get("text","")),"side":"right" if speaker in ["薄荷","清明","苏合"] else "left","next":"line_%d" % (index+1) if index+1 < lines.size() else ""}
 	return nodes
+
+# 只切分已按条件筛选的批准原文；门禁也可以落在通道末尾或没有对白的操作来源块上。
+static func next_story_segment(lines: Array, unmet_gates: Array, from_source_index: int = 0) -> Dictionary:
+	var gates := unmet_gates.duplicate(true)
+	gates.sort_custom(func(left: Dictionary, right: Dictionary) -> bool: return int(left.before_source_index) < int(right.before_source_index))
+	var gate: Dictionary = gates[0] if not gates.is_empty() else {}
+	var selected: Array = []
+	var next_index := from_source_index
+	for line in lines:
+		var source_index := int(line.get("source_index",0))
+		if source_index < from_source_index: continue
+		if not gate.is_empty() and source_index >= int(gate.before_source_index): continue
+		selected.append(line.duplicate(true))
+		next_index = maxi(next_index,source_index+1)
+	if not gate.is_empty(): next_index = int(gate.before_source_index)
+	return {"lines":selected,"gate":gate,"next_source_index":next_index,"complete":gate.is_empty()}
 
 func _lines_finished(token: int, afterward: Callable) -> void:
 	if not callback_valid(token) or not is_inside_tree(): return

@@ -1,0 +1,897 @@
+{
+  "schema_version": 1,
+  "rules_version": "map-mechanisms-1",
+  "source": "docs/superpowers/plans/2026-10-08-strategy-overhaul.md#下一批地图机关",
+  "notes": "六个实地机关，不是任务系统。动作只提交结构状态与位置证据，不发奖励、不改剧情flag、不声称对白已播放。船的1.6秒只供表现层Tween，不是持久计时或自动完成下一步。",
+  "definitions": [
+    {
+      "id": "water_echo",
+      "name": "水口隔断试验",
+      "contexts": [
+        {
+          "scene_id": "C2-10",
+          "chapter": 2,
+          "choice_id": ""
+        }
+      ],
+      "chapters": [
+        2
+      ],
+      "anchors": {
+        "2": [
+          13,
+          0,
+          7
+        ]
+      },
+      "steps": [
+        "observe",
+        "block",
+        "listen",
+        "unblock",
+        "listen"
+      ],
+      "actions": [
+        {
+          "id": "observe",
+          "label": "察看镜边",
+          "hint": "镜边露在水口外，刻纹与水声都能留意。",
+          "positions": {
+            "C2-10": [
+              12.8,
+              0,
+              5.2
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "block",
+          "label": "放下隔板",
+          "hint": "隔板足够遮住露出的镜边。",
+          "positions": {
+            "C2-10": [
+              13.5,
+              0,
+              7.6
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "listen",
+          "label": "听水口",
+          "hint": "在侧边停一下，分辨钟声有没有变化。",
+          "positions": {
+            "C2-10": [
+              14.8,
+              0,
+              6
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "unblock",
+          "label": "收起隔板",
+          "hint": "握住干燥的一侧，可以把隔板抬回。",
+          "positions": {
+            "C2-10": [
+              13.5,
+              0,
+              7.6
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "retry",
+          "label": "重新察看",
+          "hint": "这里仍能重新做一次观察。",
+          "positions": {
+            "C2-10": [
+              12.8,
+              0,
+              5.2
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        }
+      ],
+      "gates": [
+        {
+          "mechanism_id": "water_echo",
+          "scene_id": "C2-10",
+          "channel": "opening",
+          "choice_id": "",
+          "before_source_index": 7,
+          "required_step": 0,
+          "require_complete": true,
+          "condition": "",
+          "hint": "水口边还有未核清的声音。"
+        }
+      ],
+      "legacy_flag": "water_echo_verified",
+      "visual_duration": 0.35
+    },
+    {
+      "id": "ferry",
+      "name": "渡口结构与试航",
+      "contexts": [
+        {
+          "scene_id": "C3-16",
+          "chapter": 3,
+          "choice_id": ""
+        },
+        {
+          "scene_id": "C6-S03",
+          "chapter": 6,
+          "choice_id": "a"
+        }
+      ],
+      "chapters": [
+        3,
+        6
+      ],
+      "anchors": {
+        "3": [
+          0,
+          0,
+          0
+        ],
+        "6": [
+          19,
+          0,
+          10
+        ]
+      },
+      "steps": [
+        "dry_wood",
+        "brace_pile",
+        "transfer_rope",
+        "replace_board",
+        "flatten_nails",
+        "raise_lamp",
+        "sail_out",
+        "sail_back"
+      ],
+      "actions": [
+        {
+          "id": "dry_wood",
+          "label": "察看干木",
+          "hint": "木料的干湿与裂口要分开看。",
+          "positions": {
+            "C3-16": [
+              -12.7,
+              0,
+              -7
+            ],
+            "C6-S03": [
+              17,
+              0,
+              8
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "brace_pile",
+          "label": "稳住副桩",
+          "hint": "缆绳绷紧时，副桩的根部承着力。",
+          "positions": {
+            "C3-16": [
+              1.5,
+              0,
+              0
+            ],
+            "C6-S03": [
+              18,
+              0,
+              10
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "transfer_rope",
+          "label": "转移缆绳",
+          "hint": "绳子的走向要避开磨损处。",
+          "positions": {
+            "C3-16": [
+              0,
+              0,
+              1.3
+            ],
+            "C6-S03": [
+              19.5,
+              0,
+              9
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "replace_board",
+          "label": "更换裂板",
+          "hint": "踏板裂口就在落脚的地方。",
+          "positions": {
+            "C3-16": [
+              3,
+              0,
+              0
+            ],
+            "C6-S03": [
+              20.6,
+              0,
+              10.5
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "flatten_nails",
+          "label": "检查钉头",
+          "hint": "突起的铁钉会勾住衣摆。",
+          "positions": {
+            "C3-16": [
+              3,
+              0,
+              1.2
+            ],
+            "C6-S03": [
+              20.6,
+              0,
+              11.5
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "raise_lamp",
+          "label": "调整岸灯",
+          "hint": "从船头看过去，灯光不能被人遮住。",
+          "positions": {
+            "C3-16": [
+              13.3,
+              0,
+              0
+            ],
+            "C6-S03": [
+              22,
+              0,
+              11.5
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "sail_out",
+          "label": "看空船去程",
+          "hint": "留在岸边，对照灯位看船底与缆绳。",
+          "positions": {
+            "C3-16": [
+              15,
+              0,
+              1.5
+            ],
+            "C6-S03": [
+              17.5,
+              0,
+              11.5
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 1.6
+        },
+        {
+          "id": "sail_back",
+          "label": "看空船回程",
+          "hint": "另一侧也要确认靠岸的位置。",
+          "positions": {
+            "C3-16": [
+              15,
+              0,
+              -1.5
+            ],
+            "C6-S03": [
+              21,
+              0,
+              8
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 1.6
+        }
+      ],
+      "gates": [
+        {
+          "mechanism_id": "ferry",
+          "scene_id": "C3-16",
+          "channel": "opening",
+          "choice_id": "",
+          "before_source_index": 1,
+          "required_step": 5,
+          "require_complete": false,
+          "condition": "",
+          "hint": "码头的结构与空船航路需要实地检查。"
+        },
+        {
+          "mechanism_id": "ferry",
+          "scene_id": "C3-16",
+          "channel": "opening",
+          "choice_id": "",
+          "before_source_index": 5,
+          "required_step": 0,
+          "require_complete": true,
+          "condition": "",
+          "hint": "码头的结构与空船航路需要实地检查。"
+        },
+        {
+          "mechanism_id": "ferry",
+          "scene_id": "C6-S03",
+          "channel": "choice",
+          "choice_id": "a",
+          "before_source_index": 10,
+          "required_step": 0,
+          "require_complete": true,
+          "condition": "ferry_unrepaired",
+          "hint": "码头的结构与空船航路需要实地检查。"
+        }
+      ],
+      "legacy_flag": "ferry_repaired",
+      "visual_duration": 0.35,
+      "boat_paths": {
+        "3": [
+          [
+            4,
+            -0.3,
+            5
+          ],
+          [
+            10.5,
+            -0.3,
+            5
+          ]
+        ],
+        "6": [
+          [
+            19,
+            -0.32,
+            16.6
+          ],
+          [
+            23,
+            -0.32,
+            16.6
+          ]
+        ]
+      }
+    },
+    {
+      "id": "junction",
+      "name": "双线灯座",
+      "contexts": [
+        {
+          "scene_id": "C6-08",
+          "chapter": 6,
+          "choice_id": ""
+        }
+      ],
+      "chapters": [
+        6
+      ],
+      "anchors": {
+        "6": [
+          9,
+          0,
+          0
+        ]
+      },
+      "steps": [
+        "support_rod",
+        "isolate",
+        "take_pin",
+        "light_lamp"
+      ],
+      "actions": [
+        {
+          "id": "support_rod",
+          "label": "托住联动杆",
+          "hint": "杆身还带着力，手边有木托。",
+          "positions": {
+            "C6-08": [
+              8,
+              0,
+              0.8
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "isolate",
+          "label": "拨动下方活扣",
+          "hint": "灯座的两条线在这里分开。",
+          "positions": {
+            "C6-08": [
+              9.5,
+              0,
+              1
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "take_pin",
+          "label": "取下实销",
+          "hint": "实销位于已经停住的联动处。",
+          "positions": {
+            "C6-08": [
+              9.2,
+              0,
+              -0.3
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "light_lamp",
+          "label": "点普通引路灯",
+          "hint": "独立的灯架没有接进地下铜索。",
+          "positions": {
+            "C6-08": [
+              7.4,
+              0,
+              2
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        }
+      ],
+      "gates": [
+        {
+          "mechanism_id": "junction",
+          "scene_id": "C6-08",
+          "channel": "opening",
+          "choice_id": "",
+          "before_source_index": 12,
+          "required_step": 2,
+          "require_complete": false,
+          "condition": "",
+          "hint": "灯座上的活扣与联动杆还未安置妥当。"
+        },
+        {
+          "mechanism_id": "junction",
+          "scene_id": "C6-08",
+          "channel": "opening",
+          "choice_id": "",
+          "before_source_index": 14,
+          "required_step": 3,
+          "require_complete": false,
+          "condition": "",
+          "hint": "灯座上的活扣与联动杆还未安置妥当。"
+        },
+        {
+          "mechanism_id": "junction",
+          "scene_id": "C6-08",
+          "channel": "opening",
+          "choice_id": "",
+          "before_source_index": 17,
+          "required_step": 4,
+          "require_complete": false,
+          "condition": "",
+          "hint": "灯座上的活扣与联动杆还未安置妥当。"
+        }
+      ],
+      "legacy_flag": "control_pin_held",
+      "visual_duration": 0.35
+    },
+    {
+      "id": "ward_test",
+      "name": "停阵与换手复验",
+      "contexts": [
+        {
+          "scene_id": "C6-09",
+          "chapter": 6,
+          "choice_id": ""
+        }
+      ],
+      "chapters": [
+        6
+      ],
+      "anchors": {
+        "6": [
+          -7,
+          0,
+          0
+        ]
+      },
+      "steps": [
+        "position_outer",
+        "position_inner",
+        "pull_pin",
+        "check_exit",
+        "second_operator"
+      ],
+      "actions": [
+        {
+          "id": "position_outer",
+          "label": "察看外圈接应",
+          "hint": "外圈的灯和门口都能从这里看清。",
+          "positions": {
+            "C6-09": [
+              -7,
+              0,
+              2.5
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "position_inner",
+          "label": "检查内圈",
+          "hint": "陶瓮与无字镜片安放在圈内。",
+          "positions": {
+            "C6-09": [
+              -7,
+              0,
+              -1.4
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "pull_pin",
+          "label": "拔出横销",
+          "hint": "横销连接着内圈的薄光。",
+          "positions": {
+            "C6-09": [
+              -5.5,
+              0,
+              0.6
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "check_exit",
+          "label": "检查退路",
+          "hint": "沿外圈走到门边，确认出口仍然可用。",
+          "positions": {
+            "C6-09": [
+              -7,
+              0,
+              4.6
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "second_operator",
+          "label": "照记录复验",
+          "hint": "换一位同伴按图检查，原操作者先歇下。",
+          "positions": {
+            "C6-09": [
+              -5.5,
+              0,
+              0.6
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        }
+      ],
+      "gates": [
+        {
+          "mechanism_id": "ward_test",
+          "scene_id": "C6-09",
+          "channel": "opening",
+          "choice_id": "",
+          "before_source_index": 8,
+          "required_step": 4,
+          "require_complete": false,
+          "condition": "",
+          "hint": "院内外的接应与退路还需要复验。"
+        },
+        {
+          "mechanism_id": "ward_test",
+          "scene_id": "C6-09",
+          "channel": "opening",
+          "choice_id": "",
+          "before_source_index": 13,
+          "required_step": 5,
+          "require_complete": false,
+          "condition": "",
+          "hint": "院内外的接应与退路还需要复验。"
+        }
+      ],
+      "legacy_flag": "temporary_ward_verified",
+      "visual_duration": 0.35
+    },
+    {
+      "id": "driftwood",
+      "name": "漂木与空担架路",
+      "contexts": [
+        {
+          "scene_id": "C6-S03",
+          "chapter": 6,
+          "choice_id": "a"
+        }
+      ],
+      "chapters": [
+        6
+      ],
+      "anchors": {
+        "6": [
+          19,
+          0,
+          10
+        ]
+      },
+      "steps": [
+        "brace",
+        "cut_right",
+        "move_wood",
+        "stretcher_start",
+        "stretcher_slope",
+        "stretcher_handoff"
+      ],
+      "actions": [
+        {
+          "id": "brace",
+          "label": "垫稳承力木",
+          "hint": "漂木上端的绳子还绷着。",
+          "positions": {
+            "C6-S03": [
+              17.5,
+              0,
+              9.5
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "cut_right",
+          "label": "察看右侧切口",
+          "hint": "右侧有能下手的空处，下面需要有承托。",
+          "positions": {
+            "C6-S03": [
+              20.5,
+              0,
+              9.5
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "move_wood",
+          "label": "拉开漂木",
+          "hint": "握住干燥的绳段，留意脚下落点。",
+          "positions": {
+            "C6-S03": [
+              19,
+              0,
+              10.8
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "stretcher_start",
+          "label": "抬空担架走一段",
+          "hint": "从码头这一端实际抬着通过。",
+          "positions": {
+            "C6-S03": [
+              19,
+              0,
+              7.5
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "stretcher_slope",
+          "label": "检查石坡转折",
+          "hint": "转弯处要给担架两端留出空间。",
+          "positions": {
+            "C6-S03": [
+              20.8,
+              0,
+              10
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "stretcher_handoff",
+          "label": "走到外侧接应处",
+          "hint": "到了外侧再确认交接的位置。",
+          "positions": {
+            "C6-S03": [
+              23,
+              0,
+              10
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        }
+      ],
+      "gates": [
+        {
+          "mechanism_id": "driftwood",
+          "scene_id": "C6-S03",
+          "channel": "choice",
+          "choice_id": "a",
+          "before_source_index": 17,
+          "required_step": 0,
+          "require_complete": true,
+          "condition": "",
+          "hint": "担架还没有走通这一段路。"
+        }
+      ],
+      "legacy_flag": "evacuation_route_ready",
+      "visual_duration": 0.35
+    },
+    {
+      "id": "alley",
+      "name": "后巷镜路",
+      "contexts": [
+        {
+          "scene_id": "C6-S04",
+          "chapter": 6,
+          "choice_id": "a"
+        }
+      ],
+      "chapters": [
+        6
+      ],
+      "anchors": {
+        "6": [
+          19,
+          0,
+          -7
+        ]
+      },
+      "steps": [
+        "prepare_cloth",
+        "cover_near",
+        "remove_far",
+        "guard_exit",
+        "handoff"
+      ],
+      "actions": [
+        {
+          "id": "prepare_cloth",
+          "label": "取好遮镜布",
+          "hint": "布与钳子放在井边的干处。",
+          "positions": {
+            "C6-S04": [
+              18.5,
+              0,
+              -4.8
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "cover_near",
+          "label": "遮住近镜",
+          "hint": "近处镜片朝着门口，人在侧面能避开镜间。",
+          "positions": {
+            "C6-S04": [
+              19,
+              0,
+              -7.4
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "remove_far",
+          "label": "卸下远镜",
+          "hint": "远处镜片的卡扣需要有人掩护。",
+          "positions": {
+            "C6-S04": [
+              20.5,
+              0,
+              -8.6
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "guard_exit",
+          "label": "检查巷口",
+          "hint": "沿亮处看清绳子与出口。",
+          "positions": {
+            "C6-S04": [
+              19,
+              0,
+              -2.8
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "handoff",
+          "label": "到接应处点名",
+          "hint": "在接应处叫名字，等两人应声。",
+          "positions": {
+            "C6-S04": [
+              19,
+              0,
+              0.5
+            ]
+          },
+          "radius": 0.75,
+          "visual_duration": 0.35
+        }
+      ],
+      "gates": [
+        {
+          "mechanism_id": "alley",
+          "scene_id": "C6-S04",
+          "channel": "choice",
+          "choice_id": "a",
+          "before_source_index": 8,
+          "required_step": 2,
+          "require_complete": false,
+          "condition": "",
+          "hint": "镜路与接应处仍有未确认的位置。"
+        },
+        {
+          "mechanism_id": "alley",
+          "scene_id": "C6-S04",
+          "channel": "aftermath",
+          "choice_id": "a",
+          "before_source_index": 11,
+          "required_step": 3,
+          "require_complete": false,
+          "condition": "",
+          "hint": "镜路与接应处仍有未确认的位置。"
+        },
+        {
+          "mechanism_id": "alley",
+          "scene_id": "C6-S04",
+          "channel": "aftermath",
+          "choice_id": "a",
+          "before_source_index": 15,
+          "required_step": 5,
+          "require_complete": false,
+          "condition": "",
+          "hint": "镜路与接应处仍有未确认的位置。"
+        }
+      ],
+      "legacy_flag": "alley_rescued",
+      "visual_duration": 0.35
+    }
+  ]
+}

@@ -4,6 +4,7 @@ const Chapters = preload("res://scripts/campaign/chapter_catalog.gd")
 const Session = preload("res://scripts/campaign/chapter_session.gd")
 const Campaign = preload("res://scripts/rpg/campaign.gd")
 const Store = preload("res://scripts/rpg/save_store.gd")
+const MechanismFixture = preload("res://tools/campaign/saga_transaction_fixture.gd")
 var failures: Array[String] = []
 var assertions := 0
 func expect(value: bool, message: String) -> void:
@@ -160,6 +161,7 @@ func _story_route(resolution: String, ending_id: String, clinic_plan: String, de
 			var premature: Dictionary = model.complete_saga_scene(state.world, id)
 			expect(not premature.ok, "战前不能发放战后状态：" + id)
 			if OS.get_environment("SAGA_REAL_BATTLES") == "1": model.rest()
+			if not MechanismFixture.complete_mechanisms(model,id,true):failures.append("进战前实地机关事务失败："+id);return
 			var started: Dictionary = session.begin_encounter(model.safe_snapshot().world, id)
 			if not started.ok: failures.append("进战" + id + "：" + started.error + " 校验=" + model._store.last_error); return
 			var before: Dictionary = model.safe_snapshot()
@@ -187,6 +189,7 @@ func _story_route(resolution: String, ending_id: String, clinic_plan: String, de
 			var won: Dictionary = model.safe_snapshot()
 			expect(session.router.finish(result).ok and model.safe_snapshot() == won, "后章奖励重复提交幂等：" + id)
 			expect(won.world.position == before.world.position and won.world.facing == before.world.facing, "后章战斗回到原位置：" + id)
+		if not MechanismFixture.complete_mechanisms(model,id):failures.append("场次完成前实地机关事务失败："+id);return
 		var completion: Dictionary = model.complete_saga_scene(model.safe_snapshot().world, id)
 		if id == "C6-04" and defer_seal: choices["C6-04"] = "a"
 		if not completion.ok:

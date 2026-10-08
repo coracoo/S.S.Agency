@@ -12,6 +12,7 @@ func _initialize()->void:
 	var session:=Session.new();check(session.start_new(true).ok,"创建隔离正式检查点")
 	var legacy:Dictionary=session.campaign.safe_snapshot()
 	legacy.progression_version=1;legacy.erase("merchant");legacy.erase("merchant_migration")
+	legacy.erase("mechanisms");legacy.erase("mechanism_migration")
 	var store:=Store.new();var path:=Session.Chapters.SAVE_PATH
 	var schema2:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://tools/campaign/fixtures/loadout-schema2-chapter7.json"))
 	for invalid_ledger in [null,{"version":99,"purchases":[]}]:
@@ -22,11 +23,12 @@ func _initialize()->void:
 	check(store.write_safe(legacy,path)==OK,"合法无等级v1仍能被严格读取")
 	var original:=FileAccess.get_file_as_bytes(path)
 	var result:Dictionary=store.migrate_loadout(path)
-	check(result.ok and result.snapshot.get("progression_version")==2,"合法无等级旧检查点迁移到商人v2："+str(result.get("error","")))
-	if result.ok and result.snapshot.get("progression_version")==2:
+	check(result.ok and result.snapshot.get("progression_version")==3,"合法无等级旧检查点迁移到当前版本："+str(result.get("error","")))
+	if result.ok and result.snapshot.get("progression_version")==3:
 		check(result.snapshot.merchant=={"version":1,"purchases":[]},"首次迁移只加空商人账本")
 		var stripped:Dictionary=result.snapshot.duplicate(true)
 		stripped.progression_version=1;stripped.erase("merchant");stripped.erase("merchant_migration")
+		stripped.erase("mechanisms");stripped.erase("mechanism_migration")
 		check(stripped==legacy,"既有装备/卡组/资源/剧情不变，不重新初始化装配")
 		check(FileAccess.get_file_as_bytes(result.backup_path)==original,"备份保留无等级v1原字节")
 		var once:=FileAccess.get_file_as_bytes(path)

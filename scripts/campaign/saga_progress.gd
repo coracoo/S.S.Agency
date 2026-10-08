@@ -3,6 +3,7 @@ class_name CampaignSagaProgress
 extends RefCounted
 const Threats = preload("res://scripts/rpg/strategy_encounters.gd")
 const Saga = preload("res://scripts/campaign/saga_catalog.gd")
+const Mechanisms = preload("res://scripts/campaign/mechanism_rules.gd")
 
 static func continue_run(model: RefCounted) -> Dictionary:
 	var saved: Dictionary = model.safe_snapshot()
@@ -58,6 +59,9 @@ static func complete_scene(model: RefCounted, world: Dictionary, id: String) -> 
 	if not Saga.eligible_choices(entry, saved.saga).is_empty() and option.is_empty(): return model._fail("请先选择本场处理方式")
 	var encounter_id: String = str(world.get("story_encounter", ""))
 	if not encounter_id.is_empty() and not saved.saga.battles.has(id): return model._fail("本场尚未赢得战斗，不能提交战后救援或奖励")
+	if saved.get("schema_version")==3 and saved.get("progression_version",0)>=3:
+		var gate_errors:=Mechanisms.completion_errors(saved,id)
+		if not gate_errors.is_empty():return model._fail("；".join(gate_errors))
 	var candidate := saved.duplicate(true)
 	candidate.world = world.duplicate(true)
 	var selected_choice: String = str(candidate.saga.choices.get(id, ""))
