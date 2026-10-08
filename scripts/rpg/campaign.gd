@@ -139,9 +139,25 @@ func preview_equipment(actor_id:String,slot:String,item_id:String)->Dictionary:
 	equipment[slot]=item_id
 	return preview_loadout(actor_id,_safe.roster[actor_id].build,equipment)
 
-func set_loadout(actor_id:String,build:Dictionary)->Dictionary:
+func preview_loadout_skill(actor_id:String,build:Dictionary,skill_id:String,form_id:String="default",equipment:Variant=null)->Dictionary:
+	# 准备界面的技能详情走与战斗相同的派生；非法草稿只返回基础说明，不冒充可用配置。
+	var result:=preview_loadout(actor_id,build,equipment)
+	var base:Dictionary=_catalog.get_definition("skills",skill_id)
+	if not result.get("ok",false):return {"ok":false,"skill":base,"error":str(result.get("error","装配尚不合法")),"form_locked":false}
+	var actor:Dictionary=result.actor.duplicate(true)
+	if not actor.build.active.has(form_id) or not actor.build.active[form_id].has(skill_id):
+		return {"ok":false,"skill":base,"error":"这张卡不在当前预览配置中","form_locked":false}
+	if actor.class_id=="mage":
+		if not Forms.FORM_CLASSES.has(form_id):return {"ok":false,"skill":base,"error":"未登记的形态配置","form_locked":false}
+		actor.form_id=form_id
+		actor.active_class_id=Forms.FORM_CLASSES[form_id]
+	actor.skill_ids=actor.build.active[form_id].duplicate()
+	var skill:Dictionary=_catalog.skill_for(actor,skill_id)
+	return {"ok":not skill.is_empty(),"skill":skill,"error":"" if not skill.is_empty() else "技能未登记","form_locked":actor.class_id=="mage" and not actor.get("unlocked_forms",[]).has(form_id)}
+
+func set_loadout(actor_id:String,build:Dictionary,equipment:Variant=null)->Dictionary:
 	if not _preparing():return _fail("只能在战前整备更换装配")
-	var preview:=preview_loadout(actor_id,build)
+	var preview:=preview_loadout(actor_id,build,equipment)
 	if not preview.ok:return _fail(preview.error)
 	var candidate:=safe_snapshot();candidate.roster[actor_id]=preview.actor
 	return _commit(candidate)
