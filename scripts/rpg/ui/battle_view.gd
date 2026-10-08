@@ -21,6 +21,8 @@ const Catalog = preload("res://scripts/rpg/catalog.gd")
 const Loadouts = preload("res://scripts/rpg/loadout_rules.gd")
 const Router = preload("res://scripts/rpg/encounter_router.gd")
 const Presenter = preload("res://scripts/rpg/ui/battle_presenter.gd")
+const TacticsPresenter = preload("res://scripts/rpg/ui/battle_tactics_presenter.gd")
+const TacticsPanel = preload("res://scripts/rpg/ui/battle_tactics_panel.gd")
 const Kit = preload("res://scripts/rpg/ui/ui_kit.gd")
 const Art = preload("res://scripts/campaign/presentation/night_menu_art.gd")
 const ITEM_ORDER := ["healing_potion", "mana_potion", "revival_potion", "cleansing_powder", "energy_tea", "guard_charm", "moxa_roll"]
@@ -59,6 +61,7 @@ var _result: Control
 var _items: Control
 var _preview_panel: Control
 var _log_panel: Control
+var _tactics_panel: TacticsPanel
 var _built := false
 var _hd_views: Dictionary = {}
 var _presentation_views: Dictionary = {}
@@ -110,6 +113,9 @@ func _ready() -> void:
 
 func bind(battle_engine: RefCounted, campaign_model: RefCounted) -> void:
 	_cancel_presentation()
+	if is_instance_valid(_tactics_panel):
+		_tactics_panel.hide()
+		_sync_modal_focus()
 	engine = battle_engine
 	campaign = campaign_model
 	pending_command = {}
@@ -293,19 +299,21 @@ func _build() -> void:
 	_skill_effects_ready = _fx_layer.production_enabled()
 	_canvas.add_child(_fx_layer)
 	Art.panel(_canvas, Rect2(32, 24, 550, 130))
-	Art.panel(_canvas, Rect2(602, 24, 922, 130))
+	Art.panel(_canvas, Rect2(602, 24, 782, 130))
 	_hud.title = Kit.label(_canvas, "遭遇  ·  夜巡异象", Rect2(72, 48, 470, 36), 27)
 	if campaign != null and campaign.safe_snapshot().has("saga"):
 		var encounter: Dictionary = _catalog.get_definition("encounters", str(campaign.safe_snapshot().pending_battle.get("encounter_id", "")))
 		_hud.title.text = str(encounter.get("name", "夜巡异象"))
 		_hud.title.tooltip_text = str(encounter.get("objective", ""))
 	_hud.turn = Kit.label(_canvas, "", Rect2(72, 96, 470, 32), 23)
-	Kit.muted(Kit.label(_canvas, "本轮顺序", Rect2(642, 48, 842, 28), 20))
-	_hud.queue = Kit.label(_canvas, "", Rect2(642, 90, 842, 36), 22)
+	Kit.muted(Kit.label(_canvas, "本轮顺序 · T 查看战术与下轮推演", Rect2(642, 48, 702, 28), 20))
+	_hud.queue = Kit.label(_canvas, "", Rect2(642, 90, 702, 36), 22)
 	_hud.queue.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	_hud.queue.mouse_filter = Control.MOUSE_FILTER_PASS
-	_hud.log_toggle = _art_button(_canvas, "日志", Rect2(1540, 28, 144, 92), _toggle_log)
-	_hud.exit = _art_button(_canvas, "返回标题", Rect2(1696, 28, 192, 92), _return_title)
+	_hud.tactics = _art_button(_canvas, "战术", Rect2(1400, 28, 144, 92), _toggle_tactics)
+	_hud.tactics.tooltip_text = "T · 查看敌方窗口、目标限制与速度轮序；不消耗行动"
+	_hud.log_toggle = _art_button(_canvas, "日志", Rect2(1556, 28, 144, 92), _toggle_log)
+	_hud.exit = _art_button(_canvas, "返回标题", Rect2(1712, 28, 176, 92), _return_title)
 	_hud.form = _art_button(_canvas, "焰华切换职业", Rect2(1408, 124, 480, 88), switch_active_form)
 	_hud.form.add_theme_font_size_override("font_size", 20)
 	_hud.form.hide()
@@ -355,6 +363,15 @@ func _build() -> void:
 	_hud.log = Kit.scroll_text(_log_panel, Rect2(40, 118, 780, 358), 24)
 	_hud.log.scroll_following = true
 	_log_panel.visible = false
+	_tactics_panel = TacticsPanel.new()
+	_tactics_panel.name = "BattleTactics"
+	_tactics_panel.z_index = 20
+	_tactics_panel.hide()
+	_canvas.add_child(_tactics_panel)
+	_tactics_panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_tactics_panel.anchor_left=.12; _tactics_panel.anchor_right=.88
+	_tactics_panel.anchor_top=.14; _tactics_panel.anchor_bottom=.9
+	_tactics_panel.close_requested.connect(_close_popup)
 	_hud.latest = Kit.label(_canvas, "", Rect2(50, 1052, 1550, 26), 18)
 	_result = Art.panel(_canvas, Rect2(435, 208, 1050, 688))
 	_result.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -562,7 +579,7 @@ func _build_actors() -> void:
 		if not _world_backdrop.visuals_synchronized.is_connected(_sync_effect_positions): _world_backdrop.visuals_synchronized.connect(_sync_effect_positions)
 		_world_backdrop.bind_visuals(_actors)
 	# 模态保持在人物及点选热区前。
-	for node in [_preview_panel, _popup_shade, _items, _log_panel, _result]: _canvas.move_child(node, -1)
+	for node in [_preview_panel, _popup_shade, _items, _log_panel, _tactics_panel, _result]: _canvas.move_child(node, -1)
 
 func _render() -> void:
 	if not _built or engine == null: return
@@ -666,6 +683,7 @@ func _render() -> void:
 	_basic_buttons.attack_magic.visible = model.commands.basic.has("attack_magic")
 	_hud.confirm.disabled = processing or not preview.legal
 	_hud.cancel.disabled = processing or pending_command.is_empty()
+	_hud.tactics.disabled = processing or not state.outcome.is_empty() or state.get("phase") != "action_selection"
 	var is_homura: bool = active.get("identity_id") == "homura"
 	var unlocked: bool = active.get("unlocked_forms", []).has("mage")
 	_hud.form.visible = is_homura
@@ -823,13 +841,26 @@ func _toggle_log() -> void:
 	_log_panel.visible = true
 	_sync_modal_focus()
 
+func _toggle_tactics() -> void:
+	if _active_popup() == _tactics_panel: _close_popup(); return
+	if processing or engine == null or _active_popup() != null: return
+	var state: Dictionary = engine.snapshot()
+	if state.get("phase") != "action_selection" or not str(state.get("outcome","")).is_empty(): return
+	var encounter := {}
+	if campaign != null:
+		var encounter_id: String = str(campaign.safe_snapshot().get("pending_battle",{}).get("encounter_id",""))
+		encounter = _catalog.get_definition("encounters",encounter_id)
+	_tactics_panel.present(TacticsPresenter.describe(state,_catalog,encounter))
+	_sync_modal_focus()
+
 func _close_popup() -> void:
 	_items.hide()
 	_log_panel.hide()
+	_tactics_panel.hide()
 	_sync_modal_focus()
 
 func _active_popup() -> Control:
-	for node in [_exit_confirmation, _asset_error_panel, _result, _items, _log_panel]:
+	for node in [_exit_confirmation, _asset_error_panel, _result, _items, _log_panel, _tactics_panel]:
 		if is_instance_valid(node) and node.visible: return node
 	return null
 
@@ -840,6 +871,8 @@ func _collect_focus_controls(node: Node, controls: Array[Control]) -> void:
 # 弹层遮罩挡鼠标，显式撤下后层焦点；关闭后恢复原来的键盘位置。
 func _sync_modal_focus() -> void:
 	var popup := _active_popup()
+	if popup != _tactics_panel and is_instance_valid(_tactics_panel) and _tactics_panel.visible:
+		_tactics_panel.hide()
 	if is_instance_valid(_popup_shade): _popup_shade.visible = popup != null
 	if popup == _modal_focus_root: return
 	for saved in _modal_focus_modes:
@@ -988,6 +1021,7 @@ func _check_result() -> void:
 	_result.visible = true
 	_items.hide()
 	_log_panel.hide()
+	_tactics_panel.hide()
 	_focus_cycle([_hud.result_action, _hud.result_exit])
 	_hud.result_action.grab_focus()
 	if not result_saved: save_result()
@@ -1177,12 +1211,16 @@ func _exit_tree() -> void:
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo and (event.physical_keycode == KEY_T or event.keycode == KEY_T):
+		_toggle_tactics()
+		get_viewport().set_input_as_handled()
+		return
 	if event.is_action_pressed("ui_cancel") and is_instance_valid(_exit_confirmation):
 		get_viewport().set_input_as_handled()
 		_cancel_return_title()
 		return
 	if event.is_action_pressed("ui_cancel"):
-		if _active_popup() in [_items, _log_panel] and _active_popup() != null: _close_popup()
+		if _active_popup() in [_items, _log_panel, _tactics_panel] and _active_popup() != null: _close_popup()
 		elif _active_popup() != null: return
 		else: cancel_command()
 		get_viewport().set_input_as_handled()

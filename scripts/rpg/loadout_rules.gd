@@ -66,7 +66,7 @@ static func derive(actor: Dictionary, catalog: RefCounted) -> Dictionary:
 			if definition.is_empty() or definition.get("slot") != slot:
 				errors.append("装备不存在或槽位不符：" + id)
 				continue
-			_add_stats(stats, definition.get("stats"), data.stat_bounds, errors, "装备" + id, false)
+			_add_stats(stats, definition.get("stats"), data.equipment_stat_bounds, errors, "装备" + id, true)
 			if slot == "weapon":
 				if not data.weapons.has(id):
 					errors.append("武器标签未登记：" + id)
@@ -239,12 +239,12 @@ static func _data() -> Dictionary:
 	if not FileAccess.file_exists(DATA_PATH): return {}
 	var data: Variant = _integerize(JSON.parse_string(FileAccess.get_file_as_string(DATA_PATH)))
 	if not data is Dictionary or data.get("schema_version") != 1 or data.get("rules_version") != "loadout-1": return {}
-	for field in ["classes", "weapons", "limits", "stat_bounds", "card_stat_bounds", "modifier_bounds", "initial_cards"]:
+	for field in ["classes", "weapons", "limits", "stat_bounds", "equipment_stat_bounds", "card_stat_bounds", "modifier_bounds", "initial_cards"]:
 		if not data.get(field) is Dictionary: return {}
 	if not data.get("cards") is Array: return {}
 	for key in ["active_slots", "passive_slots", "active_capacity", "passive_capacity"]:
 		if not data.limits.get(key) is int or data.limits[key] < 1: return {}
-	for bounds in [data.stat_bounds, data.card_stat_bounds, data.modifier_bounds]:
+	for bounds in [data.stat_bounds, data.equipment_stat_bounds, data.card_stat_bounds, data.modifier_bounds]:
 		var expected: Array = MODIFIER_ZERO.keys() if bounds == data.modifier_bounds else STAT_KEYS
 		if bounds.size() != expected.size(): return {}
 		for key in expected:

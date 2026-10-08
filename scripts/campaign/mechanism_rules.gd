@@ -3,7 +3,9 @@ class_name CampaignMechanismRules
 extends RefCounted
 const DATA_PATH := "res://data/campaign/mechanisms.json"
 const STORY_PATH := "res://data/campaign/saga.json"
-const IDS := ["water_echo","ferry","junction","ward_test","driftwood","alley"]
+const ORIGINAL_IDS := ["water_echo","ferry","junction","ward_test","driftwood","alley"]
+const EXPANSION_IDS := ["mirror_gap","clinic_trial"]
+const IDS := ORIGINAL_IDS + EXPANSION_IDS
 const STATE_FIELDS := ["step","complete","first_actor"]
 const HISTORY_FIELDS := ["mechanism_id","action_id","step","scene_id","choice_id","actor_id","position","events","battles","battle_id","revisit"]
 static var _definitions: Dictionary = {}
@@ -21,10 +23,15 @@ static func definition(id: String) -> Dictionary:
 	_data()
 	return _definitions.get(id, {}).duplicate(true)
 
-static func initial() -> Dictionary:
+static func _initial_states(ids: Array) -> Dictionary:
 	var states := {}
-	for id in IDS: states[id] = {"step":0,"complete":false,"first_actor":""}
-	return {"version":1,"legacy":{"events":0,"battles":0},"states":states,"history":[]}
+	for id in ids: states[id] = {"step":0,"complete":false,"first_actor":""}
+	return states
+
+static func initial(version: int = 2) -> Dictionary:
+	var result := {"version":version,"legacy":{"events":0,"battles":0},"states":_initial_states(ORIGINAL_IDS if version==1 else IDS),"history":[]}
+	if version == 2: result["expansion_legacy"]={"events":0,"battles":0}
+	return result
 
 static func migrate(saved: Dictionary) -> Dictionary:
 	var result := initial()
@@ -32,13 +39,24 @@ static func migrate(saved: Dictionary) -> Dictionary:
 	var saga: Dictionary = saved.saga
 	if not saga.get("events") is Array or not saga.get("battles") is Array: return result
 	result.legacy = {"events":saga.events.size(),"battles":saga.battles.size()}
+	result.expansion_legacy = result.legacy.duplicate()
 	result.states = _legacy_states(saved,result.legacy)
+	return result
+
+static func expand(saved: Dictionary) -> Dictionary:
+	# 扩展仅继承新增两机关，原六机关的每一步与原始迁移前缀保持不变。
+	var result: Dictionary = saved.mechanisms.duplicate(true)
+	result.version = 2
+	result["expansion_legacy"] = {"events":saved.get("saga",{}).get("events",[]).size(),"battles":saved.get("saga",{}).get("battles",[]).size()}
+	var projected := _legacy_states(saved,result.expansion_legacy)
+	for id in EXPANSION_IDS: result.states[id] = projected[id]
 	return result
 
 static func normalize(value: Dictionary) -> Dictionary:
 	var state := value.duplicate(true)
 	_int_fields(state,["version"])
 	if state.get("legacy") is Dictionary: _int_fields(state.legacy,["events","battles"])
+	if state.get("expansion_legacy") is Dictionary: _int_fields(state.expansion_legacy,["events","battles"])
 	if state.get("states") is Dictionary:
 		for row in state.states.values():
 			if row is Dictionary: _int_fields(row,["step"])
@@ -54,20 +72,30 @@ static func validate(saved: Dictionary) -> Array[String]:
 	_data()
 	var errors: Array[String] = []
 	var state = saved.get("mechanisms")
-	if not _fields(state,["version","legacy","states","history"]) or not _plain(state): return ["机关状态字段或JSON类型非法"]
-	if not state.version is int or state.version != 1: return ["机关版本非法"]
+	if not state is Dictionary or not state.get("version") is int or state.version not in [1,2]: return ["机关版本非法"]
+	var fields: Array = ["version","legacy","states","history"]
+	if state.version == 2: fields.append("expansion_legacy")
+	if not _fields(state,fields) or not _plain(state): return ["机关状态字段或JSON类型非法"]
+	if (saved.get("progression_version",0) >= 4) != (state.version == 2): return ["机关版本与正式进度版本不符"]
 	if not _fields(state.legacy,["events","battles"]) or not _natural(state.legacy.events) or not _natural(state.legacy.battles): return ["机关历史迁移前缀非法"]
-	if not _fields(state.states,IDS) or not state.history is Array: return ["机关分状态或操作历史非法"]
-	for id in IDS:
+	var ids: Array = ORIGINAL_IDS if state.version == 1 else IDS
+	var expansion = state.get("expansion_legacy", state.legacy)
+	if not _fields(expansion,["events","battles"]) or not _natural(expansion.events) or not _natural(expansion.battles) or expansion.events < state.legacy.events or expansion.battles < state.legacy.battles: return ["新增机关迁移前缀非法"]
+	if not _fields(state.states,ids) or not state.history is Array: return ["机关分状态或操作历史非法"]
+	for id in ids:
 		var row = state.states[id]
 		if not _fields(row,STATE_FIELDS) or not _natural(row.step) or row.step > definition(id).steps.size() or not row.complete is bool or not row.first_actor is String: return ["机关步骤/完成/操作者字段非法："+id]
 	var legacy: Dictionary = state.legacy
 	if not saved.get("saga") is Dictionary:
-		return [] if state == initial() else ["首章不能含后章机关历史"]
+		return [] if state == initial(state.version) else ["首章不能含后章机关历史"]
 	var facts := _facts(saved,legacy.events,legacy.battles)
 	if not facts.ok: return ["机关迁移前缀不属于真实事件/胜利记录"]
 	var facts_cache := {"%d:%d" % [legacy.events,legacy.battles]:facts}
-	var baseline := _project_states(facts)
+	var baseline := _project_states(facts,ids)
+	if state.version == 2:
+		var expansion_facts := _cached_facts(saved,expansion.events,expansion.battles,facts_cache)
+		if not expansion_facts.ok: return ["新增机关迁移前缀不属于真实历史"]
+		baseline.merge(_project_states(expansion_facts,EXPANSION_IDS),true)
 	var rebuilt := baseline.duplicate(true)
 	var states_before_event: Dictionary = {}
 	var last_events: int = legacy.events
@@ -76,6 +104,8 @@ static func validate(saved: Dictionary) -> Array[String]:
 		if not _fields(record,HISTORY_FIELDS) or not _natural(record.step) or not _natural(record.events) or not _natural(record.battles) or not record.revisit is bool or not _position(record.position): return ["机关操作记录字段或类型非法"]
 		for key in ["mechanism_id","action_id","scene_id","choice_id","actor_id","battle_id"]:
 			if not record[key] is String: return ["机关历史字符串非法："+key]
+		if not ids.has(record.mechanism_id): return ["机关历史引用了未开放的版本"]
+		if record.mechanism_id in EXPANSION_IDS and (record.events < expansion.events or record.battles < expansion.battles): return ["新增机关动作不能早于扩展迁移"]
 		if record.events < last_events or record.battles < last_battles: return ["机关历史不能倒退到较早的事件/战斗前缀"]
 		var at := _cached_facts(saved,record.events,record.battles,facts_cache)
 		if not at.ok: return ["机关历史引用了未来事件或胜利"]
@@ -101,7 +131,9 @@ static func validate(saved: Dictionary) -> Array[String]:
 			if states_before_event.has(index): at_states=states_before_event[index]
 			if not _has_gates(event.id): continue
 			var before := _cached_facts(saved,index,saved.saga.battles.size(),facts_cache)
-			for gate in _missing(at_states,event.id,"",event.choice,before.flags): errors.append("完成事件早于实地验证：%s/%s" % [event.id,gate.mechanism_id])
+			for gate in _missing(at_states,event.id,"",event.choice,before.flags):
+				if gate.mechanism_id in EXPANSION_IDS and index < expansion.events: continue
+				errors.append("完成事件早于实地验证：%s/%s" % [event.id,gate.mechanism_id])
 	return errors
 
 static func view_state(saved: Dictionary, id: String) -> Dictionary:
@@ -117,17 +149,22 @@ static func view_state(saved: Dictionary, id: String) -> Dictionary:
 		"ward_test": visual = {"outer_ready":step>=1,"inner_ready":step>=2,"pin_removed":step>=3,"outer_lamp":step>=1,"exit_open":step>=4,"second_checked":step>=5}
 		"driftwood": visual = {"braced":step>=1,"right_cut":step>=2,"wood_cleared":step>=3,"stretcher_checkpoint":maxi(0,step-3),"route_open":done}
 		"alley": visual = {"cloth_ready":step>=1,"near_covered":step>=2,"far_removed":step>=3,"exit_guarded":step>=4,"handed_over":step>=5}
-	var legacy := _legacy_states(saved,saved.get("mechanisms",{}).get("legacy",{"events":0,"battles":0}))
+		"mirror_gap": visual = {"rope_ready":step>=1,"left_covered":step>=2,"lamp_received":step>=3,"seam_braced":step>=4,"latch_pressed":step>=5,"crossed":step>=6}
+		"clinic_trial": visual = {"traced":step>=1,"isolated":step>=2,"guarded":step>=3 and step<7,"disconnected":step>=4,"at_door":step>=5,"handed_over":step>=6,"guard_removed":step>=7,"measured":step>=8}
+	var prefix_name := "expansion_legacy" if id in EXPANSION_IDS else "legacy"
+	var legacy := _legacy_states(saved,saved.get("mechanisms",{}).get(prefix_name,{"events":0,"battles":0}))
 	return {"step":step,"complete":done,"first_actor":row.get("first_actor",""),"legacy":legacy.get(id,{}).get("complete",false),"visual":visual}
 
 static func targets(saved: Dictionary) -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
 	if not validate(saved).is_empty() or not saved.get("saga") is Dictionary or not saved.get("pending_battle",{}).is_empty(): return result
 	for id in IDS:
+		if not saved.mechanisms.states.has(id): continue
 		var context := _current_context(saved,id)
 		if context.is_empty(): continue
 		if id!="water_echo" and bool(saved.mechanisms.states[id].complete):continue
 		for action in definition(id).actions:
+			if not action.positions.has(context.scene_id): continue
 			var states: Dictionary = saved.mechanisms.states.duplicate(true)
 			var actor_id: String = _default_actor(saved)
 			if action.id == "second_operator":
@@ -163,6 +200,7 @@ static func preview(saved: Dictionary, world: Dictionary, mechanism_id: String, 
 	var context := _current_context(saved,mechanism_id)
 	var action := _action(mechanism_id,action_id)
 	if context.is_empty() or action.is_empty() or not saved.get("world") is Dictionary or not saved.get("world_history") is Dictionary: return failure
+	if not action.positions.has(context.scene_id): return failure
 	var original: Dictionary = saved.world.duplicate(true)
 	var supplied := world.duplicate(true)
 	for key in ["position","player_x","facing","party_index"]: original.erase(key); supplied.erase(key)
@@ -194,6 +232,8 @@ static func _transition(states: Dictionary, id: String, action_id: String, actor
 			row.step = 1
 			return {"ok":true,"error":"","battle_id":""}
 	if row.step >= steps.size() or steps[row.step] != action_id: return bad
+	if id == "clinic_trial" and row.step >= 3 and not facts.completed.has("C5-05"):
+		bad.error="先完成局部准备与原场告别，再处理仍相连的梦线。"; return bad
 	if id == "driftwood" and not states.ferry.complete: bad.error="先确认渡口的结构与空船航路。"; return bad
 	if id == "ward_test" and action_id == "second_operator" and (row.first_actor.is_empty() or row.first_actor == actor_id): bad.error="请换一位同伴照记录复验。"; return bad
 	var battle_id := ""
@@ -209,6 +249,7 @@ static func _missing(states: Dictionary, scene: String, channel: String, choice:
 	var result: Array[Dictionary] = []
 	_data()
 	for definition_row in _definitions.values():
+		if not states.has(definition_row.id): continue
 		for gate in definition_row.gates:
 			if gate.scene_id != scene or (not channel.is_empty() and gate.channel != channel) or (not gate.choice_id.is_empty() and gate.choice_id != choice): continue
 			if gate.condition == "ferry_unrepaired" and flags.get("ferry_repaired",false): continue
@@ -253,13 +294,15 @@ static func _legacy_states(saved: Dictionary, legacy: Dictionary) -> Dictionary:
 	var facts := _facts(saved,int(legacy.get("events",0)),int(legacy.get("battles",0)))
 	return _project_states(facts)
 
-static func _project_states(facts: Dictionary) -> Dictionary:
-	var states: Dictionary = initial().states
+static func _project_states(facts: Dictionary, ids: Array = IDS) -> Dictionary:
+	var states: Dictionary = _initial_states(ids)
 	if not facts.ok: return states
 	for row in _definitions.values():
-		var complete: bool = facts.flags.get(row.legacy_flag,false) == true
+		if not states.has(row.id): continue
+		var complete: bool = facts.completed.has(row.get("legacy_scene","")) if row.has("legacy_scene") else facts.flags.get(row.legacy_flag,false) == true
 		if row.id == "alley": complete = complete and facts.battle_ids.has("C6-S04")
 		if complete: states[row.id].step=row.steps.size(); states[row.id].complete=true
+		elif row.id == "clinic_trial" and facts.completed.has("C5-04"): states[row.id].step=3
 	return states
 
 static func _cached_facts(saved: Dictionary, events: int, battles: int, cache: Dictionary) -> Dictionary:

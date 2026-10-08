@@ -2,6 +2,10 @@
 
 更新：2026-10-05。当前玩家默认内容为七章3D探索＋统一回合制RPG，第一章仍保留五夜寺域，唯一入口 `scenes/campaign/title.tscn`。
 
+最新改造的测试由其他模型执行，入口见[策略改造测试交接方案](verification/2026-10-08-strategy-handoff-plan.md)。本轮生产代码已修改，尚未执行新测试。
+
+策略规则与固定数值候选见[无等级七章策略数值与构筑](campaign/strategy-balance.md)。
+
 ## 当前优先阅读
 
 | 文档 | 用途 |

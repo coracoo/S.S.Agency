@@ -2,7 +2,7 @@
   "schema_version": 1,
   "rules_version": "map-mechanisms-1",
   "source": "docs/superpowers/plans/2026-10-08-strategy-overhaul.md#下一批地图机关",
-  "notes": "六个实地机关，不是任务系统。动作只提交结构状态与位置证据，不发奖励、不改剧情flag、不声称对白已播放。船的1.6秒只供表现层Tween，不是持久计时或自动完成下一步。",
+  "notes": "八个实地机关，不是任务系统。动作只提交结构状态与位置证据，不发奖励、不改剧情flag。机关v2新增镜廊与单床复测，原六机关操作账本保留。",
   "definitions": [
     {
       "id": "water_echo",
@@ -892,6 +892,354 @@
       ],
       "legacy_flag": "alley_rescued",
       "visual_duration": 0.35
+    },
+    {
+      "id": "mirror_gap",
+      "name": "镜廊借灯与铜缝",
+      "contexts": [
+        {
+          "scene_id": "C4-07",
+          "chapter": 4,
+          "choice_id": ""
+        }
+      ],
+      "chapters": [
+        4
+      ],
+      "anchors": {
+        "4": [
+          0,
+          0,
+          -8
+        ]
+      },
+      "steps": [
+        "secure_rope",
+        "cover_left",
+        "receive_lamp",
+        "brace_seam",
+        "press_latch",
+        "cross_gap"
+      ],
+      "actions": [
+        {
+          "id": "secure_rope",
+          "label": "系稳入口绳",
+          "hint": "先留好沿绳退回的路线。",
+          "positions": {
+            "C4-07": [
+              -2.5,
+              0,
+              -7
+            ]
+          },
+          "radius": 0.85,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "cover_left",
+          "label": "遮住左镜",
+          "hint": "留意侧镜照向同伴的角度，盖住镜面。",
+          "positions": {
+            "C4-07": [
+              -1.5,
+              0,
+              -9
+            ]
+          },
+          "radius": 0.85,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "receive_lamp",
+          "label": "接灯并压低灯位",
+          "hint": "旧影仍举着剑；按刚才商定的动作接灯。",
+          "positions": {
+            "C4-07": [
+              0,
+              0,
+              -7
+            ]
+          },
+          "radius": 0.85,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "brace_seam",
+          "label": "支住铜缝",
+          "hint": "镜间露出空隙，把支撑送到铜边。",
+          "positions": {
+            "C4-07": [
+              1,
+              0,
+              -8
+            ]
+          },
+          "radius": 0.85,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "press_latch",
+          "label": "压下外扣插销",
+          "hint": "用插销承力，避免靠手臂硬撑。",
+          "positions": {
+            "C4-07": [
+              1.8,
+              0,
+              -9
+            ]
+          },
+          "radius": 0.85,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "cross_gap",
+          "label": "沿铜缝通过并收绳",
+          "hint": "到另一侧确认同伴通过，再收回入口绳。",
+          "positions": {
+            "C4-07": [
+              3.4,
+              0,
+              -8
+            ]
+          },
+          "radius": 0.85,
+          "visual_duration": 0.35
+        }
+      ],
+      "gates": [
+        {
+          "mechanism_id": "mirror_gap",
+          "scene_id": "C4-07",
+          "channel": "opening",
+          "choice_id": "",
+          "before_source_index": 5,
+          "required_step": 3,
+          "require_complete": false,
+          "condition": "",
+          "hint": "先系绳、遮住左镜并接灯。"
+        },
+        {
+          "mechanism_id": "mirror_gap",
+          "scene_id": "C4-07",
+          "channel": "opening",
+          "choice_id": "",
+          "before_source_index": 9,
+          "required_step": 6,
+          "require_complete": false,
+          "condition": "",
+          "hint": "支住铜缝、压下插销，再走到另一侧收绳。"
+        }
+      ],
+      "legacy_scene": "C4-07"
+    },
+    {
+      "id": "clinic_trial",
+      "name": "单床支路与撤防复测",
+      "contexts": [
+        {
+          "scene_id": "C5-04",
+          "chapter": 5,
+          "choice_id": ""
+        },
+        {
+          "scene_id": "C5-06",
+          "chapter": 5,
+          "choice_id": ""
+        }
+      ],
+      "chapters": [
+        5
+      ],
+      "anchors": {
+        "5": [
+          13,
+          0,
+          -9
+        ]
+      },
+      "steps": [
+        "trace_branch",
+        "isolate_beds",
+        "protect_exit",
+        "disconnect",
+        "carry_door",
+        "handover_yard",
+        "release_guard",
+        "measure_water"
+      ],
+      "actions": [
+        {
+          "id": "trace_branch",
+          "label": "查清单床铜线",
+          "hint": "只跟踪这一张床与小镜的铜线，先不碰总灯。",
+          "positions": {
+            "C5-04": [
+              12,
+              0,
+              -9
+            ]
+          },
+          "radius": 0.85,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "isolate_beds",
+          "label": "隔开相邻五床",
+          "hint": "把遮板移到邻床支路一侧。",
+          "positions": {
+            "C5-04": [
+              14.2,
+              0,
+              -9.5
+            ]
+          },
+          "radius": 0.85,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "protect_exit",
+          "label": "布置短时防护并留出出口",
+          "hint": "只挡残响，保持后门与担架路线畅通。",
+          "positions": {
+            "C5-04": [
+              13,
+              0,
+              -6.8
+            ]
+          },
+          "radius": 0.85,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "disconnect",
+          "label": "脱开已确认的活梦铜扣",
+          "hint": "已经过本人同意与告别，只断开单床支路。",
+          "positions": {
+            "C5-06": [
+              12,
+              0,
+              -9
+            ]
+          },
+          "radius": 0.85,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "carry_door",
+          "label": "到后门确认担架平稳",
+          "hint": "沿通道到门外，脚端保持平稳。",
+          "positions": {
+            "C5-06": [
+              13,
+              0,
+              -3
+            ]
+          },
+          "radius": 0.85,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "handover_yard",
+          "label": "在石院交给医工",
+          "hint": "走到分灯之外的接应处，确认有人继续照护。",
+          "positions": {
+            "C5-06": [
+              1,
+              0,
+              2
+            ]
+          },
+          "radius": 0.85,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "release_guard",
+          "label": "返回小镜撤去临时防护",
+          "hint": "交接后撤防，才能分辨裂纹是否自行收缩。",
+          "positions": {
+            "C5-06": [
+              13,
+              0,
+              -6.8
+            ]
+          },
+          "radius": 0.85,
+          "visual_duration": 0.35
+        },
+        {
+          "id": "measure_water",
+          "label": "等水纹稳定后量看",
+          "hint": "复核这一套支路；结果不能代替其余病床核查。",
+          "positions": {
+            "C5-06": [
+              14,
+              0,
+              -8
+            ]
+          },
+          "radius": 0.85,
+          "visual_duration": 0.35
+        }
+      ],
+      "gates": [
+        {
+          "mechanism_id": "clinic_trial",
+          "scene_id": "C5-04",
+          "channel": "opening",
+          "choice_id": "",
+          "before_source_index": 3,
+          "required_step": 2,
+          "require_complete": false,
+          "condition": "",
+          "hint": "查清单床铜线并隔开邻床。"
+        },
+        {
+          "mechanism_id": "clinic_trial",
+          "scene_id": "C5-04",
+          "channel": "opening",
+          "choice_id": "",
+          "before_source_index": 4,
+          "required_step": 3,
+          "require_complete": false,
+          "condition": "",
+          "hint": "把防护布在支路旁，出口保持通行。"
+        },
+        {
+          "mechanism_id": "clinic_trial",
+          "scene_id": "C5-06",
+          "channel": "opening",
+          "choice_id": "",
+          "before_source_index": 3,
+          "required_step": 4,
+          "require_complete": false,
+          "condition": "",
+          "hint": "确认后脱开这张床的活梦铜扣。"
+        },
+        {
+          "mechanism_id": "clinic_trial",
+          "scene_id": "C5-06",
+          "channel": "opening",
+          "choice_id": "",
+          "before_source_index": 7,
+          "required_step": 6,
+          "require_complete": false,
+          "condition": "",
+          "hint": "沿后门把担架护送到石院接应处。"
+        },
+        {
+          "mechanism_id": "clinic_trial",
+          "scene_id": "C5-06",
+          "channel": "opening",
+          "choice_id": "",
+          "before_source_index": 8,
+          "required_step": 8,
+          "require_complete": false,
+          "condition": "",
+          "hint": "回到小镜撤防，等水纹稳定后复测。"
+        }
+      ],
+      "legacy_flag": "clinic_experiment_verified"
     }
   ]
 }

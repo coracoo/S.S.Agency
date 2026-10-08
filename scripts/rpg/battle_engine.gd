@@ -9,6 +9,7 @@ const Commands = preload("res://scripts/rpg/command_rules.gd")
 const Resolver = preload("res://scripts/rpg/effect_resolver.gd")
 const Status = preload("res://scripts/rpg/status_rules.gd")
 const Saga = preload("res://scripts/rpg/saga_boss_rules.gd")
+const TurnOrder = preload("res://scripts/rpg/turn_order.gd")
 
 var _catalog: RefCounted
 var _state: Dictionary = {}
@@ -156,15 +157,9 @@ func _begin_round(events: Array[Dictionary]) -> void:
 	_policy_events("before_round", [_state, _catalog], events)
 	var snapshots := Status.begin_round(_state.actors)
 	events.append_array(snapshots)
-	var speeds: Dictionary = {}
-	var queue: Array[String] = []
-	for item in snapshots:
-		queue.append(item.target_id)
-		speeds[item.target_id] = float(item.payload.effective_spd)
-	queue.sort_custom(func(a: String, b: String) -> bool:
-		if speeds[a] != speeds[b]: return speeds[a] > speeds[b]
-		if _state.actors[a].side != _state.actors[b].side: return _state.actors[a].side == "player"
-		return a < b)
+	var order := TurnOrder.from_snapshots(_state.actors,snapshots)
+	var queue: Array[String] = order.queue
+	var speeds: Dictionary = order.effective_speeds
 	_state.queue = queue
 	_state.queue_index = 0
 	_state.active_actor_id = ""

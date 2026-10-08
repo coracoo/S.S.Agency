@@ -237,8 +237,15 @@ static func _stats(value, label: String, errors: Array[String], sparse: bool = f
 	if not sparse and value.size() != STAT_KEYS.size():
 		errors.append(label + " 必须包含七项属性")
 	for key in value:
-		if not STAT_KEYS.has(key) or not _nonnegative_int(value[key]):
+		if not STAT_KEYS.has(key) or not value[key] is int:
 			errors.append(label + " 非法属性：" + str(key))
+			continue
+		if sparse:
+			# 装备词条可以有代价，负数只在有界装备词条中合法；人物/敌人基础值仍非负。
+			var bounds: Dictionary = Loadouts._data().get("equipment_stat_bounds", {})
+			if not bounds.has(key) or value[key] < bounds[key][0] or value[key] > bounds[key][1]:
+				errors.append(label + " 装备词条超出范围：" + str(key))
+		elif value[key] < 0: errors.append(label + " 非法属性：" + str(key))
 	if not sparse:
 		for key in STAT_KEYS:
 			if not value.has(key):

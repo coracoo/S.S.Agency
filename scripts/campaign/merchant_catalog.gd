@@ -42,7 +42,7 @@ static func _ledger_errors(saved: Dictionary) -> Array[String]:
 	var value: Variant = saved.get("merchant")
 	if not value is Dictionary or value.size() != 2 or not value.has_all(["version", "purchases"]): return ["商人账本字段缺失或含未知字段"]
 	if not value.version is int or value.version != 1: return ["未知或非法商人版本，保留原档"]
-	if not value.purchases is Array or value.purchases.size() > 10: return ["商人购买记录类型或数量非法"]
+	if not value.purchases is Array or value.purchases.size() > _data().get("products", []).size(): return ["商人购买记录类型或数量非法"]
 	for row in value.purchases:
 		if not row is Dictionary or row.size() != RECEIPT_INTS.size() + 1 or not row.has_all(RECEIPT_INTS) or not row.get("product") is String: return ["商人流水字段缺失或含未知字段"]
 		for field in RECEIPT_INTS:
@@ -96,9 +96,9 @@ static func offers(saved: Dictionary, catalog: RefCounted) -> Array[Dictionary]:
 			var details: Array[String] = []
 			var names := {"hp": "生命", "mp": "灵力", "atk": "攻击", "matk": "术攻", "def": "防御", "mdef": "术防", "spd": "速度"}
 			for stat in item.get("stats", {}): details.append("%s%+d" % [names.get(stat, stat), int(item.stats[stat])])
-			description = "、".join(details) + "。装备后按武器与容量规则装配技能。"
+			description = "、".join(details) + "。" + str(item.get("summary", "装备后按武器与容量规则装配技能。"))
 		else: description += " 被动容量 %d。" % int(item.capacity_cost)
-		result.append({"id": product.id, "kind": product.kind, "item_id": product.item_id, "name": item.name, "price": product.price, "stock": product.stock - int(sold.get(product.id, 0)), "unlocked": _unlocked(product, saved.saga), "description": description})
+		result.append({"id": product.id, "kind": product.kind, "item_id": product.item_id, "name": item.name, "price": product.price, "stock": product.stock - int(sold.get(product.id, 0)), "unlocked": _unlocked(product, saved.saga), "owned":product.kind=="card" and int(saved.get("cards",{}).get(product.item_id,0))>0,"description": description})
 	return result
 
 static func preview(saved: Dictionary, world: Dictionary, offer_id: String, count: Variant, catalog: RefCounted) -> Dictionary:
@@ -116,6 +116,7 @@ static func preview(saved: Dictionary, world: Dictionary, offer_id: String, coun
 		if offer.id == offer_id: selected = offer
 	if selected.is_empty(): return _failure("商人没有这件商品")
 	if not selected.unlocked: return _failure("这批商品尚未开放")
+	if selected.get("owned",false):return _failure("这张卡已收录，可供多名队员准备，无需重复购买")
 	if count > selected.stock: return _failure("本周目这件商品已经售罄或数量不足")
 	var cost: int = selected.price * count
 	if saved.saga.coins < cost: return _failure("银钱不足")
@@ -139,7 +140,7 @@ static func validate(saved: Dictionary, catalog: RefCounted) -> Array[String]:
 	if not errors.is_empty(): return errors
 	if not saved.get("schema_version") is int or saved.schema_version != 3: return ["商人扩展只属于正式schema3"]
 	var products := _products(catalog)
-	if products.size() != 10: return ["商人目录缺失、商品未知或配置非法"]
+	if products.is_empty() or products.size() != _data().get("products", []).size(): return ["商人目录缺失、商品未知或配置非法"]
 	if not saved.has("saga"): return [] if saved.merchant.purchases.is_empty() else ["首章不能有后续商人购买"]
 	var history := _history(saved, catalog)
 	if not history.ok: return [history.error]

@@ -58,6 +58,84 @@
         "matk": 6,
         "spd": 1
       }
+    },
+    {
+      "id": "warding_focus",
+      "name": "护灯符盾",
+      "slot": "weapon",
+      "stats": {
+        "matk": 10,
+        "def": 4,
+        "atk": -3,
+        "spd": -2
+      },
+      "summary": "兼具法器与盾具标签，可准备护持、打断与术法；攻击和速度有所降低。"
+    },
+    {
+      "id": "pursuit_bow",
+      "name": "逐影强弓",
+      "slot": "weapon",
+      "stats": {
+        "atk": 14,
+        "spd": 4,
+        "def": -3
+      },
+      "summary": "弓具标签；提高先手与追击伤害，防御较弱。"
+    },
+    {
+      "id": "cleaving_blade",
+      "name": "破阵重刃",
+      "slot": "weapon",
+      "stats": {
+        "atk": 18,
+        "spd": -3,
+        "mdef": -3
+      },
+      "summary": "刀剑标签；适合破防后重击，出手较慢且术防降低。"
+    },
+    {
+      "id": "woven_ward",
+      "name": "叠符护衣",
+      "slot": "armor",
+      "stats": {
+        "hp": 45,
+        "def": 6,
+        "mdef": 4,
+        "spd": -3
+      },
+      "summary": "以行动速度换取生命上限与双防，适合承受连续压力。"
+    },
+    {
+      "id": "channel_robe",
+      "name": "引流法衣",
+      "slot": "armor",
+      "stats": {
+        "mp": 25,
+        "matk": 7,
+        "def": -2
+      },
+      "summary": "扩充灵力储备并加强术法，物理防护较弱。"
+    },
+    {
+      "id": "swift_knot",
+      "name": "疾行绳结",
+      "slot": "accessory",
+      "stats": {
+        "spd": 6,
+        "hp": -15
+      },
+      "summary": "争取先于敌人行动；生命上限降低，装配前留意承伤。"
+    },
+    {
+      "id": "reserve_beads",
+      "name": "蓄息念珠",
+      "slot": "accessory",
+      "stats": {
+        "mp": 18,
+        "mdef": 4,
+        "spd": -2
+      },
+      "summary": "适合连续施术与治疗，以速度换取灵力储备和术防。"
     }
   ]
 }

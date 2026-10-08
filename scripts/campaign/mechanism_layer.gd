@@ -1,4 +1,4 @@
-# 六组独立地图机关。只消费已提交状态；Tween结束不写档、不发奖、不自行提交下一步。
+# 八组独立地图机关。只消费已提交状态；Tween结束不写档、不发奖、不自行提交下一步。
 extends Node3D
 const Rules = preload("res://scripts/campaign/mechanism_rules.gd")
 const Region = preload("res://scripts/campaign/saga_world.gd")
@@ -32,6 +32,8 @@ func configure(saved: Dictionary) -> void:
 				"ward_test": _build_ward(group,definition)
 				"driftwood": _build_driftwood(group,definition)
 				"alley": _build_alley(group,definition)
+				"mirror_gap": _build_mirror_gap(group,definition)
+				"clinic_trial": _build_clinic_trial(group,definition)
 			var label_offset:=Vector3(0,3.2,-.6)
 			if definition.id=="water_echo":label_offset.x=1.0
 			if chapter==6 and definition.id=="ferry":label_offset.x=-2.7
@@ -93,11 +95,11 @@ func _anchor(definition: Dictionary) -> Vector3:
 	return _vector(definition.anchors[str(chapter)])
 
 func _station(definition: Dictionary, action_id: String) -> Vector3:
-	var scene_id := ""
-	for context in definition.contexts:
-		if int(context.chapter) == chapter: scene_id = str(context.scene_id);break
 	for action in definition.actions:
-		if action.id == action_id: return _vector(action.positions[scene_id])
+		if action.id != action_id: continue
+		for context in definition.contexts:
+			if int(context.chapter) == chapter and action.positions.has(str(context.scene_id)):
+				return _vector(action.positions[str(context.scene_id)])
 	return _anchor(definition)
 
 static func _vector(value: Array) -> Vector3:
@@ -203,6 +205,48 @@ func _build_alley(group: Node3D, definition: Dictionary) -> void:
 	_lamp(group,"alley:exit_lamp",_station(definition,"guard_exit")+Vector3(.7,0,0))
 	_label(group,"alley:handoff_label","接应处",_station(definition,"handoff")+Vector3(0,1.6,0))
 
+func _build_mirror_gap(group: Node3D, definition: Dictionary) -> void:
+	var at := _anchor(definition)
+	for side in [-1,1]:
+		_box(group,"mirror_gap:frame_%d"%side,at+Vector3(side*1.45,.94,-.55),Vector3(.95,1.85,.16),"wood")
+		_box(group,"mirror_gap:mirror_%d"%side,at+Vector3(side*1.45,.94,-.44),Vector3(.76,1.6,.025),"mirror")
+	_box(group,"mirror_gap:cloth",at+Vector3(-1.45,.94,-.4),Vector3(.94,1.82,.035),"cloth")
+	_box(group,"mirror_gap:rope",at+Vector3(-1,.07,1),Vector3(3,.025,.025),"cord")
+	_box(group,"mirror_gap:seam",at+Vector3(1,.045,0),Vector3(.14,.035,1.5),"bronze")
+	_box(group,"mirror_gap:brace",at+Vector3(.8,.32,-.2),Vector3(.13,.62,.2),"wood")
+	_box(group,"mirror_gap:latch",at+Vector3(1.8,.73,-.6),Vector3(.12,.42,.12),"bronze")
+	# 外扣未承力时，铜缝局部有实际阻挡；插销压稳后同步撤去阻挡与铜栅。
+	# 不封住镜坊的其他观察路线，也不靠碰撞状态直接提交剧情。
+	var body := StaticBody3D.new()
+	body.name="MirrorSeamBlocker"; body.position=at+Vector3(2.45,.7,0)
+	group.add_child(body)
+	var collision := CollisionShape3D.new()
+	var shape := BoxShape3D.new(); shape.size=Vector3(.18,1.4,2.8)
+	collision.shape=shape; body.add_child(collision)
+	blockers["mirror_gap"]={"body":body,"shape":collision}
+	for index in 3:
+		_box(group,"mirror_gap:bar_%d"%index,at+Vector3(2.45,.7,-.9+index*.9),Vector3(.12,1.4,.1),"bronze")
+	_lamp(group,"mirror_gap:lamp",at+Vector3(0,0,.8))
+	_label(group,"mirror_gap:route","入口绳待固定",at+Vector3(0,2.2,.5))
+	_torus(group,"mirror_gap:exit",_station(definition,"cross_gap")+Vector3(0,.045,0),.36,.41,"ripple")
+
+func _build_clinic_trial(group: Node3D, definition: Dictionary) -> void:
+	var at := _anchor(definition)
+	_box(group,"clinic_trial:bench",at+Vector3(-.5,.48,-.4),Vector3(1.65,.16,.78),"wood")
+	_box(group,"clinic_trial:branch",at+Vector3(.2,.61,-.4),Vector3(2.3,.035,.05),"bronze")
+	_box(group,"clinic_trial:latch",at+Vector3(-.7,.68,-.4),Vector3(.18,.1,.24),"metal")
+	_box(group,"clinic_trial:screen",at+Vector3(1.3,.85,-.7),Vector3(.08,1.7,1.4),"cloth")
+	_box(group,"clinic_trial:small_mirror",at+Vector3(.9,.76,-.4),Vector3(.46,.55,.04),"mirror")
+	_torus(group,"clinic_trial:guard",at+Vector3(-.4,.045,-.3),.67,.74,"ripple")
+	_lamp(group,"clinic_trial:lamp",at+Vector3(1.7,0,-.3))
+	_label(group,"clinic_trial:reading","单床支路待检查",at+Vector3(0,1.8,.2))
+	# 只摆交接站与空担架示意，不新增病人身份图，也不以动画提前提交醒来事实。
+	for action_id in ["carry_door","handover_yard"]:
+		_torus(group,"clinic_trial:"+action_id,_station(definition,action_id)+Vector3(0,.045,0),.48,.54,"ripple")
+	var handoff := _station(definition,"handover_yard")
+	_box(group,"clinic_trial:stretcher",handoff+Vector3(.8,.45,-.7),Vector3(1.8,.06,.75),"cloth")
+	_label(group,"clinic_trial:handoff","后门石院接应处",handoff+Vector3(0,1.7,0))
+
 func _apply_visual(id: String, visual: Dictionary) -> void:
 	var definition: Dictionary = _definitions[id]
 	match id:
@@ -255,6 +299,32 @@ func _apply_visual(id: String, visual: Dictionary) -> void:
 			part(id,"loop").visible = not visual.get("far_removed",false)
 			_lamp_on(id+":exit_lamp",visual.get("exit_guarded",false))
 			part(id,"handoff_label").text = "已到接应处 · 渡河状态以现场记录为准" if visual.get("handed_over",false) else "接应处"
+		"mirror_gap":
+			part(id,"rope").visible = visual.get("rope_ready",false) and not visual.get("crossed",false)
+			part(id,"cloth").visible = visual.get("left_covered",false)
+			part(id,"seam").visible = visual.get("lamp_received",false)
+			part(id,"brace").visible = visual.get("seam_braced",false)
+			part(id,"latch").position.y = .38 if visual.get("latch_pressed",false) else .73
+			part(id,"exit").visible = visual.get("latch_pressed",false)
+			for index in 3: part(id,"bar_%d"%index).visible = not visual.get("latch_pressed",false)
+			if blockers.has(id):
+				blockers[id].body.collision_layer=0 if visual.get("latch_pressed",false) else 1
+				blockers[id].shape.set_deferred("disabled",bool(visual.get("latch_pressed",false)))
+			part(id,"lamp_glass").position.y = .55 if visual.get("lamp_received",false) else 1.12
+			part(id,"lamp_post").scale.y = .5 if visual.get("lamp_received",false) else 1.0
+			_lamp_on(id+":lamp",visual.get("lamp_received",false))
+			part(id,"route").text = "同伴已通过 · 绳索收回" if visual.get("crossed",false) else ("外扣已承力 · 沿铜缝通过" if visual.get("latch_pressed",false) else ("铜缝露出 · 仍需支撑" if visual.get("lamp_received",false) else "系绳、遮镜，再接灯"))
+		"clinic_trial":
+			part(id,"branch").visible = not visual.get("disconnected",false)
+			part(id,"latch").rotation.y = PI*.5 if visual.get("disconnected",false) else 0
+			part(id,"screen").position.z = _anchor(definition).z+(-.7 if visual.get("isolated",false) else -2.1)
+			part(id,"guard").visible = visual.get("guarded",false)
+			part(id,"carry_door").visible = visual.get("disconnected",false) and not visual.get("at_door",false)
+			part(id,"handover_yard").visible = visual.get("at_door",false) and not visual.get("handed_over",false)
+			part(id,"stretcher").visible = visual.get("handed_over",false)
+			_lamp_on(id+":lamp",not visual.get("disconnected",false))
+			part(id,"reading").text = "撤防后裂纹收缩 · 仅此支路已复测" if visual.get("measured",false) else ("防护已撤 · 等水纹稳定后量看" if visual.get("guard_removed",false) else ("单床铜扣已脱开 · 护送与复测尚待完成" if visual.get("disconnected",false) else "照明与单床支路分开 · 保留后门"))
+			part(id,"handoff").text = "已交接医工 · 病仍需继续照护" if visual.get("handed_over",false) else "后门石院接应处"
 
 func _material(id: String) -> StandardMaterial3D:
 	if _materials.has(id): return _materials[id]

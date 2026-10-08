@@ -159,6 +159,76 @@
       "stock": 1,
       "unlock_chapter": 7,
       "unlock_event": ""
+    },
+    {
+      "id": "gear_warding_focus_v1",
+      "kind": "gear",
+      "item_id": "warding_focus",
+      "price_version": 1,
+      "price": 220,
+      "stock": 1,
+      "unlock_chapter": 4,
+      "unlock_event": "C4-10"
+    },
+    {
+      "id": "gear_pursuit_bow_v1",
+      "kind": "gear",
+      "item_id": "pursuit_bow",
+      "price_version": 1,
+      "price": 210,
+      "stock": 1,
+      "unlock_chapter": 4,
+      "unlock_event": "C4-10"
+    },
+    {
+      "id": "gear_cleaving_blade_v1",
+      "kind": "gear",
+      "item_id": "cleaving_blade",
+      "price_version": 1,
+      "price": 210,
+      "stock": 1,
+      "unlock_chapter": 4,
+      "unlock_event": "C4-10"
+    },
+    {
+      "id": "gear_woven_ward_v1",
+      "kind": "gear",
+      "item_id": "woven_ward",
+      "price_version": 1,
+      "price": 180,
+      "stock": 1,
+      "unlock_chapter": 5,
+      "unlock_event": "C5-13"
+    },
+    {
+      "id": "gear_channel_robe_v1",
+      "kind": "gear",
+      "item_id": "channel_robe",
+      "price_version": 1,
+      "price": 200,
+      "stock": 1,
+      "unlock_chapter": 5,
+      "unlock_event": "C5-13"
+    },
+    {
+      "id": "gear_swift_knot_v1",
+      "kind": "gear",
+      "item_id": "swift_knot",
+      "price_version": 1,
+      "price": 150,
+      "stock": 1,
+      "unlock_chapter": 3,
+      "unlock_event": "C3-08"
+    },
+    {
+      "id": "gear_reserve_beads_v1",
+      "kind": "gear",
+      "item_id": "reserve_beads",
+      "price_version": 1,
+      "price": 160,
+      "stock": 1,
+      "unlock_chapter": 3,
+      "unlock_event": "C3-08"
     }
   ]
 }

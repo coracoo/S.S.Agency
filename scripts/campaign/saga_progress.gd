@@ -4,6 +4,7 @@ extends RefCounted
 const Threats = preload("res://scripts/rpg/strategy_encounters.gd")
 const Saga = preload("res://scripts/campaign/saga_catalog.gd")
 const Mechanisms = preload("res://scripts/campaign/mechanism_rules.gd")
+const Supplies = preload("res://scripts/campaign/supply_rules.gd")
 
 static func continue_run(model: RefCounted) -> Dictionary:
 	var saved: Dictionary = model.safe_snapshot()
@@ -162,6 +163,8 @@ static func buy(model: RefCounted, world: Dictionary, item_id: String, count: in
 	if not _safe_world(model, world) or count < 1 or count > 9: return model._fail("当前不能购买或数量非法")
 	if not Saga.SHOP.has(item_id) or model._catalog.get_definition("items", item_id).is_empty(): return model._fail("商店没有这件物品")
 	var saved: Dictionary = model.safe_snapshot()
+	var restriction := Supplies.reason(saved)
+	if not restriction.is_empty(): return model._fail(restriction)
 	var cost: int = int(Saga.SHOP[item_id]) * count
 	if int(saved.saga.coins) < cost: return model._fail("钱不够，任务灯与必需工具仍由委托提供")
 	var candidate := saved.duplicate(true)

@@ -19,6 +19,7 @@ const Threats = preload("res://scripts/rpg/strategy_encounters.gd")
 const Merchant = preload("res://scripts/campaign/merchant_catalog.gd")
 const Recoveries = preload("res://scripts/campaign/recovery_catalog.gd")
 const Mechanisms = preload("res://scripts/campaign/mechanism_rules.gd")
+const Supplies = preload("res://scripts/campaign/supply_rules.gd")
 var _catalog: RefCounted
 var _store: RefCounted
 var _path: String
@@ -62,7 +63,7 @@ func new_run(class_ids: Array[String], level: int = 5, profile: Dictionary = {})
 func load_run() -> Dictionary:
 	var loaded: Dictionary = _store.load_safe(_path)
 	if not loaded.ok: return _fail(loaded.error)
-	if loaded.snapshot.get("schema_version")==2 or (loaded.snapshot.get("schema_version")==3 and loaded.snapshot.get("progression_version")<3):
+	if loaded.snapshot.get("schema_version")==2 or (loaded.snapshot.get("schema_version")==3 and loaded.snapshot.get("progression_version")<4):
 		loaded=_store.migrate_loadout(_path)
 		if not loaded.ok:return _fail(loaded.error)
 	_safe = loaded.snapshot.duplicate(true)
@@ -97,7 +98,7 @@ func _new_loadout_run(class_ids:Array[String],profile:Dictionary)->Dictionary:
 		for equipment_id in actor.equipment.values():gear[equipment_id]=int(gear.get(equipment_id,0))+1
 	for item in _catalog.get_all("items"):inventory[item.id]=item.initial_stock
 	var world:Dictionary=profile.world.duplicate(true)
-	var candidate:Dictionary={"schema_version":3,"progression_version":3,"merchant":Merchant.initial(),"mechanisms":Mechanisms.initial(),"rules_version":_catalog.rules_version,
+	var candidate:Dictionary={"schema_version":3,"progression_version":4,"merchant":Merchant.initial(),"mechanisms":Mechanisms.initial(),"rules_version":_catalog.rules_version,
 		"run_id":Crypto.new().generate_random_bytes(16).hex_encode(),"phase":"exploration","roster":roster,"party":party,
 		"cards":Loadouts.initial_cards(),"inventory":inventory,"gear":gear,"applied_battle_ids":[],"battle_counter":0,"pending_battle":{},"return_scene":"",
 		"campaign_id":Chapters.PROFILE_ID,"story_phase":"exploration","night":1,"scene_id":"night_1","world":world,"world_history":{"night_1":world.duplicate(true)},
@@ -338,12 +339,17 @@ func finish_ritual() -> Dictionary:
 
 func rest() -> Dictionary:
 	if not _preparing(): return _fail("只能在战前准备或明确休息点休息")
+	var restriction := rest_restriction()
+	if not restriction.is_empty(): return _fail(restriction)
 	var candidate := safe_snapshot()
 	for actor in candidate.roster.values():
 		_clear_battle_state(actor)
 		actor.hp = actor.stats.hp
 		actor.mp = actor.stats.mp
 	return _commit(candidate)
+
+func rest_restriction() -> String:
+	return Supplies.reason(_safe)
 
 func use_item_outside(item_id: String, target_id: String) -> Dictionary:
 	if not _outside() or not _safe.roster.has(target_id): return _fail("当前无法对该角色使用战外道具")

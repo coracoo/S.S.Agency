@@ -188,6 +188,7 @@ func _refresh() -> void:
 	if not offers.any(func(offer): return str(offer.id) == selected_id): selected_id = str(offers[0].id) if not offers.is_empty() else ""
 	for offer in offers:
 		var stock_text := "余 %d 件" % int(offer.stock) if bool(offer.unlocked) else "尚未开放"
+		if bool(offer.get("owned",false)):stock_text="已收录"
 		var button := _button("%s\n%d 文 · %s" % [str(offer.name),int(offer.price),stock_text],_select.bind(str(offer.id)))
 		button.name = "Offer_" + str(offer.id)
 		button.custom_minimum_size.y = 82
@@ -249,6 +250,7 @@ func _refresh_actions() -> void:
 	if offer.is_empty(): reason = "暂无商品"
 	elif not Merchant.presence(campaign.safe_snapshot()): reason = "此时无法与商人交易。"
 	elif not bool(offer.unlocked): reason = "这批货品尚未开放。"
+	elif bool(offer.get("owned",false)):reason="已收录，可供多名队员准备，无需重复购买。"
 	elif int(offer.stock) <= 0: reason = "本周目已售罄。"
 	else:
 		total = int(offer.price)*int(_quantity.value)
@@ -256,7 +258,7 @@ func _refresh_actions() -> void:
 		if coins < total: reason = "银钱不足，还需 %d 文。" % (total-coins)
 	_buy.text = "购买 %d 件 · %d 文" % [int(_quantity.value),total] if total > 0 else "暂不可购买"
 	_buy.disabled = _busy or not _input_armed or not reason.is_empty()
-	_quantity.editable = not _busy and not offer.is_empty() and bool(offer.get("unlocked",false)) and int(offer.get("stock",0)) > 0
+	_quantity.editable = not _busy and not offer.is_empty() and bool(offer.get("unlocked",false)) and not bool(offer.get("owned",false)) and int(offer.get("stock",0)) > 0
 	_close.disabled = _busy
 	for button in _buttons: button.disabled = _busy or not _input_armed
 	_status.text = last_error if not last_error.is_empty() else reason

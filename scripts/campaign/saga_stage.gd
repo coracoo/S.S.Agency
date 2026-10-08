@@ -8,6 +8,7 @@ const MerchantPanel = preload("res://scripts/campaign/merchant_panel.gd")
 const MerchantActor = preload("res://scripts/campaign/merchant_actor.gd")
 const Mechanisms = preload("res://scripts/campaign/mechanism_rules.gd")
 const MechanismLayer = preload("res://scripts/campaign/mechanism_layer.gd")
+const Supplies = preload("res://scripts/campaign/supply_rules.gd")
 const SPEAKER_IDS := {"凛音":"rinne","薄荷":"mint","岑照":"guard","焰华":"homura","苏合":"healer","清明":"controller","小夜":"sayo","镜中薄荷":"mint","镜中焰华":"homura","焰华的镜影":"homura","凛音的镜影":"rinne"}
 const CHAPTER_NUMBERS := ["二","三","四","五","六","七"]
 var chapter_id := 2
@@ -136,8 +137,9 @@ func _refresh_targets() -> void:
 		var location := str(entry.location)
 		if not config.anchors.has(location): continue
 		_targets.append({"id":id,"label":str(entry.title),"kind":"scene","location":location,"position":config.anchors[location],"radius":2.15,"main":str(entry.kind) in ["main","ending"] or id == active})
-	_targets.append({"id":"@rest","label":"歇脚 · 全员恢复","kind":"rest","location":"rest","position":config.anchors.rest,"radius":2.1})
-	if not active.is_empty():
+	if not Supplies.restricted(session.campaign.safe_snapshot()):
+		_targets.append({"id":"@rest","label":"歇脚 · 全员恢复","kind":"rest","location":"rest","position":config.anchors.rest,"radius":2.1})
+	if not active.is_empty() and not Supplies.restricted(session.campaign.safe_snapshot()):
 		_targets.append({"id":"@supply","label":"补给 · 日用药物","kind":"field_shop","location":"shop","position":config.anchors.shop,"radius":2.1})
 	if active.is_empty():
 		_targets.append({"id":"@travel","label":"沿路前行 / 返回旧地","kind":"travel","location":"exit","position":config.anchors.exit,"radius":2.3})
@@ -391,7 +393,7 @@ func _show_story_choices() -> void:
 	_mode = "choice"
 	var actions: Array = []
 	for option in eligible_choices(_active_entry,_saga()): actions.append({"text":str(option.text),"call":_preview_option.bind(str(option.id))})
-	if str(_active_entry.get("service","")) == "rest": actions.append({"text":"先歇脚 · 全员恢复","call":_rest_during_scene})
+	if str(_active_entry.get("service","")) == "rest" and not Supplies.restricted(session.campaign.safe_snapshot()): actions.append({"text":"先歇脚 · 全员恢复","call":_rest_during_scene})
 	_show_modal(str(_active_entry.title),"选择处理方式。只有确认并完成此段后，结果才会写入手帖。",actions)
 
 func _preview_option(id: String) -> void:
@@ -442,7 +444,11 @@ func _show_battle_cue() -> void:
 		if not str(line.get("text","")).is_empty(): cues.append("%s：%s" % [str(line.get("speaker","")),str(line.text)])
 	var body := "\n\n".join(cues)
 	if body.is_empty(): body = "同伴已经站稳位置。按当前三人编队应战，胜利后回到此处继续。"
-	_show_modal("应对异象 · " + str(_active_entry.title),body,[{"text":"进入战斗","call":_begin_saga_battle},{"text":"先检查队伍","call":_prepare_for_battle},{"text":"暂缓应战 · 实地歇脚与补给","call":_postpone_battle}])
+	var saved: Dictionary = session.campaign.safe_snapshot()
+	var supply_notice := Supplies.battle_notice(saved,str(_active_entry.id))
+	if not supply_notice.is_empty(): body += "\n\n" + supply_notice
+	var postpone_label := "暂缓应战 · 整理携带物资" if Supplies.restricted(saved) else "暂缓应战 · 实地歇脚与补给"
+	_show_modal("应对异象 · " + str(_active_entry.title),body,[{"text":"进入战斗","call":_begin_saga_battle},{"text":"先检查队伍","call":_prepare_for_battle},{"text":postpone_label,"call":_postpone_battle}])
 
 func _postpone_battle() -> void:
 	# 只收起呈现，活动场次、已确认选择、战前资源都仍由正式档保留。
@@ -450,10 +456,14 @@ func _postpone_battle() -> void:
 	_selected_option = {}
 	_refresh_targets()
 	_resume_explore()
-	_notice("当前方案已保留。可沿地图走到休整点或商铺，准备好后再回来。")
+	var restriction := Supplies.reason(session.campaign.safe_snapshot())
+	_notice(restriction if not restriction.is_empty() else "当前方案已保留。可沿地图走到休整点或商铺，准备好后再回来。")
 
 func _show_field_shop() -> void:
 	_mode = "field_shop"
+	var restriction := Supplies.reason(session.campaign.safe_snapshot())
+	if not restriction.is_empty():
+		_show_modal("补给暂歇",restriction,[{"text":"继续行走","call":_resume_explore}]); return
 	var actions: Array = []
 	for item in Saga.SHOP:
 		var label: String = session.campaign._catalog.get_definition("items",str(item)).get("name",str(item))
@@ -581,6 +591,9 @@ func _lines_finished(token: int, afterward: Callable) -> void:
 
 func _show_shop() -> void:
 	_mode = "shop"
+	var restriction := Supplies.reason(session.campaign.safe_snapshot())
+	if not restriction.is_empty():
+		_show_modal(str(_active_entry.title),restriction,[{"text":"收好行囊，继续调查","call":_leave_shop}]); return
 	var actions: Array = []
 	for item in Saga.SHOP:
 		actions.append({"text":"%s ×1 · %d文" % [str(session.campaign._catalog.get_definition("items",str(item)).get("name",str(item))),int(Saga.SHOP[item])],"call":_buy_item.bind(str(item))})

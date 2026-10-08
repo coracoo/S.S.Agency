@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "rules_version": "loadout-1",
-  "description": "固定裸属性由旧五级标准装属性减三件标准装一次固化。正式派生不读取等级或成长。主动卡只提供技能与容量；属性取舍由被动承担。焰华两形态共用mage身份基底、装备和被动，切换不改变七属性。收藏数量代表解锁，可供多人准备，不消耗。",
+  "description": "固定裸属性由旧五级标准装属性减三件标准装一次固化。正式派生不读取等级或成长。主动卡只提供技能与容量；属性取舍由装备与被动承担。焰华两形态共用mage身份基底、装备和被动，切换不改变七属性。收藏数量代表解锁，可供多人准备，不消耗。",
   "limits": {
     "active_slots": 4,
     "passive_slots": 2,
@@ -286,6 +286,22 @@
       ]
     },
     "swift_tachi": {
+      "tags": [
+        "blade"
+      ]
+    },
+    "warding_focus": {
+      "tags": [
+        "focus",
+        "shield"
+      ]
+    },
+    "pursuit_bow": {
+      "tags": [
+        "bow"
+      ]
+    },
+    "cleaving_blade": {
       "tags": [
         "blade"
       ]
@@ -733,5 +749,35 @@
     "magic_break": 1,
     "steady_breath": 1,
     "light_step": 1
+  },
+  "equipment_stat_bounds": {
+    "hp": [
+      -80,
+      200
+    ],
+    "mp": [
+      -30,
+      100
+    ],
+    "atk": [
+      -20,
+      50
+    ],
+    "matk": [
+      -20,
+      50
+    ],
+    "def": [
+      -15,
+      40
+    ],
+    "mdef": [
+      -15,
+      40
+    ],
+    "spd": [
+      -10,
+      15
+    ]
   }
 }

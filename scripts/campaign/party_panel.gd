@@ -393,7 +393,10 @@ func _render() -> void:
 		_hud.count.text = "装配草稿：应用后保存；取消、切换队员或离开此页会放弃未应用的改动。"
 		_loadout.set_locked(busy)
 	_hud.apply.disabled = not editable or draft_party.size() != 3 or draft_party == state.party
-	_hud.rest.disabled = not editable
+	var rest_reason: String = campaign.rest_restriction()
+	_hud.rest.disabled = not editable or not rest_reason.is_empty()
+	_hud.rest.tooltip_text = rest_reason
+	_hud.rest.text = "终战途中 · 使用携带药物" if not rest_reason.is_empty() else "休息 · 全员恢复"
 	_hud.save.disabled = busy
 	_hud.depth.disabled = busy
 	_hud.roster_title.text = "使用目标" if current_page == "inventory" else "查看队员"
