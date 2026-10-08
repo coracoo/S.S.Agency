@@ -221,7 +221,7 @@ static func preview(saved: Dictionary, world: Dictionary, mechanism_id: String, 
 
 static func _transition(states: Dictionary, id: String, action_id: String, actor_id: String, facts: Dictionary) -> Dictionary:
 	var bad := {"ok":false,"error":"这里的物件还不能这样操作，请再看看受力与通路。","battle_id":""}
-	if not IDS.has(id) or not facts.get("ok",false): return bad
+	if not IDS.has(id) or not states.has(id) or not facts.get("ok",false): return bad
 	var row: Dictionary = states[id]
 	var steps: Array = definition(id).steps
 	if id == "water_echo":

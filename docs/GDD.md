@@ -37,3 +37,5 @@
 参考借鉴[D&D官方施法准备](https://www.dndbeyond.com/sources/dnd/br-2024/spells/)和[魔法物品装配](https://www.dndbeyond.com/sources/dnd/br-2024/magic-items/)的有限选择思路；本项目的无等级数值、技能卡容量和轮序是独立设计。
 
 历史：原v4全文按字节保留在[2026-10-08归档](archive/2026-10-08-before-strategy/GDD-v4.md)，更早v3见[旧稿](archive/2026-09-30-before-v4/docs/GDD.md)。历史文档不定义当前默认入口或此次目标规则。
+
+素材制作更新：已取回84份会员原链视频，四组77帧源级抠像与逻辑画布候选已生成并保留原时长；尚有源内彩边，未登记生产。详见[候选报告](characters/2026-10-08-source-matte-candidates.md)。这一进展不改变“全部新改造待验收”的状态。
