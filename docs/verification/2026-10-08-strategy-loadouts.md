@@ -1,5 +1,7 @@
 # 无等级装配、正式迁移与当前验证边界
 
+后续修复（2026-10-08）：强引的`coefficient_add`现同时作用于普通与条件系数，修复触发破隙/续焰/解咒后只增加消耗而漏掉条件收益的问题。三身份两条件的真实预览、命中、逐事件重放与旧模式边界共65断言通过；`SKILL_DERIVATION_VERSION=2`纳入指纹，旧算法回放不再被标作同版本。证据为`J:/godot/ssa-campaign-evidence/goal-balance-20261008/conditional-final-green.log`。地图机关之后的当前存档版本另见[机关报告](2026-10-08-map-mechanisms.md)。
+
 日期：2026-10-08。Godot 4.7.2 stable / Windows / Compatibility。阶段A之后的持续实现，整体十一项目标尚未完成。
 
 ## 已接入的玩家行为

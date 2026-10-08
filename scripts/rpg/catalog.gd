@@ -6,6 +6,7 @@ const Refinements = preload("res://scripts/rpg/character_refinements.gd")
 const Forms = preload("res://scripts/rpg/dual_form.gd")
 const Loadouts = preload("res://scripts/rpg/loadout_rules.gd")
 const Threats = preload("res://scripts/rpg/strategy_encounters.gd")
+const SKILL_DERIVATION_VERSION := 2
 const KINDS := ["classes", "skills", "statuses", "enemies", "items", "equipment", "encounters"]
 const CLASS_IDS := ["guard", "swordsman", "ranger", "mage", "healer", "controller"]
 const STAT_KEYS := ["hp", "mp", "atk", "matk", "def", "mdef", "spd"]
@@ -88,7 +89,7 @@ func get_all(kind: String) -> Array[Dictionary]:
 
 # 新重放绑定实际数据内容；战役存档不携带此指纹，也不因此失去读档兼容。
 func mechanics_fingerprint() -> String:
-	return JSON.stringify({"catalog":_definitions,"loadouts":Loadouts._data(),"threats":Threats._data()}, "", true, true).sha256_text()
+	return JSON.stringify({"catalog":_definitions,"loadouts":Loadouts._data(),"threats":Threats._data(),"skill_derivation_version":SKILL_DERIVATION_VERSION}, "", true, true).sha256_text()
 
 # 四卡和基础表不变；分支先派生，身份专精后派生，调用者总是拿到深复制。
 func skill_for(actor: Dictionary, skill_id: String) -> Dictionary:
@@ -104,7 +105,9 @@ func skill_for(actor: Dictionary, skill_id: String) -> Dictionary:
 		skill.mp_cost=maxi(0,int(skill.mp_cost)+int(modifiers.mp_cost_add))
 		skill.cooldown=maxi(0,int(skill.cooldown)+int(modifiers.cooldown_add))
 		for effect in skill.effects:
-			if effect.has("coefficient"):effect.coefficient=maxf(0,float(effect.coefficient)+float(modifiers.coefficient_add))
+			# 触发专长后Resolver会选条件系数，两个分支必须保留同一被动收益。
+			for field in ["coefficient","conditional_coefficient"]:
+				if effect.has(field):effect[field]=maxf(0,float(effect[field])+float(modifiers.coefficient_add))
 			if effect.has("duration"):effect.duration=maxi(1,int(effect.duration)+int(modifiers.duration_add))
 		skill["loadout_modifiers"]=modifiers
 		return skill
