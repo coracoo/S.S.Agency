@@ -4,7 +4,7 @@ const Stature = preload("res://scripts/characters/character_stature.gd")
 const Definition = preload("res://scripts/characters/pixel_character_definition.gd")
 const EDGE_MARGIN := 16.0
 
-static func animation_bounds(definition: Dictionary) -> Rect2:
+static func animation_bounds(definition: Dictionary, resting_only: bool = false) -> Rect2:
 	var manifest: Dictionary = definition.get("manifest", {})
 	var canvas: Dictionary = manifest.get("canvas", {})
 	var full := Rect2(0,0,float(canvas.get("w",0)),float(canvas.get("h",0)))
@@ -12,7 +12,9 @@ static func animation_bounds(definition: Dictionary) -> Rect2:
 	if not manifest.has("packed_frames"): return full
 	var bounds := Rect2()
 	var found := false
-	for action in Definition.CONTEXT_ACTIONS.battle:
+	# 编队只按待机占位；挥砍武器的最大伸展不能把整队挤向敌方。
+	var actions: Array = ["idle"] if resting_only else Definition.CONTEXT_ACTIONS.battle
+	for action in actions:
 		for frame in manifest.get("anims", {}).get(action, {}).get("frames", []):
 			var packed: Dictionary = manifest.packed_frames.get(frame, {})
 			if packed.is_empty(): return full
@@ -21,8 +23,8 @@ static func animation_bounds(definition: Dictionary) -> Rect2:
 			found = true
 	return bounds if found else full
 
-static func projected_bounds(camera: Camera3D, ground: Vector3, definition: Dictionary, mirrored: bool) -> Rect2:
-	var bounds := animation_bounds(definition)
+static func projected_bounds(camera: Camera3D, ground: Vector3, definition: Dictionary, mirrored: bool, resting_only: bool = false) -> Rect2:
+	var bounds := animation_bounds(definition,resting_only)
 	var anchor := Stature.body_anchor(definition)
 	var pixel_size := Stature.world_pixel_size(definition)
 	# 与正式fixed-Y billboard一致；俯角只压缩纵向，横向不能套用2D的190px/m。

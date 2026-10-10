@@ -2,6 +2,7 @@
 class_name RpgBattleView
 extends Control
 signal presentation_tick
+const SKILL_BUTTON_SIZE := Vector2(288,88)
 const PartyFraming = preload("res://scripts/rpg/ui/battle_party_framing.gd")
 const BattleEffects = preload("res://scripts/rpg/ui/imagegen_battle_effects.gd")
 const PhysicalVisualPolicy = preload("res://scripts/rpg/ui/physical_skill_visual_event_policy.gd")
@@ -298,45 +299,45 @@ func _build() -> void:
 	_fx_layer = BattleEffects.new()
 	_skill_effects_ready = _fx_layer.production_enabled()
 	_canvas.add_child(_fx_layer)
-	Art.panel(_canvas, Rect2(32, 24, 550, 130))
-	Art.panel(_canvas, Rect2(602, 24, 782, 130))
-	_hud.title = Kit.label(_canvas, "遭遇  ·  夜巡异象", Rect2(72, 48, 470, 36), 27)
+	Art.panel(_canvas,Rect2(32,22,448,92))
+	Art.panel(_canvas,Rect2(494,22,854,92))
+	_hud.title = Kit.label(_canvas,"遭遇  ·  夜巡异象",Rect2(58,34,396,28),23)
 	if campaign != null and campaign.safe_snapshot().has("saga"):
 		var encounter: Dictionary = _catalog.get_definition("encounters", str(campaign.safe_snapshot().pending_battle.get("encounter_id", "")))
 		_hud.title.text = str(encounter.get("name", "夜巡异象"))
 		_hud.title.tooltip_text = str(encounter.get("objective", ""))
-	_hud.turn = Kit.label(_canvas, "", Rect2(72, 96, 470, 32), 23)
-	Kit.muted(Kit.label(_canvas, "本轮顺序 · T 查看战术与下轮推演", Rect2(642, 48, 702, 28), 20))
-	_hud.queue = Kit.label(_canvas, "", Rect2(642, 90, 702, 36), 22)
+	_hud.turn = Kit.label(_canvas,"",Rect2(58,68,396,28),19)
+	Kit.muted(Kit.label(_canvas,"本轮顺序 · T 查看战术与下轮推演",Rect2(520,34,802,24),17))
+	_hud.queue = Kit.label(_canvas,"",Rect2(520,64,802,30),19)
 	_hud.queue.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	_hud.queue.mouse_filter = Control.MOUSE_FILTER_PASS
-	_hud.tactics = _art_button(_canvas, "战术", Rect2(1400, 28, 144, 92), _toggle_tactics)
+	_hud.tactics = _art_button(_canvas,"战术",Rect2(1362,22,126,64),_toggle_tactics)
 	_hud.tactics.tooltip_text = "T · 查看敌方窗口、目标限制与速度轮序；不消耗行动"
-	_hud.log_toggle = _art_button(_canvas, "日志", Rect2(1556, 28, 144, 92), _toggle_log)
-	_hud.exit = _art_button(_canvas, "返回标题", Rect2(1712, 28, 176, 92), _return_title)
-	_hud.form = _art_button(_canvas, "焰华切换职业", Rect2(1408, 124, 480, 88), switch_active_form)
-	_hud.form.add_theme_font_size_override("font_size", 20)
+	_hud.log_toggle = _art_button(_canvas,"日志",Rect2(1500,22,112,64),_toggle_log)
+	_hud.exit = _art_button(_canvas,"返回标题",Rect2(1624,22,260,64),_return_title)
+	_hud.form = _art_button(_canvas,"焰华切换形态",Rect2(1480,94,404,52),switch_active_form)
+	_hud.form.add_theme_font_size_override("font_size",18)
 	_hud.form.hide()
-	_hud.prompt = Kit.label(_canvas, "选择技能 → 点击目标 → 确认　／　Esc 取消选择", Rect2(50 if _config.near_side == "right" else 1000, 710, 850, 32), 22)
+	_hud.prompt = Kit.label(_canvas,"选择技能 → 点击目标 → 确认　／　Esc 取消选择",Rect2(48,812,1824,28),18)
 	_hud.prompt.add_theme_color_override("font_outline_color", Color("101918"))
 	_hud.prompt.add_theme_constant_override("outline_size", 5)
-	# 2×2保留技能名称、费用与摘要的可读字号，并让生图金边外另有安全留白。
+	# 紧凑底栏保留2×2技能与摘要，留出更完整的战场空间。
 	for index in range(4):
-		var x := 752 + (index % 2) * 348
-		var y := 760 + (index / 2) * 152
-		var button := _art_button(_canvas, "技能", Rect2(x, y, 336, 132))
+		var x := 672 + (index % 2) * 300
+		var y := 852 + (index / 2) * 100
+		var button := _art_button(_canvas,"技能",Rect2(Vector2(x,y),SKILL_BUTTON_SIZE))
 		button.pressed.connect(_select_skill_slot.bind(index))
 		_skill_buttons.append(button)
-	for row in [["attack_physical", "物理普攻", 760], ["defend", "防御", 856], ["item", "道具", 952]]:
-		_basic_buttons[row[0]] = _art_button(_canvas, row[1], Rect2(1450, row[2], 194, 92), _basic_pressed.bind(row[0]))
-	_basic_buttons.attack_magic = _art_button(_canvas, "中性魔攻", Rect2(1656, 760, 208, 92), select_command.bind("attack_magic"))
-	_hud.cancel = _art_button(_canvas, "取消选择", Rect2(1656, 856, 208, 92), cancel_command)
-	_hud.confirm = _art_button(_canvas, "确认行动", Rect2(1656, 952, 208, 92), confirm_command, true)
-	_preview_panel = Art.panel(_canvas, Rect2(60 if _config.near_side == "left" else 956, 594, 932, 160))
-	_hud.preview_title = Kit.label(_preview_panel, "", Rect2(40, 22, 560, 38), 26)
-	_hud.preview_cost = Kit.muted(Kit.label(_preview_panel, "", Rect2(600, 30, 292, 28), 20))
+	for row in [["attack_physical","物理普攻",852],["defend","防御",916],["item","道具",980]]:
+		_basic_buttons[row[0]] = _art_button(_canvas,row[1],Rect2(1284,row[2],278,60),_basic_pressed.bind(row[0]))
+	_basic_buttons.attack_magic = _art_button(_canvas,"中性魔攻",Rect2(1574,852,310,60),select_command.bind("attack_magic"))
+	_hud.cancel = _art_button(_canvas,"取消选择",Rect2(1574,916,310,60),cancel_command)
+	_hud.confirm = _art_button(_canvas,"确认行动",Rect2(1574,980,310,60),confirm_command,true)
+	_preview_panel = Art.panel(_canvas,Rect2(680,672,1204,136))
+	_hud.preview_title = Kit.label(_preview_panel,"",Rect2(24,16,784,30),22)
+	_hud.preview_cost = Kit.muted(Kit.label(_preview_panel,"",Rect2(824,20,356,26),18))
 	_hud.preview_cost.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	_hud.preview = Kit.scroll_text(_preview_panel, Rect2(40, 66, 852, 84), 20)
+	_hud.preview = Kit.scroll_text(_preview_panel,Rect2(24,54,1156,64),18)
 	_popup_shade = ColorRect.new()
 	_popup_shade.size = Vector2(1920, 1080)
 	_popup_shade.color = Color(0.01, 0.018, 0.026, 0.7)
@@ -385,7 +386,10 @@ func _build() -> void:
 # 内金边厚约8～12像素，文字再留至少20像素，不能只验证Control外框。
 func _art_button(parent: Node, text: String, rect: Rect2, action: Callable = Callable(), primary: bool = false) -> Button:
 	var button := Art.button(parent, text, rect, action, primary)
-	Art.center_text(button, 34, 34, 28)
+	# 旧72px最小高度和上下28px内边距会把紧凑按钮重新撑大。
+	button.custom_minimum_size = Vector2.ZERO
+	Art.center_text(button,24,24,10 if rect.size.y<=92 else 24)
+	button.size = rect.size
 	return button
 
 func _focus_cycle(buttons: Array) -> void:
@@ -445,7 +449,7 @@ func _build_actors() -> void:
 			layout = [layout[0], Stature.battle_ground_y(), Stature.battle_body_height(actor.get("identity_id", ""))]
 		# 三/四敌共享独立窄列；不把双敌面板放到交错脚点上互相覆盖。
 		var compact := crowded and not ally
-		if compact: layout = [(182 if final_lineup else 150) + slot * 224, 566, 220]
+		if compact: layout = [(164 if final_lineup else 148)+slot*198,732,215]
 		var foot := Vector2(layout[0], layout[1])
 		if _config.near_side == "left": foot.x = 1920 - foot.x
 		if ally: foot.x += party_shift
@@ -508,14 +512,14 @@ func _build_actors() -> void:
 		var card: Panel
 		var avatar: TextureRect
 		if ally:
-			card = Art.panel(_canvas, Rect2(48 + slot * 234, 760, 222, 284), true)
+			card = Art.panel(_canvas,Rect2(48+slot*206,852,194,188),true)
 			if _hd_enabled():
 				var identity: String = actor.get("identity_id", "")
 				var definition := _actor_definition(actor)
 				var face := Portraits.from_definition(definition, identity, "avatar")
 				avatar = TextureRect.new()
-				avatar.position = Vector2(26, 26)
-				avatar.size = Vector2(40, 40)
+				avatar.position = Vector2(14,14)
+				avatar.size = Vector2(30,30)
 				avatar.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 				avatar.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 				avatar.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -528,35 +532,35 @@ func _build_actors() -> void:
 					last_error = face.error
 				card.add_child(avatar)
 			else:
-				avatar = Kit.image(card, _config.class_art[actor.class_id].badge, Rect2(26, 26, 40, 40))
+				avatar = Kit.image(card,_config.class_art[actor.class_id].badge,Rect2(14,14,30,30))
 		else:
 			var card_x: float = (55.0 if _config.near_side == "right" else 1535.0) if actor.class_id == "gatekeeper" else foot.x - 164
 			var card_y := 174.0 + slot * 4
 			if actor.class_id != "gatekeeper": card_y = minf(card_y, foot.y - float(layout[2]) - 202.0)
-			card = Art.panel(_canvas, Rect2(foot.x - 107, 154, 214, 174) if compact else Rect2(card_x, card_y, 328, 194), true)
-		var content_width := card.size.x - 52
-		var title := Kit.label(card, "", Rect2(78 if ally else 26, 26, 118 if ally else content_width, 32), 23 if ally else (18 if compact else 23))
+			card = Art.panel(_canvas,Rect2(foot.x-90,154,180,170) if compact else Rect2(card_x,card_y,286,170),true)
+		var content_width := card.size.x-32
+		var title := Kit.label(card,"",Rect2(52 if ally else 16,14,126 if ally else content_width,28),20 if ally else 18)
 		title.clip_text = true
-		var hp := Kit.label(card, "", Rect2(26, 80 if ally else 62, content_width, 28), 20 if ally else (18 if compact else 20))
-		var hpbar := Art.gauge(card, "hp", Rect2(26, 116 if ally else 94, content_width, 8))
-		var mp := Kit.label(card, "", Rect2(26, 134 if ally else 108, content_width, 26), 20 if ally else 18)
+		var hp := Kit.label(card,"",Rect2(16,48 if ally else 46,content_width,24),18)
+		var hpbar := Art.gauge(card,"hp",Rect2(16,76 if ally else 74,content_width,6))
+		var mp := Kit.label(card,"",Rect2(16,90 if ally else 88,content_width,24),18)
 		var mpbar: TextureProgressBar
-		if ally: mpbar = Art.gauge(card, "mp", Rect2(26, 170, content_width, 8))
-		var status := Kit.scroll_text(card, Rect2(26, 192 if ally else 142, content_width, 64 if ally else 30), 18 if ally else 17)
+		if ally: mpbar = Art.gauge(card,"mp",Rect2(16,118,content_width,6))
+		var status := Kit.scroll_text(card,Rect2(16,136 if ally else 118,content_width,40 if ally else 28),16)
 		status.add_theme_color_override("default_color", Color("d3d0b9"))
 		if compact:
-			title.position.y = 20
+			title.position.y = 14
 			title.size.y = 24
 			hp.position.y = 48
-			hpbar.position.y = 78
-			mp.position.y = 92
-			status.position.y = 130
+			hpbar.position.y = 76
+			mp.position.y = 88
+			status.position.y = 118
 			status.size.y = 24
 		var intent: Label
 		if not ally:
-			var intent_rect := Rect2(55 if _config.near_side == "right" else 1510, 407, 365, 275) if actor.class_id == "gatekeeper" else Rect2(foot.x - 178, foot.y + 2, 356, maxf(52, 744 - (foot.y + 2)))
-			if compact: intent_rect = Rect2(foot.x - 101, 574, 202, 124)
-			intent = Kit.label(_canvas, "", intent_rect, 18 if compact else (22 if actor.class_id == "gatekeeper" else 20))
+			var intent_width := 184.0 if compact else 286.0
+			var intent_rect := Rect2(foot.x-intent_width*.5,foot.y+8,intent_width,32)
+			intent = Kit.label(_canvas,"",intent_rect,17 if compact else 18)
 			intent.size.y = 34
 			intent.autowrap_mode = TextServer.AUTOWRAP_OFF
 			intent.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
@@ -671,10 +675,10 @@ func _render() -> void:
 		var cd_text := " · CD%d" % p.get("cooldown", slot.cooldown) if p.get("cooldown", slot.cooldown) > 0 else ""
 		button.text = "%s　MP %d%s\n%s" % [slot.name, p.get("mp_cost", slot.mp_cost), cd_text, (slot.target_short + " · " + effect_text) if p.get("legal", false) or processing else reason]
 		# 名称与费用独立成行；第二行只呈现模型摘要，完整效果继续保留悬停及行动预览。
-		for font_size in [22, 20, 18, 17]:
+		for font_size in [20,18,17]:
 			button.add_theme_font_size_override("font_size", font_size)
-			if Array(button.text.split("\n")).all(func(line): return Kit.font.get_string_size(line, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x <= 268): break
-		button.size = Vector2(336, 132)
+			if Array(button.text.split("\n")).all(func(line): return Kit.font.get_string_size(line,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x <= SKILL_BUTTON_SIZE.x-48): break
+		button.size = SKILL_BUTTON_SIZE
 		Art.selected(button, pending_command.get("kind", "") == "skill" and pending_command.get("ability_id", "") == slot.id)
 		button.tooltip_text = button.text + "\n" + full_effect_text + "\n" + slot.target_label + ("\n" + " / ".join(reasons) if not reasons.is_empty() else "")
 	for kind in _basic_buttons:
@@ -688,7 +692,7 @@ func _render() -> void:
 	var unlocked: bool = active.get("unlocked_forms", []).has("mage")
 	_hud.form.visible = is_homura
 	_hud.form.disabled = processing or not unlocked or state.get("phase") != "action_selection" or state.active_actor_id != active.get("actor_id")
-	_hud.form.text = ("法师 → 剑士 · 自由切换" if active.get("form_id") == "mage" else "剑士 → 法师 · 自由切换") if unlocked else "剑士 · 法师第一夜战斗后解锁"
+	_hud.form.text = ("焰华 · 法形 → 剑形" if active.get("form_id") == "mage" else "焰华 · 剑形 → 法形") if unlocked else "焰华 · 法形第一夜后解锁"
 	_hud.form.tooltip_text = "共用HP/MP、CD、状态、装备和当前行动槽；切换不消耗行动，不治疗、不补蓝"
 	var auto_single: bool = _auto_targeted and pending_command.get("target_ids", []).size() == 1
 	var selection_prompt := ("全体目标已选，可直接确认" if preview.effective_target_ids.size() > 1 else "目标已选，可直接确认") if automatic else ("唯一目标已自动选中，可直接确认" if auto_single else "点击目标后确认")
@@ -705,6 +709,7 @@ func _render() -> void:
 		if pending_command.kind == "skill":
 			for slot in model.commands.skills:
 				if slot.id == pending_command.ability_id:
+					_hud.preview_title.text = str(slot.name)
 					detail_lines.append(Presenter.ability_summary(slot, preview, _catalog) + "　·　" + slot.target_label)
 		detail_lines.append_array(Presenter.preview_lines(preview, state, _catalog))
 		_hud.preview.text = "\n".join(detail_lines)
@@ -1443,7 +1448,7 @@ func _party_framing_shift(allies: Array, state: Dictionary) -> float:
 			var definition := _actor_definition(candidate)
 			if not definition.get("ok",false): continue
 			var flip: bool = mirrored and definition.manifest.get("mirror_allowed",true)
-			bounds.append(PartyFraming.projected_bounds(_world_backdrop.camera,_world_backdrop._ground_point(foot),definition,flip))
+			bounds.append(PartyFraming.projected_bounds(_world_backdrop.camera,_world_backdrop._ground_point(foot),definition,flip,true))
 	return PartyFraming.inward_translation(bounds)
 
 func _sync_actor_presentation(actor_id: String) -> void:

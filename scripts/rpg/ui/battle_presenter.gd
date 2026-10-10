@@ -48,7 +48,7 @@ static func present(state: Dictionary, catalog: RefCounted, display_actor_id: St
 			var definition: Dictionary = Resolver.ability_for(active, {"kind": "skill", "ability_id": skill_id}, catalog)
 			if definition.is_empty(): continue
 			skills.append({"id": skill_id, "name": definition.name, "mp_cost": definition.mp_cost, "cooldown": definition.cooldown, "target_label": TARGET_NAMES.get(definition.target_rule, definition.target_rule), "target_short": TARGET_SHORT.get(definition.target_rule, ""), "effects": definition.effects.duplicate(true), "refinement": definition.get("refinement", {}).duplicate(true), "technique": definition.get("technique", {}).duplicate(true)})
-		var magic_attack: bool = Loadouts.derive(active, catalog).get("weapon_tags", []).has("focus") if Loadouts.has_data(active) else active.get("active_class_id", active.class_id) in ["mage", "healer", "controller"]
+		var magic_attack: bool = Loadouts.can_magic_attack(active,catalog) if Loadouts.has_data(active) else active.get("active_class_id",active.class_id) in ["mage","healer","controller"]
 		if magic_attack: basic.push_front("attack_magic")
 	return {"round": state.get("round", 0), "active_actor_id": state.get("active_actor_id", ""), "queue": state.get("queue", []).duplicate(), "queue_index": state.get("queue_index", 0), "actors": actors, "commands": {"skills": skills, "basic": basic}, "inventory": state.get("inventory", {}).duplicate(), "outcome": state.get("outcome", ""), "danger": danger_markers(state, catalog)}
 
@@ -336,7 +336,7 @@ static func loadout_summary(actor: Dictionary, catalog: RefCounted) -> String:
 	var capacity: Dictionary = derived.get("capacity", {})
 	var passive: Array[String] = []
 	for id in actor.get("build", {}).get("passive", []): passive.append(str(Loadouts.card(id).get("name", id)))
-	return "主动 %d/4 · 容量 %d/%d；被动 %d/2 · 容量 %d/%d\n共享被动：%s；速度 %d 决定轮序。" % [actor.get("skill_ids", []).size(), capacity.get("active_used", 0), capacity.get("active_max", 10), passive.size(), capacity.get("passive_used", 0), capacity.get("passive_max", 4), "、".join(passive) if not passive.is_empty() else "未准备", actor.get("stats", {}).get("spd", 0)]
+	return "主动 %d/4 · 容量 %d/%d；被动 %d/2 · 容量 %d/%d\n角色专属被动：%s；速度 %d 决定轮序。" % [actor.get("skill_ids", []).size(), capacity.get("active_used", 0), capacity.get("active_max", 10), passive.size(), capacity.get("passive_used", 0), capacity.get("passive_max", 4), "、".join(passive) if not passive.is_empty() else "未准备", actor.get("stats", {}).get("spd", 0)]
 
 static func requirement_label(requirement: Dictionary, catalog: RefCounted) -> String:
 	if requirement.has("source_status"): return "施法前自身有" + str(catalog.get_definition("statuses", requirement.source_status).name)
