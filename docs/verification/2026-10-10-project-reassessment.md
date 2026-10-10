@@ -51,7 +51,18 @@
 4. **回放兼容性**：`SKILL_DERIVATION_VERSION=3` 进入指纹，旧回放必须明确拒绝或报告差异。
 5. 发行认证（PCK v4、包内七章探针、E2E）在 10-08 评估时即为 fail，本轮未重试。
 
-## 五、建议下一步
+## 五、静态审阅发现的疑点（提交后复查记录，2026-10-10）
+
+对未提交批次（现提交 `6e1076b`–`f4e9d29`）做一次补充只读审阅，未运行引擎。按影响排序：
+
+1. **手动显示插值可能实际未生效（高优先，需真机验证）。** `pixel_character_world.gd::get_presentation_origin()` 用 `Engine.get_physics_interpolation_fraction()` 在渲染帧插值；但 `project.godot` 没有开启 `physics/common/physics_interpolation`（默认关闭），Godot 官方插值文档体系均假定该设置开启。若设置关闭时引擎返回 0，显示层会恒定停在上一物理帧位置——视觉比碰撞根滞后一帧，而相机与 billboard 同滞后、互相不抖，**容易误判“错帧已修复”**。60Hz 屏上物理与渲染同频也无插值空间，只有高刷屏才有收益。验证：真机打印 fraction 值，120Hz 下 A/B 对照。
+2. **hd2d 景深实验与相机不同源（低）。** `chapter_stage.gd`/`saga_stage.gd` 的 `_hd2d_profile.follow(player.position)` 仍传原始物理位置，相机已改读插值位置；开启“分层景深”实验时两者最多差一个物理帧。默认关闭，建议顺手统一为插值源。
+3. **敌人意图标签可能截断（视觉项，待截图）。** `battle_view.gd` 意图区从 356px 收到 184/286px、字号 17–18；原意图文本较长（技能名＋目标），紧凑布局下可能溢出，需在新截图中专门确认。
+4. **`dual_form.gd::available_skills` 防御性返回（轻）。** 备用形态卡表混入一个非法 ID 时整个列表返回 `[]`，面板会显示“无可用技能”而非指出哪张卡非法；模型层 `derive` 会报具体错误，仅表现层提示不友好。
+
+已核查排除的疑点：主动卡修正值有 `modifier_bounds` 逐键校验；被动卡均无形态限制（旧档迁移不会因当前形态误卸被动）；`legacy_loadout_rules.gd` 函数齐全；镜头 `follow` 与接触影 `update_contacts` 都在 `_process` 调用、读插值位置语义正确；编队待机取景参数只影响 `battle_view` 队列，其余 `projected_bounds` 调用点保持旧行为。
+
+## 六、建议下一步
 
 | 顺序 | 事项 |
 |---|---|
