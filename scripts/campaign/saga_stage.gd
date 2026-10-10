@@ -88,7 +88,7 @@ func _process(delta: float) -> void:
 			_tutorial_remaining = maxf(0.0,_tutorial_remaining-delta)
 		elif _mechanism_animating and is_instance_valid(_mechanism_focus):
 			camera_rig.follow(_mechanism_focus,delta)
-		if is_instance_valid(_hd2d_profile): _hd2d_profile.follow(player.position)
+		if is_instance_valid(_hd2d_profile): _hd2d_profile.follow(_hd2d_follow_target())
 	if _notice_remaining > 0:
 		_notice_remaining = maxf(0.0,_notice_remaining-delta)
 		if _notice_remaining == 0: _hud.notice.text = ""

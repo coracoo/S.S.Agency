@@ -66,6 +66,7 @@
 - 七形态分别执行 A/D/W/S＋Space、斜向＋Space、Shift＋方向＋Space；按住方向时连跳，空中松开/反向。攻击/倒地仍禁动，跳跃不能穿墙或跨机关。
 - 从标题继续、战斗返场、传送、切领队、切焰华形态，不能从旧位置插值滑过地图。开菜单/对白期间不能继续位移，关闭后仍需按原门禁松键恢复。
 - 以60Hz/120Hz呈现观察水平直路、斜坡、台阶、墙边，分别记录碰撞根、显示根、相机和脚影位置。要求显示相对相机平稳；不能仅凭FPS正常判定视觉不卡。
+- **显示插值专项**：真机打印 `Engine.get_physics_interpolation_fraction()`，移动中应观察到 0–1 之间持续变化（引擎源码中该值由主循环帧节拍无条件写入，不依赖 `physics/common/physics_interpolation` 设置；已在 4.7 分支与 master 核对，仍须实机兜底）。60Hz 屏上物理与渲染同频、分数恒接近 0 或 1 属正常，无插值空间；120Hz 下做开/关 `_sync_presentation_position` 的 A/B 对照，确认显示相对相机平稳。`camera_rig`/`chapter_stage`/`saga_stage` 均经 `has_method`+`call` 动态调用，静态类型（Node3D/CharacterBody3D）上不存在该方法，直接点调用会解析报错，验收时重点确认该路径无 "Function not found" 类错误。
 - 对同一动作做原地播放/世界移动并排录像。若原地也错位，转查源帧/循环接点/逻辑画布注册，勿用新的整体位移抵消真实动作。
 
 ### C. 战斗布局与接地

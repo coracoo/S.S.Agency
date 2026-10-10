@@ -21,7 +21,8 @@ func follow(actor: Node3D, delta: float) -> void:
 	_apply()
 func _presentation_target(actor: Node3D) -> Vector3:
 	# 镜头和角色显示读取同一插值位置，不在渲染帧追逐跳变的物理坐标。
-	return actor.get_presentation_origin() if actor.has_method("get_presentation_origin") else actor.global_position
+	# Node3D静态类型上没有该方法，用call动态调用，避免解析错误。
+	return Vector3(actor.call("get_presentation_origin")) if actor.has_method("get_presentation_origin") else actor.global_position
 func snapshot() -> Dictionary:
 	return {"mode": "follow", "target": [target.x, target.y, target.z], "size": camera.size}
 func restore(value: Dictionary) -> bool:

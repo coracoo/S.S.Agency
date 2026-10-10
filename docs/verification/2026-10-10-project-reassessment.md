@@ -55,10 +55,13 @@
 
 对未提交批次（现提交 `6e1076b`–`f4e9d29`）做一次补充只读审阅，未运行引擎。按影响排序：
 
-1. **手动显示插值可能实际未生效（高优先，需真机验证）。** `pixel_character_world.gd::get_presentation_origin()` 用 `Engine.get_physics_interpolation_fraction()` 在渲染帧插值；但 `project.godot` 没有开启 `physics/common/physics_interpolation`（默认关闭），Godot 官方插值文档体系均假定该设置开启。若设置关闭时引擎返回 0，显示层会恒定停在上一物理帧位置——视觉比碰撞根滞后一帧，而相机与 billboard 同滞后、互相不抖，**容易误判“错帧已修复”**。60Hz 屏上物理与渲染同频也无插值空间，只有高刷屏才有收益。验证：真机打印 fraction 值，120Hz 下 A/B 对照。
+1. **手动显示插值可能实际未生效（高优先）。** `pixel_character_world.gd::get_presentation_origin()` 用 `Engine.get_physics_interpolation_fraction()` 在渲染帧插值；但 `project.godot` 没有开启 `physics/common/physics_interpolation`（默认关闭），Godot 官方插值文档体系均假定该设置开启。若设置关闭时引擎返回 0，显示层会恒定停在上一物理帧位置——视觉比碰撞根滞后一帧，而相机与 billboard 同滞后、互相不抖，**容易误判“错帧已修复”**。60Hz 屏上物理与渲染同频也无插值空间，只有高刷屏才有收益。验证：真机打印 fraction 值，120Hz 下 A/B 对照。
+   **2026-10-10 复核：疑点基本排除。** 引擎源码（4.7 分支与 master 的 `main/main.cpp`）中 `_physics_interpolation_fraction` 由主循环帧节拍计算**无条件**写入，与插值设置开关无关；官方文档语义为“渲染帧处于当前物理 tick 内的进度”。真机打印分数的兜底验证已写入验收矩阵 B 项。
 2. **hd2d 景深实验与相机不同源（低）。** `chapter_stage.gd`/`saga_stage.gd` 的 `_hd2d_profile.follow(player.position)` 仍传原始物理位置，相机已改读插值位置；开启“分层景深”实验时两者最多差一个物理帧。默认关闭，建议顺手统一为插值源。
+   **2026-10-10 已修复**：两个 stage 新增 `_hd2d_follow_target()`，与相机同读显示插值位置。
 3. **敌人意图标签可能截断（视觉项，待截图）。** `battle_view.gd` 意图区从 356px 收到 184/286px、字号 17–18；原意图文本较长（技能名＋目标），紧凑布局下可能溢出，需在新截图中专门确认。
 4. **`dual_form.gd::available_skills` 防御性返回（轻）。** 备用形态卡表混入一个非法 ID 时整个列表返回 `[]`，面板会显示“无可用技能”而非指出哪张卡非法；模型层 `derive` 会报具体错误，仅表现层提示不友好。
+5. **静态类型下调用显示插值方法的解析风险（高，已修复）。** `camera_rig.gd::_presentation_target(actor: Node3D)` 直接调用 `actor.get_presentation_origin()`；Node3D 静态类型无此方法，GDScript 静态分析报 “Function not found” 解析错误，而本轮批次从未被引擎解析过。同类点逐一核查后统一改为 `has_method` + `call()` 动态调用（camera_rig、chapter_stage、saga_stage）；`character_scene_integration.gd` 的 `_actor` 为无类型声明，不受影响。验收矩阵 A 项首次解析即可覆盖确认。
 
 已核查排除的疑点：主动卡修正值有 `modifier_bounds` 逐键校验；被动卡均无形态限制（旧档迁移不会因当前形态误卸被动）；`legacy_loadout_rules.gd` 函数齐全；镜头 `follow` 与接触影 `update_contacts` 都在 `_process` 调用、读插值位置语义正确；编队待机取景参数只影响 `battle_view` 队列，其余 `projected_bounds` 调用点保持旧行为。
 

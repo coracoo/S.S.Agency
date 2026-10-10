@@ -8,6 +8,8 @@
 
 最近人工运行日志实际为Forward+（GTX970），与下文历史Compatibility约定不同；本轮未改渲染器。人物仍是Sprite3D与原生产素材，不把受光改进称为三维人物或遮罩候选已接入。详见[诊断和委托验收](docs/verification/2026-10-08-playtest-remediation.md)。历史测试通过不覆盖以上修改。
 
+2026-10-10补充：上述批次已分批提交（`ae42044`–`f4e9d29`）。静态审阅发现镜头rig与两个stage在Node3D/CharacterBody3D静态类型上直接调用`get_presentation_origin()`会解析报错，已改为`has_method`+`call()`；hd2d景深实验改与相机同读插值位置。引擎源码核对（4.7分支与master）确认`get_physics_interpolation_fraction()`不依赖插值设置开关，但真机打印分数的验证仍保留在验收矩阵B项。详见[重新评估与疑点记录](docs/verification/2026-10-10-project-reassessment.md)。
+
 ## 2026-10-08 抠图实验的用户结论
 
 动画批处理已生成七形态1657动态帧/66动作的完整独立候选，21兼容单帧及立绘保留。主交付为`build/libtv/animation-mask-batch-20261008/export-alpha/`与`export-colour-edge/`；强配色`export-colour/`仅归档实验，不采用。逐帧SAM2＋ViTMatte主处理约30分37秒，不含时序传播；原RGB版、注册信息及99个原输入文件保持，候选纹理组/独立contacts已同步。原GDScript动作附件hash门禁未改，不能宣称已直接接入游戏或所有残色消除。详见[交付说明](docs/characters/2026-10-08-animation-matte-batch.md)；对照页`/animation-batch/index.html`。

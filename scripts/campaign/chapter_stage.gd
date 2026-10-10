@@ -128,8 +128,13 @@ func set_hd2d_experiment(enabled: bool) -> bool:
 	hd2d_experiment = enabled
 	# 仅在当前会话保留视觉选择，战斗/跨夜重建不能偷偷重开；不写故事档。
 	if session != null: session.set_meta("hd2d_depth_enabled", enabled)
-	if player != null: _hd2d_profile.follow(player.position)
+	if player != null: _hd2d_profile.follow(_hd2d_follow_target())
 	return true
+func _hd2d_follow_target() -> Vector3:
+	# 与相机同源：分层景深读显示层插值位置，不追逐物理根。
+	if player.has_method("get_presentation_origin"):
+		return Vector3(player.call("get_presentation_origin"))
+	return player.position
 func _toggle_hd2d_from_hud() -> void:
 	if not ready_for_play or _closed or _mode != "explore" or not controls_enabled or _transition_busy or not _confirm_armed: return
 	if set_hd2d_experiment(not hd2d_experiment):
@@ -147,7 +152,7 @@ func _process(delta: float) -> void:
 		_modal_buttons[0].grab_focus()
 	if ready_for_play and player != null:
 		if controls_enabled and camera_rig != null: camera_rig.follow(player, delta)
-		if is_instance_valid(_hd2d_profile): _hd2d_profile.follow(player.position)
+		if is_instance_valid(_hd2d_profile): _hd2d_profile.follow(_hd2d_follow_target())
 		if is_instance_valid(_geometry) and _geometry.has_method("update_visibility"): _geometry.update_visibility(player.position, delta, camera_rig.camera)
 		if not _arrival_checked and _mode == "explore" and _intro_area_ready(): _start_checkpoint_dialogue()
 	_refresh_hud()
