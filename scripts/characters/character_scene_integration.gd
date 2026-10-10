@@ -141,7 +141,8 @@ func canvas_point_to_world(point: Vector2) -> Vector3:
 	right = right.normalized()
 	var density: float = _actor.billboard.pixel_size
 	var body_anchor: Vector2 = load("res://scripts/characters/character_stature.gd").body_anchor(_actor.animator.definition)
-	return _actor.global_position + right*(x-body_anchor.x)*density + Vector3.UP*(body_anchor.y-point.y)*density
+	var origin: Vector3 = _actor.get_presentation_origin() if _actor.has_method('get_presentation_origin') else _actor.global_position
+	return origin + right*(x-body_anchor.x)*density + Vector3.UP*(body_anchor.y-point.y)*density
 func _ground_ray(from: Vector3, to: Vector3) -> Dictionary:
 	var query := PhysicsRayQueryParameters3D.create(from,to,_actor.collision_mask,[_actor.get_rid()])
 	var hit: Dictionary = _actor.get_world_3d().direct_space_state.intersect_ray(query)
@@ -152,9 +153,10 @@ func update_contacts() -> void:
 	for shadow in _shadows: shadow.hide()
 	if not enabled or _actor == null or not _actor.is_visible_in_tree(): return
 	_actor.shadow.hide()
-	var root_hit = _ground_ray(_actor.global_position+Vector3.UP*0.2,_actor.global_position-Vector3.UP*1.4)
+	var presentation_origin: Vector3 = _actor.get_presentation_origin() if _actor.has_method('get_presentation_origin') else _actor.global_position
+	var root_hit = _ground_ray(presentation_origin+Vector3.UP*0.2,presentation_origin-Vector3.UP*1.4)
 	if root_hit.is_empty(): return
-	var elevation = maxf(0.0,_actor.global_position.y-root_hit.position.y)
+	var elevation = maxf(0.0,presentation_origin.y-root_hit.position.y)
 	var air_fade = clampf(1.0-elevation/0.8,0.0,1.0)
 	# 原生跳跃的身体已在视频内离地，根胶囊接地时也要同步减弱接触影。
 	var jump_factors: Vector2 = _actor.get_jump_shadow_factors() if _actor.has_method('get_jump_shadow_factors') else Vector2.ONE

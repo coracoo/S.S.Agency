@@ -78,7 +78,7 @@ func _cancel_hop() -> void:
 	if _hop_duration > 0: animator.reset()
 	_hop_duration = 0.0
 	_hop_clock = 0.0
-	billboard.position.y = 0.0
+	set_visual_elevation(0.0)
 func set_control_enabled(enabled: bool) -> void:
 	input_enabled = enabled
 	_movement_armed = not enabled
@@ -102,7 +102,10 @@ func _physics_process(delta: float) -> void:
 		move_input = current_axis if _movement_armed else Vector2.ZERO
 		run_input = Input.is_action_pressed("approach_run") and _movement_armed
 		if not Input.is_action_pressed("approach_jump"): _jump_armed = true
-	var axis := move_input.limit_length(1.0) if input_enabled and _hop_duration <= 0 and not animator.is_action_locked() else Vector2.ZERO
+	# 跳跃只锁动作播放，不锁水平操控；攻击/交互/倒地仍按原规则禁动。
+	var jumping := animator.sprite.animation == &"jump" and not animator.is_downed()
+	var can_translate := input_enabled and (not animator.is_action_locked() or jumping)
+	var axis := move_input.limit_length(1.0) if can_translate else Vector2.ZERO
 	if absf(axis.x) > 0.001: facing = 1 if axis.x > 0 else -1
 	var right := Vector3(camera_basis.x.x, 0, camera_basis.x.z).normalized()
 	var back := Vector3(camera_basis.z.x, 0, camera_basis.z.z).normalized()
@@ -114,18 +117,20 @@ func _physics_process(delta: float) -> void:
 	else: velocity.y = 0
 	var before := global_position
 	move_and_slide()
+	_capture_presentation_motion(before)
 	var displacement := global_position - before
 	var planar := Vector2(displacement.x, displacement.z).length()
-	var distance := displacement.length() if planar > 0.0001 else 0.0
+	# 台阶贴地和坡面高度修正不属于步态位移，不能使视频速度来回跳变。
+	var distance := planar if planar > 0.0001 else 0.0
 	if animator.has_method("set_locomotion_mode"): animator.set_locomotion_mode(&"run" if run_input else &"walk")
 	animator.set_motion(distance / maxf(delta, 0.0001), facing)
 	# 原生视频已带起落，不额外叠加正弦位移；脚底胶囊始终接地，不能越门或越界。
 	if _hop_duration > 0:
 		_hop_clock = minf(_hop_clock + delta,_hop_duration)
-		billboard.position.y = 0.0 if _hop_visual_baked else sin(PI*_hop_clock/_hop_duration)*HOP_HEIGHT
+		set_visual_elevation(0.0 if _hop_visual_baked else sin(PI*_hop_clock/_hop_duration)*HOP_HEIGHT)
 		if _hop_clock >= _hop_duration:
 			_hop_duration = 0.0
-			billboard.position.y = 0.0
+			set_visual_elevation(0.0)
 			if not keyboard_input: _jump_armed = true
 	_shadow_ray.force_raycast_update()
 	shadow.visible = _shadow_ray.is_colliding() and (scene_integration == null or not scene_integration.enabled)

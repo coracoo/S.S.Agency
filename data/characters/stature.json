@@ -2,8 +2,8 @@
   "schema_version": 1,
   "units": "角色身高cm；探索m；战斗统一px/m",
   "battle": {
-    "pixels_per_metre": 190,
-    "ground_y": 680
+    "pixels_per_metre": 165,
+    "ground_y": 740
   },
   "identities": {
     "rinne": {

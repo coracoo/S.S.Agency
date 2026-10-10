@@ -2,7 +2,7 @@
   "id": "dusk_illustration",
   "version": 2,
   "character_shader": "res://scripts/characters/illustration_scene_light.gdshader",
-  "scene_light_mix": 0.65,
+  "scene_light_mix": 0.82,
   "shadow_opacity": 0.72,
   "root_shadow_opacity": 0.42,
   "shadow_surface_offset_m": 0.012,

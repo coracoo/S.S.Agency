@@ -14,11 +14,14 @@ func _ready() -> void:
 	camera.make_current()
 	_apply()
 func follow(actor: Node3D, delta: float) -> void:
-	var wanted := actor.global_position + Vector3(0, 1.1, 0)
+	var wanted := _presentation_target(actor) + Vector3(0, 1.1, 0)
 	wanted.x = clampf(wanted.x, limits.x, limits.y)
 	wanted.z = clampf(wanted.z, -0.5, 1.1)
 	target = target.lerp(wanted, 1.0 - exp(-5.0 * maxf(delta, 0)))
 	_apply()
+func _presentation_target(actor: Node3D) -> Vector3:
+	# 镜头和角色显示读取同一插值位置，不在渲染帧追逐跳变的物理坐标。
+	return actor.get_presentation_origin() if actor.has_method("get_presentation_origin") else actor.global_position
 func snapshot() -> Dictionary:
 	return {"mode": "follow", "target": [target.x, target.y, target.z], "size": camera.size}
 func restore(value: Dictionary) -> bool:

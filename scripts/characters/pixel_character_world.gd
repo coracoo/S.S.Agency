@@ -21,6 +21,37 @@ var _direct_rendering := false
 var _direct_last_texture_id := 0
 var _direct_last_flip := false
 var _direct_last_tint := Color.WHITE
+var _presentation_previous := Vector3.ZERO
+var _presentation_current := Vector3.ZERO
+var _presentation_ready := false
+var _visual_elevation := 0.0
+
+func _capture_presentation_motion(before: Vector3) -> void:
+	# 只平滑显示，不改碰撞、存档位置或动作帧内部的注册坐标。
+	_presentation_previous = before
+	_presentation_current = global_position
+	_presentation_ready = true
+
+func get_presentation_origin() -> Vector3:
+	if not _presentation_ready or not global_position.is_equal_approx(_presentation_current):
+		# 读档、返场或外部瞬移直接重置，避免从上一个场景插值穿过地图。
+		_presentation_previous = global_position
+		_presentation_current = global_position
+		_presentation_ready = true
+	return _presentation_previous.lerp(_presentation_current,clampf(Engine.get_physics_interpolation_fraction(),0.0,1.0))
+
+func set_visual_elevation(value: float) -> void:
+	_visual_elevation = value
+
+func _sync_presentation_position() -> void:
+	var origin := get_presentation_origin()
+	billboard.position = to_local(origin) + Vector3.UP * _visual_elevation
+	if shadow.visible and _shadow_ray.is_colliding() and (scene_integration == null or not scene_integration.enabled):
+		var normal := _shadow_ray.get_collision_normal()
+		var point := _shadow_ray.get_collision_point()
+		var planar_offset := origin-global_position
+		planar_offset.y = 0.0
+		shadow.global_position = point+normal*.01+planar_offset
 
 func enable_scene_integration(stage: Node = null) -> bool:
 	if scene_integration == null:
@@ -40,6 +71,8 @@ func disable_scene_integration() -> void:
 	scene_integration.restore_stage()
 
 func _ready() -> void:
+	# 显示层在_process手动插值，避免项目开启自动插值后重复平滑。
+	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 	floor_snap_length = 0.5
 	floor_stop_on_slope = true
 	floor_max_angle = deg_to_rad(48)
@@ -122,9 +155,10 @@ func _physics_process(delta: float) -> void:
 	else: velocity.y = 0
 	var before := global_position
 	move_and_slide()
+	_capture_presentation_motion(before)
 	# 真实路径速度排除重力抖动，终点即便按住键也回idle。
 	var moved_x := absf(global_position.x - before.x)
-	var tangent_distance := Vector2(global_position.x - before.x, global_position.y - before.y).length() if moved_x > 0.0001 else 0.0
+	var tangent_distance := moved_x if moved_x > 0.0001 else 0.0
 	animator.set_motion(tangent_distance / maxf(delta, 0.0001), facing)
 	_shadow_ray.force_raycast_update()
 	shadow.visible = _shadow_ray.is_colliding()
@@ -147,6 +181,8 @@ func configure_rendering(definition: Dictionary) -> void:
 	billboard.pixel_size = BodyStature.world_pixel_size(definition)
 	# 只旁路已校验的单层视频。旧预览/动态头发层仍由原2D视口合成。
 	_direct_rendering = definition.manifest.has('packed_frames') and definition.get('layer_frames',[]).is_empty()
+	# 高清插画缩放时用线性采样，避免移动亚像素时细边随最近邻取样闪动。
+	billboard.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR if _direct_rendering else BaseMaterial3D.TEXTURE_FILTER_NEAREST
 	animator.visible = not _direct_rendering
 	if _direct_rendering:
 		_sync_direct_frame()
@@ -184,6 +220,7 @@ func _sync_direct_frame() -> void:
 func _process(_delta: float) -> void:
 	# flip_h没有专用变更信号；帧事件即时同步，朝向/染色在绘制前补齐。
 	_sync_direct_frame()
+	_sync_presentation_position()
 
 func _update_visibility() -> void:
 	var active := is_visible_in_tree()

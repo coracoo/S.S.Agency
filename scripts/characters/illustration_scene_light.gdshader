@@ -1,8 +1,8 @@
 shader_type spatial;
 render_mode cull_disabled, diffuse_burley, specular_disabled;
-uniform sampler2D art_texture : source_color, filter_nearest, repeat_disable;
+uniform sampler2D art_texture : source_color, filter_linear, repeat_disable;
 uniform vec4 appearance_tint : source_color = vec4(1.0);
-uniform float scene_light_mix : hint_range(0.0,1.0) = 0.65;
+uniform float scene_light_mix : hint_range(0.0,1.0) = 0.82;
 void vertex() {
 	// 与 Sprite3D 原来的 FIXED_Y 相同，偏移和世界身高仍由原节点决定。
 	// 阴影pass的INV_VIEW_MATRIX来自灯光；主摄像机矩阵保证同一张竖直薄片投影。

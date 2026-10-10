@@ -87,7 +87,9 @@ func _embellish_washi_node(node: Node, cache: Dictionary) -> void:
 					m.albedo_color = Color(.84,.82,.78)
 					m.roughness = .93
 					m.rim_enabled = true
-					m.rim_color = Color("9fb4d8"); m.rim_size = .42; m.rim_fade = .55
+					# Godot 4使用rim/rim_tint；轮廓颜色由实际灯光提供。
+					m.rim = .42
+					m.rim_tint = .55
 					m.emission_enabled = true
 					m.emission = Color("ffe9c8"); m.emission_energy_multiplier = .05
 					cache[original] = m
@@ -98,7 +100,7 @@ func _embellish_washi_node(node: Node, cache: Dictionary) -> void:
 					m.resource_name = signature + " • night"
 					m.roughness = .52
 					m.specular_mode = BaseMaterial3D.SPECULAR_SCHLICK_GGX
-					m.specular = .55
+					m.metallic_specular = .55
 					cache[original] = m
 				enhanced = cache[original]
 			elif signature.contains("Aged cedar") or signature.contains("timber joints") or signature.contains("Worn wood edge"):

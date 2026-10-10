@@ -13,7 +13,7 @@ func configure_world(bounds: Dictionary) -> void:
 	var height: Array = bounds.get("y", [-0.5, 6.0])
 	height_limits = Vector2(maxf(1.1, float(height[0]) + 1.1), float(height[1]) + 1.1)
 func follow(actor: Node3D, delta: float) -> void:
-	var wanted := actor.global_position + Vector3(0, 1.1, 0)
+	var wanted := _presentation_target(actor) + Vector3(0, 1.1, 0)
 	wanted.x = clampf(wanted.x, limits.x, limits.y)
 	wanted.z = clampf(wanted.z, depth_limits.x, depth_limits.y)
 	wanted.y = clampf(wanted.y, height_limits.x, height_limits.y)
