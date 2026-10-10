@@ -29,8 +29,9 @@ static func apply(actor: Dictionary, form_id: String, catalog: RefCounted) -> vo
 	actor["form_id"] = form_id
 	actor["active_class_id"] = FORM_CLASSES[form_id]
 	if Loadouts.has_data(actor):
-		var prepared:Variant=_prepared_groups(actor).get(form_id,[])
-		actor["skill_ids"]=prepared.duplicate() if prepared is Array else []
+		# 专属卡/变式ID与战斗招式ID分开，切形态仍使用同一正式派生入口。
+		var derived := Loadouts.derive(actor,catalog)
+		actor["skill_ids"] = derived.skill_ids.duplicate() if derived.ok else []
 	else:actor["skill_ids"]=catalog.get_definition("classes", FORM_CLASSES[form_id]).skill_ids.duplicate()
 
 static func _prepared_groups(actor:Dictionary)->Dictionary:
@@ -48,7 +49,9 @@ static func available_skills(actor: Dictionary, catalog: RefCounted) -> Array:
 		var prepared:Variant=_prepared_groups(actor).get(form,[]) if Loadouts.has_data(actor) else catalog.get_definition("classes", FORM_CLASSES[form]).get("skill_ids", [])
 		if not prepared is Array:return []
 		for id in prepared:
-			if not skills.has(id): skills.append(id)
+			var skill_id := Loadouts.skill_id_for_card(str(id)) if Loadouts.has_data(actor) else str(id)
+			if skill_id.is_empty(): return []
+			if not skills.has(skill_id): skills.append(skill_id)
 	return skills
 
 static func validate(actor: Dictionary, catalog: RefCounted) -> Array[String]:

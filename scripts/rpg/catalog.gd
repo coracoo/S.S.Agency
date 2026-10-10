@@ -6,7 +6,7 @@ const Refinements = preload("res://scripts/rpg/character_refinements.gd")
 const Forms = preload("res://scripts/rpg/dual_form.gd")
 const Loadouts = preload("res://scripts/rpg/loadout_rules.gd")
 const Threats = preload("res://scripts/rpg/strategy_encounters.gd")
-const SKILL_DERIVATION_VERSION := 2
+const SKILL_DERIVATION_VERSION := 3
 const KINDS := ["classes", "skills", "statuses", "enemies", "items", "equipment", "encounters"]
 const CLASS_IDS := ["guard", "swordsman", "ranger", "mage", "healer", "controller"]
 const STAT_KEYS := ["hp", "mp", "atk", "matk", "def", "mdef", "spd"]
@@ -96,6 +96,8 @@ func skill_for(actor: Dictionary, skill_id: String) -> Dictionary:
 	var skill := get_definition("skills", skill_id)
 	if Loadouts.has_data(actor):
 		if skill.is_empty() or not actor.get("skill_ids") is Array or not actor.skill_ids.has(skill_id):return {}
+		var prepared := Loadouts.prepared_card(actor,skill_id)
+		if prepared.is_empty(): return {}
 		# 身份专长固定存在，只有装上对应技能才生效；卡牌不冒充另一个角色的专长。
 		var innate := refinement_for(actor)
 		if innate.get("skill_id")==skill_id:skill=Refinements.apply(skill,innate)
@@ -110,6 +112,8 @@ func skill_for(actor: Dictionary, skill_id: String) -> Dictionary:
 				if effect.has(field):effect[field]=maxf(0,float(effect[field])+float(modifiers.coefficient_add))
 			if effect.has("duration"):effect.duration=maxi(1,int(effect.duration)+int(modifiers.duration_add))
 		skill["loadout_modifiers"]=modifiers
+		if str(prepared.get("id","")) != skill_id: skill.name = prepared.name
+		skill["loadout_card"]={"id":prepared.id,"summary":prepared.summary}
 		return skill
 	var own: Array = get_definition("classes", Forms.active_class(actor)).get("skill_ids", [])
 	if skill.is_empty() or not own.has(skill_id): return {}

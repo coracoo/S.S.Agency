@@ -97,7 +97,7 @@ static func offers(saved: Dictionary, catalog: RefCounted) -> Array[Dictionary]:
 			var names := {"hp": "生命", "mp": "灵力", "atk": "攻击", "matk": "术攻", "def": "防御", "mdef": "术防", "spd": "速度"}
 			for stat in item.get("stats", {}): details.append("%s%+d" % [names.get(stat, stat), int(item.stats[stat])])
 			description = "、".join(details) + "。" + str(item.get("summary", "装备后按武器与容量规则装配技能。"))
-		else: description += " 被动容量 %d。" % int(item.capacity_cost)
+		else: description = "%s专属。%s 被动容量 %d。" % [Loadouts.identity_label({"identity_id":item.owner_identity}),description,int(item.capacity_cost)]
 		result.append({"id": product.id, "kind": product.kind, "item_id": product.item_id, "name": item.name, "price": product.price, "stock": product.stock - int(sold.get(product.id, 0)), "unlocked": _unlocked(product, saved.saga), "owned":product.kind=="card" and int(saved.get("cards",{}).get(product.item_id,0))>0,"description": description})
 	return result
 

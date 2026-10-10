@@ -1,0 +1,783 @@
+{
+  "schema_version": 1,
+  "rules_version": "loadout-1",
+  "description": "固定裸属性由旧五级标准装属性减三件标准装一次固化。正式派生不读取等级或成长。主动卡只提供技能与容量；属性取舍由装备与被动承担。焰华两形态共用mage身份基底、装备和被动，切换不改变七属性。收藏数量代表解锁，可供多人准备，不消耗。",
+  "limits": {
+    "active_slots": 4,
+    "passive_slots": 2,
+    "active_capacity": 10,
+    "passive_capacity": 4
+  },
+  "stat_bounds": {
+    "hp": [
+      1,
+      10000
+    ],
+    "mp": [
+      0,
+      1000
+    ],
+    "atk": [
+      0,
+      1000
+    ],
+    "matk": [
+      0,
+      1000
+    ],
+    "def": [
+      0,
+      1000
+    ],
+    "mdef": [
+      0,
+      1000
+    ],
+    "spd": [
+      0,
+      1000
+    ]
+  },
+  "card_stat_bounds": {
+    "hp": [
+      -40,
+      40
+    ],
+    "mp": [
+      -12,
+      12
+    ],
+    "atk": [
+      -8,
+      8
+    ],
+    "matk": [
+      -8,
+      8
+    ],
+    "def": [
+      -8,
+      8
+    ],
+    "mdef": [
+      -8,
+      8
+    ],
+    "spd": [
+      -8,
+      8
+    ]
+  },
+  "modifier_bounds": {
+    "mp_cost_add": [
+      -2,
+      3
+    ],
+    "cooldown_add": [
+      -1,
+      2
+    ],
+    "coefficient_add": [
+      0,
+      0.3
+    ],
+    "duration_add": [
+      0,
+      1
+    ]
+  },
+  "classes": {
+    "guard": {
+      "stats": {
+        "hp": 300,
+        "mp": 25,
+        "atk": 37,
+        "matk": 13,
+        "def": 45,
+        "mdef": 25,
+        "spd": 20
+      },
+      "weapon_id": "training_guard_blade",
+      "weapon_tags": [
+        "blade",
+        "shield"
+      ],
+      "active": {
+        "default": [
+          "cover",
+          "shield_bash",
+          "iron_wall",
+          "taunt"
+        ]
+      }
+    },
+    "swordsman": {
+      "stats": {
+        "hp": 220,
+        "mp": 35,
+        "atk": 55,
+        "matk": 15,
+        "def": 25,
+        "mdef": 20,
+        "spd": 35
+      },
+      "weapon_id": "training_blade",
+      "weapon_tags": [
+        "blade"
+      ],
+      "active": {
+        "default": [
+          "heavy_slash",
+          "armor_break",
+          "sweep",
+          "battle_spirit"
+        ]
+      }
+    },
+    "ranger": {
+      "stats": {
+        "hp": 160,
+        "mp": 40,
+        "atk": 49,
+        "matk": 17,
+        "def": 15,
+        "mdef": 15,
+        "spd": 50
+      },
+      "weapon_id": "training_bow",
+      "weapon_tags": [
+        "bow"
+      ],
+      "active": {
+        "default": [
+          "mark",
+          "hunt",
+          "ambush",
+          "smoke_screen"
+        ]
+      }
+    },
+    "mage": {
+      "stats": {
+        "hp": 150,
+        "mp": 75,
+        "atk": 13,
+        "matk": 60,
+        "def": 10,
+        "mdef": 30,
+        "spd": 28
+      },
+      "weapon_id": "training_focus_blade",
+      "weapon_tags": [
+        "blade",
+        "focus"
+      ],
+      "active": {
+        "sword": [
+          "heavy_slash",
+          "armor_break",
+          "sweep",
+          "battle_spirit"
+        ],
+        "mage": [
+          "firebolt",
+          "flame_wave",
+          "ice_arrow",
+          "burn_brand"
+        ]
+      }
+    },
+    "healer": {
+      "stats": {
+        "hp": 190,
+        "mp": 70,
+        "atk": 15,
+        "matk": 50,
+        "def": 20,
+        "mdef": 35,
+        "spd": 25
+      },
+      "weapon_id": "training_bell",
+      "weapon_tags": [
+        "focus",
+        "bell"
+      ],
+      "active": {
+        "default": [
+          "heal",
+          "group_heal",
+          "cleanse",
+          "holy_shield"
+        ]
+      }
+    },
+    "controller": {
+      "stats": {
+        "hp": 180,
+        "mp": 60,
+        "atk": 21,
+        "matk": 47,
+        "def": 17,
+        "mdef": 27,
+        "spd": 40
+      },
+      "weapon_id": "training_sigil",
+      "weapon_tags": [
+        "focus",
+        "sigil"
+      ],
+      "active": {
+        "default": [
+          "weaken",
+          "slow",
+          "seal",
+          "magic_break"
+        ]
+      }
+    }
+  },
+  "weapons": {
+    "training_blade": {
+      "tags": [
+        "blade"
+      ]
+    },
+    "training_bow": {
+      "tags": [
+        "bow"
+      ]
+    },
+    "training_guard_blade": {
+      "tags": [
+        "blade",
+        "shield"
+      ]
+    },
+    "training_focus_blade": {
+      "tags": [
+        "blade",
+        "focus"
+      ]
+    },
+    "training_bell": {
+      "tags": [
+        "focus",
+        "bell"
+      ]
+    },
+    "training_sigil": {
+      "tags": [
+        "focus",
+        "sigil"
+      ]
+    },
+    "standard_weapon": {
+      "use_class_tags": true
+    },
+    "exorcism_sword": {
+      "tags": [
+        "blade"
+      ]
+    },
+    "spirit_bell": {
+      "tags": [
+        "focus",
+        "bell"
+      ]
+    },
+    "swift_tachi": {
+      "tags": [
+        "blade"
+      ]
+    },
+    "warding_focus": {
+      "tags": [
+        "focus",
+        "shield"
+      ]
+    },
+    "pursuit_bow": {
+      "tags": [
+        "bow"
+      ]
+    },
+    "cleaving_blade": {
+      "tags": [
+        "blade"
+      ]
+    }
+  },
+  "cards": [
+    {
+      "id": "cover",
+      "name": "掩护",
+      "type": "active",
+      "capacity_cost": 3,
+      "weapon_tags": [
+        "shield"
+      ],
+      "stats": {},
+      "modifiers": {},
+      "summary": "准备后固定可用；需任一武器标签：shield。",
+      "visual_form": "guard"
+    },
+    {
+      "id": "shield_bash",
+      "name": "盾击",
+      "type": "active",
+      "capacity_cost": 2,
+      "weapon_tags": [
+        "shield"
+      ],
+      "stats": {},
+      "modifiers": {},
+      "summary": "准备后固定可用；需任一武器标签：shield。",
+      "visual_form": "guard"
+    },
+    {
+      "id": "iron_wall",
+      "name": "铁壁",
+      "type": "active",
+      "capacity_cost": 3,
+      "weapon_tags": [
+        "shield"
+      ],
+      "stats": {},
+      "modifiers": {},
+      "summary": "准备后固定可用；需任一武器标签：shield。",
+      "visual_form": "guard"
+    },
+    {
+      "id": "taunt",
+      "name": "挑衅",
+      "type": "active",
+      "capacity_cost": 2,
+      "weapon_tags": [
+        "shield"
+      ],
+      "stats": {},
+      "modifiers": {},
+      "summary": "准备后固定可用；需任一武器标签：shield。",
+      "visual_form": "guard"
+    },
+    {
+      "id": "heavy_slash",
+      "name": "重斩",
+      "type": "active",
+      "capacity_cost": 3,
+      "weapon_tags": [
+        "blade"
+      ],
+      "stats": {},
+      "modifiers": {},
+      "summary": "准备后固定可用；需任一武器标签：blade。",
+      "visual_form": "rinne"
+    },
+    {
+      "id": "armor_break",
+      "name": "破甲斩",
+      "type": "active",
+      "capacity_cost": 2,
+      "weapon_tags": [
+        "blade"
+      ],
+      "stats": {},
+      "modifiers": {},
+      "summary": "准备后固定可用；需任一武器标签：blade。",
+      "visual_form": "rinne"
+    },
+    {
+      "id": "sweep",
+      "name": "横扫",
+      "type": "active",
+      "capacity_cost": 3,
+      "weapon_tags": [
+        "blade"
+      ],
+      "stats": {},
+      "modifiers": {},
+      "summary": "准备后固定可用；需任一武器标签：blade。",
+      "visual_form": "rinne"
+    },
+    {
+      "id": "battle_spirit",
+      "name": "战意",
+      "type": "active",
+      "capacity_cost": 2,
+      "weapon_tags": [
+        "blade"
+      ],
+      "stats": {},
+      "modifiers": {},
+      "summary": "准备后固定可用；需任一武器标签：blade。",
+      "visual_form": "rinne"
+    },
+    {
+      "id": "mark",
+      "name": "标记",
+      "type": "active",
+      "capacity_cost": 3,
+      "weapon_tags": [
+        "bow"
+      ],
+      "stats": {},
+      "modifiers": {},
+      "summary": "准备后固定可用；需任一武器标签：bow。",
+      "visual_form": "mint"
+    },
+    {
+      "id": "hunt",
+      "name": "猎杀",
+      "type": "active",
+      "capacity_cost": 2,
+      "weapon_tags": [
+        "bow"
+      ],
+      "stats": {},
+      "modifiers": {},
+      "summary": "准备后固定可用；需任一武器标签：bow。",
+      "visual_form": "mint"
+    },
+    {
+      "id": "ambush",
+      "name": "奇袭",
+      "type": "active",
+      "capacity_cost": 3,
+      "weapon_tags": [
+        "bow"
+      ],
+      "stats": {},
+      "modifiers": {},
+      "summary": "准备后固定可用；需任一武器标签：bow。",
+      "visual_form": "mint"
+    },
+    {
+      "id": "smoke_screen",
+      "name": "烟幕",
+      "type": "active",
+      "capacity_cost": 2,
+      "weapon_tags": [
+        "bow"
+      ],
+      "stats": {},
+      "modifiers": {},
+      "summary": "准备后固定可用；需任一武器标签：bow。",
+      "visual_form": "mint"
+    },
+    {
+      "id": "firebolt",
+      "name": "火弹",
+      "type": "active",
+      "capacity_cost": 3,
+      "weapon_tags": [
+        "focus"
+      ],
+      "stats": {},
+      "modifiers": {},
+      "summary": "准备后固定可用；需任一武器标签：focus。",
+      "visual_form": "homura_mage"
+    },
+    {
+      "id": "flame_wave",
+      "name": "炎浪",
+      "type": "active",
+      "capacity_cost": 3,
+      "weapon_tags": [
+        "focus"
+      ],
+      "stats": {},
+      "modifiers": {},
+      "summary": "准备后固定可用；需任一武器标签：focus。",
+      "visual_form": "homura_mage"
+    },
+    {
+      "id": "ice_arrow",
+      "name": "冰矢",
+      "type": "active",
+      "capacity_cost": 3,
+      "weapon_tags": [
+        "focus"
+      ],
+      "stats": {},
+      "modifiers": {},
+      "summary": "准备后固定可用；需任一武器标签：focus。",
+      "visual_form": "homura_mage"
+    },
+    {
+      "id": "burn_brand",
+      "name": "灼印",
+      "type": "active",
+      "capacity_cost": 1,
+      "weapon_tags": [
+        "focus"
+      ],
+      "stats": {},
+      "modifiers": {},
+      "summary": "准备后固定可用；需任一武器标签：focus。",
+      "visual_form": "homura_mage"
+    },
+    {
+      "id": "heal",
+      "name": "愈合",
+      "type": "active",
+      "capacity_cost": 3,
+      "weapon_tags": [
+        "focus",
+        "bell"
+      ],
+      "stats": {},
+      "modifiers": {},
+      "summary": "准备后固定可用；需任一武器标签：focus、bell。",
+      "visual_form": "healer"
+    },
+    {
+      "id": "group_heal",
+      "name": "群疗",
+      "type": "active",
+      "capacity_cost": 2,
+      "weapon_tags": [
+        "focus",
+        "bell"
+      ],
+      "stats": {},
+      "modifiers": {},
+      "summary": "准备后固定可用；需任一武器标签：focus、bell。",
+      "visual_form": "healer"
+    },
+    {
+      "id": "cleanse",
+      "name": "净化",
+      "type": "active",
+      "capacity_cost": 3,
+      "weapon_tags": [
+        "focus",
+        "bell"
+      ],
+      "stats": {},
+      "modifiers": {},
+      "summary": "准备后固定可用；需任一武器标签：focus、bell。",
+      "visual_form": "healer"
+    },
+    {
+      "id": "holy_shield",
+      "name": "圣盾",
+      "type": "active",
+      "capacity_cost": 2,
+      "weapon_tags": [
+        "focus",
+        "bell"
+      ],
+      "stats": {},
+      "modifiers": {},
+      "summary": "准备后固定可用；需任一武器标签：focus、bell。",
+      "visual_form": "healer"
+    },
+    {
+      "id": "weaken",
+      "name": "虚弱术",
+      "type": "active",
+      "capacity_cost": 3,
+      "weapon_tags": [
+        "focus",
+        "sigil"
+      ],
+      "stats": {},
+      "modifiers": {},
+      "summary": "准备后固定可用；需任一武器标签：focus、sigil。",
+      "visual_form": "controller"
+    },
+    {
+      "id": "slow",
+      "name": "迟滞术",
+      "type": "active",
+      "capacity_cost": 2,
+      "weapon_tags": [
+        "focus",
+        "sigil"
+      ],
+      "stats": {},
+      "modifiers": {},
+      "summary": "准备后固定可用；需任一武器标签：focus、sigil。",
+      "visual_form": "controller"
+    },
+    {
+      "id": "seal",
+      "name": "封缄",
+      "type": "active",
+      "capacity_cost": 3,
+      "weapon_tags": [
+        "focus",
+        "sigil"
+      ],
+      "stats": {},
+      "modifiers": {},
+      "summary": "准备后固定可用；需任一武器标签：focus、sigil。",
+      "visual_form": "controller"
+    },
+    {
+      "id": "magic_break",
+      "name": "破魔印",
+      "type": "active",
+      "capacity_cost": 2,
+      "weapon_tags": [
+        "focus",
+        "sigil"
+      ],
+      "stats": {},
+      "modifiers": {},
+      "summary": "准备后固定可用；需任一武器标签：focus、sigil。",
+      "visual_form": "controller"
+    },
+    {
+      "id": "steady_breath",
+      "name": "静息",
+      "type": "passive",
+      "capacity_cost": 2,
+      "weapon_tags": [],
+      "stats": {
+        "mp": 4,
+        "spd": -1
+      },
+      "modifiers": {
+        "mp_cost_add": -1
+      },
+      "summary": "灵力上限+4、速度-1；准备技能消耗灵力-1。",
+      "visual_form": ""
+    },
+    {
+      "id": "light_step",
+      "name": "轻步",
+      "type": "passive",
+      "capacity_cost": 2,
+      "weapon_tags": [],
+      "stats": {
+        "spd": 3,
+        "def": -2
+      },
+      "modifiers": {},
+      "summary": "速度+3、防御-2。",
+      "visual_form": ""
+    },
+    {
+      "id": "force_channel",
+      "name": "强引",
+      "type": "passive",
+      "capacity_cost": 3,
+      "weapon_tags": [],
+      "stats": {
+        "matk": 4,
+        "mdef": -3
+      },
+      "modifiers": {
+        "coefficient_add": 0.15,
+        "mp_cost_add": 1
+      },
+      "summary": "术攻+4、术防-3；技能系数+0.15、灵力消耗+1。",
+      "visual_form": ""
+    },
+    {
+      "id": "iron_oath",
+      "name": "铁誓",
+      "type": "passive",
+      "capacity_cost": 3,
+      "weapon_tags": [],
+      "stats": {
+        "def": 5,
+        "spd": -3
+      },
+      "modifiers": {},
+      "summary": "防御+5、速度-3。",
+      "visual_form": ""
+    },
+    {
+      "id": "sustained_rite",
+      "name": "延仪",
+      "type": "passive",
+      "capacity_cost": 3,
+      "weapon_tags": [],
+      "stats": {
+        "mp": -4
+      },
+      "modifiers": {
+        "duration_add": 1,
+        "mp_cost_add": 1
+      },
+      "summary": "灵力上限-4；可持续效果+1回合、灵力消耗+1。",
+      "visual_form": ""
+    },
+    {
+      "id": "swift_cast",
+      "name": "疾咏",
+      "type": "passive",
+      "capacity_cost": 3,
+      "weapon_tags": [],
+      "stats": {
+        "matk": -3
+      },
+      "modifiers": {
+        "cooldown_add": -1,
+        "mp_cost_add": 1
+      },
+      "summary": "术攻-3；技能冷却-1、灵力消耗+1。",
+      "visual_form": ""
+    }
+  ],
+  "initial_cards": {
+    "cover": 1,
+    "shield_bash": 1,
+    "iron_wall": 1,
+    "taunt": 1,
+    "heavy_slash": 1,
+    "armor_break": 1,
+    "sweep": 1,
+    "battle_spirit": 1,
+    "mark": 1,
+    "hunt": 1,
+    "ambush": 1,
+    "smoke_screen": 1,
+    "firebolt": 1,
+    "flame_wave": 1,
+    "ice_arrow": 1,
+    "burn_brand": 1,
+    "heal": 1,
+    "group_heal": 1,
+    "cleanse": 1,
+    "holy_shield": 1,
+    "weaken": 1,
+    "slow": 1,
+    "seal": 1,
+    "magic_break": 1,
+    "steady_breath": 1,
+    "light_step": 1
+  },
+  "equipment_stat_bounds": {
+    "hp": [
+      -80,
+      200
+    ],
+    "mp": [
+      -30,
+      100
+    ],
+    "atk": [
+      -20,
+      50
+    ],
+    "matk": [
+      -20,
+      50
+    ],
+    "def": [
+      -15,
+      40
+    ],
+    "mdef": [
+      -15,
+      40
+    ],
+    "spd": [
+      -10,
+      15
+    ]
+  }
+}

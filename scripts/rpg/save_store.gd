@@ -46,6 +46,7 @@ func write_safe(snapshot: Dictionary, path: String = DEFAULT_PATH) -> Error:
 	if not _schema_path(snapshot, path): return _write_error("存档版本与独立目录不符", ERR_FILE_BAD_PATH)
 	var errors := validate(snapshot)
 	if not errors.is_empty(): return _write_error("；".join(errors), ERR_INVALID_DATA)
+	if Loadouts.needs_role_migration(snapshot): return _write_error("旧装配须先完成角色专属迁移",ERR_INVALID_DATA)
 	# 不把未知schema、损坏或不兼容规则的原档当成空槽；也不擅自备份/删除它。
 	if FileAccess.file_exists(path):
 		var old := load_safe(path)
@@ -490,13 +491,14 @@ func _schema_path(saved: Dictionary, path: String) -> bool:
 func migrate_loadout(path:String)->Dictionary:
 	var loaded:=load_safe(path)
 	if not loaded.ok:return loaded
-	if loaded.snapshot.schema_version==3 and loaded.snapshot.progression_version==4:return loaded
+	var role_migration := Loadouts.needs_role_migration(loaded.snapshot)
+	if loaded.snapshot.schema_version==3 and loaded.snapshot.progression_version==4 and not role_migration:return loaded
 	if loaded.snapshot.schema_version not in [2,3]:return _failure("只迁移正式档，旧试玩档保持不变")
 	var original:=FileAccess.get_file_as_bytes(path)
 	var digest:=FileAccess.get_sha256(path)
 	var candidate:Dictionary
 	if loaded.snapshot.schema_version==3:
-		# 已无等级的旧版本只增加新扩展，不重算角色、补发收藏或重置已有商人库存。
+		# 已无等级的旧版本保留剧情/交易；旧成长扩展与角色专属升级分别投影。
 		candidate=loaded.snapshot.duplicate(true)
 		if candidate.progression_version==1:
 			candidate["merchant"]=Merchant.initial()
@@ -506,12 +508,17 @@ func migrate_loadout(path:String)->Dictionary:
 			candidate.mechanisms=Mechanisms.expand(loaded.snapshot)
 			var expansion_prefix: Dictionary = candidate.mechanisms.expansion_legacy
 			candidate["mechanism_expansion_migration"]={"from_progression_version":3,"source_sha256":digest,"events":expansion_prefix.events,"battles":expansion_prefix.battles}
-		else: _add_mechanism_migration(candidate,loaded.snapshot,digest,int(loaded.snapshot.progression_version))
+		elif loaded.snapshot.progression_version<3: _add_mechanism_migration(candidate,loaded.snapshot,digest,int(loaded.snapshot.progression_version))
 	else:candidate=_upgrade_loadout(loaded.snapshot,digest)
+	if Loadouts.needs_role_migration(candidate):
+		var upgraded := Loadouts.upgrade_role_builds(candidate,_catalog)
+		if not upgraded.ok:return _failure(str(upgraded.error))
+		candidate=upgraded.snapshot
 	var errors:=validate(candidate)
 	if not errors.is_empty():return _failure("装配迁移校验失败："+"；".join(errors))
 	var prefix:String=".schema2-" if loaded.snapshot.schema_version==2 else (".schema3-loadouts-v1-" if loaded.snapshot.progression_version==1 else ".schema3-strategy-v2-")
 	if loaded.snapshot.schema_version==3 and loaded.snapshot.progression_version==3:prefix=".schema3-mechanisms-v3-"
+	if loaded.snapshot.schema_version==3 and loaded.snapshot.progression_version==4 and role_migration:prefix=".schema3-role-loadout-v1-"
 	var backup:=path+prefix+digest.substr(0,12)+".bak"
 	var directory:=DirAccess.open(path.get_base_dir())
 	if directory==null or directory.is_link(backup.get_file()):return _failure("迁移备份路径非法")
@@ -533,6 +540,7 @@ func migrate_loadout(path:String)->Dictionary:
 	if written!=OK:return _failure("装配迁移写入失败，旧档保留",written)
 	var result:=load_safe(path)
 	result["backup_path"]=backup
+	result["role_loadouts_migrated"]=role_migration
 	return result
 
 func _write_backup_file(path:String,contents:PackedByteArray)->Error:
@@ -552,7 +560,9 @@ func _upgrade_loadout(old:Dictionary,digest:String)->Dictionary:
 		var previous:Dictionary=old.roster[id]
 		var build:=Loadouts.default_build(str(previous.class_id))
 		var passive:String={"economy":"swift_cast","power":"force_channel","duration":"sustained_rite"}.get(previous.branch.get("id",""),"")
-		if not passive.is_empty():build.passive=[passive];saved.cards[passive]=maxi(1,int(saved.cards.get(passive,0)))
+		if not passive.is_empty():
+			saved.cards[passive]=maxi(1,int(saved.cards.get(passive,0)))
+			if Loadouts.card(passive).get("owner_identity")==Chapters.BINDINGS[id].identity_id:build.passive=[passive]
 		var equipment:=Loadouts.starting_equipment(previous.class_id)
 		for slot in equipment:
 			var starter:String=equipment[slot]

@@ -25,6 +25,11 @@ func _run() -> void:
 	saved.merchant = Merchant.initial()
 	check(Merchant.validate(saved, catalog).is_empty(), "真实七章事件/导航夹具与空商人账本合法")
 	var offers: Array = Merchant.offers(saved, catalog)
+	var owned_card:Dictionary=saved.duplicate(true);owned_card.cards["force_channel"]=1
+	var owned_before:Dictionary=owned_card.duplicate(true)
+	check(not Merchant.preview(owned_card,_at_merchant(owned_card,Merchant),"card_force_channel_v1",1,catalog).ok,"可重复准备的已收录卡不能再次付费购买")
+	check(owned_card==owned_before,"拒绝重复收藏不扣款或改库存")
+	check(_offer(Merchant.offers(owned_card,catalog),"card_force_channel_v1").get("owned",false),"货架明确标记其它合法来源已收录的卡")
 	check(offers.size() == 10, "六件真实装备与四张已登记被动卡")
 	var prices := {"iron_amulet": 80, "swift_tachi": 180, "ranger_garb": 120, "bead_bracelet": 80, "monk_kesa": 140, "spirit_bell": 180, "force_channel": 140, "iron_oath": 120, "sustained_rite": 140, "swift_cast": 160}
 	for offer in offers:

@@ -68,7 +68,7 @@ func _build() -> void:
 	_weapon.tooltip_text="武器与技能一起编辑，应用时一次保存；可先改武器再修正不兼容卡片。"
 	_weapon.item_selected.connect(_select_weapon)
 	add_child(_weapon)
-	Kit.label(self, "已收藏 · 可供多人准备，不消耗", Rect2(464, 108, 424, 28), 19)
+	Kit.label(self, "本角色收藏 · 装配不消耗", Rect2(464, 108, 424, 28), 19)
 	for type in ["active", "passive"]:
 		_slots[type] = []
 		for index in (4 if type == "active" else 2):
@@ -138,11 +138,14 @@ func select_card(id: String) -> void:
 	if locked or campaign == null: return
 	var definition := Rules.card(id)
 	if definition.get("type") != selected_type or int(campaign.safe_snapshot().get("cards", {}).get(id, 0)) < 1: return
+	if not Rules.card_allowed(_saved,id,group): return
 	var cards := _selected_cards().duplicate()
-	if cards.has(id) and cards.find(id) != selected_index:
-		last_error = "同一主动组或被动组不能重复准备同一张卡。"
-		_refresh()
-		return
+	for index in cards.size():
+		if index == selected_index: continue
+		if cards[index] == id or (selected_type == "active" and Rules.skill_id_for_card(str(cards[index])) == Rules.skill_id_for_card(id)):
+			last_error = "同一张卡或同一招式的原式与变式不能同时准备。"
+			_refresh()
+			return
 	if selected_index < cards.size(): cards[selected_index] = id
 	else:
 		# 存档卡组保持紧凑数组；跨过空位选卡时落在首个可用空位。
@@ -197,7 +200,7 @@ func _refresh() -> void:
 	preview = campaign.preview_loadout(actor_id, draft, draft_equipment)
 	var editable: bool = not locked and campaign.can_prepare()
 	_refresh_weapon(editable)
-	_title.text = "技能装配 · " + ("法式" if group == "mage" else "剑式" if group == "sword" else "当前配置")
+	_title.text = Rules.identity_label(_saved)+" · 专属技能"+(" · 法形" if group=="mage" else " · 剑形" if group=="sword" else "")
 	for value in _groups:
 		_groups[value].visible = draft.active.has(value)
 		_groups[value].disabled = not editable
@@ -236,7 +239,7 @@ func _refresh() -> void:
 	if not last_error.is_empty() and not messages.has(last_error): messages.append(last_error)
 	var selected := _selected_cards()
 	if selected_index < selected.size(): messages.append(_card_detail(Rules.card(selected[selected_index])))
-	if messages.is_empty(): messages.append("先选武器与卡位，再从收藏选卡。武器与技能一起应用；属性来自装备与共享被动。")
+	if messages.is_empty(): messages.append("只显示本角色专属技能。同一招式原式与变式不可同时装配；武器、容量和技能一起检查。")
 	_reason.text = "\n".join(messages)
 	if not editable: _reason.text = "当前地点不能修改装配。"
 	_reason.tooltip_text = _reason.text
@@ -254,6 +257,7 @@ func _rebuild_collection(editable: bool) -> void:
 	var selected := _selected_cards()
 	for definition in Rules.all_cards():
 		if definition.type != selected_type or int(owned.get(definition.id, 0)) < 1: continue
+		if not Rules.card_allowed(_saved,str(definition.id),group): continue
 		var caption := "%s%s · 容量%d · %s" % ["✓ " if selected.has(definition.id) else "", definition.name, definition.capacity_cost, tag_text(definition.weapon_tags)]
 		var button := _button(_list, caption, Rect2(0, 0, 402, 42), select_card.bind(definition.id))
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL

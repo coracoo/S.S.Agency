@@ -3,6 +3,10 @@ class_name RpgLoadoutRules
 extends RefCounted
 
 const DATA_PATH := "res://data/rpg/loadouts.json"
+const Legacy = preload("res://scripts/rpg/legacy_loadout_rules.gd")
+const BUILD_VERSION := 2
+const IDENTITIES := {"guard":"guard","swordsman":"rinne","ranger":"mint","mage":"homura","healer":"healer","controller":"controller"}
+const IDENTITY_NAMES := {"guard":"岑照","rinne":"凛音","mint":"薄荷","homura":"焰华","healer":"苏合","controller":"清明"}
 const STAT_KEYS := ["hp", "mp", "atk", "matk", "def", "mdef", "spd"]
 const SLOTS := ["weapon", "armor", "accessory"]
 const MODIFIER_ZERO := {"mp_cost_add": 0, "cooldown_add": 0, "coefficient_add": 0.0, "duration_add": 0}
@@ -11,13 +15,90 @@ static var _cached_data: Dictionary = {}
 static func has_data(actor: Dictionary) -> bool:
 	return actor.has("build")
 
+static func _legacy_actor(actor: Dictionary) -> bool:
+	var build: Variant = actor.get("build")
+	return build is Dictionary and build.get("version") == 1
+
 static func default_build(class_id: String) -> Dictionary:
 	var row: Dictionary = _data().get("classes", {}).get(class_id, {})
 	if row.is_empty(): return {}
-	return {"version": 1, "active": row.active.duplicate(true), "passive": []}
+	return {"version": BUILD_VERSION, "active": row.active.duplicate(true), "passive": []}
 
-static func initial_cards() -> Dictionary:
+static func initial_cards(version: int = BUILD_VERSION) -> Dictionary:
+	if version == 1: return Legacy.initial_cards()
 	return _data().get("initial_cards", {}).duplicate(true)
+
+static func identity_for(actor: Dictionary) -> String:
+	return str(actor.get("identity_id",IDENTITIES.get(actor.get("class_id",""),"")))
+
+static func identity_label(actor: Dictionary) -> String:
+	return str(IDENTITY_NAMES.get(identity_for(actor),"当前角色"))
+
+static func card_allowed(actor: Dictionary, id: String, form: String = "") -> bool:
+	var definition := card(id)
+	if definition.is_empty() or definition.get("owner_identity","") != identity_for(actor): return false
+	var current := form
+	if current.is_empty(): current = str(actor.get("form_id","")) if actor.get("class_id") == "mage" else "default"
+	return definition.allowed_forms.is_empty() or definition.allowed_forms.has(current)
+
+static func can_magic_attack(actor: Dictionary, catalog: RefCounted) -> bool:
+	var derived := derive(actor,catalog)
+	if not derived.ok or not derived.weapon_tags.has("focus"): return false
+	return _legacy_actor(actor) or identity_for(actor) in ["homura","healer","controller"]
+
+static func skill_id_for_card(id: String) -> String:
+	var definition := card(id)
+	return str(definition.get("skill_id",id)) if definition.get("type") == "active" else ""
+
+static func prepared_card(actor: Dictionary, skill_id: String, form: String = "") -> Dictionary:
+	var value: Variant = actor.get("build")
+	if not value is Dictionary or not value.get("active") is Dictionary: return {}
+	var build: Dictionary = value
+	if _legacy_actor(actor): return Legacy.card(skill_id)
+	var current := form
+	if current.is_empty(): current = str(actor.get("form_id","")) if actor.get("class_id") == "mage" else "default"
+	for id in build.get("active",{}).get(current,[]):
+		if skill_id_for_card(str(id)) == skill_id and card_allowed(actor,str(id),current): return card(str(id))
+	return {}
+
+static func needs_role_migration(snapshot: Dictionary) -> bool:
+	if snapshot.get("schema_version") != 3: return false
+	for actor in snapshot.get("roster",{}).values():
+		if actor is Dictionary and _legacy_actor(actor): return true
+	return false
+
+static func upgrade_role_builds(snapshot: Dictionary, catalog: RefCounted) -> Dictionary:
+	# 调用方先完整校验旧档，再备份原字节并原子提交；本函数不写盘、不发战果。
+	var candidate := snapshot.duplicate(true)
+	var removed: Array[String] = []
+	var unlocked := initial_cards()
+	for id in unlocked:
+		candidate.cards[id] = maxi(int(candidate.cards.get(id,0)),int(unlocked[id]))
+	for actor_id in candidate.roster:
+		var actor: Dictionary = candidate.roster[actor_id]
+		if not _legacy_actor(actor): continue
+		var active: Dictionary = {}
+		for form in actor.build.active:
+			var prepared: Array[String] = []
+			for old_id in actor.build.active[form]:
+				var id: String = str(old_id)
+				if identity_for(actor) == "homura" and form == "sword" and id in ["heavy_slash","armor_break","sweep","battle_spirit"]:
+					id = "homura_"+id
+				if card_allowed(actor,id,str(form)): prepared.append(id)
+				else: removed.append(str(actor_id)+":"+str(old_id))
+			active[form] = prepared
+		var passive: Array[String] = []
+		for id in actor.build.passive:
+			if card_allowed(actor,str(id)): passive.append(str(id))
+			else: removed.append(str(actor_id)+":"+str(id))
+		actor.build = {"version":BUILD_VERSION,"active":active,"passive":passive}
+		var derived := derive(actor,catalog)
+		if not derived.ok: return {"ok":false,"error":"角色专属迁移派生失败："+"；".join(derived.errors)}
+		actor.stats = derived.stats
+		actor.skill_ids = derived.skill_ids
+		actor.hp = mini(int(actor.hp),int(actor.stats.hp))
+		actor.mp = mini(int(actor.mp),int(actor.stats.mp))
+	return {"ok":true,"snapshot":candidate,"removed_cards":removed}
 
 static func starting_equipment(class_id: String) -> Dictionary:
 	var row: Dictionary = _data().get("classes", {}).get(class_id, {})
@@ -35,6 +116,8 @@ static func all_cards() -> Array[Dictionary]:
 	return result
 
 static func derive(actor: Dictionary, catalog: RefCounted) -> Dictionary:
+	# version1只用于合法旧档完整校验；Campaign写入入口拒绝继续提交旧构筑。
+	if _legacy_actor(actor): return Legacy.derive(actor,catalog)
 	var errors: Array[String] = []
 	var result := {"ok": false, "errors": errors, "stats": {}, "skill_ids": [], "capacity": {"active_used": 0, "active_max": 10, "passive_used": 0, "passive_max": 4}, "weapon_tags": []}
 	var data := _data()
@@ -82,7 +165,7 @@ static func derive(actor: Dictionary, catalog: RefCounted) -> Dictionary:
 		errors.append("装配build必须为字典")
 		return result
 	if build.size() != 3 or not build.has_all(["version", "active", "passive"]): errors.append("装配字段不完整或含未知字段")
-	if not build.get("version") is int or build.version != 1: errors.append("装配版本非法")
+	if not build.get("version") is int or build.version != BUILD_VERSION: errors.append("装配版本非法")
 	if not build.get("active") is Dictionary or not build.get("passive") is Array:
 		errors.append("主动配置必须为字典，被动配置必须为数组")
 		return result
@@ -100,11 +183,13 @@ static func derive(actor: Dictionary, catalog: RefCounted) -> Dictionary:
 	# 备用形态同样校验武器、卡位与容量；当前形态只决定输出技能与容量显示。
 	for form in expected:
 		var active = build.active.get(form)
-		var checked := _check_cards(active, "active", weapon_tags, errors, form)
+		var checked := _check_cards(active,"active",weapon_tags,errors,form,actor,form)
 		if form == current:
-			result.skill_ids = checked.ids
+			result.skill_ids = checked.skills
 			result.capacity.active_used = checked.used
-	var passive := _check_cards(build.passive, "passive", weapon_tags, errors, "共享被动")
+		for skill_id in checked.skills:
+			if catalog.get_definition("skills",skill_id).is_empty(): errors.append("招式数据未登记："+skill_id)
+	var passive := _check_cards(build.passive,"passive",weapon_tags,errors,"角色被动",actor,current)
 	result.capacity.passive_used = passive.used
 	for id in passive.ids:
 		_add_stats(stats, card(id).stats, data.card_stat_bounds, errors, "被动" + id, true)
@@ -115,6 +200,7 @@ static func derive(actor: Dictionary, catalog: RefCounted) -> Dictionary:
 	return result
 
 static func validate_actor(actor: Dictionary, catalog: RefCounted, owned_cards: Variant = null) -> Array[String]:
+	if _legacy_actor(actor): return Legacy.validate_actor(actor,catalog,owned_cards)
 	var result := derive(actor, catalog)
 	var errors: Array[String] = []
 	errors.assign(result.errors)
@@ -149,15 +235,18 @@ static func validate_actor(actor: Dictionary, catalog: RefCounted, owned_cards: 
 	return errors
 
 static func skill_modifiers(actor: Dictionary, skill_id: String) -> Dictionary:
+	if _legacy_actor(actor): return Legacy.skill_modifiers(actor,skill_id)
 	var result := MODIFIER_ZERO.duplicate()
 	var build = actor.get("build")
 	if not build is Dictionary or not build.get("active") is Dictionary or not build.get("passive") is Array: return result
 	var form := str(actor.get("form_id", "")) if actor.get("class_id") == "mage" else "default"
 	var active = build.active.get(form)
-	if not active is Array or not active.has(skill_id) or card(skill_id).get("type") != "active": return result
+	var prepared := prepared_card(actor,skill_id)
+	if not active is Array or prepared.is_empty(): return result
+	for key in prepared.modifiers: result[key] += prepared.modifiers[key]
 	var errors: Array[String] = []
 	var tags: Array[String] = []
-	var checked := _check_cards(build.passive, "passive", tags, errors, "共享被动")
+	var checked := _check_cards(build.passive,"passive",tags,errors,"角色被动",actor,form)
 	if not errors.is_empty(): return result
 	for id in checked.ids:
 		for key in card(id).modifiers: result[key] += card(id).modifiers[key]
@@ -167,20 +256,22 @@ static func skill_modifiers(actor: Dictionary, skill_id: String) -> Dictionary:
 	return result
 
 static func visual_form(actor: Dictionary, skill_id: String) -> String:
-	var definition := card(skill_id)
+	if _legacy_actor(actor): return Legacy.visual_form(actor,skill_id)
+	var definition := prepared_card(actor,skill_id)
 	if definition.get("type") != "active": return ""
 	if definition.visual_form == "rinne" and actor.get("class_id") == "mage" and actor.get("identity_id") == "homura" and actor.get("actor_id") == "p_mage" and actor.get("form_id") == "sword":
 		return "homura_sword"
 	return definition.visual_form
 
-static func _check_cards(value: Variant, type: String, weapon_tags: Array[String], errors: Array[String], label: String) -> Dictionary:
-	var result := {"ids": [], "used": 0}
+static func _check_cards(value: Variant, type: String, weapon_tags: Array[String], errors: Array[String], label: String, actor: Dictionary = {}, form: String = "") -> Dictionary:
+	var result := {"ids": [], "skills": [], "used": 0}
 	if not value is Array:
 		errors.append(label + "卡表必须为数组")
 		return result
 	var limits: Dictionary = _data().limits
 	if value.size() > limits[type + "_slots"]: errors.append(label + "超过卡位上限")
 	var seen: Dictionary = {}
+	var seen_skills: Dictionary = {}
 	for id in value:
 		if not id is String:
 			errors.append(label + "卡ID必须为字符串")
@@ -196,7 +287,15 @@ static func _check_cards(value: Variant, type: String, weapon_tags: Array[String
 		if definition.type != type:
 			errors.append(label + "卡类型不符：" + id)
 			continue
+		if not card_allowed(actor,id,form):
+			errors.append(label+"不是本角色/形态的技能："+str(definition.name))
+			continue
 		result.ids.append(id)
+		if type == "active":
+			var skill_id := skill_id_for_card(id)
+			if seen_skills.has(skill_id): errors.append("同一招式的原式和变式不能同时装配："+str(definition.name))
+			seen_skills[skill_id] = true
+			result.skills.append(skill_id)
 		result.used += definition.capacity_cost
 		var compatible: bool = definition.weapon_tags.is_empty()
 		for tag in definition.weapon_tags:
@@ -238,7 +337,7 @@ static func _data() -> Dictionary:
 	if not _cached_data.is_empty(): return _cached_data
 	if not FileAccess.file_exists(DATA_PATH): return {}
 	var data: Variant = _integerize(JSON.parse_string(FileAccess.get_file_as_string(DATA_PATH)))
-	if not data is Dictionary or data.get("schema_version") != 1 or data.get("rules_version") != "loadout-1": return {}
+	if not data is Dictionary or data.get("schema_version") != 1 or data.get("rules_version") != "role-loadout-2": return {}
 	for field in ["classes", "weapons", "limits", "stat_bounds", "equipment_stat_bounds", "card_stat_bounds", "modifier_bounds", "initial_cards"]:
 		if not data.get(field) is Dictionary: return {}
 	if not data.get("cards") is Array: return {}
@@ -263,9 +362,20 @@ static func _data() -> Dictionary:
 		if not row.get("weapon_tags") is Array or not row.get("stats") is Dictionary or not row.get("modifiers") is Dictionary: return {}
 		for tag in row.weapon_tags:
 			if not tag is String or tag.is_empty(): return {}
-		# 主动卡属性为零是共享池约束，不能由后续数据悄悄破坏。
-		if row.type == "active" and (not row.stats.is_empty() or not row.modifiers.is_empty()): return {}
-		if row.type == "active" and not row.visual_form in ["rinne", "guard", "mint", "homura_mage", "healer", "controller"]: return {}
+		if not row.get("owner_identity") in IDENTITIES.values() or not row.get("allowed_forms") is Array: return {}
+		for form in row.allowed_forms:
+			if not form in ["default","sword","mage"]: return {}
+		# 主动卡不直接加人物属性；变式仅通过有界修正改变本招式。
+		if row.type == "active" and (not row.stats.is_empty() or not row.get("skill_id") is String or row.skill_id.is_empty()): return {}
+		if row.type == "active" and not row.visual_form in ["rinne","guard","mint","homura_sword","homura_mage","healer","controller"]: return {}
+		if row.type == "active":
+			var expected_visual: String = str(row.owner_identity)
+			if expected_visual == "homura":
+				if row.allowed_forms.size()!=1 or not row.allowed_forms[0] in ["sword","mage"]: return {}
+				expected_visual = "homura_"+str(row.allowed_forms[0])
+			elif row.allowed_forms != ["default"]: return {}
+			if row.visual_form != expected_visual: return {}
+		elif not row.allowed_forms.is_empty() or not row.visual_form.is_empty(): return {}
 		var errors: Array[String] = []
 		var zero := {"hp": 0, "mp": 0, "atk": 0, "matk": 0, "def": 0, "mdef": 0, "spd": 0}
 		_add_stats(zero, row.stats, data.card_stat_bounds, errors, row.id, true)

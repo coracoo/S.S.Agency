@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "rules_version": "loadout-1",
-  "description": "固定裸属性由旧五级标准装属性减三件标准装一次固化。正式派生不读取等级或成长。主动卡只提供技能与容量；属性取舍由装备与被动承担。焰华两形态共用mage身份基底、装备和被动，切换不改变七属性。收藏数量代表解锁，可供多人准备，不消耗。",
+  "rules_version": "role-loadout-2",
+  "description": "主动与被动技能卡均按具体角色锁定；武器、容量和同招式去重继续生效。主动变式复用原24招式及28美术变体，改动消耗/冷却/系数/持续时间。焰华剑法两组主动独立，共用同一角色的装备与被动。",
   "limits": {
     "active_slots": 4,
     "passive_slots": 2,
@@ -78,11 +78,11 @@
       2
     ],
     "coefficient_add": [
-      0,
-      0.3
+      -0.35,
+      0.4
     ],
     "duration_add": [
-      0,
+      -1,
       1
     ]
   },
@@ -159,11 +159,11 @@
     },
     "mage": {
       "stats": {
-        "hp": 150,
+        "hp": 170,
         "mp": 75,
-        "atk": 13,
+        "atk": 43,
         "matk": 60,
-        "def": 10,
+        "def": 18,
         "mdef": 30,
         "spd": 28
       },
@@ -174,10 +174,10 @@
       ],
       "active": {
         "sword": [
-          "heavy_slash",
-          "armor_break",
-          "sweep",
-          "battle_spirit"
+          "homura_heavy_slash",
+          "homura_armor_break",
+          "homura_sweep",
+          "homura_battle_spirit"
         ],
         "mage": [
           "firebolt",
@@ -318,8 +318,13 @@
       ],
       "stats": {},
       "modifiers": {},
-      "summary": "准备后固定可用；需任一武器标签：shield。",
-      "visual_form": "guard"
+      "summary": "岑照专属；需盾。",
+      "visual_form": "guard",
+      "owner_identity": "guard",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "cover"
     },
     {
       "id": "shield_bash",
@@ -331,8 +336,13 @@
       ],
       "stats": {},
       "modifiers": {},
-      "summary": "准备后固定可用；需任一武器标签：shield。",
-      "visual_form": "guard"
+      "summary": "岑照专属；需盾。",
+      "visual_form": "guard",
+      "owner_identity": "guard",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "shield_bash"
     },
     {
       "id": "iron_wall",
@@ -344,8 +354,13 @@
       ],
       "stats": {},
       "modifiers": {},
-      "summary": "准备后固定可用；需任一武器标签：shield。",
-      "visual_form": "guard"
+      "summary": "岑照专属；需盾。",
+      "visual_form": "guard",
+      "owner_identity": "guard",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "iron_wall"
     },
     {
       "id": "taunt",
@@ -357,8 +372,13 @@
       ],
       "stats": {},
       "modifiers": {},
-      "summary": "准备后固定可用；需任一武器标签：shield。",
-      "visual_form": "guard"
+      "summary": "岑照专属；需盾。",
+      "visual_form": "guard",
+      "owner_identity": "guard",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "taunt"
     },
     {
       "id": "heavy_slash",
@@ -370,8 +390,13 @@
       ],
       "stats": {},
       "modifiers": {},
-      "summary": "准备后固定可用；需任一武器标签：blade。",
-      "visual_form": "rinne"
+      "summary": "凛音专属；需刀剑。",
+      "visual_form": "rinne",
+      "owner_identity": "rinne",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "heavy_slash"
     },
     {
       "id": "armor_break",
@@ -383,8 +408,13 @@
       ],
       "stats": {},
       "modifiers": {},
-      "summary": "准备后固定可用；需任一武器标签：blade。",
-      "visual_form": "rinne"
+      "summary": "凛音专属；需刀剑。",
+      "visual_form": "rinne",
+      "owner_identity": "rinne",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "armor_break"
     },
     {
       "id": "sweep",
@@ -396,8 +426,13 @@
       ],
       "stats": {},
       "modifiers": {},
-      "summary": "准备后固定可用；需任一武器标签：blade。",
-      "visual_form": "rinne"
+      "summary": "凛音专属；需刀剑。",
+      "visual_form": "rinne",
+      "owner_identity": "rinne",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "sweep"
     },
     {
       "id": "battle_spirit",
@@ -409,8 +444,13 @@
       ],
       "stats": {},
       "modifiers": {},
-      "summary": "准备后固定可用；需任一武器标签：blade。",
-      "visual_form": "rinne"
+      "summary": "凛音专属；需刀剑。",
+      "visual_form": "rinne",
+      "owner_identity": "rinne",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "battle_spirit"
     },
     {
       "id": "mark",
@@ -422,8 +462,13 @@
       ],
       "stats": {},
       "modifiers": {},
-      "summary": "准备后固定可用；需任一武器标签：bow。",
-      "visual_form": "mint"
+      "summary": "薄荷专属；需弓。",
+      "visual_form": "mint",
+      "owner_identity": "mint",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "mark"
     },
     {
       "id": "hunt",
@@ -435,8 +480,13 @@
       ],
       "stats": {},
       "modifiers": {},
-      "summary": "准备后固定可用；需任一武器标签：bow。",
-      "visual_form": "mint"
+      "summary": "薄荷专属；需弓。",
+      "visual_form": "mint",
+      "owner_identity": "mint",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "hunt"
     },
     {
       "id": "ambush",
@@ -448,8 +498,13 @@
       ],
       "stats": {},
       "modifiers": {},
-      "summary": "准备后固定可用；需任一武器标签：bow。",
-      "visual_form": "mint"
+      "summary": "薄荷专属；需弓。",
+      "visual_form": "mint",
+      "owner_identity": "mint",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "ambush"
     },
     {
       "id": "smoke_screen",
@@ -461,8 +516,13 @@
       ],
       "stats": {},
       "modifiers": {},
-      "summary": "准备后固定可用；需任一武器标签：bow。",
-      "visual_form": "mint"
+      "summary": "薄荷专属；需弓。",
+      "visual_form": "mint",
+      "owner_identity": "mint",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "smoke_screen"
     },
     {
       "id": "firebolt",
@@ -474,8 +534,13 @@
       ],
       "stats": {},
       "modifiers": {},
-      "summary": "准备后固定可用；需任一武器标签：focus。",
-      "visual_form": "homura_mage"
+      "summary": "焰华专属；需术具。",
+      "visual_form": "homura_mage",
+      "owner_identity": "homura",
+      "allowed_forms": [
+        "mage"
+      ],
+      "skill_id": "firebolt"
     },
     {
       "id": "flame_wave",
@@ -487,8 +552,13 @@
       ],
       "stats": {},
       "modifiers": {},
-      "summary": "准备后固定可用；需任一武器标签：focus。",
-      "visual_form": "homura_mage"
+      "summary": "焰华专属；需术具。",
+      "visual_form": "homura_mage",
+      "owner_identity": "homura",
+      "allowed_forms": [
+        "mage"
+      ],
+      "skill_id": "flame_wave"
     },
     {
       "id": "ice_arrow",
@@ -500,8 +570,13 @@
       ],
       "stats": {},
       "modifiers": {},
-      "summary": "准备后固定可用；需任一武器标签：focus。",
-      "visual_form": "homura_mage"
+      "summary": "焰华专属；需术具。",
+      "visual_form": "homura_mage",
+      "owner_identity": "homura",
+      "allowed_forms": [
+        "mage"
+      ],
+      "skill_id": "ice_arrow"
     },
     {
       "id": "burn_brand",
@@ -513,8 +588,13 @@
       ],
       "stats": {},
       "modifiers": {},
-      "summary": "准备后固定可用；需任一武器标签：focus。",
-      "visual_form": "homura_mage"
+      "summary": "焰华专属；需术具。",
+      "visual_form": "homura_mage",
+      "owner_identity": "homura",
+      "allowed_forms": [
+        "mage"
+      ],
+      "skill_id": "burn_brand"
     },
     {
       "id": "heal",
@@ -527,8 +607,13 @@
       ],
       "stats": {},
       "modifiers": {},
-      "summary": "准备后固定可用；需任一武器标签：focus、bell。",
-      "visual_form": "healer"
+      "summary": "苏合专属；需术具或铃。",
+      "visual_form": "healer",
+      "owner_identity": "healer",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "heal"
     },
     {
       "id": "group_heal",
@@ -541,8 +626,13 @@
       ],
       "stats": {},
       "modifiers": {},
-      "summary": "准备后固定可用；需任一武器标签：focus、bell。",
-      "visual_form": "healer"
+      "summary": "苏合专属；需术具或铃。",
+      "visual_form": "healer",
+      "owner_identity": "healer",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "group_heal"
     },
     {
       "id": "cleanse",
@@ -555,8 +645,13 @@
       ],
       "stats": {},
       "modifiers": {},
-      "summary": "准备后固定可用；需任一武器标签：focus、bell。",
-      "visual_form": "healer"
+      "summary": "苏合专属；需术具或铃。",
+      "visual_form": "healer",
+      "owner_identity": "healer",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "cleanse"
     },
     {
       "id": "holy_shield",
@@ -569,8 +664,13 @@
       ],
       "stats": {},
       "modifiers": {},
-      "summary": "准备后固定可用；需任一武器标签：focus、bell。",
-      "visual_form": "healer"
+      "summary": "苏合专属；需术具或铃。",
+      "visual_form": "healer",
+      "owner_identity": "healer",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "holy_shield"
     },
     {
       "id": "weaken",
@@ -583,8 +683,13 @@
       ],
       "stats": {},
       "modifiers": {},
-      "summary": "准备后固定可用；需任一武器标签：focus、sigil。",
-      "visual_form": "controller"
+      "summary": "清明专属；需术具或符印。",
+      "visual_form": "controller",
+      "owner_identity": "controller",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "weaken"
     },
     {
       "id": "slow",
@@ -597,8 +702,13 @@
       ],
       "stats": {},
       "modifiers": {},
-      "summary": "准备后固定可用；需任一武器标签：focus、sigil。",
-      "visual_form": "controller"
+      "summary": "清明专属；需术具或符印。",
+      "visual_form": "controller",
+      "owner_identity": "controller",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "slow"
     },
     {
       "id": "seal",
@@ -611,8 +721,13 @@
       ],
       "stats": {},
       "modifiers": {},
-      "summary": "准备后固定可用；需任一武器标签：focus、sigil。",
-      "visual_form": "controller"
+      "summary": "清明专属；需术具或符印。",
+      "visual_form": "controller",
+      "owner_identity": "controller",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "seal"
     },
     {
       "id": "magic_break",
@@ -625,8 +740,13 @@
       ],
       "stats": {},
       "modifiers": {},
-      "summary": "准备后固定可用；需任一武器标签：focus、sigil。",
-      "visual_form": "controller"
+      "summary": "清明专属；需术具或符印。",
+      "visual_form": "controller",
+      "owner_identity": "controller",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "magic_break"
     },
     {
       "id": "steady_breath",
@@ -641,8 +761,10 @@
       "modifiers": {
         "mp_cost_add": -1
       },
-      "summary": "灵力上限+4、速度-1；准备技能消耗灵力-1。",
-      "visual_form": ""
+      "summary": "苏合专属；灵力上限+4、速度-1；准备技能消耗灵力-1。",
+      "visual_form": "",
+      "owner_identity": "healer",
+      "allowed_forms": []
     },
     {
       "id": "light_step",
@@ -655,8 +777,10 @@
         "def": -2
       },
       "modifiers": {},
-      "summary": "速度+3、防御-2。",
-      "visual_form": ""
+      "summary": "薄荷专属；速度+3、防御-2。",
+      "visual_form": "",
+      "owner_identity": "mint",
+      "allowed_forms": []
     },
     {
       "id": "force_channel",
@@ -672,8 +796,10 @@
         "coefficient_add": 0.15,
         "mp_cost_add": 1
       },
-      "summary": "术攻+4、术防-3；技能系数+0.15、灵力消耗+1。",
-      "visual_form": ""
+      "summary": "焰华专属；术攻+4、术防-3；技能系数+0.15、灵力消耗+1。",
+      "visual_form": "",
+      "owner_identity": "homura",
+      "allowed_forms": []
     },
     {
       "id": "iron_oath",
@@ -686,8 +812,10 @@
         "spd": -3
       },
       "modifiers": {},
-      "summary": "防御+5、速度-3。",
-      "visual_form": ""
+      "summary": "岑照专属；防御+5、速度-3。",
+      "visual_form": "",
+      "owner_identity": "guard",
+      "allowed_forms": []
     },
     {
       "id": "sustained_rite",
@@ -702,8 +830,10 @@
         "duration_add": 1,
         "mp_cost_add": 1
       },
-      "summary": "灵力上限-4；可持续效果+1回合、灵力消耗+1。",
-      "visual_form": ""
+      "summary": "清明专属；灵力上限-4；可持续效果+1回合、灵力消耗+1。",
+      "visual_form": "",
+      "owner_identity": "controller",
+      "allowed_forms": []
     },
     {
       "id": "swift_cast",
@@ -718,8 +848,587 @@
         "cooldown_add": -1,
         "mp_cost_add": 1
       },
-      "summary": "术攻-3；技能冷却-1、灵力消耗+1。",
-      "visual_form": ""
+      "summary": "焰华专属；术攻-3；技能冷却-1、灵力消耗+1。",
+      "visual_form": "",
+      "owner_identity": "homura",
+      "allowed_forms": []
+    },
+    {
+      "id": "homura_heavy_slash",
+      "name": "炎锋斩",
+      "type": "active",
+      "capacity_cost": 3,
+      "weapon_tags": [
+        "blade"
+      ],
+      "stats": {},
+      "modifiers": {},
+      "summary": "焰华剑形专属；与法形共享人物资源，保留自身引火技法。",
+      "visual_form": "homura_sword",
+      "owner_identity": "homura",
+      "allowed_forms": [
+        "sword"
+      ],
+      "skill_id": "heavy_slash"
+    },
+    {
+      "id": "homura_armor_break",
+      "name": "引火破甲",
+      "type": "active",
+      "capacity_cost": 2,
+      "weapon_tags": [
+        "blade"
+      ],
+      "stats": {},
+      "modifiers": {},
+      "summary": "焰华剑形专属；与法形共享人物资源，保留自身引火技法。",
+      "visual_form": "homura_sword",
+      "owner_identity": "homura",
+      "allowed_forms": [
+        "sword"
+      ],
+      "skill_id": "armor_break"
+    },
+    {
+      "id": "homura_sweep",
+      "name": "流焰横扫",
+      "type": "active",
+      "capacity_cost": 3,
+      "weapon_tags": [
+        "blade"
+      ],
+      "stats": {},
+      "modifiers": {},
+      "summary": "焰华剑形专属；与法形共享人物资源，保留自身引火技法。",
+      "visual_form": "homura_sword",
+      "owner_identity": "homura",
+      "allowed_forms": [
+        "sword"
+      ],
+      "skill_id": "sweep"
+    },
+    {
+      "id": "homura_battle_spirit",
+      "name": "燃刃战意",
+      "type": "active",
+      "capacity_cost": 2,
+      "weapon_tags": [
+        "blade"
+      ],
+      "stats": {},
+      "modifiers": {},
+      "summary": "焰华剑形专属；与法形共享人物资源，保留自身引火技法。",
+      "visual_form": "homura_sword",
+      "owner_identity": "homura",
+      "allowed_forms": [
+        "sword"
+      ],
+      "skill_id": "battle_spirit"
+    },
+    {
+      "id": "rinne_quick_slash",
+      "name": "疾切",
+      "type": "active",
+      "capacity_cost": 2,
+      "weapon_tags": [
+        "blade"
+      ],
+      "stats": {},
+      "modifiers": {
+        "mp_cost_add": -2,
+        "coefficient_add": -0.3
+      },
+      "summary": "凛音专属变式；灵力-2、伤害系数-0.30。不能与重斩原式同时装配。",
+      "visual_form": "rinne",
+      "owner_identity": "rinne",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "heavy_slash"
+    },
+    {
+      "id": "rinne_deep_break",
+      "name": "断势",
+      "type": "active",
+      "capacity_cost": 3,
+      "weapon_tags": [
+        "blade"
+      ],
+      "stats": {},
+      "modifiers": {
+        "mp_cost_add": 2,
+        "duration_add": 1
+      },
+      "summary": "凛音专属变式；破甲延长1次目标行动，灵力+2。不能与同一招式原式同时装配。",
+      "visual_form": "rinne",
+      "owner_identity": "rinne",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "armor_break"
+    },
+    {
+      "id": "guard_charged_bash",
+      "name": "震盾",
+      "type": "active",
+      "capacity_cost": 3,
+      "weapon_tags": [
+        "shield"
+      ],
+      "stats": {},
+      "modifiers": {
+        "mp_cost_add": 1,
+        "coefficient_add": 0.2,
+        "cooldown_add": 1
+      },
+      "summary": "岑照专属变式；盾击系数+0.20，灵力+1、冷却+1。不能与同一招式原式同时装配。",
+      "visual_form": "guard",
+      "owner_identity": "guard",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "shield_bash"
+    },
+    {
+      "id": "guard_brief_cover",
+      "name": "短援",
+      "type": "active",
+      "capacity_cost": 2,
+      "weapon_tags": [
+        "shield"
+      ],
+      "stats": {},
+      "modifiers": {
+        "mp_cost_add": -2,
+        "cooldown_add": 1
+      },
+      "summary": "岑照专属变式；灵力-2、冷却+1，适合轮换掩护。不能与掩护原式同时装配。",
+      "visual_form": "guard",
+      "owner_identity": "guard",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "cover"
+    },
+    {
+      "id": "mint_long_mark",
+      "name": "追踪印",
+      "type": "active",
+      "capacity_cost": 3,
+      "weapon_tags": [
+        "bow"
+      ],
+      "stats": {},
+      "modifiers": {
+        "mp_cost_add": 1,
+        "duration_add": 1
+      },
+      "summary": "薄荷专属变式；标记持续+1，灵力+1，便于后续猎杀。不能与同一招式原式同时装配。",
+      "visual_form": "mint",
+      "owner_identity": "mint",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "mark"
+    },
+    {
+      "id": "mint_quick_hunt",
+      "name": "速猎",
+      "type": "active",
+      "capacity_cost": 2,
+      "weapon_tags": [
+        "bow"
+      ],
+      "stats": {},
+      "modifiers": {
+        "mp_cost_add": -2,
+        "coefficient_add": -0.25
+      },
+      "summary": "薄荷专属变式；灵力-2，伤害系数-0.25；保留标记联动。不能与同一招式原式同时装配。",
+      "visual_form": "mint",
+      "owner_identity": "mint",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "hunt"
+    },
+    {
+      "id": "homura_focused_edge",
+      "name": "炽锋",
+      "type": "active",
+      "capacity_cost": 3,
+      "weapon_tags": [
+        "blade"
+      ],
+      "stats": {},
+      "modifiers": {
+        "mp_cost_add": 2,
+        "coefficient_add": 0.25
+      },
+      "summary": "焰华专属变式；剑形专属，伤害系数+0.25、灵力+2。不能与同一招式原式同时装配。",
+      "visual_form": "homura_sword",
+      "owner_identity": "homura",
+      "allowed_forms": [
+        "sword"
+      ],
+      "skill_id": "heavy_slash"
+    },
+    {
+      "id": "homura_lingering_ember",
+      "name": "余烬破甲",
+      "type": "active",
+      "capacity_cost": 3,
+      "weapon_tags": [
+        "blade"
+      ],
+      "stats": {},
+      "modifiers": {
+        "mp_cost_add": 2,
+        "duration_add": 1
+      },
+      "summary": "焰华专属变式；剑形破甲与引火效果延长1，灵力+2。不能与同一招式原式同时装配。",
+      "visual_form": "homura_sword",
+      "owner_identity": "homura",
+      "allowed_forms": [
+        "sword"
+      ],
+      "skill_id": "armor_break"
+    },
+    {
+      "id": "homura_quick_fire",
+      "name": "疾火",
+      "type": "active",
+      "capacity_cost": 2,
+      "weapon_tags": [
+        "focus"
+      ],
+      "stats": {},
+      "modifiers": {
+        "mp_cost_add": -2,
+        "coefficient_add": -0.3
+      },
+      "summary": "焰华专属变式；法形专属，灵力-2、伤害系数-0.30。不能与同一招式原式同时装配。",
+      "visual_form": "homura_mage",
+      "owner_identity": "homura",
+      "allowed_forms": [
+        "mage"
+      ],
+      "skill_id": "firebolt"
+    },
+    {
+      "id": "homura_binding_ice",
+      "name": "凝霜",
+      "type": "active",
+      "capacity_cost": 3,
+      "weapon_tags": [
+        "focus"
+      ],
+      "stats": {},
+      "modifiers": {
+        "mp_cost_add": 2,
+        "cooldown_add": 1,
+        "duration_add": 1
+      },
+      "summary": "焰华专属变式；法形减速延长1，灵力+2、冷却+1。不能与同一招式原式同时装配。",
+      "visual_form": "homura_mage",
+      "owner_identity": "homura",
+      "allowed_forms": [
+        "mage"
+      ],
+      "skill_id": "ice_arrow"
+    },
+    {
+      "id": "healer_measured_heal",
+      "name": "节息愈合",
+      "type": "active",
+      "capacity_cost": 2,
+      "weapon_tags": [
+        "focus",
+        "bell"
+      ],
+      "stats": {},
+      "modifiers": {
+        "mp_cost_add": -2,
+        "coefficient_add": -0.25
+      },
+      "summary": "苏合专属变式；治疗灵力-2、治疗系数-0.25。不能与同一招式原式同时装配。",
+      "visual_form": "healer",
+      "owner_identity": "healer",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "heal"
+    },
+    {
+      "id": "healer_lasting_shield",
+      "name": "续守",
+      "type": "active",
+      "capacity_cost": 3,
+      "weapon_tags": [
+        "focus",
+        "bell"
+      ],
+      "stats": {},
+      "modifiers": {
+        "mp_cost_add": 2,
+        "duration_add": 1
+      },
+      "summary": "苏合专属变式；护盾持续+1，灵力+2。不能与同一招式原式同时装配。",
+      "visual_form": "healer",
+      "owner_identity": "healer",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "holy_shield"
+    },
+    {
+      "id": "controller_lasting_weaken",
+      "name": "长缚",
+      "type": "active",
+      "capacity_cost": 3,
+      "weapon_tags": [
+        "focus",
+        "sigil"
+      ],
+      "stats": {},
+      "modifiers": {
+        "mp_cost_add": 2,
+        "duration_add": 1
+      },
+      "summary": "清明专属变式；虚弱持续+1，灵力+2。不能与同一招式原式同时装配。",
+      "visual_form": "controller",
+      "owner_identity": "controller",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "weaken"
+    },
+    {
+      "id": "controller_striking_seal",
+      "name": "击印",
+      "type": "active",
+      "capacity_cost": 3,
+      "weapon_tags": [
+        "focus",
+        "sigil"
+      ],
+      "stats": {},
+      "modifiers": {
+        "mp_cost_add": 2,
+        "coefficient_add": 0.2,
+        "cooldown_add": 1
+      },
+      "summary": "清明专属变式；破魔伤害系数+0.20，灵力+2、冷却+1。不能与同一招式原式同时装配。",
+      "visual_form": "controller",
+      "owner_identity": "controller",
+      "allowed_forms": [
+        "default"
+      ],
+      "skill_id": "magic_break"
+    },
+    {
+      "id": "rinne_edge_focus",
+      "name": "刃心",
+      "type": "passive",
+      "capacity_cost": 2,
+      "weapon_tags": [],
+      "stats": {
+        "atk": 6,
+        "def": -3
+      },
+      "modifiers": {},
+      "summary": "凛音专属；攻击+6、防御-3。",
+      "visual_form": "",
+      "owner_identity": "rinne",
+      "allowed_forms": []
+    },
+    {
+      "id": "rinne_guard_step",
+      "name": "踏锋",
+      "type": "passive",
+      "capacity_cost": 2,
+      "weapon_tags": [],
+      "stats": {
+        "spd": 3,
+        "mdef": -2
+      },
+      "modifiers": {},
+      "summary": "凛音专属；速度+3、术防-2。",
+      "visual_form": "",
+      "owner_identity": "rinne",
+      "allowed_forms": []
+    },
+    {
+      "id": "rinne_duelist_oath",
+      "name": "决锋",
+      "type": "passive",
+      "capacity_cost": 3,
+      "weapon_tags": [],
+      "stats": {
+        "hp": -16,
+        "atk": 7
+      },
+      "modifiers": {
+        "cooldown_add": -1,
+        "mp_cost_add": 1
+      },
+      "summary": "凛音专属；生命上限-16、攻击+7；技能冷却-1、灵力+1。",
+      "visual_form": "",
+      "owner_identity": "rinne",
+      "allowed_forms": []
+    },
+    {
+      "id": "guard_deep_guard",
+      "name": "厚阵",
+      "type": "passive",
+      "capacity_cost": 2,
+      "weapon_tags": [],
+      "stats": {
+        "hp": 18,
+        "mdef": 3,
+        "spd": -2
+      },
+      "modifiers": {},
+      "summary": "岑照专属；生命上限+18、术防+3、速度-2。",
+      "visual_form": "",
+      "owner_identity": "guard",
+      "allowed_forms": []
+    },
+    {
+      "id": "guard_rebuke",
+      "name": "反压",
+      "type": "passive",
+      "capacity_cost": 2,
+      "weapon_tags": [],
+      "stats": {
+        "atk": 5,
+        "def": -2
+      },
+      "modifiers": {},
+      "summary": "岑照专属；攻击+5、防御-2，偏向盾击反压。",
+      "visual_form": "",
+      "owner_identity": "guard",
+      "allowed_forms": []
+    },
+    {
+      "id": "mint_precise_string",
+      "name": "定弦",
+      "type": "passive",
+      "capacity_cost": 2,
+      "weapon_tags": [],
+      "stats": {
+        "atk": 5,
+        "def": -3
+      },
+      "modifiers": {},
+      "summary": "薄荷专属；攻击+5、防御-3。",
+      "visual_form": "",
+      "owner_identity": "mint",
+      "allowed_forms": []
+    },
+    {
+      "id": "mint_trap_kit",
+      "name": "猎备",
+      "type": "passive",
+      "capacity_cost": 3,
+      "weapon_tags": [],
+      "stats": {
+        "mp": 6,
+        "atk": -2
+      },
+      "modifiers": {
+        "duration_add": 1,
+        "mp_cost_add": 1
+      },
+      "summary": "薄荷专属；灵力上限+6、攻击-2；持续+1、消耗+1。",
+      "visual_form": "",
+      "owner_identity": "mint",
+      "allowed_forms": []
+    },
+    {
+      "id": "homura_dual_channel",
+      "name": "双引",
+      "type": "passive",
+      "capacity_cost": 2,
+      "weapon_tags": [],
+      "stats": {
+        "atk": 5,
+        "matk": 3,
+        "hp": -18
+      },
+      "modifiers": {},
+      "summary": "焰华专属；攻击+5、术攻+3、生命上限-18，两形态共用。",
+      "visual_form": "",
+      "owner_identity": "homura",
+      "allowed_forms": []
+    },
+    {
+      "id": "healer_safe_hands",
+      "name": "稳铃",
+      "type": "passive",
+      "capacity_cost": 2,
+      "weapon_tags": [],
+      "stats": {
+        "mdef": 5,
+        "hp": 12,
+        "spd": -2
+      },
+      "modifiers": {},
+      "summary": "苏合专属；术防+5、生命上限+12、速度-2。",
+      "visual_form": "",
+      "owner_identity": "healer",
+      "allowed_forms": []
+    },
+    {
+      "id": "healer_reserve_bell",
+      "name": "蓄息",
+      "type": "passive",
+      "capacity_cost": 2,
+      "weapon_tags": [],
+      "stats": {
+        "mp": 8,
+        "matk": -3
+      },
+      "modifiers": {},
+      "summary": "苏合专属；灵力上限+8、术攻-3。",
+      "visual_form": "",
+      "owner_identity": "healer",
+      "allowed_forms": []
+    },
+    {
+      "id": "controller_quick_seal",
+      "name": "先印",
+      "type": "passive",
+      "capacity_cost": 2,
+      "weapon_tags": [],
+      "stats": {
+        "spd": 4,
+        "hp": -16
+      },
+      "modifiers": {},
+      "summary": "清明专属；速度+4、生命上限-16。",
+      "visual_form": "",
+      "owner_identity": "controller",
+      "allowed_forms": []
+    },
+    {
+      "id": "controller_threshold_reader",
+      "name": "透隙",
+      "type": "passive",
+      "capacity_cost": 2,
+      "weapon_tags": [],
+      "stats": {
+        "matk": 5,
+        "def": -3
+      },
+      "modifiers": {
+        "coefficient_add": 0.1,
+        "mp_cost_add": 1
+      },
+      "summary": "清明专属；术攻+5、防御-3；技能系数+0.10、灵力+1。",
+      "visual_form": "",
+      "owner_identity": "controller",
+      "allowed_forms": []
     }
   ],
   "initial_cards": {
@@ -748,7 +1457,37 @@
     "seal": 1,
     "magic_break": 1,
     "steady_breath": 1,
-    "light_step": 1
+    "light_step": 1,
+    "homura_heavy_slash": 1,
+    "homura_armor_break": 1,
+    "homura_sweep": 1,
+    "homura_battle_spirit": 1,
+    "rinne_quick_slash": 1,
+    "rinne_deep_break": 1,
+    "guard_charged_bash": 1,
+    "guard_brief_cover": 1,
+    "mint_long_mark": 1,
+    "mint_quick_hunt": 1,
+    "homura_focused_edge": 1,
+    "homura_lingering_ember": 1,
+    "homura_quick_fire": 1,
+    "homura_binding_ice": 1,
+    "healer_measured_heal": 1,
+    "healer_lasting_shield": 1,
+    "controller_lasting_weaken": 1,
+    "controller_striking_seal": 1,
+    "rinne_edge_focus": 1,
+    "rinne_guard_step": 1,
+    "rinne_duelist_oath": 1,
+    "guard_deep_guard": 1,
+    "guard_rebuke": 1,
+    "mint_precise_string": 1,
+    "mint_trap_kit": 1,
+    "homura_dual_channel": 1,
+    "healer_safe_hands": 1,
+    "healer_reserve_bell": 1,
+    "controller_quick_seal": 1,
+    "controller_threshold_reader": 1
   },
   "equipment_stat_bounds": {
     "hp": [

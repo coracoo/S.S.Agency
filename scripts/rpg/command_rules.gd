@@ -55,7 +55,7 @@ static func preview(state: Dictionary, command: Dictionary, catalog: RefCounted)
 		reasons.append("基础指令不接受技能ID")
 	if command.kind == "attack_magic" and source.side == "player":
 		if Loadouts.has_data(source):
-			if not Loadouts.derive(source,catalog).weapon_tags.has("focus"):reasons.append("当前武器没有术法普攻")
+			if not Loadouts.can_magic_attack(source,catalog):reasons.append("当前角色或武器不具备术法普攻")
 		elif not Forms.active_class(source) in ["mage", "healer", "controller"]:reasons.append("该职业没有魔法普攻")
 	var targets := _targets(state, source, ability.target_rule, command.target_ids, reasons)
 	result.effective_target_ids = targets.duplicate()
