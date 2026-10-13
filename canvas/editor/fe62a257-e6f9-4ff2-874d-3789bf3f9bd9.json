@@ -1,0 +1,1403 @@
+{
+  "version": 1,
+  "nodes": {
+    "node-canvas-readme": {
+      "x": 0,
+      "y": 0,
+      "width": 560,
+      "height": 300
+    },
+    "node-game-asset-index": {
+      "x": 600,
+      "y": 0,
+      "width": 700,
+      "height": 300
+    },
+    "section-1-54af9f57": {
+      "x": 0,
+      "y": 340,
+      "width": 340,
+      "height": 260
+    },
+    "char-rinne-idle": {
+      "x": 370,
+      "y": 340,
+      "width": 330,
+      "height": 280
+    },
+    "char-rinne-attack": {
+      "x": 730,
+      "y": 340,
+      "width": 330,
+      "height": 280
+    },
+    "char-rinne-down": {
+      "x": 1090,
+      "y": 340,
+      "width": 330,
+      "height": 280
+    },
+    "char-homura-sword-idle": {
+      "x": 1450,
+      "y": 340,
+      "width": 330,
+      "height": 280
+    },
+    "char-homura-sword-attack": {
+      "x": 1810,
+      "y": 340,
+      "width": 330,
+      "height": 280
+    },
+    "char-homura-sword-down": {
+      "x": 2170,
+      "y": 340,
+      "width": 330,
+      "height": 280
+    },
+    "char-homura-mage-idle": {
+      "x": 2530,
+      "y": 340,
+      "width": 330,
+      "height": 280
+    },
+    "char-homura-mage-attack": {
+      "x": 370,
+      "y": 640,
+      "width": 330,
+      "height": 280
+    },
+    "char-homura-mage-down": {
+      "x": 730,
+      "y": 640,
+      "width": 330,
+      "height": 280
+    },
+    "char-mint-idle": {
+      "x": 1090,
+      "y": 640,
+      "width": 330,
+      "height": 280
+    },
+    "char-mint-attack": {
+      "x": 1450,
+      "y": 640,
+      "width": 330,
+      "height": 280
+    },
+    "char-mint-down": {
+      "x": 1810,
+      "y": 640,
+      "width": 330,
+      "height": 280
+    },
+    "char-guard-idle": {
+      "x": 2170,
+      "y": 640,
+      "width": 330,
+      "height": 280
+    },
+    "char-guard-attack": {
+      "x": 2530,
+      "y": 640,
+      "width": 330,
+      "height": 280
+    },
+    "char-guard-down": {
+      "x": 370,
+      "y": 940,
+      "width": 330,
+      "height": 280
+    },
+    "char-healer-idle": {
+      "x": 730,
+      "y": 940,
+      "width": 330,
+      "height": 280
+    },
+    "char-healer-attack": {
+      "x": 1090,
+      "y": 940,
+      "width": 330,
+      "height": 280
+    },
+    "char-healer-down": {
+      "x": 1450,
+      "y": 940,
+      "width": 330,
+      "height": 280
+    },
+    "char-controller-idle": {
+      "x": 1810,
+      "y": 940,
+      "width": 330,
+      "height": 280
+    },
+    "char-controller-attack": {
+      "x": 2170,
+      "y": 940,
+      "width": 330,
+      "height": 280
+    },
+    "char-controller-down": {
+      "x": 2530,
+      "y": 940,
+      "width": 330,
+      "height": 280
+    },
+    "section-2-18bf3315": {
+      "x": 0,
+      "y": 1330,
+      "width": 340,
+      "height": 260
+    },
+    "enemy-ch1-hound": {
+      "x": 370,
+      "y": 1330,
+      "width": 330,
+      "height": 280
+    },
+    "enemy-ch1-shield-soldier": {
+      "x": 730,
+      "y": 1330,
+      "width": 330,
+      "height": 280
+    },
+    "enemy-ch1-fire-spirit": {
+      "x": 1090,
+      "y": 1330,
+      "width": 330,
+      "height": 280
+    },
+    "enemy-ch1-cultist": {
+      "x": 1450,
+      "y": 1330,
+      "width": 330,
+      "height": 280
+    },
+    "enemy-ch1-elite-shield-soldier": {
+      "x": 1810,
+      "y": 1330,
+      "width": 330,
+      "height": 280
+    },
+    "enemy-ch1-gatekeeper": {
+      "x": 2170,
+      "y": 1330,
+      "width": 330,
+      "height": 280
+    },
+    "section-3-25bccb54": {
+      "x": 0,
+      "y": 1720,
+      "width": 340,
+      "height": 260
+    },
+    "enemy-saga-exit-relay": {
+      "x": 370,
+      "y": 1720,
+      "width": 330,
+      "height": 280
+    },
+    "enemy-saga-final-recoil": {
+      "x": 730,
+      "y": 1720,
+      "width": 330,
+      "height": 280
+    },
+    "enemy-saga-linked-anchors": {
+      "x": 1090,
+      "y": 1720,
+      "width": 330,
+      "height": 280
+    },
+    "enemy-saga-mirror-lamp": {
+      "x": 1450,
+      "y": 1720,
+      "width": 330,
+      "height": 280
+    },
+    "enemy-saga-shard-bearer": {
+      "x": 1810,
+      "y": 1720,
+      "width": 330,
+      "height": 280
+    },
+    "enemy-saga-soldier-shadow": {
+      "x": 2170,
+      "y": 1720,
+      "width": 330,
+      "height": 280
+    },
+    "enemy-saga-voice-general": {
+      "x": 2530,
+      "y": 1720,
+      "width": 330,
+      "height": 280
+    },
+    "enemy-saga-warden-master": {
+      "x": 370,
+      "y": 2020,
+      "width": 330,
+      "height": 280
+    },
+    "section-4-b089f6b0": {
+      "x": 0,
+      "y": 2410,
+      "width": 340,
+      "height": 260
+    },
+    "npc-ch1-liang-world": {
+      "x": 370,
+      "y": 2410,
+      "width": 330,
+      "height": 280
+    },
+    "npc-ch1-liang-half": {
+      "x": 730,
+      "y": 2410,
+      "width": 330,
+      "height": 280
+    },
+    "npc-ch1-acheng-world": {
+      "x": 1090,
+      "y": 2410,
+      "width": 330,
+      "height": 280
+    },
+    "npc-ch1-acheng-half": {
+      "x": 1450,
+      "y": 2410,
+      "width": 330,
+      "height": 280
+    },
+    "section-5-998abd13": {
+      "x": 0,
+      "y": 2800,
+      "width": 340,
+      "height": 260
+    },
+    "npc-saga-axing-taoshen": {
+      "x": 370,
+      "y": 2800,
+      "width": 330,
+      "height": 280
+    },
+    "npc-saga-fangcheng-chenkui": {
+      "x": 730,
+      "y": 2800,
+      "width": 330,
+      "height": 280
+    },
+    "npc-saga-fangsu-chenqiao": {
+      "x": 1090,
+      "y": 2800,
+      "width": 330,
+      "height": 280
+    },
+    "npc-saga-limao-xucheng": {
+      "x": 1450,
+      "y": 2800,
+      "width": 330,
+      "height": 280
+    },
+    "npc-saga-luoshen-aliu": {
+      "x": 1810,
+      "y": 2800,
+      "width": 330,
+      "height": 280
+    },
+    "npc-saga-luowei-bingvendor": {
+      "x": 2170,
+      "y": 2800,
+      "width": 330,
+      "height": 280
+    },
+    "npc-saga-mengheng-shenzhuzhou": {
+      "x": 2530,
+      "y": 2800,
+      "width": 330,
+      "height": 280
+    },
+    "npc-saga-qiaobo-xuzhaoyi": {
+      "x": 370,
+      "y": 3100,
+      "width": 330,
+      "height": 280
+    },
+    "npc-saga-qiuan-zhaoyigong": {
+      "x": 730,
+      "y": 3100,
+      "width": 330,
+      "height": 280
+    },
+    "npc-saga-songpo-duping": {
+      "x": 1090,
+      "y": 3100,
+      "width": 330,
+      "height": 280
+    },
+    "npc-saga-wuji-luyun": {
+      "x": 1450,
+      "y": 3100,
+      "width": 330,
+      "height": 280
+    },
+    "npc-saga-yaoqin-duying": {
+      "x": 1810,
+      "y": 3100,
+      "width": 330,
+      "height": 280
+    },
+    "section-6-16727e71": {
+      "x": 0,
+      "y": 3490,
+      "width": 340,
+      "height": 260
+    },
+    "bg-approach-battle": {
+      "x": 370,
+      "y": 3490,
+      "width": 330,
+      "height": 280
+    },
+    "bg-approach-l2-test": {
+      "x": 730,
+      "y": 3490,
+      "width": 330,
+      "height": 280
+    },
+    "bg-corridor-battle": {
+      "x": 1090,
+      "y": 3490,
+      "width": 330,
+      "height": 280
+    },
+    "bg-corridor-walk": {
+      "x": 1450,
+      "y": 3490,
+      "width": 330,
+      "height": 280
+    },
+    "bg-honden-battle": {
+      "x": 1810,
+      "y": 3490,
+      "width": 330,
+      "height": 280
+    },
+    "bg-honden-dusk": {
+      "x": 2170,
+      "y": 3490,
+      "width": 330,
+      "height": 280
+    },
+    "bg-mountain-far": {
+      "x": 2530,
+      "y": 3490,
+      "width": 330,
+      "height": 280
+    },
+    "bg-mountain-arch": {
+      "x": 370,
+      "y": 3790,
+      "width": 330,
+      "height": 280
+    },
+    "section-7-d05fddfd": {
+      "x": 0,
+      "y": 4180,
+      "width": 340,
+      "height": 260
+    },
+    "bg-parallax-approach-fg1": {
+      "x": 370,
+      "y": 4180,
+      "width": 330,
+      "height": 280
+    },
+    "bg-parallax-corridor-fg1": {
+      "x": 730,
+      "y": 4180,
+      "width": 330,
+      "height": 280
+    },
+    "bg-parallax-honden-fg1": {
+      "x": 1090,
+      "y": 4180,
+      "width": 330,
+      "height": 280
+    },
+    "bg-parallax-mountain-fg1": {
+      "x": 1450,
+      "y": 4180,
+      "width": 330,
+      "height": 280
+    },
+    "section-8-f55c19de": {
+      "x": 0,
+      "y": 4570,
+      "width": 340,
+      "height": 260
+    },
+    "bg-occluder-honden": {
+      "x": 370,
+      "y": 4570,
+      "width": 330,
+      "height": 280
+    },
+    "bg-occluder-approach-o0": {
+      "x": 730,
+      "y": 4570,
+      "width": 330,
+      "height": 280
+    },
+    "bg-occluder-approach-o1": {
+      "x": 1090,
+      "y": 4570,
+      "width": 330,
+      "height": 280
+    },
+    "section-9-13254b13": {
+      "x": 0,
+      "y": 4960,
+      "width": 340,
+      "height": 260
+    },
+    "bg-walkmask-approach": {
+      "x": 370,
+      "y": 4960,
+      "width": 330,
+      "height": 280
+    },
+    "bg-walkmask-corridor": {
+      "x": 730,
+      "y": 4960,
+      "width": 330,
+      "height": 280
+    },
+    "bg-walkmask-honden": {
+      "x": 1090,
+      "y": 4960,
+      "width": 330,
+      "height": 280
+    },
+    "bg-walkmask-mountain": {
+      "x": 1450,
+      "y": 4960,
+      "width": 330,
+      "height": 280
+    },
+    "section-10-f64f629d": {
+      "x": 0,
+      "y": 5350,
+      "width": 340,
+      "height": 260
+    },
+    "stage-act01-approach-glb": {
+      "x": 370,
+      "y": 5350,
+      "width": 330,
+      "height": 280
+    },
+    "stage-night02-corridor-glb": {
+      "x": 730,
+      "y": 5350,
+      "width": 330,
+      "height": 280
+    },
+    "stage-night02-corridor-hd2d-glb": {
+      "x": 1090,
+      "y": 5350,
+      "width": 330,
+      "height": 280
+    },
+    "stage-night03-procession-glb": {
+      "x": 1450,
+      "y": 5350,
+      "width": 330,
+      "height": 280
+    },
+    "stage-night04-mirror-glb": {
+      "x": 1810,
+      "y": 5350,
+      "width": 330,
+      "height": 280
+    },
+    "stage-night05-honden-glb": {
+      "x": 2170,
+      "y": 5350,
+      "width": 330,
+      "height": 280
+    },
+    "section-11-e2816cde": {
+      "x": 0,
+      "y": 5740,
+      "width": 340,
+      "height": 260
+    },
+    "tex-night02-corridor-paper": {
+      "x": 370,
+      "y": 5740,
+      "width": 330,
+      "height": 280
+    },
+    "tex-night02-corridor-plaster": {
+      "x": 730,
+      "y": 5740,
+      "width": 330,
+      "height": 280
+    },
+    "tex-night02-corridor-roof": {
+      "x": 1090,
+      "y": 5740,
+      "width": 330,
+      "height": 280
+    },
+    "tex-night02-corridor-stone": {
+      "x": 1450,
+      "y": 5740,
+      "width": 330,
+      "height": 280
+    },
+    "tex-night02-corridor-wood": {
+      "x": 1810,
+      "y": 5740,
+      "width": 330,
+      "height": 280
+    },
+    "tex-night02-corridor-hd2d-paper": {
+      "x": 2170,
+      "y": 5740,
+      "width": 330,
+      "height": 280
+    },
+    "tex-night02-corridor-hd2d-plaster": {
+      "x": 2530,
+      "y": 5740,
+      "width": 330,
+      "height": 280
+    },
+    "tex-night02-corridor-hd2d-roof": {
+      "x": 370,
+      "y": 6040,
+      "width": 330,
+      "height": 280
+    },
+    "tex-night02-corridor-hd2d-stone": {
+      "x": 730,
+      "y": 6040,
+      "width": 330,
+      "height": 280
+    },
+    "tex-night02-corridor-hd2d-wood": {
+      "x": 1090,
+      "y": 6040,
+      "width": 330,
+      "height": 280
+    },
+    "tex-night03-procession-paper": {
+      "x": 1450,
+      "y": 6040,
+      "width": 330,
+      "height": 280
+    },
+    "tex-night03-procession-stone": {
+      "x": 1810,
+      "y": 6040,
+      "width": 330,
+      "height": 280
+    },
+    "tex-night03-procession-wood": {
+      "x": 2170,
+      "y": 6040,
+      "width": 330,
+      "height": 280
+    },
+    "tex-night04-mirror-paper": {
+      "x": 2530,
+      "y": 6040,
+      "width": 330,
+      "height": 280
+    },
+    "tex-night04-mirror-plaster": {
+      "x": 370,
+      "y": 6340,
+      "width": 330,
+      "height": 280
+    },
+    "tex-night04-mirror-roof": {
+      "x": 730,
+      "y": 6340,
+      "width": 330,
+      "height": 280
+    },
+    "tex-night04-mirror-stone": {
+      "x": 1090,
+      "y": 6340,
+      "width": 330,
+      "height": 280
+    },
+    "tex-night04-mirror-wood": {
+      "x": 1450,
+      "y": 6340,
+      "width": 330,
+      "height": 280
+    },
+    "tex-night05-honden-paper": {
+      "x": 1810,
+      "y": 6340,
+      "width": 330,
+      "height": 280
+    },
+    "tex-night05-honden-plaster": {
+      "x": 2170,
+      "y": 6340,
+      "width": 330,
+      "height": 280
+    },
+    "tex-night05-honden-roof": {
+      "x": 2530,
+      "y": 6340,
+      "width": 330,
+      "height": 280
+    },
+    "tex-night05-honden-stone": {
+      "x": 370,
+      "y": 6640,
+      "width": 330,
+      "height": 280
+    },
+    "tex-night05-honden-wood": {
+      "x": 730,
+      "y": 6640,
+      "width": 330,
+      "height": 280
+    },
+    "section-12-d0d89008": {
+      "x": 0,
+      "y": 7030,
+      "width": 340,
+      "height": 260
+    },
+    "spell-atlas-ambush": {
+      "x": 370,
+      "y": 7030,
+      "width": 330,
+      "height": 280
+    },
+    "spell-atlas-homura-sword-armor-break": {
+      "x": 730,
+      "y": 7030,
+      "width": 330,
+      "height": 280
+    },
+    "spell-atlas-rinne-armor-break": {
+      "x": 1090,
+      "y": 7030,
+      "width": 330,
+      "height": 280
+    },
+    "spell-atlas-homura-sword-battle-spirit": {
+      "x": 1450,
+      "y": 7030,
+      "width": 330,
+      "height": 280
+    },
+    "spell-atlas-rinne-battle-spirit": {
+      "x": 1810,
+      "y": 7030,
+      "width": 330,
+      "height": 280
+    },
+    "spell-atlas-burn-brand": {
+      "x": 2170,
+      "y": 7030,
+      "width": 330,
+      "height": 280
+    },
+    "spell-atlas-cleanse": {
+      "x": 2530,
+      "y": 7030,
+      "width": 330,
+      "height": 280
+    },
+    "spell-atlas-cover": {
+      "x": 370,
+      "y": 7330,
+      "width": 330,
+      "height": 280
+    },
+    "spell-atlas-firebolt": {
+      "x": 730,
+      "y": 7330,
+      "width": 330,
+      "height": 280
+    },
+    "spell-atlas-flame-wave": {
+      "x": 1090,
+      "y": 7330,
+      "width": 330,
+      "height": 280
+    },
+    "spell-atlas-group-heal": {
+      "x": 1450,
+      "y": 7330,
+      "width": 330,
+      "height": 280
+    },
+    "spell-atlas-heal": {
+      "x": 1810,
+      "y": 7330,
+      "width": 330,
+      "height": 280
+    },
+    "spell-atlas-homura-sword-heavy-slash": {
+      "x": 2170,
+      "y": 7330,
+      "width": 330,
+      "height": 280
+    },
+    "spell-atlas-rinne-heavy-slash": {
+      "x": 2530,
+      "y": 7330,
+      "width": 330,
+      "height": 280
+    },
+    "spell-atlas-holy-shield": {
+      "x": 370,
+      "y": 7630,
+      "width": 330,
+      "height": 280
+    },
+    "spell-atlas-hunt": {
+      "x": 730,
+      "y": 7630,
+      "width": 330,
+      "height": 280
+    },
+    "spell-atlas-ice-arrow": {
+      "x": 1090,
+      "y": 7630,
+      "width": 330,
+      "height": 280
+    },
+    "spell-atlas-iron-wall": {
+      "x": 1450,
+      "y": 7630,
+      "width": 330,
+      "height": 280
+    },
+    "spell-atlas-magic-break": {
+      "x": 1810,
+      "y": 7630,
+      "width": 330,
+      "height": 280
+    },
+    "spell-atlas-mark": {
+      "x": 2170,
+      "y": 7630,
+      "width": 330,
+      "height": 280
+    },
+    "spell-atlas-seal": {
+      "x": 2530,
+      "y": 7630,
+      "width": 330,
+      "height": 280
+    },
+    "spell-atlas-shield-bash": {
+      "x": 370,
+      "y": 7930,
+      "width": 330,
+      "height": 280
+    },
+    "spell-atlas-slow": {
+      "x": 730,
+      "y": 7930,
+      "width": 330,
+      "height": 280
+    },
+    "spell-atlas-smoke-screen": {
+      "x": 1090,
+      "y": 7930,
+      "width": 330,
+      "height": 280
+    },
+    "spell-atlas-homura-sword-sweep": {
+      "x": 1450,
+      "y": 7930,
+      "width": 330,
+      "height": 280
+    },
+    "spell-atlas-rinne-sweep": {
+      "x": 1810,
+      "y": 7930,
+      "width": 330,
+      "height": 280
+    },
+    "spell-atlas-taunt": {
+      "x": 2170,
+      "y": 7930,
+      "width": 330,
+      "height": 280
+    },
+    "spell-atlas-weaken": {
+      "x": 2530,
+      "y": 7930,
+      "width": 330,
+      "height": 280
+    },
+    "section-13-1d78d36a": {
+      "x": 0,
+      "y": 8320,
+      "width": 340,
+      "height": 260
+    },
+    "spell-illustrated-armor-break": {
+      "x": 370,
+      "y": 8320,
+      "width": 330,
+      "height": 280
+    },
+    "spell-illustrated-battle-spirit": {
+      "x": 730,
+      "y": 8320,
+      "width": 330,
+      "height": 280
+    },
+    "spell-illustrated-burn-brand": {
+      "x": 1090,
+      "y": 8320,
+      "width": 330,
+      "height": 280
+    },
+    "spell-illustrated-cleanse": {
+      "x": 1450,
+      "y": 8320,
+      "width": 330,
+      "height": 280
+    },
+    "spell-illustrated-firebolt": {
+      "x": 1810,
+      "y": 8320,
+      "width": 330,
+      "height": 280
+    },
+    "spell-illustrated-flame-wave": {
+      "x": 2170,
+      "y": 8320,
+      "width": 330,
+      "height": 280
+    },
+    "spell-illustrated-group-heal": {
+      "x": 2530,
+      "y": 8320,
+      "width": 330,
+      "height": 280
+    },
+    "spell-illustrated-heal": {
+      "x": 370,
+      "y": 8620,
+      "width": 330,
+      "height": 280
+    },
+    "spell-illustrated-holy-shield": {
+      "x": 730,
+      "y": 8620,
+      "width": 330,
+      "height": 280
+    },
+    "spell-illustrated-hunt": {
+      "x": 1090,
+      "y": 8620,
+      "width": 330,
+      "height": 280
+    },
+    "spell-illustrated-ice-arrow": {
+      "x": 1450,
+      "y": 8620,
+      "width": 330,
+      "height": 280
+    },
+    "spell-illustrated-magic-break": {
+      "x": 1810,
+      "y": 8620,
+      "width": 330,
+      "height": 280
+    },
+    "spell-illustrated-mark": {
+      "x": 2170,
+      "y": 8620,
+      "width": 330,
+      "height": 280
+    },
+    "spell-illustrated-protect": {
+      "x": 2530,
+      "y": 8620,
+      "width": 330,
+      "height": 280
+    },
+    "spell-illustrated-seal": {
+      "x": 370,
+      "y": 8920,
+      "width": 330,
+      "height": 280
+    },
+    "spell-illustrated-shield-bash": {
+      "x": 730,
+      "y": 8920,
+      "width": 330,
+      "height": 280
+    },
+    "spell-illustrated-slash": {
+      "x": 1090,
+      "y": 8920,
+      "width": 330,
+      "height": 280
+    },
+    "spell-illustrated-slow": {
+      "x": 1450,
+      "y": 8920,
+      "width": 330,
+      "height": 280
+    },
+    "spell-illustrated-smoke-screen": {
+      "x": 1810,
+      "y": 8920,
+      "width": 330,
+      "height": 280
+    },
+    "spell-illustrated-sweep": {
+      "x": 2170,
+      "y": 8920,
+      "width": 330,
+      "height": 280
+    },
+    "spell-illustrated-taunt": {
+      "x": 2530,
+      "y": 8920,
+      "width": 330,
+      "height": 280
+    },
+    "spell-illustrated-weaken": {
+      "x": 370,
+      "y": 9220,
+      "width": 330,
+      "height": 280
+    },
+    "fx-fire-painterly": {
+      "x": 730,
+      "y": 9220,
+      "width": 330,
+      "height": 280
+    },
+    "section-14-6254d590": {
+      "x": 0,
+      "y": 9610,
+      "width": 340,
+      "height": 260
+    },
+    "ui-cardart-e-barrier-break": {
+      "x": 370,
+      "y": 9610,
+      "width": 330,
+      "height": 280
+    },
+    "ui-cardart-e-defense-stance": {
+      "x": 730,
+      "y": 9610,
+      "width": 330,
+      "height": 280
+    },
+    "ui-cardart-e-flame-katana": {
+      "x": 1090,
+      "y": 9610,
+      "width": 330,
+      "height": 280
+    },
+    "ui-cardart-e-ink-brush": {
+      "x": 1450,
+      "y": 9610,
+      "width": 330,
+      "height": 280
+    },
+    "ui-cardart-e-mist-guard": {
+      "x": 1810,
+      "y": 9610,
+      "width": 330,
+      "height": 280
+    },
+    "ui-cardart-e-nail-strike": {
+      "x": 2170,
+      "y": 9610,
+      "width": 330,
+      "height": 280
+    },
+    "ui-cardart-e-paper-amulet": {
+      "x": 2530,
+      "y": 9610,
+      "width": 330,
+      "height": 280
+    },
+    "ui-cardart-e-paper-shield": {
+      "x": 370,
+      "y": 9910,
+      "width": 330,
+      "height": 280
+    },
+    "ui-cardart-e-purify-flame": {
+      "x": 730,
+      "y": 9910,
+      "width": 330,
+      "height": 280
+    },
+    "ui-cardart-e-return-blade": {
+      "x": 1090,
+      "y": 9910,
+      "width": 330,
+      "height": 280
+    },
+    "ui-cardart-e-seeing-eye": {
+      "x": 1450,
+      "y": 9910,
+      "width": 330,
+      "height": 280
+    },
+    "ui-cardart-e-spirit-wisps": {
+      "x": 1810,
+      "y": 9910,
+      "width": 330,
+      "height": 280
+    },
+    "ui-cardart-e-talisman-stack": {
+      "x": 2170,
+      "y": 9910,
+      "width": 330,
+      "height": 280
+    },
+    "ui-cardart-e-twin-arc": {
+      "x": 2530,
+      "y": 9910,
+      "width": 330,
+      "height": 280
+    },
+    "ui-cardart-val-bell": {
+      "x": 370,
+      "y": 10210,
+      "width": 330,
+      "height": 280
+    },
+    "ui-cardart-val-ignite": {
+      "x": 730,
+      "y": 10210,
+      "width": 330,
+      "height": 280
+    },
+    "ui-cardart-val-seal": {
+      "x": 1090,
+      "y": 10210,
+      "width": 330,
+      "height": 280
+    },
+    "ui-cardart-val-slash": {
+      "x": 1450,
+      "y": 10210,
+      "width": 330,
+      "height": 280
+    },
+    "ui-cardart-val-spill": {
+      "x": 1810,
+      "y": 10210,
+      "width": 330,
+      "height": 280
+    },
+    "section-15-1ea0197d": {
+      "x": 0,
+      "y": 10600,
+      "width": 340,
+      "height": 260
+    },
+    "ui-night-accessory": {
+      "x": 370,
+      "y": 10600,
+      "width": 330,
+      "height": 280
+    },
+    "ui-night-armor": {
+      "x": 730,
+      "y": 10600,
+      "width": 330,
+      "height": 280
+    },
+    "ui-night-button": {
+      "x": 1090,
+      "y": 10600,
+      "width": 330,
+      "height": 280
+    },
+    "ui-night-button-disabled": {
+      "x": 1450,
+      "y": 10600,
+      "width": 330,
+      "height": 280
+    },
+    "ui-night-button-primary": {
+      "x": 1810,
+      "y": 10600,
+      "width": 330,
+      "height": 280
+    },
+    "ui-night-button-selected": {
+      "x": 2170,
+      "y": 10600,
+      "width": 330,
+      "height": 280
+    },
+    "ui-night-cleansing-powder": {
+      "x": 2530,
+      "y": 10600,
+      "width": 330,
+      "height": 280
+    },
+    "ui-night-energy-tea": {
+      "x": 370,
+      "y": 10900,
+      "width": 330,
+      "height": 280
+    },
+    "ui-night-focus": {
+      "x": 730,
+      "y": 10900,
+      "width": 330,
+      "height": 280
+    },
+    "ui-night-gauge-hp": {
+      "x": 1090,
+      "y": 10900,
+      "width": 330,
+      "height": 280
+    },
+    "ui-night-gauge-mp": {
+      "x": 1450,
+      "y": 10900,
+      "width": 330,
+      "height": 280
+    },
+    "ui-night-gauge-track": {
+      "x": 1810,
+      "y": 10900,
+      "width": 330,
+      "height": 280
+    },
+    "ui-night-guard-charm": {
+      "x": 2170,
+      "y": 10900,
+      "width": 330,
+      "height": 280
+    },
+    "ui-night-healing-potion": {
+      "x": 2530,
+      "y": 10900,
+      "width": 330,
+      "height": 280
+    },
+    "ui-night-inset": {
+      "x": 370,
+      "y": 11200,
+      "width": 330,
+      "height": 280
+    },
+    "ui-night-mana-potion": {
+      "x": 730,
+      "y": 11200,
+      "width": 330,
+      "height": 280
+    },
+    "ui-night-moxa-roll": {
+      "x": 1090,
+      "y": 11200,
+      "width": 330,
+      "height": 280
+    },
+    "ui-night-panel": {
+      "x": 1450,
+      "y": 11200,
+      "width": 330,
+      "height": 280
+    },
+    "ui-night-revival-potion": {
+      "x": 1810,
+      "y": 11200,
+      "width": 330,
+      "height": 280
+    },
+    "ui-night-weapon": {
+      "x": 2170,
+      "y": 11200,
+      "width": 330,
+      "height": 280
+    },
+    "section-16-6028561b": {
+      "x": 0,
+      "y": 11590,
+      "width": 340,
+      "height": 260
+    },
+    "ui-panel-washi": {
+      "x": 370,
+      "y": 11590,
+      "width": 330,
+      "height": 280
+    },
+    "tex-washi-full": {
+      "x": 730,
+      "y": 11590,
+      "width": 330,
+      "height": 280
+    },
+    "tex-washi-overlay": {
+      "x": 1090,
+      "y": 11590,
+      "width": 330,
+      "height": 280
+    },
+    "section-17-4eb95770": {
+      "x": 0,
+      "y": 11980,
+      "width": 340,
+      "height": 260
+    },
+    "fx-bell-wave-f1": {
+      "x": 370,
+      "y": 11980,
+      "width": 330,
+      "height": 280
+    },
+    "fx-bell-wave-f2": {
+      "x": 730,
+      "y": 11980,
+      "width": 330,
+      "height": 280
+    },
+    "fx-bell-wave-f3": {
+      "x": 1090,
+      "y": 11980,
+      "width": 330,
+      "height": 280
+    },
+    "fx-bell-wave-f4": {
+      "x": 1450,
+      "y": 11980,
+      "width": 330,
+      "height": 280
+    },
+    "fx-raw-bell-wave-sheet": {
+      "x": 1810,
+      "y": 11980,
+      "width": 330,
+      "height": 280
+    },
+    "fx-fire-burst-f1": {
+      "x": 2170,
+      "y": 11980,
+      "width": 330,
+      "height": 280
+    },
+    "fx-fire-burst-f2": {
+      "x": 2530,
+      "y": 11980,
+      "width": 330,
+      "height": 280
+    },
+    "fx-fire-burst-f3": {
+      "x": 370,
+      "y": 12280,
+      "width": 330,
+      "height": 280
+    },
+    "fx-fire-burst-f4": {
+      "x": 730,
+      "y": 12280,
+      "width": 330,
+      "height": 280
+    },
+    "fx-fire-burst-f5": {
+      "x": 1090,
+      "y": 12280,
+      "width": 330,
+      "height": 280
+    },
+    "fx-fire-burst-f6": {
+      "x": 1450,
+      "y": 12280,
+      "width": 330,
+      "height": 280
+    },
+    "fx-raw-fire-burst-sheet": {
+      "x": 1810,
+      "y": 12280,
+      "width": 330,
+      "height": 280
+    },
+    "fx-seal-burst-f1": {
+      "x": 2170,
+      "y": 12280,
+      "width": 330,
+      "height": 280
+    },
+    "fx-seal-burst-f2": {
+      "x": 2530,
+      "y": 12280,
+      "width": 330,
+      "height": 280
+    },
+    "fx-seal-burst-f3": {
+      "x": 370,
+      "y": 12580,
+      "width": 330,
+      "height": 280
+    },
+    "fx-seal-burst-f4": {
+      "x": 730,
+      "y": 12580,
+      "width": 330,
+      "height": 280
+    },
+    "fx-seal-burst-f5": {
+      "x": 1090,
+      "y": 12580,
+      "width": 330,
+      "height": 280
+    },
+    "fx-seal-burst-f6": {
+      "x": 1450,
+      "y": 12580,
+      "width": 330,
+      "height": 280
+    },
+    "fx-raw-seal-burst-sheet": {
+      "x": 1810,
+      "y": 12580,
+      "width": 330,
+      "height": 280
+    },
+    "section-18-daadc755": {
+      "x": 0,
+      "y": 12970,
+      "width": 340,
+      "height": 260
+    },
+    "video-night1-quote": {
+      "x": 370,
+      "y": 12970,
+      "width": 330,
+      "height": 280
+    }
+  },
+  "viewport": {
+    "x": 64,
+    "y": 32,
+    "zoom": 1
+  },
+  "view": "canvas"
+}

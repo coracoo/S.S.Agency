@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "boards": [
+    {
+      "id": "fe62a257-e6f9-4ff2-874d-3789bf3f9bd9",
+      "name": "Untitled"
+    }
+  ],
+  "documents": [
+    {
+      "id": "game-asset-index",
+      "title": "游戏内素材索引"
+    }
+  ]
+}
