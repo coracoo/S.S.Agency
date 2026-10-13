@@ -27,14 +27,14 @@ def main():
             args.output_dir.resolve().mkdir(parents=True, exist_ok=True)
             env['ACT_ONE_OUTPUT'] = str(args.output_dir.resolve())
         common = [args.godot, '--path', str(PROJECT)]
-        result = subprocess.run(common + ['--headless', '--script', 'res://tools/rpg/test_environment.gd'], env=env, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=60)
+        result = subprocess.run(common + ['--headless', '--script', 'res://tools/rpg/test_environment.gd'], env=env, text=True, encoding='utf-8', errors='replace', stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=60)
         print(result.stdout, end='', flush=True)
         paths = re.findall(r'^RPG_ISOLATION_OK:(.*)$', result.stdout, re.M)
         if result.returncode or len(paths) != 1 or not Path(paths[0]).resolve().is_relative_to(root) or Path(paths[0]).resolve() == root:
             raise RuntimeError('实际user目录隔离核验失败，未运行地图检查')
         env['RPG_TEST_ISOLATED'] = '1'
         graphics = ['--rendering-method', 'gl_compatibility', '--audio-driver', 'Dummy', '--resolution', '1920x1080'] if args.graphical else ['--headless']
-        result = subprocess.run(common + graphics + ['--script', args.script], env=env, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=1200)
+        result = subprocess.run(common + graphics + ['--script', args.script], env=env, text=True, encoding='utf-8', errors='replace', stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=1200)
         print(result.stdout, end='', flush=True)
         return int(bool(result.returncode or re.search(r'(^|\n)(?:SCRIPT ERROR|ERROR):', result.stdout)))
 if __name__ == '__main__':

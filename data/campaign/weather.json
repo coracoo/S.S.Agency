@@ -35,6 +35,12 @@
     "2": "clear",
     "3": "light_rain",
     "4": "heavy_rain",
-    "5": "storm"
+    "5": "storm",
+    "6": "clear",
+    "7": "light_rain",
+    "8": "clear",
+    "9": "heavy_rain",
+    "10": "light_rain",
+    "11": "storm"
   }
 }

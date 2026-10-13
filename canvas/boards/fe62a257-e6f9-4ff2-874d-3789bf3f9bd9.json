@@ -8,2321 +8,2321 @@
     {
       "id": "node-canvas-readme",
       "type": "text",
+      "title": "画布说明：游戏内素材提取",
+      "description": "本画板由 tools/canvas/extract_game_assets.py 生成，登记 assets/ 下游戏运行时真实读取的素材。",
       "data": {
         "text": "本画板收录《逢魔退治帖》游戏内已接入的素材原文件。\n\n· 只登记 assets/ 之下、游戏运行时真实读取的素材；不复制、不移动、不改写任何原始文件。\n· 每个素材节点都是本地文件引用（canvas/assets.json 记录项目相对路径），可直接查看原图。\n· assets/skill_art_exports/ 与 build/ 下的实验候选未被游戏引用，因此不在画板内。\n· 详细清单与逐项说明见同画板的《游戏内素材索引》文档。",
         "instruction": "这是素材索引画布的新增说明，保留并与其它分区一同维护。"
-      },
-      "title": "画布说明：游戏内素材提取",
-      "description": "本画板由 tools/canvas/extract_game_assets.py 生成，登记 assets/ 下游戏运行时真实读取的素材。"
+      }
     },
     {
       "id": "node-game-asset-index",
       "type": "document",
+      "title": "游戏内素材索引",
+      "description": "按分区列出的游戏内素材清单：路径、像素尺寸、来源清单与游戏内用途。",
       "data": {
         "documentId": "game-asset-index"
-      },
-      "title": "游戏内素材索引",
-      "description": "按分区列出的游戏内素材清单：路径、像素尺寸、来源清单与游戏内用途。"
+      }
     },
     {
       "id": "section-1-54af9f57",
       "type": "text",
+      "title": "主角七形态逐帧",
+      "description": "分区说明：六身份七形态的高清逐帧动画原图。每个形态取待机首帧、攻击首帧、倒地单帧三张，帧号与时长以各形态 manifest.json 为准；同目录 atlases/ 是运行时合成的图集。",
       "data": {
         "text": "六身份七形态的高清逐帧动画原图。每个形态取待机首帧、攻击首帧、倒地单帧三张，帧号与时长以各形态 manifest.json 为准；同目录 atlases/ 是运行时合成的图集。\n\n本分区共 21 个素材节点。",
         "instruction": "分区标题节点，用于在画布上分隔素材组，不生成新素材。"
-      },
-      "title": "主角七形态逐帧",
-      "description": "分区说明：六身份七形态的高清逐帧动画原图。每个形态取待机首帧、攻击首帧、倒地单帧三张，帧号与时长以各形态 manifest.json 为准；同目录 atlases/ 是运行时合成的图集。"
+      }
     },
     {
       "id": "char-rinne-idle",
       "type": "asset",
+      "title": "凛音·待机首帧（对话半身取景来源）",
+      "description": "生产素材｜游戏内实际读取。\n身份 凛音（rinne），形态 rinne。\n角色：待机首帧（对话半身取景来源）；动作清单见 assets/chars/pixel/rinne/high_detail_complete/manifest.json 的 anims.idle。\n逐帧画布 1344×1152，脚锚 [672, 1083]，身高标尺 1.68 m；动作图集在同级 atlases/ 下。\n本帧像素 1344×1152，669 KB。",
       "data": {
         "assetId": "char-rinne-idle",
         "mediaType": "image"
-      },
-      "title": "凛音·待机首帧（对话半身取景来源）",
-      "description": "生产素材｜游戏内实际读取。\n身份 凛音（rinne），形态 rinne。\n角色：待机首帧（对话半身取景来源）；动作清单见 assets/chars/pixel/rinne/high_detail_complete/manifest.json 的 anims.idle。\n逐帧画布 1344×1152，脚锚 [672, 1083]，身高标尺 1.68 m；动作图集在同级 atlases/ 下。\n本帧像素 1344×1152，669 KB。"
+      }
     },
     {
       "id": "char-rinne-attack",
       "type": "asset",
+      "title": "凛音·攻击动作首帧",
+      "description": "生产素材｜游戏内实际读取。\n身份 凛音（rinne），形态 rinne。\n角色：攻击动作首帧；动作清单见 assets/chars/pixel/rinne/high_detail_complete/manifest.json 的 anims.attack。\n逐帧画布 1344×1152，脚锚 [672, 1083]，身高标尺 1.68 m；动作图集在同级 atlases/ 下。\n本帧像素 1344×1152，722 KB。",
       "data": {
         "assetId": "char-rinne-attack",
         "mediaType": "image"
-      },
-      "title": "凛音·攻击动作首帧",
-      "description": "生产素材｜游戏内实际读取。\n身份 凛音（rinne），形态 rinne。\n角色：攻击动作首帧；动作清单见 assets/chars/pixel/rinne/high_detail_complete/manifest.json 的 anims.attack。\n逐帧画布 1344×1152，脚锚 [672, 1083]，身高标尺 1.68 m；动作图集在同级 atlases/ 下。\n本帧像素 1344×1152，722 KB。"
+      }
     },
     {
       "id": "char-rinne-down",
       "type": "asset",
+      "title": "凛音·倒地单帧",
+      "description": "生产素材｜游戏内实际读取。\n身份 凛音（rinne），形态 rinne。\n角色：倒地单帧；动作清单见 assets/chars/pixel/rinne/high_detail_complete/manifest.json 的 anims.down。\n逐帧画布 1344×1152，脚锚 [672, 1083]，身高标尺 1.68 m；动作图集在同级 atlases/ 下。\n本帧像素 1344×1152，482 KB。",
       "data": {
         "assetId": "char-rinne-down",
         "mediaType": "image"
-      },
-      "title": "凛音·倒地单帧",
-      "description": "生产素材｜游戏内实际读取。\n身份 凛音（rinne），形态 rinne。\n角色：倒地单帧；动作清单见 assets/chars/pixel/rinne/high_detail_complete/manifest.json 的 anims.down。\n逐帧画布 1344×1152，脚锚 [672, 1083]，身高标尺 1.68 m；动作图集在同级 atlases/ 下。\n本帧像素 1344×1152，482 KB。"
+      }
     },
     {
       "id": "char-homura-sword-idle",
       "type": "asset",
+      "title": "焰华·剑形态·待机首帧（对话半身取景来源）",
+      "description": "生产素材｜游戏内实际读取。\n身份 焰华·剑形态（homura），形态 homura_sword。\n角色：待机首帧（对话半身取景来源）；动作清单见 assets/chars/pixel/homura_sword/high_detail_complete/manifest.json 的 anims.idle。\n逐帧画布 1600×1152，脚锚 [800, 1067]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1600×1152，623 KB。",
       "data": {
         "assetId": "char-homura-sword-idle",
         "mediaType": "image"
-      },
-      "title": "焰华·剑形态·待机首帧（对话半身取景来源）",
-      "description": "生产素材｜游戏内实际读取。\n身份 焰华·剑形态（homura），形态 homura_sword。\n角色：待机首帧（对话半身取景来源）；动作清单见 assets/chars/pixel/homura_sword/high_detail_complete/manifest.json 的 anims.idle。\n逐帧画布 1600×1152，脚锚 [800, 1067]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1600×1152，623 KB。"
+      }
     },
     {
       "id": "char-homura-sword-attack",
       "type": "asset",
+      "title": "焰华·剑形态·攻击动作首帧",
+      "description": "生产素材｜游戏内实际读取。\n身份 焰华·剑形态（homura），形态 homura_sword。\n角色：攻击动作首帧；动作清单见 assets/chars/pixel/homura_sword/high_detail_complete/manifest.json 的 anims.attack。\n逐帧画布 1600×1152，脚锚 [800, 1067]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1600×1152，628 KB。",
       "data": {
         "assetId": "char-homura-sword-attack",
         "mediaType": "image"
-      },
-      "title": "焰华·剑形态·攻击动作首帧",
-      "description": "生产素材｜游戏内实际读取。\n身份 焰华·剑形态（homura），形态 homura_sword。\n角色：攻击动作首帧；动作清单见 assets/chars/pixel/homura_sword/high_detail_complete/manifest.json 的 anims.attack。\n逐帧画布 1600×1152，脚锚 [800, 1067]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1600×1152，628 KB。"
+      }
     },
     {
       "id": "char-homura-sword-down",
       "type": "asset",
+      "title": "焰华·剑形态·倒地单帧",
+      "description": "生产素材｜游戏内实际读取。\n身份 焰华·剑形态（homura），形态 homura_sword。\n角色：倒地单帧；动作清单见 assets/chars/pixel/homura_sword/high_detail_complete/manifest.json 的 anims.down。\n逐帧画布 1600×1152，脚锚 [800, 1067]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1600×1152，610 KB。",
       "data": {
         "assetId": "char-homura-sword-down",
         "mediaType": "image"
-      },
-      "title": "焰华·剑形态·倒地单帧",
-      "description": "生产素材｜游戏内实际读取。\n身份 焰华·剑形态（homura），形态 homura_sword。\n角色：倒地单帧；动作清单见 assets/chars/pixel/homura_sword/high_detail_complete/manifest.json 的 anims.down。\n逐帧画布 1600×1152，脚锚 [800, 1067]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1600×1152，610 KB。"
+      }
     },
     {
       "id": "char-homura-mage-idle",
       "type": "asset",
+      "title": "焰华·法师形态·待机首帧（对话半身取景来源）",
+      "description": "生产素材｜游戏内实际读取。\n身份 焰华·法师形态（homura），形态 homura_mage。\n角色：待机首帧（对话半身取景来源）；动作清单见 assets/chars/pixel/homura_mage/high_detail_complete/manifest.json 的 anims.idle。\n逐帧画布 1024×1088，脚锚 [512, 1055]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1024×1088，658 KB。",
       "data": {
         "assetId": "char-homura-mage-idle",
         "mediaType": "image"
-      },
-      "title": "焰华·法师形态·待机首帧（对话半身取景来源）",
-      "description": "生产素材｜游戏内实际读取。\n身份 焰华·法师形态（homura），形态 homura_mage。\n角色：待机首帧（对话半身取景来源）；动作清单见 assets/chars/pixel/homura_mage/high_detail_complete/manifest.json 的 anims.idle。\n逐帧画布 1024×1088，脚锚 [512, 1055]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1024×1088，658 KB。"
+      }
     },
     {
       "id": "char-homura-mage-attack",
       "type": "asset",
+      "title": "焰华·法师形态·攻击动作首帧",
+      "description": "生产素材｜游戏内实际读取。\n身份 焰华·法师形态（homura），形态 homura_mage。\n角色：攻击动作首帧；动作清单见 assets/chars/pixel/homura_mage/high_detail_complete/manifest.json 的 anims.attack。\n逐帧画布 1024×1088，脚锚 [512, 1055]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1024×1088，806 KB。",
       "data": {
         "assetId": "char-homura-mage-attack",
         "mediaType": "image"
-      },
-      "title": "焰华·法师形态·攻击动作首帧",
-      "description": "生产素材｜游戏内实际读取。\n身份 焰华·法师形态（homura），形态 homura_mage。\n角色：攻击动作首帧；动作清单见 assets/chars/pixel/homura_mage/high_detail_complete/manifest.json 的 anims.attack。\n逐帧画布 1024×1088，脚锚 [512, 1055]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1024×1088，806 KB。"
+      }
     },
     {
       "id": "char-homura-mage-down",
       "type": "asset",
+      "title": "焰华·法师形态·倒地单帧",
+      "description": "生产素材｜游戏内实际读取。\n身份 焰华·法师形态（homura），形态 homura_mage。\n角色：倒地单帧；动作清单见 assets/chars/pixel/homura_mage/high_detail_complete/manifest.json 的 anims.down。\n逐帧画布 1024×1088，脚锚 [512, 1055]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1024×1088，602 KB。",
       "data": {
         "assetId": "char-homura-mage-down",
         "mediaType": "image"
-      },
-      "title": "焰华·法师形态·倒地单帧",
-      "description": "生产素材｜游戏内实际读取。\n身份 焰华·法师形态（homura），形态 homura_mage。\n角色：倒地单帧；动作清单见 assets/chars/pixel/homura_mage/high_detail_complete/manifest.json 的 anims.down。\n逐帧画布 1024×1088，脚锚 [512, 1055]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1024×1088，602 KB。"
+      }
     },
     {
       "id": "char-mint-idle",
       "type": "asset",
+      "title": "薄荷·待机首帧（对话半身取景来源）",
+      "description": "生产素材｜游戏内实际读取。\n身份 薄荷（mint），形态 mint。\n角色：待机首帧（对话半身取景来源）；动作清单见 assets/chars/pixel/mint/high_detail_complete/manifest.json 的 anims.idle。\n逐帧画布 1280×1152，脚锚 [640, 1062]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1280×1152，477 KB。",
       "data": {
         "assetId": "char-mint-idle",
         "mediaType": "image"
-      },
-      "title": "薄荷·待机首帧（对话半身取景来源）",
-      "description": "生产素材｜游戏内实际读取。\n身份 薄荷（mint），形态 mint。\n角色：待机首帧（对话半身取景来源）；动作清单见 assets/chars/pixel/mint/high_detail_complete/manifest.json 的 anims.idle。\n逐帧画布 1280×1152，脚锚 [640, 1062]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1280×1152，477 KB。"
+      }
     },
     {
       "id": "char-mint-attack",
       "type": "asset",
+      "title": "薄荷·攻击动作首帧",
+      "description": "生产素材｜游戏内实际读取。\n身份 薄荷（mint），形态 mint。\n角色：攻击动作首帧；动作清单见 assets/chars/pixel/mint/high_detail_complete/manifest.json 的 anims.attack。\n逐帧画布 1280×1152，脚锚 [640, 1062]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1280×1152，849 KB。",
       "data": {
         "assetId": "char-mint-attack",
         "mediaType": "image"
-      },
-      "title": "薄荷·攻击动作首帧",
-      "description": "生产素材｜游戏内实际读取。\n身份 薄荷（mint），形态 mint。\n角色：攻击动作首帧；动作清单见 assets/chars/pixel/mint/high_detail_complete/manifest.json 的 anims.attack。\n逐帧画布 1280×1152，脚锚 [640, 1062]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1280×1152，849 KB。"
+      }
     },
     {
       "id": "char-mint-down",
       "type": "asset",
+      "title": "薄荷·倒地单帧",
+      "description": "生产素材｜游戏内实际读取。\n身份 薄荷（mint），形态 mint。\n角色：倒地单帧；动作清单见 assets/chars/pixel/mint/high_detail_complete/manifest.json 的 anims.down。\n逐帧画布 1280×1152，脚锚 [640, 1062]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1280×1152，540 KB。",
       "data": {
         "assetId": "char-mint-down",
         "mediaType": "image"
-      },
-      "title": "薄荷·倒地单帧",
-      "description": "生产素材｜游戏内实际读取。\n身份 薄荷（mint），形态 mint。\n角色：倒地单帧；动作清单见 assets/chars/pixel/mint/high_detail_complete/manifest.json 的 anims.down。\n逐帧画布 1280×1152，脚锚 [640, 1062]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1280×1152，540 KB。"
+      }
     },
     {
       "id": "char-guard-idle",
       "type": "asset",
+      "title": "岑照·待机首帧（对话半身取景来源）",
+      "description": "生产素材｜游戏内实际读取。\n身份 岑照（guard），形态 guard。\n角色：待机首帧（对话半身取景来源）；动作清单见 assets/chars/pixel/guard/high_detail_complete/manifest.json 的 anims.idle。\n逐帧画布 1216×1216，脚锚 [608, 1123]，身高标尺 1.86 m；动作图集在同级 atlases/ 下。\n本帧像素 1216×1216，1016 KB。",
       "data": {
         "assetId": "char-guard-idle",
         "mediaType": "image"
-      },
-      "title": "岑照·待机首帧（对话半身取景来源）",
-      "description": "生产素材｜游戏内实际读取。\n身份 岑照（guard），形态 guard。\n角色：待机首帧（对话半身取景来源）；动作清单见 assets/chars/pixel/guard/high_detail_complete/manifest.json 的 anims.idle。\n逐帧画布 1216×1216，脚锚 [608, 1123]，身高标尺 1.86 m；动作图集在同级 atlases/ 下。\n本帧像素 1216×1216，1016 KB。"
+      }
     },
     {
       "id": "char-guard-attack",
       "type": "asset",
+      "title": "岑照·攻击动作首帧",
+      "description": "生产素材｜游戏内实际读取。\n身份 岑照（guard），形态 guard。\n角色：攻击动作首帧；动作清单见 assets/chars/pixel/guard/high_detail_complete/manifest.json 的 anims.attack。\n逐帧画布 1216×1216，脚锚 [608, 1123]，身高标尺 1.86 m；动作图集在同级 atlases/ 下。\n本帧像素 1216×1216，1.0 MB。",
       "data": {
         "assetId": "char-guard-attack",
         "mediaType": "image"
-      },
-      "title": "岑照·攻击动作首帧",
-      "description": "生产素材｜游戏内实际读取。\n身份 岑照（guard），形态 guard。\n角色：攻击动作首帧；动作清单见 assets/chars/pixel/guard/high_detail_complete/manifest.json 的 anims.attack。\n逐帧画布 1216×1216，脚锚 [608, 1123]，身高标尺 1.86 m；动作图集在同级 atlases/ 下。\n本帧像素 1216×1216，1.0 MB。"
+      }
     },
     {
       "id": "char-guard-down",
       "type": "asset",
+      "title": "岑照·倒地单帧",
+      "description": "生产素材｜游戏内实际读取。\n身份 岑照（guard），形态 guard。\n角色：倒地单帧；动作清单见 assets/chars/pixel/guard/high_detail_complete/manifest.json 的 anims.down。\n逐帧画布 1216×1216，脚锚 [608, 1123]，身高标尺 1.86 m；动作图集在同级 atlases/ 下。\n本帧像素 1216×1216，717 KB。",
       "data": {
         "assetId": "char-guard-down",
         "mediaType": "image"
-      },
-      "title": "岑照·倒地单帧",
-      "description": "生产素材｜游戏内实际读取。\n身份 岑照（guard），形态 guard。\n角色：倒地单帧；动作清单见 assets/chars/pixel/guard/high_detail_complete/manifest.json 的 anims.down。\n逐帧画布 1216×1216，脚锚 [608, 1123]，身高标尺 1.86 m；动作图集在同级 atlases/ 下。\n本帧像素 1216×1216，717 KB。"
+      }
     },
     {
       "id": "char-healer-idle",
       "type": "asset",
+      "title": "苏合·待机首帧（对话半身取景来源）",
+      "description": "生产素材｜游戏内实际读取。\n身份 苏合（healer），形态 healer。\n角色：待机首帧（对话半身取景来源）；动作清单见 assets/chars/pixel/healer/high_detail_complete/manifest.json 的 anims.idle。\n逐帧画布 1088×1152，脚锚 [544, 1072]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1088×1152，655 KB。",
       "data": {
         "assetId": "char-healer-idle",
         "mediaType": "image"
-      },
-      "title": "苏合·待机首帧（对话半身取景来源）",
-      "description": "生产素材｜游戏内实际读取。\n身份 苏合（healer），形态 healer。\n角色：待机首帧（对话半身取景来源）；动作清单见 assets/chars/pixel/healer/high_detail_complete/manifest.json 的 anims.idle。\n逐帧画布 1088×1152，脚锚 [544, 1072]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1088×1152，655 KB。"
+      }
     },
     {
       "id": "char-healer-attack",
       "type": "asset",
+      "title": "苏合·攻击动作首帧",
+      "description": "生产素材｜游戏内实际读取。\n身份 苏合（healer），形态 healer。\n角色：攻击动作首帧；动作清单见 assets/chars/pixel/healer/high_detail_complete/manifest.json 的 anims.attack。\n逐帧画布 1088×1152，脚锚 [544, 1072]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1088×1152，773 KB。",
       "data": {
         "assetId": "char-healer-attack",
         "mediaType": "image"
-      },
-      "title": "苏合·攻击动作首帧",
-      "description": "生产素材｜游戏内实际读取。\n身份 苏合（healer），形态 healer。\n角色：攻击动作首帧；动作清单见 assets/chars/pixel/healer/high_detail_complete/manifest.json 的 anims.attack。\n逐帧画布 1088×1152，脚锚 [544, 1072]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1088×1152，773 KB。"
+      }
     },
     {
       "id": "char-healer-down",
       "type": "asset",
+      "title": "苏合·倒地单帧",
+      "description": "生产素材｜游戏内实际读取。\n身份 苏合（healer），形态 healer。\n角色：倒地单帧；动作清单见 assets/chars/pixel/healer/high_detail_complete/manifest.json 的 anims.down。\n逐帧画布 1088×1152，脚锚 [544, 1072]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1088×1152，657 KB。",
       "data": {
         "assetId": "char-healer-down",
         "mediaType": "image"
-      },
-      "title": "苏合·倒地单帧",
-      "description": "生产素材｜游戏内实际读取。\n身份 苏合（healer），形态 healer。\n角色：倒地单帧；动作清单见 assets/chars/pixel/healer/high_detail_complete/manifest.json 的 anims.down。\n逐帧画布 1088×1152，脚锚 [544, 1072]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1088×1152，657 KB。"
+      }
     },
     {
       "id": "char-controller-idle",
       "type": "asset",
+      "title": "清明·待机首帧（对话半身取景来源）",
+      "description": "生产素材｜游戏内实际读取。\n身份 清明（controller），形态 controller。\n角色：待机首帧（对话半身取景来源）；动作清单见 assets/chars/pixel/controller/high_detail_complete/manifest.json 的 anims.idle。\n逐帧画布 1152×1152，脚锚 [576, 1074]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1152×1152，672 KB。",
       "data": {
         "assetId": "char-controller-idle",
         "mediaType": "image"
-      },
-      "title": "清明·待机首帧（对话半身取景来源）",
-      "description": "生产素材｜游戏内实际读取。\n身份 清明（controller），形态 controller。\n角色：待机首帧（对话半身取景来源）；动作清单见 assets/chars/pixel/controller/high_detail_complete/manifest.json 的 anims.idle。\n逐帧画布 1152×1152，脚锚 [576, 1074]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1152×1152，672 KB。"
+      }
     },
     {
       "id": "char-controller-attack",
       "type": "asset",
+      "title": "清明·攻击动作首帧",
+      "description": "生产素材｜游戏内实际读取。\n身份 清明（controller），形态 controller。\n角色：攻击动作首帧；动作清单见 assets/chars/pixel/controller/high_detail_complete/manifest.json 的 anims.attack。\n逐帧画布 1152×1152，脚锚 [576, 1074]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1152×1152，701 KB。",
       "data": {
         "assetId": "char-controller-attack",
         "mediaType": "image"
-      },
-      "title": "清明·攻击动作首帧",
-      "description": "生产素材｜游戏内实际读取。\n身份 清明（controller），形态 controller。\n角色：攻击动作首帧；动作清单见 assets/chars/pixel/controller/high_detail_complete/manifest.json 的 anims.attack。\n逐帧画布 1152×1152，脚锚 [576, 1074]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1152×1152，701 KB。"
+      }
     },
     {
       "id": "char-controller-down",
       "type": "asset",
+      "title": "清明·倒地单帧",
+      "description": "生产素材｜游戏内实际读取。\n身份 清明（controller），形态 controller。\n角色：倒地单帧；动作清单见 assets/chars/pixel/controller/high_detail_complete/manifest.json 的 anims.down。\n逐帧画布 1152×1152，脚锚 [576, 1074]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1152×1152，629 KB。",
       "data": {
         "assetId": "char-controller-down",
         "mediaType": "image"
-      },
-      "title": "清明·倒地单帧",
-      "description": "生产素材｜游戏内实际读取。\n身份 清明（controller），形态 controller。\n角色：倒地单帧；动作清单见 assets/chars/pixel/controller/high_detail_complete/manifest.json 的 anims.down。\n逐帧画布 1152×1152，脚锚 [576, 1074]，身高标尺 1.6 m；动作图集在同级 atlases/ 下。\n本帧像素 1152×1152，629 KB。"
+      }
     },
     {
       "id": "section-2-18bf3315",
       "type": "text",
+      "title": "第一章敌方原图",
+      "description": "分区说明：六张已批准的最终静态敌方图，RGBA 透明底、朝右，战斗与地图共用同一批字节。",
       "data": {
         "text": "六张已批准的最终静态敌方图，RGBA 透明底、朝右，战斗与地图共用同一批字节。\n\n本分区共 6 个素材节点。",
         "instruction": "分区标题节点，用于在画布上分隔素材组，不生成新素材。"
-      },
-      "title": "第一章敌方原图",
-      "description": "分区说明：六张已批准的最终静态敌方图，RGBA 透明底、朝右，战斗与地图共用同一批字节。"
+      }
     },
     {
       "id": "enemy-ch1-hound",
       "type": "asset",
+      "title": "第一章敌方·纸妖·疾行",
+      "description": "生产素材｜游戏内实际读取的第一章敌方原图（approved static art）。\n纸妖·疾行，敌人ID hound，朝向 right。\n1024×1536 RGBA，透明像素 839280；来源与哈希见 assets/chars/enemies/current/asset_manifest.json（sha256 前16位 19e3c8da9e1b9e79）。\n实际提示词：hound/纸妖_疾行_完整实际提示词.txt。",
       "data": {
         "assetId": "enemy-ch1-hound",
         "mediaType": "image"
-      },
-      "title": "第一章敌方·纸妖·疾行",
-      "description": "生产素材｜游戏内实际读取的第一章敌方原图（approved static art）。\n纸妖·疾行，敌人ID hound，朝向 right。\n1024×1536 RGBA，透明像素 839280；来源与哈希见 assets/chars/enemies/current/asset_manifest.json（sha256 前16位 19e3c8da9e1b9e79）。\n实际提示词：hound/纸妖_疾行_完整实际提示词.txt。"
+      }
     },
     {
       "id": "enemy-ch1-shield-soldier",
       "type": "asset",
+      "title": "第一章敌方·纸妖·守盾",
+      "description": "生产素材｜游戏内实际读取的第一章敌方原图（approved static art）。\n纸妖·守盾，敌人ID shield_soldier，朝向 right。\n1024×1536 RGBA，透明像素 765643；来源与哈希见 assets/chars/enemies/current/asset_manifest.json（sha256 前16位 1339c65fa163550b）。\n实际提示词：shield_soldier/shield_soldier_actual_prompts.txt。",
       "data": {
         "assetId": "enemy-ch1-shield-soldier",
         "mediaType": "image"
-      },
-      "title": "第一章敌方·纸妖·守盾",
-      "description": "生产素材｜游戏内实际读取的第一章敌方原图（approved static art）。\n纸妖·守盾，敌人ID shield_soldier，朝向 right。\n1024×1536 RGBA，透明像素 765643；来源与哈希见 assets/chars/enemies/current/asset_manifest.json（sha256 前16位 1339c65fa163550b）。\n实际提示词：shield_soldier/shield_soldier_actual_prompts.txt。"
+      }
     },
     {
       "id": "enemy-ch1-fire-spirit",
       "type": "asset",
+      "title": "第一章敌方·纸妖·炎灵",
+      "description": "生产素材｜游戏内实际读取的第一章敌方原图（approved static art）。\n纸妖·炎灵，敌人ID fire_spirit，朝向 right。\n1024×1536 RGBA，透明像素 900658；来源与哈希见 assets/chars/enemies/current/asset_manifest.json（sha256 前16位 18d735e30df7a86e）。\n实际提示词：fire_spirit/fire_spirit_full_prompts.txt。",
       "data": {
         "assetId": "enemy-ch1-fire-spirit",
         "mediaType": "image"
-      },
-      "title": "第一章敌方·纸妖·炎灵",
-      "description": "生产素材｜游戏内实际读取的第一章敌方原图（approved static art）。\n纸妖·炎灵，敌人ID fire_spirit，朝向 right。\n1024×1536 RGBA，透明像素 900658；来源与哈希见 assets/chars/enemies/current/asset_manifest.json（sha256 前16位 18d735e30df7a86e）。\n实际提示词：fire_spirit/fire_spirit_full_prompts.txt。"
+      }
     },
     {
       "id": "enemy-ch1-cultist",
       "type": "asset",
+      "title": "第一章敌方·纸妖·咒术",
+      "description": "生产素材｜游戏内实际读取的第一章敌方原图（approved static art）。\n纸妖·咒术，敌人ID cultist，朝向 right。\n1024×1536 RGBA，透明像素 909218；来源与哈希见 assets/chars/enemies/current/asset_manifest.json（sha256 前16位 e385bbac0b89cc43）。\n实际提示词：cultist/cultist_full_prompts.txt。",
       "data": {
         "assetId": "enemy-ch1-cultist",
         "mediaType": "image"
-      },
-      "title": "第一章敌方·纸妖·咒术",
-      "description": "生产素材｜游戏内实际读取的第一章敌方原图（approved static art）。\n纸妖·咒术，敌人ID cultist，朝向 right。\n1024×1536 RGBA，透明像素 909218；来源与哈希见 assets/chars/enemies/current/asset_manifest.json（sha256 前16位 e385bbac0b89cc43）。\n实际提示词：cultist/cultist_full_prompts.txt。"
+      }
     },
     {
       "id": "enemy-ch1-elite-shield-soldier",
       "type": "asset",
+      "title": "第一章敌方·纸妖·精锐守盾",
+      "description": "生产素材｜游戏内实际读取的第一章敌方原图（approved static art）。\n纸妖·精锐守盾，敌人ID elite_shield_soldier，朝向 right。\n1024×1536 RGBA，透明像素 705676；来源与哈希见 assets/chars/enemies/current/asset_manifest.json（sha256 前16位 7ab602d1a2122e66）。\n实际提示词：elite_shield_soldier/elite_shield_soldier_actual_prompts.txt。",
       "data": {
         "assetId": "enemy-ch1-elite-shield-soldier",
         "mediaType": "image"
-      },
-      "title": "第一章敌方·纸妖·精锐守盾",
-      "description": "生产素材｜游戏内实际读取的第一章敌方原图（approved static art）。\n纸妖·精锐守盾，敌人ID elite_shield_soldier，朝向 right。\n1024×1536 RGBA，透明像素 705676；来源与哈希见 assets/chars/enemies/current/asset_manifest.json（sha256 前16位 7ab602d1a2122e66）。\n实际提示词：elite_shield_soldier/elite_shield_soldier_actual_prompts.txt。"
+      }
     },
     {
       "id": "enemy-ch1-gatekeeper",
       "type": "asset",
+      "title": "第一章敌方·棺守",
+      "description": "生产素材｜游戏内实际读取的第一章敌方原图（approved static art）。\n棺守，敌人ID gatekeeper，朝向 right。\n1024×1536 RGBA，透明像素 695720；来源与哈希见 assets/chars/enemies/current/asset_manifest.json（sha256 前16位 3319142b7b7b8278）。\n实际提示词：gatekeeper/棺守_实际生成提示词.txt。",
       "data": {
         "assetId": "enemy-ch1-gatekeeper",
         "mediaType": "image"
-      },
-      "title": "第一章敌方·棺守",
-      "description": "生产素材｜游戏内实际读取的第一章敌方原图（approved static art）。\n棺守，敌人ID gatekeeper，朝向 right。\n1024×1536 RGBA，透明像素 695720；来源与哈希见 assets/chars/enemies/current/asset_manifest.json（sha256 前16位 3319142b7b7b8278）。\n实际提示词：gatekeeper/棺守_实际生成提示词.txt。"
+      }
     },
     {
       "id": "section-3-25bccb54",
       "type": "text",
+      "title": "后六章敌方图集",
+      "description": "分区说明：八张图集，每张承载一到两个敌种；运行时按 asset_manifest.json 的 region/anchor 局部取用，不整张拉伸。",
       "data": {
         "text": "八张图集，每张承载一到两个敌种；运行时按 asset_manifest.json 的 region/anchor 局部取用，不整张拉伸。\n\n本分区共 8 个素材节点。",
         "instruction": "分区标题节点，用于在画布上分隔素材组，不生成新素材。"
-      },
-      "title": "后六章敌方图集",
-      "description": "分区说明：八张图集，每张承载一到两个敌种；运行时按 asset_manifest.json 的 region/anchor 局部取用，不整张拉伸。"
+      }
     },
     {
       "id": "enemy-saga-exit-relay",
       "type": "asset",
+      "title": "后六章敌方·出口·堵门反冲／中段·分流残响",
+      "description": "生产素材｜游戏内实际读取的后六章敌方图集。\n同一张图集内按 region 切出 2 个敌种：出口·堵门反冲／中段·分流残响。\n切分区域与脚锚：出口·堵门反冲=[0, 0, 887, 887]；中段·分流残响=[887, 0, 887, 887]。\n图集像素 1774×887；登记来源见 assets/chars/enemies/saga/asset_manifest.json。",
       "data": {
         "assetId": "enemy-saga-exit-relay",
         "mediaType": "image"
-      },
-      "title": "后六章敌方·出口·堵门反冲／中段·分流残响",
-      "description": "生产素材｜游戏内实际读取的后六章敌方图集。\n同一张图集内按 region 切出 2 个敌种：出口·堵门反冲／中段·分流残响。\n切分区域与脚锚：出口·堵门反冲=[0, 0, 887, 887]；中段·分流残响=[887, 0, 887, 887]。\n图集像素 1774×887；登记来源见 assets/chars/enemies/saga/asset_manifest.json。"
+      }
     },
     {
       "id": "enemy-saga-final-recoil",
       "type": "asset",
+      "title": "后六章敌方·主镜·最后余压",
+      "description": "生产素材｜游戏内实际读取的后六章敌方图集。\n同一张图集内按 region 切出 1 个敌种：主镜·最后余压。\n切分区域与脚锚：主镜·最后余压=[0, 0, 1312, 1199]。\n图集像素 1312×1199；登记来源见 assets/chars/enemies/saga/asset_manifest.json。",
       "data": {
         "assetId": "enemy-saga-final-recoil",
         "mediaType": "image"
-      },
-      "title": "后六章敌方·主镜·最后余压",
-      "description": "生产素材｜游戏内实际读取的后六章敌方图集。\n同一张图集内按 region 切出 1 个敌种：主镜·最后余压。\n切分区域与脚锚：主镜·最后余压=[0, 0, 1312, 1199]。\n图集像素 1312×1199；登记来源见 assets/chars/enemies/saga/asset_manifest.json。"
+      }
     },
     {
       "id": "enemy-saga-linked-anchors",
       "type": "asset",
+      "title": "后六章敌方·左联动锁片／右联动锁片",
+      "description": "生产素材｜游戏内实际读取的后六章敌方图集。\n同一张图集内按 region 切出 2 个敌种：左联动锁片／右联动锁片。\n切分区域与脚锚：左联动锁片=[0, 0, 940, 836]；右联动锁片=[940, 0, 941, 836]。\n图集像素 1881×836；登记来源见 assets/chars/enemies/saga/asset_manifest.json。",
       "data": {
         "assetId": "enemy-saga-linked-anchors",
         "mediaType": "image"
-      },
-      "title": "后六章敌方·左联动锁片／右联动锁片",
-      "description": "生产素材｜游戏内实际读取的后六章敌方图集。\n同一张图集内按 region 切出 2 个敌种：左联动锁片／右联动锁片。\n切分区域与脚锚：左联动锁片=[0, 0, 940, 836]；右联动锁片=[940, 0, 941, 836]。\n图集像素 1881×836；登记来源见 assets/chars/enemies/saga/asset_manifest.json。"
+      }
     },
     {
       "id": "enemy-saga-mirror-lamp",
       "type": "asset",
+      "title": "后六章敌方·合面镜／百手灯母",
+      "description": "生产素材｜游戏内实际读取的后六章敌方图集。\n同一张图集内按 region 切出 2 个敌种：合面镜／百手灯母。\n切分区域与脚锚：合面镜=[0, 0, 887, 887]；百手灯母=[887, 0, 887, 887]。\n图集像素 1774×887；登记来源见 assets/chars/enemies/saga/asset_manifest.json。",
       "data": {
         "assetId": "enemy-saga-mirror-lamp",
         "mediaType": "image"
-      },
-      "title": "后六章敌方·合面镜／百手灯母",
-      "description": "生产素材｜游戏内实际读取的后六章敌方图集。\n同一张图集内按 region 切出 2 个敌种：合面镜／百手灯母。\n切分区域与脚锚：合面镜=[0, 0, 887, 887]；百手灯母=[887, 0, 887, 887]。\n图集像素 1774×887；登记来源见 assets/chars/enemies/saga/asset_manifest.json。"
+      }
     },
     {
       "id": "enemy-saga-shard-bearer",
       "type": "asset",
+      "title": "后六章敌方·镜屑侍／沈烛舟·执灯纸躯",
+      "description": "生产素材｜游戏内实际读取的后六章敌方图集。\n同一张图集内按 region 切出 2 个敌种：镜屑侍／沈烛舟·执灯纸躯。\n切分区域与脚锚：镜屑侍=[0, 0, 887, 887]；沈烛舟·执灯纸躯=[887, 0, 887, 887]。\n图集像素 1774×887；登记来源见 assets/chars/enemies/saga/asset_manifest.json。",
       "data": {
         "assetId": "enemy-saga-shard-bearer",
         "mediaType": "image"
-      },
-      "title": "后六章敌方·镜屑侍／沈烛舟·执灯纸躯",
-      "description": "生产素材｜游戏内实际读取的后六章敌方图集。\n同一张图集内按 region 切出 2 个敌种：镜屑侍／沈烛舟·执灯纸躯。\n切分区域与脚锚：镜屑侍=[0, 0, 887, 887]；沈烛舟·执灯纸躯=[887, 0, 887, 887]。\n图集像素 1774×887；登记来源见 assets/chars/enemies/saga/asset_manifest.json。"
+      }
     },
     {
       "id": "enemy-saga-soldier-shadow",
       "type": "asset",
+      "title": "后六章敌方·循令纸兵／纸灯残影",
+      "description": "生产素材｜游戏内实际读取的后六章敌方图集。\n同一张图集内按 region 切出 2 个敌种：循令纸兵／纸灯残影。\n切分区域与脚锚：循令纸兵=[0, 0, 887, 887]；纸灯残影=[887, 0, 887, 887]。\n图集像素 1774×887；登记来源见 assets/chars/enemies/saga/asset_manifest.json。",
       "data": {
         "assetId": "enemy-saga-soldier-shadow",
         "mediaType": "image"
-      },
-      "title": "后六章敌方·循令纸兵／纸灯残影",
-      "description": "生产素材｜游戏内实际读取的后六章敌方图集。\n同一张图集内按 region 切出 2 个敌种：循令纸兵／纸灯残影。\n切分区域与脚锚：循令纸兵=[0, 0, 887, 887]；纸灯残影=[887, 0, 887, 887]。\n图集像素 1774×887；登记来源见 assets/chars/enemies/saga/asset_manifest.json。"
+      }
     },
     {
       "id": "enemy-saga-voice-general",
       "type": "asset",
+      "title": "后六章敌方·借声客／背岸将",
+      "description": "生产素材｜游戏内实际读取的后六章敌方图集。\n同一张图集内按 region 切出 2 个敌种：借声客／背岸将。\n切分区域与脚锚：借声客=[0, 0, 887, 887]；背岸将=[887, 0, 887, 887]。\n图集像素 1774×887；登记来源见 assets/chars/enemies/saga/asset_manifest.json。",
       "data": {
         "assetId": "enemy-saga-voice-general",
         "mediaType": "image"
-      },
-      "title": "后六章敌方·借声客／背岸将",
-      "description": "生产素材｜游戏内实际读取的后六章敌方图集。\n同一张图集内按 region 切出 2 个敌种：借声客／背岸将。\n切分区域与脚锚：借声客=[0, 0, 887, 887]；背岸将=[887, 0, 887, 887]。\n图集像素 1774×887；登记来源见 assets/chars/enemies/saga/asset_manifest.json。"
+      }
     },
     {
       "id": "enemy-saga-warden-master",
       "type": "asset",
+      "title": "后六章敌方·无更巡守／主镜·护面",
+      "description": "生产素材｜游戏内实际读取的后六章敌方图集。\n同一张图集内按 region 切出 2 个敌种：无更巡守／主镜·护面。\n切分区域与脚锚：无更巡守=[0, 0, 1006, 887]；主镜·护面=[1006, 0, 768, 887]。\n图集像素 1774×887；登记来源见 assets/chars/enemies/saga/asset_manifest.json。",
       "data": {
         "assetId": "enemy-saga-warden-master",
         "mediaType": "image"
-      },
-      "title": "后六章敌方·无更巡守／主镜·护面",
-      "description": "生产素材｜游戏内实际读取的后六章敌方图集。\n同一张图集内按 region 切出 2 个敌种：无更巡守／主镜·护面。\n切分区域与脚锚：无更巡守=[0, 0, 1006, 887]；主镜·护面=[1006, 0, 768, 887]。\n图集像素 1774×887；登记来源见 assets/chars/enemies/saga/asset_manifest.json。"
+      }
     },
     {
       "id": "section-4-b089f6b0",
       "type": "text",
+      "title": "第一章 NPC",
+      "description": "分区说明：两名普通成年NPC，地图全身与对白半身分离绘制，独立生成、未复用敌图或主角素材。",
       "data": {
         "text": "两名普通成年NPC，地图全身与对白半身分离绘制，独立生成、未复用敌图或主角素材。\n\n本分区共 4 个素材节点。",
         "instruction": "分区标题节点，用于在画布上分隔素材组，不生成新素材。"
-      },
-      "title": "第一章 NPC",
-      "description": "分区说明：两名普通成年NPC，地图全身与对白半身分离绘制，独立生成、未复用敌图或主角素材。"
+      }
     },
     {
       "id": "npc-ch1-liang-world",
       "type": "asset",
+      "title": "守山人·老梁·地图全身精灵",
+      "description": "生产素材｜游戏内实际读取。\n守山人·老梁（liang）的地图全身精灵。\n画布 1024×1536，身高标尺 172 cm，头顶 [525, 64]，脚底 [400, 1483]，落地锚 [510, 1487]。\n来源与审阅记录见 assets/chars/npcs/act_one/asset_manifest.json（sha256 前16位 c524a1425a940741）。\n本图像素 1024×1536。",
       "data": {
         "assetId": "npc-ch1-liang-world",
         "mediaType": "image"
-      },
-      "title": "守山人·老梁·地图全身精灵",
-      "description": "生产素材｜游戏内实际读取。\n守山人·老梁（liang）的地图全身精灵。\n画布 1024×1536，身高标尺 172 cm，头顶 [525, 64]，脚底 [400, 1483]，落地锚 [510, 1487]。\n来源与审阅记录见 assets/chars/npcs/act_one/asset_manifest.json（sha256 前16位 c524a1425a940741）。\n本图像素 1024×1536。"
+      }
     },
     {
       "id": "npc-ch1-liang-half",
       "type": "asset",
+      "title": "守山人·老梁·对白半身立绘",
+      "description": "生产素材｜游戏内实际读取。\n守山人·老梁（liang）的对白半身立绘。\n画布 1024×1536，身高标尺 172 cm，头顶 [525, 64]，脚底 [400, 1483]，落地锚 [510, 1487]。\n来源与审阅记录见 assets/chars/npcs/act_one/asset_manifest.json（sha256 前16位 c524a1425a940741）。\n本图像素 1024×1536。",
       "data": {
         "assetId": "npc-ch1-liang-half",
         "mediaType": "image"
-      },
-      "title": "守山人·老梁·对白半身立绘",
-      "description": "生产素材｜游戏内实际读取。\n守山人·老梁（liang）的对白半身立绘。\n画布 1024×1536，身高标尺 172 cm，头顶 [525, 64]，脚底 [400, 1483]，落地锚 [510, 1487]。\n来源与审阅记录见 assets/chars/npcs/act_one/asset_manifest.json（sha256 前16位 c524a1425a940741）。\n本图像素 1024×1536。"
+      }
     },
     {
       "id": "npc-ch1-acheng-world",
       "type": "asset",
+      "title": "扫庭人·阿诚·地图全身精灵",
+      "description": "生产素材｜游戏内实际读取。\n扫庭人·阿诚（acheng）的地图全身精灵。\n画布 1024×1536，身高标尺 176 cm，头顶 [518, 62]，脚底 [380, 1493]，落地锚 [470, 1497]。\n来源与审阅记录见 assets/chars/npcs/act_one/asset_manifest.json（sha256 前16位 0d35589aa901b822）。\n本图像素 1024×1536。",
       "data": {
         "assetId": "npc-ch1-acheng-world",
         "mediaType": "image"
-      },
-      "title": "扫庭人·阿诚·地图全身精灵",
-      "description": "生产素材｜游戏内实际读取。\n扫庭人·阿诚（acheng）的地图全身精灵。\n画布 1024×1536，身高标尺 176 cm，头顶 [518, 62]，脚底 [380, 1493]，落地锚 [470, 1497]。\n来源与审阅记录见 assets/chars/npcs/act_one/asset_manifest.json（sha256 前16位 0d35589aa901b822）。\n本图像素 1024×1536。"
+      }
     },
     {
       "id": "npc-ch1-acheng-half",
       "type": "asset",
+      "title": "扫庭人·阿诚·对白半身立绘",
+      "description": "生产素材｜游戏内实际读取。\n扫庭人·阿诚（acheng）的对白半身立绘。\n画布 1024×1536，身高标尺 176 cm，头顶 [518, 62]，脚底 [380, 1493]，落地锚 [470, 1497]。\n来源与审阅记录见 assets/chars/npcs/act_one/asset_manifest.json（sha256 前16位 0d35589aa901b822）。\n本图像素 1024×1536。",
       "data": {
         "assetId": "npc-ch1-acheng-half",
         "mediaType": "image"
-      },
-      "title": "扫庭人·阿诚·对白半身立绘",
-      "description": "生产素材｜游戏内实际读取。\n扫庭人·阿诚（acheng）的对白半身立绘。\n画布 1024×1536，身高标尺 176 cm，头顶 [518, 62]，脚底 [380, 1493]，落地锚 [470, 1497]。\n来源与审阅记录见 assets/chars/npcs/act_one/asset_manifest.json（sha256 前16位 0d35589aa901b822）。\n本图像素 1024×1536。"
+      }
     },
     {
       "id": "section-5-998abd13",
       "type": "text",
+      "title": "后六章 NPC 图集",
+      "description": "分区说明：十二张图集，每张两名角色的双视图；运行时按 world_region / portrait_region 局部取用。",
       "data": {
         "text": "十二张图集，每张两名角色的双视图；运行时按 world_region / portrait_region 局部取用。\n\n本分区共 12 个素材节点。",
         "instruction": "分区标题节点，用于在画布上分隔素材组，不生成新素材。"
-      },
-      "title": "后六章 NPC 图集",
-      "description": "分区说明：十二张图集，每张两名角色的双视图；运行时按 world_region / portrait_region 局部取用。"
+      }
     },
     {
       "id": "npc-saga-axing-taoshen",
       "type": "asset",
+      "title": "后六章NPC·阿杏／陶婶",
+      "description": "生产素材｜游戏内实际读取的后六章NPC图集。\n同图集内含 2 名角色：阿杏／陶婶。\n每人分地图全身区域与对白半身区域：阿杏 地图[190, 40, 290, 580] / 半身[65, 645, 480, 600]；陶婶 地图[775, 40, 330, 580] / 半身[650, 645, 590, 600]。\n图集画布 1254×1254；坐标约定与目检记录见 assets/chars/npcs/saga/asset_manifest.json。",
       "data": {
         "assetId": "npc-saga-axing-taoshen",
         "mediaType": "image"
-      },
-      "title": "后六章NPC·阿杏／陶婶",
-      "description": "生产素材｜游戏内实际读取的后六章NPC图集。\n同图集内含 2 名角色：阿杏／陶婶。\n每人分地图全身区域与对白半身区域：阿杏 地图[190, 40, 290, 580] / 半身[65, 645, 480, 600]；陶婶 地图[775, 40, 330, 580] / 半身[650, 645, 590, 600]。\n图集画布 1254×1254；坐标约定与目检记录见 assets/chars/npcs/saga/asset_manifest.json。"
+      }
     },
     {
       "id": "npc-saga-fangcheng-chenkui",
       "type": "asset",
+      "title": "后六章NPC·方澄／陈葵",
+      "description": "生产素材｜游戏内实际读取的后六章NPC图集。\n同图集内含 2 名角色：方澄／陈葵。\n每人分地图全身区域与对白半身区域：方澄 地图[198, 2, 266, 682] / 半身[108, 703, 474, 543]；陈葵 地图[821, 40, 261, 638] / 半身[769, 732, 401, 509]。\n图集画布 1254×1254；坐标约定与目检记录见 assets/chars/npcs/saga/asset_manifest.json。",
       "data": {
         "assetId": "npc-saga-fangcheng-chenkui",
         "mediaType": "image"
-      },
-      "title": "后六章NPC·方澄／陈葵",
-      "description": "生产素材｜游戏内实际读取的后六章NPC图集。\n同图集内含 2 名角色：方澄／陈葵。\n每人分地图全身区域与对白半身区域：方澄 地图[198, 2, 266, 682] / 半身[108, 703, 474, 543]；陈葵 地图[821, 40, 261, 638] / 半身[769, 732, 401, 509]。\n图集画布 1254×1254；坐标约定与目检记录见 assets/chars/npcs/saga/asset_manifest.json。"
+      }
     },
     {
       "id": "npc-saga-fangsu-chenqiao",
       "type": "asset",
+      "title": "后六章NPC·方素／陈樵",
+      "description": "生产素材｜游戏内实际读取的后六章NPC图集。\n同图集内含 2 名角色：方素／陈樵。\n每人分地图全身区域与对白半身区域：方素 地图[220, 7, 237, 658] / 半身[107, 665, 453, 589]；陈樵 地图[805, 3, 265, 661] / 半身[693, 664, 524, 590]。\n图集画布 1254×1254；坐标约定与目检记录见 assets/chars/npcs/saga/asset_manifest.json。",
       "data": {
         "assetId": "npc-saga-fangsu-chenqiao",
         "mediaType": "image"
-      },
-      "title": "后六章NPC·方素／陈樵",
-      "description": "生产素材｜游戏内实际读取的后六章NPC图集。\n同图集内含 2 名角色：方素／陈樵。\n每人分地图全身区域与对白半身区域：方素 地图[220, 7, 237, 658] / 半身[107, 665, 453, 589]；陈樵 地图[805, 3, 265, 661] / 半身[693, 664, 524, 590]。\n图集画布 1254×1254；坐标约定与目检记录见 assets/chars/npcs/saga/asset_manifest.json。"
+      }
     },
     {
       "id": "npc-saga-limao-xucheng",
       "type": "asset",
+      "title": "后六章NPC·李茂／许成",
+      "description": "生产素材｜游戏内实际读取的后六章NPC图集。\n同图集内含 2 名角色：李茂／许成。\n每人分地图全身区域与对白半身区域：李茂 地图[187, 9, 249, 642] / 半身[64, 651, 482, 596]；许成 地图[827, 8, 280, 644] / 半身[719, 655, 530, 592]。\n图集画布 1254×1254；坐标约定与目检记录见 assets/chars/npcs/saga/asset_manifest.json。",
       "data": {
         "assetId": "npc-saga-limao-xucheng",
         "mediaType": "image"
-      },
-      "title": "后六章NPC·李茂／许成",
-      "description": "生产素材｜游戏内实际读取的后六章NPC图集。\n同图集内含 2 名角色：李茂／许成。\n每人分地图全身区域与对白半身区域：李茂 地图[187, 9, 249, 642] / 半身[64, 651, 482, 596]；许成 地图[827, 8, 280, 644] / 半身[719, 655, 530, 592]。\n图集画布 1254×1254；坐标约定与目检记录见 assets/chars/npcs/saga/asset_manifest.json。"
+      }
     },
     {
       "id": "npc-saga-luoshen-aliu",
       "type": "asset",
+      "title": "后六章NPC·罗婶／阿柳",
+      "description": "生产素材｜游戏内实际读取的后六章NPC图集。\n同图集内含 2 名角色：罗婶／阿柳。\n每人分地图全身区域与对白半身区域：罗婶 地图[191, 10, 292, 699] / 半身[77, 709, 501, 543]；阿柳 地图[809, 1, 281, 708] / 半身[739, 709, 487, 543]。\n图集画布 1254×1254；坐标约定与目检记录见 assets/chars/npcs/saga/asset_manifest.json。",
       "data": {
         "assetId": "npc-saga-luoshen-aliu",
         "mediaType": "image"
-      },
-      "title": "后六章NPC·罗婶／阿柳",
-      "description": "生产素材｜游戏内实际读取的后六章NPC图集。\n同图集内含 2 名角色：罗婶／阿柳。\n每人分地图全身区域与对白半身区域：罗婶 地图[191, 10, 292, 699] / 半身[77, 709, 501, 543]；阿柳 地图[809, 1, 281, 708] / 半身[739, 709, 487, 543]。\n图集画布 1254×1254；坐标约定与目检记录见 assets/chars/npcs/saga/asset_manifest.json。"
+      }
     },
     {
       "id": "npc-saga-luowei-bingvendor",
       "type": "asset",
+      "title": "后六章NPC·卖饼人／罗苇",
+      "description": "生产素材｜游戏内实际读取的后六章NPC图集。\n同图集内含 2 名角色：卖饼人／罗苇。\n每人分地图全身区域与对白半身区域：罗苇 地图[188, 1, 288, 704] / 半身[87, 705, 467, 549]；卖饼人 地图[781, 25, 386, 682] / 半身[672, 715, 564, 539]。\n图集画布 1254×1254；坐标约定与目检记录见 assets/chars/npcs/saga/asset_manifest.json。",
       "data": {
         "assetId": "npc-saga-luowei-bingvendor",
         "mediaType": "image"
-      },
-      "title": "后六章NPC·卖饼人／罗苇",
-      "description": "生产素材｜游戏内实际读取的后六章NPC图集。\n同图集内含 2 名角色：卖饼人／罗苇。\n每人分地图全身区域与对白半身区域：罗苇 地图[188, 1, 288, 704] / 半身[87, 705, 467, 549]；卖饼人 地图[781, 25, 386, 682] / 半身[672, 715, 564, 539]。\n图集画布 1254×1254；坐标约定与目检记录见 assets/chars/npcs/saga/asset_manifest.json。"
+      }
     },
     {
       "id": "npc-saga-mengheng-shenzhuzhou",
       "type": "asset",
+      "title": "后六章NPC·孟衡／沈烛舟",
+      "description": "生产素材｜游戏内实际读取的后六章NPC图集。\n同图集内含 2 名角色：孟衡／沈烛舟。\n每人分地图全身区域与对白半身区域：孟衡 地图[140, 0, 320, 661] / 半身[20, 666, 560, 588]；沈烛舟 地图[755, 0, 380, 663] / 半身[680, 667, 540, 587]。\n图集画布 1254×1254；坐标约定与目检记录见 assets/chars/npcs/saga/asset_manifest.json。",
       "data": {
         "assetId": "npc-saga-mengheng-shenzhuzhou",
         "mediaType": "image"
-      },
-      "title": "后六章NPC·孟衡／沈烛舟",
-      "description": "生产素材｜游戏内实际读取的后六章NPC图集。\n同图集内含 2 名角色：孟衡／沈烛舟。\n每人分地图全身区域与对白半身区域：孟衡 地图[140, 0, 320, 661] / 半身[20, 666, 560, 588]；沈烛舟 地图[755, 0, 380, 663] / 半身[680, 667, 540, 587]。\n图集画布 1254×1254；坐标约定与目检记录见 assets/chars/npcs/saga/asset_manifest.json。"
+      }
     },
     {
       "id": "npc-saga-qiaobo-xuzhaoyi",
       "type": "asset",
+      "title": "后六章NPC·乔伯／许照漪",
+      "description": "生产素材｜游戏内实际读取的后六章NPC图集。\n同图集内含 2 名角色：乔伯／许照漪。\n每人分地图全身区域与对白半身区域：乔伯 地图[150, 0, 325, 660] / 半身[15, 660, 580, 594]；许照漪 地图[825, 0, 265, 660] / 半身[740, 675, 505, 579]。\n图集画布 1254×1254；坐标约定与目检记录见 assets/chars/npcs/saga/asset_manifest.json。",
       "data": {
         "assetId": "npc-saga-qiaobo-xuzhaoyi",
         "mediaType": "image"
-      },
-      "title": "后六章NPC·乔伯／许照漪",
-      "description": "生产素材｜游戏内实际读取的后六章NPC图集。\n同图集内含 2 名角色：乔伯／许照漪。\n每人分地图全身区域与对白半身区域：乔伯 地图[150, 0, 325, 660] / 半身[15, 660, 580, 594]；许照漪 地图[825, 0, 265, 660] / 半身[740, 675, 505, 579]。\n图集画布 1254×1254；坐标约定与目检记录见 assets/chars/npcs/saga/asset_manifest.json。"
+      }
     },
     {
       "id": "npc-saga-qiuan-zhaoyigong",
       "type": "asset",
+      "title": "后六章NPC·赵医工／邱安",
+      "description": "生产素材｜游戏内实际读取的后六章NPC图集。\n同图集内含 2 名角色：赵医工／邱安。\n每人分地图全身区域与对白半身区域：邱安 地图[188, 35, 249, 584] / 半身[35, 653, 548, 593]；赵医工 地图[849, 44, 252, 576] / 半身[708, 661, 544, 585]。\n图集画布 1254×1254；坐标约定与目检记录见 assets/chars/npcs/saga/asset_manifest.json。",
       "data": {
         "assetId": "npc-saga-qiuan-zhaoyigong",
         "mediaType": "image"
-      },
-      "title": "后六章NPC·赵医工／邱安",
-      "description": "生产素材｜游戏内实际读取的后六章NPC图集。\n同图集内含 2 名角色：赵医工／邱安。\n每人分地图全身区域与对白半身区域：邱安 地图[188, 35, 249, 584] / 半身[35, 653, 548, 593]；赵医工 地图[849, 44, 252, 576] / 半身[708, 661, 544, 585]。\n图集画布 1254×1254；坐标约定与目检记录见 assets/chars/npcs/saga/asset_manifest.json。"
+      }
     },
     {
       "id": "npc-saga-songpo-duping",
       "type": "asset",
+      "title": "后六章NPC·宋婆／杜平",
+      "description": "生产素材｜游戏内实际读取的后六章NPC图集。\n同图集内含 2 名角色：宋婆／杜平。\n每人分地图全身区域与对白半身区域：宋婆 地图[178, 26, 239, 622] / 半身[57, 676, 506, 572]；杜平 地图[840, 12, 230, 644] / 半身[708, 666, 499, 582]。\n图集画布 1254×1254；坐标约定与目检记录见 assets/chars/npcs/saga/asset_manifest.json。",
       "data": {
         "assetId": "npc-saga-songpo-duping",
         "mediaType": "image"
-      },
-      "title": "后六章NPC·宋婆／杜平",
-      "description": "生产素材｜游戏内实际读取的后六章NPC图集。\n同图集内含 2 名角色：宋婆／杜平。\n每人分地图全身区域与对白半身区域：宋婆 地图[178, 26, 239, 622] / 半身[57, 676, 506, 572]；杜平 地图[840, 12, 230, 644] / 半身[708, 666, 499, 582]。\n图集画布 1254×1254；坐标约定与目检记录见 assets/chars/npcs/saga/asset_manifest.json。"
+      }
     },
     {
       "id": "npc-saga-wuji-luyun",
       "type": "asset",
+      "title": "后六章NPC·吴济／陆芸",
+      "description": "生产素材｜游戏内实际读取的后六章NPC图集。\n同图集内含 2 名角色：吴济／陆芸。\n每人分地图全身区域与对白半身区域：吴济 地图[195, 0, 298, 676] / 半身[72, 676, 525, 578]；陆芸 地图[829, 21, 281, 654] / 半身[756, 697, 484, 557]。\n图集画布 1254×1254；坐标约定与目检记录见 assets/chars/npcs/saga/asset_manifest.json。",
       "data": {
         "assetId": "npc-saga-wuji-luyun",
         "mediaType": "image"
-      },
-      "title": "后六章NPC·吴济／陆芸",
-      "description": "生产素材｜游戏内实际读取的后六章NPC图集。\n同图集内含 2 名角色：吴济／陆芸。\n每人分地图全身区域与对白半身区域：吴济 地图[195, 0, 298, 676] / 半身[72, 676, 525, 578]；陆芸 地图[829, 21, 281, 654] / 半身[756, 697, 484, 557]。\n图集画布 1254×1254；坐标约定与目检记录见 assets/chars/npcs/saga/asset_manifest.json。"
+      }
     },
     {
       "id": "npc-saga-yaoqin-duying",
       "type": "asset",
+      "title": "后六章NPC·姚芹／杜应",
+      "description": "生产素材｜游戏内实际读取的后六章NPC图集。\n同图集内含 2 名角色：姚芹／杜应。\n每人分地图全身区域与对白半身区域：姚芹 地图[214, 20, 210, 668] / 半身[88, 697, 457, 557]；杜应 地图[815, 17, 266, 675] / 半身[678, 692, 534, 562]。\n图集画布 1254×1254；坐标约定与目检记录见 assets/chars/npcs/saga/asset_manifest.json。",
       "data": {
         "assetId": "npc-saga-yaoqin-duying",
         "mediaType": "image"
-      },
-      "title": "后六章NPC·姚芹／杜应",
-      "description": "生产素材｜游戏内实际读取的后六章NPC图集。\n同图集内含 2 名角色：姚芹／杜应。\n每人分地图全身区域与对白半身区域：姚芹 地图[214, 20, 210, 668] / 半身[88, 697, 457, 557]；杜应 地图[815, 17, 266, 675] / 半身[678, 692, 534, 562]。\n图集画布 1254×1254；坐标约定与目检记录见 assets/chars/npcs/saga/asset_manifest.json。"
+      }
     },
     {
       "id": "section-6-16727e71",
       "type": "text",
+      "title": "战斗/行走背景",
+      "description": "分区说明：res://assets/bg/ 根目录的直接舞台背景，战斗背景由 data/battles/*.json 的 bg 字段引用。",
       "data": {
         "text": "res://assets/bg/ 根目录的直接舞台背景，战斗背景由 data/battles/*.json 的 bg 字段引用。\n\n本分区共 8 个素材节点。",
         "instruction": "分区标题节点，用于在画布上分隔素材组，不生成新素材。"
-      },
-      "title": "战斗/行走背景",
-      "description": "分区说明：res://assets/bg/ 根目录的直接舞台背景，战斗背景由 data/battles/*.json 的 bg 字段引用。"
+      }
     },
     {
       "id": "bg-approach-battle",
       "type": "asset",
+      "title": "参道·战斗背景",
+      "description": "生产素材｜游戏内实际读取：第一章参道战斗背景。\n分组说明：res://assets/bg/ 根目录的直接舞台背景，战斗背景由 data/battles/*.json 的 bg 字段引用。\n路径 assets/bg/approach_battle.png。像素 2048×1152。",
       "data": {
         "assetId": "bg-approach-battle",
         "mediaType": "image"
-      },
-      "title": "参道·战斗背景",
-      "description": "生产素材｜游戏内实际读取：第一章参道战斗背景。\n分组说明：res://assets/bg/ 根目录的直接舞台背景，战斗背景由 data/battles/*.json 的 bg 字段引用。\n路径 assets/bg/approach_battle.png。像素 2048×1152。"
+      }
     },
     {
       "id": "bg-approach-l2-test",
       "type": "asset",
+      "title": "参道·l2 分层试样",
+      "description": "生产素材｜游戏内实际读取：参道分层背景试样层。\n分组说明：res://assets/bg/ 根目录的直接舞台背景，战斗背景由 data/battles/*.json 的 bg 字段引用。\n路径 assets/bg/approach/l2_test.png。像素 2048×1152。",
       "data": {
         "assetId": "bg-approach-l2-test",
         "mediaType": "image"
-      },
-      "title": "参道·l2 分层试样",
-      "description": "生产素材｜游戏内实际读取：参道分层背景试样层。\n分组说明：res://assets/bg/ 根目录的直接舞台背景，战斗背景由 data/battles/*.json 的 bg 字段引用。\n路径 assets/bg/approach/l2_test.png。像素 2048×1152。"
+      }
     },
     {
       "id": "bg-corridor-battle",
       "type": "asset",
+      "title": "回廊·战斗背景",
+      "description": "生产素材｜游戏内实际读取：回廊战斗背景。\n分组说明：res://assets/bg/ 根目录的直接舞台背景，战斗背景由 data/battles/*.json 的 bg 字段引用。\n路径 assets/bg/corridor_battle_test.png。像素 2048×1152。",
       "data": {
         "assetId": "bg-corridor-battle",
         "mediaType": "image"
-      },
-      "title": "回廊·战斗背景",
-      "description": "生产素材｜游戏内实际读取：回廊战斗背景。\n分组说明：res://assets/bg/ 根目录的直接舞台背景，战斗背景由 data/battles/*.json 的 bg 字段引用。\n路径 assets/bg/corridor_battle_test.png。像素 2048×1152。"
+      }
     },
     {
       "id": "bg-corridor-walk",
       "type": "asset",
+      "title": "回廊·行走背景",
+      "description": "生产素材｜游戏内实际读取：回廊行走舞台背景。\n分组说明：res://assets/bg/ 根目录的直接舞台背景，战斗背景由 data/battles/*.json 的 bg 字段引用。\n路径 assets/bg/corridor_walk.png。像素 2048×1152。",
       "data": {
         "assetId": "bg-corridor-walk",
         "mediaType": "image"
-      },
-      "title": "回廊·行走背景",
-      "description": "生产素材｜游戏内实际读取：回廊行走舞台背景。\n分组说明：res://assets/bg/ 根目录的直接舞台背景，战斗背景由 data/battles/*.json 的 bg 字段引用。\n路径 assets/bg/corridor_walk.png。像素 2048×1152。"
+      }
     },
     {
       "id": "bg-honden-battle",
       "type": "asset",
+      "title": "本殿·战斗背景",
+      "description": "生产素材｜游戏内实际读取：本殿战斗背景。\n分组说明：res://assets/bg/ 根目录的直接舞台背景，战斗背景由 data/battles/*.json 的 bg 字段引用。\n路径 assets/bg/honden_battle.png。像素 2048×1152。",
       "data": {
         "assetId": "bg-honden-battle",
         "mediaType": "image"
-      },
-      "title": "本殿·战斗背景",
-      "description": "生产素材｜游戏内实际读取：本殿战斗背景。\n分组说明：res://assets/bg/ 根目录的直接舞台背景，战斗背景由 data/battles/*.json 的 bg 字段引用。\n路径 assets/bg/honden_battle.png。像素 2048×1152。"
+      }
     },
     {
       "id": "bg-honden-dusk",
       "type": "asset",
+      "title": "本殿·黄昏背景",
+      "description": "生产素材｜游戏内实际读取：本殿黄昏氛围背景。\n分组说明：res://assets/bg/ 根目录的直接舞台背景，战斗背景由 data/battles/*.json 的 bg 字段引用。\n路径 assets/bg/honden_dusk.png。像素 2048×1152。",
       "data": {
         "assetId": "bg-honden-dusk",
         "mediaType": "image"
-      },
-      "title": "本殿·黄昏背景",
-      "description": "生产素材｜游戏内实际读取：本殿黄昏氛围背景。\n分组说明：res://assets/bg/ 根目录的直接舞台背景，战斗背景由 data/battles/*.json 的 bg 字段引用。\n路径 assets/bg/honden_dusk.png。像素 2048×1152。"
+      }
     },
     {
       "id": "bg-mountain-far",
       "type": "asset",
+      "title": "参道·远景",
+      "description": "生产素材｜游戏内实际读取：上山路远景层。\n分组说明：res://assets/bg/ 根目录的直接舞台背景，战斗背景由 data/battles/*.json 的 bg 字段引用。\n路径 assets/bg/mountain_path/far.png。像素 2048×1152。",
       "data": {
         "assetId": "bg-mountain-far",
         "mediaType": "image"
-      },
-      "title": "参道·远景",
-      "description": "生产素材｜游戏内实际读取：上山路远景层。\n分组说明：res://assets/bg/ 根目录的直接舞台背景，战斗背景由 data/battles/*.json 的 bg 字段引用。\n路径 assets/bg/mountain_path/far.png。像素 2048×1152。"
+      }
     },
     {
       "id": "bg-mountain-arch",
       "type": "asset",
+      "title": "参道·鸟居",
+      "description": "生产素材｜游戏内实际读取：上山路鸟居前景层。\n分组说明：res://assets/bg/ 根目录的直接舞台背景，战斗背景由 data/battles/*.json 的 bg 字段引用。\n路径 assets/bg/mountain_path/arch.png。像素 2048×1152。",
       "data": {
         "assetId": "bg-mountain-arch",
         "mediaType": "image"
-      },
-      "title": "参道·鸟居",
-      "description": "生产素材｜游戏内实际读取：上山路鸟居前景层。\n分组说明：res://assets/bg/ 根目录的直接舞台背景，战斗背景由 data/battles/*.json 的 bg 字段引用。\n路径 assets/bg/mountain_path/arch.png。像素 2048×1152。"
+      }
     },
     {
       "id": "section-7-d05fddfd",
       "type": "text",
+      "title": "前景视差层",
+      "description": "分区说明：scripts/scenes/stage_scene.gd 按 res://assets/bg/parallax/<舞台id>_fg1.png 约定加载的透明前景层。",
       "data": {
         "text": "scripts/scenes/stage_scene.gd 按 res://assets/bg/parallax/<舞台id>_fg1.png 约定加载的透明前景层。\n\n本分区共 4 个素材节点。",
         "instruction": "分区标题节点，用于在画布上分隔素材组，不生成新素材。"
-      },
-      "title": "前景视差层",
-      "description": "分区说明：scripts/scenes/stage_scene.gd 按 res://assets/bg/parallax/<舞台id>_fg1.png 约定加载的透明前景层。"
+      }
     },
     {
       "id": "bg-parallax-approach-fg1",
       "type": "asset",
+      "title": "参道·前景层",
+      "description": "生产素材｜游戏内实际读取：舞台 test_approach 的 fg1。\n分组说明：scripts/scenes/stage_scene.gd 按 res://assets/bg/parallax/<舞台id>_fg1.png 约定加载的透明前景层。\n路径 assets/bg/parallax/test_approach_fg1.png。像素 2048×1152。",
       "data": {
         "assetId": "bg-parallax-approach-fg1",
         "mediaType": "image"
-      },
-      "title": "参道·前景层",
-      "description": "生产素材｜游戏内实际读取：舞台 test_approach 的 fg1。\n分组说明：scripts/scenes/stage_scene.gd 按 res://assets/bg/parallax/<舞台id>_fg1.png 约定加载的透明前景层。\n路径 assets/bg/parallax/test_approach_fg1.png。像素 2048×1152。"
+      }
     },
     {
       "id": "bg-parallax-corridor-fg1",
       "type": "asset",
+      "title": "回廊·前景层",
+      "description": "生产素材｜游戏内实际读取：舞台 corridor_act 的 fg1。\n分组说明：scripts/scenes/stage_scene.gd 按 res://assets/bg/parallax/<舞台id>_fg1.png 约定加载的透明前景层。\n路径 assets/bg/parallax/corridor_act_fg1.png。像素 2048×1152。",
       "data": {
         "assetId": "bg-parallax-corridor-fg1",
         "mediaType": "image"
-      },
-      "title": "回廊·前景层",
-      "description": "生产素材｜游戏内实际读取：舞台 corridor_act 的 fg1。\n分组说明：scripts/scenes/stage_scene.gd 按 res://assets/bg/parallax/<舞台id>_fg1.png 约定加载的透明前景层。\n路径 assets/bg/parallax/corridor_act_fg1.png。像素 2048×1152。"
+      }
     },
     {
       "id": "bg-parallax-honden-fg1",
       "type": "asset",
+      "title": "本殿·前景层",
+      "description": "生产素材｜游戏内实际读取：舞台 honden_act 的 fg1。\n分组说明：scripts/scenes/stage_scene.gd 按 res://assets/bg/parallax/<舞台id>_fg1.png 约定加载的透明前景层。\n路径 assets/bg/parallax/honden_act_fg1.png。像素 2048×1152。",
       "data": {
         "assetId": "bg-parallax-honden-fg1",
         "mediaType": "image"
-      },
-      "title": "本殿·前景层",
-      "description": "生产素材｜游戏内实际读取：舞台 honden_act 的 fg1。\n分组说明：scripts/scenes/stage_scene.gd 按 res://assets/bg/parallax/<舞台id>_fg1.png 约定加载的透明前景层。\n路径 assets/bg/parallax/honden_act_fg1.png。像素 2048×1152。"
+      }
     },
     {
       "id": "bg-parallax-mountain-fg1",
       "type": "asset",
+      "title": "上山路·前景层",
+      "description": "生产素材｜游戏内实际读取：舞台 mountain_path 的 fg1。\n分组说明：scripts/scenes/stage_scene.gd 按 res://assets/bg/parallax/<舞台id>_fg1.png 约定加载的透明前景层。\n路径 assets/bg/parallax/mountain_path_fg1.png。像素 2048×1152。",
       "data": {
         "assetId": "bg-parallax-mountain-fg1",
         "mediaType": "image"
-      },
-      "title": "上山路·前景层",
-      "description": "生产素材｜游戏内实际读取：舞台 mountain_path 的 fg1。\n分组说明：scripts/scenes/stage_scene.gd 按 res://assets/bg/parallax/<舞台id>_fg1.png 约定加载的透明前景层。\n路径 assets/bg/parallax/mountain_path_fg1.png。像素 2048×1152。"
+      }
     },
     {
       "id": "section-8-f55c19de",
       "type": "text",
+      "title": "遮挡层",
+      "description": "分区说明：场景内用于遮挡角色的透明遮挡图，由舞台配置指定层级。",
       "data": {
         "text": "场景内用于遮挡角色的透明遮挡图，由舞台配置指定层级。\n\n本分区共 3 个素材节点。",
         "instruction": "分区标题节点，用于在画布上分隔素材组，不生成新素材。"
-      },
-      "title": "遮挡层",
-      "description": "分区说明：场景内用于遮挡角色的透明遮挡图，由舞台配置指定层级。"
+      }
     },
     {
       "id": "bg-occluder-honden",
       "type": "asset",
+      "title": "本殿遮挡 o0",
+      "description": "生产素材｜游戏内实际读取：本殿舞台遮挡层。\n分组说明：场景内用于遮挡角色的透明遮挡图，由舞台配置指定层级。\n路径 assets/bg/occluders/honden_act_o0.png。像素 174×332。",
       "data": {
         "assetId": "bg-occluder-honden",
         "mediaType": "image"
-      },
-      "title": "本殿遮挡 o0",
-      "description": "生产素材｜游戏内实际读取：本殿舞台遮挡层。\n分组说明：场景内用于遮挡角色的透明遮挡图，由舞台配置指定层级。\n路径 assets/bg/occluders/honden_act_o0.png。像素 174×332。"
+      }
     },
     {
       "id": "bg-occluder-approach-o0",
       "type": "asset",
+      "title": "参道遮挡 o0",
+      "description": "生产素材｜游戏内实际读取：参道舞台遮挡层 o0。\n分组说明：场景内用于遮挡角色的透明遮挡图，由舞台配置指定层级。\n路径 assets/bg/occluders/test_approach_o0.png。像素 135×272。",
       "data": {
         "assetId": "bg-occluder-approach-o0",
         "mediaType": "image"
-      },
-      "title": "参道遮挡 o0",
-      "description": "生产素材｜游戏内实际读取：参道舞台遮挡层 o0。\n分组说明：场景内用于遮挡角色的透明遮挡图，由舞台配置指定层级。\n路径 assets/bg/occluders/test_approach_o0.png。像素 135×272。"
+      }
     },
     {
       "id": "bg-occluder-approach-o1",
       "type": "asset",
+      "title": "参道遮挡 o1",
+      "description": "生产素材｜游戏内实际读取：参道舞台遮挡层 o1。\n分组说明：场景内用于遮挡角色的透明遮挡图，由舞台配置指定层级。\n路径 assets/bg/occluders/test_approach_o1.png。像素 77×207。",
       "data": {
         "assetId": "bg-occluder-approach-o1",
         "mediaType": "image"
-      },
-      "title": "参道遮挡 o1",
-      "description": "生产素材｜游戏内实际读取：参道舞台遮挡层 o1。\n分组说明：场景内用于遮挡角色的透明遮挡图，由舞台配置指定层级。\n路径 assets/bg/occluders/test_approach_o1.png。像素 77×207。"
+      }
     },
     {
       "id": "section-9-13254b13",
       "type": "text",
+      "title": "可行走遮罩",
+      "description": "分区说明：scripts/scenes/stage_scene.gd 按 res://assets/bg/walkmasks/<舞台id>.png 读取：白色为可行走面，顶缘高度即落脚高度。",
       "data": {
         "text": "scripts/scenes/stage_scene.gd 按 res://assets/bg/walkmasks/<舞台id>.png 读取：白色为可行走面，顶缘高度即落脚高度。\n\n本分区共 4 个素材节点。",
         "instruction": "分区标题节点，用于在画布上分隔素材组，不生成新素材。"
-      },
-      "title": "可行走遮罩",
-      "description": "分区说明：scripts/scenes/stage_scene.gd 按 res://assets/bg/walkmasks/<舞台id>.png 读取：白色为可行走面，顶缘高度即落脚高度。"
+      }
     },
     {
       "id": "bg-walkmask-approach",
       "type": "asset",
+      "title": "参道可行走遮罩",
+      "description": "生产素材｜游戏内实际读取：舞台 test_approach 行走遮罩。\n分组说明：scripts/scenes/stage_scene.gd 按 res://assets/bg/walkmasks/<舞台id>.png 读取：白色为可行走面，顶缘高度即落脚高度。\n路径 assets/bg/walkmasks/test_approach.png。像素 2048×1152。",
       "data": {
         "assetId": "bg-walkmask-approach",
         "mediaType": "image"
-      },
-      "title": "参道可行走遮罩",
-      "description": "生产素材｜游戏内实际读取：舞台 test_approach 行走遮罩。\n分组说明：scripts/scenes/stage_scene.gd 按 res://assets/bg/walkmasks/<舞台id>.png 读取：白色为可行走面，顶缘高度即落脚高度。\n路径 assets/bg/walkmasks/test_approach.png。像素 2048×1152。"
+      }
     },
     {
       "id": "bg-walkmask-corridor",
       "type": "asset",
+      "title": "回廊可行走遮罩",
+      "description": "生产素材｜游戏内实际读取：舞台 corridor_act 行走遮罩。\n分组说明：scripts/scenes/stage_scene.gd 按 res://assets/bg/walkmasks/<舞台id>.png 读取：白色为可行走面，顶缘高度即落脚高度。\n路径 assets/bg/walkmasks/corridor_act.png。像素 2048×1152。",
       "data": {
         "assetId": "bg-walkmask-corridor",
         "mediaType": "image"
-      },
-      "title": "回廊可行走遮罩",
-      "description": "生产素材｜游戏内实际读取：舞台 corridor_act 行走遮罩。\n分组说明：scripts/scenes/stage_scene.gd 按 res://assets/bg/walkmasks/<舞台id>.png 读取：白色为可行走面，顶缘高度即落脚高度。\n路径 assets/bg/walkmasks/corridor_act.png。像素 2048×1152。"
+      }
     },
     {
       "id": "bg-walkmask-honden",
       "type": "asset",
+      "title": "本殿可行走遮罩",
+      "description": "生产素材｜游戏内实际读取：舞台 honden_act 行走遮罩。\n分组说明：scripts/scenes/stage_scene.gd 按 res://assets/bg/walkmasks/<舞台id>.png 读取：白色为可行走面，顶缘高度即落脚高度。\n路径 assets/bg/walkmasks/honden_act.png。像素 2048×1152。",
       "data": {
         "assetId": "bg-walkmask-honden",
         "mediaType": "image"
-      },
-      "title": "本殿可行走遮罩",
-      "description": "生产素材｜游戏内实际读取：舞台 honden_act 行走遮罩。\n分组说明：scripts/scenes/stage_scene.gd 按 res://assets/bg/walkmasks/<舞台id>.png 读取：白色为可行走面，顶缘高度即落脚高度。\n路径 assets/bg/walkmasks/honden_act.png。像素 2048×1152。"
+      }
     },
     {
       "id": "bg-walkmask-mountain",
       "type": "asset",
+      "title": "上山路可行走遮罩",
+      "description": "生产素材｜游戏内实际读取：舞台 mountain_path 行走遮罩。\n分组说明：scripts/scenes/stage_scene.gd 按 res://assets/bg/walkmasks/<舞台id>.png 读取：白色为可行走面，顶缘高度即落脚高度。\n路径 assets/bg/walkmasks/mountain_path.png。像素 2048×1152。",
       "data": {
         "assetId": "bg-walkmask-mountain",
         "mediaType": "image"
-      },
-      "title": "上山路可行走遮罩",
-      "description": "生产素材｜游戏内实际读取：舞台 mountain_path 行走遮罩。\n分组说明：scripts/scenes/stage_scene.gd 按 res://assets/bg/walkmasks/<舞台id>.png 读取：白色为可行走面，顶缘高度即落脚高度。\n路径 assets/bg/walkmasks/mountain_path.png。像素 2048×1152。"
+      }
     },
     {
       "id": "section-10-f64f629d",
       "type": "text",
+      "title": "3D 阶段模型",
+      "description": "分区说明：第一章连续寺域的六个 glTF 阶段：上山路、回廊、回廊 HD2D 变体、送葬行列、镜殿、本殿。",
       "data": {
         "text": "第一章连续寺域的六个 glTF 阶段：上山路、回廊、回廊 HD2D 变体、送葬行列、镜殿、本殿。\n\n本分区共 6 个素材节点。",
         "instruction": "分区标题节点，用于在画布上分隔素材组，不生成新素材。"
-      },
-      "title": "3D 阶段模型",
-      "description": "分区说明：第一章连续寺域的六个 glTF 阶段：上山路、回廊、回廊 HD2D 变体、送葬行列、镜殿、本殿。"
+      }
     },
     {
       "id": "stage-act01-approach-glb",
       "type": "asset",
+      "title": "第一幕 参道·GLB",
+      "description": "生产素材｜游戏内实际导入的 3D 阶段模型。\n第一幕 参道，目录 assets/3d/act01_approach/。\nGLB 内嵌 PBR 材质与打包纹理，Blender 源与构建脚本在同级 source/（带 .gdignore，不参与导出）。\n尺寸 10.4 MB；坐标、锚点与实测预算见目录内 README.md。",
       "data": {
         "assetId": "stage-act01-approach-glb",
         "mediaType": "model"
-      },
-      "title": "第一幕 参道·GLB",
-      "description": "生产素材｜游戏内实际导入的 3D 阶段模型。\n第一幕 参道，目录 assets/3d/act01_approach/。\nGLB 内嵌 PBR 材质与打包纹理，Blender 源与构建脚本在同级 source/（带 .gdignore，不参与导出）。\n尺寸 10.4 MB；坐标、锚点与实测预算见目录内 README.md。"
+      }
     },
     {
       "id": "stage-night02-corridor-glb",
       "type": "asset",
+      "title": "第二夜 回廊·GLB",
+      "description": "生产素材｜游戏内实际导入的 3D 阶段模型。\n第二夜 回廊，目录 assets/3d/night02_corridor/。\nGLB 内嵌 PBR 材质与打包纹理，Blender 源与构建脚本在同级 source/（带 .gdignore，不参与导出）。\n尺寸 12.1 MB；坐标、锚点与实测预算见目录内 README.md。",
       "data": {
         "assetId": "stage-night02-corridor-glb",
         "mediaType": "model"
-      },
-      "title": "第二夜 回廊·GLB",
-      "description": "生产素材｜游戏内实际导入的 3D 阶段模型。\n第二夜 回廊，目录 assets/3d/night02_corridor/。\nGLB 内嵌 PBR 材质与打包纹理，Blender 源与构建脚本在同级 source/（带 .gdignore，不参与导出）。\n尺寸 12.1 MB；坐标、锚点与实测预算见目录内 README.md。"
+      }
     },
     {
       "id": "stage-night02-corridor-hd2d-glb",
       "type": "asset",
+      "title": "第二夜 回廊 HD2D 变体·GLB",
+      "description": "生产素材｜游戏内实际导入的 3D 阶段模型。\n第二夜 回廊 HD2D 变体，目录 assets/3d/night02_corridor_hd2d/。\nGLB 内嵌 PBR 材质与打包纹理，Blender 源与构建脚本在同级 source/（带 .gdignore，不参与导出）。\n尺寸 14.0 MB；坐标、锚点与实测预算见目录内 README.md。",
       "data": {
         "assetId": "stage-night02-corridor-hd2d-glb",
         "mediaType": "model"
-      },
-      "title": "第二夜 回廊 HD2D 变体·GLB",
-      "description": "生产素材｜游戏内实际导入的 3D 阶段模型。\n第二夜 回廊 HD2D 变体，目录 assets/3d/night02_corridor_hd2d/。\nGLB 内嵌 PBR 材质与打包纹理，Blender 源与构建脚本在同级 source/（带 .gdignore，不参与导出）。\n尺寸 14.0 MB；坐标、锚点与实测预算见目录内 README.md。"
+      }
     },
     {
       "id": "stage-night03-procession-glb",
       "type": "asset",
+      "title": "第三夜 送葬行列·GLB",
+      "description": "生产素材｜游戏内实际导入的 3D 阶段模型。\n第三夜 送葬行列，目录 assets/3d/night03_procession/。\nGLB 内嵌 PBR 材质与打包纹理，Blender 源与构建脚本在同级 source/（带 .gdignore，不参与导出）。\n尺寸 8.2 MB；坐标、锚点与实测预算见目录内 README.md。",
       "data": {
         "assetId": "stage-night03-procession-glb",
         "mediaType": "model"
-      },
-      "title": "第三夜 送葬行列·GLB",
-      "description": "生产素材｜游戏内实际导入的 3D 阶段模型。\n第三夜 送葬行列，目录 assets/3d/night03_procession/。\nGLB 内嵌 PBR 材质与打包纹理，Blender 源与构建脚本在同级 source/（带 .gdignore，不参与导出）。\n尺寸 8.2 MB；坐标、锚点与实测预算见目录内 README.md。"
+      }
     },
     {
       "id": "stage-night04-mirror-glb",
       "type": "asset",
+      "title": "第四夜 镜殿·GLB",
+      "description": "生产素材｜游戏内实际导入的 3D 阶段模型。\n第四夜 镜殿，目录 assets/3d/night04_mirror/。\nGLB 内嵌 PBR 材质与打包纹理，Blender 源与构建脚本在同级 source/（带 .gdignore，不参与导出）。\n尺寸 8.2 MB；坐标、锚点与实测预算见目录内 README.md。",
       "data": {
         "assetId": "stage-night04-mirror-glb",
         "mediaType": "model"
-      },
-      "title": "第四夜 镜殿·GLB",
-      "description": "生产素材｜游戏内实际导入的 3D 阶段模型。\n第四夜 镜殿，目录 assets/3d/night04_mirror/。\nGLB 内嵌 PBR 材质与打包纹理，Blender 源与构建脚本在同级 source/（带 .gdignore，不参与导出）。\n尺寸 8.2 MB；坐标、锚点与实测预算见目录内 README.md。"
+      }
     },
     {
       "id": "stage-night05-honden-glb",
       "type": "asset",
+      "title": "第五夜 本殿·GLB",
+      "description": "生产素材｜游戏内实际导入的 3D 阶段模型。\n第五夜 本殿，目录 assets/3d/night05_honden/。\nGLB 内嵌 PBR 材质与打包纹理，Blender 源与构建脚本在同级 source/（带 .gdignore，不参与导出）。\n尺寸 8.2 MB；坐标、锚点与实测预算见目录内 README.md。",
       "data": {
         "assetId": "stage-night05-honden-glb",
         "mediaType": "model"
-      },
-      "title": "第五夜 本殿·GLB",
-      "description": "生产素材｜游戏内实际导入的 3D 阶段模型。\n第五夜 本殿，目录 assets/3d/night05_honden/。\nGLB 内嵌 PBR 材质与打包纹理，Blender 源与构建脚本在同级 source/（带 .gdignore，不参与导出）。\n尺寸 8.2 MB；坐标、锚点与实测预算见目录内 README.md。"
+      }
     },
     {
       "id": "section-11-e2816cde",
       "type": "text",
+      "title": "3D 阶段贴图",
+      "description": "分区说明：各阶段按材质导出的独立贴图（和纸/灰泥/瓦/石/木）；参道阶段只导出 GLB，贴图内嵌在模型内。",
       "data": {
         "text": "各阶段按材质导出的独立贴图（和纸/灰泥/瓦/石/木）；参道阶段只导出 GLB，贴图内嵌在模型内。\n\n本分区共 23 个素材节点。",
         "instruction": "分区标题节点，用于在画布上分隔素材组，不生成新素材。"
-      },
-      "title": "3D 阶段贴图",
-      "description": "分区说明：各阶段按材质导出的独立贴图（和纸/灰泥/瓦/石/木）；参道阶段只导出 GLB，贴图内嵌在模型内。"
+      }
     },
     {
       "id": "tex-night02-corridor-paper",
       "type": "asset",
+      "title": "第二夜 回廊·和纸贴图",
+      "description": "生产素材｜3D 阶段贴图：第二夜 回廊的和纸材质。\n路径 assets/3d/night02_corridor/night02_corridor_paper.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 1024×1024，816 KB。",
       "data": {
         "assetId": "tex-night02-corridor-paper",
         "mediaType": "image"
-      },
-      "title": "第二夜 回廊·和纸贴图",
-      "description": "生产素材｜3D 阶段贴图：第二夜 回廊的和纸材质。\n路径 assets/3d/night02_corridor/night02_corridor_paper.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 1024×1024，816 KB。"
+      }
     },
     {
       "id": "tex-night02-corridor-plaster",
       "type": "asset",
+      "title": "第二夜 回廊·灰泥贴图",
+      "description": "生产素材｜3D 阶段贴图：第二夜 回廊的灰泥材质。\n路径 assets/3d/night02_corridor/night02_corridor_plaster.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，260 KB。",
       "data": {
         "assetId": "tex-night02-corridor-plaster",
         "mediaType": "image"
-      },
-      "title": "第二夜 回廊·灰泥贴图",
-      "description": "生产素材｜3D 阶段贴图：第二夜 回廊的灰泥材质。\n路径 assets/3d/night02_corridor/night02_corridor_plaster.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，260 KB。"
+      }
     },
     {
       "id": "tex-night02-corridor-roof",
       "type": "asset",
+      "title": "第二夜 回廊·瓦贴图",
+      "description": "生产素材｜3D 阶段贴图：第二夜 回廊的瓦材质。\n路径 assets/3d/night02_corridor/night02_corridor_roof.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，209 KB。",
       "data": {
         "assetId": "tex-night02-corridor-roof",
         "mediaType": "image"
-      },
-      "title": "第二夜 回廊·瓦贴图",
-      "description": "生产素材｜3D 阶段贴图：第二夜 回廊的瓦材质。\n路径 assets/3d/night02_corridor/night02_corridor_roof.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，209 KB。"
+      }
     },
     {
       "id": "tex-night02-corridor-stone",
       "type": "asset",
+      "title": "第二夜 回廊·石贴图",
+      "description": "生产素材｜3D 阶段贴图：第二夜 回廊的石材质。\n路径 assets/3d/night02_corridor/night02_corridor_stone.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，406 KB。",
       "data": {
         "assetId": "tex-night02-corridor-stone",
         "mediaType": "image"
-      },
-      "title": "第二夜 回廊·石贴图",
-      "description": "生产素材｜3D 阶段贴图：第二夜 回廊的石材质。\n路径 assets/3d/night02_corridor/night02_corridor_stone.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，406 KB。"
+      }
     },
     {
       "id": "tex-night02-corridor-wood",
       "type": "asset",
+      "title": "第二夜 回廊·木贴图",
+      "description": "生产素材｜3D 阶段贴图：第二夜 回廊的木材质。\n路径 assets/3d/night02_corridor/night02_corridor_wood.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，315 KB。",
       "data": {
         "assetId": "tex-night02-corridor-wood",
         "mediaType": "image"
-      },
-      "title": "第二夜 回廊·木贴图",
-      "description": "生产素材｜3D 阶段贴图：第二夜 回廊的木材质。\n路径 assets/3d/night02_corridor/night02_corridor_wood.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，315 KB。"
+      }
     },
     {
       "id": "tex-night02-corridor-hd2d-paper",
       "type": "asset",
+      "title": "第二夜 回廊 HD2D 变体·和纸贴图",
+      "description": "生产素材｜3D 阶段贴图：第二夜 回廊 HD2D 变体的和纸材质。\n路径 assets/3d/night02_corridor_hd2d/night02_corridor_hd2d_paper.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 1024×1024，816 KB。",
       "data": {
         "assetId": "tex-night02-corridor-hd2d-paper",
         "mediaType": "image"
-      },
-      "title": "第二夜 回廊 HD2D 变体·和纸贴图",
-      "description": "生产素材｜3D 阶段贴图：第二夜 回廊 HD2D 变体的和纸材质。\n路径 assets/3d/night02_corridor_hd2d/night02_corridor_hd2d_paper.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 1024×1024，816 KB。"
+      }
     },
     {
       "id": "tex-night02-corridor-hd2d-plaster",
       "type": "asset",
+      "title": "第二夜 回廊 HD2D 变体·灰泥贴图",
+      "description": "生产素材｜3D 阶段贴图：第二夜 回廊 HD2D 变体的灰泥材质。\n路径 assets/3d/night02_corridor_hd2d/night02_corridor_hd2d_plaster.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，260 KB。",
       "data": {
         "assetId": "tex-night02-corridor-hd2d-plaster",
         "mediaType": "image"
-      },
-      "title": "第二夜 回廊 HD2D 变体·灰泥贴图",
-      "description": "生产素材｜3D 阶段贴图：第二夜 回廊 HD2D 变体的灰泥材质。\n路径 assets/3d/night02_corridor_hd2d/night02_corridor_hd2d_plaster.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，260 KB。"
+      }
     },
     {
       "id": "tex-night02-corridor-hd2d-roof",
       "type": "asset",
+      "title": "第二夜 回廊 HD2D 变体·瓦贴图",
+      "description": "生产素材｜3D 阶段贴图：第二夜 回廊 HD2D 变体的瓦材质。\n路径 assets/3d/night02_corridor_hd2d/night02_corridor_hd2d_roof.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，209 KB。",
       "data": {
         "assetId": "tex-night02-corridor-hd2d-roof",
         "mediaType": "image"
-      },
-      "title": "第二夜 回廊 HD2D 变体·瓦贴图",
-      "description": "生产素材｜3D 阶段贴图：第二夜 回廊 HD2D 变体的瓦材质。\n路径 assets/3d/night02_corridor_hd2d/night02_corridor_hd2d_roof.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，209 KB。"
+      }
     },
     {
       "id": "tex-night02-corridor-hd2d-stone",
       "type": "asset",
+      "title": "第二夜 回廊 HD2D 变体·石贴图",
+      "description": "生产素材｜3D 阶段贴图：第二夜 回廊 HD2D 变体的石材质。\n路径 assets/3d/night02_corridor_hd2d/night02_corridor_hd2d_stone.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，406 KB。",
       "data": {
         "assetId": "tex-night02-corridor-hd2d-stone",
         "mediaType": "image"
-      },
-      "title": "第二夜 回廊 HD2D 变体·石贴图",
-      "description": "生产素材｜3D 阶段贴图：第二夜 回廊 HD2D 变体的石材质。\n路径 assets/3d/night02_corridor_hd2d/night02_corridor_hd2d_stone.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，406 KB。"
+      }
     },
     {
       "id": "tex-night02-corridor-hd2d-wood",
       "type": "asset",
+      "title": "第二夜 回廊 HD2D 变体·木贴图",
+      "description": "生产素材｜3D 阶段贴图：第二夜 回廊 HD2D 变体的木材质。\n路径 assets/3d/night02_corridor_hd2d/night02_corridor_hd2d_wood.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，315 KB。",
       "data": {
         "assetId": "tex-night02-corridor-hd2d-wood",
         "mediaType": "image"
-      },
-      "title": "第二夜 回廊 HD2D 变体·木贴图",
-      "description": "生产素材｜3D 阶段贴图：第二夜 回廊 HD2D 变体的木材质。\n路径 assets/3d/night02_corridor_hd2d/night02_corridor_hd2d_wood.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，315 KB。"
+      }
     },
     {
       "id": "tex-night03-procession-paper",
       "type": "asset",
+      "title": "第三夜 送葬行列·和纸贴图",
+      "description": "生产素材｜3D 阶段贴图：第三夜 送葬行列的和纸材质。\n路径 assets/3d/night03_procession/night03_procession_paper.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 1024×1024，816 KB。",
       "data": {
         "assetId": "tex-night03-procession-paper",
         "mediaType": "image"
-      },
-      "title": "第三夜 送葬行列·和纸贴图",
-      "description": "生产素材｜3D 阶段贴图：第三夜 送葬行列的和纸材质。\n路径 assets/3d/night03_procession/night03_procession_paper.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 1024×1024，816 KB。"
+      }
     },
     {
       "id": "tex-night03-procession-stone",
       "type": "asset",
+      "title": "第三夜 送葬行列·石贴图",
+      "description": "生产素材｜3D 阶段贴图：第三夜 送葬行列的石材质。\n路径 assets/3d/night03_procession/night03_procession_stone.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，406 KB。",
       "data": {
         "assetId": "tex-night03-procession-stone",
         "mediaType": "image"
-      },
-      "title": "第三夜 送葬行列·石贴图",
-      "description": "生产素材｜3D 阶段贴图：第三夜 送葬行列的石材质。\n路径 assets/3d/night03_procession/night03_procession_stone.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，406 KB。"
+      }
     },
     {
       "id": "tex-night03-procession-wood",
       "type": "asset",
+      "title": "第三夜 送葬行列·木贴图",
+      "description": "生产素材｜3D 阶段贴图：第三夜 送葬行列的木材质。\n路径 assets/3d/night03_procession/night03_procession_wood.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，315 KB。",
       "data": {
         "assetId": "tex-night03-procession-wood",
         "mediaType": "image"
-      },
-      "title": "第三夜 送葬行列·木贴图",
-      "description": "生产素材｜3D 阶段贴图：第三夜 送葬行列的木材质。\n路径 assets/3d/night03_procession/night03_procession_wood.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，315 KB。"
+      }
     },
     {
       "id": "tex-night04-mirror-paper",
       "type": "asset",
+      "title": "第四夜 镜殿·和纸贴图",
+      "description": "生产素材｜3D 阶段贴图：第四夜 镜殿的和纸材质。\n路径 assets/3d/night04_mirror/night04_mirror_paper.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 1024×1024，816 KB。",
       "data": {
         "assetId": "tex-night04-mirror-paper",
         "mediaType": "image"
-      },
-      "title": "第四夜 镜殿·和纸贴图",
-      "description": "生产素材｜3D 阶段贴图：第四夜 镜殿的和纸材质。\n路径 assets/3d/night04_mirror/night04_mirror_paper.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 1024×1024，816 KB。"
+      }
     },
     {
       "id": "tex-night04-mirror-plaster",
       "type": "asset",
+      "title": "第四夜 镜殿·灰泥贴图",
+      "description": "生产素材｜3D 阶段贴图：第四夜 镜殿的灰泥材质。\n路径 assets/3d/night04_mirror/night04_mirror_plaster.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，260 KB。",
       "data": {
         "assetId": "tex-night04-mirror-plaster",
         "mediaType": "image"
-      },
-      "title": "第四夜 镜殿·灰泥贴图",
-      "description": "生产素材｜3D 阶段贴图：第四夜 镜殿的灰泥材质。\n路径 assets/3d/night04_mirror/night04_mirror_plaster.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，260 KB。"
+      }
     },
     {
       "id": "tex-night04-mirror-roof",
       "type": "asset",
+      "title": "第四夜 镜殿·瓦贴图",
+      "description": "生产素材｜3D 阶段贴图：第四夜 镜殿的瓦材质。\n路径 assets/3d/night04_mirror/night04_mirror_roof.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，209 KB。",
       "data": {
         "assetId": "tex-night04-mirror-roof",
         "mediaType": "image"
-      },
-      "title": "第四夜 镜殿·瓦贴图",
-      "description": "生产素材｜3D 阶段贴图：第四夜 镜殿的瓦材质。\n路径 assets/3d/night04_mirror/night04_mirror_roof.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，209 KB。"
+      }
     },
     {
       "id": "tex-night04-mirror-stone",
       "type": "asset",
+      "title": "第四夜 镜殿·石贴图",
+      "description": "生产素材｜3D 阶段贴图：第四夜 镜殿的石材质。\n路径 assets/3d/night04_mirror/night04_mirror_stone.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，406 KB。",
       "data": {
         "assetId": "tex-night04-mirror-stone",
         "mediaType": "image"
-      },
-      "title": "第四夜 镜殿·石贴图",
-      "description": "生产素材｜3D 阶段贴图：第四夜 镜殿的石材质。\n路径 assets/3d/night04_mirror/night04_mirror_stone.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，406 KB。"
+      }
     },
     {
       "id": "tex-night04-mirror-wood",
       "type": "asset",
+      "title": "第四夜 镜殿·木贴图",
+      "description": "生产素材｜3D 阶段贴图：第四夜 镜殿的木材质。\n路径 assets/3d/night04_mirror/night04_mirror_wood.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，315 KB。",
       "data": {
         "assetId": "tex-night04-mirror-wood",
         "mediaType": "image"
-      },
-      "title": "第四夜 镜殿·木贴图",
-      "description": "生产素材｜3D 阶段贴图：第四夜 镜殿的木材质。\n路径 assets/3d/night04_mirror/night04_mirror_wood.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，315 KB。"
+      }
     },
     {
       "id": "tex-night05-honden-paper",
       "type": "asset",
+      "title": "第五夜 本殿·和纸贴图",
+      "description": "生产素材｜3D 阶段贴图：第五夜 本殿的和纸材质。\n路径 assets/3d/night05_honden/night05_honden_paper.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 1024×1024，816 KB。",
       "data": {
         "assetId": "tex-night05-honden-paper",
         "mediaType": "image"
-      },
-      "title": "第五夜 本殿·和纸贴图",
-      "description": "生产素材｜3D 阶段贴图：第五夜 本殿的和纸材质。\n路径 assets/3d/night05_honden/night05_honden_paper.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 1024×1024，816 KB。"
+      }
     },
     {
       "id": "tex-night05-honden-plaster",
       "type": "asset",
+      "title": "第五夜 本殿·灰泥贴图",
+      "description": "生产素材｜3D 阶段贴图：第五夜 本殿的灰泥材质。\n路径 assets/3d/night05_honden/night05_honden_plaster.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，260 KB。",
       "data": {
         "assetId": "tex-night05-honden-plaster",
         "mediaType": "image"
-      },
-      "title": "第五夜 本殿·灰泥贴图",
-      "description": "生产素材｜3D 阶段贴图：第五夜 本殿的灰泥材质。\n路径 assets/3d/night05_honden/night05_honden_plaster.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，260 KB。"
+      }
     },
     {
       "id": "tex-night05-honden-roof",
       "type": "asset",
+      "title": "第五夜 本殿·瓦贴图",
+      "description": "生产素材｜3D 阶段贴图：第五夜 本殿的瓦材质。\n路径 assets/3d/night05_honden/night05_honden_roof.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，209 KB。",
       "data": {
         "assetId": "tex-night05-honden-roof",
         "mediaType": "image"
-      },
-      "title": "第五夜 本殿·瓦贴图",
-      "description": "生产素材｜3D 阶段贴图：第五夜 本殿的瓦材质。\n路径 assets/3d/night05_honden/night05_honden_roof.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，209 KB。"
+      }
     },
     {
       "id": "tex-night05-honden-stone",
       "type": "asset",
+      "title": "第五夜 本殿·石贴图",
+      "description": "生产素材｜3D 阶段贴图：第五夜 本殿的石材质。\n路径 assets/3d/night05_honden/night05_honden_stone.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，406 KB。",
       "data": {
         "assetId": "tex-night05-honden-stone",
         "mediaType": "image"
-      },
-      "title": "第五夜 本殿·石贴图",
-      "description": "生产素材｜3D 阶段贴图：第五夜 本殿的石材质。\n路径 assets/3d/night05_honden/night05_honden_stone.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，406 KB。"
+      }
     },
     {
       "id": "tex-night05-honden-wood",
       "type": "asset",
+      "title": "第五夜 本殿·木贴图",
+      "description": "生产素材｜3D 阶段贴图：第五夜 本殿的木材质。\n路径 assets/3d/night05_honden/night05_honden_wood.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，315 KB。",
       "data": {
         "assetId": "tex-night05-honden-wood",
         "mediaType": "image"
-      },
-      "title": "第五夜 本殿·木贴图",
-      "description": "生产素材｜3D 阶段贴图：第五夜 本殿的木材质。\n路径 assets/3d/night05_honden/night05_honden_wood.png；scripts/campaign/act_one_geometry.gd 等脚本按名 preload，与同名 GLB 的内嵌贴图对应同一套材质设定。\n像素 768×768，315 KB。"
+      }
     },
     {
       "id": "section-12-d0d89008",
       "type": "text",
+      "title": "技能战斗图集（已接运行时）",
+      "description": "分区说明：imagegen_spells 下 24 个技能、28 个形态变体的运行时图集，全部在 registry.json 中获批并已通过玩法验收。",
       "data": {
         "text": "imagegen_spells 下 24 个技能、28 个形态变体的运行时图集，全部在 registry.json 中获批并已通过玩法验收。\n\n本分区共 28 个素材节点。",
         "instruction": "分区标题节点，用于在画布上分隔素材组，不生成新素材。"
-      },
-      "title": "技能战斗图集（已接运行时）",
-      "description": "分区说明：imagegen_spells 下 24 个技能、28 个形态变体的运行时图集，全部在 registry.json 中获批并已通过玩法验收。"
+      }
     },
     {
       "id": "spell-atlas-ambush",
       "type": "asset",
+      "title": "奇袭·薄荷图集",
+      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 ambush「奇袭」，归属 薄荷。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/ambush/ambush-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、damage_recovery [9, 10, 11, 12]、mark_apply_sustain [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/ambush/manifest.json（sha256 前16位 310f1b9da019bed7）。\n图集像素 1024×1024。",
       "data": {
         "assetId": "spell-atlas-ambush",
         "mediaType": "image"
-      },
-      "title": "奇袭·薄荷图集",
-      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 ambush「奇袭」，归属 薄荷。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/ambush/ambush-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、damage_recovery [9, 10, 11, 12]、mark_apply_sustain [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/ambush/manifest.json（sha256 前16位 310f1b9da019bed7）。\n图集像素 1024×1024。"
+      }
     },
     {
       "id": "spell-atlas-homura-sword-armor-break",
       "type": "asset",
+      "title": "破甲斩·焰华·剑形态图集",
+      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 armor_break「破甲斩」，归属 焰华·剑形态。\n近战形态变体：焰华·剑形态专属版，与另一近战形态各自独立，不共用美术。\n运行时图集 assets/effects/imagegen_spells/homura_sword-armor_break/homura_sword-armor_break-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、contact_damage [5, 6, 7, 8]、armor_break_status [9, 10, 11, 12]、conditional_burn [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/homura_sword-armor_break/manifest.json（sha256 前16位 99e06f75e831d4d0）。\n图集像素 1024×1024。",
       "data": {
         "assetId": "spell-atlas-homura-sword-armor-break",
         "mediaType": "image"
-      },
-      "title": "破甲斩·焰华·剑形态图集",
-      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 armor_break「破甲斩」，归属 焰华·剑形态。\n近战形态变体：焰华·剑形态专属版，与另一近战形态各自独立，不共用美术。\n运行时图集 assets/effects/imagegen_spells/homura_sword-armor_break/homura_sword-armor_break-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、contact_damage [5, 6, 7, 8]、armor_break_status [9, 10, 11, 12]、conditional_burn [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/homura_sword-armor_break/manifest.json（sha256 前16位 99e06f75e831d4d0）。\n图集像素 1024×1024。"
+      }
     },
     {
       "id": "spell-atlas-rinne-armor-break",
       "type": "asset",
+      "title": "破甲斩·凛音图集",
+      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 armor_break「破甲斩」，归属 凛音。\n近战形态变体：凛音专属版，与另一近战形态各自独立，不共用美术。\n运行时图集 assets/effects/imagegen_spells/rinne-armor_break/rinne-armor_break-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、contact_damage [5, 6, 7, 8]、armor_break_status [9, 10, 11, 12]、conditional_weaken [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/rinne-armor_break/manifest.json（sha256 前16位 55101bfc1a1ed6b0）。\n图集像素 1024×1024。",
       "data": {
         "assetId": "spell-atlas-rinne-armor-break",
         "mediaType": "image"
-      },
-      "title": "破甲斩·凛音图集",
-      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 armor_break「破甲斩」，归属 凛音。\n近战形态变体：凛音专属版，与另一近战形态各自独立，不共用美术。\n运行时图集 assets/effects/imagegen_spells/rinne-armor_break/rinne-armor_break-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、contact_damage [5, 6, 7, 8]、armor_break_status [9, 10, 11, 12]、conditional_weaken [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/rinne-armor_break/manifest.json（sha256 前16位 55101bfc1a1ed6b0）。\n图集像素 1024×1024。"
+      }
     },
     {
       "id": "spell-atlas-homura-sword-battle-spirit",
       "type": "asset",
+      "title": "战意·焰华·剑形态图集",
+      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 battle_spirit「战意」，归属 焰华·剑形态。\n近战形态变体：焰华·剑形态专属版，与另一近战形态各自独立，不共用美术。\n运行时图集 assets/effects/imagegen_spells/homura_sword-battle_spirit/homura_sword-battle_spirit-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、battle_spirit_apply [5, 6, 7, 8]、battle_spirit_status [9, 10, 11, 12]、conditional_shield [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/homura_sword-battle_spirit/manifest.json（sha256 前16位 d6b1d6f4498ec7e1）。\n图集像素 1024×1024。",
       "data": {
         "assetId": "spell-atlas-homura-sword-battle-spirit",
         "mediaType": "image"
-      },
-      "title": "战意·焰华·剑形态图集",
-      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 battle_spirit「战意」，归属 焰华·剑形态。\n近战形态变体：焰华·剑形态专属版，与另一近战形态各自独立，不共用美术。\n运行时图集 assets/effects/imagegen_spells/homura_sword-battle_spirit/homura_sword-battle_spirit-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、battle_spirit_apply [5, 6, 7, 8]、battle_spirit_status [9, 10, 11, 12]、conditional_shield [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/homura_sword-battle_spirit/manifest.json（sha256 前16位 d6b1d6f4498ec7e1）。\n图集像素 1024×1024。"
+      }
     },
     {
       "id": "spell-atlas-rinne-battle-spirit",
       "type": "asset",
+      "title": "战意·凛音图集",
+      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 battle_spirit「战意」，归属 凛音。\n近战形态变体：凛音专属版，与另一近战形态各自独立，不共用美术。\n运行时图集 assets/effects/imagegen_spells/rinne-battle_spirit/rinne-battle_spirit-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、battle_spirit_apply [5, 6, 7, 8]、recovery [9, 10, 11, 12]、battle_spirit_status [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/rinne-battle_spirit/manifest.json（sha256 前16位 1f406d1570e98639）。\n图集像素 1024×1024。",
       "data": {
         "assetId": "spell-atlas-rinne-battle-spirit",
         "mediaType": "image"
-      },
-      "title": "战意·凛音图集",
-      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 battle_spirit「战意」，归属 凛音。\n近战形态变体：凛音专属版，与另一近战形态各自独立，不共用美术。\n运行时图集 assets/effects/imagegen_spells/rinne-battle_spirit/rinne-battle_spirit-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、battle_spirit_apply [5, 6, 7, 8]、recovery [9, 10, 11, 12]、battle_spirit_status [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/rinne-battle_spirit/manifest.json（sha256 前16位 1f406d1570e98639）。\n图集像素 1024×1024。"
+      }
     },
     {
       "id": "spell-atlas-burn-brand",
       "type": "asset",
+      "title": "burn_brand·通用图集",
+      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 burn_brand「」，归属 通用。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/burn_brand/burn_brand-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、hit [9, 10, 11, 12]、recovery_tail [11, 12]、status [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/burn_brand/manifest.json（sha256 前16位 c6ead7fa245cd92f）。\n图集像素 1024×1024。",
       "data": {
         "assetId": "spell-atlas-burn-brand",
         "mediaType": "image"
-      },
-      "title": "burn_brand·通用图集",
-      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 burn_brand「」，归属 通用。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/burn_brand/burn_brand-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、hit [9, 10, 11, 12]、recovery_tail [11, 12]、status [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/burn_brand/manifest.json（sha256 前16位 c6ead7fa245cd92f）。\n图集像素 1024×1024。"
+      }
     },
     {
       "id": "spell-atlas-cleanse",
       "type": "asset",
+      "title": "cleanse·通用图集",
+      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 cleanse「」，归属 通用。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/cleanse/cleanse-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、cleanse_removal [9, 10, 11, 12]、rejuvenation_heal [13, 14, 15, 16]、recovery_tail [11, 12, 15, 16]；清单 assets/effects/imagegen_spells/cleanse/manifest.json（sha256 前16位 3cae360a4cdfd191）。\n图集像素 1024×1024。",
       "data": {
         "assetId": "spell-atlas-cleanse",
         "mediaType": "image"
-      },
-      "title": "cleanse·通用图集",
-      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 cleanse「」，归属 通用。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/cleanse/cleanse-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、cleanse_removal [9, 10, 11, 12]、rejuvenation_heal [13, 14, 15, 16]、recovery_tail [11, 12, 15, 16]；清单 assets/effects/imagegen_spells/cleanse/manifest.json（sha256 前16位 3cae360a4cdfd191）。\n图集像素 1024×1024。"
+      }
     },
     {
       "id": "spell-atlas-cover",
       "type": "asset",
+      "title": "掩护·岑照图集",
+      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 cover「掩护」，归属 岑照。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/cover/cover-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、cover_link [5, 6, 7, 8]、cover_status [9, 10, 11, 12]、cover_redirected [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/cover/manifest.json（sha256 前16位 52c40b7657200670）。\n图集像素 1024×1024。",
       "data": {
         "assetId": "spell-atlas-cover",
         "mediaType": "image"
-      },
-      "title": "掩护·岑照图集",
-      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 cover「掩护」，归属 岑照。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/cover/cover-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、cover_link [5, 6, 7, 8]、cover_status [9, 10, 11, 12]、cover_redirected [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/cover/manifest.json（sha256 前16位 52c40b7657200670）。\n图集像素 1024×1024。"
+      }
     },
     {
       "id": "spell-atlas-firebolt",
       "type": "asset",
+      "title": "firebolt·通用图集",
+      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 firebolt「」，归属 通用。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/firebolt/firebolt-atlas-runtime-256.png（显示 256 px，缩放 0.5），12 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、hit [9, 10, 11, 12]、recovery_tail [11, 12]；清单 assets/effects/imagegen_spells/firebolt/manifest.json（sha256 前16位 6a5cecd39b858bb3）。\n图集像素 1024×768。",
       "data": {
         "assetId": "spell-atlas-firebolt",
         "mediaType": "image"
-      },
-      "title": "firebolt·通用图集",
-      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 firebolt「」，归属 通用。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/firebolt/firebolt-atlas-runtime-256.png（显示 256 px，缩放 0.5），12 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、hit [9, 10, 11, 12]、recovery_tail [11, 12]；清单 assets/effects/imagegen_spells/firebolt/manifest.json（sha256 前16位 6a5cecd39b858bb3）。\n图集像素 1024×768。"
+      }
     },
     {
       "id": "spell-atlas-flame-wave",
       "type": "asset",
+      "title": "flame_wave·通用图集",
+      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 flame_wave「」，归属 通用。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/flame_wave/flame_wave-atlas-runtime-256.png（显示 256 px，缩放 0.5），12 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、hit [9, 10, 11, 12]、recovery_tail [11, 12]、status []；清单 assets/effects/imagegen_spells/flame_wave/manifest.json（sha256 前16位 538909cc19d0bd56）。\n图集像素 1024×768。",
       "data": {
         "assetId": "spell-atlas-flame-wave",
         "mediaType": "image"
-      },
-      "title": "flame_wave·通用图集",
-      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 flame_wave「」，归属 通用。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/flame_wave/flame_wave-atlas-runtime-256.png（显示 256 px，缩放 0.5），12 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、hit [9, 10, 11, 12]、recovery_tail [11, 12]、status []；清单 assets/effects/imagegen_spells/flame_wave/manifest.json（sha256 前16位 538909cc19d0bd56）。\n图集像素 1024×768。"
+      }
     },
     {
       "id": "spell-atlas-group-heal",
       "type": "asset",
+      "title": "group_heal·通用图集",
+      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 group_heal「」，归属 通用。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/group_heal/group_heal-atlas-runtime-256.png（显示 256 px，缩放 0.5），12 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、heal_impact [9, 10, 11, 12]、recovery_tail [11, 12]；清单 assets/effects/imagegen_spells/group_heal/manifest.json（sha256 前16位 93802579176e368a）。\n图集像素 1024×768。",
       "data": {
         "assetId": "spell-atlas-group-heal",
         "mediaType": "image"
-      },
-      "title": "group_heal·通用图集",
-      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 group_heal「」，归属 通用。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/group_heal/group_heal-atlas-runtime-256.png（显示 256 px，缩放 0.5），12 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、heal_impact [9, 10, 11, 12]、recovery_tail [11, 12]；清单 assets/effects/imagegen_spells/group_heal/manifest.json（sha256 前16位 93802579176e368a）。\n图集像素 1024×768。"
+      }
     },
     {
       "id": "spell-atlas-heal",
       "type": "asset",
+      "title": "heal·通用图集",
+      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 heal「」，归属 通用。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/heal/heal-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、heal_impact [9, 10, 11, 12]、guard_life_shield [13, 14, 15, 16]、recovery_tail [11, 12]；清单 assets/effects/imagegen_spells/heal/manifest.json（sha256 前16位 40f8907043a136d1）。\n图集像素 1024×1024。",
       "data": {
         "assetId": "spell-atlas-heal",
         "mediaType": "image"
-      },
-      "title": "heal·通用图集",
-      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 heal「」，归属 通用。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/heal/heal-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、heal_impact [9, 10, 11, 12]、guard_life_shield [13, 14, 15, 16]、recovery_tail [11, 12]；清单 assets/effects/imagegen_spells/heal/manifest.json（sha256 前16位 40f8907043a136d1）。\n图集像素 1024×1024。"
+      }
     },
     {
       "id": "spell-atlas-homura-sword-heavy-slash",
       "type": "asset",
+      "title": "重斩·焰华·剑形态图集",
+      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 heavy_slash「重斩」，归属 焰华·剑形态。\n近战形态变体：焰华·剑形态专属版，与另一近战形态各自独立，不共用美术。\n运行时图集 assets/effects/imagegen_spells/homura_sword-heavy_slash/homura_sword-heavy_slash-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、contact_damage [5, 6, 7, 8]、recovery [9, 10, 11, 12, 13, 14, 15, 16]；清单 assets/effects/imagegen_spells/homura_sword-heavy_slash/manifest.json（sha256 前16位 b7e7f28685a687f1）。\n图集像素 1024×1024。",
       "data": {
         "assetId": "spell-atlas-homura-sword-heavy-slash",
         "mediaType": "image"
-      },
-      "title": "重斩·焰华·剑形态图集",
-      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 heavy_slash「重斩」，归属 焰华·剑形态。\n近战形态变体：焰华·剑形态专属版，与另一近战形态各自独立，不共用美术。\n运行时图集 assets/effects/imagegen_spells/homura_sword-heavy_slash/homura_sword-heavy_slash-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、contact_damage [5, 6, 7, 8]、recovery [9, 10, 11, 12, 13, 14, 15, 16]；清单 assets/effects/imagegen_spells/homura_sword-heavy_slash/manifest.json（sha256 前16位 b7e7f28685a687f1）。\n图集像素 1024×1024。"
+      }
     },
     {
       "id": "spell-atlas-rinne-heavy-slash",
       "type": "asset",
+      "title": "重斩·凛音图集",
+      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 heavy_slash「重斩」，归属 凛音。\n近战形态变体：凛音专属版，与另一近战形态各自独立，不共用美术。\n运行时图集 assets/effects/imagegen_spells/rinne-heavy_slash/rinne-heavy_slash-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、contact_damage [5, 6, 7, 8]、recovery [9, 10, 11, 12]、conditional_precision [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/rinne-heavy_slash/manifest.json（sha256 前16位 e3f739aa3ad92f38）。\n图集像素 1024×1024。",
       "data": {
         "assetId": "spell-atlas-rinne-heavy-slash",
         "mediaType": "image"
-      },
-      "title": "重斩·凛音图集",
-      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 heavy_slash「重斩」，归属 凛音。\n近战形态变体：凛音专属版，与另一近战形态各自独立，不共用美术。\n运行时图集 assets/effects/imagegen_spells/rinne-heavy_slash/rinne-heavy_slash-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、contact_damage [5, 6, 7, 8]、recovery [9, 10, 11, 12]、conditional_precision [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/rinne-heavy_slash/manifest.json（sha256 前16位 e3f739aa3ad92f38）。\n图集像素 1024×1024。"
+      }
     },
     {
       "id": "spell-atlas-holy-shield",
       "type": "asset",
+      "title": "holy_shield·通用图集",
+      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 holy_shield「」，归属 通用。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/holy_shield/holy_shield-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、holy_shield_edge [9, 10, 11, 12]、awake_clarity [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/holy_shield/manifest.json（sha256 前16位 2c4dc1dad6ce8823）。\n图集像素 1024×1024。",
       "data": {
         "assetId": "spell-atlas-holy-shield",
         "mediaType": "image"
-      },
-      "title": "holy_shield·通用图集",
-      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 holy_shield「」，归属 通用。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/holy_shield/holy_shield-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、holy_shield_edge [9, 10, 11, 12]、awake_clarity [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/holy_shield/manifest.json（sha256 前16位 2c4dc1dad6ce8823）。\n图集像素 1024×1024。"
+      }
     },
     {
       "id": "spell-atlas-hunt",
       "type": "asset",
+      "title": "猎杀·薄荷图集",
+      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 hunt「猎杀」，归属 薄荷。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/hunt/hunt-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、damage_recovery [9, 10, 11, 12]、mark_consumed [13, 14]、mp_refund [15, 16]；清单 assets/effects/imagegen_spells/hunt/manifest.json（sha256 前16位 ea7e7fb9f1d68e05）。\n图集像素 1024×1024。",
       "data": {
         "assetId": "spell-atlas-hunt",
         "mediaType": "image"
-      },
-      "title": "猎杀·薄荷图集",
-      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 hunt「猎杀」，归属 薄荷。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/hunt/hunt-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、damage_recovery [9, 10, 11, 12]、mark_consumed [13, 14]、mp_refund [15, 16]；清单 assets/effects/imagegen_spells/hunt/manifest.json（sha256 前16位 ea7e7fb9f1d68e05）。\n图集像素 1024×1024。"
+      }
     },
     {
       "id": "spell-atlas-ice-arrow",
       "type": "asset",
+      "title": "ice_arrow·通用图集",
+      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 ice_arrow「」，归属 通用。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/ice_arrow/ice_arrow-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、hit [9, 10, 11, 12]、recovery_tail [11, 12]、status [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/ice_arrow/manifest.json（sha256 前16位 5216ca26b3f6f9e4）。\n图集像素 1024×1024。",
       "data": {
         "assetId": "spell-atlas-ice-arrow",
         "mediaType": "image"
-      },
-      "title": "ice_arrow·通用图集",
-      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 ice_arrow「」，归属 通用。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/ice_arrow/ice_arrow-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、hit [9, 10, 11, 12]、recovery_tail [11, 12]、status [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/ice_arrow/manifest.json（sha256 前16位 5216ca26b3f6f9e4）。\n图集像素 1024×1024。"
+      }
     },
     {
       "id": "spell-atlas-iron-wall",
       "type": "asset",
+      "title": "铁壁·岑照图集",
+      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 iron_wall「铁壁」，归属 岑照。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/iron_wall/iron_wall-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、shield_apply [5, 6, 7, 8]、shield_sustain [9, 10, 11, 12]、cleanse [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/iron_wall/manifest.json（sha256 前16位 070bc57425b2e08c）。\n图集像素 1024×1024。",
       "data": {
         "assetId": "spell-atlas-iron-wall",
         "mediaType": "image"
-      },
-      "title": "铁壁·岑照图集",
-      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 iron_wall「铁壁」，归属 岑照。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/iron_wall/iron_wall-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、shield_apply [5, 6, 7, 8]、shield_sustain [9, 10, 11, 12]、cleanse [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/iron_wall/manifest.json（sha256 前16位 070bc57425b2e08c）。\n图集像素 1024×1024。"
+      }
     },
     {
       "id": "spell-atlas-magic-break",
       "type": "asset",
+      "title": "magic_break·通用图集",
+      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 magic_break「」，归属 通用。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/magic_break/magic_break-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、damage_recovery [9, 10, 11, 12]、magic_break_status [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/magic_break/manifest.json（sha256 前16位 9e86aaf6bcf84113）。\n图集像素 1024×1024。",
       "data": {
         "assetId": "spell-atlas-magic-break",
         "mediaType": "image"
-      },
-      "title": "magic_break·通用图集",
-      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 magic_break「」，归属 通用。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/magic_break/magic_break-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、damage_recovery [9, 10, 11, 12]、magic_break_status [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/magic_break/manifest.json（sha256 前16位 9e86aaf6bcf84113）。\n图集像素 1024×1024。"
+      }
     },
     {
       "id": "spell-atlas-mark",
       "type": "asset",
+      "title": "标记·薄荷图集",
+      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 mark「标记」，归属 薄荷。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/mark/mark-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、mark_apply [9, 10, 11, 12]、mark_sustain [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/mark/manifest.json（sha256 前16位 75845d89cdabcb45）。\n图集像素 1024×1024。",
       "data": {
         "assetId": "spell-atlas-mark",
         "mediaType": "image"
-      },
-      "title": "标记·薄荷图集",
-      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 mark「标记」，归属 薄荷。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/mark/mark-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、mark_apply [9, 10, 11, 12]、mark_sustain [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/mark/manifest.json（sha256 前16位 75845d89cdabcb45）。\n图集像素 1024×1024。"
+      }
     },
     {
       "id": "spell-atlas-seal",
       "type": "asset",
+      "title": "seal·通用图集",
+      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 seal「」，归属 通用。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/seal/seal-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、stun_apply_sustain [9, 10, 11, 12]、charge_interrupt [13, 14]、mp_refund [15, 16]；清单 assets/effects/imagegen_spells/seal/manifest.json（sha256 前16位 76607695c340dc9c）。\n图集像素 1024×1024。",
       "data": {
         "assetId": "spell-atlas-seal",
         "mediaType": "image"
-      },
-      "title": "seal·通用图集",
-      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 seal「」，归属 通用。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/seal/seal-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、stun_apply_sustain [9, 10, 11, 12]、charge_interrupt [13, 14]、mp_refund [15, 16]；清单 assets/effects/imagegen_spells/seal/manifest.json（sha256 前16位 76607695c340dc9c）。\n图集像素 1024×1024。"
+      }
     },
     {
       "id": "spell-atlas-shield-bash",
       "type": "asset",
+      "title": "盾击·岑照图集",
+      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 shield_bash「盾击」，归属 岑照。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/shield_bash/shield_bash-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、damage_recovery [5, 6, 7, 8]、charge_interrupt [9, 10, 11, 12]、weaken_status [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/shield_bash/manifest.json（sha256 前16位 3d7a7a72e8a63288）。\n图集像素 1024×1024。",
       "data": {
         "assetId": "spell-atlas-shield-bash",
         "mediaType": "image"
-      },
-      "title": "盾击·岑照图集",
-      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 shield_bash「盾击」，归属 岑照。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/shield_bash/shield_bash-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、damage_recovery [5, 6, 7, 8]、charge_interrupt [9, 10, 11, 12]、weaken_status [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/shield_bash/manifest.json（sha256 前16位 3d7a7a72e8a63288）。\n图集像素 1024×1024。"
+      }
     },
     {
       "id": "spell-atlas-slow",
       "type": "asset",
+      "title": "slow·通用图集",
+      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 slow「」，归属 通用。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/slow/slow-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、slow_apply_sustain [9, 10, 11, 12]、conditional_magic_break [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/slow/manifest.json（sha256 前16位 3c3c1301dc1e1a73）。\n图集像素 1024×1024。",
       "data": {
         "assetId": "spell-atlas-slow",
         "mediaType": "image"
-      },
-      "title": "slow·通用图集",
-      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 slow「」，归属 通用。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/slow/slow-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、slow_apply_sustain [9, 10, 11, 12]、conditional_magic_break [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/slow/manifest.json（sha256 前16位 3c3c1301dc1e1a73）。\n图集像素 1024×1024。"
+      }
     },
     {
       "id": "spell-atlas-smoke-screen",
       "type": "asset",
+      "title": "烟幕·薄荷图集",
+      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 smoke_screen「烟幕」，归属 薄荷。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/smoke_screen/smoke_screen-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、shield_apply [5, 6, 7, 8]、shield_sustain [9, 10, 11, 12]、battle_spirit [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/smoke_screen/manifest.json（sha256 前16位 be99ca45bd2f2259）。\n图集像素 1024×1024。",
       "data": {
         "assetId": "spell-atlas-smoke-screen",
         "mediaType": "image"
-      },
-      "title": "烟幕·薄荷图集",
-      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 smoke_screen「烟幕」，归属 薄荷。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/smoke_screen/smoke_screen-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、shield_apply [5, 6, 7, 8]、shield_sustain [9, 10, 11, 12]、battle_spirit [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/smoke_screen/manifest.json（sha256 前16位 be99ca45bd2f2259）。\n图集像素 1024×1024。"
+      }
     },
     {
       "id": "spell-atlas-homura-sword-sweep",
       "type": "asset",
+      "title": "横扫·焰华·剑形态图集",
+      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 sweep「横扫」，归属 焰华·剑形态。\n近战形态变体：焰华·剑形态专属版，与另一近战形态各自独立，不共用美术。\n运行时图集 assets/effects/imagegen_spells/homura_sword-sweep/homura_sword-sweep-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast_sweep [1, 2, 3, 4]、contact_damage [5, 6, 7, 8]、recovery [9, 10, 11, 12]、conditional_armor_break [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/homura_sword-sweep/manifest.json（sha256 前16位 db758992d0f094d2）。\n图集像素 1024×1024。",
       "data": {
         "assetId": "spell-atlas-homura-sword-sweep",
         "mediaType": "image"
-      },
-      "title": "横扫·焰华·剑形态图集",
-      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 sweep「横扫」，归属 焰华·剑形态。\n近战形态变体：焰华·剑形态专属版，与另一近战形态各自独立，不共用美术。\n运行时图集 assets/effects/imagegen_spells/homura_sword-sweep/homura_sword-sweep-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast_sweep [1, 2, 3, 4]、contact_damage [5, 6, 7, 8]、recovery [9, 10, 11, 12]、conditional_armor_break [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/homura_sword-sweep/manifest.json（sha256 前16位 db758992d0f094d2）。\n图集像素 1024×1024。"
+      }
     },
     {
       "id": "spell-atlas-rinne-sweep",
       "type": "asset",
+      "title": "横扫·凛音图集",
+      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 sweep「横扫」，归属 凛音。\n近战形态变体：凛音专属版，与另一近战形态各自独立，不共用美术。\n运行时图集 assets/effects/imagegen_spells/rinne-sweep/rinne-sweep-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast_sweep [1, 2, 3, 4]、contact_damage [5, 6, 7, 8]、conditional_slow [9, 10, 11, 12]、armor_break_consumed [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/rinne-sweep/manifest.json（sha256 前16位 3f6e9b9cb32c295b）。\n图集像素 1024×1024。",
       "data": {
         "assetId": "spell-atlas-rinne-sweep",
         "mediaType": "image"
-      },
-      "title": "横扫·凛音图集",
-      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 sweep「横扫」，归属 凛音。\n近战形态变体：凛音专属版，与另一近战形态各自独立，不共用美术。\n运行时图集 assets/effects/imagegen_spells/rinne-sweep/rinne-sweep-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast_sweep [1, 2, 3, 4]、contact_damage [5, 6, 7, 8]、conditional_slow [9, 10, 11, 12]、armor_break_consumed [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/rinne-sweep/manifest.json（sha256 前16位 3f6e9b9cb32c295b）。\n图集像素 1024×1024。"
+      }
     },
     {
       "id": "spell-atlas-taunt",
       "type": "asset",
+      "title": "挑衅·岑照图集",
+      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 taunt「挑衅」，归属 岑照。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/taunt/taunt-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、sound_travel [5, 6, 7, 8]、taunt_status [9, 10, 11, 12]、conditional_weaken [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/taunt/manifest.json（sha256 前16位 d12507b0c614b6c8）。\n图集像素 1024×1024。",
       "data": {
         "assetId": "spell-atlas-taunt",
         "mediaType": "image"
-      },
-      "title": "挑衅·岑照图集",
-      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 taunt「挑衅」，归属 岑照。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/taunt/taunt-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、sound_travel [5, 6, 7, 8]、taunt_status [9, 10, 11, 12]、conditional_weaken [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/taunt/manifest.json（sha256 前16位 d12507b0c614b6c8）。\n图集像素 1024×1024。"
+      }
     },
     {
       "id": "spell-atlas-weaken",
       "type": "asset",
+      "title": "weaken·通用图集",
+      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 weaken「」，归属 通用。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/weaken/weaken-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、weaken_apply [9, 10, 11, 12]、weaken_status [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/weaken/manifest.json（sha256 前16位 8a47fa9795fe1233）。\n图集像素 1024×1024。",
       "data": {
         "assetId": "spell-atlas-weaken",
         "mediaType": "image"
-      },
-      "title": "weaken·通用图集",
-      "description": "生产素材｜战斗运行时技能图集（registry.json 登记，approved_for_runtime=true，gameplay_qa_pending=false）。\n技能 weaken「」，归属 通用。\n单形态通用图集。\n运行时图集 assets/effects/imagegen_spells/weaken/weaken-atlas-runtime-256.png（显示 256 px，缩放 0.5），16 帧。\n分相：cast [1, 2, 3, 4]、travel [5, 6, 7, 8]、weaken_apply [9, 10, 11, 12]、weaken_status [13, 14, 15, 16]；清单 assets/effects/imagegen_spells/weaken/manifest.json（sha256 前16位 8a47fa9795fe1233）。\n图集像素 1024×1024。"
+      }
     },
     {
       "id": "section-13-1d78d36a",
       "type": "text",
+      "title": "矢量插画技能序列",
+      "description": "分区说明：作者矢量曲线直接栅格化的透明技能序列，与上方运行时图集是两套并存的表现素材。",
       "data": {
         "text": "作者矢量曲线直接栅格化的透明技能序列，与上方运行时图集是两套并存的表现素材。\n\n本分区共 23 个素材节点。",
         "instruction": "分区标题节点，用于在画布上分隔素材组，不生成新素材。"
-      },
-      "title": "矢量插画技能序列",
-      "description": "分区说明：作者矢量曲线直接栅格化的透明技能序列，与上方运行时图集是两套并存的表现素材。"
+      }
     },
     {
       "id": "spell-illustrated-armor-break",
       "type": "asset",
+      "title": "armor_break·插画序列",
+      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 armor_break；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。",
       "data": {
         "assetId": "spell-illustrated-armor-break",
         "mediaType": "image"
-      },
-      "title": "armor_break·插画序列",
-      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 armor_break；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。"
+      }
     },
     {
       "id": "spell-illustrated-battle-spirit",
       "type": "asset",
+      "title": "battle_spirit·插画序列",
+      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 battle_spirit；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。",
       "data": {
         "assetId": "spell-illustrated-battle-spirit",
         "mediaType": "image"
-      },
-      "title": "battle_spirit·插画序列",
-      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 battle_spirit；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。"
+      }
     },
     {
       "id": "spell-illustrated-burn-brand",
       "type": "asset",
+      "title": "burn_brand·插画序列",
+      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 burn_brand；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。",
       "data": {
         "assetId": "spell-illustrated-burn-brand",
         "mediaType": "image"
-      },
-      "title": "burn_brand·插画序列",
-      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 burn_brand；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。"
+      }
     },
     {
       "id": "spell-illustrated-cleanse",
       "type": "asset",
+      "title": "cleanse·插画序列",
+      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 cleanse；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。",
       "data": {
         "assetId": "spell-illustrated-cleanse",
         "mediaType": "image"
-      },
-      "title": "cleanse·插画序列",
-      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 cleanse；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。"
+      }
     },
     {
       "id": "spell-illustrated-firebolt",
       "type": "asset",
+      "title": "firebolt·插画序列",
+      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 firebolt；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。",
       "data": {
         "assetId": "spell-illustrated-firebolt",
         "mediaType": "image"
-      },
-      "title": "firebolt·插画序列",
-      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 firebolt；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。"
+      }
     },
     {
       "id": "spell-illustrated-flame-wave",
       "type": "asset",
+      "title": "flame_wave·插画序列",
+      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 flame_wave；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。",
       "data": {
         "assetId": "spell-illustrated-flame-wave",
         "mediaType": "image"
-      },
-      "title": "flame_wave·插画序列",
-      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 flame_wave；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。"
+      }
     },
     {
       "id": "spell-illustrated-group-heal",
       "type": "asset",
+      "title": "group_heal·插画序列",
+      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 group_heal；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。",
       "data": {
         "assetId": "spell-illustrated-group-heal",
         "mediaType": "image"
-      },
-      "title": "group_heal·插画序列",
-      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 group_heal；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。"
+      }
     },
     {
       "id": "spell-illustrated-heal",
       "type": "asset",
+      "title": "heal·插画序列",
+      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 heal；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。",
       "data": {
         "assetId": "spell-illustrated-heal",
         "mediaType": "image"
-      },
-      "title": "heal·插画序列",
-      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 heal；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。"
+      }
     },
     {
       "id": "spell-illustrated-holy-shield",
       "type": "asset",
+      "title": "holy_shield·插画序列",
+      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 holy_shield；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。",
       "data": {
         "assetId": "spell-illustrated-holy-shield",
         "mediaType": "image"
-      },
-      "title": "holy_shield·插画序列",
-      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 holy_shield；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。"
+      }
     },
     {
       "id": "spell-illustrated-hunt",
       "type": "asset",
+      "title": "hunt·插画序列",
+      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 hunt；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。",
       "data": {
         "assetId": "spell-illustrated-hunt",
         "mediaType": "image"
-      },
-      "title": "hunt·插画序列",
-      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 hunt；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。"
+      }
     },
     {
       "id": "spell-illustrated-ice-arrow",
       "type": "asset",
+      "title": "ice_arrow·插画序列",
+      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 ice_arrow；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。",
       "data": {
         "assetId": "spell-illustrated-ice-arrow",
         "mediaType": "image"
-      },
-      "title": "ice_arrow·插画序列",
-      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 ice_arrow；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。"
+      }
     },
     {
       "id": "spell-illustrated-magic-break",
       "type": "asset",
+      "title": "magic_break·插画序列",
+      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 magic_break；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。",
       "data": {
         "assetId": "spell-illustrated-magic-break",
         "mediaType": "image"
-      },
-      "title": "magic_break·插画序列",
-      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 magic_break；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。"
+      }
     },
     {
       "id": "spell-illustrated-mark",
       "type": "asset",
+      "title": "mark·插画序列",
+      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 mark；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。",
       "data": {
         "assetId": "spell-illustrated-mark",
         "mediaType": "image"
-      },
-      "title": "mark·插画序列",
-      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 mark；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。"
+      }
     },
     {
       "id": "spell-illustrated-protect",
       "type": "asset",
+      "title": "protect·插画序列",
+      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 protect；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。",
       "data": {
         "assetId": "spell-illustrated-protect",
         "mediaType": "image"
-      },
-      "title": "protect·插画序列",
-      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 protect；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。"
+      }
     },
     {
       "id": "spell-illustrated-seal",
       "type": "asset",
+      "title": "seal·插画序列",
+      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 seal；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。",
       "data": {
         "assetId": "spell-illustrated-seal",
         "mediaType": "image"
-      },
-      "title": "seal·插画序列",
-      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 seal；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。"
+      }
     },
     {
       "id": "spell-illustrated-shield-bash",
       "type": "asset",
+      "title": "shield_bash·插画序列",
+      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 shield_bash；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。",
       "data": {
         "assetId": "spell-illustrated-shield-bash",
         "mediaType": "image"
-      },
-      "title": "shield_bash·插画序列",
-      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 shield_bash；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。"
+      }
     },
     {
       "id": "spell-illustrated-slash",
       "type": "asset",
+      "title": "slash·插画序列",
+      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 slash；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。",
       "data": {
         "assetId": "spell-illustrated-slash",
         "mediaType": "image"
-      },
-      "title": "slash·插画序列",
-      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 slash；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。"
+      }
     },
     {
       "id": "spell-illustrated-slow",
       "type": "asset",
+      "title": "slow·插画序列",
+      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 slow；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。",
       "data": {
         "assetId": "spell-illustrated-slow",
         "mediaType": "image"
-      },
-      "title": "slow·插画序列",
-      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 slow；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。"
+      }
     },
     {
       "id": "spell-illustrated-smoke-screen",
       "type": "asset",
+      "title": "smoke_screen·插画序列",
+      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 smoke_screen；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。",
       "data": {
         "assetId": "spell-illustrated-smoke-screen",
         "mediaType": "image"
-      },
-      "title": "smoke_screen·插画序列",
-      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 smoke_screen；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。"
+      }
     },
     {
       "id": "spell-illustrated-sweep",
       "type": "asset",
+      "title": "sweep·插画序列",
+      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 sweep；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。",
       "data": {
         "assetId": "spell-illustrated-sweep",
         "mediaType": "image"
-      },
-      "title": "sweep·插画序列",
-      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 sweep；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。"
+      }
     },
     {
       "id": "spell-illustrated-taunt",
       "type": "asset",
+      "title": "taunt·插画序列",
+      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 taunt；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。",
       "data": {
         "assetId": "spell-illustrated-taunt",
         "mediaType": "image"
-      },
-      "title": "taunt·插画序列",
-      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 taunt；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。"
+      }
     },
     {
       "id": "spell-illustrated-weaken",
       "type": "asset",
+      "title": "weaken·插画序列",
+      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 weaken；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。",
       "data": {
         "assetId": "spell-illustrated-weaken",
         "mediaType": "image"
-      },
-      "title": "weaken·插画序列",
-      "description": "生产素材｜矢量插画技能序列（scripts/rpg/ui/battle_effects.gd 读取）。\n技能 weaken；24 帧 × 6 列，单格 192×192，24 fps 播放。\n来源：作者矢量Bezier曲线与多边形，直接透明RGBA栅格化，无视频/无色键；alpha straight；逐帧哈希见 assets/effects/illustrated_spells/manifest.json。\n图集像素 1152×768。"
+      }
     },
     {
       "id": "fx-fire-painterly",
       "type": "asset",
+      "title": "火焰笔触贴图",
+      "description": "生产素材｜通用火焰笔触贴图。\n路径 assets/effects/fire_painterly.png。像素 1024×1024。",
       "data": {
         "assetId": "fx-fire-painterly",
         "mediaType": "image"
-      },
-      "title": "火焰笔触贴图",
-      "description": "生产素材｜通用火焰笔触贴图。\n路径 assets/effects/fire_painterly.png。像素 1024×1024。"
+      }
     },
     {
       "id": "section-14-6254d590",
       "type": "text",
+      "title": "战斗卡面",
+      "description": "分区说明：19 张卡面贴图：cardart_e_* 为常驻招式卡，cardart_val_* 为遗物/道具卡。",
       "data": {
         "text": "19 张卡面贴图：cardart_e_* 为常驻招式卡，cardart_val_* 为遗物/道具卡。\n\n本分区共 19 个素材节点。",
         "instruction": "分区标题节点，用于在画布上分隔素材组，不生成新素材。"
-      },
-      "title": "战斗卡面",
-      "description": "分区说明：19 张卡面贴图：cardart_e_* 为常驻招式卡，cardart_val_* 为遗物/道具卡。"
+      }
     },
     {
       "id": "ui-cardart-e-barrier-break",
       "type": "asset",
+      "title": "卡面·cardart_e_barrier_break",
+      "description": "生产素材｜游戏内实际读取的卡面。\n常驻卡面：cardart_e_barrier_break；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_e_barrier_break.png。像素 832×1216。",
       "data": {
         "assetId": "ui-cardart-e-barrier-break",
         "mediaType": "image"
-      },
-      "title": "卡面·cardart_e_barrier_break",
-      "description": "生产素材｜游戏内实际读取的卡面。\n常驻卡面：cardart_e_barrier_break；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_e_barrier_break.png。像素 832×1216。"
+      }
     },
     {
       "id": "ui-cardart-e-defense-stance",
       "type": "asset",
+      "title": "卡面·cardart_e_defense_stance",
+      "description": "生产素材｜游戏内实际读取的卡面。\n常驻卡面：cardart_e_defense_stance；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_e_defense_stance.png。像素 832×1216。",
       "data": {
         "assetId": "ui-cardart-e-defense-stance",
         "mediaType": "image"
-      },
-      "title": "卡面·cardart_e_defense_stance",
-      "description": "生产素材｜游戏内实际读取的卡面。\n常驻卡面：cardart_e_defense_stance；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_e_defense_stance.png。像素 832×1216。"
+      }
     },
     {
       "id": "ui-cardart-e-flame-katana",
       "type": "asset",
+      "title": "卡面·cardart_e_flame_katana",
+      "description": "生产素材｜游戏内实际读取的卡面。\n常驻卡面：cardart_e_flame_katana；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_e_flame_katana.png。像素 832×1216。",
       "data": {
         "assetId": "ui-cardart-e-flame-katana",
         "mediaType": "image"
-      },
-      "title": "卡面·cardart_e_flame_katana",
-      "description": "生产素材｜游戏内实际读取的卡面。\n常驻卡面：cardart_e_flame_katana；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_e_flame_katana.png。像素 832×1216。"
+      }
     },
     {
       "id": "ui-cardart-e-ink-brush",
       "type": "asset",
+      "title": "卡面·cardart_e_ink_brush",
+      "description": "生产素材｜游戏内实际读取的卡面。\n常驻卡面：cardart_e_ink_brush；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_e_ink_brush.png。像素 832×1216。",
       "data": {
         "assetId": "ui-cardart-e-ink-brush",
         "mediaType": "image"
-      },
-      "title": "卡面·cardart_e_ink_brush",
-      "description": "生产素材｜游戏内实际读取的卡面。\n常驻卡面：cardart_e_ink_brush；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_e_ink_brush.png。像素 832×1216。"
+      }
     },
     {
       "id": "ui-cardart-e-mist-guard",
       "type": "asset",
+      "title": "卡面·cardart_e_mist_guard",
+      "description": "生产素材｜游戏内实际读取的卡面。\n常驻卡面：cardart_e_mist_guard；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_e_mist_guard.png。像素 832×1216。",
       "data": {
         "assetId": "ui-cardart-e-mist-guard",
         "mediaType": "image"
-      },
-      "title": "卡面·cardart_e_mist_guard",
-      "description": "生产素材｜游戏内实际读取的卡面。\n常驻卡面：cardart_e_mist_guard；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_e_mist_guard.png。像素 832×1216。"
+      }
     },
     {
       "id": "ui-cardart-e-nail-strike",
       "type": "asset",
+      "title": "卡面·cardart_e_nail_strike",
+      "description": "生产素材｜游戏内实际读取的卡面。\n常驻卡面：cardart_e_nail_strike；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_e_nail_strike.png。像素 832×1216。",
       "data": {
         "assetId": "ui-cardart-e-nail-strike",
         "mediaType": "image"
-      },
-      "title": "卡面·cardart_e_nail_strike",
-      "description": "生产素材｜游戏内实际读取的卡面。\n常驻卡面：cardart_e_nail_strike；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_e_nail_strike.png。像素 832×1216。"
+      }
     },
     {
       "id": "ui-cardart-e-paper-amulet",
       "type": "asset",
+      "title": "卡面·cardart_e_paper_amulet",
+      "description": "生产素材｜游戏内实际读取的卡面。\n常驻卡面：cardart_e_paper_amulet；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_e_paper_amulet.png。像素 832×1216。",
       "data": {
         "assetId": "ui-cardart-e-paper-amulet",
         "mediaType": "image"
-      },
-      "title": "卡面·cardart_e_paper_amulet",
-      "description": "生产素材｜游戏内实际读取的卡面。\n常驻卡面：cardart_e_paper_amulet；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_e_paper_amulet.png。像素 832×1216。"
+      }
     },
     {
       "id": "ui-cardart-e-paper-shield",
       "type": "asset",
+      "title": "卡面·cardart_e_paper_shield",
+      "description": "生产素材｜游戏内实际读取的卡面。\n常驻卡面：cardart_e_paper_shield；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_e_paper_shield.png。像素 832×1216。",
       "data": {
         "assetId": "ui-cardart-e-paper-shield",
         "mediaType": "image"
-      },
-      "title": "卡面·cardart_e_paper_shield",
-      "description": "生产素材｜游戏内实际读取的卡面。\n常驻卡面：cardart_e_paper_shield；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_e_paper_shield.png。像素 832×1216。"
+      }
     },
     {
       "id": "ui-cardart-e-purify-flame",
       "type": "asset",
+      "title": "卡面·cardart_e_purify_flame",
+      "description": "生产素材｜游戏内实际读取的卡面。\n常驻卡面：cardart_e_purify_flame；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_e_purify_flame.png。像素 832×1216。",
       "data": {
         "assetId": "ui-cardart-e-purify-flame",
         "mediaType": "image"
-      },
-      "title": "卡面·cardart_e_purify_flame",
-      "description": "生产素材｜游戏内实际读取的卡面。\n常驻卡面：cardart_e_purify_flame；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_e_purify_flame.png。像素 832×1216。"
+      }
     },
     {
       "id": "ui-cardart-e-return-blade",
       "type": "asset",
+      "title": "卡面·cardart_e_return_blade",
+      "description": "生产素材｜游戏内实际读取的卡面。\n常驻卡面：cardart_e_return_blade；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_e_return_blade.png。像素 832×1216。",
       "data": {
         "assetId": "ui-cardart-e-return-blade",
         "mediaType": "image"
-      },
-      "title": "卡面·cardart_e_return_blade",
-      "description": "生产素材｜游戏内实际读取的卡面。\n常驻卡面：cardart_e_return_blade；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_e_return_blade.png。像素 832×1216。"
+      }
     },
     {
       "id": "ui-cardart-e-seeing-eye",
       "type": "asset",
+      "title": "卡面·cardart_e_seeing_eye",
+      "description": "生产素材｜游戏内实际读取的卡面。\n常驻卡面：cardart_e_seeing_eye；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_e_seeing_eye.png。像素 832×1216。",
       "data": {
         "assetId": "ui-cardart-e-seeing-eye",
         "mediaType": "image"
-      },
-      "title": "卡面·cardart_e_seeing_eye",
-      "description": "生产素材｜游戏内实际读取的卡面。\n常驻卡面：cardart_e_seeing_eye；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_e_seeing_eye.png。像素 832×1216。"
+      }
     },
     {
       "id": "ui-cardart-e-spirit-wisps",
       "type": "asset",
+      "title": "卡面·cardart_e_spirit_wisps",
+      "description": "生产素材｜游戏内实际读取的卡面。\n常驻卡面：cardart_e_spirit_wisps；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_e_spirit_wisps.png。像素 832×1216。",
       "data": {
         "assetId": "ui-cardart-e-spirit-wisps",
         "mediaType": "image"
-      },
-      "title": "卡面·cardart_e_spirit_wisps",
-      "description": "生产素材｜游戏内实际读取的卡面。\n常驻卡面：cardart_e_spirit_wisps；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_e_spirit_wisps.png。像素 832×1216。"
+      }
     },
     {
       "id": "ui-cardart-e-talisman-stack",
       "type": "asset",
+      "title": "卡面·cardart_e_talisman_stack",
+      "description": "生产素材｜游戏内实际读取的卡面。\n常驻卡面：cardart_e_talisman_stack；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_e_talisman_stack.png。像素 832×1216。",
       "data": {
         "assetId": "ui-cardart-e-talisman-stack",
         "mediaType": "image"
-      },
-      "title": "卡面·cardart_e_talisman_stack",
-      "description": "生产素材｜游戏内实际读取的卡面。\n常驻卡面：cardart_e_talisman_stack；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_e_talisman_stack.png。像素 832×1216。"
+      }
     },
     {
       "id": "ui-cardart-e-twin-arc",
       "type": "asset",
+      "title": "卡面·cardart_e_twin_arc",
+      "description": "生产素材｜游戏内实际读取的卡面。\n常驻卡面：cardart_e_twin_arc；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_e_twin_arc.png。像素 832×1216。",
       "data": {
         "assetId": "ui-cardart-e-twin-arc",
         "mediaType": "image"
-      },
-      "title": "卡面·cardart_e_twin_arc",
-      "description": "生产素材｜游戏内实际读取的卡面。\n常驻卡面：cardart_e_twin_arc；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_e_twin_arc.png。像素 832×1216。"
+      }
     },
     {
       "id": "ui-cardart-val-bell",
       "type": "asset",
+      "title": "卡面·cardart_val_bell",
+      "description": "生产素材｜游戏内实际读取的卡面。\n遗物/道具卡面：cardart_val_bell；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_val_bell.png。像素 1024×1024。",
       "data": {
         "assetId": "ui-cardart-val-bell",
         "mediaType": "image"
-      },
-      "title": "卡面·cardart_val_bell",
-      "description": "生产素材｜游戏内实际读取的卡面。\n遗物/道具卡面：cardart_val_bell；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_val_bell.png。像素 1024×1024。"
+      }
     },
     {
       "id": "ui-cardart-val-ignite",
       "type": "asset",
+      "title": "卡面·cardart_val_ignite",
+      "description": "生产素材｜游戏内实际读取的卡面。\n遗物/道具卡面：cardart_val_ignite；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_val_ignite.png。像素 1024×1024。",
       "data": {
         "assetId": "ui-cardart-val-ignite",
         "mediaType": "image"
-      },
-      "title": "卡面·cardart_val_ignite",
-      "description": "生产素材｜游戏内实际读取的卡面。\n遗物/道具卡面：cardart_val_ignite；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_val_ignite.png。像素 1024×1024。"
+      }
     },
     {
       "id": "ui-cardart-val-seal",
       "type": "asset",
+      "title": "卡面·cardart_val_seal",
+      "description": "生产素材｜游戏内实际读取的卡面。\n遗物/道具卡面：cardart_val_seal；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_val_seal.png。像素 1024×1024。",
       "data": {
         "assetId": "ui-cardart-val-seal",
         "mediaType": "image"
-      },
-      "title": "卡面·cardart_val_seal",
-      "description": "生产素材｜游戏内实际读取的卡面。\n遗物/道具卡面：cardart_val_seal；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_val_seal.png。像素 1024×1024。"
+      }
     },
     {
       "id": "ui-cardart-val-slash",
       "type": "asset",
+      "title": "卡面·cardart_val_slash",
+      "description": "生产素材｜游戏内实际读取的卡面。\n遗物/道具卡面：cardart_val_slash；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_val_slash.png。像素 1024×1024。",
       "data": {
         "assetId": "ui-cardart-val-slash",
         "mediaType": "image"
-      },
-      "title": "卡面·cardart_val_slash",
-      "description": "生产素材｜游戏内实际读取的卡面。\n遗物/道具卡面：cardart_val_slash；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_val_slash.png。像素 1024×1024。"
+      }
     },
     {
       "id": "ui-cardart-val-spill",
       "type": "asset",
+      "title": "卡面·cardart_val_spill",
+      "description": "生产素材｜游戏内实际读取的卡面。\n遗物/道具卡面：cardart_val_spill；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_val_spill.png。像素 1024×1024。",
       "data": {
         "assetId": "ui-cardart-val-spill",
         "mediaType": "image"
-      },
-      "title": "卡面·cardart_val_spill",
-      "description": "生产素材｜游戏内实际读取的卡面。\n遗物/道具卡面：cardart_val_spill；由 data/battles/*.json 与 data/artifacts.json 的 art/icon 字段按 res:// 路径引用。\n路径 assets/ui/cardart_val_spill.png。像素 1024×1024。"
+      }
     },
     {
       "id": "section-15-1ea0197d",
       "type": "text",
+      "title": "夜菜单 UI",
+      "description": "分区说明：夜间准备/装配/商人界面的 20 张贴图：面板、按钮态、槽位、道具图标与血蓝条。",
       "data": {
         "text": "夜间准备/装配/商人界面的 20 张贴图：面板、按钮态、槽位、道具图标与血蓝条。\n\n本分区共 20 个素材节点。",
         "instruction": "分区标题节点，用于在画布上分隔素材组，不生成新素材。"
-      },
-      "title": "夜菜单 UI",
-      "description": "分区说明：夜间准备/装配/商人界面的 20 张贴图：面板、按钮态、槽位、道具图标与血蓝条。"
+      }
     },
     {
       "id": "ui-night-accessory",
       "type": "asset",
+      "title": "夜菜单·accessory",
+      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 accessory；路径 assets/ui/night_menu/accessory.png。像素 724×724。",
       "data": {
         "assetId": "ui-night-accessory",
         "mediaType": "image"
-      },
-      "title": "夜菜单·accessory",
-      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 accessory；路径 assets/ui/night_menu/accessory.png。像素 724×724。"
+      }
     },
     {
       "id": "ui-night-armor",
       "type": "asset",
+      "title": "夜菜单·armor",
+      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 armor；路径 assets/ui/night_menu/armor.png。像素 724×724。",
       "data": {
         "assetId": "ui-night-armor",
         "mediaType": "image"
-      },
-      "title": "夜菜单·armor",
-      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 armor；路径 assets/ui/night_menu/armor.png。像素 724×724。"
+      }
     },
     {
       "id": "ui-night-button",
       "type": "asset",
+      "title": "夜菜单·button",
+      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 button；路径 assets/ui/night_menu/button.png。像素 1384×198。",
       "data": {
         "assetId": "ui-night-button",
         "mediaType": "image"
-      },
-      "title": "夜菜单·button",
-      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 button；路径 assets/ui/night_menu/button.png。像素 1384×198。"
+      }
     },
     {
       "id": "ui-night-button-disabled",
       "type": "asset",
+      "title": "夜菜单·button_disabled",
+      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 button_disabled；路径 assets/ui/night_menu/button_disabled.png。像素 1384×200。",
       "data": {
         "assetId": "ui-night-button-disabled",
         "mediaType": "image"
-      },
-      "title": "夜菜单·button_disabled",
-      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 button_disabled；路径 assets/ui/night_menu/button_disabled.png。像素 1384×200。"
+      }
     },
     {
       "id": "ui-night-button-primary",
       "type": "asset",
+      "title": "夜菜单·button_primary",
+      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 button_primary；路径 assets/ui/night_menu/button_primary.png。像素 1384×199。",
       "data": {
         "assetId": "ui-night-button-primary",
         "mediaType": "image"
-      },
-      "title": "夜菜单·button_primary",
-      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 button_primary；路径 assets/ui/night_menu/button_primary.png。像素 1384×199。"
+      }
     },
     {
       "id": "ui-night-button-selected",
       "type": "asset",
+      "title": "夜菜单·button_selected",
+      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 button_selected；路径 assets/ui/night_menu/button_selected.png。像素 1384×199。",
       "data": {
         "assetId": "ui-night-button-selected",
         "mediaType": "image"
-      },
-      "title": "夜菜单·button_selected",
-      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 button_selected；路径 assets/ui/night_menu/button_selected.png。像素 1384×199。"
+      }
     },
     {
       "id": "ui-night-cleansing-powder",
       "type": "asset",
+      "title": "夜菜单·cleansing_powder",
+      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 cleansing_powder；路径 assets/ui/night_menu/cleansing_powder.png。像素 627×627。",
       "data": {
         "assetId": "ui-night-cleansing-powder",
         "mediaType": "image"
-      },
-      "title": "夜菜单·cleansing_powder",
-      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 cleansing_powder；路径 assets/ui/night_menu/cleansing_powder.png。像素 627×627。"
+      }
     },
     {
       "id": "ui-night-energy-tea",
       "type": "asset",
+      "title": "夜菜单·energy_tea",
+      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 energy_tea；路径 assets/ui/night_menu/energy_tea.png。像素 627×627。",
       "data": {
         "assetId": "ui-night-energy-tea",
         "mediaType": "image"
-      },
-      "title": "夜菜单·energy_tea",
-      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 energy_tea；路径 assets/ui/night_menu/energy_tea.png。像素 627×627。"
+      }
     },
     {
       "id": "ui-night-focus",
       "type": "asset",
+      "title": "夜菜单·focus",
+      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 focus；路径 assets/ui/night_menu/focus.png。像素 628×864。",
       "data": {
         "assetId": "ui-night-focus",
         "mediaType": "image"
-      },
-      "title": "夜菜单·focus",
-      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 focus；路径 assets/ui/night_menu/focus.png。像素 628×864。"
+      }
     },
     {
       "id": "ui-night-gauge-hp",
       "type": "asset",
+      "title": "夜菜单·gauge_hp",
+      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 gauge_hp；路径 assets/ui/night_menu/gauge_hp.png。像素 1420×111。",
       "data": {
         "assetId": "ui-night-gauge-hp",
         "mediaType": "image"
-      },
-      "title": "夜菜单·gauge_hp",
-      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 gauge_hp；路径 assets/ui/night_menu/gauge_hp.png。像素 1420×111。"
+      }
     },
     {
       "id": "ui-night-gauge-mp",
       "type": "asset",
+      "title": "夜菜单·gauge_mp",
+      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 gauge_mp；路径 assets/ui/night_menu/gauge_mp.png。像素 1420×111。",
       "data": {
         "assetId": "ui-night-gauge-mp",
         "mediaType": "image"
-      },
-      "title": "夜菜单·gauge_mp",
-      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 gauge_mp；路径 assets/ui/night_menu/gauge_mp.png。像素 1420×111。"
+      }
     },
     {
       "id": "ui-night-gauge-track",
       "type": "asset",
+      "title": "夜菜单·gauge_track",
+      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 gauge_track；路径 assets/ui/night_menu/gauge_track.png。像素 1420×111。",
       "data": {
         "assetId": "ui-night-gauge-track",
         "mediaType": "image"
-      },
-      "title": "夜菜单·gauge_track",
-      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 gauge_track；路径 assets/ui/night_menu/gauge_track.png。像素 1420×111。"
+      }
     },
     {
       "id": "ui-night-guard-charm",
       "type": "asset",
+      "title": "夜菜单·guard_charm",
+      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 guard_charm；路径 assets/ui/night_menu/guard_charm.png。像素 627×627。",
       "data": {
         "assetId": "ui-night-guard-charm",
         "mediaType": "image"
-      },
-      "title": "夜菜单·guard_charm",
-      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 guard_charm；路径 assets/ui/night_menu/guard_charm.png。像素 627×627。"
+      }
     },
     {
       "id": "ui-night-healing-potion",
       "type": "asset",
+      "title": "夜菜单·healing_potion",
+      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 healing_potion；路径 assets/ui/night_menu/healing_potion.png。像素 627×627。",
       "data": {
         "assetId": "ui-night-healing-potion",
         "mediaType": "image"
-      },
-      "title": "夜菜单·healing_potion",
-      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 healing_potion；路径 assets/ui/night_menu/healing_potion.png。像素 627×627。"
+      }
     },
     {
       "id": "ui-night-inset",
       "type": "asset",
+      "title": "夜菜单·inset",
+      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 inset；路径 assets/ui/night_menu/inset.png。像素 636×868。",
       "data": {
         "assetId": "ui-night-inset",
         "mediaType": "image"
-      },
-      "title": "夜菜单·inset",
-      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 inset；路径 assets/ui/night_menu/inset.png。像素 636×868。"
+      }
     },
     {
       "id": "ui-night-mana-potion",
       "type": "asset",
+      "title": "夜菜单·mana_potion",
+      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 mana_potion；路径 assets/ui/night_menu/mana_potion.png。像素 627×627。",
       "data": {
         "assetId": "ui-night-mana-potion",
         "mediaType": "image"
-      },
-      "title": "夜菜单·mana_potion",
-      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 mana_potion；路径 assets/ui/night_menu/mana_potion.png。像素 627×627。"
+      }
     },
     {
       "id": "ui-night-moxa-roll",
       "type": "asset",
+      "title": "夜菜单·moxa_roll",
+      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 moxa_roll；路径 assets/ui/night_menu/moxa_roll.png。像素 627×627。",
       "data": {
         "assetId": "ui-night-moxa-roll",
         "mediaType": "image"
-      },
-      "title": "夜菜单·moxa_roll",
-      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 moxa_roll；路径 assets/ui/night_menu/moxa_roll.png。像素 627×627。"
+      }
     },
     {
       "id": "ui-night-panel",
       "type": "asset",
+      "title": "夜菜单·panel",
+      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 panel；路径 assets/ui/night_menu/panel.png。像素 1360×798。",
       "data": {
         "assetId": "ui-night-panel",
         "mediaType": "image"
-      },
-      "title": "夜菜单·panel",
-      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 panel；路径 assets/ui/night_menu/panel.png。像素 1360×798。"
+      }
     },
     {
       "id": "ui-night-revival-potion",
       "type": "asset",
+      "title": "夜菜单·revival_potion",
+      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 revival_potion；路径 assets/ui/night_menu/revival_potion.png。像素 627×627。",
       "data": {
         "assetId": "ui-night-revival-potion",
         "mediaType": "image"
-      },
-      "title": "夜菜单·revival_potion",
-      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 revival_potion；路径 assets/ui/night_menu/revival_potion.png。像素 627×627。"
+      }
     },
     {
       "id": "ui-night-weapon",
       "type": "asset",
+      "title": "夜菜单·weapon",
+      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 weapon；路径 assets/ui/night_menu/weapon.png。像素 724×724。",
       "data": {
         "assetId": "ui-night-weapon",
         "mediaType": "image"
-      },
-      "title": "夜菜单·weapon",
-      "description": "生产素材｜夜菜单 UI 贴图。\n由 scripts/campaign/presentation/night_menu_art.gd 以 ROOT=res://assets/ui/night_menu/ 统一加载，供章节舞台、结案、装配面板、商人面板与队伍面板共用。\n贴图名 weapon；路径 assets/ui/night_menu/weapon.png。像素 724×724。"
+      }
     },
     {
       "id": "section-16-6028561b",
       "type": "text",
+      "title": "和纸与面板底纹",
+      "description": "分区说明：界面统一使用的和纸底纹与九宫格面板，供各面板共用同一套纸质观感。",
       "data": {
         "text": "界面统一使用的和纸底纹与九宫格面板，供各面板共用同一套纸质观感。\n\n本分区共 3 个素材节点。",
         "instruction": "分区标题节点，用于在画布上分隔素材组，不生成新素材。"
-      },
-      "title": "和纸与面板底纹",
-      "description": "分区说明：界面统一使用的和纸底纹与九宫格面板，供各面板共用同一套纸质观感。"
+      }
     },
     {
       "id": "ui-panel-washi",
       "type": "asset",
+      "title": "和纸九宫格面板",
+      "description": "生产素材｜游戏内实际读取：通用和纸九宫格面板底。\n路径 assets/ui/panel_washi_9slice.png。像素 1536×1536。",
       "data": {
         "assetId": "ui-panel-washi",
         "mediaType": "image"
-      },
-      "title": "和纸九宫格面板",
-      "description": "生产素材｜游戏内实际读取：通用和纸九宫格面板底。\n路径 assets/ui/panel_washi_9slice.png。像素 1536×1536。"
+      }
     },
     {
       "id": "tex-washi-full",
       "type": "asset",
+      "title": "和纸底纹·整幅",
+      "description": "生产素材｜游戏内实际读取：和纸底纹整幅贴图。\n路径 assets/textures/washi_full.png。像素 3840×2020。",
       "data": {
         "assetId": "tex-washi-full",
         "mediaType": "image"
-      },
-      "title": "和纸底纹·整幅",
-      "description": "生产素材｜游戏内实际读取：和纸底纹整幅贴图。\n路径 assets/textures/washi_full.png。像素 3840×2020。"
+      }
     },
     {
       "id": "tex-washi-overlay",
       "type": "asset",
+      "title": "和纸覆盖层",
+      "description": "生产素材｜游戏内实际读取：和纸覆盖/做旧层。\n路径 assets/textures/washi_overlay.png。像素 1920×1010。",
       "data": {
         "assetId": "tex-washi-overlay",
         "mediaType": "image"
-      },
-      "title": "和纸覆盖层",
-      "description": "生产素材｜游戏内实际读取：和纸覆盖/做旧层。\n路径 assets/textures/washi_overlay.png。像素 1920×1010。"
+      }
     },
     {
       "id": "section-17-4eb95770",
       "type": "text",
+      "title": "战斗序列帧特效",
+      "description": "分区说明：钟波、火焰爆裂、封印爆裂三组逐帧特效；运行时按帧名加载，原始合表一并留档。",
       "data": {
         "text": "钟波、火焰爆裂、封印爆裂三组逐帧特效；运行时按帧名加载，原始合表一并留档。\n\n本分区共 19 个素材节点。",
         "instruction": "分区标题节点，用于在画布上分隔素材组，不生成新素材。"
-      },
-      "title": "战斗序列帧特效",
-      "description": "分区说明：钟波、火焰爆裂、封印爆裂三组逐帧特效；运行时按帧名加载，原始合表一并留档。"
+      }
     },
     {
       "id": "fx-bell-wave-f1",
       "type": "asset",
+      "title": "钟波·帧1",
+      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n钟波序列第 1 帧。\n路径 assets/fx/bell_wave_f1.png；原始合表保留在同目录 _raw_bell_wave_sheet.png。像素 686×620。",
       "data": {
         "assetId": "fx-bell-wave-f1",
         "mediaType": "image"
-      },
-      "title": "钟波·帧1",
-      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n钟波序列第 1 帧。\n路径 assets/fx/bell_wave_f1.png；原始合表保留在同目录 _raw_bell_wave_sheet.png。像素 686×620。"
+      }
     },
     {
       "id": "fx-bell-wave-f2",
       "type": "asset",
+      "title": "钟波·帧2",
+      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n钟波序列第 2 帧。\n路径 assets/fx/bell_wave_f2.png；原始合表保留在同目录 _raw_bell_wave_sheet.png。像素 686×620。",
       "data": {
         "assetId": "fx-bell-wave-f2",
         "mediaType": "image"
-      },
-      "title": "钟波·帧2",
-      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n钟波序列第 2 帧。\n路径 assets/fx/bell_wave_f2.png；原始合表保留在同目录 _raw_bell_wave_sheet.png。像素 686×620。"
+      }
     },
     {
       "id": "fx-bell-wave-f3",
       "type": "asset",
+      "title": "钟波·帧3",
+      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n钟波序列第 3 帧。\n路径 assets/fx/bell_wave_f3.png；原始合表保留在同目录 _raw_bell_wave_sheet.png。像素 686×620。",
       "data": {
         "assetId": "fx-bell-wave-f3",
         "mediaType": "image"
-      },
-      "title": "钟波·帧3",
-      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n钟波序列第 3 帧。\n路径 assets/fx/bell_wave_f3.png；原始合表保留在同目录 _raw_bell_wave_sheet.png。像素 686×620。"
+      }
     },
     {
       "id": "fx-bell-wave-f4",
       "type": "asset",
+      "title": "钟波·帧4",
+      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n钟波序列第 4 帧。\n路径 assets/fx/bell_wave_f4.png；原始合表保留在同目录 _raw_bell_wave_sheet.png。像素 686×620。",
       "data": {
         "assetId": "fx-bell-wave-f4",
         "mediaType": "image"
-      },
-      "title": "钟波·帧4",
-      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n钟波序列第 4 帧。\n路径 assets/fx/bell_wave_f4.png；原始合表保留在同目录 _raw_bell_wave_sheet.png。像素 686×620。"
+      }
     },
     {
       "id": "fx-raw-bell-wave-sheet",
       "type": "asset",
+      "title": "钟波·原始合表",
+      "description": "生产素材｜钟波序列的原始合表留档。\n路径 assets/fx/_raw_bell_wave_sheet.png；运行时使用拆出的单帧文件，本图仅供对照与回溯。像素 1280×1280。",
       "data": {
         "assetId": "fx-raw-bell-wave-sheet",
         "mediaType": "image"
-      },
-      "title": "钟波·原始合表",
-      "description": "生产素材｜钟波序列的原始合表留档。\n路径 assets/fx/_raw_bell_wave_sheet.png；运行时使用拆出的单帧文件，本图仅供对照与回溯。像素 1280×1280。"
+      }
     },
     {
       "id": "fx-fire-burst-f1",
       "type": "asset",
+      "title": "火焰爆裂·帧1",
+      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n火焰爆裂序列第 1 帧。\n路径 assets/fx/fire_burst_f1.png；原始合表保留在同目录 _raw_fire_burst_sheet.png。像素 666×671。",
       "data": {
         "assetId": "fx-fire-burst-f1",
         "mediaType": "image"
-      },
-      "title": "火焰爆裂·帧1",
-      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n火焰爆裂序列第 1 帧。\n路径 assets/fx/fire_burst_f1.png；原始合表保留在同目录 _raw_fire_burst_sheet.png。像素 666×671。"
+      }
     },
     {
       "id": "fx-fire-burst-f2",
       "type": "asset",
+      "title": "火焰爆裂·帧2",
+      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n火焰爆裂序列第 2 帧。\n路径 assets/fx/fire_burst_f2.png；原始合表保留在同目录 _raw_fire_burst_sheet.png。像素 666×671。",
       "data": {
         "assetId": "fx-fire-burst-f2",
         "mediaType": "image"
-      },
-      "title": "火焰爆裂·帧2",
-      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n火焰爆裂序列第 2 帧。\n路径 assets/fx/fire_burst_f2.png；原始合表保留在同目录 _raw_fire_burst_sheet.png。像素 666×671。"
+      }
     },
     {
       "id": "fx-fire-burst-f3",
       "type": "asset",
+      "title": "火焰爆裂·帧3",
+      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n火焰爆裂序列第 3 帧。\n路径 assets/fx/fire_burst_f3.png；原始合表保留在同目录 _raw_fire_burst_sheet.png。像素 666×671。",
       "data": {
         "assetId": "fx-fire-burst-f3",
         "mediaType": "image"
-      },
-      "title": "火焰爆裂·帧3",
-      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n火焰爆裂序列第 3 帧。\n路径 assets/fx/fire_burst_f3.png；原始合表保留在同目录 _raw_fire_burst_sheet.png。像素 666×671。"
+      }
     },
     {
       "id": "fx-fire-burst-f4",
       "type": "asset",
+      "title": "火焰爆裂·帧4",
+      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n火焰爆裂序列第 4 帧。\n路径 assets/fx/fire_burst_f4.png；原始合表保留在同目录 _raw_fire_burst_sheet.png。像素 666×671。",
       "data": {
         "assetId": "fx-fire-burst-f4",
         "mediaType": "image"
-      },
-      "title": "火焰爆裂·帧4",
-      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n火焰爆裂序列第 4 帧。\n路径 assets/fx/fire_burst_f4.png；原始合表保留在同目录 _raw_fire_burst_sheet.png。像素 666×671。"
+      }
     },
     {
       "id": "fx-fire-burst-f5",
       "type": "asset",
+      "title": "火焰爆裂·帧5",
+      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n火焰爆裂序列第 5 帧。\n路径 assets/fx/fire_burst_f5.png；原始合表保留在同目录 _raw_fire_burst_sheet.png。像素 666×671。",
       "data": {
         "assetId": "fx-fire-burst-f5",
         "mediaType": "image"
-      },
-      "title": "火焰爆裂·帧5",
-      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n火焰爆裂序列第 5 帧。\n路径 assets/fx/fire_burst_f5.png；原始合表保留在同目录 _raw_fire_burst_sheet.png。像素 666×671。"
+      }
     },
     {
       "id": "fx-fire-burst-f6",
       "type": "asset",
+      "title": "火焰爆裂·帧6",
+      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n火焰爆裂序列第 6 帧。\n路径 assets/fx/fire_burst_f6.png；原始合表保留在同目录 _raw_fire_burst_sheet.png。像素 666×671。",
       "data": {
         "assetId": "fx-fire-burst-f6",
         "mediaType": "image"
-      },
-      "title": "火焰爆裂·帧6",
-      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n火焰爆裂序列第 6 帧。\n路径 assets/fx/fire_burst_f6.png；原始合表保留在同目录 _raw_fire_burst_sheet.png。像素 666×671。"
+      }
     },
     {
       "id": "fx-raw-fire-burst-sheet",
       "type": "asset",
+      "title": "火焰爆裂·原始合表",
+      "description": "生产素材｜火焰爆裂序列的原始合表留档。\n路径 assets/fx/_raw_fire_burst_sheet.png；运行时使用拆出的单帧文件，本图仅供对照与回溯。像素 1920×1280。",
       "data": {
         "assetId": "fx-raw-fire-burst-sheet",
         "mediaType": "image"
-      },
-      "title": "火焰爆裂·原始合表",
-      "description": "生产素材｜火焰爆裂序列的原始合表留档。\n路径 assets/fx/_raw_fire_burst_sheet.png；运行时使用拆出的单帧文件，本图仅供对照与回溯。像素 1920×1280。"
+      }
     },
     {
       "id": "fx-seal-burst-f1",
       "type": "asset",
+      "title": "封印爆裂·帧1",
+      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n封印爆裂序列第 1 帧。\n路径 assets/fx/seal_burst_f1.png；原始合表保留在同目录 _raw_seal_burst_sheet.png。像素 740×617。",
       "data": {
         "assetId": "fx-seal-burst-f1",
         "mediaType": "image"
-      },
-      "title": "封印爆裂·帧1",
-      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n封印爆裂序列第 1 帧。\n路径 assets/fx/seal_burst_f1.png；原始合表保留在同目录 _raw_seal_burst_sheet.png。像素 740×617。"
+      }
     },
     {
       "id": "fx-seal-burst-f2",
       "type": "asset",
+      "title": "封印爆裂·帧2",
+      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n封印爆裂序列第 2 帧。\n路径 assets/fx/seal_burst_f2.png；原始合表保留在同目录 _raw_seal_burst_sheet.png。像素 740×617。",
       "data": {
         "assetId": "fx-seal-burst-f2",
         "mediaType": "image"
-      },
-      "title": "封印爆裂·帧2",
-      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n封印爆裂序列第 2 帧。\n路径 assets/fx/seal_burst_f2.png；原始合表保留在同目录 _raw_seal_burst_sheet.png。像素 740×617。"
+      }
     },
     {
       "id": "fx-seal-burst-f3",
       "type": "asset",
+      "title": "封印爆裂·帧3",
+      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n封印爆裂序列第 3 帧。\n路径 assets/fx/seal_burst_f3.png；原始合表保留在同目录 _raw_seal_burst_sheet.png。像素 740×617。",
       "data": {
         "assetId": "fx-seal-burst-f3",
         "mediaType": "image"
-      },
-      "title": "封印爆裂·帧3",
-      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n封印爆裂序列第 3 帧。\n路径 assets/fx/seal_burst_f3.png；原始合表保留在同目录 _raw_seal_burst_sheet.png。像素 740×617。"
+      }
     },
     {
       "id": "fx-seal-burst-f4",
       "type": "asset",
+      "title": "封印爆裂·帧4",
+      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n封印爆裂序列第 4 帧。\n路径 assets/fx/seal_burst_f4.png；原始合表保留在同目录 _raw_seal_burst_sheet.png。像素 740×617。",
       "data": {
         "assetId": "fx-seal-burst-f4",
         "mediaType": "image"
-      },
-      "title": "封印爆裂·帧4",
-      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n封印爆裂序列第 4 帧。\n路径 assets/fx/seal_burst_f4.png；原始合表保留在同目录 _raw_seal_burst_sheet.png。像素 740×617。"
+      }
     },
     {
       "id": "fx-seal-burst-f5",
       "type": "asset",
+      "title": "封印爆裂·帧5",
+      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n封印爆裂序列第 5 帧。\n路径 assets/fx/seal_burst_f5.png；原始合表保留在同目录 _raw_seal_burst_sheet.png。像素 740×617。",
       "data": {
         "assetId": "fx-seal-burst-f5",
         "mediaType": "image"
-      },
-      "title": "封印爆裂·帧5",
-      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n封印爆裂序列第 5 帧。\n路径 assets/fx/seal_burst_f5.png；原始合表保留在同目录 _raw_seal_burst_sheet.png。像素 740×617。"
+      }
     },
     {
       "id": "fx-seal-burst-f6",
       "type": "asset",
+      "title": "封印爆裂·帧6",
+      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n封印爆裂序列第 6 帧。\n路径 assets/fx/seal_burst_f6.png；原始合表保留在同目录 _raw_seal_burst_sheet.png。像素 740×617。",
       "data": {
         "assetId": "fx-seal-burst-f6",
         "mediaType": "image"
-      },
-      "title": "封印爆裂·帧6",
-      "description": "生产素材｜战斗序列帧特效（scripts/scenes/battle_canvas.gd 按 res://assets/fx/ + 文件名 加载）。\n封印爆裂序列第 6 帧。\n路径 assets/fx/seal_burst_f6.png；原始合表保留在同目录 _raw_seal_burst_sheet.png。像素 740×617。"
+      }
     },
     {
       "id": "fx-raw-seal-burst-sheet",
       "type": "asset",
+      "title": "封印爆裂·原始合表",
+      "description": "生产素材｜封印爆裂序列的原始合表留档。\n路径 assets/fx/_raw_seal_burst_sheet.png；运行时使用拆出的单帧文件，本图仅供对照与回溯。像素 1920×1280。",
       "data": {
         "assetId": "fx-raw-seal-burst-sheet",
         "mediaType": "image"
-      },
-      "title": "封印爆裂·原始合表",
-      "description": "生产素材｜封印爆裂序列的原始合表留档。\n路径 assets/fx/_raw_seal_burst_sheet.png；运行时使用拆出的单帧文件，本图仅供对照与回溯。像素 1920×1280。"
+      }
     },
     {
       "id": "section-18-daadc755",
       "type": "text",
+      "title": "过场视频",
+      "description": "分区说明：assets/cutscenes/ 下的过场影片；目录内 .gitignore 与 EXE 旁 cutscenes/ 的外置读取约定见 cutscene_catalog.gd。\n以下文件存在于仓库但未做成画布节点：assets/cutscenes/night1_stone_bowl.ogv（画布不支持 Ogg Theora 预览，仅登记路径）。",
       "data": {
         "text": "assets/cutscenes/ 下的过场影片；目录内 .gitignore 与 EXE 旁 cutscenes/ 的外置读取约定见 cutscene_catalog.gd。\n以下文件存在于仓库但未做成画布节点：assets/cutscenes/night1_stone_bowl.ogv（画布不支持 Ogg Theora 预览，仅登记路径）。\n\n本分区共 1 个素材节点。",
         "instruction": "分区标题节点，用于在画布上分隔素材组，不生成新素材。"
-      },
-      "title": "过场视频",
-      "description": "分区说明：assets/cutscenes/ 下的过场影片；目录内 .gitignore 与 EXE 旁 cutscenes/ 的外置读取约定见 cutscene_catalog.gd。\n以下文件存在于仓库但未做成画布节点：assets/cutscenes/night1_stone_bowl.ogv（画布不支持 Ogg Theora 预览，仅登记路径）。"
+      }
     },
     {
       "id": "video-night1-quote",
       "type": "asset",
+      "title": "第一夜·15秒引用片段",
+      "description": "生产素材｜游戏内过场视频：第一夜过场的引用片段留档。\n路径 assets/cutscenes/night1_cutscene_15s_quote_only.mp4，5.8 MB。",
       "data": {
         "assetId": "video-night1-quote",
         "mediaType": "video"
-      },
-      "title": "第一夜·15秒引用片段",
-      "description": "生产素材｜游戏内过场视频：第一夜过场的引用片段留档。\n路径 assets/cutscenes/night1_cutscene_15s_quote_only.mp4，5.8 MB。"
+      }
     }
   ],
   "edges": [],

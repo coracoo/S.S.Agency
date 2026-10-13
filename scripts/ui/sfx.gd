@@ -14,6 +14,7 @@ const MAP := {
 	"door": "res://assets/audio/sfx/sfx_door.mp3",
 	"pickup": "res://assets/audio/sfx/sfx_pickup.mp3",
 	"push": "res://assets/audio/sfx/sfx_push.mp3",
+	"thunder": "res://assets/audio/sfx/sfx_thunder.mp3",
 }
 
 static func play(node: Node, key: String, volume_db := -8.0) -> void:

@@ -28,6 +28,8 @@ var _cancelled: Dictionary = {}
 var _hits: Dictionary = {}
 var _missing: Dictionary = {}
 var _drawn: Array[Dictionary] = []
+# 进战斗时按编队装配预解码并保留的图集键；释放检查不为难warm集合，避免首场施放重新同步解码。
+var _warmed: Dictionary = {}
 
 func production_enabled() -> bool:
 	return Manifests._true(Manifests._json(registry_path).get("production_renderer_enabled"))
@@ -61,6 +63,18 @@ func _definition(skill: String, form: String = "") -> Dictionary:
 		return {}
 	_definitions[asset_key]=effect
 	return effect
+
+# 进战斗时按编队装配预解码本场图集（只填充_definition缓存，不创建动作/状态/图层），
+# 首场施放不再同步解码；预算与缺失原因仍走_definition原路径。
+func warm(candidates: Array) -> void:
+	if not _enabled(): return
+	for item in candidates:
+		var skill := str(item.get("skill","")) if item is Dictionary else ""
+		if skill.is_empty(): continue
+		var form := str(item.get("form","")) if item is Dictionary else ""
+		if not _definition(skill,form).is_empty():
+			_warmed[_definition_key(skill,form)]=true
+	_release_unused()
 
 func present_action(context: Dictionary,form: String,source: Vector2,targets: Dictionary,battle_id: String) -> bool:
 	if not _enabled() or context.get("kind")!="skill" or targets.is_empty(): return false
@@ -277,7 +291,7 @@ func _release_unused() -> void:
 	for layer in _layer_visuals.values():needed[str(layer.get("variant_key",layer.ability_id))]=true
 	for variant in _physical_policy.retained_variant_keys(): needed[variant]=true
 	for skill in _definitions.keys():
-		if not needed.has(skill): _definitions.erase(skill)
+		if not needed.has(skill) and not _warmed.has(skill): _definitions.erase(skill)
 func _process(delta: float) -> void:
 	if not is_finite(delta) or delta<0: return
 	for key in _event_windows.keys():
@@ -327,6 +341,9 @@ func sample_burst(burst: Dictionary) -> Dictionary:
 			var width := float(_definitions[burst.skill].display_size)
 			stretch.x=lerpf(1.0,clampf(1.0+(high-low)/width,1.0,3.0),progress)
 		position=source.lerp(target,progress);angle=0.0 if burst.get("travel_mode","")=="target_drop" else (target-source).angle()
+		if burst.get("travel_mode","")!="target_drop" and not burst.has("group_targets"):
+			# 弹道轻微上拱：抛物线弧高随射程缩放；群体波前保持直线推进。
+			position.y-=sin(progress*PI)*source.distance_to(target)*.12
 	if burst.phase=="cast": alpha=1.0-smoothstep(.8,1.0,progress)
 	if burst.phase=="hit": alpha=1.0-smoothstep(.6,1.0,progress)
 	return {"frame":frame,"position":position,"angle":angle,"scale":float(frame.scale)*float(burst.get("presentation_scale",1.0)),"stretch":stretch,"alpha":alpha}
@@ -366,7 +383,7 @@ func clear() -> void:
 	if not _current_battle.is_empty():_remember(_retired_battles,_current_battle)
 	_current_battle=""
 	_event_policy.clear();_physical_policy.clear();_event_windows.clear();_layer_visuals.clear();_ground_positions.clear()
-	_definitions.clear();_actions.clear();_bursts.clear();_states.clear();_positions.clear();_cast_origins.clear();_seen.clear();_started.clear();_cancelled.clear();_hits.clear();_missing.clear();_drawn.clear()
+	_definitions.clear();_actions.clear();_bursts.clear();_states.clear();_positions.clear();_cast_origins.clear();_seen.clear();_started.clear();_cancelled.clear();_hits.clear();_missing.clear();_drawn.clear();_warmed.clear()
 	queue_redraw()
 func _exit_tree() -> void: clear()
 
@@ -424,6 +441,8 @@ func _sample_layer(layer:Dictionary)->Dictionary:
 	if layer.placement == "projectile":
 		if not layer.has("launched_from"): layer["launched_from"] = source
 		position = layer.launched_from.lerp(position,clampf(progress,0,1))
+		# 与burst弹道一致：轻微上拱抛物线，弧高随射程缩放。
+		position.y -= sin(clampf(progress,0,1)*PI)*layer.launched_from.distance_to(_layer_position(str(layer.target_id),str(layer.placement)))*.12
 		angle = (_positions.get(str(layer.target_id),position)-layer.launched_from).angle()
 	elif layer.placement == "cover_link":
 		var endpoint: Vector2 = _positions.get(str(layer.get("linked_target_id","")),source)

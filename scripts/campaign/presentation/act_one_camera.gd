@@ -4,6 +4,7 @@ const WORLD_SIZE := 9.2
 const WORLD_OFFSET := Vector3(0, 6.2, 11.0)
 var depth_limits := Vector2(-18, 11)
 var height_limits := Vector2(1.1, 7.1)
+var _lookahead := 0.0
 func _ready() -> void:
 	limits = Vector2(-9.05, 68)
 	super._ready()
@@ -14,7 +15,12 @@ func configure_world(bounds: Dictionary) -> void:
 	height_limits = Vector2(maxf(1.1, float(height[0]) + 1.1), float(height[1]) + 1.1)
 func follow(actor: Node3D, delta: float) -> void:
 	var wanted := _presentation_target(actor) + Vector3(0, 1.1, 0)
-	wanted.x = clampf(wanted.x, limits.x, limits.y)
+	# 移动方向前瞻：镜头轻微偏向行进方向，停步后平滑回中，不追逐物理抖动。
+	var lead := 0.0
+	var velocity: Variant = actor.get("velocity")
+	if velocity is Vector3: lead = clampf((velocity as Vector3).x * 0.30, -1.4, 1.4)
+	_lookahead = lerpf(_lookahead, lead, 1.0 - exp(-3.0 * maxf(delta, 0.0)))
+	wanted.x = clampf(wanted.x + _lookahead, limits.x, limits.y)
 	wanted.z = clampf(wanted.z, depth_limits.x, depth_limits.y)
 	wanted.y = clampf(wanted.y, height_limits.x, height_limits.y)
 	target = target.lerp(wanted, 1.0 - exp(-5.0 * maxf(delta, 0)))

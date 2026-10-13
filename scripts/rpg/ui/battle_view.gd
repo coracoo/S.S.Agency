@@ -224,9 +224,19 @@ func _await_presentation(generation: int) -> bool:
 	while generation == _presentation_generation and is_inside_tree() and _hd_player != null and _hd_player.is_busy():
 		await presentation_tick
 	return generation == _presentation_generation and is_inside_tree()
+var _shake_power := 0.0
 func _process(delta: float) -> void:
 	if is_instance_valid(_world_backdrop): _world_backdrop.sync_visuals(delta)
 	_sync_effect_positions()
+	# 命中震屏：平方衰减的短促偏移，随重击/暴击/倒地触发；不触碰规则与镜头逻辑。
+	# 只在震屏期间接管_canvas位置，结束后交还_resize_canvas的窗口适配结果。
+	if _shake_power > 0.0:
+		_shake_power = maxf(0.0, _shake_power - delta * 4.5)
+		var amount := _shake_power * _shake_power * 9.0
+		if _shake_power > 0.0:
+			_canvas.position = Vector2(randf_range(-amount, amount), randf_range(-amount, amount))
+		else:
+			_resize_canvas()
 	presentation_tick.emit()
 func _cancel_presentation() -> void:
 	_flush_pending_logs()
@@ -582,8 +592,25 @@ func _build_actors() -> void:
 	if is_instance_valid(_world_backdrop):
 		if not _world_backdrop.visuals_synchronized.is_connected(_sync_effect_positions): _world_backdrop.visuals_synchronized.connect(_sync_effect_positions)
 		_world_backdrop.bind_visuals(_actors)
+	# 编队技能图集在人物就位后预解码，首场施放不再同步解码造成顿帧。
+	_warm_skill_effects(state)
 	# 模态保持在人物及点选热区前。
 	for node in [_preview_panel, _popup_shade, _items, _log_panel, _tactics_panel, _result]: _canvas.move_child(node, -1)
+
+# 只预解码图集缓存，不创建任何动作/状态，也不触碰规则结算。
+func _warm_skill_effects(state: Dictionary) -> void:
+	if not is_instance_valid(_fx_layer): return
+	var candidates: Array = []
+	for id in state.actors:
+		var actor: Dictionary = state.actors[id]
+		if actor.get("side", "") != "player": continue
+		var form := str(actor.get("form", actor.get("identity_id", "")))
+		for skill in actor.get("skill_ids", []):
+			candidates.append({"skill": str(skill), "form": form})
+	# 燃烧/缓速持续层借用 mage 图集，未必在装配列表里，一并预热。
+	for status_skill in ["burn_brand", "ice_arrow"]:
+		candidates.append({"skill": status_skill})
+	_fx_layer.warm(candidates)
 
 func _render() -> void:
 	if not _built or engine == null: return
@@ -1367,6 +1394,13 @@ func _on_event_presented(event: Dictionary) -> void:
 	if not context.is_empty() and int(context.get("generation",-1)) != _presentation_generation: return
 	_present_event_log(event)
 	_play_visual_effect(event)
+	# 暴击真实命中与倒地给一次短震屏；hit_stop在角色精灵上，震屏补全整场打击感。
+	var kind := str(event.get("type", ""))
+	var payload: Dictionary = event.get("payload", {})
+	if kind in ["damage", "saga_reflected"] and payload.get("critical", false):
+		_shake_power = 1.0
+	elif kind == "actor_defeated":
+		_shake_power = maxf(_shake_power, 0.8)
 	var token := int(event.get("_hp_presentation_id", -1))
 	if not _pending_hp_events.has(token):
 		# 倒地事件已先启动down；无资源令牌时也必须把首帧同步到真正绘制的3D身体。

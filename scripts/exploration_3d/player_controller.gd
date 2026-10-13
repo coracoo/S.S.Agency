@@ -103,8 +103,8 @@ func _physics_process(delta: float) -> void:
 		run_input = Input.is_action_pressed("approach_run") and _movement_armed
 		if not Input.is_action_pressed("approach_jump"): _jump_armed = true
 	# 跳跃只锁动作播放，不锁水平操控；攻击/交互/倒地仍按原规则禁动。
-	var jumping := animator.sprite.animation == &"jump" and not animator.is_downed()
-	var can_translate := input_enabled and (not animator.is_action_locked() or jumping)
+	var jumping: bool = animator.sprite.animation == &"jump" and not animator.is_downed()
+	var can_translate: bool = input_enabled and (not animator.is_action_locked() or jumping)
 	var axis := move_input.limit_length(1.0) if can_translate else Vector2.ZERO
 	if absf(axis.x) > 0.001: facing = 1 if axis.x > 0 else -1
 	var right := Vector3(camera_basis.x.x, 0, camera_basis.x.z).normalized()

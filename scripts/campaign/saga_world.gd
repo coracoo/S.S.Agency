@@ -10,6 +10,7 @@ const TEXTURES := {
 const APPROACH := preload("res://assets/3d/act01_approach/act01_approach.glb")
 const MIRROR_SOURCE := preload("res://assets/3d/night04_mirror/night04_mirror.glb")
 const STONES := preload("res://scripts/campaign/act_one_stone_library.gd")
+const WEATHER := preload("res://scripts/campaign/act_one_weather.gd")
 const FONT := preload("res://assets/fonts/Alibaba-PuHuiTi-Regular.ttf")
 const TITLES := {2:"无眠街",3:"逆水渡",4:"镜中双影",5:"借命灯",6:"百夜无更",7:"天明之前"}
 const LANDMARKS := {2:"SleeplessMarket",3:"ReverseWaterWharf",4:"TwinMirrorWorkshop",5:"BorrowedLifeClinic",6:"HundredNightRefuge",7:"BeforeDawnCore"}
@@ -21,6 +22,7 @@ var _cells: Dictionary = {}
 var _physics: Node3D
 var _art: Node3D
 var _chapter := 2
+var _weather: Node3D
 
 static func bounds(chapter: int) -> Dictionary:
 	var all := _rects(chapter)
@@ -141,7 +143,15 @@ func _construct() -> void:
 		6: _refuge()
 		7: _core()
 	_landscape()
+	# 后六章共用第一幕天气层：雨/风/落叶按 weather.json 的章节档案调度；
+	# 水滩点位只属于第一幕寺域石板，saga 地区不开水滩。
+	_weather = WEATHER.build(0.0, _chapter + 4, false)
+	add_child(_weather)
 	set_meta("chapter",_chapter); set_meta("title",TITLES[_chapter]); set_meta("layout","saga_regions_v1")
+
+## 每帧由 saga_stage 驱动：anchor=玩家位置，雨盒/叶盒跟随。
+func update_weather(anchor: Vector3, delta: float) -> void:
+	if is_instance_valid(_weather): _weather.update(anchor, delta)
 
 func _materials_init() -> void:
 	for key in TEXTURES:

@@ -4,6 +4,7 @@
 extends Node3D
 
 const PUDDLE_SHADER := preload("res://scripts/campaign/puddle.gdshader")
+const Sfx = preload("res://scripts/ui/sfx.gd")
 
 const RAIN_COUNT := 700
 const LEAF_COUNT := 26
@@ -17,6 +18,7 @@ var _flash: DirectionalLight3D
 var _wind := Vector3.ZERO
 var _rain_seed: Array[Vector3] = []
 var _leaf_seed: Array[Vector3] = []
+var _leaf_rest: Array[float] = []
 var _time := 0.0
 # 当前档案强度（0~1），由 data/campaign/weather.json 的夜晚调度决定。
 var _rain_level := .45
@@ -43,12 +45,12 @@ static func profile_for_night(night_id: int) -> Dictionary:
 		return profiles_map[name]
 	return {"rain": .45, "wind": .4, "leaves": true, "puddles": true, "thunder": 0.0}
 
-static func build(floor_y: float, night_id: int = 1) -> Node3D:
+static func build(floor_y: float, night_id: int = 1, with_puddles: bool = true) -> Node3D:
 	var weather := new()
 	weather.name = "ActOneWeather"
 	weather._build_rain()
 	weather._build_leaves()
-	weather._build_puddles(floor_y)
+	if with_puddles: weather._build_puddles(floor_y)
 	weather._build_flash()
 	weather.apply_profile(profile_for_night(night_id))
 	return weather
@@ -61,6 +63,9 @@ func apply_profile(profile: Dictionary) -> void:
 	_rain.multimesh.visible_instance_count = int(RAIN_COUNT * _rain_level)
 	_leaves.multimesh.visible_instance_count = LEAF_COUNT if profile.get("leaves", true) else 0
 	for puddle in _puddles: puddle.visible = profile.get("puddles", true)
+	# 雨量直接驱动水滩涟漪强度：无雨弱纹、暴雨密纹，纯shader参数、无CPU开销。
+	if not _puddles.is_empty() and _puddles[0].material_override is ShaderMaterial:
+		(_puddles[0].material_override as ShaderMaterial).set_shader_parameter("ripple_strength", 0.12 + _rain_level * 0.72)
 	_thunder_timer = randf_range(2.0, 6.0)
 	if _rain_level <= 0.0: _rain.multimesh.visible_instance_count = 0
 
@@ -92,8 +97,19 @@ func _update_thunder(delta: float) -> void:
 		# 雷暴：3~8 秒一次随机闪电，先亮后衰。
 		_flash_power = 2.4 * _thunder_level
 		_thunder_timer = randf_range(3.0, 8.0)
+		_play_thunder()
 	_flash_power = move_toward(_flash_power, 0.0, delta * 9.0)
 	_flash.light_energy = _flash_power
+
+# 声光时差：光速远快于声速，雷声在闪电后随机延迟抵达；音量和风雨声不绑定。
+func _play_thunder() -> void:
+	var delay := randf_range(0.35, 1.6)
+	var tree := get_tree()
+	if tree == null: return
+	var generation := get_instance_id()
+	await tree.create_timer(delay).timeout
+	if not is_inside_tree() or get_instance_id() != generation: return
+	Sfx.play(self, "thunder", lerpf(-18.0, -10.0, _thunder_level))
 
 func _build_rain() -> void:
 	var quad := QuadMesh.new()
@@ -155,22 +171,33 @@ func _build_leaves() -> void:
 	for index in range(LEAF_COUNT):
 		var seed := Vector3(randf() * BOX.x, randf() * 10.0 + 1.0, randf() * BOX.z)
 		_leaf_seed.append(seed)
+		_leaf_rest.append(0.0)
 	add_child(_leaves)
 
 func _update_leaves(anchor: Vector3, delta: float) -> void:
 	var origin := anchor + Vector3(-BOX.x * .5, 0.0, -BOX.z * .5)
 	for index in range(LEAF_COUNT):
 		var p: Vector3 = _leaf_seed[index]
-		# 落叶顺风漂移 + 缓慢下落 + 横向摇摆，旋转翻滚。
-		p += (_wind * 1.6 + Vector3(sin(_time * 2.1 + index) * .5, -1.1, 0.0)) * delta
-		if p.y < .2:
-			p.y = 9.0 + randf() * 3.0
-			p.x = randf() * BOX.x
-			p.z = randf() * BOX.z
+		if _leaf_rest[index] > 0.0:
+			# 贴地停留：停止下落与翻滚，只随风贴地滑行；停够时间再重生。
+			_leaf_rest[index] -= delta
+			p += _wind * 0.35 * delta
+			p.y = .2
+			if _leaf_rest[index] <= 0.0:
+				p.y = 9.0 + randf() * 3.0
+				p.x = randf() * BOX.x
+				p.z = randf() * BOX.z
+		else:
+			# 落叶顺风漂移 + 缓慢下落 + 横向摇摆，旋转翻滚。
+			p += (_wind * 1.6 + Vector3(sin(_time * 2.1 + index) * .5, -1.1, 0.0)) * delta
+			if p.y < .2:
+				p.y = .2
+				_leaf_rest[index] = randf_range(1.5, 4.5)
 		p.x = wrapf(p.x, 0.0, BOX.x)
 		p.z = wrapf(p.z, 0.0, BOX.z)
 		_leaf_seed[index] = p
-		var spin := Basis.from_euler(Vector3(_time * (1.3 + float(index % 3) * .4), _time * .9 + index, 0.0))
+		var still := _leaf_rest[index] > 0.0
+		var spin := Basis.from_euler(Vector3(_time * (1.3 + float(index % 3) * .4), _time * .9 + index, 0.0)) if not still else Basis.from_euler(Vector3(0.0, _time * .9 + index, 0.0))
 		_leaves.multimesh.set_instance_transform(index, Transform3D(spin, origin + p))
 
 func _build_puddles(floor_y: float) -> void:
