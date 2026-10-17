@@ -4,7 +4,11 @@ const Chapters = preload("res://scripts/campaign/chapter_catalog.gd")
 static func victory(model: RefCounted, started: Dictionary) -> Dictionary:
 	var roster: Array[Dictionary]=[]
 	for id in model.safe_snapshot().party: roster.append(started.setup.actors[id].duplicate(true))
-	return {"battle_id":started.battle_id,"outcome":"victory","roster":roster,"inventory":started.setup.inventory.duplicate(true),"xp":started.xp,"story_patch":started.story_patch.duplicate(true),"replay":{}}
+	var result := {"battle_id":started.battle_id,"outcome":"victory","roster":roster,"inventory":started.setup.inventory.duplicate(true),"story_patch":started.story_patch.duplicate(true),"replay":{}}
+	# 正式无等级档战果只携带固定奖励（含 xp 会被 _result_errors 拒绝）；旧等级规则档仍报经验。
+	if started.has("rewards"): result["rewards"]=started.rewards.duplicate(true)
+	else: result["xp"]=started.xp
+	return result
 static func complete_first(model: RefCounted) -> bool:
 	for id in range(1,6):
 		for event in Chapters.events(id):

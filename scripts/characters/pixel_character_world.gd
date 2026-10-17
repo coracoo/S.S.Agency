@@ -42,6 +42,9 @@ func get_presentation_origin() -> Vector3:
 
 func set_visual_elevation(value: float) -> void:
 	_visual_elevation = value
+	# 抬升归零（跳跃结束/菜单取消）立即同步显示位置，不等下一个_process；
+	# 其余状态仍由每帧_sync_presentation_position统一维护。
+	_sync_presentation_position()
 
 func _sync_presentation_position() -> void:
 	var origin := get_presentation_origin()

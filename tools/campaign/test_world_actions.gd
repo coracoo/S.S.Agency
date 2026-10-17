@@ -1,6 +1,7 @@
 # One-shot world interaction transactions, only under verified isolated user://.
 extends SceneTree
 const Fixture = preload("res://tools/campaign/world_action_fixture.gd")
+const SagaFixture = preload("res://tools/campaign/saga_transaction_fixture.gd")
 const Campaign = preload("res://scripts/rpg/campaign.gd")
 const Chapters = preload("res://scripts/campaign/chapter_catalog.gd")
 const SaveBase = preload("res://scripts/rpg/save_store.gd")
@@ -46,7 +47,7 @@ func _test_transactions(campaign: RefCounted, store: RefCounted) -> void:
 	var committed: Dictionary = campaign.safe_snapshot()
 	check(committed.inventory[definition.item_id] == original.inventory[definition.item_id] + int(definition.quantity),"pickup adds exact catalog amount")
 	check(committed.world_objects.get("temple_approach_bundle",false),"pickup completion durable")
-	check(committed.world.event_flags == original.world.event_flags and committed.roster == original.roster and committed.xp == original.xp,"pickup does not rewrite story or party")
+	check(committed.world.event_flags == original.world.event_flags and committed.roster == original.roster,"pickup does not rewrite story or party")
 	var duplicate: Dictionary = campaign.commit_world_object(world,"temple_approach_bundle")
 	check(duplicate.ok and duplicate.already_applied and campaign.safe_snapshot() == committed,"repeated pickup is idempotent")
 	check(not stale.commit_world_object(world,"temple_approach_bundle").ok and stale.safe_snapshot() == original,"stale instance cannot duplicate rewards or revert progress")
@@ -99,6 +100,8 @@ func _test_travel(model: RefCounted, objects: Script) -> void:
 		if not str(state.world.story_encounter).is_empty() and not state.saga.battles.has(id):
 			var started: Dictionary=model.begin_battle(str(state.world.story_encounter),state.world,Chapters.battle_patch(state.world))
 			if not started.ok or not model.apply_result(Fixture.victory(model,started)).ok: check(false,"fixture wins " + id); return
+		# 机关场次按真实门禁逐操作提交，不跳门直接完成。
+		if not SagaFixture.complete_mechanisms(model,id): check(false,"fixture mechanisms " + id); return
 		if not model.complete_saga_scene(model.safe_snapshot().world,id).ok: check(false,"fixture completes " + id); return
 	check(model.safe_snapshot().saga.chapter==3,"existing second chapter reaches third through registered story")
 	check(model.safe_snapshot().world_objects==prior,"story map transition preserves object state")

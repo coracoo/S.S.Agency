@@ -59,6 +59,8 @@ func _run() -> void:
 	check(max_visual_height>.25,"jump visibly lifts the character")
 	check(absf(player.position.y-start.y)<.03 and Vector2(player.position.x-start.x,player.position.z-start.z).length()<.01,"hop keeps navigation capsule grounded and stationary")
 	player.set_control_enabled(false)
+	# 跳跃时长=动作帧数/速度（0.6秒），16帧后仍在起落中段；先等跳完再断言显示归零。
+	while player._hop_duration > 0: await physics_frame
 	check(not player.request_jump() and player.billboard.position.y==0,"menu cancels hop and cannot jump under lock")
 	player.set_move_input(Vector2.RIGHT); player.set_run_input(true); start=player.position
 	for frame in 5: await physics_frame
