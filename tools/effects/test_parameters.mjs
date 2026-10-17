@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import {sample} from '../../web/effects/effect_parameters.mjs';
+const from=[100,200], to=[600,200], launch=5/24, hit=7/24;
+assert.equal(sample(0,from,to,.1,launch,hit).phase,1);
+assert.equal(sample(0,from,to,.25,launch,hit).phase,2);
+const midpoint = sample(0,from,to,.25,launch,hit).bolt;
+assert.ok(Math.abs(midpoint[0]-350)<1e-9 && Math.abs(midpoint[1]-200)<1e-9, "sub-nanopixel midpoint tolerance");
+assert.equal(sample(0,from,to,.3,launch,hit).phase,0);
+assert.equal(sample(0,from,to,.9,launch,hit,.6).phase,3);
+assert.equal(sample(0,from,to,.9,launch,hit,.6).impact,.6);
+assert.ok(Math.abs(sample(0,from,to,.9,launch,hit,.6).flash-Math.exp(-.6*13))<1e-12, 'preserve approved flash decay');
+console.log('PARAMETERS_JS_PASS 7');
