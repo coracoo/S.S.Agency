@@ -1,5 +1,4 @@
 # 会话只强持有所选队员；焰华双形态预载供战内即时切换，仍是六身份同一角色。
-class_name PartyAssetBundle
 extends RefCounted
 signal progress(completed: int, total: int)
 const Definition = preload("res://scripts/characters/pixel_character_definition.gd")

@@ -2,7 +2,12 @@
 class_name RpgBattleView
 extends Control
 signal presentation_tick
-const SKILL_BUTTON_SIZE := Vector2(288,88)
+const SKILL_BUTTON_SIZE := Vector2(459,136)
+const CommandMenu = preload("res://scripts/rpg/ui/actor_command_menu.gd")
+const CommandPlacement = preload("res://scripts/rpg/ui/actor_command_placement.gd")
+const PAPER := Color("F3EFE5")
+const INK := Color("252B29")
+const SEAL := Color("A64234")
 const PartyFraming = preload("res://scripts/rpg/ui/battle_party_framing.gd")
 const BattleEffects = preload("res://scripts/rpg/ui/imagegen_battle_effects.gd")
 const PhysicalVisualPolicy = preload("res://scripts/rpg/ui/physical_skill_visual_event_policy.gd")
@@ -44,6 +49,19 @@ var _nonce := 0
 var _display_actor_id := ""
 var _world_backdrop: Control
 var _canvas: Control
+var _canvas_origin := Vector2.ZERO
+var _command_menu: Control
+var _command_page := "commands"
+var _command_return_page := "commands"
+var _command_return_key := "skills"
+var _command_actor := ""
+var _command_anchor := Rect2()
+var _command_obstacles: Array[Rect2] = []
+var _command_placement: Dictionary = {}
+var _placement_page := ""
+var _placement_size := Vector2.ZERO
+var _requested_focus := "skills"
+var _battle_joypad_bindings: Array[Dictionary] = []
 var _hud: Dictionary = {}
 var _actors: Dictionary = {}
 var _danger_layer: Node2D
@@ -95,6 +113,7 @@ func _init() -> void:
 	_config = JSON.parse_string(FileAccess.get_file_as_string("res://data/rpg/presentation.json"))
 
 func _ready() -> void:
+	_install_battle_joypad_bindings()
 	if router == null and Router.session != null:
 		router = Router.session
 		campaign = router.campaign
@@ -120,6 +139,7 @@ func bind(battle_engine: RefCounted, campaign_model: RefCounted) -> void:
 	engine = battle_engine
 	campaign = campaign_model
 	pending_command = {}
+	_reset_command_ui()
 	processing = false
 	result_saved = false
 	if engine == null:
@@ -144,6 +164,10 @@ func select_command(kind: String, ability_id: String = "") -> void:
 	if processing or engine == null or (_active_popup() != null and _active_popup() != _items): return
 	var state: Dictionary = engine.snapshot()
 	if state.get("phase") != "action_selection" or state.get("outcome", "") != "" or state.actors[state.active_actor_id].side != "player": return
+	_command_return_page = _command_page if _command_page in ["skills", "items"] else "commands"
+	_command_return_key = ("skill:" if kind == "skill" else "item:") + ability_id if kind in ["skill", "item"] else kind
+	_command_page = "target"
+	_requested_focus = "confirm"
 	_nonce += 1
 	pending_command = {"command_id": "ui_%d_%d" % [state.revision, _nonce], "expected_revision": int(state.revision), "actor_id": state.active_actor_id, "kind": kind, "ability_id": ability_id, "target_ids": []}
 	last_error = ""
@@ -164,6 +188,7 @@ func select_target(actor_id: String) -> void:
 	if command_options(pending_command.kind, pending_command.ability_id).get("automatic", false): return
 	pending_command.target_ids = [actor_id]
 	_auto_targeted = false
+	_requested_focus = "confirm"
 	if _built: _render()
 
 func current_preview() -> Dictionary:
@@ -172,7 +197,13 @@ func current_preview() -> Dictionary:
 
 func cancel_command() -> void:
 	if processing or (_active_popup() != null and _active_popup() != _items): return
-	pending_command = {}
+	if not pending_command.is_empty():
+		pending_command = {}
+		_command_page = _command_return_page
+		_requested_focus = _command_return_key
+	elif _command_page != "commands":
+		_requested_focus = "item" if _command_page == "items" else "skills"
+		_command_page = "commands"
 	last_error = ""
 	if _built:
 		_items.visible = false
@@ -197,6 +228,7 @@ func confirm_command() -> void:
 		if _built: _render()
 		return
 	pending_command = {}
+	_reset_command_ui()
 	_consume_events(result.events, before)
 	if _built:
 		_render()
@@ -234,7 +266,7 @@ func _process(delta: float) -> void:
 		_shake_power = maxf(0.0, _shake_power - delta * 4.5)
 		var amount := _shake_power * _shake_power * 9.0
 		if _shake_power > 0.0:
-			_canvas.position = Vector2(randf_range(-amount, amount), randf_range(-amount, amount))
+			_canvas.position = _canvas_origin + Vector2(randf_range(-amount, amount), randf_range(-amount, amount))
 		else:
 			_resize_canvas()
 	presentation_tick.emit()
@@ -271,19 +303,19 @@ func command_options(kind: String, ability_id: String = "") -> Dictionary:
 	var command := {"command_id": "probe_%d" % _nonce, "expected_revision": int(state.revision), "actor_id": state.active_actor_id, "kind": kind, "ability_id": ability_id, "target_ids": []}
 	var first: Dictionary = engine.preview(command)
 	if first.legal: return {"preview": first, "targets": [], "automatic": true}
+	var nearest_invalid: Dictionary = first
 	var targets: Array[String] = []
 	var ids: Array = state.actors.keys()
 	ids.sort()
 	for id in ids:
 		command.target_ids = [id]
 		var value: Dictionary = engine.preview(command)
+		if not value.legal and value.get("reasons",[]).size() < nearest_invalid.get("reasons",[]).size(): nearest_invalid = value
 		if value.legal:
 			targets.append(id)
 			if not first.legal: first = value
-	# 没有合法目标时仍展示一个单体探测的资源/CD原因。
-	if targets.is_empty() and not ids.is_empty():
-		command.target_ids = [ids[0]]
-		first = engine.preview(command)
+	# 选理由最少的真实失败预览；避免自身技能缺蓝时附带一个错误敌方目标原因。
+	if targets.is_empty(): first = nearest_invalid
 	return {"preview": first, "targets": targets, "automatic": false}
 
 func _build() -> void:
@@ -309,45 +341,47 @@ func _build() -> void:
 	_fx_layer = BattleEffects.new()
 	_skill_effects_ready = _fx_layer.production_enabled()
 	_canvas.add_child(_fx_layer)
-	Art.panel(_canvas,Rect2(32,22,448,92))
-	Art.panel(_canvas,Rect2(494,22,854,92))
-	_hud.title = Kit.label(_canvas,"遭遇  ·  夜巡异象",Rect2(58,34,396,28),23)
+	# 常驻信息只保留薄纸页眉；操作簇独立锚定行动角色。
+	_paper_panel(_canvas,Rect2(24,20,1872,88),.92)
+	_hud.title = _paper_label(_canvas,"逢魔  /  夜巡交锋",Rect2(44,26,426,30),24)
 	if campaign != null and campaign.safe_snapshot().has("saga"):
 		var encounter: Dictionary = _catalog.get_definition("encounters", str(campaign.safe_snapshot().pending_battle.get("encounter_id", "")))
-		_hud.title.text = str(encounter.get("name", "夜巡异象"))
+		_hud.title.text = str(encounter.get("name", "夜巡交锋"))
 		_hud.title.tooltip_text = str(encounter.get("objective", ""))
-	_hud.turn = Kit.label(_canvas,"",Rect2(58,68,396,28),19)
-	Kit.muted(Kit.label(_canvas,"本轮顺序 · T 查看战术与下轮推演",Rect2(520,34,802,24),17))
-	_hud.queue = Kit.label(_canvas,"",Rect2(520,64,802,30),19)
+	_hud.turn = _paper_label(_canvas,"",Rect2(44,62,426,30),24)
+	_hud.queue = _paper_label(_canvas,"",Rect2(488,32,800,30),24)
 	_hud.queue.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	_hud.queue.mouse_filter = Control.MOUSE_FILTER_PASS
-	_hud.tactics = _art_button(_canvas,"战术",Rect2(1362,22,126,64),_toggle_tactics)
-	_hud.tactics.tooltip_text = "T · 查看敌方窗口、目标限制与速度轮序；不消耗行动"
-	_hud.log_toggle = _art_button(_canvas,"日志",Rect2(1500,22,112,64),_toggle_log)
-	_hud.exit = _art_button(_canvas,"返回标题",Rect2(1624,22,260,64),_return_title)
-	_hud.form = _art_button(_canvas,"焰华切换形态",Rect2(1480,94,404,52),switch_active_form)
-	_hud.form.add_theme_font_size_override("font_size",18)
+	_hud.tactics = _art_button(_canvas,"战术",Rect2(1332,30,120,56),_toggle_tactics)
+	_hud.tactics.tooltip_text = "T · 查看敌方意图、目标和本轮速度顺序；不消耗行动"
+	_hud.log_toggle = _art_button(_canvas,"日志",Rect2(1464,30,112,56),_toggle_log)
+	_hud.exit = _art_button(_canvas,"返回标题",Rect2(1588,30,288,56),_return_title)
+	_hud.form = _art_button(_canvas,"焰华切换形态",Rect2(1450,112,426,48),switch_active_form)
+	_hud.form.add_theme_font_size_override("font_size",24)
 	_hud.form.hide()
-	_hud.prompt = Kit.label(_canvas,"选择技能 → 点击目标 → 确认　／　Esc 取消选择",Rect2(48,812,1824,28),18)
-	_hud.prompt.add_theme_color_override("font_outline_color", Color("101918"))
-	_hud.prompt.add_theme_constant_override("outline_size", 5)
-	# 紧凑底栏保留2×2技能与摘要，留出更完整的战场空间。
-	for index in range(4):
-		var x := 672 + (index % 2) * 300
-		var y := 852 + (index / 2) * 100
-		var button := _art_button(_canvas,"技能",Rect2(Vector2(x,y),SKILL_BUTTON_SIZE))
-		button.pressed.connect(_select_skill_slot.bind(index))
-		_skill_buttons.append(button)
-	for row in [["attack_physical","物理普攻",852],["defend","防御",916],["item","道具",980]]:
-		_basic_buttons[row[0]] = _art_button(_canvas,row[1],Rect2(1284,row[2],278,60),_basic_pressed.bind(row[0]))
-	_basic_buttons.attack_magic = _art_button(_canvas,"中性魔攻",Rect2(1574,852,310,60),select_command.bind("attack_magic"))
-	_hud.cancel = _art_button(_canvas,"取消选择",Rect2(1574,916,310,60),cancel_command)
-	_hud.confirm = _art_button(_canvas,"确认行动",Rect2(1574,980,310,60),confirm_command,true)
-	_preview_panel = Art.panel(_canvas,Rect2(680,672,1204,136))
-	_hud.preview_title = Kit.label(_preview_panel,"",Rect2(24,16,784,30),22)
-	_hud.preview_cost = Kit.muted(Kit.label(_preview_panel,"",Rect2(824,20,356,26),18))
-	_hud.preview_cost.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	_hud.preview = Kit.scroll_text(_preview_panel,Rect2(24,54,1156,64),18)
+	_hud.prompt = Kit.label(_canvas,"",Rect2(32,954,1840,32),24)
+	_hud.prompt.add_theme_color_override("font_color",PAPER)
+	_hud.prompt.add_theme_color_override("font_outline_color", INK)
+	_hud.prompt.add_theme_constant_override("outline_size", 4)
+	_command_menu = CommandMenu.new()
+	_command_menu.name = "ActorCommandMenu"
+	_canvas.add_child(_command_menu)
+	_command_menu.command_requested.connect(select_command)
+	_command_menu.page_requested.connect(_open_command_page)
+	_command_menu.back_requested.connect(cancel_command)
+	_command_menu.confirm_requested.connect(confirm_command)
+	_command_menu.present({"page":"commands"})
+	_skill_buttons = _command_menu.skill_buttons
+	_basic_buttons = _command_menu.basic_buttons
+	_hud.confirm = _command_menu.confirm_button
+	_hud.cancel = _command_menu.back_button
+	# 保留旧预览查询接口；目标层的可见摘要由轻量命令簇承担。
+	_preview_panel = Control.new()
+	_canvas.add_child(_preview_panel)
+	_preview_panel.hide()
+	_hud.preview_title = Kit.label(_preview_panel,"",Rect2(),27)
+	_hud.preview_cost = Kit.label(_preview_panel,"",Rect2(),24)
+	_hud.preview = Kit.scroll_text(_preview_panel,Rect2(),24)
 	_popup_shade = ColorRect.new()
 	_popup_shade.size = Vector2(1920, 1080)
 	_popup_shade.color = Color(0.01, 0.018, 0.026, 0.7)
@@ -383,7 +417,8 @@ func _build() -> void:
 	_tactics_panel.anchor_left=.12; _tactics_panel.anchor_right=.88
 	_tactics_panel.anchor_top=.14; _tactics_panel.anchor_bottom=.9
 	_tactics_panel.close_requested.connect(_close_popup)
-	_hud.latest = Kit.label(_canvas, "", Rect2(50, 1052, 1550, 26), 18)
+	_hud.latest = _paper_label(_canvas, "", Rect2(488,68,800,28), 20)
+	_hud.latest.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	_result = Art.panel(_canvas, Rect2(435, 208, 1050, 688))
 	_result.mouse_filter = Control.MOUSE_FILTER_STOP
 	_hud.result_title = Kit.label(_result, "", Rect2(52, 42, 946, 66), 44)
@@ -400,12 +435,26 @@ func _art_button(parent: Node, text: String, rect: Rect2, action: Callable = Cal
 	button.custom_minimum_size = Vector2.ZERO
 	Art.center_text(button,24,24,10 if rect.size.y<=92 else 24)
 	button.size = rect.size
+	for state in ["normal","hover","pressed","disabled"]:
+		var style := StyleBoxFlat.new()
+		style.bg_color = PAPER.darkened(.04) if state == "pressed" else PAPER
+		style.border_color = SEAL if primary or state == "hover" else Color(INK,.35)
+		style.border_width_bottom = 1
+		style.set_content_margin_all(8)
+		button.add_theme_stylebox_override(state,style)
+	var focus := StyleBoxFlat.new()
+	focus.bg_color = Color.TRANSPARENT
+	focus.border_color = SEAL
+	focus.set_border_width_all(3)
+	button.add_theme_stylebox_override("focus",focus)
+	for state in ["font_color","font_hover_color","font_pressed_color","font_focus_color"]: button.add_theme_color_override(state,INK)
+	button.add_theme_font_size_override("font_size",26)
 	return button
 
 func _focus_cycle(buttons: Array) -> void:
 	var enabled: Array[Button] = []
 	for button in buttons:
-		if button is Button and button.visible and not button.disabled: enabled.append(button)
+		if button is Button and button.is_visible_in_tree() and not button.disabled: enabled.append(button)
 	for index in enabled.size():
 		var previous := enabled[posmod(index - 1, enabled.size())].get_path()
 		var next := enabled[(index + 1) % enabled.size()].get_path()
@@ -421,7 +470,8 @@ func _resize_canvas() -> void:
 	var available := get_viewport_rect().size
 	var factor := minf(available.x / 1920.0, available.y / 1080.0)
 	_canvas.scale = Vector2.ONE * factor
-	_canvas.position = (available - Vector2(1920, 1080) * factor) / 2.0
+	_canvas_origin = (available - Vector2(1920, 1080) * factor) / 2.0
+	_canvas.position = _canvas_origin
 
 func _build_actors() -> void:
 	if is_instance_valid(_fx_layer): _fx_layer.clear()
@@ -522,7 +572,7 @@ func _build_actors() -> void:
 		var card: Panel
 		var avatar: TextureRect
 		if ally:
-			card = Art.panel(_canvas,Rect2(48+slot*206,852,194,188),true)
+			card = _paper_panel(_canvas,Rect2(24+slot*456,998,444,76),.96)
 			if _hd_enabled():
 				var identity: String = actor.get("identity_id", "")
 				var definition := _actor_definition(actor)
@@ -547,7 +597,7 @@ func _build_actors() -> void:
 			var card_x: float = (55.0 if _config.near_side == "right" else 1535.0) if actor.class_id == "gatekeeper" else foot.x - 164
 			var card_y := 174.0 + slot * 4
 			if actor.class_id != "gatekeeper": card_y = minf(card_y, foot.y - float(layout[2]) - 202.0)
-			card = Art.panel(_canvas,Rect2(foot.x-90,154,180,170) if compact else Rect2(card_x,card_y,286,170),true)
+			card = _paper_panel(_canvas,Rect2(foot.x-94,154,188,170) if compact else Rect2(card_x,card_y,286,170),.92)
 		var content_width := card.size.x-32
 		var title := Kit.label(card,"",Rect2(52 if ally else 16,14,126 if ally else content_width,28),20 if ally else 18)
 		title.clip_text = true
@@ -566,6 +616,18 @@ func _build_actors() -> void:
 			mp.position.y = 88
 			status.position.y = 118
 			status.size.y = 24
+		if ally:
+			title.position = Vector2(52,8); title.size = Vector2(150,28)
+			title.add_theme_font_size_override("font_size",24)
+			hp.position = Vector2(210,6); hp.size = Vector2(222,28)
+			mp.position = Vector2(210,38); mp.size = Vector2(222,28)
+			hpbar.position = Vector2(210,34); hpbar.size = Vector2(214,3)
+			mpbar.position = Vector2(210,67); mpbar.size = Vector2(214,3)
+			status.position = Vector2(12,40); status.size = Vector2(190,28)
+			status.add_theme_font_size_override("normal_font_size",20)
+		for label in [title,hp,mp]: label.add_theme_color_override("font_color",INK)
+		for label in [hp,mp]: label.add_theme_font_size_override("font_size",24 if not compact else 22)
+		status.add_theme_color_override("default_color",INK)
 		var intent: Label
 		if not ally:
 			var intent_width := 184.0 if compact else 286.0
@@ -595,7 +657,7 @@ func _build_actors() -> void:
 	# 编队技能图集在人物就位后预解码，首场施放不再同步解码造成顿帧。
 	_warm_skill_effects(state)
 	# 模态保持在人物及点选热区前。
-	for node in [_preview_panel, _popup_shade, _items, _log_panel, _tactics_panel, _result]: _canvas.move_child(node, -1)
+	for node in [_command_menu, _preview_panel, _popup_shade, _items, _log_panel, _tactics_panel, _result]: _canvas.move_child(node, -1)
 
 # 只预解码图集缓存，不创建任何动作/状态，也不触碰规则结算。
 func _warm_skill_effects(state: Dictionary) -> void:
@@ -673,11 +735,11 @@ func _render() -> void:
 		if w.mp.visible: content_bottom = maxf(content_bottom, w.mp.position.y + w.mp.size.y)
 		if w.mpbar != null: content_bottom = maxf(content_bottom, w.mpbar.position.y + w.mpbar.size.y)
 		if w.status.visible: content_bottom = maxf(content_bottom, w.status.position.y + w.status.size.y)
-		w.card.size.y = content_bottom + (28.0 if row.side == "player" else (20.0 if w.card.size.x < 300 else 22.0))
+		w.card.size.y = 76.0 if row.side == "player" else content_bottom + (20.0 if w.card.size.x < 300 else 22.0)
 		w.sprite.modulate = Color(0.4, 0.4, 0.4, 0.55) if row.hp == 0 else Color.WHITE
 		w.ring.visible = row.active or preview.effective_target_ids.has(row.actor_id)
 		w.ring.default_color = Kit.color("vermilion_500") if preview.effective_target_ids.has(row.actor_id) else Kit.color("ui_focus")
-		w.target.disabled = processing or pending_command.is_empty() or automatic
+		w.target.disabled = processing or pending_command.is_empty() or automatic or not command_options(pending_command.kind, pending_command.ability_id).get("targets", []).has(row.actor_id)
 		w.target.add_theme_stylebox_override("normal", Art.style("focus", 12) if preview.effective_target_ids.has(row.actor_id) else StyleBoxEmpty.new())
 		w.target.tooltip_text = "%s\n%s" % [row.label, w.status.tooltip_text]
 		if w.intent != null:
@@ -685,48 +747,20 @@ func _render() -> void:
 			w.intent.text = _enemy_intent_summary(row.intent,full_intent)
 			w.intent.tooltip_text = full_intent
 			w.target.tooltip_text += "\n" + full_intent
-	for index in range(4):
-		var button := _skill_buttons[index]
-		button.disabled = processing or model.commands.skills.size() <= index or not state.outcome.is_empty()
-		if model.commands.skills.size() <= index:
-			button.text = "技能槽 %d" % (index + 1)
-			continue
-		var slot: Dictionary = model.commands.skills[index]
-		var options := command_options("skill", slot.id)
-		var p: Dictionary = options.get("preview", {})
-		var reasons: Array = p.get("reasons", [])
-		var reason: String = str(reasons[0]) if not p.get("legal", false) and not reasons.is_empty() else slot.target_label
-		if not processing and not p.get("legal", false): button.disabled = true
-		var effect_text := Presenter.card_summary(slot, p, _catalog)
-		var full_effect_text := Presenter.ability_summary(slot, p, _catalog)
-		var cd_text := " · CD%d" % p.get("cooldown", slot.cooldown) if p.get("cooldown", slot.cooldown) > 0 else ""
-		button.text = "%s　MP %d%s\n%s" % [slot.name, p.get("mp_cost", slot.mp_cost), cd_text, (slot.target_short + " · " + effect_text) if p.get("legal", false) or processing else reason]
-		# 名称与费用独立成行；第二行只呈现模型摘要，完整效果继续保留悬停及行动预览。
-		for font_size in [20,18,17]:
-			button.add_theme_font_size_override("font_size", font_size)
-			if Array(button.text.split("\n")).all(func(line): return Kit.font.get_string_size(line,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x <= SKILL_BUTTON_SIZE.x-48): break
-		button.size = SKILL_BUTTON_SIZE
-		Art.selected(button, pending_command.get("kind", "") == "skill" and pending_command.get("ability_id", "") == slot.id)
-		button.tooltip_text = button.text + "\n" + full_effect_text + "\n" + slot.target_label + ("\n" + " / ".join(reasons) if not reasons.is_empty() else "")
-	for kind in _basic_buttons:
-		_basic_buttons[kind].disabled = processing or active.is_empty() or not state.outcome.is_empty()
-		Art.selected(_basic_buttons[kind], pending_command.get("kind", "") == kind)
-	_basic_buttons.attack_magic.visible = model.commands.basic.has("attack_magic")
-	_hud.confirm.disabled = processing or not preview.legal
-	_hud.cancel.disabled = processing or pending_command.is_empty()
 	_hud.tactics.disabled = processing or not state.outcome.is_empty() or state.get("phase") != "action_selection"
 	var is_homura: bool = active.get("identity_id") == "homura"
 	var unlocked: bool = active.get("unlocked_forms", []).has("mage")
 	_hud.form.visible = is_homura
 	_hud.form.disabled = processing or not unlocked or state.get("phase") != "action_selection" or state.active_actor_id != active.get("actor_id")
 	_hud.form.text = ("焰华 · 法形 → 剑形" if active.get("form_id") == "mage" else "焰华 · 剑形 → 法形") if unlocked else "焰华 · 法形第一夜后解锁"
+	if unlocked: _hud.form.text += "  F / Y"
 	_hud.form.tooltip_text = "共用HP/MP、CD、状态、装备和当前行动槽；切换不消耗行动，不治疗、不补蓝"
 	var auto_single: bool = _auto_targeted and pending_command.get("target_ids", []).size() == 1
 	var selection_prompt := ("全体目标已选，可直接确认" if preview.effective_target_ids.size() > 1 else "目标已选，可直接确认") if automatic else ("唯一目标已自动选中，可直接确认" if auto_single else "点击目标后确认")
 	if not automatic and not auto_single and preview.legal and not preview.effective_target_ids.is_empty(): selection_prompt = "目标已选，可确认"
 	_hud.prompt.text = last_error if not last_error.is_empty() else (selection_prompt + " · Esc 可取消" if not pending_command.is_empty() else "选择技能 → 点击目标 → 确认　／　Esc 取消选择")
-	_preview_panel.visible = not pending_command.is_empty()
-	if _preview_panel.visible:
+	_preview_panel.visible = false
+	if not pending_command.is_empty():
 		_hud.preview_title.text = Presenter.ability_name(pending_command.ability_id if not pending_command.ability_id.is_empty() else pending_command.kind, _catalog)
 		var cost_parts: Array[String] = ["MP %d" % preview.mp_cost]
 		if int(preview.get("cooldown", 0)) > 0: cost_parts.append("CD %d" % preview.cooldown)
@@ -747,6 +781,7 @@ func _render() -> void:
 		_hud["item_" + id].tooltip_text = "\n".join(Presenter.preview_lines(options.get("preview", {}), state, _catalog))
 	_hud.log.text = "\n".join(_log_lines)
 	_hud.latest.text = _log_lines.back() if not _log_lines.is_empty() else "HP/MP与库存跨战保留 · 道具占用一次行动"
+	_render_command_menu(state, model, active, preview)
 	_sync_modal_focus()
 
 # 状态名与完整时钟各写一次；隐藏MP的空位用于完整行，保留超量状态滚动。
@@ -830,6 +865,7 @@ func switch_active_form() -> Dictionary:
 		if _built: _render()
 		return result
 	pending_command = {}
+	_reset_command_ui()
 	last_error = ""
 	_display_actor_id = ""
 	_sync_hd_forms(engine.snapshot())
@@ -860,18 +896,15 @@ func _select_skill_slot(index: int) -> void:
 	if index < model.commands.skills.size(): select_command("skill", model.commands.skills[index].id)
 
 func _basic_pressed(kind: String) -> void:
-	if _active_popup() != null: return
-	if kind == "item":
-		if not processing:
-			_items.visible = true
-			_sync_modal_focus()
+	if kind == "item": _open_command_page("items")
 	else: select_command(kind)
 
 func _toggle_log() -> void:
 	if _active_popup() == _log_panel: _close_popup(); return
 	if _active_popup() != null: return
 	_log_panel.visible = true
-	_sync_modal_focus()
+	_sync_modal_focus() # 在隐藏角色菜单前记下实际焦点。
+	_render()
 
 func _toggle_tactics() -> void:
 	if _active_popup() == _tactics_panel: _close_popup(); return
@@ -884,12 +917,13 @@ func _toggle_tactics() -> void:
 		encounter = _catalog.get_definition("encounters",encounter_id)
 	_tactics_panel.present(TacticsPresenter.describe(state,_catalog,encounter))
 	_sync_modal_focus()
+	_render()
 
 func _close_popup() -> void:
 	_items.hide()
 	_log_panel.hide()
 	_tactics_panel.hide()
-	_sync_modal_focus()
+	_render()
 
 func _active_popup() -> Control:
 	for node in [_exit_confirmation, _asset_error_panel, _result, _items, _log_panel, _tactics_panel]:
@@ -1236,13 +1270,20 @@ func _retry_hd_assets() -> void:
 			_render()
 			_check_result()
 func _exit_tree() -> void:
+	for binding in _battle_joypad_bindings: InputMap.action_erase_event(binding.action,binding.event)
+	_battle_joypad_bindings.clear()
 	if _asset_loading:
 		var session := _asset_session()
 		if session != null and session == ChapterSession.current: session.cancel_asset_preparation(_asset_request)
 	_cancel_presentation()
 
 
-func _unhandled_key_input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
+	var form_shortcut: bool = (event is InputEventKey and event.pressed and not event.echo and (event.physical_keycode == KEY_F or event.keycode == KEY_F)) or (event is InputEventJoypadButton and event.pressed and event.button_index == JOY_BUTTON_Y)
+	if form_shortcut and _active_popup() == null and _hud.form.visible and not _hud.form.disabled:
+		switch_active_form()
+		get_viewport().set_input_as_handled()
+		return
 	if event is InputEventKey and event.pressed and not event.echo and (event.physical_keycode == KEY_T or event.keycode == KEY_T):
 		_toggle_tactics()
 		get_viewport().set_input_as_handled()
@@ -1648,3 +1689,126 @@ func presentation_obstructions() -> Array[Dictionary]:
 			var card_bounds := Rect2(card.position,card.size)
 			if body_bounds.intersects(card_bounds): overlaps.append({"actor_id":actor_id,"card_actor_id":card_id,"body":body_bounds,"card":card_bounds})
 	return overlaps
+
+
+func _paper_panel(parent: Node, rect: Rect2, opacity: float = .94) -> Panel:
+	var panel := Panel.new()
+	panel.position = rect.position; panel.size = rect.size
+	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var paper := StyleBoxFlat.new()
+	paper.bg_color = Color(PAPER,opacity)
+	paper.border_color = Color(INK,.25)
+	paper.border_width_bottom = 1
+	panel.add_theme_stylebox_override("panel",paper)
+	parent.add_child(panel)
+	return panel
+
+func _paper_label(parent: Node, text: String, rect: Rect2, font_size: int) -> Label:
+	var label := Kit.label(parent,text,rect,font_size)
+	label.add_theme_color_override("font_color",INK)
+	return label
+
+func _reset_command_ui() -> void:
+	_command_page = "commands"
+	_command_actor = ""
+	_command_anchor = Rect2()
+	_placement_page = ""
+	_command_placement = {}
+	_requested_focus = "skills"
+
+func _open_command_page(page: String) -> void:
+	if processing or engine == null or _active_popup() != null: return
+	if page not in ["commands","skills","items"]: return
+	pending_command = {}
+	_command_page = page
+	_requested_focus = "" # render chooses first enabled leaf once.
+	if _built: _render()
+
+func _actor_ui_bounds(actor_id: String) -> Rect2:
+	if is_instance_valid(_world_backdrop):
+		var projected: Rect2 = _world_backdrop.actor_screen_bounds(actor_id)
+		if projected.has_area(): return projected
+	if not _actors.has(actor_id): return Rect2()
+	var sprite: Node2D = _actors[actor_id].sprite
+	var foot: Vector2 = sprite.get_meta("foot_point",sprite.position)
+	var height: float = sprite.get_meta("content_height",300.0)
+	return Rect2(foot-Vector2(110,height),Vector2(220,height+20))
+
+func _freeze_command_anchor(actor_id: String) -> void:
+	_command_actor = actor_id
+	_command_anchor = _actor_ui_bounds(actor_id)
+	_command_obstacles.clear()
+	for id in _actors:
+		var bounds := _actor_ui_bounds(str(id))
+		if bounds.has_area(): _command_obstacles.append(bounds.grow(16))
+		var widgets: Dictionary = _actors[id]
+		for key in ["card","intent"]:
+			var control: Control = widgets.get(key)
+			if is_instance_valid(control) and control.is_visible_in_tree(): _command_obstacles.append(Rect2(control.position,control.size).grow(10))
+	if _hud.form.visible: _command_obstacles.append(Rect2(_hud.form.position,_hud.form.size).grow(8))
+	_placement_page = ""
+
+func _render_command_menu(state: Dictionary, model: Dictionary, active: Dictionary, preview: Dictionary) -> void:
+	var available: bool = not processing and not active.is_empty() and active.get("side") == "player" and state.get("phase") == "action_selection" and str(state.get("outcome","")).is_empty() and _active_popup() == null
+	_command_menu.visible = available
+	_hud.prompt.visible = false # 选择/原因显示在目标单行中，避免叠在底部停靠卡上。
+	if not available: return
+	var actor_id := str(state.active_actor_id)
+	if _command_actor != actor_id:
+		_command_page = "target" if not pending_command.is_empty() else "commands"
+		_requested_focus = "skills"
+		_freeze_command_anchor(actor_id)
+	var skills: Array[Dictionary] = []
+	for slot in model.commands.skills:
+		var options := command_options("skill",str(slot.id))
+		var p: Dictionary = options.get("preview",{})
+		var remaining := maxi(0,int(active.get("cooldown_until",{}).get(slot.id,0))-int(active.get("slot_count",0)))
+		var cd_text := "冷却 %d" % remaining if remaining > 0 else ("CD %d" % int(p.get("cooldown",0)) if int(p.get("cooldown",0)) > 0 else "")
+		skills.append({"id":slot.id,"name":slot.name,"mp_cost":int(p.get("mp_cost",slot.mp_cost)),"cd_text":cd_text,"legal":bool(p.get("legal",false)),"reasons":p.get("reasons",[]) if not p.get("legal",false) else [],"summary":Presenter.card_summary(slot,p,_catalog),"full_summary":Presenter.ability_summary(slot,p,_catalog),"target_label":slot.target_short})
+	var items: Array[Dictionary] = []
+	for id in ITEM_ORDER:
+		var p: Dictionary = command_options("item",id).get("preview",{})
+		items.append({"id":id,"name":_catalog.get_definition("items",id).name,"count":model.inventory.get(id,0),"legal":bool(p.get("legal",false)),"reasons":p.get("reasons",[]) if not p.get("legal",false) else []})
+	var target_names: Array[String] = []
+	for id in preview.get("effective_target_ids",[]): target_names.append(Presenter.actor_name(state.actors[id],_catalog))
+	var selected := Presenter.ability_name(str(pending_command.get("ability_id","")) if not str(pending_command.get("ability_id","")).is_empty() else str(pending_command.get("kind","")),_catalog) if not pending_command.is_empty() else ""
+	var target_text := "、".join(target_names) if not target_names.is_empty() else "请选择目标"
+	if not preview.get("legal",false) and not pending_command.is_empty(): target_text = "；".join(preview.get("reasons",[]))
+	var cost_text := "MP %d" % int(preview.get("mp_cost",0))
+	if int(preview.get("cooldown",0)) > 0: cost_text += " · CD %d" % int(preview.cooldown)
+	if int(preview.get("item_cost",0)) > 0: cost_text += " · 道具 %d" % int(preview.item_cost)
+	_command_menu.present({"page":_command_page,"actor_name":Presenter.actor_name(active,_catalog),"skills":skills,"basics":model.commands.basic,"items":items,"selected_label":selected,"cost_text":cost_text,"target_text":target_text,"prompt":_hud.prompt.text + "\n" + _hud.preview.text,"confirm_legal":bool(preview.get("legal",false))})
+	var menu_size: Vector2 = _command_menu.required_size_for_page(_command_page,false)
+	if _placement_page != _command_page or not _placement_size.is_equal_approx(menu_size):
+		_command_placement = CommandPlacement.choose(_command_anchor,menu_size,_command_menu.required_size_for_page(_command_page,true),_command_obstacles)
+		_command_menu.set_placement(_command_placement.rect,_command_placement.docked)
+		_placement_page = _command_page
+		_placement_size = menu_size
+	# 点选目标与确认共享一个封闭焦点环，其他页无法进入背景热区。
+	var controls: Array = _command_menu.enabled_controls()
+	if _command_page == "target":
+		for id in _actors:
+			var target: Button = _actors[id].target
+			if not target.disabled: controls.append(target)
+	_focus_cycle(controls)
+	for id in _actors:
+		_actors[id].target.focus_mode = Control.FOCUS_ALL if controls.has(_actors[id].target) else Control.FOCUS_NONE
+	var focused := get_viewport().gui_get_focus_owner()
+	if not _requested_focus.is_empty():
+		_command_menu.focus_key(_requested_focus)
+		_requested_focus = ""
+		focused = get_viewport().gui_get_focus_owner()
+	if not controls.has(focused) and not controls.is_empty(): controls[0].grab_focus()
+
+func command_ui_state() -> Dictionary:
+	return {"page":_command_page,"actor_id":_command_actor,"anchor_rect":_command_anchor,"menu_rect":Rect2(_command_menu.position,_command_menu.size) if is_instance_valid(_command_menu) else Rect2(),"docked":_command_placement.get("docked",false),"obstruction_area":_command_placement.get("obstruction_area",0.0),"protected_rects":_command_obstacles.duplicate()}
+
+# 本机默认ui_accept/ui_cancel只有键盘；补齐战斗期间的手柄确认/返回，离开时还原。
+func _install_battle_joypad_bindings() -> void:
+	for mapping in [["ui_accept",JOY_BUTTON_A],["ui_cancel",JOY_BUTTON_B]]:
+		var event := InputEventJoypadButton.new()
+		event.device = -1
+		event.button_index = mapping[1]
+		if not InputMap.action_has_event(mapping[0],event):
+			InputMap.action_add_event(mapping[0],event)
+			_battle_joypad_bindings.append({"action":mapping[0],"event":event})

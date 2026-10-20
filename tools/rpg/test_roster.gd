@@ -326,10 +326,23 @@ static func _test_card_bounds(catalog, failures: Array[String]) -> void:
 		view.bind(engine, null)
 		tree.root.add_child(view)
 		await tree.process_frame
-		for button in view._skill_buttons:
-			F.expect(button.size.x <= 336, class_id + "技能按钮不因长文案撑出固定卡位", failures)
-			for line in button.text.split("\n"):
-				F.expect(button.get_theme_font("font").get_string_size(line, HORIZONTAL_ALIGNMENT_LEFT, -1, button.get_theme_font_size("font_size")).x <= button.size.x - 68, class_id + "卡内文案在金色内缘外另留20像素：" + line, failures)
+		var before: Dictionary = engine.snapshot()
+		view._open_command_page("skills")
+		await tree.process_frame
+		F.expect(view.command_ui_state().page == "skills" and view._command_menu.is_visible_in_tree(),class_id+"实际打开可见技能页后测量叶子",failures)
+		F.expect(engine.snapshot() == before,class_id+"打开技能页只改变呈现，不改变模型",failures)
+		var projected: Dictionary = Presenter.present(engine.snapshot(),catalog)
+		F.expect(view._skill_buttons.size() == projected.commands.skills.size(),class_id+"真实技能条目数与模型一致",failures)
+		for index in view._skill_buttons.size():
+			var button: Button = view._skill_buttons[index]
+			_assert_skill_leaf(button,class_id+"第%d技能" % (index+1),failures)
+			if index >= projected.commands.skills.size(): continue
+			var slot: Dictionary = projected.commands.skills[index]
+			var title: Label = button.get_node_or_null("Title") as Label
+			var resource: Label = button.get_node_or_null("Resource") as Label
+			if title != null: F.expect(title.text == slot.name,class_id+"技能标题保留真实技能名",failures)
+			var preview: Dictionary = view.command_options("skill",str(slot.id)).get("preview",{})
+			if resource != null: F.expect(resource.text.contains("MP %d" % int(preview.get("mp_cost",slot.mp_cost))),class_id+"资源子Label显示真实预览费用",failures)
 		view.free()
 
 static func _test_low_level_cards(catalog, failures: Array[String]) -> void:
@@ -343,9 +356,41 @@ static func _test_low_level_cards(catalog, failures: Array[String]) -> void:
 			view.bind(engine, null)
 			tree.root.add_child(view)
 			await tree.process_frame
+			view._open_command_page("skills")
+			await tree.process_frame
+			F.expect(view.command_ui_state().page == "skills" and view._command_menu.is_visible_in_tree(),"低等级锁定原因在真实可见技能页检查",failures)
 			F.expect(view._skill_buttons.size() == 4, "低等级仍固定四卡", failures)
 			for index in range(4):
 				var locked: bool = [1, 1, 2, 3][index] > level
 				F.expect(view._skill_buttons[index].disabled == locked, "L%d %s 第%d卡准确解锁" % [level, class_id, index + 1], failures)
-				if locked: F.expect(view._skill_buttons[index].text.contains("尚未解锁"), "锁定卡明确标注原因", failures)
+				if locked:
+					var button: Button = view._skill_buttons[index]
+					_assert_skill_leaf(button,"L%d %s 第%d锁定技能" % [level,class_id,index+1],failures)
+					var reason: Label = button.get_node_or_null("Reason") as Label
+					F.expect(reason != null and reason.is_visible_in_tree() and reason.text.contains("尚未解锁"),"锁定卡以可见Reason子Label明确标注原因",failures)
+					F.expect(button.tooltip_text.contains("尚未解锁"),"锁定原因同时保留完整tooltip",failures)
 			view.free()
+
+static func _assert_skill_leaf(button: Button, context: String, failures: Array[String]) -> void:
+	F.expect(button.is_visible_in_tree(),context+"叶子必须实际可见",failures)
+	var content: Control = button.get_parent() as Control
+	F.expect(content != null and Rect2(Vector2.ZERO,content.size).encloses(button.get_rect()),context+"按钮位于真实滚动内容边界内",failures)
+	var visible_body := false
+	for key in ["Title","Resource","Reason","Detail"]:
+		var label: Label = button.get_node_or_null(key) as Label
+		F.expect(label != null,context+"必须有真实"+key+"子Label",failures)
+		if label == null: continue
+		var minimum_size := 27 if key == "Title" else 24
+		F.expect(label.get_theme_font_size("font_size") >= minimum_size,context+key+"不得缩字号消除溢出",failures)
+		if key in ["Title","Resource"]:
+			F.expect(label.is_visible_in_tree() and not label.text.strip_edges().is_empty(),context+key+"必须可见且有文本，不能测空Button.text假通过",failures)
+		if not label.is_visible_in_tree() or label.text.strip_edges().is_empty(): continue
+		if key in ["Reason","Detail"]: visible_body = true
+		var child_rect := label.get_rect()
+		F.expect(child_rect.position.x >= 12-.1 and child_rect.end.x <= button.size.x-12+.1,context+key+"在真实左右内边距内",failures)
+		F.expect(child_rect.position.y >= 8-.1 and child_rect.end.y <= button.size.y-8+.1,context+key+"在真实上下内边距内",failures)
+		var font: Font = label.get_theme_font("font")
+		var line_count := maxi(1,label.get_line_count())
+		var text_height := font.get_height(label.get_theme_font_size("font_size"))*line_count+float(label.get_theme_constant("line_spacing"))*maxi(0,line_count-1)
+		F.expect(text_height <= label.size.y+.1,context+key+"实际字体及换行高度不溢出："+str(text_height)+" > "+str(label.size.y),failures)
+	F.expect(visible_body,context+"必须实际展示详情或禁用原因",failures)

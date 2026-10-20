@@ -160,6 +160,7 @@ static func _test_launcher_save_boundary(failures: Array[String]) -> void:
 	Router.clear_session()
 
 static func _test_battle_scene_ready(View, catalog, failures: Array[String]) -> void:
+	var Presenter = load("res://scripts/rpg/ui/battle_presenter.gd")
 	var actors := {"p_swordsman": F.actor("swordsman", "p_swordsman"), "p_guard": F.actor("guard", "p_guard"), "p_healer": F.actor("healer", "p_healer"), "e_1": F.enemy("hound", "e_1")}
 	var engine := Battle.new(catalog)
 	engine.set_policy(Policy.new())
@@ -169,26 +170,46 @@ static func _test_battle_scene_ready(View, catalog, failures: Array[String]) -> 
 	var tree: SceneTree = Engine.get_main_loop()
 	tree.root.add_child(view)
 	await tree.process_frame
-	F.expect(view._skill_buttons[0].text.split("\n").size() <= 2, "技能卡只用两行，不挤出和纸面板", failures)
+	F.expect(view.command_ui_state().page == "commands" and view._command_menu._skills_entry.is_visible_in_tree(),"真实战斗先显示行动入口，技能页尚未展开",failures)
+	view._command_menu._skills_entry.pressed.emit()
+	await tree.process_frame
+	var skill_title: Label = view._skill_buttons[0].get_node("Title")
+	F.expect(view.command_ui_state().page == "skills" and view._skill_buttons[0].is_visible_in_tree() and skill_title.is_visible_in_tree() and skill_title.text == "重斩", "实际展开技能页后检查真实标题子Label", failures)
+	F.expect(_label_text_height(skill_title) <= skill_title.size.y+.1,"技能标题按实际字高完整留在子Label内",failures)
 	F.expect(view._skill_buttons.size() == 4 and view._skill_buttons[0].tooltip_text.contains("150%物攻"), "真实战斗ready保留四槽，完整悬停详情含真实伤害摘要", failures)
 	F.expect(view._skill_buttons[3].tooltip_text.contains("2次行动"), "技能完整详情的状态时长含行动单位", failures)
+	var projected: Dictionary = Presenter.present(engine.snapshot(),catalog)
+	var slot: Dictionary = projected.commands.skills[0]
+	var preview: Dictionary = view.command_options("skill",str(slot.id)).get("preview",{})
+	var full_summary: String = Presenter.ability_summary(slot,preview,catalog)
+	F.expect(not full_summary.is_empty() and view._skill_buttons[0].tooltip_text.contains(full_summary),"技能tooltip保留Presenter的完整伤害/效果说明",failures)
 	if OS.get_environment("RPG_TEST_LEGACY_CONTRACTS") == "1":
 		F.expect(view._actors.e_1.sprite.get_child(0).flip_h, "历史契约：左向敌图必须镜像面向右侧我方", failures)
 	else:
 		F.expect(not view._actors.e_1.sprite.get_child(0).flip_h and view._config.enemy_art.hound == "res://assets/chars/enemies/current/hound.png", "正式疾行敌图原生右向，在左侧不重复镜像", failures)
 	F.expect(view._actors.p_swordsman.sprite.get_child(0).flip_h, "右向凛音镜像面向左侧敌方", failures)
 	F.expect(view._actors.e_1.intent.tooltip_text.contains("预计伤害"), "敌方完整意图悬停显示模型数字", failures)
-	F.expect(view._preview_panel.size.y < 300 and view._preview_panel.size.x >= 400, "预览面板紧凑且可读", failures)
 	view._skill_buttons[0].pressed.emit()
-	view.select_target("e_1")
-	F.expect(not view._hud.confirm.disabled, "真实目标选择启用确认按钮", failures)
+	F.expect(view.command_ui_state().page == "target" and view.pending_command.get("ability_id","") == "heavy_slash","点击可见技能叶子进入目标确认页",failures)
+	view._actors.e_1.target.pressed.emit()
+	await tree.process_frame
+	var target_line: Label = view._command_menu._target_line
+	F.expect(view._command_menu.is_visible_in_tree() and target_line.is_visible_in_tree() and target_line.get_line_count() == 1 and _label_text_height(target_line) <= target_line.size.y+.1,"目标菜单以真实可见单行承载选择与费用且字高不溢出",failures)
+	F.expect(Rect2(Vector2.ZERO,view._command_menu.size).encloses(target_line.get_rect()),"目标单行位于真实菜单尺寸内",failures)
+	F.expect(target_line.tooltip_text.contains(target_line.text) and target_line.tooltip_text.contains("重斩") and target_line.tooltip_text.contains("MP 8") and target_line.tooltip_text.contains(Presenter.actor_name(engine.snapshot().actors.e_1,catalog)),"目标单行完整tooltip保留技能、实际费用和目标",failures)
+	F.expect(view._hud.confirm.is_visible_in_tree() and not view._hud.confirm.disabled, "真实目标选择启用可见确认按钮", failures)
 	var before: Dictionary = engine.snapshot()
 	view._hud.cancel.pressed.emit()
 	F.expect(view.pending_command.is_empty() and engine.snapshot() == before, "真实取消按钮免费", failures)
+	F.expect(view.command_ui_state().page == "skills" and view._skill_buttons[0].is_visible_in_tree(),"取消目标选择返回原技能页再接收技能输入",failures)
 	view._skill_buttons[0].pressed.emit()
-	view.select_target("e_1")
+	view._actors.e_1.target.pressed.emit()
+	var skill_ids: Array[String] = []
+	for button in view._skill_buttons: skill_ids.append(str(button.get_meta("ability_id","")))
 	view._hud.confirm.pressed.emit()
-	F.expect(view._skill_buttons[0].text.contains("重斩"), "结算期间四技能仍保留原行动者卡位", failures)
+	var retained_ids: Array[String] = []
+	for button in view._skill_buttons: retained_ids.append(str(button.get_meta("ability_id","")))
+	F.expect(view.processing and not view._command_menu.is_visible_in_tree() and view._skill_buttons.size() == 4 and retained_ids == skill_ids and skill_title.text == "重斩", "结算期间隐藏行动菜单并保留原行动者四技能元数据至表现结束", failures)
 	view._hud.confirm.pressed.emit()
 	await tree.create_timer(0.6).timeout
 	F.expect(not view.processing and engine.snapshot().active_actor_id == "p_healer" and engine.snapshot().actors.p_swordsman.mp == before.actors.p_swordsman.mp - 8, "真实双击确认/动画结束后只收费一次并交给下一角色", failures)
@@ -281,8 +302,15 @@ static func _test_disabled_skill_reasons(View, catalog, failures: Array[String])
 	var tree: SceneTree = Engine.get_main_loop()
 	tree.root.add_child(view)
 	await tree.process_frame
-	F.expect(view._skill_buttons[0].disabled, "不足MP技能仍常驻但禁止实际点击提交", failures)
-	F.expect(view._skill_buttons[0].text.contains("MP不足"), "禁用技能卡常显共享预览原因", failures)
+	view._command_menu._skills_entry.pressed.emit()
+	await tree.process_frame
+	var reason: Label = view._skill_buttons[0].get_node("Reason")
+	F.expect(view.command_ui_state().page == "skills" and view._skill_buttons[0].is_visible_in_tree() and view._skill_buttons[0].disabled, "不足MP技能在真实技能页可见但禁止点击提交", failures)
+	F.expect(reason.is_visible_in_tree() and reason.text.contains("MP不足") and view._skill_buttons[0].tooltip_text.contains("MP不足"), "禁用技能以可见Reason与完整tooltip显示共享预览原因", failures)
+	F.expect(_label_text_height(reason) <= reason.size.y+.1,"MP不足原因的真实换行字高不溢出",failures)
+	var before: Dictionary = engine.snapshot()
+	view._skill_buttons[0].pressed.emit()
+	F.expect(view.pending_command.is_empty() and engine.snapshot() == before,"禁用技能即使收到pressed信号也不提交或收费",failures)
 	view.free()
 
 static func _test_boss_head_visibility(View, catalog, failures: Array[String]) -> void:
@@ -472,12 +500,13 @@ static func _test_intent_label_bounds(View, catalog, failures: Array[String]) ->
 	await tree.process_frame
 	var intent: Label = view._actors.e_cultist.intent
 	F.expect(intent.tooltip_text.contains("虚弱") and intent.tooltip_text.contains("2次行动") and intent.text == intent.tooltip_text.get_slice("\n", 0), "真实意图默认简明首行，完整tooltip保留状态及行动时钟", failures)
-	F.expect(intent.get_rect().end.y <= 744 and intent.get_line_count() * Kit.font.get_height(intent.get_theme_font_size("font_size")) <= intent.size.y, "四行虚咒意图在操作板上方完整可读：" + str(intent.get_rect()) + " 行数" + str(intent.get_line_count()) + " 行高" + str(Kit.font.get_height(intent.get_theme_font_size("font_size"))), failures)
+	_assert_intent_geometry(view,intent,"虚咒意图",failures)
 	view.free()
 
 
 # 四敌必须独立可读，不能沿用双敌宽面板互相覆盖。
 static func _test_four_enemy_layout(View, catalog, failures: Array[String]) -> void:
+	var Presenter = load("res://scripts/rpg/ui/battle_presenter.gd")
 	for near_side in ["right", "left"]:
 		var actors := {"p_ranger": F.actor("ranger", "p_ranger"), "p_mage": F.actor("mage", "p_mage"), "p_controller": F.actor("controller", "p_controller")}
 		var enemy_ids := ["hound", "cultist", "fire_spirit", "elite_shield_soldier"]
@@ -495,6 +524,10 @@ static func _test_four_enemy_layout(View, catalog, failures: Array[String]) -> v
 		await tree.process_frame
 		var cards: Array[Rect2] = []
 		var intents: Array[Rect2] = []
+		var presented: Dictionary = Presenter.present(engine.snapshot(),catalog)
+		var expected_intents: Dictionary = {}
+		for row in presented.actors:
+			if row.side == "enemy": expected_intents[row.actor_id] = row.intent.get("text","倒地" if row.hp == 0 else "意图待定")
 		for id in actors:
 			if actors[id].side != "enemy": continue
 			var widgets: Dictionary = view._actors[id]
@@ -504,10 +537,15 @@ static func _test_four_enemy_layout(View, catalog, failures: Array[String]) -> v
 			for previous in intents: F.expect(not intent.get_rect().intersects(previous), near_side + "四敌意图不重叠：" + id, failures)
 			cards.append(card)
 			intents.append(intent.get_rect())
-			F.expect(intent.get_rect().end.y <= 744 and intent.get_line_count() * Kit.font.get_height(intent.get_theme_font_size("font_size")) <= intent.size.y, near_side + "四敌简明意图不压操作板，完整信息保留tooltip：" + id, failures)
+			_assert_intent_geometry(view,intent,near_side+"四敌意图："+id,failures)
+			F.expect(intent.tooltip_text == expected_intents[id],near_side+"四敌完整意图与模型投影一致："+id,failures)
 			F.expect(Rect2(0, 154, 1920, 590).encloses(card), "四敌卡留在安全显示区", failures)
-		F.expect(view._hud.prompt.get_rect().end.y <= 744, "四敌操作提示不压和纸装饰边框", failures)
-		for rect in intents: F.expect(not view._hud.prompt.get_rect().intersects(rect), "四敌提示与意图区分离", failures)
+		var prompt: Label = view._hud.prompt
+		if prompt.is_visible_in_tree():
+			F.expect(_label_text_height(prompt) <= prompt.size.y+.1,"可见操作提示的真实字高不溢出",failures)
+			F.expect(Rect2(Vector2.ZERO,view._canvas.size).encloses(prompt.get_rect()),"可见操作提示留在实际画布内",failures)
+			for rect in intents: F.expect(not prompt.get_rect().intersects(rect),"可见操作提示与意图区分离",failures)
+			_assert_menu_avoids(view,prompt.get_rect(),"可见操作提示",failures)
 		var queue: Label = view._hud.queue
 		F.expect(queue.get_line_count() * Kit.font.get_height(queue.get_theme_font_size("font_size")) <= 90, "七人轮序不溢出顶部栏", failures)
 		var defeated_state: Dictionary = engine.snapshot()
@@ -518,3 +556,20 @@ static func _test_four_enemy_layout(View, catalog, failures: Array[String]) -> v
 		var title: Label = view._actors.e_04_elite_shield_soldier.title
 		F.expect(title.get_rect().end.x <= 204 and Kit.font.get_string_size(title.text, HORIZONTAL_ALIGNMENT_LEFT, -1, title.get_theme_font_size("font_size")).x <= 194, "四敌长名称加倒地不挤出独立卡片", failures)
 		view.free()
+
+static func _assert_intent_geometry(view, intent: Label, context: String, failures: Array[String]) -> void:
+	F.expect(intent.is_visible_in_tree(),context+"保持可见，不能靠隐藏消除遮挡",failures)
+	F.expect(not intent.text.strip_edges().is_empty() and not intent.tooltip_text.strip_edges().is_empty(),context+"可见摘要与完整tooltip均非空",failures)
+	F.expect(_label_text_height(intent) <= intent.size.y+.1,context+"实际换行字高必须位于Label内："+str(intent.get_rect()),failures)
+	_assert_menu_avoids(view,intent.get_rect(),context,failures)
+
+static func _assert_menu_avoids(view, rectangle: Rect2, context: String, failures: Array[String]) -> void:
+	var menu: Control = view.get("_command_menu") as Control
+	F.expect(is_instance_valid(menu),"新版行动菜单必须实际存在",failures)
+	if is_instance_valid(menu) and menu.is_visible_in_tree():
+		F.expect(not Rect2(menu.position,menu.size).intersects(rectangle),"当前可见菜单不得遮挡"+context,failures)
+
+static func _label_text_height(label: Label) -> float:
+	var font: Font = label.get_theme_font("font")
+	var line_count := maxi(1,label.get_line_count())
+	return font.get_height(label.get_theme_font_size("font_size"))*line_count+float(label.get_theme_constant("line_spacing"))*maxi(0,line_count-1)

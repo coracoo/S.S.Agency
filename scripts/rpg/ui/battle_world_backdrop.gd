@@ -13,7 +13,10 @@ const PartyFraming = preload("res://scripts/rpg/ui/battle_party_framing.gd")
 const SnapshotTrail = preload("res://scripts/characters/snapshot_ghost_trail.gd")
 const ActorLight = preload("res://scripts/characters/illustration_scene_light.gdshader")
 const Contact = preload("res://scripts/characters/ground_contact_shadow.gdshader")
-const Depth = preload("res://scripts/campaign/presentation/act_one_depth.gd")
+# Compatibility 下只为远景几何分层；不采样整幅 viewport，也不模糊演员或拖尾。
+const GEOMETRY_DEPTH_CLEAR_MARGIN := 3.4
+const GEOMETRY_DEPTH_FADE_DISTANCE := 15.0
+const GEOMETRY_DEPTH_PAPER_TINT := Color(.62,.64,.61)
 const STAGES := {
 	"approach": Vector3(-4.5, .03, .45),
 	"forecourt": Vector3(15.5, 2.89, .2),
@@ -32,6 +35,7 @@ var scene_region := ""
 var stage_origin := Vector3.ZERO
 var actor_entries: Dictionary = {}
 var _world: Node3D
+var _geometry_depth_diagnostics: Dictionary = {}
 
 func configure(world: Dictionary, depth_enabled: bool = true) -> void:
 	if viewport != null: return
@@ -81,13 +85,101 @@ func configure(world: Dictionary, depth_enabled: bool = true) -> void:
 	camera.look_at(focus)
 	# 固定Y薄片保留原物理身高；正交镜头按既有190px/m校准投影高度。
 	camera.size = 1080.0 / Stature.battle_pixels_per_metre() * cos(atan2(offset.y,offset.z))
+	_configure_geometry_depth(depth_enabled)
 	if geometry.has_method("update_visibility"): geometry.update_visibility(stage_origin,1.0,camera)
-	var depth := Depth.new()
-	depth.name = "BattleDepth"
-	add_child(depth)
-	depth.configure(camera)
-	depth.follow(stage_origin)
-	depth.set_enabled(depth_enabled)
+
+# 只在固定战斗相机建立后执行一次。跨越近景的大地表以 AABB 最近端判定，保持原貌。
+# albedo tint 的饱和度/明暗轻收敛不是纹理 RGB 后处理，更不是原生 DOF。
+func _configure_geometry_depth(enabled: bool) -> void:
+	_geometry_depth_diagnostics = {
+		"enabled":enabled,"mode":"geometry_material_paper_ink","scope":"geometry_subtree",
+		"full_viewport_blur":false,"native_dof":false,"camera_mode":"fixed_battle_camera",
+		"meshes_seen":0,"meshes_changed":0,"material_copies":0,"near_meshes_untouched":0,
+		"occlusion_meshes_untouched":0,"shader_materials_untouched":0,
+		"other_materials_untouched":0,"light_materials_untouched":0,
+		"multimeshes_untouched":geometry.find_children("*","MultiMeshInstance3D",true,false).size(),
+		"meshes":[]
+	}
+	set_meta("battle_depth_mode","geometry_material_paper_ink")
+	set_meta("battle_depth_enabled",enabled)
+	set_meta("battle_full_viewport_blur",false)
+	if not enabled: return
+	# ActOne 遮挡器会缓存 previous/faded 材质并恢复；不介入这些受管实例。
+	# SAGA 没有该管理器，普通远景楼体、屋顶和重用树仍可独立着色。
+	var occlusion_meshes: Dictionary = {}
+	if geometry.has_method("update_tree_occlusion_many"):
+		var occluders: Variant = geometry.get("_tree_occluders")
+		if occluders is Array:
+			for entry in occluders:
+				for mesh_node in entry.get("meshes",[]):
+					if is_instance_valid(mesh_node): occlusion_meshes[mesh_node.get_instance_id()] = true
+	var camera_from_world := camera.global_transform.affine_inverse()
+	var focus_depth := -(camera_from_world * (stage_origin+Vector3.UP*.9)).z
+	_geometry_depth_diagnostics["focus_depth"] = focus_depth
+	for node in geometry.find_children("*","MeshInstance3D",true,false):
+		var mesh_node := node as MeshInstance3D
+		if mesh_node.mesh == null: continue
+		_geometry_depth_diagnostics.meshes_seen += 1
+		if occlusion_meshes.has(mesh_node.get_instance_id()):
+			_geometry_depth_diagnostics.occlusion_meshes_untouched += 1
+			continue
+		var nearest_depth := _nearest_geometry_camera_depth(mesh_node,camera_from_world)
+		var weight := smoothstep(focus_depth+GEOMETRY_DEPTH_CLEAR_MARGIN,focus_depth+GEOMETRY_DEPTH_FADE_DISTANCE,nearest_depth)
+		if weight <= 0.0:
+			_geometry_depth_diagnostics.near_meshes_untouched += 1
+			continue
+		var copies := 0
+		if mesh_node.material_override != null:
+			var material := _paper_ink_material(mesh_node.material_override,weight)
+			if material != null:
+				mesh_node.material_override = material
+				copies += 1
+		else:
+			for surface in range(mesh_node.mesh.get_surface_count()):
+				var material := _paper_ink_material(mesh_node.get_active_material(surface),weight)
+				if material != null:
+					mesh_node.set_surface_override_material(surface,material)
+					copies += 1
+		if copies == 0: continue
+		mesh_node.set_meta("battle_paper_ink_weight",weight)
+		mesh_node.set_meta("battle_paper_ink_nearest_camera_depth",nearest_depth)
+		_geometry_depth_diagnostics.meshes_changed += 1
+		_geometry_depth_diagnostics.material_copies += copies
+		_geometry_depth_diagnostics.meshes.append({"path":str(geometry.get_path_to(mesh_node)),"nearest_depth":nearest_depth,"weight":weight,"material_copies":copies})
+
+func _nearest_geometry_camera_depth(mesh_node: MeshInstance3D,camera_from_world: Transform3D) -> float:
+	var local_to_camera := camera_from_world * mesh_node.global_transform
+	var bounds := mesh_node.get_aabb()
+	var nearest_depth := INF
+	for corner in range(8):
+		nearest_depth = minf(nearest_depth,-(local_to_camera * bounds.get_endpoint(corner)).z)
+	return nearest_depth
+
+func _paper_ink_material(source: Material,weight: float) -> StandardMaterial3D:
+	if source is ShaderMaterial:
+		_geometry_depth_diagnostics.shader_materials_untouched += 1
+		return null
+	if not source is StandardMaterial3D:
+		_geometry_depth_diagnostics.other_materials_untouched += 1
+		return null
+	var original := source as StandardMaterial3D
+	# 灯纸、自发光与 unshaded 装饰保持原光色，不借微发光抬亮整片阴影。
+	if original.emission_enabled or original.shading_mode == BaseMaterial3D.SHADING_MODE_UNSHADED:
+		_geometry_depth_diagnostics.light_materials_untouched += 1
+		return null
+	# 每个渲染实例独立复制材质；纹理、网格与其余 PBR/阴影设置保留原引用和值。
+	var material := original.duplicate() as StandardMaterial3D
+	var color := original.albedo_color
+	var luminance := color.r*.2126+color.g*.7152+color.b*.0722
+	color = color.lerp(Color(luminance,luminance,luminance,color.a),.18*weight)
+	color = color.lerp(Color(GEOMETRY_DEPTH_PAPER_TINT,color.a),.08*weight)
+	material.albedo_color = color
+	material.set_meta("battle_paper_ink_source_material_id",original.get_instance_id())
+	material.set_meta("battle_paper_ink_weight",weight)
+	return material
+
+func get_geometry_depth_diagnostics() -> Dictionary:
+	return _geometry_depth_diagnostics.duplicate(true)
 
 func bind_visuals(actors: Dictionary) -> void:
 	clear_visuals()
