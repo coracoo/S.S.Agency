@@ -76,7 +76,7 @@ func _run() -> void:
 		_check_world_scale(player, world_definition, identity)
 		print("HEIGHT_MEASURED:", identity, ":battle_px=", measured[identity], ":feet_y=", feet[identity], ":world_m=", world_measured[identity])
 	check(measured.mint < measured.rinne and measured.guard > measured.rinne, "真实战斗本体像素：薄荷矮于凛音，岑照高于凛音")
-	check(absf(feet.mint - feet.rinne) < 0.001 and absf(feet.guard - feet.rinne) < 0.001, "三人鞋底统一地面基线，而非槽位各自fit")
+	check(feet.mint < feet.rinne and feet.mint < feet.guard and feet.rinne > feet.guard, "同一真实地面上的纵深脚点：两近战靠前且错开，游侠后位；不改变身高")
 	# 同时检查二维演员根节点和正式3D绘制薄片，避免只测隐藏的参考节点。
 	for index in 3:
 		var identity: String = ["rinne", "mint", "guard"][index]
@@ -111,7 +111,7 @@ func _run() -> void:
 		check(absf(_world_pixel_y(player, ref.ground)) < 0.00001, "焰华探索视频鞋底锚同地面：" + key)
 		_check_world_scale(player, world_definition, key)
 		player.free()
-	check(dual_heights.size() == 2 and absf(dual_heights[0] - dual_heights[1]) < 0.001 and absf(dual_heights[0] - 323.0) < 0.001, "焰华实际两高清节点本体同为170cm/323px")
+	check(dual_heights.size() == 2 and absf(dual_heights[0] - dual_heights[1]) < 0.001 and absf(dual_heights[0] / 1.7 - ppm) < 0.001, "焰华实际两高清节点同为170cm，战斗像素/米与三名实际演员一致")
 	check(dual_world_heights.size() == 2 and absf(dual_world_heights[0] - dual_world_heights[1]) < 0.00001 and absf(dual_world_heights[0] - 1.7) < 0.00001, "焰华实际探索双形态同为170cm")
 	if not OS.get_environment("CAMPAIGN_PRESENTATION_OUTPUT").is_empty():
 		view._cancel_presentation(); view._render(); await _save("battle_three_character_statures.png")

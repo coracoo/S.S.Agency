@@ -9,6 +9,7 @@ const PAPER := Color("F3EFE5")
 const INK := Color("252B29")
 const SEAL := Color("A64234")
 const PartyFraming = preload("res://scripts/rpg/ui/battle_party_framing.gd")
+const PartyDepth = preload("res://scripts/rpg/ui/battle_party_depth_layout.gd")
 const BattleEffects = preload("res://scripts/rpg/ui/imagegen_battle_effects.gd")
 const PhysicalVisualPolicy = preload("res://scripts/rpg/ui/physical_skill_visual_event_policy.gd")
 const WorldBackdrop = preload("res://scripts/rpg/ui/battle_world_backdrop.gd")
@@ -83,6 +84,7 @@ var _log_panel: Control
 var _tactics_panel: TacticsPanel
 var _built := false
 var _hd_views: Dictionary = {}
+var _party_depth_plan: Dictionary = {}
 var _presentation_views: Dictionary = {}
 var _hd_player: Node
 var _presentation_generation := 0
@@ -136,6 +138,7 @@ func bind(battle_engine: RefCounted, campaign_model: RefCounted) -> void:
 	if is_instance_valid(_tactics_panel):
 		_tactics_panel.hide()
 		_sync_modal_focus()
+	if engine != battle_engine: _party_depth_plan = {}
 	engine = battle_engine
 	campaign = campaign_model
 	pending_command = {}
@@ -495,7 +498,14 @@ func _build_actors() -> void:
 	allies.sort()
 	if campaign != null: allies = campaign.snapshot().party.duplicate()
 	enemies.sort()
-	var party_shift := _party_framing_shift(allies,state)
+	# 初次构建按当前形态分前后位；换形/演出过程仍使用这次脚点，不瞬移重排。
+	var has_depth_stage := _hd_enabled() and is_instance_valid(_world_backdrop)
+	_party_depth_plan = _resolve_party_depth_plan(allies,state)
+	if has_depth_stage and not _party_depth_plan.get("ok",false):
+		_hd_failed = true
+		last_error = "友方站位无法容纳完整动作：" + str(_party_depth_plan.get("error","未取得舞台镜头"))
+		return
+	var party_shift := _party_framing_shift(allies,state,_party_depth_plan)
 	var crowded := enemies.size() > 2
 	var final_lineup := enemies.any(func(id): return state.actors[id].class_id == "saga_final_recoil")
 	for index in range(allies.size() + enemies.size()):
@@ -511,7 +521,9 @@ func _build_actors() -> void:
 		var compact := crowded and not ally
 		if compact: layout = [(164 if final_lineup else 148)+slot*198,732,215]
 		var foot := Vector2(layout[0], layout[1])
-		if _config.near_side == "left": foot.x = 1920 - foot.x
+		if ally and has_depth_stage:
+			foot = _party_depth_plan.feet[id]
+		elif _config.near_side == "left": foot.x = 1920 - foot.x
 		if ally: foot.x += party_shift
 		var shadow := Polygon2D.new()
 		var points: PackedVector2Array = []
@@ -1506,15 +1518,52 @@ func _reconcile_display_hp() -> void:
 		if widgets.sprite.has_method("set_downed"): widgets.sprite.set_downed(row.hp == 0)
 	if is_inside_tree() and is_instance_valid(_world_backdrop): _world_backdrop.sync_visuals(0.0)
 
-# 恢复重置前完整函数：双形态共同预留，切形态不改变编队位置。
-func _party_framing_shift(allies: Array, state: Dictionary) -> float:
+# 使用真实镜头与完整战斗动作求每人可用脚域；只移动脚点，不缩放身高/原帧。
+func _resolve_party_depth_plan(allies: Array, state: Dictionary) -> Dictionary:
+	if not _hd_enabled() or not is_instance_valid(_world_backdrop): return {}
+	var plan: Dictionary
+	if _party_depth_plan.get("ok",false) and _party_depth_plan.get("source_party_order",[]) == allies and _party_depth_plan.get("near_side", "") == str(_config.near_side):
+		# 同一战斗重试加载也沿用初次role/脚点，不能按换形后的职业重新搬家。
+		plan = _party_depth_plan.duplicate(true)
+	else:
+		plan = PartyDepth.resolve(allies,state.actors,str(_config.near_side),Stature.battle_ground_y())
+	if not plan.get("ok",false): return plan
+	plan.source_party_order = allies.duplicate()
+	plan.near_side = str(_config.near_side)
+	var home_limits: Dictionary = {}
+	for id in allies:
+		var actor: Dictionary = state.actors[id]
+		var foot: Vector2 = plan.feet[id]
+		var ground: Vector3 = _world_backdrop._ground_point(foot)
+		var forms: Array = [actor.get("form_id", "")]
+		if actor.get("identity_id", "") == "homura": forms = ["mage","sword"]
+		var bounds := Rect2()
+		var first := true
+		for form in forms:
+			var candidate := actor.duplicate(true)
+			candidate.form_id = form
+			var definition := _actor_definition(candidate)
+			if not definition.get("ok",false): return {"ok":false,"error":"未加载完整身份/形态："+str(id)+"/"+str(form)}
+			for mirrored in [false,true]:
+				var part := PartyFraming.projected_bounds(_world_backdrop.camera,ground,definition,mirrored)
+				bounds = part if first else bounds.merge(part)
+				first = false
+		var low := Vector2(16,154)-(bounds.position-foot)
+		var high := Vector2(1904,744)-(bounds.end-foot)
+		home_limits[id] = Rect2(low,high-low)
+	# X全队共同平移以保留目标热区间距；Y只在各自安全脚域内收。
+	return PartyDepth.fit_home_limits(plan,home_limits)
+
+# 双形态共同预留；构建和取景读取同一份脚点，换形不重新编队。
+func _party_framing_shift(allies: Array, state: Dictionary, party_plan: Dictionary = {}) -> float:
 	if not _hd_enabled() or not is_instance_valid(_world_backdrop): return 0.0
+	if party_plan.is_empty(): party_plan = _resolve_party_depth_plan(allies,state)
+	if not party_plan.get("ok",false): return 0.0
 	var bounds: Array[Rect2] = []
 	var mirrored: bool = _config.near_side == "right"
 	for slot in allies.size():
 		var actor: Dictionary = state.actors[allies[slot]]
-		var foot := Vector2(float(_config.ally_slots[slot][0]),Stature.battle_ground_y())
-		if not mirrored: foot.x = 1920.0-foot.x
+		var foot: Vector2 = party_plan.feet[allies[slot]]
 		var forms: Array = [actor.get("form_id", "")]
 		if actor.get("identity_id", "") == "homura": forms = ["mage","sword"]
 		for form in forms:
@@ -1800,8 +1849,20 @@ func _render_command_menu(state: Dictionary, model: Dictionary, active: Dictiona
 		focused = get_viewport().gui_get_focus_owner()
 	if not controls.has(focused) and not controls.is_empty(): controls[0].grab_focus()
 
+func _command_paper_rects() -> Array[Rect2]:
+	var result: Array[Rect2] = []
+	if not is_instance_valid(_command_menu): return result
+	for local in _command_menu.occupied_rects(): result.append(Rect2(_command_menu.position+local.position,local.size))
+	return result
+
+func _command_paper_obstruction() -> float:
+	var area := 0.0
+	for paper in _command_paper_rects():
+		for obstacle in _command_obstacles: area += paper.intersection(obstacle).get_area()
+	return area
+
 func command_ui_state() -> Dictionary:
-	return {"page":_command_page,"actor_id":_command_actor,"anchor_rect":_command_anchor,"menu_rect":Rect2(_command_menu.position,_command_menu.size) if is_instance_valid(_command_menu) else Rect2(),"docked":_command_placement.get("docked",false),"obstruction_area":_command_placement.get("obstruction_area",0.0),"protected_rects":_command_obstacles.duplicate()}
+	return {"page":_command_page,"actor_id":_command_actor,"anchor_rect":_command_anchor,"menu_rect":Rect2(_command_menu.position,_command_menu.size) if is_instance_valid(_command_menu) else Rect2(),"docked":_command_placement.get("docked",false),"obstruction_area":_command_paper_obstruction(),"layout_obstruction_area":_command_placement.get("obstruction_area",0.0),"paper_rects":_command_paper_rects(),"protected_rects":_command_obstacles.duplicate()}
 
 # 本机默认ui_accept/ui_cancel只有键盘；补齐战斗期间的手柄确认/返回，离开时还原。
 func _install_battle_joypad_bindings() -> void:

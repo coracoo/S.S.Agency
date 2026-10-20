@@ -1,0 +1,58 @@
+{
+  "source": "主会话提供的无字和纸候选；原始PNG字节保留",
+  "validation": "GPU网格138项通过；实际战斗37个画面通过；1080p/720p、焦点/禁用/点击边界已测",
+  "files": [
+    {
+      "size": 1612529,
+      "sha256": "918abbe011a43549137dda6608b413afccc844c8e2f4f5c9b8244a227b92a402",
+      "filename": "leaf-candidate.png"
+    },
+    {
+      "size": 997647,
+      "sha256": "dd4dcf62a2142795c57ca9e5dcbd220c3efc5e721b492dda25668f51e9d3e382",
+      "filename": "summary-candidate.png"
+    }
+  ],
+  "leaf": {
+    "source_size": [
+      2048,
+      768
+    ],
+    "atlas_region": [
+      40,
+      84,
+      1968,
+      592
+    ],
+    "logical_size": [
+      512,
+      192
+    ],
+    "source_cut_for_12px": [
+      46.125,
+      37
+    ]
+  },
+  "summary": {
+    "source_size": [
+      2172,
+      724
+    ],
+    "atlas_region": [
+      24,
+      202,
+      2124,
+      316
+    ],
+    "logical_size": [
+      768,
+      96
+    ],
+    "source_cut_for_12px": [
+      33.1875,
+      39.5
+    ]
+  },
+  "resampling": false,
+  "focus": "原生StyleBoxFlat 3px，向外扩2px"
+}

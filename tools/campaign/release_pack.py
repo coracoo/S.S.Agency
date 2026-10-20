@@ -301,6 +301,9 @@ def formal_dependencies(project=PROJECT):
                  for path in (project / "assets/ui/night_menu").glob("*.png") if path.is_file()}
     sources.update(menu_pngs)
     resources.update(menu_pngs)
+    # 和纸由Image原PNG读取；只纳入这两张已核验成品，不递归携带provenance或候选证据。
+    sources.update({"assets/ui/battle_washi_20261020/leaf-candidate.png",
+                    "assets/ui/battle_washi_20261020/summary-candidate.png"})
     # 主线人物provider使用七形态首帧；旧对白portrait URI无需把旧半身/旧候选发包。
     sources.update({"data/dialogues.json", "data/cases/night_patrol.json", "data/ui_theme.json",
                     "data/exploration_3d/approach.json", "assets/ui/panel_washi_9slice.png",

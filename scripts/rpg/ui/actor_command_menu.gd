@@ -2,6 +2,7 @@ extends Control
 ## 仅展示命令纸叶；层级导航与提交由BattleView负责。
 
 const Kit = preload("res://scripts/rpg/ui/ui_kit.gd")
+const WashiPaper = preload("res://scripts/rpg/ui/battle_paper_styles.gd")
 const PAPER := Color("F3EFE5")
 const INK := Color("252B29")
 const SEAL := Color("A64234")
@@ -20,6 +21,7 @@ var basic_buttons: Dictionary = {}
 var confirm_button: Button
 var back_button: Button
 
+var use_washi_paper := true
 var _built := false
 var _docked := false
 var _model: Dictionary = {}
@@ -134,7 +136,7 @@ func _ensure_built() -> void:
 		_item_content.add_child(button)
 		_item_buttons.append(button)
 		button.pressed.connect(_request_command.bind("item", button))
-	_target_paper = _paper_panel(_pages.target)
+	_target_paper = _paper_panel(_pages.target,"summary")
 	_target_line = _label(24)
 	_target_line.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	_pages.target.add_child(_target_line)
@@ -214,6 +216,23 @@ func focus_key(key: String) -> void:
 		if requested.get_parent() == _skill_content: _skill_scroll.ensure_control_visible(requested)
 		if requested.get_parent() == _item_content: _item_scroll.ensure_control_visible(requested)
 
+# 根Control与页眉长空段透明，避让按实际纸叶/按钮计算；焦点边额外预留2px。
+func occupied_rects() -> Array[Rect2]:
+	var result: Array[Rect2] = []
+	if not _built or not is_visible_in_tree(): return result
+	var papers: Array[Control] = [_header_paper,_target_paper]
+	for button in _all_buttons(): papers.append(button)
+	var inverse := get_global_transform().affine_inverse()
+	for paper in papers:
+		if not paper.is_visible_in_tree(): continue
+		var rectangle := Rect2(inverse*paper.global_position,paper.size)
+		if _skill_scroll.is_ancestor_of(paper):
+			rectangle = rectangle.intersection(Rect2(inverse*_skill_scroll.global_position,_skill_scroll.size))
+		elif _item_scroll.is_ancestor_of(paper):
+			rectangle = rectangle.intersection(Rect2(inverse*_item_scroll.global_position,_item_scroll.size))
+		if rectangle.has_area(): result.append(rectangle.grow(2) if paper is Button else rectangle)
+	return result
+
 func enabled_controls() -> Array[Control]:
 	var result: Array[Control] = []
 	if not _built or not is_visible_in_tree(): return result
@@ -268,9 +287,10 @@ func _layout() -> void:
 	var content_top := header_height + 8.0
 	var footer_height := _line_height(24) + 16.0
 	var header_width := minf(maxf(1, size.x - 116), Kit.font.get_string_size(_header.text, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 24)
-	_header_paper.position = Vector2.ZERO
+	var header_x := maxf(0,size.x-header_width-120) if _docked and _page == "skills" else 0.0
+	_header_paper.position = Vector2(header_x,0)
 	_header_paper.size = Vector2(header_width, header_height)
-	_header.position = Vector2(12, 8)
+	_header.position = Vector2(header_x+12, 8)
 	_header.size = Vector2(maxf(1, header_width - 24), _line_height(24))
 	back_button.position = Vector2(size.x - 108, 0) if _docked else Vector2(size.x - 108, size.y - footer_height)
 	back_button.size = Vector2(108, footer_height)
@@ -327,7 +347,7 @@ func _layout() -> void:
 	_item_content.size = _item_content.custom_minimum_size
 	var target_height := _line_height(30) + 24.0
 	_target_line.position = Vector2(12, content_top + 12.0)
-	_target_line.size = Vector2(maxf(1, size.x - 260), _line_height(24))
+	_target_line.size = Vector2(maxf(1, size.x - 272), _line_height(24))
 	_target_paper.position = Vector2(0, content_top)
 	_target_paper.size = Vector2(maxf(1, size.x - 248), target_height)
 	confirm_button.position = Vector2(size.x - 236, content_top)
@@ -442,10 +462,10 @@ func _label(font_size: int) -> Label:
 	label.add_theme_constant_override("outline_size", 0)
 	return label
 
-func _paper_panel(parent: Control) -> Panel:
+func _paper_panel(parent: Control, kind: String = "leaf") -> Panel:
 	var panel := Panel.new()
 	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	panel.add_theme_stylebox_override("panel", _paper_style(INK))
+	panel.add_theme_stylebox_override("panel", _paper_style(INK,PAPER,kind))
 	parent.add_child(panel)
 	return panel
 
@@ -474,7 +494,16 @@ func _button(text: String, key: String, font_size: int) -> Button:
 	button.add_theme_stylebox_override("focus", focus)
 	return button
 
-func _paper_style(edge: Color, paper: Color = PAPER) -> StyleBoxFlat:
+func _paper_style(edge: Color, paper: Color = PAPER, kind: String = "leaf") -> StyleBox:
+	if use_washi_paper:
+		var textured := WashiPaper.style(kind)
+		if textured != null:
+			# 保留原按钮的垂直最小尺寸；正文Label仍按既有12px手动安全区排版。
+			textured.content_margin_top = 0
+			textured.content_margin_bottom = 0
+			textured.modulate_color = Color(paper.r/PAPER.r,paper.g/PAPER.g,paper.b/PAPER.b,1)
+			return textured
+	# 源图不可用或本地回退开关关闭时，继续使用原程序纸面。
 	var style := StyleBoxFlat.new()
 	style.bg_color = paper
 	style.border_color = edge

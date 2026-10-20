@@ -87,6 +87,7 @@ func _run() -> void:
 	menu.set_placement(Rect2(Vector2.ZERO,target_size),false)
 	var target_line: Label = menu._target_line
 	expect(target_line.get_theme_font("font").get_string_size(target_line.text,HORIZONTAL_ALIGNMENT_LEFT,-1,24).x <= target_line.size.x,"多目标名称和费用在确认单行内完整可读")
+	await _test_target_summary_padding()
 	model.confirm_legal = false
 	menu.present(model)
 	before = emitted.size()
@@ -142,6 +143,47 @@ func _text(node: Node) -> String:
 	if node is Label or node is Button: result = node.text
 	for child in node.get_children(): result += "\n" + _text(child)
 	return result
+
+func _test_target_summary_padding() -> void:
+	var target_menu = Menu.new()
+	root.add_child(target_menu)
+	var short_model := _model("target")
+	short_model.selected_label = "普攻"
+	short_model.cost_text = ""
+	short_model.target_text = "纸妖"
+	target_menu.present(short_model)
+	var minimum: Vector2 = target_menu.required_size_for_page("target", false)
+	expect(minimum.x == 740.0, "短目标摘要使用原740最小宽，不靠额外撑宽制造留白")
+	target_menu.set_placement(Rect2(Vector2.ZERO, minimum), false)
+	await process_frame
+	_check_target_summary_padding(target_menu, "740最小宽")
+	var long_model := _model("target")
+	long_model.target_text = "纸妖·疾行、纸妖·守盾、纸妖·火灵、纸妖·镇守"
+	target_menu.present(long_model)
+	var expanded: Vector2 = target_menu.required_size_for_page("target", false)
+	expect(expanded.x > minimum.x, "长目标摘要仍按真实字体动态扩展外框")
+	target_menu.set_placement(Rect2(Vector2.ZERO, expanded), false)
+	await process_frame
+	_check_target_summary_padding(target_menu, "长文本动态宽")
+	var docked: Vector2 = target_menu.required_size_for_page("target", true)
+	expect(docked.x == 1872.0, "目标停靠保留原1872外框宽")
+	target_menu.set_placement(Rect2(Vector2.ZERO, docked), true)
+	await process_frame
+	_check_target_summary_padding(target_menu, "停靠")
+	target_menu.free()
+
+func _check_target_summary_padding(menu, context: String) -> void:
+	var label: Label = menu._target_line
+	var paper: Panel = menu._target_paper
+	var label_rect := label.get_rect()
+	var paper_rect := paper.get_rect()
+	expect(is_equal_approx(paper.size.x, menu.size.x - 248.0), context + "纸条保持W-248，不修改背景宽度")
+	expect(is_equal_approx(label_rect.position.x - paper_rect.position.x, 12.0), context + "目标摘要保留左侧12像素")
+	expect(paper_rect.end.x - label_rect.end.x >= 12.0 - 0.01, context + "目标摘要右边距至少12像素")
+	expect(paper_rect.encloses(label_rect), context + "目标摘要矩形完整位于纸条内")
+	expect(label.get_theme_font_size("font_size") == 24, context + "目标摘要保持24号字体")
+	var measured := label.get_theme_font("font").get_string_size(label.text, HORIZONTAL_ALIGNMENT_LEFT, -1, 24)
+	expect(not label.text.is_empty() and measured.x <= label.size.x, context + "完整实际文本在扣除右侧留白后仍不溢出")
 
 func _check_leaf_geometry(button: Button) -> void:
 	var title: Label = button.get_node("Title")
