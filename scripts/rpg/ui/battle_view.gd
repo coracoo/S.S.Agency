@@ -1,9 +1,14 @@
 # 可操作视图只提交六字段命令；HP/费用/意图/战果全部读取模型。
 class_name RpgBattleView
 extends Control
+const HudV4 = preload("res://scripts/rpg/ui/battle_hud_depth_style.gd")
+const StagingV4 = preload("res://scripts/rpg/ui/battle_scene_staging.gd")
+var _v4_stage_report: Dictionary = {}
+var _compact_battle_layout := false
 signal presentation_tick
 const SKILL_BUTTON_SIZE := Vector2(459,136)
 const CommandMenu = preload("res://scripts/rpg/ui/actor_command_menu.gd")
+const StandardCommandMenu = preload("res://scripts/rpg/ui/actor_command_menu_standard.gd")
 const CommandPlacement = preload("res://scripts/rpg/ui/actor_command_placement.gd")
 const PAPER := Color("F3EFE5")
 const INK := Color("252B29")
@@ -12,14 +17,14 @@ const PartyFraming = preload("res://scripts/rpg/ui/battle_party_framing.gd")
 const PartyDepth = preload("res://scripts/rpg/ui/battle_party_depth_layout.gd")
 const BattleEffects = preload("res://scripts/rpg/ui/imagegen_battle_effects.gd")
 const PhysicalVisualPolicy = preload("res://scripts/rpg/ui/physical_skill_visual_event_policy.gd")
-const WorldBackdrop = preload("res://scripts/rpg/ui/battle_world_backdrop.gd")
+const WorldBackdrop = preload("res://scripts/rpg/ui/battle_ground_backdrop.gd")
 const Stature = preload("res://scripts/characters/character_stature.gd")
 const ChapterSession = preload("res://scripts/campaign/chapter_session.gd")
 const TrialSession = preload("res://scripts/exploration_3d/approach_session.gd")
 const Portraits = preload("res://scripts/characters/identity_portraits.gd")
 const LegacyActor = preload("res://scripts/rpg/ui/legacy_actor_view.gd")
 const EnemyPresentation = preload("res://scripts/rpg/ui/enemy_presentation_profiles.gd")
-const HdActor = preload("res://scripts/rpg/ui/hd_actor_view.gd")
+const HdActor = preload("res://scripts/rpg/ui/combat_ready_actor_view.gd")
 const SagaEnemyArt = preload("res://scripts/rpg/ui/saga_enemy_art.gd")
 const Saga = preload("res://scripts/campaign/saga_catalog.gd")
 const SagaNarrator = preload("res://scripts/campaign/saga_battle_narrator.gd")
@@ -148,6 +153,11 @@ func bind(battle_engine: RefCounted, campaign_model: RefCounted) -> void:
 	if engine == null:
 		last_error = "战斗创建失败" if router == null else router.last_error
 		return
+	# bind会重建人物；不得复用上一批节点的队形与轮序显示缓存。
+	_trial_active_slot = ""
+	_trial_party_order.clear()
+	_trial_queue_key = ""
+	_trial_reaction_adjustments.clear()
 	_needs_initial_advance = true
 	if _built: _build_actors()
 	if _hd_failed:
@@ -366,7 +376,7 @@ func _build() -> void:
 	_hud.prompt.add_theme_color_override("font_color",PAPER)
 	_hud.prompt.add_theme_color_override("font_outline_color", INK)
 	_hud.prompt.add_theme_constant_override("outline_size", 4)
-	_command_menu = CommandMenu.new()
+	_command_menu = StandardCommandMenu.new()
 	_command_menu.name = "ActorCommandMenu"
 	_canvas.add_child(_command_menu)
 	_command_menu.command_requested.connect(select_command)
@@ -696,6 +706,7 @@ func _render() -> void:
 			if shown.actors.has(actor_id): shown.actors[actor_id][field[0]] = field[1][actor_id]
 	var model := Presenter.present(shown, _catalog, _display_actor_id if processing else "")
 	if _actors.is_empty(): _build_actors()
+	_ensure_compact_layout(state)
 	if _hd_failed:
 		processing = true
 		_show_hd_error()
@@ -795,6 +806,7 @@ func _render() -> void:
 	_hud.latest.text = _log_lines.back() if not _log_lines.is_empty() else "HP/MP与库存跨战保留 · 道具占用一次行动"
 	_render_command_menu(state, model, active, preview)
 	_sync_modal_focus()
+	_trial_update(state,model)
 
 # 状态名与完整时钟各写一次；隐藏MP的空位用于完整行，保留超量状态滚动。
 func _layout_enemy_status(w:Dictionary,row:Dictionary)->void:
@@ -1026,7 +1038,7 @@ func _event_fx(event: Dictionary) -> void:
 	var label := Kit.label(_canvas, text, Rect2(foot.x - 90, foot.y - float(target.get_meta("content_height", 300)) * 0.55, 250, 44), 33)
 	label.add_theme_color_override("font_color", tint)
 	label.add_theme_color_override("font_outline_color", Kit.color("ink_900"))
-	label.add_theme_constant_override("outline_size", 7)
+	HudV4.style_number(label,true)
 	_canvas.move_child(_result, -1)
 	var tween := create_tween().set_parallel(true)
 	tween.tween_property(label, "position:y", label.position.y - 44, 0.72)
@@ -1813,11 +1825,11 @@ func _render_command_menu(state: Dictionary, model: Dictionary, active: Dictiona
 		var p: Dictionary = options.get("preview",{})
 		var remaining := maxi(0,int(active.get("cooldown_until",{}).get(slot.id,0))-int(active.get("slot_count",0)))
 		var cd_text := "冷却 %d" % remaining if remaining > 0 else ("CD %d" % int(p.get("cooldown",0)) if int(p.get("cooldown",0)) > 0 else "")
-		skills.append({"id":slot.id,"name":slot.name,"mp_cost":int(p.get("mp_cost",slot.mp_cost)),"cd_text":cd_text,"legal":bool(p.get("legal",false)),"reasons":p.get("reasons",[]) if not p.get("legal",false) else [],"summary":Presenter.card_summary(slot,p,_catalog),"full_summary":Presenter.ability_summary(slot,p,_catalog),"target_label":slot.target_short})
+		skills.append({"id":slot.id,"base_name":_trial_base_skill_name(str(slot.id)),"name":slot.name,"mp_cost":int(p.get("mp_cost",slot.mp_cost)),"cd_text":cd_text,"legal":bool(p.get("legal",false)),"reasons":p.get("reasons",[]) if not p.get("legal",false) else [],"summary":Presenter.card_summary(slot,p,_catalog),"full_summary":Presenter.ability_summary(slot,p,_catalog),"target_label":slot.target_short})
 	var items: Array[Dictionary] = []
 	for id in ITEM_ORDER:
 		var p: Dictionary = command_options("item",id).get("preview",{})
-		items.append({"id":id,"name":_catalog.get_definition("items",id).name,"count":model.inventory.get(id,0),"legal":bool(p.get("legal",false)),"reasons":p.get("reasons",[]) if not p.get("legal",false) else []})
+		items.append({"id":id,"name":_catalog.get_definition("items",id).name,"count":model.inventory.get(id,0),"full_summary":"\n".join(Presenter.preview_lines(p,state,_catalog)),"legal":bool(p.get("legal",false)),"reasons":p.get("reasons",[]) if not p.get("legal",false) else []})
 	var target_names: Array[String] = []
 	for id in preview.get("effective_target_ids",[]): target_names.append(Presenter.actor_name(state.actors[id],_catalog))
 	var selected := Presenter.ability_name(str(pending_command.get("ability_id","")) if not str(pending_command.get("ability_id","")).is_empty() else str(pending_command.get("kind","")),_catalog) if not pending_command.is_empty() else ""
@@ -1826,7 +1838,7 @@ func _render_command_menu(state: Dictionary, model: Dictionary, active: Dictiona
 	var cost_text := "MP %d" % int(preview.get("mp_cost",0))
 	if int(preview.get("cooldown",0)) > 0: cost_text += " · CD %d" % int(preview.cooldown)
 	if int(preview.get("item_cost",0)) > 0: cost_text += " · 道具 %d" % int(preview.item_cost)
-	_command_menu.present({"page":_command_page,"actor_name":Presenter.actor_name(active,_catalog),"skills":skills,"basics":model.commands.basic,"items":items,"selected_label":selected,"cost_text":cost_text,"target_text":target_text,"prompt":_hud.prompt.text + "\n" + _hud.preview.text,"confirm_legal":bool(preview.get("legal",false))})
+	_command_menu.present({"page":_command_page,"actor_name":Presenter.actor_name(active,_catalog),"skills":skills,"basics":model.commands.basic,"basic_entries":_trial_basic_entries(model.commands.basic,state),"items":items,"selected_label":selected,"selected_ability_id":str(pending_command.get("ability_id","")),"selected_kind":str(pending_command.get("kind","")),"cost_text":cost_text,"target_text":target_text,"prompt":_hud.prompt.text + "\n" + _hud.preview.text,"confirm_legal":bool(preview.get("legal",false))})
 	var menu_size: Vector2 = _command_menu.required_size_for_page(_command_page,false)
 	if _placement_page != _command_page or not _placement_size.is_equal_approx(menu_size):
 		_command_placement = CommandPlacement.choose(_command_anchor,menu_size,_command_menu.required_size_for_page(_command_page,true),_command_obstacles)
@@ -1873,3 +1885,274 @@ func _install_battle_joypad_bindings() -> void:
 		if not InputMap.action_has_event(mapping[0],event):
 			InputMap.action_add_event(mapping[0],event)
 			_battle_joypad_bindings.append({"action":mapping[0],"event":event})
+
+# 紧凑战斗构图；仅更改显示布局，不改模型规则。
+var _trial_queue: Control
+var _trial_queue_items: Array[Dictionary] = []
+var _trial_queue_key := ""
+var _trial_active_slot := ""
+var _trial_party_order: Array = []
+var _trial_fitting_reaction := false
+var _trial_reaction_adjustments: Array[Dictionary] = []
+
+# 紧凑构图只启用于已验收的三人双敌3D主线范围。
+# 旧独立RPG、无会话组件与其他阵容保留原菜单/意图布局，不以双敌坐标覆盖。
+func _supports_compact_layout(state: Dictionary) -> bool:
+	if campaign == null or not _hd_enabled() or not is_instance_valid(_world_backdrop): return false
+	var identities: Dictionary = {}
+	var player_count := 0
+	var enemy_count := 0
+	for actor in state.get("actors", {}).values():
+		if actor.get("side", "") == "player":
+			player_count += 1
+			identities[str(actor.get("identity_id", ""))] = true
+		elif actor.get("side", "") == "enemy": enemy_count += 1
+	return player_count == 3 and identities.has("rinne") and identities.has("mint") and identities.has("guard") and enemy_count >= 1 and enemy_count <= 2
+
+func _ensure_compact_layout(state: Dictionary) -> void:
+	if _compact_battle_layout or not _supports_compact_layout(state): return
+	_compact_battle_layout = true
+	var previous := _command_menu
+	_canvas.remove_child(previous)
+	previous.queue_free()
+	_command_menu = CommandMenu.new()
+	_command_menu.name = "ActorCommandMenu"
+	_canvas.add_child(_command_menu)
+	_command_menu.command_requested.connect(select_command)
+	_command_menu.page_requested.connect(_open_command_page)
+	_command_menu.back_requested.connect(_trial_back_or_exit)
+	_command_menu.confirm_requested.connect(confirm_command)
+	_command_menu.present({"page":"commands"})
+	_skill_buttons = _command_menu.skill_buttons
+	_basic_buttons = _command_menu.basic_buttons
+	_hud.confirm = _command_menu.confirm_button
+	_hud.cancel = _command_menu.back_button
+	_placement_page = ""
+	_trial_build()
+
+func _trial_build() -> void:
+	_v4_stage_report = _world_backdrop.get("staging_v4_report").duplicate(true)
+	for key in ["title","turn","queue","latest","tactics","log_toggle","exit"]:
+		if _hud.has(key): _hud[key].hide()
+	_trial_queue = Control.new()
+	_trial_queue.name = "ReferenceQueueTrial"
+	_trial_queue.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_trial_queue.size = Vector2(1920,1080)
+	_trial_queue.z_index = 5
+	_canvas.add_child(_trial_queue)
+	_trial_queue.draw.connect(_trial_draw_queue)
+	for node in _canvas.get_children():
+		if node is Panel and node.position == Vector2(24,20): node.hide()
+	if is_instance_valid(_world_backdrop):
+		_world_backdrop.visuals_synchronized.connect(_trial_fit_reaction_frames)
+
+func _trial_plain_label(label: Label, rect: Rect2, font_size: int) -> void:
+	label.position = rect.position
+	label.size = rect.size
+	label.add_theme_font_size_override("font_size",font_size)
+	label.add_theme_color_override("font_color",Color("f4eee4"))
+	label.add_theme_color_override("font_outline_color",Color(0.04,0.05,0.06,.8))
+	label.add_theme_constant_override("outline_size",2)
+	label.autowrap_mode = TextServer.AUTOWRAP_OFF
+	label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+
+func _trial_gauge(gauge: TextureProgressBar, rect: Rect2, tint: Color) -> void:
+	HudV4.style_gauge(gauge,rect,tint)
+
+func _trial_update(state: Dictionary, model: Dictionary) -> void:
+	if not _compact_battle_layout: return
+	for key in ["title","turn","queue","latest","tactics","log_toggle","exit"]:
+		if _hud.has(key): _hud[key].hide()
+	if not processing: _trial_reposition_party(state)
+	var party: Array = campaign.snapshot().party if campaign != null else []
+	var enemy_slot := 0
+	for row in model.actors:
+		var w: Dictionary = _actors[row.actor_id]
+		w.card.add_theme_stylebox_override("panel",StyleBoxEmpty.new())
+		w.status.hide()
+		w.card.tooltip_text = w.status.tooltip_text
+		if row.side == "player":
+			var slot := maxi(0,party.find(row.actor_id))
+			w.card.position = Vector2([48,330,590][mini(slot,2)],920)
+			w.card.size = Vector2(252,85)
+			if is_instance_valid(w.avatar):
+				w.avatar.position = Vector2(0,2)
+				w.avatar.size = Vector2(80,80)
+				w.avatar.tooltip_text = w.status.tooltip_text
+			_trial_plain_label(w.title,Rect2(90,0,160,28),22)
+			_trial_plain_label(w.hp,Rect2(90,30,68,23),18)
+			_trial_plain_label(w.mp,Rect2(90,55,68,23),18)
+			w.hp.text = "HP %d" % row.hp
+			HudV4.style_number(w.hp)
+			w.mp.text = "MP %d" % row.mp
+			HudV4.style_number(w.mp)
+			_trial_gauge(w.hpbar,Rect2(158,43,94,4),Color("df716a"))
+			_trial_gauge(w.mpbar,Rect2(158,68,94,4),Color("72a2c2"))
+		else:
+			var location := Vector2(90,160) if enemy_slot == 0 else Vector2(400,220)
+			w.card.position = location
+			w.card.size = Vector2(190,105)
+			_trial_plain_label(w.title,Rect2(0,0,190,30),24)
+			_trial_plain_label(w.hp,Rect2(0,38,190,26),20)
+			w.hp.text = "HP %d" % row.hp
+			HudV4.style_number(w.hp)
+			w.mp.hide()
+			_trial_gauge(w.hpbar,Rect2(0,32,190,5),Color("df716a"))
+			if is_instance_valid(w.intent):
+				_trial_plain_label(w.intent,Rect2(location+Vector2(34,73),Vector2(156,64)),24)
+				# Keep the full action and target names on semantic lines; no orphaned target character.
+				w.intent.text = w.intent.text.replace(" → ","\n→ ")
+				w.intent.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+				w.intent.text_overrun_behavior = TextServer.OVERRUN_NO_TRIMMING
+				w.intent.clip_text = false
+			enemy_slot += 1
+	_trial_update_queue(state,model)
+
+func _trial_reposition_party(state: Dictionary) -> void:
+	var active_id := str(state.get("active_actor_id",""))
+	if active_id == _trial_active_slot or not state.actors.has(active_id) or state.actors[active_id].side != "player": return
+	_trial_active_slot = active_id
+	var ordering: Array = [active_id]
+	for id in campaign.snapshot().party:
+		if id != active_id: ordering.append(id)
+	_trial_party_order = ordering.duplicate()
+	var feet := [Vector2(1210,830),Vector2(1550,800),Vector2(1780,808)]
+	for index in mini(3,ordering.size()):
+		var id: String = str(ordering[index])
+		if not _actors.has(id): continue
+		var sprite: Node2D = _actors[id].sprite
+		sprite.position = feet[index]
+		sprite.set_meta("foot_point",feet[index])
+		sprite.set_meta("trial_layout_only",true)
+		_sync_actor_presentation(id)
+	if is_instance_valid(_world_backdrop): _world_backdrop.sync_visuals(0.0)
+
+# Current reaction frames can be wider than idle. Keep the two non-moving rear
+# actors inside the viewport and apart, then restore their requested x at idle.
+# The active actor, its native melee home/path, y, scale and facing are untouched.
+func _trial_fit_reaction_frames() -> void:
+	if _trial_fitting_reaction or _trial_party_order.size() != 3: return
+	if not is_instance_valid(_world_backdrop): return
+	_trial_fitting_reaction = true
+	var requested := [Vector2(1210,830),Vector2(1550,800),Vector2(1780,808)]
+	var right_limit := 1912.0
+	var changed := false
+	for index in [2,1]:
+		var id := str(_trial_party_order[index])
+		if id == str(_trial_party_order[0]): continue
+		if not _actors.has(id) or not _world_backdrop.actor_entries.has(id): continue
+		var source: Node2D = _actors[id].sprite
+		if source.has_method("is_melee_moving") and source.is_melee_moving(): continue
+		var current: Rect2 = _world_backdrop.actor_screen_bounds(id)
+		if not current.has_area(): continue
+		var desired: Vector2 = requested[index]
+		var fitted := Rect2(current.position+Vector2(desired.x-source.position.x,0),current.size)
+		var shift := minf(0.0,right_limit-fitted.end.x)
+		desired.x += shift
+		fitted.position.x += shift
+		right_limit = fitted.position.x-12.0
+		if absf(source.position.x-desired.x) <= .01: continue
+		var from := source.position
+		source.position.x = desired.x
+		source.set_meta("foot_point",source.position)
+		source.set_meta("trial_reaction_x_offset",desired.x-requested[index].x)
+		_sync_actor_presentation(id)
+		var active_bounds: Rect2 = _world_backdrop.actor_screen_bounds(str(_trial_party_order[0]))
+		var active_overlap := fitted.intersection(active_bounds).get_area()
+		_trial_reaction_adjustments.append({"actor_id":id,"formation_active":str(_trial_party_order[0]),"frame":Engine.get_process_frames(),"from":from,"to":source.position,"requested":requested[index],"current_frame_quad":fitted,"active_overlap_area":active_overlap,"fit_infeasible":active_overlap>.01,"reason":"current rear reaction quad within viewport and separated from other rear actor"})
+		if _trial_reaction_adjustments.size()>256: _trial_reaction_adjustments.pop_front()
+		changed = true
+	if changed:
+		_world_backdrop.sync_visuals(0.0)
+		_sync_effect_positions()
+	_trial_fitting_reaction = false
+
+func _trial_actor_face(actor: Dictionary) -> Texture2D:
+	if actor.side == "player":
+		var face := Portraits.from_definition(_actor_definition(actor),str(actor.get("identity_id","")),"avatar")
+		if face.get("ok",false): return ImageTexture.create_from_image(face.texture.get_image())
+	else:
+		var w: Dictionary = _actors.get(str(actor.get("actor_id","")),{})
+		var visual: Variant = w.get("sprite").get("visual") if w.has("sprite") else null
+		var enemy_sprite := visual as Sprite2D
+		if enemy_sprite == null and visual is Node2D and visual.get_child_count() > 0: enemy_sprite = visual.get_child(0) as Sprite2D
+		if enemy_sprite != null and enemy_sprite.texture != null:
+			var image: Image = enemy_sprite.texture.get_image()
+			var region: Rect2 = enemy_sprite.region_rect if enemy_sprite.region_enabled else Rect2(Vector2.ZERO,image.get_size())
+			var side := minf(region.size.x,region.size.y*.38)
+			var head := Rect2i(int(region.position.x+(region.size.x-side)*.5),int(region.position.y),int(side),int(side))
+			return ImageTexture.create_from_image(image.get_region(head))
+	return null
+
+func _trial_update_queue(state: Dictionary, model: Dictionary) -> void:
+	if not is_instance_valid(_trial_queue): return
+	var key := str(model.queue)+":"+str(model.queue_index)
+	if key == _trial_queue_key: return
+	_trial_queue_key = key
+	for child in _trial_queue.get_children(): child.queue_free()
+	_trial_queue_items.clear()
+	var count: int = model.queue.size()
+	for index in count:
+		var id := str(model.queue[index])
+		var current: bool = index == int(model.queue_index)
+		var side := 80.0 if current else 64.0
+		var center := Vector2(990+(index-(count-1)*.5)*100,76)
+		var icon := TextureRect.new()
+		icon.name = "Queue_"+id
+		icon.texture = _trial_actor_face(state.actors[id])
+		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+		icon.position = center-Vector2.ONE*(side*.5)
+		icon.size = Vector2.ONE*side
+		icon.mouse_filter = Control.MOUSE_FILTER_PASS
+		icon.tooltip_text = ("当前 · " if current else "")+Presenter.actor_name(state.actors[id],_catalog)
+		var shader := Shader.new()
+		shader.code = "shader_type canvas_item; void fragment(){ if(abs(UV.x-.5)+abs(UV.y-.5)>.5) discard; COLOR=texture(TEXTURE,UV)*COLOR; }"
+		var material := ShaderMaterial.new()
+		material.shader = shader
+		icon.material = material
+		icon.modulate.a = .42 if index < int(model.queue_index) else 1.0
+		_trial_queue.add_child(icon)
+		_trial_queue_items.append({"id":id,"center":center,"side":side,"current":current,"index":index})
+	_trial_queue.queue_redraw()
+
+func _trial_draw_queue() -> void:
+	_trial_queue.draw_line(Vector2(660,76),Vector2(1320,76),Color(.82,.81,.78,.55),1,true)
+	for item in _trial_queue_items:
+		var center: Vector2 = item.center
+		var half: float = item.side*.5
+		var points := PackedVector2Array([center+Vector2(0,-half),center+Vector2(half,0),center+Vector2(0,half),center+Vector2(-half,0),center+Vector2(0,-half)])
+		_trial_queue.draw_polyline(points,Color("bd5d4e") if item.current else Color(.82,.81,.78,.7),2 if item.current else 1,true)
+		if item.current:
+			_trial_queue.draw_circle(center+Vector2(half*.7,-half*.7),4,Color("bd5d4e"))
+			_trial_queue.draw_polyline(PackedVector2Array([center+Vector2(-7,half+14),center+Vector2(0,half+6),center+Vector2(7,half+14)]),Color("f2e8d9"),1.5,true)
+
+func trial_layout_diagnostics() -> Dictionary:
+	var result := {"trial_only":true,"camera_changed":false,"body_scale_changed":false,"side_back_pose_added":false,"feet":{},"body_bounds":{},"skill_rects":[],"queue":_trial_queue_items.duplicate(true),"art_gaps":["四技能墨绘图标","新笔刷纸叶","意图图标","稳定侧背idle与完整动作视角","参考场景透视与美术"]}
+	for id in _actors:
+		result.feet[id] = _actors[id].sprite.position
+		result.body_bounds[id] = _actor_ui_bounds(id)
+	for button in _command_menu.skill_buttons:
+		if button.is_visible_in_tree(): result.skill_rects.append(Rect2(_canvas.get_global_transform().affine_inverse()*button.global_position,button.size))
+	result["model"] = _command_menu.get("_model").duplicate(true)
+	if _command_menu.has_method("trial_layout_diagnostics"): result["menu_layout"] = _command_menu.trial_layout_diagnostics()
+	return result
+
+
+func _trial_base_skill_name(id: String) -> String:
+	var explicit := {"heavy_slash":"重斩","armor_break":"破甲斩","sweep":"横扫","battle_spirit":"战意"}
+	if explicit.has(id): return str(explicit[id])
+	return str(_catalog.get_definition("skills",id).get("name",id))
+
+func _trial_basic_entries(kinds: Array, state: Dictionary) -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	for kind in kinds:
+		var preview: Dictionary = command_options(str(kind)).get("preview",{})
+		result.append({"kind":str(kind),"id":str(kind),"name":Presenter.ability_name(str(kind),_catalog),"mp_cost":int(preview.get("mp_cost",0)),"full_summary":"\n".join(Presenter.preview_lines(preview,state,_catalog)),"reasons":preview.get("reasons",[])})
+	return result
+
+func _trial_back_or_exit() -> void:
+	if _command_page == "commands" and pending_command.is_empty():
+		_return_title()
+	else:
+		cancel_command()
