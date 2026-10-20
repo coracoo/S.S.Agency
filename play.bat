@@ -12,11 +12,11 @@ if defined GODOT_BIN (
     )
     set "GODOT=%GODOT_BIN%"
 )
-REM Prefer the user-reported version beside this project or in the previous engine directory.
-for %%G in ("%~dp0Godot_v4.7.2-stable_win64.exe" "%~dp0..\Godot_v4.7.2-stable_win64.exe" "J:\godot\Godot_v4.7.2-stable_win64.exe" "J:\godot\Godot_v4.7.2-stable_win64_console.exe") do if not defined GODOT if exist "%%~G" set "GODOT=%%~fG"
+REM Prefer the user-reported version beside this project or in its parent engine directory.
+for %%G in ("%~dp0Godot_v4.7.2-stable_win64.exe" "%~dp0..\Godot_v4.7.2-stable_win64.exe" "%~dp0Godot_v4.7.2-stable_win64_console.exe" "%~dp0..\Godot_v4.7.2-stable_win64_console.exe") do if not defined GODOT if exist "%%~G" set "GODOT=%%~fG"
 for /f "delims=" %%G in ('where godot.exe 2^>nul') do if not defined GODOT set "GODOT=%%G"
 REM Keep the validated previous engine as an explicit fallback, without installing anything.
-for %%G in ("%~dp0..\Godot_v4.6.3-stable_win64.exe" "J:\godot\Godot_v4.6.3-stable_win64.exe") do if not defined GODOT if exist "%%~G" set "GODOT=%%~fG"
+for %%G in ("%~dp0..\Godot_v4.6.3-stable_win64.exe" "%~dp0Godot_v4.6.3-stable_win64.exe") do if not defined GODOT if exist "%%~G" set "GODOT=%%~fG"
 if not defined GODOT (
     echo [ERROR] Godot was not found. Set GODOT_BIN to your installed Godot executable.
     pause

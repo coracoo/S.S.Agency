@@ -1,12 +1,12 @@
 @echo off
 REM === Launch game (no editor) ===
 REM Double-click this file to play.
-REM 默认直达：参道舞台（2.5D 探索 + v3 凛音动画体验入口）
-REM 想进主入口（标题屏）或其他场景：把下面的 SCENE 改为空串或其他 res:// 场景路径
+REM 默认使用 project.godot 中的正式标题入口。
+REM 临时预览其他场景时可设置 SCENE；留空按项目配置启动。
 
-set "GODOT=J:\godot\Godot_v4.6.3-stable_win64.exe"
-set "PROJECT=J:\godot\S.S.Agency"
-set "SCENE=res://scenes/v3/stage_mountain.tscn"
+set "GODOT=%~dp0..\Godot_v4.6.3-stable_win64.exe"
+set "PROJECT=%~dp0."
+set "SCENE="
 
 if not exist "%GODOT%" (
     echo [ERROR] Godot engine not found: %GODOT%
