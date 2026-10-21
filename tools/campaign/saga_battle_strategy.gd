@@ -4,6 +4,13 @@ const Resolver = preload("res://scripts/rpg/effect_resolver.gd")
 static func _command(state: Dictionary, actor_id: String, kind: String, ability_id: String = "", targets: Array = []) -> Dictionary:
 	return {"command_id": "saga_test_%d_%s" % [state.revision, actor_id], "expected_revision": int(state.revision), "actor_id": actor_id, "kind": kind, "ability_id": ability_id, "target_ids": targets.duplicate()}
 static func choose(state: Dictionary, engine: RefCounted, catalog: RefCounted) -> Dictionary:
+	# 开发A/B：可用 SAGA_STRATEGY_POLICY 切换为已验收的 RpgStrategyPolicies 启发式，
+	# 验证 battles 可胜性；默认仍用内置贪心打分，保持各夹具行为不变。
+	var policy_id: String = OS.get_environment("SAGA_STRATEGY_POLICY")
+	if not policy_id.is_empty() and ResourceLoader.exists("res://tools/rpg/strategy_policies.gd"):
+		var policies = load("res://tools/rpg/strategy_policies.gd").new(catalog)
+		var chosen: Dictionary = policies.choose(policy_id, state, engine)
+		if not chosen.is_empty(): return chosen
 	var actor: Dictionary = state.actors[state.active_actor_id]
 	var options: Array = [["attack_physical", ""], ["attack_magic", ""], ["defend", ""]]
 	for id in actor.skill_ids: options.append(["skill", id])
