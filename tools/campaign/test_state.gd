@@ -390,7 +390,10 @@ func _test_transactions() -> void:
 		expect(applied.ok and applied.next_scene == Chapters.scene_path(id), "victory returns to same registered scene")
 		if id >= 2:
 			var persisted_actor: Dictionary = campaign.safe_snapshot().roster.p_mage
-			expect(persisted_actor.form_id == selected_final_form and persisted_actor.active_class_id == Forms.FORM_CLASSES[selected_final_form] and persisted_actor.skill_ids == persisted_actor.build.active[selected_final_form], "胜利保存最终形态与该形态真实装配技能")
+			# role-loadout-2：build.active 存卡ID（含本人别名/变式），skill_ids 是派生招式ID；
+			# 权威不变量为 skill_ids == Loadouts.derive(按最终形态重派生)，直接比对卡ID只在没有别名时偶然成立。
+			var rederived: Dictionary = Loadouts.derive(persisted_actor, form_catalog)
+			expect(persisted_actor.form_id == selected_final_form and persisted_actor.active_class_id == Forms.FORM_CLASSES[selected_final_form] and rederived.ok and persisted_actor.skill_ids == rederived.skill_ids, "胜利保存最终形态与该形态真实装配技能")
 			expect(persisted_actor.hp == started.setup.actors.p_mage.hp - 2 and persisted_actor.mp == started.setup.actors.p_mage.mp - 3, "victory career change preserves earned HP/MP loss")
 		for gear_id in EXPECTED_GEAR[id - 1]: expected_gear[gear_id] = int(expected_gear.get(gear_id, 0)) + EXPECTED_GEAR[id - 1][gear_id]
 		var after_result: Dictionary = campaign.safe_snapshot()
