@@ -47,6 +47,10 @@ func set_visual_elevation(value: float) -> void:
 	_sync_presentation_position()
 
 func _sync_presentation_position() -> void:
+	# 场景拆除途中（如进战斗切场景触发跳跃取消）节点已不在树内，
+	# global_transform 读取会报错；显示层即将随节点销毁，无需同步。
+	if not is_inside_tree():
+		return
 	var origin := get_presentation_origin()
 	billboard.position = to_local(origin) + Vector3.UP * _visual_elevation
 	if shadow.visible and _shadow_ray.is_colliding() and (scene_integration == null or not scene_integration.enabled):
