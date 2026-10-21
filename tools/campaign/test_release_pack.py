@@ -186,7 +186,7 @@ class PackTests(unittest.TestCase):
     def test_manifest_art_revision_provenance_is_not_a_runtime_dependency(self):
         originals, _ = self.module.formal_dependencies()
         for manifest_path in (self.module.PROJECT / "assets/chars/pixel").glob("*/high_detail_complete/manifest.json"):
-            provenance = json.loads(manifest_path.read_text()).get("art_revision", {}).get("provenance")
+            provenance = json.loads(manifest_path.read_text(encoding="utf-8")).get("art_revision", {}).get("provenance")
             if provenance:
                 self.assertNotIn(provenance.removeprefix("res://"), originals, "制作来源JSON不是运行依赖")
         self.assertFalse(any("art_revisions/" in path or "provenance" in path for path in originals))

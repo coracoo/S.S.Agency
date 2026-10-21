@@ -29,7 +29,7 @@ def entries(registry):
             yield skill, form, variant
 
 def read(path):
-    return json.loads(path.read_text())
+    return json.loads(path.read_text(encoding="utf-8"))
 
 def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()

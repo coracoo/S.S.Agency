@@ -10,7 +10,7 @@ def main():
             path = root / variable.lower(); path.mkdir(); env[variable] = str(path)
         env.update(RPG_TEST_ROOT=str(root),RPG_TEST_ISOLATED='0')
         def run(script):
-            result = subprocess.run([os.environ.get('GODOT_BIN','godot'),'--headless','--fixed-fps','60','--quit-after','20000','--path',str(PROJECT),'--script',script],env=env,text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,timeout=300)
+            result = subprocess.run([os.environ.get('GODOT_BIN','godot'),'--headless','--fixed-fps','60','--quit-after','20000','--path',str(PROJECT),'--script',script],env=env,text=True,encoding='utf-8',errors='replace',stdout=subprocess.PIPE,stderr=subprocess.STDOUT,timeout=300)
             print(result.stdout,end='',flush=True)
             return result
         result = run('res://tools/rpg/test_environment.gd')

@@ -198,7 +198,7 @@ def video_action_sources(project):
 
     sources = set()
     for path in sorted((project / "assets/chars/pixel").glob("*/video_actions/manifest.json")):
-        manifest = json.loads(path.read_text())
+        manifest = json.loads(path.read_text(encoding="utf-8"))
         sources.add(path.relative_to(project).as_posix())
         packed = manifest.get("packed_frames", {})
         for animation in manifest["anims"].values():
@@ -234,7 +234,7 @@ def imagegen_effect_sources(project):
     registry_path = folder / "registry.json"
     if not registry_path.is_file():
         return set()
-    registry = json.loads(registry_path.read_text())
+    registry = json.loads(registry_path.read_text(encoding="utf-8"))
     if registry.get("schema_version") != 2 or registry.get("asset_root") != "res://assets/effects/imagegen_spells":
         raise ValueError("生图运行registry版本或根目录无效")
     sources = {registry_path.relative_to(project).as_posix()}
@@ -246,7 +246,7 @@ def imagegen_effect_sources(project):
         path = project / expected.removeprefix("res://")
         if hashlib.sha256(path.read_bytes()).hexdigest() != entry.get("manifest_sha256"):
             raise ValueError("生图运行清单哈希不符：" + skill)
-        manifest = json.loads(path.read_text())
+        manifest = json.loads(path.read_text(encoding="utf-8"))
         atlas = manifest.get("runtime_atlas", "")
         if manifest.get("schema_version") != 1 or manifest.get("skill_id") != skill or (form and manifest.get("form_id") != form) or not isinstance(atlas, str) or len(Path(atlas).parts) != 2 or Path(atlas).parts[0] != asset_key or Path(atlas).suffix != ".png" or "\\" in atlas or ".." in Path(atlas).parts:
             raise ValueError("生图运行图集路径或版本非法")
@@ -264,7 +264,7 @@ def spell_effect_sources(project):
     if not manifest.is_file():
         return set()
     sources = {manifest.relative_to(project).as_posix()}
-    for action in json.loads(manifest.read_text())["actions"].values():
+    for action in json.loads(manifest.read_text(encoding="utf-8"))["actions"].values():
         name = action["file"]
         if Path(name).name != name or not name.endswith(".png"):
             raise ValueError("法术图集必须是登记目录下的PNG：" + name)
@@ -286,14 +286,14 @@ def formal_dependencies(project=PROJECT):
     saga_npcs = project / "assets/chars/npcs/saga/asset_manifest.json"
     if saga_npcs.is_file():
         sources.add(saga_npcs.relative_to(project).as_posix())
-        npc_data = json.loads(saga_npcs.read_text())
+        npc_data = json.loads(saga_npcs.read_text(encoding="utf-8"))
         # NPC图集由PNG原字节解码；只纳入manifest明确登记的成品，不递归预览/原稿。
         for character in npc_data["characters"].values():
             sources.add(character["sheet"].removeprefix("res://"))
     saga_enemies = project / "assets/chars/enemies/saga/asset_manifest.json"
     if saga_enemies.is_file():
         sources.add(saga_enemies.relative_to(project).as_posix())
-        enemy_data = json.loads(saga_enemies.read_text())
+        enemy_data = json.loads(saga_enemies.read_text(encoding="utf-8"))
         for enemy in enemy_data["enemies"].values():
             sources.add(enemy["sheet"].removeprefix("res://"))
     # NightMenuArt按ROOT + id动态读原PNG；只收批准目录的直接成品，不递归原稿或整个UI树。
@@ -319,7 +319,7 @@ def formal_dependencies(project=PROJECT):
     sources.update(video_action_sources(project))
     for stage in ("test_approach", "corridor_act", "night3_procession", "night4_mirror", "honden_act"):
         sources.add("data/clues/" + stage + ".json")
-    presentation = json.loads((project / "data/rpg/presentation.json").read_text())
+    presentation = json.loads((project / "data/rpg/presentation.json").read_text(encoding="utf-8"))
     sources.add(presentation["fallback_background"].removeprefix("res://"))
     sources.update(path.removeprefix("res://") for path in presentation["night_backgrounds"].values())
     sources.update(path.removeprefix("res://") for path in presentation["enemy_art"].values())
@@ -327,10 +327,10 @@ def formal_dependencies(project=PROJECT):
     sources.update(path.relative_to(project).as_posix() for path in (project / "assets/audio").rglob("*.mp3"))
     profile = "data/characters/scene_integration/dusk_illustration.json"
     sources.add(profile)
-    resources.add(json.loads((project / profile).read_text())["character_shader"].removeprefix("res://"))
+    resources.add(json.loads((project / profile).read_text(encoding="utf-8"))["character_shader"].removeprefix("res://"))
     for manifest_path in sorted((project / "assets/chars/pixel").glob("*/high_detail_complete/manifest.json")):
         sources.add(manifest_path.relative_to(project).as_posix())
-        manifest = json.loads(manifest_path.read_text())
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         for animation in manifest["anims"].values():
             sources.update((manifest["dir"] + frame + ".png").removeprefix("res://") for frame in animation["frames"])
         for layer in manifest.get("layers", []):
@@ -339,7 +339,7 @@ def formal_dependencies(project=PROJECT):
         if contact:
             sources.add(contact.removeprefix("res://"))
     # 静态preload/extends与主线可用脚本的load依赖闭包。场景URI兼容fallback不扩展。
-    scripts = {path.relative_to(project).as_posix(): path.read_text() for path in (project / "scripts").rglob("*.gd")}
+    scripts = {path.relative_to(project).as_posix(): path.read_text(encoding="utf-8") for path in (project / "scripts").rglob("*.gd")}
     classes = {match.group(1): name for name, text in scripts.items() if (match := re.search(r"^class_name\s+(\w+)", text, re.M))}
     todo = list(resources)
     examined = set()
@@ -350,7 +350,7 @@ def formal_dependencies(project=PROJECT):
         examined.add(name)
         if Path(name).suffix not in (".gd", ".tscn"):
             continue
-        text = (project / name).read_text()
+        text = (project / name).read_text(encoding="utf-8")
         targets = set(re.findall(r"res://([^\s\"'\)\]\},;]+)", text))
         for target in targets:
             if target.startswith("data/") and target.endswith(".json") and (project / target).is_file():
@@ -391,19 +391,19 @@ def main():
     sources, resources = formal_dependencies()
     if args.configure_export:
         preset = PROJECT / "export_presets.cfg"
-        text = preset.read_text()
+        text = preset.read_text(encoding="utf-8")
         text = re.sub(r'export_filter="[^"]*"', 'export_filter="resources"', text)
         text = re.sub(r'^export_files=.*\n', '', text, flags=re.M)
         text = text.replace('export_filter="resources"', 'export_filter="resources"\nexport_files=PackedStringArray(' + ', '.join(json.dumps("res://" + path) for path in resources) + ')')
         text = re.sub(r'include_filter="[^"]*"', 'include_filter="' + ', '.join(path for path in sources if path.endswith(".json")) + '"', text)
-        preset.write_text(text)
-        (output / "formal-dependencies.json").write_text(json.dumps({"sources": sorted(sources), "resource_roots": resources}, ensure_ascii=False, indent=2) + "\n")
+        preset.write_text(text, encoding="utf-8")
+        (output / "formal-dependencies.json").write_text(json.dumps({"sources": sorted(sources), "resource_roots": resources}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         print(f"FORMAL EXPORT: {len(resources)} explicit resources, {len(sources)} original dependencies")
         return 0
     if args.append_originals:
         append_originals(pack, sources)
         cache_report = filter_pack_caches(pack)
-        (output / "generated-cache-audit.json").write_text(json.dumps(cache_report, indent=2) + "\n")
+        (output / "generated-cache-audit.json").write_text(json.dumps(cache_report, indent=2) + "\n", encoding="utf-8")
     entries = read_pack(pack)
     failures = verify_entries(pack, entries) + audit_paths(set(entries), set(sources))
     classes = read_entry(pack, entries[".godot/global_script_class_cache.cfg"]).decode("utf-8")
@@ -422,7 +422,7 @@ def main():
             continue
         metadata = Path(str(source) + ".import")
         if metadata.is_file():
-            for imported in re.findall(r"res://([^\"\s]+\.ctex)", metadata.read_text()):
+            for imported in re.findall(r"res://([^\"\s]+\.ctex)", metadata.read_text(encoding="utf-8")):
                 if imported in entries:
                     failures.append("七形态原帧重复携带ctex：" + name + " -> " + imported)
     source_hashes = {}
@@ -435,8 +435,8 @@ def main():
               "sha256": hashlib.sha256(pack.read_bytes()).hexdigest(), "size_bytes": pack.stat().st_size,
               "entry_count": len(entries), "required_original_count": len(sources), "source_sha256": source_hashes,
               "failures": failures, "status": "pass" if not failures else "fail", "entries": entries}
-    (output / "pack-audit.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
-    (output / "pack-files.txt").write_text("\n".join(sorted(entries)) + "\n")
+    (output / "pack-audit.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    (output / "pack-files.txt").write_text("\n".join(sorted(entries)) + "\n", encoding="utf-8")
     print(f"PCK AUDIT: {report['status']}; entries={len(entries)}; originals={len(sources)}; size={pack.stat().st_size}; failures={len(failures)}")
     for failure in failures:
         print("FAIL:", failure)

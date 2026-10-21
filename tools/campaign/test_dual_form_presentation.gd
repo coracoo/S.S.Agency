@@ -75,8 +75,10 @@ func _run() -> void:
 	view._render()
 	check(view._hud.has("form") and view._hud.form.visible and not view._hud.form.disabled, "解锁后当前焰华行动显示可用切换按钮")
 	var catalog := Catalog.new(); catalog.load_all()
-	var sword_skills: Array = actor.build.active.sword
-	var mage_skills: Array = actor.build.active.mage
+	# role-loadout-2：build.active 存卡ID（焰华剑形态为本人别名卡），skill_ids 是
+	# skill_id_for_card 派生的招式ID；这里先映射再比对，与权威派生入口一致。
+	var sword_skills: Array = actor.build.active.sword.map(func(id): return Loadouts.skill_id_for_card(str(id)))
+	var mage_skills: Array = actor.build.active.mage.map(func(id): return Loadouts.skill_id_for_card(str(id)))
 	var focus_weapon: bool = Loadouts.derive(engine.snapshot().actors.p_mage, catalog).weapon_tags.has("focus")
 	check(engine.snapshot().actors.p_mage.skill_ids == sword_skills and view._basic_buttons.attack_magic.visible == focus_weapon, "剑形态展示已准备卡，魔攻入口服从共享武器focus标签")
 	# 把真实冷却值加入合法恢复快照，验证形态切换不重置该角色的共享冷却。
@@ -92,7 +94,7 @@ func _run() -> void:
 	for field in ["phase", "active_actor_id", "slot_token", "queue", "queue_index", "rng_state", "inventory"]: check(switched[field] == switch_before[field], "自由切换保留行动槽/队列/RNG/库存：" + field)
 	for field in ["actor_id", "identity_id", "class_id", "build", "hp", "mp", "stats", "equipment", "cooldown_until", "statuses", "slot_count", "opportunity_count"]: check(switched.actors.p_mage[field] == switch_before.actors.p_mage[field], "自由切换不改身份、构筑或共享资源：" + field)
 	check(switched.revision == switch_before.revision + 1 and switched.actors.p_mage.skill_ids == mage_skills and switched.actors.p_mage.active_class_id == "mage", "只更新revision、当前职业与法师四技能")
-	check(view._hd_views.p_mage._definition.manifest.form_id == "mage" and view._basic_buttons.attack_magic.visible == focus_weapon and view._skill_buttons[0].text.contains(catalog.get_definition("skills", mage_skills[0]).name), "同一高清节点瞬时换术形态、共享武器入口和已准备卡")
+	check(view._hd_views.p_mage._definition.manifest.form_id == "mage" and view._basic_buttons.attack_magic.visible == focus_weapon and view._skill_buttons[0].get_node("Title").text.contains(catalog.get_definition("skills", mage_skills[0]).name), "同一高清节点瞬时换术形态、共享武器入口和已准备卡")
 	check(not view._hd_player.is_busy() and not view.processing, "自由切换不触发攻击动画、不锁额外行动")
 	if not OS.get_environment("CAMPAIGN_PRESENTATION_OUTPUT").is_empty(): await _save_frame("battle_homura_mage_turn.png")
 	var cd_preview: Dictionary = engine.preview({"command_id": "probe_cooldown", "expected_revision": switched.revision, "actor_id": "p_mage", "kind": "skill", "ability_id": "firebolt", "target_ids": ["e_01_hound"]})

@@ -16,7 +16,7 @@ STRICT_CANDIDATE = os.environ.get("PUBLIC_RUNTIME_CANDIDATE") == "1"
 
 def export_selections():
     """读取实际导出选择；原PNG还会由release_pack的依赖闭包追加。"""
-    text = (ROOT / "export_presets.cfg").read_text()
+    text = (ROOT / "export_presets.cfg").read_text(encoding="utf-8")
     selected = set()
     for values in re.findall(r'^export_files=PackedStringArray\((.*)\)$', text, re.M):
         selected.update(path.removeprefix("res://") for path in re.findall(r'"([^"]+)"', values))
@@ -40,7 +40,7 @@ class PublicRuntimeRelease(unittest.TestCase):
         selected = export_selections()
         for path in paths:
             with self.subTest(character=path.parent.parent.name):
-                value = json.loads(path.read_text())
+                value = json.loads(path.read_text(encoding="utf-8"))
                 self.assertFalse(set(value) - allowed)
                 used = {name for action in value["anims"].values() for name in action["frames"]}
                 self.assertEqual(used, set(value["packed_frames"]))
@@ -61,13 +61,13 @@ class PublicRuntimeRelease(unittest.TestCase):
                     allowed_files.update(p.relative_to(ROOT).as_posix() for p in path.parent.glob("*_sprite_frames.tres"))
                     self.assertEqual(allowed_files, {p.relative_to(ROOT).as_posix() for p in path.parent.rglob("*") if p.is_file()},
                                      "公开候选不能残留制作旁记或历史副本")
-                contacts = json.loads((path.parent / "contacts.json").read_text())
+                contacts = json.loads((path.parent / "contacts.json").read_text(encoding="utf-8"))
                 self.assertEqual(used, set(contacts["frames"]))
                 self.assertFalse(set(contacts) - {"schema_version", "character_id", "canvas", "anchor", "frames"})
 
     def test_imagegen_metadata_pins_runtime_bytes_without_source_receipt(self):
         folder = ROOT / "assets/effects/imagegen_spells"
-        registry = json.loads((folder / "registry.json").read_text())
+        registry = json.loads((folder / "registry.json").read_text(encoding="utf-8"))
         self.assertEqual(2, registry["schema_version"])
         self.assertIs(registry["production_renderer_enabled"], True)
         released = release.imagegen_effect_sources(ROOT)
@@ -80,7 +80,7 @@ class PublicRuntimeRelease(unittest.TestCase):
             with self.subTest(skill=skill):
                 path = ROOT / entry["manifest"].removeprefix("res://")
                 self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest(), entry["manifest_sha256"])
-                value = json.loads(path.read_text())
+                value = json.loads(path.read_text(encoding="utf-8"))
                 required_fields = {"schema_version", "skill_id", "runtime_atlas", "runtime_atlas_sha256", "frame_count", "frames", "phases"}
                 self.assertTrue(required_fields <= set(value))
                 self.assertFalse(set(value) - required_fields - {"required_phases", "placement", "event_layers", "form_id", "skill_name", "phase_groups", "visual_event_contract", "reaction_layers"})
@@ -117,11 +117,11 @@ class PublicRuntimeRelease(unittest.TestCase):
         self.assertIn("scripts/rpg/ui/physical_skill_visual_event_policy.gd", resources)
         self.assertIn("scripts/rpg/dual_form.gd", resources)
         folder = ROOT / "assets/effects/imagegen_spells"
-        registry = json.loads((folder / "registry.json").read_text())
+        registry = json.loads((folder / "registry.json").read_text(encoding="utf-8"))
         expected = {"assets/effects/imagegen_spells/registry.json"}
         for _, _, entry in release.imagegen_effect_entries(registry):
             manifest_path = entry["manifest"].removeprefix("res://")
-            manifest = json.loads((ROOT / manifest_path).read_text())
+            manifest = json.loads((ROOT / manifest_path).read_text(encoding="utf-8"))
             expected.update({manifest_path, "assets/effects/imagegen_spells/" + manifest["runtime_atlas"]})
         self.assertEqual(expected, {name for name in originals if name.startswith("assets/effects/imagegen_spells/")})
 

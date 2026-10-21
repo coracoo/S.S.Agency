@@ -12,12 +12,12 @@ MAGE_MANIFESTS = {"firebolt":"6a5cecd39b858bb3595649e05b88f1c185d6e398f017a4990d
 
 
 def read(skill):
-    return json.loads((FOLDER / skill / "manifest.json").read_text())
+    return json.loads((FOLDER / skill / "manifest.json").read_text(encoding="utf-8"))
 
 
 class CasterRuntimeRelease(unittest.TestCase):
     def test_all_twelve_registered_with_unchanged_mage_contracts_and_verified_gates(self):
-        registry = json.loads((FOLDER / "registry.json").read_text())
+        registry = json.loads((FOLDER / "registry.json").read_text(encoding="utf-8"))
         self.assertTrue(set(EXPECTED) | set(MAGE_MANIFESTS) <= set(registry["effects"]))
         self.assertIs(registry["production_renderer_enabled"], True)
         for skill in set(EXPECTED) | set(MAGE_MANIFESTS):

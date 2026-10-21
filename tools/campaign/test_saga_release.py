@@ -133,7 +133,8 @@ class SagaReleaseTests(unittest.TestCase):
             engine = output / "fake engine.bat"
             engine.write_text('@echo off\necho %CD%\necho %*\n', encoding="utf8")
             env = dict(os.environ, GODOT_BIN=str(engine))
-            result = subprocess.run([os.environ["COMSPEC"], "/d", "/c", str(output / "launch_campaign.bat"), "--headless", "--quit-after", "2"], cwd=directory, env=env, text=True, capture_output=True)
+            comspec = os.environ.get("COMSPEC") or "C:\\Windows\\System32\\cmd.exe"
+            result = subprocess.run([comspec, "/d", "/c", str(output / "launch_campaign.bat"), "--headless", "--quit-after", "2"], cwd=directory, env=env, text=True, capture_output=True)
             self.assertEqual(0, result.returncode, result.stderr)
             self.assertEqual([str(output), "--main-pack ssa-seven-chapter-formal.pck --headless --quit-after 2"], result.stdout.splitlines())
 

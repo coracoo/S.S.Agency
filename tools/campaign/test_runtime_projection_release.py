@@ -19,7 +19,7 @@ SKILLS = ("firebolt", "flame_wave", "ice_arrow", "burn_brand")
 
 def write(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n")
+    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 def snapshot(root):
@@ -30,7 +30,7 @@ def snapshot(root):
 class RuntimeProjectionRelease(unittest.TestCase):
     def raw_source(self, root):
         root.mkdir()
-        (root / "project.godot").write_text("config_version=5\n")
+        (root / "project.godot").write_text("config_version=5\n", encoding="utf-8")
         for form in FORMS:
             prefix = "assets/chars/pixel/" + form + "/video_actions/"
             atlas = root / (prefix + "sheets/runtime.png")

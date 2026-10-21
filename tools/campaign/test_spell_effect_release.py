@@ -14,7 +14,7 @@ class SpellEffectRelease(unittest.TestCase):
     def test_actual_manifest_and_every_frame_strip_are_formal_originals(self):
         sources, _resources = release.formal_dependencies()
         folder = Path('assets/effects/illustrated_spells')
-        manifest = json.loads((ROOT/folder/'manifest.json').read_text())
+        manifest = json.loads((ROOT/folder/'manifest.json').read_text(encoding="utf-8"))
         self.assertIn((folder/'manifest.json').as_posix(),sources)
         for action in manifest['actions'].values():
             self.assertIn((folder/action['file']).as_posix(),sources)
