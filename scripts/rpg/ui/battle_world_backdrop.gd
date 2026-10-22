@@ -68,7 +68,9 @@ func configure(world: Dictionary, depth_enabled: bool = true) -> void:
 	add_child(display)
 	_world = Node3D.new()
 	viewport.add_child(_world)
-	geometry = SagaWorld.build(saga_chapter) if saga_chapter >= 2 else Geometry.build({})
+	# 战斗背景不带探索侧氛围层（雨丝/落叶/水滩/闪电）：表演重心在角色与技能，
+	# 氛围渲染只留在探索舞台，避免战斗内出现外部天气残影。
+	geometry = SagaWorld.build(saga_chapter, false) if saga_chapter >= 2 else Geometry.build({"weather": false})
 	_world.add_child(geometry)
 	if geometry.has_method("enable_battle_prop_occlusion"): geometry.enable_battle_prop_occlusion()
 	# 当前地图的碰撞由探索舞台持有；战斗舞台没有角色控制器或额外剧情实例。

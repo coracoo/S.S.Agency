@@ -39,10 +39,10 @@ var _weather: Node3D
 static func build(config: Dictionary) -> Node3D:
 	var world := new()
 	world.name = "ChapterGeometry"
-	world._construct(int(config.get("night", 1)))
+	world._construct(int(config.get("night", 1)), bool(config.get("weather", true)))
 	return world
 
-func _construct(night_id: int = 1) -> void:
+func _construct(night_id: int = 1, with_weather: bool = true) -> void:
 	for entry in LAYOUT.walk_rects(): _walk_rects.append(entry.rect)
 	_physics = Node3D.new(); _physics.name = "PermanentCollision"; add_child(_physics)
 	_make_materials()
@@ -57,8 +57,8 @@ func _construct(night_id: int = 1) -> void:
 	_configure_shadow_receivers()
 	_embellish_washi_materials()
 	_dressing()
-	_weather = WEATHER.build(FLOOR, night_id)
-	add_child(_weather)
+	_weather = WEATHER.build(FLOOR, night_id) if with_weather else null
+	if is_instance_valid(_weather): add_child(_weather)
 	update_visibility(Vector3(8.5,FLOOR,0))
 
 ## 导入材质点缀：GLB 共享导入资源统一逐实例 override（不改导入源），同源缓存去重。

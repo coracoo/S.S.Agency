@@ -123,14 +123,14 @@ static func boundary_samples(chapter: int) -> Array:
 		result.append([center-normal*.65,center+normal*.75])
 	return result
 
-static func build(chapter: int) -> Node3D:
+static func build(chapter: int, with_weather: bool = true) -> Node3D:
 	var world:=new(); world.name="SagaWorld_%d" % chapter
 	world._chapter=chapter
 	if not TITLES.has(chapter): return world
-	world._construct()
+	world._construct(with_weather)
 	return world
 
-func _construct() -> void:
+func _construct(with_weather: bool = true) -> void:
 	_cells=_grid(_chapter)
 	_physics=Node3D.new(); _physics.name="PermanentCollision"; add_child(_physics)
 	_art=Node3D.new(); _art.name=LANDMARKS[_chapter]; add_child(_art)
@@ -145,8 +145,8 @@ func _construct() -> void:
 	_landscape()
 	# 后六章共用第一幕天气层：雨/风/落叶按 weather.json 的章节档案调度；
 	# 水滩点位只属于第一幕寺域石板，saga 地区不开水滩。
-	_weather = WEATHER.build(0.0, _chapter + 4, false)
-	add_child(_weather)
+	_weather = WEATHER.build(0.0, _chapter + 4, false) if with_weather else null
+	if is_instance_valid(_weather): add_child(_weather)
 	set_meta("chapter",_chapter); set_meta("title",TITLES[_chapter]); set_meta("layout","saga_regions_v1")
 
 ## 每帧由 saga_stage 驱动：anchor=玩家位置，雨盒/叶盒跟随。
