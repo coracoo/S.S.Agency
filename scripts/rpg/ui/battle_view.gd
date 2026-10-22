@@ -270,9 +270,12 @@ func _await_presentation(generation: int) -> bool:
 		await presentation_tick
 	return generation == _presentation_generation and is_inside_tree()
 var _shake_power := 0.0
+var _ring_time := 0.0
 func _process(delta: float) -> void:
 	if is_instance_valid(_world_backdrop): _world_backdrop.sync_visuals(delta)
 	_sync_effect_positions()
+	_ring_time += delta
+	_animate_target_rings()
 	# 命中震屏：平方衰减的短促偏移，随重击/暴击/倒地触发；不触碰规则与镜头逻辑。
 	# 只在震屏期间接管_canvas位置，结束后交还_resize_canvas的窗口适配结果。
 	if _shake_power > 0.0:
@@ -283,6 +286,36 @@ func _process(delta: float) -> void:
 		else:
 			_resize_canvas()
 	presentation_tick.emit()
+
+# 目标热区悬停只切换火圈状态，视觉由 _render + _animate_target_rings 统一输出。
+func _set_target_hover(actor_id: String, hovered: bool) -> void:
+	if not _actors.has(actor_id): return
+	_actors[actor_id]["hovered"] = hovered
+	_render()
+
+# 火圈动画：相位按演员错开；行动者保持原有 focus 色呼吸，目标/悬停为朱红↔炽橙外圈 + 亮黄内圈闪烁。
+func _animate_target_rings() -> void:
+	for actor_id in _actors:
+		var w: Dictionary = _actors[actor_id]
+		var ring: Line2D = w.get("ring")
+		if ring == null or not is_instance_valid(ring) or not ring.visible: continue
+		var ember: Line2D = w.get("ember")
+		var phase := float(abs(actor_id.hash()) % 628) * .01
+		var pulse := 0.5 + 0.5 * sin(_ring_time * 7.5 + phase)
+		if str(w.get("ring_mode", "active")) == "active":
+			ring.width = 2.5 + pulse * .8
+			if ember != null and is_instance_valid(ember):
+				ember.width = 1.2 + pulse * .5
+				ember.scale = Vector2.ONE * (0.98 + 0.02 * sin(_ring_time * 5.0 + phase))
+				ember.default_color = Color(0.72, 0.82, 1.0, 0.85)
+		else:
+			var flicker := 0.5 + 0.5 * sin(_ring_time * 12.0 + phase * 1.7)
+			ring.width = 3.0 + pulse * 1.6
+			ring.default_color = (Color("c2402a") if str(w.get("ring_mode")) == "target" else Color("b8452a")).lerp(Color("ff9a3c"), pulse)
+			if ember != null and is_instance_valid(ember):
+				ember.width = 1.4 + flicker * 1.0
+				ember.scale = Vector2.ONE * (0.94 + 0.06 * flicker)
+				ember.default_color = Color(1.0, 0.84, 0.45).lerp(Color(1.0, 0.55, 0.25), flicker)
 func _cancel_presentation() -> void:
 	_flush_pending_logs()
 	if is_instance_valid(_fx_layer): _fx_layer.clear()
@@ -580,6 +613,7 @@ func _build_actors() -> void:
 		sprite.set_meta("facing_right", toward_right)
 		sprite.position = foot
 		var ring := Line2D.new()
+		ring.name = "TargetRing"
 		var ring_points := points.duplicate()
 		ring_points.append(points[0])
 		ring.points = ring_points
@@ -587,10 +621,20 @@ func _build_actors() -> void:
 		ring.default_color = Kit.color("ui_focus")
 		ring.position = foot
 		_canvas.add_child(ring)
+		# 内圈火舌：选中/悬停时与外圈组成火圈，宽度/颜色/缩放由 _process 逐帧驱动。
+		var ember := Line2D.new()
+		ember.name = "TargetEmber"
+		ember.points = ring_points
+		ember.width = 1.4
+		ember.default_color = Color(1.0, 0.84, 0.45)
+		ember.position = foot
+		_canvas.add_child(ember)
 		var target := Art.button(_canvas, "", Rect2(foot.x - 110, foot.y - float(layout[2]), 220, float(layout[2]) + 34), select_target.bind(id))
-		for style in ["normal", "disabled"]: target.add_theme_stylebox_override(style, StyleBoxEmpty.new())
-		for style in ["hover", "pressed", "focus"]: target.add_theme_stylebox_override(style, Art.style("focus", 12))
+		# 热区只保留透明点击面，选中/悬停反馈全部走底部火圈，不再画大边框。
+		for style in ["normal", "disabled", "hover", "pressed", "focus"]: target.add_theme_stylebox_override(style, StyleBoxEmpty.new())
 		target.mouse_filter = Control.MOUSE_FILTER_PASS
+		target.mouse_entered.connect(_set_target_hover.bind(id, true))
+		target.mouse_exited.connect(_set_target_hover.bind(id, false))
 		var card: Panel
 		var avatar: TextureRect
 		if ally:
@@ -661,7 +705,7 @@ func _build_actors() -> void:
 			intent.mouse_filter = Control.MOUSE_FILTER_PASS
 			intent.add_theme_color_override("font_outline_color", Kit.color("ink_900"))
 			intent.add_theme_constant_override("outline_size", 6)
-		_actors[id] = {"sprite": sprite, "shadow": shadow, "ring": ring, "target": target, "card": card, "avatar": avatar, "title": title, "hp": hp, "mp": mp, "hpbar": hpbar, "mpbar": mpbar, "status": status, "intent": intent}
+		_actors[id] = {"sprite": sprite, "shadow": shadow, "ring": ring, "ember": ember, "target": target, "card": card, "avatar": avatar, "title": title, "hp": hp, "mp": mp, "hpbar": hpbar, "mpbar": mpbar, "status": status, "intent": intent, "hovered": false, "ring_mode": "active"}
 		if sprite.has_signal("presentation_position_changed"): sprite.connect("presentation_position_changed",_sync_actor_presentation.bind(id))
 		if sprite is HdActor: sprite.animator.action_finished.connect(_on_effect_actor_finished.bind(str(id)))
 	if _hd_enabled():
@@ -760,10 +804,13 @@ func _render() -> void:
 		if w.status.visible: content_bottom = maxf(content_bottom, w.status.position.y + w.status.size.y)
 		w.card.size.y = 76.0 if row.side == "player" else content_bottom + (20.0 if w.card.size.x < 300 else 22.0)
 		w.sprite.modulate = Color(0.4, 0.4, 0.4, 0.55) if row.hp == 0 else Color.WHITE
-		w.ring.visible = row.active or preview.effective_target_ids.has(row.actor_id)
-		w.ring.default_color = Kit.color("vermilion_500") if preview.effective_target_ids.has(row.actor_id) else Kit.color("ui_focus")
+		var targeted: bool = preview.effective_target_ids.has(row.actor_id)
+		var hovered: bool = bool(w.get("hovered", false)) and not w.target.disabled
+		w.ring.visible = row.active or targeted or hovered
+		w.ember.visible = w.ring.visible
+		w["ring_mode"] = "active" if row.active else ("target" if targeted else "hover")
+		w.ring.default_color = Kit.color("ui_focus") if row.active else (Kit.color("vermilion_500") if targeted else Color("ff9a3c"))
 		w.target.disabled = processing or pending_command.is_empty() or automatic or not command_options(pending_command.kind, pending_command.ability_id).get("targets", []).has(row.actor_id)
-		w.target.add_theme_stylebox_override("normal", Art.style("focus", 12) if preview.effective_target_ids.has(row.actor_id) else StyleBoxEmpty.new())
 		w.target.tooltip_text = "%s\n%s" % [row.label, w.status.tooltip_text]
 		if w.intent != null:
 			var full_intent: String = row.intent.get("text", "倒地" if row.hp == 0 else "意图待定")
