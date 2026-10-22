@@ -19,6 +19,7 @@ const OLD_GEOMETRY := preload("res://scripts/campaign/chapter_geometry.gd")
 const LAYOUT := preload("res://scripts/campaign/act_one_layout.gd")
 const SKY_WALL_SHADER := preload("res://scripts/campaign/sky_wall.gdshader")
 const LEAF_PILE_SHADER := preload("res://scripts/campaign/leaf_pile.gdshader")
+const LANTERN_POOL_SHADER := preload("res://scripts/campaign/lantern_pool.gdshader")
 const WEATHER := preload("res://scripts/campaign/act_one_weather.gd")
 const FLOOR := LAYOUT.TEMPLE_HEIGHT
 var _walk_rects: Array[Rect2] = []
@@ -162,6 +163,15 @@ func _stone_lantern(parent: Node3D, at: Vector3, lit: bool) -> void:
 			panel.rotation.y = yaw
 			if yaw != 0.0: panel.position = Vector3(.235,1.18,0)
 			lantern.add_child(panel)
+		# 假光池贴地：暖色径向呼吸，不投影不补光，战斗烘焙也会带进照片背景。
+		var pool_material := ShaderMaterial.new()
+		pool_material.shader = LANTERN_POOL_SHADER
+		var pool := MeshInstance3D.new(); pool.name = "LanternGroundPool"
+		var pool_quad := QuadMesh.new(); pool_quad.size = Vector2(3.6, 3.0)
+		pool.mesh = pool_quad; pool.material_override = pool_material
+		pool.position = Vector3(0, .02, 0); pool.rotation.x = -PI/2
+		pool.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		lantern.add_child(pool)
 
 ## 落叶堆：贴地椭圆片，shader 做径向羽化+噪声斑驳，读作堆积落叶而非色块。
 func _leaf_pile(parent: Node3D, at: Vector3, radius: float) -> void:
