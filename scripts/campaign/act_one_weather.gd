@@ -10,6 +10,8 @@ const RAIN_COUNT := 700
 const LEAF_COUNT := 26
 const BOX := Vector3(46.0, 24.0, 40.0)
 const FALL_SPEED := 14.0
+# 雨丝按 30Hz 推进：物理积分用累计真实时间，实例变换写入量减半，运动轨迹不变。
+const RAIN_STEP := 1.0 / 30.0
 
 var _rain: MultiMeshInstance3D
 var _leaves: MultiMeshInstance3D
@@ -17,6 +19,8 @@ var _puddles: Array[MeshInstance3D] = []
 var _flash: DirectionalLight3D
 var _wind := Vector3.ZERO
 var _rain_seed: Array[Vector3] = []
+var _rain_factor := PackedFloat32Array()
+var _rain_clock := 0.0
 var _leaf_seed: Array[Vector3] = []
 var _leaf_rest: Array[float] = []
 var _time := 0.0
@@ -127,23 +131,31 @@ func _build_rain() -> void:
 	_rain.multimesh.mesh = quad
 	_rain.multimesh.instance_count = RAIN_COUNT
 	_rain_seed.clear()
+	_rain_factor.clear()
 	for index in range(RAIN_COUNT):
 		var seed := Vector3(randf() * BOX.x, randf() * BOX.y - 8.0, randf() * BOX.z)
 		_rain_seed.append(seed)
+		_rain_factor.append(.85 + float(index % 5) * .06)
 		_rain.multimesh.set_instance_transform(index, Transform3D(Basis(), seed))
 	add_child(_rain)
 
 func _update_rain(anchor: Vector3, delta: float) -> void:
+	_rain_clock += delta
+	if _rain_clock < RAIN_STEP: return
+	var step: float = _rain_clock
+	_rain_clock = 0.0
 	var origin := anchor + Vector3(-BOX.x * .5, 6.0, -BOX.z * .5)
 	# 雨丝整体顺风向倾斜（绕垂直于风向的水平轴旋转）。
 	var tilt_axis := Vector3(-_wind.z, 0.0, _wind.x)
 	if tilt_axis.length() < .01: tilt_axis = Vector3.RIGHT
 	var tilt := clampf(_wind.length() * .028, 0.0, .45)
 	var basis := Basis(tilt_axis.normalized(), tilt)
-	for index in range(RAIN_COUNT):
+	# 可见实例之外的不推进也不写变换（雨量调低时直接跳过）。
+	var visible: int = mini(_rain.multimesh.visible_instance_count, RAIN_COUNT)
+	for index in range(visible):
 		var p: Vector3 = _rain_seed[index]
-		p.y -= (FALL_SPEED + _wind.length()) * delta * (.85 + float(index % 5) * .06)
-		p += _wind * delta
+		p.y -= (FALL_SPEED + _wind.length()) * step * _rain_factor[index]
+		p += _wind * step
 		if p.y < -8.0:
 			p.y += BOX.y
 			p.x = randf() * BOX.x

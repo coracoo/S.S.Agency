@@ -61,10 +61,18 @@ func _run() -> void:
 		await _shot(entry.id+"_battle")
 		if not entry.id in ["forecourt","corridor"]:
 			battle.free();session.close();continue
-		battle._skill_buttons[0].pressed.emit()
-		var options:Dictionary=battle.command_options("skill",battle.pending_command.get("ability_id",""))
-		if not options.get("targets",[]).is_empty():battle.select_target(options.targets[0])
-		if not battle.current_preview().legal:printerr("CAPTURE_PREVIEW: no legal target");quit(1);return
+		# 依次尝试技能按钮直到出现合法目标：先翻到技能分页，首个技能可能因蓝耗/冷却不可用，不固定假定 [0]。
+		battle._open_command_page("skills")
+		await process_frame
+		var selected:=false
+		for button in battle._skill_buttons:
+			if selected: break
+			button.pressed.emit()
+			if battle.pending_command.is_empty(): continue
+			var options:Dictionary=battle.command_options("skill",battle.pending_command.get("ability_id",""))
+			if not options.get("targets",[]).is_empty():battle.select_target(options.targets[0])
+			selected=battle.current_preview().legal
+		if not selected:printerr("CAPTURE_PREVIEW: no legal target");quit(1);return
 		await _shot(entry.id+"_battle_select")
 		battle.cancel_command();battle._basic_pressed("item")
 		await _shot(entry.id+"_battle_items")
