@@ -21,6 +21,46 @@ func configure(world: Dictionary, depth_enabled: bool = true) -> void:
 	if staging_v4_report.is_empty():
 		staging_v4_report = STAGING_V4.apply(self)
 
+## 照片缓存命中时几何不会构建；真实地表三角缓存与布景报告随照片一起存档/恢复，
+## 保证近战贴地脚点与验收数据在缓存路径下与首帧烘焙完全一致。
+func persist_battle_cache(base: String) -> void:
+	if not _ground_cache_ready: return
+	var data := {"ground_ready": true, "meshes": _ground_meshes, "staging": staging_v4_report, "triangles": [], "cells": {}}
+	for triangle in _ground_triangles:
+		data.triangles.append([
+			[triangle.a.x, triangle.a.y, triangle.a.z],
+			[triangle.b.x, triangle.b.y, triangle.b.z],
+			[triangle.c.x, triangle.c.y, triangle.c.z],
+			[triangle.normal.x, triangle.normal.y, triangle.normal.z],
+			triangle.node])
+	for key in _ground_cells:
+		_ground_cells[key].sort()
+		data.cells["%d:%d" % [key.x, key.y]] = _ground_cells[key]
+	var file := FileAccess.open(base + "_ground.json", FileAccess.WRITE)
+	if file != null: file.store_string(JSON.stringify(data))
+
+func restore_battle_cache(base: String) -> void:
+	var path := base + "_ground.json"
+	if not FileAccess.file_exists(path): return
+	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+	if not parsed is Dictionary: return
+	_ground_triangles.clear()
+	_ground_cells.clear()
+	_ground_meshes.clear()
+	for entry in parsed.get("triangles", []):
+		_ground_triangles.append({
+			"a": Vector3(entry[0][0], entry[0][1], entry[0][2]),
+			"b": Vector3(entry[1][0], entry[1][1], entry[1][2]),
+			"c": Vector3(entry[2][0], entry[2][1], entry[2][2]),
+			"normal": Vector3(entry[3][0], entry[3][1], entry[3][2]),
+			"node": entry[4]})
+	for key in parsed.get("cells", {}):
+		var parts := String(key).split(":")
+		if parts.size() == 2: _ground_cells[Vector2i(int(parts[0]), int(parts[1]))] = parsed.cells[key]
+	_ground_meshes = parsed.get("meshes", [])
+	staging_v4_report = parsed.get("staging", {})
+	_ground_cache_ready = bool(parsed.get("ground_ready", false)) and not _ground_triangles.is_empty()
+
 func _build_ground_cache() -> void:
 	if not is_instance_valid(geometry) or not is_instance_valid(camera):
 		return

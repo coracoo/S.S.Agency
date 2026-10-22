@@ -17,6 +17,12 @@ const Contact = preload("res://scripts/characters/ground_contact_shadow.gdshader
 const GEOMETRY_DEPTH_CLEAR_MARGIN := 3.4
 const GEOMETRY_DEPTH_FADE_DISTANCE := 15.0
 const GEOMETRY_DEPTH_PAPER_TINT := Color(.62,.64,.61)
+# 战斗背景烘焙：战斗相机与布景固定，每帧重绘整场几何是纯浪费；常规做法是固定机位照片背景。
+# 某区域首次战斗时把背景渲成 1920×1080 照片存入 user:// 缓存，之后同区域战斗直接贴图；
+# 角色、正交镜头、脚点投影、近战贴地三角缓存仍是 live 3D，走位与命中验收不受影响。
+# 布景/材质/镜头公式变更时手动递增 BAKE_VERSION 使旧照片失效。
+const BAKE_VERSION := 1
+const BAKE_DIR := "user://battle_backdrops"
 const STAGES := {
 	"approach": Vector3(-4.5, .03, .45),
 	"forecourt": Vector3(15.5, 2.89, .2),
@@ -36,6 +42,11 @@ var stage_origin := Vector3.ZERO
 var actor_entries: Dictionary = {}
 var _world: Node3D
 var _geometry_depth_diagnostics: Dictionary = {}
+var _fallback_bg: ColorRect
+var _baked_display: TextureRect
+var _live_display: TextureRect
+var _bake_pending := false
+var _cache_base := ""
 
 func configure(world: Dictionary, depth_enabled: bool = true) -> void:
 	if viewport != null: return
@@ -60,22 +71,27 @@ func configure(world: Dictionary, depth_enabled: bool = true) -> void:
 	viewport.own_world_3d = true
 	viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	viewport.msaa_3d = Viewport.MSAA_2X
+	# 透明底：烘焙后 viewport 只承载 live 角色，照片从下层的 _baked_display 透出。
+	viewport.transparent_bg = true
 	add_child(viewport)
-	var display := TextureRect.new()
-	display.size = size
-	display.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	display.texture = viewport.get_texture()
-	add_child(display)
+	_fallback_bg = ColorRect.new()
+	_fallback_bg.size = size
+	_fallback_bg.color = Color(.045,.055,.075)
+	_fallback_bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(_fallback_bg)
+	_baked_display = TextureRect.new()
+	_baked_display.size = size
+	_baked_display.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_baked_display.visible = false
+	add_child(_baked_display)
+	_live_display = TextureRect.new()
+	_live_display.size = size
+	_live_display.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_live_display.texture = viewport.get_texture()
+	add_child(_live_display)
 	_world = Node3D.new()
 	viewport.add_child(_world)
-	# 战斗背景不带探索侧氛围层（雨丝/落叶/水滩/闪电）：表演重心在角色与技能，
-	# 氛围渲染只留在探索舞台，避免战斗内出现外部天气残影。
-	geometry = SagaWorld.build(saga_chapter, false) if saga_chapter >= 2 else Geometry.build({"weather": false})
-	_world.add_child(geometry)
-	if geometry.has_method("enable_battle_prop_occlusion"): geometry.enable_battle_prop_occlusion()
-	# 当前地图的碰撞由探索舞台持有；战斗舞台没有角色控制器或额外剧情实例。
-	var collision := geometry.get_node_or_null("PermanentCollision")
-	if collision != null: collision.free()
+	# 相机与脚点投影不依赖几何，两条路径都要先建立。
 	camera = Camera3D.new()
 	_world.add_child(camera)
 	camera.projection = Camera3D.PROJECTION_ORTHOGONAL
@@ -87,8 +103,68 @@ func configure(world: Dictionary, depth_enabled: bool = true) -> void:
 	camera.look_at(focus)
 	# 固定Y薄片保留原物理身高；正交镜头按既有190px/m校准投影高度。
 	camera.size = 1080.0 / Stature.battle_pixels_per_metre() * cos(atan2(offset.y,offset.z))
+	_cache_base = "%s/%s_v%d_%s" % [BAKE_DIR, scene_region, BAKE_VERSION, "depth" if depth_enabled else "flat"]
+	var png_path := _cache_base + ".png"
+	if FileAccess.file_exists(png_path):
+		var loaded := Image.load_from_file(png_path)
+		if loaded != null and not loaded.is_empty():
+			_apply_baked(ImageTexture.create_from_image(loaded))
+			restore_battle_cache(_cache_base)
+			return
+	# 缓存未命中：构建一次真实几何用于首帧烘焙；烘完隐藏，不再参与逐帧绘制。
+	# 战斗背景不带探索侧氛围层（雨丝/落叶/水滩/闪电）：氛围渲染只留在探索舞台。
+	geometry = SagaWorld.build(saga_chapter, false) if saga_chapter >= 2 else Geometry.build({"weather": false})
+	_world.add_child(geometry)
+	if geometry.has_method("enable_battle_prop_occlusion"): geometry.enable_battle_prop_occlusion()
+	# 当前地图的碰撞由探索舞台持有；战斗舞台没有角色控制器或额外剧情实例。
+	var collision := geometry.get_node_or_null("PermanentCollision")
+	if collision != null: collision.free()
 	_configure_geometry_depth(depth_enabled)
 	if geometry.has_method("update_visibility"): geometry.update_visibility(stage_origin,1.0,camera)
+	_bake_pending = true
+	set_process(true)
+
+func _process(_delta: float) -> void:
+	if not _bake_pending: return
+	_bake_pending = false
+	set_process(false)
+	_bake_background()
+
+func _bake_background() -> void:
+	# 取图瞬间隐藏角色层，照片里只含布景；同时把"演员挡树让位"的淡出状态
+	# 同步快进到全恢复，避免把临时淡出的树烘进照片变成永久半透明。
+	for record in actor_entries.values():
+		if is_instance_valid(record.body): record.body.visible = false
+		if is_instance_valid(record.shadow): record.shadow.visible = false
+		if is_instance_valid(record.trail): record.trail.visible = false
+	if is_instance_valid(geometry) and geometry.visible and geometry.has_method("update_tree_occlusion_many"):
+		var none: Array[Vector3] = []
+		for step in range(60): geometry.update_tree_occlusion_many(none, 1.0 / 30.0, camera)
+	await RenderingServer.frame_post_draw
+	if not is_inside_tree() or viewport == null: return
+	var image := viewport.get_texture().get_image()
+	if image != null and not image.is_empty():
+		_save_bake(image)
+		_apply_baked(ImageTexture.create_from_image(image))
+		persist_battle_cache(_cache_base)
+	# 恢复角色可见性（sync_visuals 按源状态重算）。
+	sync_visuals(0.0)
+
+func _save_bake(image: Image) -> void:
+	var dir := DirAccess.open("user://")
+	if dir == null: return
+	dir.make_dir_recursive(BAKE_DIR.trim_prefix("user://"))
+	image.save_png(_cache_base + ".png")
+
+func _apply_baked(texture: Texture2D) -> void:
+	_baked_display.texture = texture
+	_baked_display.visible = true
+	# 几何不释放（地面/布景数据钩子和兜底重建还要读它），只是不再绘制、不再跑逐帧遮挡。
+	if is_instance_valid(geometry): geometry.visible = false
+
+## 子类（battle_ground_backdrop）覆盖：把真实地表三角缓存与布景报告随照片一起存档/恢复。
+func persist_battle_cache(_base: String) -> void: pass
+func restore_battle_cache(_base: String) -> void: pass
 
 # 只在固定战斗相机建立后执行一次。跨越近景的大地表以 AABB 最近端判定，保持原貌。
 # albedo tint 的饱和度/明暗轻收敛不是纹理 RGB 后处理，更不是原生 DOF。
@@ -303,7 +379,7 @@ func sync_visuals(delta: float = 1.0/60.0) -> void:
 		record.shadow.visible = source.visible
 		_sync_trail(record,logical_texture,effective_anchor,tint,delta)
 		if source.visible: positions.append(body.position)
-	if geometry.has_method("update_tree_occlusion_many"): geometry.update_tree_occlusion_many(positions,delta,camera)
+	if is_instance_valid(geometry) and geometry.visible and geometry.has_method("update_tree_occlusion_many"): geometry.update_tree_occlusion_many(positions,delta,camera)
 	visuals_synchronized.emit()
 
 func _ground_point(screen: Vector2) -> Vector3:
